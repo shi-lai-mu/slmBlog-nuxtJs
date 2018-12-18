@@ -23,7 +23,7 @@
 <style lang="less">
 @import '../public/public.less';
 
-.footer {
+footer {
     margin: 20px 0;
 
     .copyright {

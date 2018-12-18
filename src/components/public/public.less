@@ -36,6 +36,31 @@
 body {
     margin: 0;
 }
+ul, li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+p {
+    margin: 0;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+.clearfix::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    clear: both;
+}
+.conter {
+    max-width: @max-width;
+    min-width: @min-width;
+    margin: 0 auto;
+}
+
 
 // 取消蓝色选框
 body,
