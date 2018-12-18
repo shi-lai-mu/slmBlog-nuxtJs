@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <img src="./assets/image/logo.png">
     <router-view/>
+    <vueFooter></vueFooter>
   </div>
 </template>
 
@@ -11,7 +12,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -3,8 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import footer from '@/components/public/footer'
 
 Vue.config.productionTip = false
+Vue.component('vueFooter', footer)
 
 /* eslint-disable no-new */
 new Vue({

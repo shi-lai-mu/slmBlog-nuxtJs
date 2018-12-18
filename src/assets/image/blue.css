@@ -1,0 +1,334 @@
+/* blue template */
+
+/* ----->>> IMAGES <<<-------------------------------------------------------------------------- */
+p.image img { border:1px solid #232a33; }
+
+/* ----->>> TABLES <<<-------------------------------------------------------------------------- */
+th { background-color:#b2bbc4; }
+tr.even td {
+	background-color: #e8e9ea;
+	color:#3f4a5a;
+}
+tr.odd td { color:#3f4a5a; }
+
+/* --------------- Simple Table */
+.sTable.blue th { background-color:#4f5e7b; }
+.sTable thead tr th { text-shadow: -1px -1px 0 #424f67;}
+
+/* ----->>> FORMS <<<--------------------------------------------------------------------------- */
+input, select, textarea {
+	color: #708894;
+	background: #424d5b;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#3d4855), to(#485360));
+	background: -webkit-linear-gradient(#3d4855, #485360);
+	background: -moz-linear-gradient(#3d4855, #485360);
+	background: -ms-linear-gradient(#3d4855, #485360);
+	background: -o-linear-gradient(#3d4855, #485360);
+	background: linear-gradient(#3d4855, #485360);
+	-pie-background: linear-gradient(#3d4855, #485360);
+	border-top:1px solid #485465;
+	border-right:1px solid #485465;
+	border-bottom:1px solid #353d47;
+	border-left:1px solid #485465;
+}
+
+/* ----->>> STRUCTURE <<<----------------------------------------------------------------------- */
+html { background:url(html-bg.png); }
+
+/*---------------- ADDITIONAL LIST STYLES --------------- */
+ul.circle-bullets li { background:url(circle-bullets-icon.png) no-repeat 0 3px; }
+ul.quad-bullets li { background:url(quad-bullets-icon.png) no-repeat 0 3px; }
+ul.checklist li { background:url(checklist-icon.png) no-repeat 0 3px; }
+
+/*---------------- BUTTONS --------------- */  
+.button { background-image: url(blue-buttons-1.png); }
+.button span { background-image:url(blue-buttons-2.png); }
+.button span { color: #38465C; text-shadow: 1px 1px 0 #808FA4; }
+.button.small:hover span { color:#14181e; text-shadow:1px 1px 0 #5a6579; }
+.button.dark.small span { color: #14181E; text-shadow: 1px 1px 0 #5A6579; }
+.button.dark.small:hover span { color:#38465c; }
+.button.dark.large span { color: #717C94; }
+.button.dark.large:hover span { color: #38465C; text-shadow: 1px 1px 0 #808FA4; }
+.button.large span { color: #14181E; text-shadow: 1px 1px 0 #5A6579; }
+.button.large:hover span { color:#38465c; text-shadow: 1px 1px 0 #808FA4; }
+
+/*---------------- PAGINATION --------------- */
+.pagination a:hover, .pagination a.current { color:#303844; }
+
+/*---------------- TEXT HIGHLIGHTING --------------- */  
+span.mark1 { background-color:#7e8aa2; }
+
+/*---------------- DROPCAPS --------------- */
+.dropcap1 { color: #69748b; }
+.dropcap2 {
+	background: url("dropcap-icons.png") no-repeat scroll left top transparent;
+	color: #69748B;
+}
+.dropcap3 {
+	background: url("dropcap-icons.png") no-repeat scroll left bottom transparent;
+	color: #69748B;
+}
+
+/*---------------- MAIN NAVIGATION --------------- */
+
+/*---------------- Base */
+.dd-menu ul { color:#99a3b9; }
+.dd-menu li a { color:#99a3b9; }
+
+/*---------------- Links level 2,3,4 */
+.dd-menu ul li a:hover { background-color: #333c4a; }
+
+/*---------------- Submenu level 1 */
+.dd-menu li ul {
+	background-color:#252c36;
+	border-color: #252C36 #232933 #1F252E;
+}
+.dd-menu li ul li a, .dd-menu li.current-menu-item ul li a {
+	border-bottom: 1px solid #2C323C;
+	border-top: 1px solid #1F252E;
+	color: #506073;
+}
+.dd-menu li ul li a:hover, .dd-menu li.current-menu-item ul li a:hover, .dd-menu li ul li a.dd-path {
+	background-color:#333c4a;
+	border-bottom:1px solid #394250;
+	color:#8b93a4;
+}
+
+/*---------------- Arrows level 1 */
+.dd-menu a span.dd-arrow { background-image: url("nav-sec-arrow.png"); }
+
+/* Arrows level 2,3,4 */
+.arrow { background: url("arrow-nav.png") no-repeat scroll 0 0 transparent; }
+
+/*---------------- INTRO --------------- */
+#intro { background:url(intro-bg.png) no-repeat center top; }
+#intro h1 { color: #CBD3E5; }
+#intro h3 { color: #14181E; }
+
+/*---------------- Breadcrumbs */
+#breadcrumbs { color: #717C94; }
+
+/*---------------- Footer Toggle  */
+.less-content { color: #717C94; }
+.less-content a { color: #717C94;}
+.less-content a:hover { color: #99A3B9; }
+
+/*---------------- Footer Text Color  */
+.widget-site-navigation a, .widget-blog-categories a, .widget-job-boards a { color:#99a3b9; }
+.widget-site-navigation a:hover, .widget-blog-categories a:hover, .widget-job-boards a:hover { color:#717c94; }
+
+/*---------------- FOOTER 1 WIDGETS --------------- */  
+.widget-site-navigation, .widget-blog-categories, .widget-job-boards { background:url(footer-widget-divider.jpg) repeat-y right top; }
+
+/*---------------- Widget Latest Posts */
+.widget-latest-posts li {
+	border-bottom: 1px solid #2B333D;
+	border-top: 1px solid #353D48;
+}
+.widget-latest-posts h2 a { color:#99a3b9; }
+.widget-latest-posts h2 a:hover { color:#717c94; }
+
+/*---------------- Widget Twitter */
+li.tweet-row {
+	border-bottom: 1px solid #2B333D;
+	border-top: 1px solid #353D48;
+}
+.content { color: #717c94; }
+
+/*---------------- Widget Contact Us */
+.widget-contact-us input {color: #717C94;}
+
+/*---------------- SUBFOOTER --------------- */  
+#copyright { color:#99a3b9; }
+ul.subfooter-menu li { border-right: 1px solid #99a3b9; }
+ul.subfooter-menu li a { color:#99a3b9; }
+ul.subfooter-menu li a:hover { color:#717c94; }
+
+
+/*---------------- SLIDERS --------------- */
+
+.slider-wrapper{
+	background: url("slider-bg-blue.jpg") no-repeat 50% 0 transparent;
+}
+
+/*---------------- Fade Slider */
+
+/*---------------- 3D Slider */
+
+/*---------------- Nivo Slider */
+
+
+/*---------------- TAGLINE --------------- */
+#tagline h3 { color: #CBD3E5; }
+
+/* ----->>> ABOUT <<<---------------------------------------------------------------------------- */ 
+#page-small h3, #page-full h3 { color: #14181E; }
+#page-full h1, #page-full h2, #page-full h3, #page-full h4, #page-full h5, #page-full h6 { color: #14181E; }
+
+/*---------------- FEATURES --------------- */ 
+.page-wrap h3 { color: #14181E; }
+
+/*---------------- PORTFOLIO SECTION --------------- */ 
+.portfolio.section h2.title a { color: #14181E; }
+
+/* ----->>> PORTFOLIO PAGE <<<----------------------------------------------------------------------- */ 
+.portfolio h2.title a { color: #14181E; }
+.portfolio h2.title a:hover { color: #717C94; }
+.portfolio.list h2.title a:hover, .portfolio.one-page h2.title a:hover { color: #717C94; }
+.portfolio .button.large span { color: #38465C; text-shadow: 1px 1px 0 #808FA4;}
+.portfolio .button.large:hover span, .portfolio .fp-tab-curent.button.large span { color:#8490a3;	text-shadow:-1px -1px 0 #31363f; }
+
+/*---------------- Layout Buttons */
+#layout-buttons a.list-button, #layout-buttons a.grid-button { background-image: url("icons-list-grid.png"); }
+
+/*---------------- Portfolio Details Meta Data */
+.pFmeta-det a, .pFmeta-det span {
+	background: url("portfolio-details-metadata-icons.png") no-repeat scroll 0 0 transparent;
+	color: #14181E;
+}
+.pFmeta-det a:hover { color: #717C94; }
+
+/*---------------- POST --------------- */
+
+/*---------------- Classic */
+.classic h2.title { color:#14181e; }
+
+/*---------------- Modern */
+.post h2.title a { color:#14181e; }
+.post h2.title a:hover { color:#717C94; }
+.post h3 { color:#31425e; }
+.post h4, .post h5, .post h6 { color:#353d32; }
+
+/*---------------- Meta */
+p.tags { background:url(icon-tags-large.png) no-repeat left top; }
+.tags a:hover { color: #717C94; }
+
+/*---------------- Comments Replay */
+#comments ol li .reply { background: url("icon-reply.png") no-repeat scroll left top transparent; }
+#comments ol li a.comm-author { color:#14181e; }
+#comments ol li a.comm-author:hover { color:#717C94; }
+
+/*---------------- Add Comment */
+#add-comment a.button.large span { color: #38465C; text-shadow: 1px 1px 0 #808FA4;}
+#add-comment a.button.large:hover span { color: #8490A3; }
+
+/*---------------- WIDGETS  --------------- */	
+.widget p { color:#717c94; }
+
+/*---------------- Widget Link List */
+.widget-link-list li {
+	border-bottom: 1px solid #2b333d;
+	border-top: 1px solid #353d48;
+}
+.widget-link-list a { color:#99a3b9; }
+.widget-link-list a:hover {
+	background:url(link-list-arrow.png) no-repeat left center;
+	color:#717c94;
+}
+
+/*---------------- Widget Tabs */
+#page-small .tabs a, #page-full .tabs a { color: #14181E; }
+#page-small .tabs a:hover, #page-small .tab-curent, #page-full .tabs a:hover, #page-full .tab-curent { color:#99a3b9 !important; }
+.tabs a:hover, .tab-curent { background-color:#414d5e; }
+
+/*---------------- Widget Most Popular */
+.widget-most-popular li {
+	border-bottom: 1px solid #2B333D;
+	border-top: 1px solid #353D48;
+}
+.widget-most-popular p.image { background:url(thumb-64x64.png) no-repeat left top; }
+.widget-most-popular h2 a { color:#99a3b9; }
+.widget-most-popular h2 a:hover { color:#717c94; }
+
+/*---------------- Widget Accordion */
+.ui-icon { background: url("accordion-bullets.png") no-repeat scroll 0 0 transparent; }
+.widget-accordion h3 a {
+	border-bottom: 1px solid #2B333D;
+	border-top: 1px solid #353D48;
+	color: #99A3B9;
+}
+.page-wrap .widget-accordion h3 a { color:#14181e; }
+.page-wrap .widget-accordion h3 a:hover { color:#717C94; }
+.widget-accordion a:hover { color:#717c94; }
+
+/*---------------- Widget Toggle */
+.ui-icon { background: url("accordion-bullets.png") no-repeat scroll 0 0 transparent; }
+.widget-toggle h3 a {
+	border-bottom: 1px solid #2B333D;
+	border-top: 1px solid #353D48;
+	color: #99A3B9;
+}
+.page-wrap .widget-toggle h3 a { color:#14181e; }
+.page-wrap .widget-toggle h3 a:hover { color:#717C94; }
+.widget-toggle a:hover { color:#717c94; }
+
+/*---------------- Widget Tags */
+.tagcloud a {
+	background: url("tags-bg.png") no-repeat scroll left 0 transparent;
+	color: #14181E;
+    text-shadow: 1px 1px 0 #5A6579;
+}
+.tagcloud a:hover { color: #29364a; text-shadow: 1px 1px 0 #808FA4; }
+
+/*---------------- Widget Social Icons */
+.widget-social-icons h3 { color: #20262F; text-shadow: 1px 1px 0 #4D5662; }
+.widget-social-icons a { background:url(social-icons.png) no-repeat left top; }
+a.twitter {background-position:0 0px;}
+a.twitter:hover {background-position:0 -55px;}
+a.facebook {background-position:-57px 0;}
+a.facebook:hover {background-position:-57px -55px;}
+a.youtube {background-position:-115px 0;}
+a.youtube:hover {background-position:-115px -55px;}
+a.google {background-position:-172px 0;}
+a.google:hover {background-position:-172px -55px;}
+a.rss {background-position:-231px 0;}
+a.rss:hover {background-position:-231px -55px;}
+
+/*---------------- Widget News */
+.widget-news h2 a { color:#14181e; }
+.widget-news h2 a:hover { color: #717C94; }
+
+/*---------------- Widget Testimonials */
+p.testimonial-author { color: #3F4A5A !important; }
+
+/*---------------- Widget Featured Project */
+.widget-featured-projects .button.large span { color: #38465C;  text-shadow: 1px 1px 0 #808FA4;}
+.widget-featured-projects .button.large:hover span, .widget-featured-projects .fp-tab-curent.button.large span { color:#8490a3; }
+
+/*---------------- Office Address */
+.office-address span { color: #14181E; }
+.office-address a { color: #14181E; }
+
+/*---------------- Contact Form */
+.contact-form a.button.large span { color: #38465C; text-shadow: 1px 1px 0 #808FA4; }
+.contact-form a.button.large:hover span { color: #8490A3; }
+
+/*---------------- Google Maps*/
+#google-map-location a { color: #14181E; }
+
+
+/* ----->>> PRICE TABLE <<<----------------------------------------------------------------------------- */ 
+.table-title { color: #38465C !important;  text-shadow: 1px 1px 0 #9DA9C1;}
+.pTable thead th .product-name{ background:url(pTable-blue-small-pattern-bg.jpg) repeat-x top left; }
+.pTable thead th{ background:url(pTable-blue-large-pattern-bg.jpg) repeat-x top left;}
+
+/* Shadows */
+.pTable th.featured-l{ background:url(pTable-blue-medium-left-shadow-pattern-bg.jpg) no-repeat top right; } 
+.pTable thead th.featured-l .product-name { background:url(pTable-blue-small-left-shadow-pattern-bg.jpg) no-repeat top right; } 
+.pTable th.featured-r{ background:url(pTable-blue-medium-right-shadow-pattern-bg.jpg) no-repeat top left; }
+.pTable thead th.featured-r .product-name { background:url(pTable-blue-small-right-shadow-pattern-bg.jpg) no-repeat top left; }
+
+/* Buttons */
+.pTable .button.large span { color: #38465C; text-shadow: 1px 1px 0 #808FA4; }
+.pTable .button.large:hover span{ color:#8490a3; text-shadow:-1px -1px 0 #31363f; }
+
+/* Sliders at Portfolio */
+
+div.anythingSlider .anythingControls ul a{
+    background: url("portfolio-slider-nav-bullets.png") no-repeat 0px -11px scroll transparent !important;
+   }
+
+div.anythingSlider .anythingControls ul a.cur, 
+div.anythingSlider .anythingControls ul a:hover{
+	background: url("portfolio-slider-nav-bullets.png") no-repeat scroll 0 0px transparent !important;
+}
