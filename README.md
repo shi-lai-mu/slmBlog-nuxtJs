@@ -1,4 +1,5 @@
-# <img src="http://mczyzy.cn/logo.png" width="50" height="60" alt="SLM-BLOG LOGO" style="vertical-align: middle;margin: 0 20px;">[SLM BLOG](http://mczyzy.cn)
+<img src="http://mczyzy.cn/logo.png" width="100" height="120" alt="SLM-BLOG LOGO">
+# [SLM BLOG](http://mczyzy.cn)
 > - 站点名字: 史莱姆的博客
 > - 站点编写: 史莱姆[前端]
 > - 站点类型: 响应式、H5、ES6、不兼容低版本IE、前端渲染
