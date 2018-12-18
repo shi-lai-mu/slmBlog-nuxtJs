@@ -1,5 +1,5 @@
 
-@img-root: '/static/index/image/';
+@img-root: '../../assets/image/';
 // 大小
 @max-width: 1300px;
 @min-width: 250px;
@@ -22,4 +22,115 @@
     font-weight: bold;
     color: #14181E;
     text-shadow: 1px 1px 0 #535d6e;
+}
+
+
+.logo {
+    margin: 0;
+    height: 100px;
+    background: url('@{img-root}logo.png') no-repeat center;
+    background-size: 300px 80px;
+}
+
+// 公共
+body {
+    margin: 0;
+}
+
+// 取消蓝色选框
+body,
+a:focus,
+input:focus,
+p:focus,
+div:focus {
+    -webkit-tap-highlight-color: transparent;
+    // -webkit-user-modify:read-write-plaintext-only; 
+}
+// 小于 1000px
+@media screen and (max-width: 1100px) {
+    .content-fixed-box {
+        display: none;
+    }
+
+    // 内容
+    .content-box {
+        float: inherit;
+        width: 90vw;
+        margin: 0 auto;
+    }
+    .shuffling .shuffling-ling {
+        height: ~'calc(90vw / 3.05)';
+        min-height: auto;
+    }
+}
+
+// 小于 640px
+@media screen and (max-width: 640px) {
+
+    html {
+        font-size: .9em;
+    }
+
+    .logo {
+        background-size: 250px 70px;
+    }
+
+    .header-nav-right,
+    .header-nav-left,
+    .header-nav-conter,
+    .tag-description,
+    .shuffling .shuffling-flex .shuffling-left,
+    .shuffling .shuffling-flex .shuffling-right,
+    .guide {
+        display: none;
+    }
+
+    .header-menu-right {
+        float: left;
+        margin: 15px 0 0 10px;
+        height: 50px;
+        width: 100px;
+        background: url('@{img-root}menu.png') no-repeat;
+        background-size: 60%;
+    }
+
+    .beian-a {
+        img { transform: translateY(50%); }
+        a { display: block; text-align: center; }
+    }
+
+    // 内容
+    .content-box {
+        float: inherit;
+        width: 100vw;
+    }
+    
+}
+
+// 小于 350px
+@media screen and (max-width: 350px) {
+    html {
+        font-size: .8em;
+    }
+    .logo {
+        background-size: 200px 60px;
+    }
+}
+
+
+::-webkit-scrollbar {
+    width: 5px;
+    background-color: rgba(0, 0, 0, .3);
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, .4);
+    border-radius: 5px;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, .6);
+    }
+    
+    &:active {
+        background-color: rgb(222, 79, 58);
+    }
 }
