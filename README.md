@@ -1,4 +1,4 @@
-# ![SLM-BLOG LOGO](http://mczyzy.cn/logo.png)
+<div align=center><img width="100" height="100" src="http://mczyzy.cn/logo.png" alt="SLM-BLOG LOGO"/></div>
 ## [SLM BLOG](http://mczyzy.cn)
 > - 站点名字: 史莱姆的博客
 > - 站点编写: 史莱姆[前端]
