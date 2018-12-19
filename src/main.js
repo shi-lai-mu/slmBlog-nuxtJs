@@ -2,10 +2,13 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import VueMeta from 'vue-meta'
 import router from './router'
 import header from '@com/public/header'
 import footer from '@com/public/footer'
 import title from '@com/public/title'
+
+Vue.use(VueMeta)
 
 Vue.config.productionTip = false
 Vue.component('vueHeader', header)

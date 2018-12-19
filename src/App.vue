@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="conter">
-    <vueHeader></vueHeader>
-    <vueTitle :tag="tag" :title="description"></vueTitle>
+    <vueHeader :head="head"></vueHeader>
+    <vueTitle :title="title"></vueTitle>
     <router-view/>
     <vueFooter></vueFooter>
   </div>
@@ -14,8 +14,8 @@ export default {
   name: 'App',
   data () {
     return {
-      tag: '-- --',
-      description: 'description loading ...'
+      title: false,
+      head: false
     }
   },
   created () {
