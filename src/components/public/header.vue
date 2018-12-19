@@ -6,7 +6,9 @@
         <h1 class="logo"></h1>
       </a>
       <div class="header-nav">
-        <span class="header-nav-left"></span>
+        <a href="/" title="主页">
+          <span class="header-nav-left"></span>
+        </a>
         <ul class="header-nav-conter">
           <li>最新<span class="iconfont icon-fangxiangxia"></span></li>
           <li>编程</li>

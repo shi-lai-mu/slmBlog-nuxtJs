@@ -21,7 +21,7 @@
             <div class="content-fixed-box">
             </div>
             <div class="content-box">
-                <router-link to="home" tag="div">Home</router-link>
+                <!-- <router-link to="home" tag="div">Home</router-link> -->
             </div>
             <div class="content-fixed-box">
             </div>
@@ -58,16 +58,16 @@
 
 <script>
 
-// import connecter from './public/connecter.js'
+import connecter from './public/connecter.js'
 
 export default {
   created () {
-    // connecter.$emit('pageInfo', {
-    //   title: {
-    //     tag: '首页',
-    //     description: '欢迎浏览史莱姆的博客!（°Д°）Ъ'
-    //   }
-    // })
+    connecter.$emit('pageInfo', {
+      title: {
+        tag: '首页',
+        description: '欢迎浏览史莱姆的博客!（°Д°）Ъ'
+      }
+    })
   }
 }
 </script>
