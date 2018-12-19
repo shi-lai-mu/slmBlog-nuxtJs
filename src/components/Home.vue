@@ -28,7 +28,7 @@
         <div class="shuffling-flex">
             <span class="shuffling-left"></span>
             <ul class="shuffling-ling">
-                <li><img src="../assets/image/nvs/lun4.png" alt="NAV-2"></li>
+                <li><img src="~@img/nvs/lun4.png" alt="NAV-2"></li>
             </ul>
             <span class="shuffling-right"></span>
         </div>

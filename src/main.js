@@ -3,8 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import footer from '@/components/public/footer'
-import '!style-loader!css-loader!less-loader!@/components/public/public'
+import footer from '@com/public/footer'
 
 Vue.config.productionTip = false
 Vue.component('vueFooter', footer)
