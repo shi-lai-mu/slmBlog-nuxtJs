@@ -1,15 +1,30 @@
 <template>
   <div id="app" class="conter">
     <vueHeader></vueHeader>
-    <vueTitle></vueTitle>
+    <vueTitle :tag="tag" :title="description"></vueTitle>
     <router-view/>
     <vueFooter></vueFooter>
   </div>
 </template>
 
 <script>
+import connecter from '@com/public/connecter.js'
+
 export default {
-  name: 'App'
+  name: 'App',
+  data () {
+    return {
+      tag: '-- --',
+      description: 'description loading ...'
+    }
+  },
+  created () {
+    connecter.$on('pageInfo', data => {
+      for (let key in data) {
+        this[key] = data[key]
+      }
+    })
+  }
 }
 </script>
 

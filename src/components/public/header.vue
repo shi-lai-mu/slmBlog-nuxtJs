@@ -1,7 +1,7 @@
 <template>
 
     <header class="master-top-bg">
-        
+
       <a href="//mczyzy.cn" title="史莱姆的博客">
         <h1 class="logo"></h1>
       </a>
@@ -18,4 +18,3 @@
     </header>
 
 </template>
-

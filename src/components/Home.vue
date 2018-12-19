@@ -1,6 +1,5 @@
 <template>
 
-
     <div class="conter clearfix">
         <div class="shuffling">
             <div class="shuffling-flex">
@@ -58,12 +57,21 @@
 </template>
 
 <script>
+
+import connecter from './public/connecter.js'
+
 export default {
   name: 'HelloWorld',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  created () {
+    connecter.$emit('pageInfo', {
+      tag: '首页',
+      description: '欢迎浏览史莱姆的博客!（°Д°）Ъ'
+    })
   }
 }
 </script>

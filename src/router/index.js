@@ -12,6 +12,6 @@ export default new Router({
     {
       path: '/thisSite',
       component: resolve => require(['@com/thisSite'], resolve)
-    },
+    }
   ]
 })

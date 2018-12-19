@@ -1,6 +1,13 @@
 <template>
     <div class="tag-description">
-        <span class="tag">首页</span>
-        <span class="description">欢迎浏览史莱姆的博客!（°Д°）Ъ</span>
+        <span class="tag" v-text="tag">首页</span>
+        <span class="description" v-text="title"></span>
     </div>
 </template>
+
+<script>
+
+export default {
+  props: ['title', 'tag']
+}
+</script>
