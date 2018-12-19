@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: resolve => require(['@/components/HelloWorld'], resolve)
+      component: resolve => require(['@/components/Home'], resolve)
     }
   ]
 })
