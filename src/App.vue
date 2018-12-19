@@ -1,6 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app" class="conter">
     <vueHeader></vueHeader>
+    <vueTitle></vueTitle>
     <router-view/>
     <vueFooter></vueFooter>
   </div>

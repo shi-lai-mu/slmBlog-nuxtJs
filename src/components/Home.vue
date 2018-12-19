@@ -2,7 +2,6 @@
 
 
     <div class="conter clearfix">
-        <vueTitle></vueTitle>
         <div class="shuffling">
             <div class="shuffling-flex">
                 <span class="shuffling-left"></span>

@@ -15,7 +15,6 @@
         <span class="header-nav-right">登录</span>
         <span class="header-menu-right"></span>
       </div>
-    
     </header>
 
 </template>

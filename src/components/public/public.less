@@ -79,32 +79,39 @@ a {
     background: url('@{img-root}/logo.png') no-repeat center;
     background-size: 300px 80px;
 }
-.header-nav {
-    height: 75px;
-    list-style-type: none;
-    color: @color-mater-font;
-}
-.header-nav-left {
-    float: left;
-    margin-top: 5px;
-    height: 60px;
-    width: 100px;
-    background: url('@{img-root}/ribbon-home.png') no-repeat;
+header {
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
 
-    &:hover {
-        background-position-y: -68px;
+    .header-nav {
+        height: 75px;
+        list-style-type: none;
+        color: @color-mater-font;
     }
-}
-.header-nav-right {
-    float: right;
-    width: 180px;
-    padding: 0 20px;
-    text-align: center;
-    font-size: 1.3em;
-    font-weight: bold;
-    .font-shadow-bg-color();
-    line-height: 68px;
-    background: url('@{img-root}/Work-With-Us.png') no-repeat top left;
+    .header-nav-left {
+        float: left;
+        margin-top: 5px;
+        height: 60px;
+        width: 100px;
+        background: url('@{img-root}/ribbon-home.png') no-repeat;
+    
+        &:hover {
+            background-position-y: -68px;
+        }
+    }
+    .header-nav-right {
+        float: right;
+        width: 180px;
+        padding: 0 20px;
+        text-align: center;
+        font-size: 1.3em;
+        font-weight: bold;
+        .font-shadow-bg-color();
+        line-height: 68px;
+        background: url('@{img-root}/Work-With-Us.png') no-repeat top left;
+    }
 }
 
 // 顶部导航栏
@@ -177,6 +184,10 @@ a {
 // /* 底部 */
 footer {
     margin: 20px 0;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
 
     // 版权所有    
     .copyright {
@@ -364,6 +375,11 @@ footer {
     background-image: url('@{img-root}/pattern-bg.jpg');
     border: 0;
     box-shadow: 0 5px 5px rgba(0, 0, 0, .2);
+}
+.single .content-box {
+    float: none;
+    width: 100%;
+    margin: 0 auto 40px;
 }
 
 // 联系我
