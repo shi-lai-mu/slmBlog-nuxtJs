@@ -3,8 +3,8 @@
         <div class="copyright clearfix">
             <span class="copyright-left">© CopyRight 2018, <a href="/">MCZYZY.CN</a>, Inc.All Rights Reserved.</span>
             <ul class="copyright-right">
-                <li><a href="?infringement">侵权处理</a><a></a></li><a>
-                </a><li><a></a><a href="?terms">条款和免责</a></li>
+                <li><a href="?infringement">侵权处理</a></li>
+                <li><a href="?terms">条款和免责</a></li>
                 <li><a href="?support">技术支持</a></li>
             </ul>
         </div>

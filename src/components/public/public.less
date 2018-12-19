@@ -1,4 +1,4 @@
-@img-root: '/static/index/image/';
+@img-root: '~@src';
 // 大小
 @max-width: 1300px;
 @min-width: 250px;
@@ -26,6 +26,19 @@
 
 
 /* 公共 */
+html {
+    --color-red: @color-red;
+    --color-font: @color-font;
+    --color-mater-font: @color-mater-font;
+    --color-font-red: @color-font-red;
+    --color-font-bg: @color-font-bg;
+    --color-green: @color-green;
+    --color-1: @color-1;
+    --color-2: @color-2;
+
+    --max-width: @max-width;
+    --min-width: @min-width;
+}
 body {
     margin: 0;
     width: 100vw;
@@ -63,7 +76,7 @@ a {
 .logo {
     margin: 0;
     height: 100px;
-    background: url('~@src/image/logo.png') no-repeat center;
+    background: url('@{img-root}/image/logo.png') no-repeat center;
     background-size: 300px 80px;
 }
 .header-nav {
@@ -76,7 +89,7 @@ a {
     margin-top: 5px;
     height: 60px;
     width: 100px;
-    background: url('~@src/image/ribbon-home.png') no-repeat;
+    background: url('@{img-root}/image/ribbon-home.png') no-repeat;
 
     &:hover {
         background-position-y: -68px;
@@ -91,7 +104,7 @@ a {
     font-weight: bold;
     .font-shadow-bg-color();
     line-height: 68px;
-    background: url('~@src/image/Work-With-Us.png') no-repeat top left;
+    background: url('@{img-root}/image/Work-With-Us.png') no-repeat top left;
 }
 
 // 顶部导航栏
@@ -108,7 +121,7 @@ a {
         cursor: pointer;
 
         &:hover, &:active {
-            background: url('~@src/image/nav-red-button.png') repeat-x center;
+            background: url('@{img-root}/image/nav-red-button.png') repeat-x center;
             border-radius: 20px;
             .font-shadow-bg-color();
             box-shadow: 1px 1px 2px #000;
@@ -138,7 +151,7 @@ a {
         height: 87px;
         width: 100%;
         min-width: @min-width;
-        background: url('~@src/image/intro-bg.png') no-repeat center;
+        background: url('@{img-root}/image/intro-bg.png') no-repeat center;
     }
 
     .tag {
@@ -229,7 +242,7 @@ footer {
 
 
 .master-top-bg {
-    background-image: url('~@src/image//hd-bg.png');
+    background-image: url('@{img-root}/image//hd-bg.png');
     background-position: center;
 }
 
@@ -244,7 +257,7 @@ footer {
     height: 40vw;
     max-height: 359px;
     /* min-height: 133px; */
-    background: url('~@src/image/slider-bg-blue.jpg') no-repeat center top;
+    background: url('@{img-root}/image/slider-bg-blue.jpg') no-repeat center top;
     background-size: auto 100%;
     box-shadow: 0 10px 5px -3.5px rgba(0,0,0,.5);
 
@@ -262,7 +275,7 @@ footer {
             min-width: 33px;
             height: 36px;
             margin: 0 10px;
-            background-image: url('~@src/image/fade-slider-arrows.png');
+            background-image: url('@{img-root}/image/fade-slider-arrows.png');
             cursor: pointer;
 
             &:hover {
@@ -294,7 +307,7 @@ footer {
                 width: ~"calc(100% - 14px)";
                 padding: 7px;
                 margin: 7px;
-                background-image: url('~@src/image/line-pattern-light-bg.png');
+                background-image: url('@{img-root}/image/line-pattern-light-bg.png');
                 border: 1px solid #777;
                 box-sizing: border-box;
             }
@@ -310,7 +323,7 @@ footer {
             width: 25px;
             height: 25px;
             margin: 0 2.5px;
-            background-image: url('~@src/image/fade-bullets.png');
+            background-image: url('@{img-root}/image/fade-bullets.png');
             cursor: pointer;
 
             &:hover {
@@ -336,7 +349,7 @@ footer {
     min-width: @min-width;
     min-height: 250px;
     margin-bottom: 40px;
-    background-image: url('~@src/image/content-bg.jpg');
+    background-image: url('@{img-root}/image/content-bg.jpg');
     background-clip: content-box;
     border-radius: 0 0 15px 15px;
     border: 10px solid rgba(255,255,255,.1);
@@ -348,7 +361,7 @@ footer {
     width: ~'calc(20% - 20px)';
     min-width: 200px;
     margin: 0 10px;
-    background-image: url('~@src/image/pattern-bg.jpg');
+    background-image: url('@{img-root}/image/pattern-bg.jpg');
     border: 0;
     box-shadow: 0 5px 5px rgba(0, 0, 0, .2);
 }
@@ -358,7 +371,7 @@ footer {
     height: 75px;
     margin-top: 45px;
     padding-top: 15px;
-    background: url('~@src/image/join-us-on-the-web-bg.png') no-repeat center;
+    background: url('@{img-root}/image/join-us-on-the-web-bg.png') no-repeat center;
     font-size: 40px;
     font-weight: bold;
     .font-shadow-black-color();
@@ -385,7 +398,7 @@ footer {
             display: inline-block;
             width: 56px;
             height: 54px;
-            background-image: url('~@src/image/social-icons.png');
+            background-image: url('@{img-root}/image/social-icons.png');
         }
     }
 }
@@ -429,6 +442,11 @@ div:focus {
     .logo {
         background-size: 250px 70px;
     }
+    
+    footer .copyright,
+    footer .beian .beian-p {
+        text-shadow: .5px .5px 0 #535d6e;
+    }
 
     .header-nav-right,
     .header-nav-left,
@@ -440,12 +458,16 @@ div:focus {
         display: none;
     }
 
+    .shuffling-select {
+
+    }
+
     .header-menu-right {
         float: left;
         margin: 15px 0 0 10px;
         height: 50px;
         width: 100px;
-        background: url('~@src/image/menu.png') no-repeat;
+        background: url('@{img-root}/image/menu.png') no-repeat;
         background-size: 60%;
     }
 
