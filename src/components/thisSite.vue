@@ -4,12 +4,30 @@
             <img src="//mczyzy.cn/logo.png" alt="logo" class="logo">
             <h2>史莱姆的个人博客</h2>
             <ul class="web-master">
-                <li>站长：史莱姆</li>
-                <li>邮箱：slm@mczyzy.cn</li>
-                <li>企鹅：478889187</li>
-                <li>GIT ：<a href="https://gitee.com/shi_lai_mu" title="欢迎访问我的GIT">gitee.com/shi_lai_mu</a></li>
-                <li>初衷：分享技术记录学习点滴</li>
-                <li>创站：2018/08/25 06:38:25 [星期六]</li>
+                <li>
+                    <span>站长：</span>
+                    <p>史莱姆</p>
+                </li>
+                <li>
+                    <span>邮箱：</span>
+                    <p>slm@mczyzy.cn</p>
+                </li>
+                <li>
+                    <span>企鹅：</span>
+                    <p>478889187</p>
+                </li>
+                <li>
+                    <span>GIT ：</span>
+                    <p><a href="https://gitee.com/shi_lai_mu" title="欢迎访问我的GIT">gitee.com/shi_lai_mu</a></p>
+                </li>
+                <li>
+                    <span>初衷：</span>
+                    <p>分享技术记录学习点滴</p>
+                </li>
+                <li>
+                    <span>创站：</span>
+                    <p>2018/08/25 06:38:25 [星期六]</p>
+                </li>
             </ul>
 
             <h2>站点框架</h2>
@@ -32,7 +50,7 @@
                 </li>
                 <li>
                     <span>服务器环境:</span>
-                    <p>Ningx[v1.14.3](VUE)、Aphache[v2.4.6](VUE)</p>
+                    <p>Ningx[v1.14.3](VUE)、Aphache[v2.4.6](PHP)</p>
                 </li>
                 <li>
                     <span>技术名词:</span>
@@ -119,12 +137,35 @@ export default {
     .web-technology,
     .web-details  {
         width: 25%;
-        min-width: 200px;
+        min-width: 250px;
         margin: 0 auto;
         font-size: 1.2rem;
 
         li {
             white-space: nowrap;
+        }
+        span {
+            display: inline-block;
+            width: 8rem;
+            color: #09007a;
+            font-weight: bold;
+        }
+        p {
+            display: inline-block;
+            min-width: 200px;
+            text-indent: 2rem;
+            color: #666;
+            white-space: nowrap;
+        }
+    }
+
+    .web-master {
+        span {
+            width: 3rem;
+        }
+        p {
+            color: #09007a;
+            text-indent: 1rem;
         }
     }
     .web-technology {
@@ -142,17 +183,7 @@ export default {
         li {
             list-style: initial;
             white-space: pre-wrap;
-        }
-        span {
-            display: inline-block;
-            width: 8rem;
-        }
-        p {
-            display: inline-block;
-            min-width: 200px;
-            text-indent: 2rem;
-            color: #888;
-            white-space: nowrap;
+            color: #ccc;
         }
     }
 }
