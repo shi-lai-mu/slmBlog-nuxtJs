@@ -3,10 +3,14 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import header from '@com/public/header'
 import footer from '@com/public/footer'
+import title from '@com/public/title'
 
 Vue.config.productionTip = false
+Vue.component('vueHeader', header)
 Vue.component('vueFooter', footer)
+Vue.component('vueTitle', title)
 
 /* eslint-disable no-new */
 new Vue({

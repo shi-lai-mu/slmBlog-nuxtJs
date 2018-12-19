@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <vueHeader></vueHeader>
     <router-view/>
     <vueFooter></vueFooter>
   </div>
