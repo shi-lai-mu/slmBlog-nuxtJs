@@ -21,4 +21,73 @@
 </template>
 
 <style lang="less">
+footer {
+    margin: 20px 0;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+
+    .copyright {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        min-width: var(--min-width);
+        margin: 15px 0;
+        padding: 0 10px;
+        font-weight: bold;
+        color: #14181E;
+        text-shadow: 1px 1px 0 #535d6e;
+    }
+    .copyright-left {
+        width: 100%;
+        text-align: center;
+    }
+    .copyright-right {
+        margin-top: 5px;
+
+        li {
+            float: left;
+
+            &::after {
+                content: "|";
+                margin: 0 7px;
+            }
+        }
+
+        :nth-last-child(1) {
+            &::after {
+                content: "";
+            }
+        }
+    }
+
+    // 备案
+    .beian {
+        width: 100%;
+        min-width: var(--min-width);
+        margin: 0 auto;
+
+        .beian-a {
+            display: flex;
+            justify-content: center;
+            height: 20px;
+            line-height: 20px;
+        }
+
+        .beian-img {
+            display: inline-block;
+        }
+
+        .beian-p {
+            height: 20px;
+            margin: 0 5px;
+            line-height: 20px;
+            color: #939393;
+            text-shadow: 1px 2px 1px #555;
+        }
+    }
+}
+
 </style>

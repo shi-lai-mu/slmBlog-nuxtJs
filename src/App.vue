@@ -29,4 +29,7 @@ export default {
 </script>
 
 <style lang="less">
+
+@import '~@com/public/public.less';
+
 </style>
