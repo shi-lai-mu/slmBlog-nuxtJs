@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="conter">
+  <div class="conter">
     <vueHeader :head="head"></vueHeader>
     <vueTitle :title="title"></vueTitle>
     <router-view/>
@@ -11,7 +11,6 @@
 import connecter from '@com/public/connecter.js'
 
 export default {
-  name: 'App',
   data () {
     return {
       title: false,

@@ -13,6 +13,10 @@ export default new Router({
     {
       path: '/thisSite',
       component: resolve => require(['@com/thisSite'], resolve)
+    },
+    {
+      path: '/terms',
+      component: resolve => require(['@com/terms'], resolve)
     }
   ]
 })

@@ -42,6 +42,7 @@ body {
     width: 100vw;
     overflow-x: hidden;
     color: @color-font;
+    font-size: 1.25em;
 }
 ul, li {
     margin: 0;
@@ -76,45 +77,6 @@ h1.logo {
     height: 100px;
     background: url('@{img-root}/logo.png') no-repeat center;
     background-size: 300px 80px;
-}
-// 标题和标签
-.tag-description {
-    overflow: auto;
-    line-height: 80px;
-    text-align: left;
-
-    &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        height: 87px;
-        width: 100%;
-        min-width: @min-width;
-        background: url('@{img-root}/intro-bg.png') no-repeat center;
-    }
-
-    .tag {
-        position: relative;
-        margin: 0 30px;
-        font-size: 35px;
-        font-weight: 500;
-        text-shadow: 1px 1px 0 #000;
-        color: #CBD3E5;
-    }
-
-    .description {
-        position: relative;
-        margin: 0;
-        font-family: 'mv';
-        font-weight: 400;
-        color: #14181E;
-        text-shadow: 1px 1px 0 #535d6e;
-    }
-}
-
-.master-top-bg {
-    background-image: url('@{img-root}/hd-bg.png');
-    background-position: center;
 }
 
 /*轮播图*/
@@ -334,17 +296,17 @@ div:focus {
         display: none;
     }
 
-    .shuffling-select {
-
+    .shuffling-select li {
+        zoom: .6;
     }
 
     .header-menu-right {
         float: left;
         margin: 15px 0 0 10px;
-        height: 50px;
-        width: 100px;
+        height: 40px;
+        width: 90px;
         background: url('@{img-root}/menu.png') no-repeat;
-        background-size: 60%;
+        background-size: 55%;
     }
 
     .beian-a {
