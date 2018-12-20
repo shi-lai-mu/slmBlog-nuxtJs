@@ -115,7 +115,6 @@
                 </li>
             </ul>
 
-
             <br>
 
         </div>
@@ -160,7 +159,7 @@ export default {
         font-size: 1.2rem;
 
         li {
-            white-space: nowrap;
+            margin: 10px 0;
         }
         span {
             display: inline-block;
@@ -198,10 +197,10 @@ export default {
     }
     .web-details {
         width: 45%;
-        li {
+        p {
+            vertical-align: top;
             list-style: initial;
-            white-space: pre-wrap;
-            color: #ccc;
+            white-space: initial;
         }
     }
 }
