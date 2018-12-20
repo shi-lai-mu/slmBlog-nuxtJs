@@ -19,6 +19,22 @@
     </div>
   </div>
 </template>
+
+<script>
+  import connecter from './public/connecter.js'
+
+  export default {
+    created () {
+      connecter.$emit('pageInfo', {
+        title: {
+          tag: '协议',
+          description: '为了正常保持运行,某些形式还是需要的...'
+        }
+      })
+    }
+  }
+</script>
+
 <style lang="less">
 
   .content-box {
