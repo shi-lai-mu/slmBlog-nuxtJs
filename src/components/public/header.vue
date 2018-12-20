@@ -40,7 +40,7 @@ header {
         height: 60px;
         width: 100px;
         background: url('~@img/ribbon-home.png') no-repeat;
-    
+
         &:hover {
             background-position-y: -68px;
         }
