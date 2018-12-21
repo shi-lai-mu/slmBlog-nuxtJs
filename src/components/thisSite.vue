@@ -54,7 +54,7 @@
                 </li>
                 <li>
                     <span>技术名词:</span>
-                    <p>前后端分离、单页应用</p>
+                    <p>前后端分离、单页应用、响应式</p>
                 </li>
                 <li>
                     <span>CSS:</span>
@@ -153,8 +153,8 @@ export default {
     .web-master,
     .web-technology,
     .web-details  {
-        width: 45%;
-        min-width: 400px;
+        width: 90%;
+        max-width: 500px;
         margin: 0 auto;
         font-size: 1.2rem;
 
@@ -198,7 +198,8 @@ export default {
         }
     }
     .web-details {
-        width: 45%;
+        width: 90%;
+        max-width: 600px;
         p {
             vertical-align: top;
             list-style: initial;

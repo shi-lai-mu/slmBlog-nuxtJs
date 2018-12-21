@@ -27,32 +27,6 @@
             </div>
         </div>
 
-        <div class="guide clearfix">
-            <p>关联账号</p>
-            <ul>
-                <li>
-                    <span class="icon-1i"></span>
-                    <i>@slm47888</i>
-                </li>
-                <li>
-                    <span class="icon-2i"></span>
-                    <i>暂无账号</i>
-                </li>
-                <li>
-                    <span class="icon-3i"></span>
-                    <i>slm478889187@gmail.com</i>
-                </li>
-                <li>
-                    <span class="icon-4i"></span>
-                    <i>slm478889187@gmail.com</i>
-                </li>
-                <li>
-                    <span class="icon-6i"></span>
-                    <i>478889187</i>
-                </li>
-            </ul>
-        </div>
-
     </div>
 
 </template>

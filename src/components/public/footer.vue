@@ -1,8 +1,33 @@
 <template>
     <footer>
 
+        <div class="guide clearfix">
+            <p>关联账号</p>
+            <ul>
+                <li>
+                    <span class="icon-1i"></span>
+                    <i>@slm47888</i>
+                </li>
+                <li>
+                    <span class="icon-2i"></span>
+                    <i>暂无账号</i>
+                </li>
+                <li>
+                    <span class="icon-3i"></span>
+                    <i>slm478889187@gmail.com</i>
+                </li>
+                <li>
+                    <span class="icon-4i"></span>
+                    <i>slm478889187@gmail.com</i>
+                </li>
+                <li>
+                    <span class="icon-6i"></span>
+                    <i>478889187</i>
+                </li>
+            </ul>
+        </div>
+
         <div class='footer-nav'>
-            <span class='close'>闭合底部导航栏</span>
             <ul class='footer-nav-list'>
                 <li class="footer-nav-child">
                     <h3>网站导航</h3>
@@ -62,6 +87,47 @@ footer {
     -ms-user-select:none;
     user-select:none;
 
+    .guide {
+        height: 75px;
+        margin: 45px 0 2px;
+        padding-top: 15px;
+        background: url('~@img/join-us-on-the-web-bg.png') no-repeat center;
+        font-size: 40px;
+        font-weight: bold;
+        color: #202630;
+        text-shadow: 1px 1px 0 #535d6e;
+
+        p {
+            float: left;
+        }
+
+        ul {
+            float: right;
+        }
+        li {
+            float: left;
+
+            i {
+                overflow: hidden;
+                display: inline-block;
+                max-width: 0;
+                font-size: 0;
+                transition: 1s;
+            }
+
+            span {
+                display: inline-block;
+                width: 56px;
+                height: 54px;
+                background-image: url('~@img/social-icons.png');
+
+                &:hover {
+                    background-position-y: 100%;
+                }
+            }
+        }
+    }
+
     .footer-nav {
         padding-top: 45px;
         background: url('~@img/footer-subcontent-bg.png') no-repeat top center;
@@ -79,8 +145,9 @@ footer {
             box-sizing: border-box;
         }
         .footer-nav-child:nth-child(4) {
-            border-right: 0;
             flex: 2;
+            margin: 3rem 0 0;
+            border-right: 0;
         }
         .footer-nav-child:nth-child(1) {
             border-left: 0;
@@ -93,6 +160,9 @@ footer {
         }
         .footer-web-master {
             display: flex;
+            h3 {
+                margin: 20px;
+            }
             p, img {
                 margin: 10px;
             }
