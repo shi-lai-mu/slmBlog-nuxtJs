@@ -42,7 +42,6 @@ body {
     width: 100vw;
     overflow-x: hidden;
     color: @color-font;
-    font-size: 1.25em;
 }
 ul, li {
     margin: 0;
@@ -268,12 +267,15 @@ div:focus {
         height: ~'calc(90vw / 3.05)';
         min-height: auto;
     }
+    footer .footer-nav-list .footer-nav-child:nth-child(4) {
+        display: none;
+    }
 }
 
 // 小于 640px
 @media screen and (max-width: 640px) {
 
-    html {
+    body {
         font-size: .9em;
     }
 
@@ -319,16 +321,23 @@ div:focus {
         float: inherit;
         width: 100vw;
     }
+
+    footer .footer-nav-list .footer-nav-child h3 {
+        font-size: 1.2rem;
+    }
     
 }
 
 // 小于 350px
 @media screen and (max-width: 350px) {
-    html {
+    body {
         font-size: .8em;
     }
     .logo {
         background-size: 200px 60px;
+    }
+    footer .footer-nav-list .footer-nav-child h3 {
+        font-size: 1rem;
     }
 }
 

@@ -32,11 +32,11 @@
 
             <h2>站点框架</h2>
             <ul class="web-technology">
-                <li>
+                <li class="clearfix">
                     <img src="//cn.vuejs.org/images/logo.png" alt="vue logo">
                     <span>VUE 全家桶</span>
                 </li>
-                <li>
+                <li class="clearfix">
                     <img src="//www.thinkphp.cn/Public/new/img/header_logo.png" alt="thinkphp logo">
                     <span>ThinkPHP 5.1</span>
                 </li>
@@ -50,7 +50,7 @@
                 </li>
                 <li>
                     <span>服务器环境:</span>
-                    <p>Ningx[v1.14.3](VUE)、Aphache[v2.4.6](PHP)</p>
+                    <p>Ningx[v1.14.3](VUE), Aphache[v2.4.6](PHP)</p>
                 </li>
                 <li>
                     <span>技术名词:</span>
@@ -153,8 +153,8 @@ export default {
     .web-master,
     .web-technology,
     .web-details  {
-        width: 25%;
-        min-width: 250px;
+        width: 45%;
+        min-width: 400px;
         margin: 0 auto;
         font-size: 1.2rem;
 
@@ -162,8 +162,9 @@ export default {
             margin: 10px 0;
         }
         span {
-            display: inline-block;
-            width: 8rem;
+            float: left;
+            text-align: left;
+            width: 10rem;
             color: #09007a;
             font-weight: bold;
         }
@@ -177,9 +178,6 @@ export default {
     }
 
     .web-master {
-        span {
-            width: 3rem;
-        }
         p {
             color: #09007a;
             text-indent: 1rem;
@@ -192,7 +190,11 @@ export default {
             vertical-align: middle;
         }
         li {
-            margin: 5px 0;
+            width: 350px;
+            margin: 5px auto;
+        }
+        span {
+            float: initial;
         }
     }
     .web-details {
