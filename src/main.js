@@ -15,6 +15,10 @@ Vue.component('vueHeader', header)
 Vue.component('vueFooter', footer)
 Vue.component('vueTitle', title)
 
+router.afterEach((to, from, next) => {
+  window.scrollTo(0, 0)
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
