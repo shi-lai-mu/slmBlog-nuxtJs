@@ -4,23 +4,23 @@
         <div class="guide clearfix">
             <p>关联账号</p>
             <ul>
-                <li>
+                <li title="Twitter">
                     <span class="icon-1i"></span>
                     <i>@slm47888</i>
                 </li>
-                <li>
+                <li title="YouTuBe">
                     <span class="icon-2i"></span>
-                    <i>暂无账号</i>
+                    <i>slm478889187@gmail.com</i>
                 </li>
-                <li>
+                <li title="google">
                     <span class="icon-3i"></span>
                     <i>slm478889187@gmail.com</i>
                 </li>
-                <li>
+                <li title="忘记叫啥了...">
                     <span class="icon-4i"></span>
                     <i>slm478889187@gmail.com</i>
                 </li>
-                <li>
+                <li title="QQ">
                     <span class="icon-6i"></span>
                     <i>478889187</i>
                 </li>
@@ -114,6 +114,12 @@ footer {
                 font-size: 0;
                 transition: 1s;
             }
+            &:hover i {
+                padding: 0 20px;
+                max-width: 200px;
+                font-size: 1rem;
+                user-select: all
+            }
 
             span {
                 display: inline-block;
@@ -125,6 +131,17 @@ footer {
                     background-position-y: 100%;
                 }
             }
+        }
+        li:nth-of-type(2) span {
+            background-position-x: -56px;
+        }
+
+        .generate-columns(5);
+        .generate-columns(@n, @i: 1) when (@i =< @n) {
+            li:nth-of-type(@{i}) span {
+                background-position-x: (@i * -58px);
+            }
+            .generate-columns(@n, (@i + 1));
         }
     }
 
