@@ -11,8 +11,25 @@
         </a>
         <ul class="header-nav-conter">
           <li>最新<span class="iconfont icon-fangxiangxia"></span></li>
-          <li>编程</li>
-          <li>资源</li>
+          <li>
+            <p>编程</p>
+            <span class="fa fa-angle-down"></span>
+            <ul>
+               <li><a href="?page=blog_content&amp;list=javascript" class="max-a">JavaScript</a></li>
+               <li><a href="?page=blog_content&amp;list=css" class="max-a">Css</a></li>
+               <li><a href="?page=blog_content&amp;list=html" class="max-a">html</a></li>
+               <li><a href="?page=blog_content&amp;list=php" class="max-a">php</a></li>
+            </ul>
+          </li>
+          <li>
+            <p>资源</p>
+            <ul>
+              <li><a href="?page=blog_content&amp;list=Windows" class="max-a">Windows</a></li>
+              <li><a href="?page=blog_content&amp;list=Andorid" class="max-a">Andorid</a></li>
+              <li><a href="?page=blog_content&amp;list=Web" class="max-a">Web</a></li>
+              <li><a href="?page=blog_content&amp;list=other" class="max-a">Other</a></li>
+            </ul>
+          </li>
         </ul>
         <span class="header-nav-right">登录</span>
         <span class="header-menu-right"></span>
@@ -63,7 +80,7 @@ header {
 .header-nav-conter {
     float: left;
 
-    li {
+    &>li {
         display: inline-block;
         padding: 3px 0;
         margin: 23px 5px;
@@ -78,6 +95,12 @@ header {
             color: var(--color-font-bg);
             text-shadow: 1px 1px 0 #e06a5f;
             box-shadow: 1px 1px 2px #000;
+
+            ul {
+                overflow: visible;
+                max-height: 300px;
+                padding-bottom: 5px;
+            }
         }
 
         &:active {
@@ -87,6 +110,51 @@ header {
         .icon-fangxiangxia {
             font-size: 12px;
             margin: 0 5px;
+        }
+
+        ul {
+            overflow: hidden;
+            position: absolute;
+            max-height: 0;
+            width: 150px;
+            margin-left: -30px;
+            margin-top: 16px;
+            border-radius: 0 0 5px 5px;
+            color: #506073;
+            text-shadow: 1px 1px 0 black;
+            text-align: left;
+            font-weight: 200;
+            background-color: #252c36;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .5);
+            transition: 1s;
+            z-index: 9999;
+
+            li {
+                margin: 0 5px;
+                padding: 3px 0;
+                border-bottom: 1px solid #2C323C;
+                border-top: 1px solid #1F252E;
+                text-indent: 1em;
+
+                &:hover {
+                    background-color: #333c4a;
+                    color: var(--main-font-color);
+                }
+            }
+
+            &>li:nth-child(1)::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: -14px;
+                margin: 0;
+                width: 100%;
+                height: 14px;
+                background-image: url('~@img/arrow-nav.png');
+                background-repeat: no-repeat;
+                background-color: transparent;
+                border: none;
+            }
         }
     }
 }
