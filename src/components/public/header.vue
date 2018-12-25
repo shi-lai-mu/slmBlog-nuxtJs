@@ -98,13 +98,13 @@ header {
             box-shadow: 1px 1px 2px #000;
 
             ul {
-                overflow: visible;
                 max-height: 300px;
                 padding-bottom: 5px;
             }
             span {
                 transform: rotate(180deg);
             }
+                // overflow: visible;
 
         }
         
@@ -121,46 +121,72 @@ header {
             overflow: hidden;
             position: absolute;
             max-height: 0;
-            width: 150px;
-            margin-left: -30px;
-            margin-top: 16px;
+            width: 170px;
+            margin-left: -45px;
+            margin-top: 5px;
+            padding-left: 15px;
             border-radius: 0 0 5px 5px;
             color: #63768d;
             text-shadow: 1px 1px 0 black;
             text-align: left;
             font-weight: 200;
-            background-color: #252c36;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, .5);
             transition: 1s;
             z-index: 9999;
 
             li {
-                margin: 0 5px;
-                padding: 3px 0;
+                position: relative;
+                width: 140px;
+                margin-left: 5px;
+                padding: 5px 0;
+                text-indent: 1em;
+                font-weight: 500;
                 border-bottom: 1px solid #2C323C;
                 border-top: 1px solid #1F252E;
-                text-indent: 1em;
+                background-color: #252c36;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, .5);
 
                 &:hover {
                     background-color: #333c4a;
                     color: var(--main-font-color);
                 }
             }
+            li::after {
+                content: '';
+                width: 150px;
+                height: 100%;
+                top: 0;
+                left: -5px;
+                position: absolute;
+                background-color: #252c36;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, .5);
+                border-radius: 4px;
+                z-index: -1;
+            }
             
 
-            &>li:nth-child(1)::after {
+            &>li:nth-child(1)::before {
                 content: '';
                 position: absolute;
-                left: 0;
-                top: -14px;
-                margin: 0;
-                width: 100%;
+                left: -5px;
+                top: -15px;
+                width: 150px;
                 height: 14px;
                 background-image: url('~@img/arrow-nav.png');
-                background-repeat: no-repeat;
-                background-color: transparent;
-                border: none;
+                border: 0;
             }
+            &>li:nth-last-child(1) {
+                margin-bottom: 15px;
+                border-radius: 0 0 5px 5px;
+                border-bottom: 5px solid #1b2129;
+            }
+        }
+
+        ul::before  {
+            content: '';
+            display: block;
+            height: 15px;
+            width: 100%;
+            background-color: transparent;
         }
     }
 }
