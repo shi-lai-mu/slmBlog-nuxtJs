@@ -10,10 +10,10 @@
           <span class="header-nav-left"></span>
         </a>
         <ul class="header-nav-conter">
-          <li>最新<span class="iconfont icon-fangxiangxia"></span></li>
+          <li>最新</li>
           <li>
             <p>编程</p>
-            <span class="fa fa-angle-down"></span>
+            <span class="iconfont icon-fangxiangxia"></span>
             <ul>
                <li><a href="?page=blog_content&amp;list=javascript" class="max-a">JavaScript</a></li>
                <li><a href="?page=blog_content&amp;list=css" class="max-a">Css</a></li>
@@ -23,6 +23,7 @@
           </li>
           <li>
             <p>资源</p>
+            <span class="iconfont icon-fangxiangxia"></span>
             <ul>
               <li><a href="?page=blog_content&amp;list=Windows" class="max-a">Windows</a></li>
               <li><a href="?page=blog_content&amp;list=Andorid" class="max-a">Andorid</a></li>
@@ -101,17 +102,21 @@ header {
                 max-height: 300px;
                 padding-bottom: 5px;
             }
+            span {
+                transform: rotate(180deg);
+            }
+
+        }
+        
+        span {
+            display: inline-block;
+            margin: 0;
+            transition: .5s transform;
         }
 
-        &:active {
-            box-shadow: 0 0 2px #000;
+        p {
+            display: inline-block;
         }
-
-        .icon-fangxiangxia {
-            font-size: 12px;
-            margin: 0 5px;
-        }
-
         ul {
             overflow: hidden;
             position: absolute;
@@ -120,7 +125,7 @@ header {
             margin-left: -30px;
             margin-top: 16px;
             border-radius: 0 0 5px 5px;
-            color: #506073;
+            color: #63768d;
             text-shadow: 1px 1px 0 black;
             text-align: left;
             font-weight: 200;
@@ -141,6 +146,7 @@ header {
                     color: var(--main-font-color);
                 }
             }
+            
 
             &>li:nth-child(1)::after {
                 content: '';
