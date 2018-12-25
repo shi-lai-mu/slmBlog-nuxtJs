@@ -51,10 +51,12 @@
                 </li>
                 <li class="footer-nav-child footer-web-master">
                     <h3>关于我</h3>
-                    <img class='border-line' src='//thirdqq.qlogo.cn/g?b=sdk&amp;k=s3zxCIMMOxfQibT9H8la8zg&amp;s=100&amp;t=1123456'>
-                    <p>博客主要用于存放学习笔记、一些小案例,分享学习经验.<br>
-                    stay hunger, stay foolter.<br>
-                    <span>[本站已勉强运行 <strong>{{ liveTime }}</strong>...]</span></p>
+                    <img src='//thirdqq.qlogo.cn/g?b=sdk&amp;k=s3zxCIMMOxfQibT9H8la8zg&amp;s=100&amp;t=1123456'>
+                    <p>
+                        博客主要用于存放学习笔记、一些小案例,分享学习经验.<br>
+                        stay hunger, stay foolter.<br>
+                        <span>[本站已勉强运行 <strong>{{ liveTime }}</strong>...]</span>
+                    </p>
                 </li>
             </ul>
         </div>
@@ -77,6 +79,23 @@
         </div>
     </footer>
 </template>
+
+<script>
+import Time from '@com/public/dateForm'
+
+export default {
+  data () {
+    return {
+      liveTime: '--'
+    }
+  },
+  created () {
+    setInterval(() => {
+      this.liveTime = Time.unForm(1535150280000)
+    }, 1000)
+  }
+}
+</script>
 
 <style lang="less">
 footer {
@@ -178,12 +197,15 @@ footer {
         .footer-web-master {
             display: flex;
             h3 {
-                margin: 20px;
+                margin: 20px 10px;
+                text-align: center;
             }
             p, img {
                 margin: 10px;
             }
             img {
+                width: 100px;
+                height: 100px;
                 border-radius: 10px;
                 padding: 10px;
                 background-image: url('~@img/line-pattern-light-bg.png');
