@@ -4,11 +4,13 @@ import Vue from 'vue'
 import App from './App'
 import VueMeta from 'vue-meta'
 import router from './router'
+import VueResource from 'vue-resource'
 import header from '@com/public/header'
 import footer from '@com/public/footer'
 import title from '@com/public/title'
 
 Vue.use(VueMeta)
+Vue.use(VueResource)
 
 Vue.config.productionTip = false
 Vue.component('vueHeader', header)

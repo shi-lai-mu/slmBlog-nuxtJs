@@ -52,9 +52,9 @@
                 <li class="footer-nav-child footer-web-master">
                     <h3>关于我</h3>
                     <img class='border-line' src='//thirdqq.qlogo.cn/g?b=sdk&amp;k=s3zxCIMMOxfQibT9H8la8zg&amp;s=100&amp;t=1123456'>
-                    <p>博客主要用于存放学习笔记、一些小案例,分享学习经验.
-                    stay hunger , stay foolter[求知若饥，虚心若愚]
-                    <span>[本站已勉强运行 <strong></strong>...]</span></p>
+                    <p>博客主要用于存放学习笔记、一些小案例,分享学习经验.<br>
+                    stay hunger, stay foolter.<br>
+                    <span>[本站已勉强运行 <strong>{{ liveTime }}</strong>...]</span></p>
                 </li>
             </ul>
         </div>
