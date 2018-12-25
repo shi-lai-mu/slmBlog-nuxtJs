@@ -6,9 +6,9 @@
         <h1 class="logo"></h1>
       </a>
       <div class="header-nav">
-        <a href="/" title="主页">
+        <router-link to="/" title="主页">
           <span class="header-nav-left"></span>
-        </a>
+        </router-link>
         <ul class="header-nav-conter">
           <li>最新</li>
           <li>
@@ -32,7 +32,9 @@
             </ul>
           </li>
         </ul>
-        <span class="header-nav-right">登录</span>
+        <router-link to="login">
+            <span class="header-nav-right">登录</span>
+        </router-link>
         <span class="header-menu-right"></span>
       </div>
     </header>
@@ -107,7 +109,7 @@ header {
                 // overflow: visible;
 
         }
-        
+
         span {
             display: inline-block;
             margin: 0;
@@ -143,7 +145,7 @@ header {
                 border-bottom: 1px solid #2C323C;
                 border-top: 1px solid #1F252E;
                 background-color: #252c36;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, .5);
+                // box-shadow: 0 5px 10px rgba(0, 0, 0, .5);
 
                 &:hover {
                     background-color: #333c4a;
@@ -162,7 +164,6 @@ header {
                 border-radius: 4px;
                 z-index: -1;
             }
-            
 
             &>li:nth-child(1)::before {
                 content: '';
