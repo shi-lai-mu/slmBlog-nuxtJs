@@ -2,7 +2,8 @@ body {
   margin: 0;
   width: 100vw;
   overflow-x: hidden;
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFAQMAAAC3obSmAAAABlBMVEUuN0MsND8+ei+CAAAAD0lEQVQI12NgYGhgAAEPAAPSAMlMH3PVAAAAAElFTkSuQmCC);
+  --body-img: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFAQMAAAC3obSmAAAABlBMVEUuN0MsND8+ei+CAAAAD0lEQVQI12NgYGhgAAEPAAPSAMlMH3PVAAAAAElFTkSuQmCC);
+  background-image: var(--body-img);
 }
 
 @font-face {

@@ -1,28 +1,34 @@
 <template>
-  <div class="content-row single clearfix">
-    <div class="rest-round" style="/*transform: rotateZ(90deg)*/">
-    <div class="account">
-        <img src="@img/account-bg3.jpg" alt="图1" class="border-line">
-        <form>
-            <label>账号</label><input type="text" name="log_user" class="input-1v">
-            <label>密码</label><input type="password" name="log_pass" class="input-1v">
-            <span class="button-v1" name="login">登陆</span>
-        </form>
+
+    <div class="content-row single clearfix">
+
+        <div class="content-box">
+
+            <div class="account">
+                <img src="@img/account-bg3.jpg" alt="图1" class="border-line">
+                <form>
+                    <label>账号</label><input type="text" name="log_user" class="input-1v">
+                    <label>密码</label><input type="password" name="log_pass" class="input-1v">
+                    <span class="button-v1" name="login">登陆</span>
+                </form>
+            </div>
+
+            <!-- <div class="account">
+                <img src="images/account-bg.jpg" alt="图1" class="border-line">
+                <form>
+                    <label>账号</label><input type="text" name="reg_user" class="input-1v" placeholder="用户名不能超过9位" data-name='账号'>
+                    <label>密码</label><input type="password" name="reg_pass" class="input-1v" placeholder="密码不能过短" data-name='密码'>
+                    <label>邮箱</label><input type="email" name="reg_email" class="input-1v" placeholder="最好输入QQ邮箱" data-name='邮箱'>
+                    <label>验证</label><input type="text" name="reg_code" class="input-1v input-min" placeholder="确认你非机器人" data-name='验证'><canvas></canvas>
+                    <label>代码</label><input type="text" name="reg_codes" class="input-1v" placeholder="填完邮箱点我即发送验证码" data-name='代码'>
+                    <span class="button-v1" name="register">注册</span>
+                </form>
+            </div> -->
+
+        </div>
+
     </div>
 
-    <div class="account" style="">
-        <img src="images/account-bg.jpg" alt="图1" class="border-line">
-        <form>
-            <label>账号</label><input type="text" name="reg_user" class="input-1v" placeholder="用户名不能超过9位" data-name='账号'>
-            <label>密码</label><input type="password" name="reg_pass" class="input-1v" placeholder="密码不能过短" data-name='密码'>
-            <label>邮箱</label><input type="email" name="reg_email" class="input-1v" placeholder="最好输入QQ邮箱" data-name='邮箱'>
-            <label>验证</label><input type="text" name="reg_code" class="input-1v input-min" placeholder="确认你非机器人" data-name='验证'><canvas></canvas>
-            <label>代码</label><input type="text" name="reg_codes" class="input-1v" placeholder="填完邮箱点我即发送验证码" data-name='代码'>
-            <span class="button-v1" name="register">注册</span>
-        </form>
-    </div>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -42,16 +48,20 @@ export default {
 
 <style lang="less">
 .account {
-    display: inline-block;
-    width: 60%;
-    max-width: 500px;
+    display: block;
+    width: 80%;
+    max-width: 600px;
+    min-width: 200px;
     margin: 0 auto 150px;
     padding: 20px;
+    color: var(--font-out);
+    text-shadow: var(--font-out-shadow);
     border-radius: 0 0 20px 20px;
     border: 10px solid rgba(255,255,255,.3);
     border-top: none;
+    background-image: var(--body-img);
     background-clip: border-box;
-    // background-image: url('../images/sc/html-bg.png');
+    box-sizing: border-box;
 }
 .account img {
   width: 100%;
@@ -63,6 +73,7 @@ export default {
 .account:nth-child(2) {
     position: absolute;
     z-index: 0;
+    background-image: var(--body-img);
     transform: rotateZ(-90deg) translateX(534px) translateY(-27px);
 }
 .account label {
@@ -73,7 +84,6 @@ export default {
     font-weight: 600;
     color: var(--text-black);
     text-shadow: 1px 1px 0 var(--text-black-shadow);
-    /* user-select: none; */
 }
 .account input {
     width: 250px;
