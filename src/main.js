@@ -22,6 +22,7 @@ Vue.component('vueTitle', title)
 
 const store = new VueX.Store({
   state: {
+    ip: 'mczyzy.cn',
     user: false
   }
 })

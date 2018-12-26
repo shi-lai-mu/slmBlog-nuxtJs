@@ -59,6 +59,8 @@ export default {
     login () {
       this.$http.get('//127.0.0.1/hello/11').then(res => {
         console.log(res)
+      }).then(err => {
+        console.log(err)
       })
     }
   }
