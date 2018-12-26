@@ -101,9 +101,6 @@ export default {
 footer {
     margin: 0 0 20px;
     color: #b6c3db;
-    -webkit-user-select:none;
-    -moz-user-select:none;
-    -ms-user-select:none;
     user-select:none;
 
     .guide {
@@ -119,7 +116,6 @@ footer {
         p {
             float: left;
         }
-
         ul {
             float: right;
         }
