@@ -37,7 +37,7 @@ import connecter from './public/connecter.js'
 
 export default {
   created () {
-    connecter.$emit('pageInfo', {
+    connecter.$emit('page', {
       title: {
         tag: '首页',
         description: '欢迎浏览史莱姆的博客!（°Д°）Ъ'

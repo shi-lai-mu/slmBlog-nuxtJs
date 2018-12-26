@@ -18,11 +18,12 @@ export default {
     }
   },
   created () {
-    connecter.$on('pageInfo', data => {
+    connecter.$on('page', data => {
       for (let key in data) {
         this[key] = data[key]
       }
     })
+    console.log(123456)
   }
 }
 </script>

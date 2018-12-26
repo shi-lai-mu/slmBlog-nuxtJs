@@ -1,7 +1,7 @@
 <template>
     <div class="tag-description">
-        <span class="tag">{{ title.tag ? title.tag : '-- --' }}</span>
-        <span class="description">{{ title.description ? title.description : '欢迎浏览史莱姆的博客!（°Д°）Ъ' }}</span>
+        <span class="tag">{{ title.tag || '-- --' }}</span>
+        <span class="description">{{ title.description || '欢迎浏览史莱姆的博客!（°Д°）Ъ' }}</span>
     </div>
 </template>
 
