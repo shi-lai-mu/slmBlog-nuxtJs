@@ -7,8 +7,12 @@
             <div class="account">
                 <img src="@img/account-bg3.jpg" alt="图1" class="border-line">
                 <form>
-                    <label>账号</label><input type="text" name="log_user" class="input-1v">
-                    <label>密码</label><input type="password" name="log_pass" class="input-1v">
+                    <div>
+                        <label>账号</label><input type="text" name="log_user" class="input-1v">
+                    </div>
+                    <div>
+                        <label>密码</label><input type="password" name="log_pass" class="input-1v">
+                    </div>
                     <span class="button-v1" name="login">登陆</span>
                 </form>
             </div>
@@ -52,19 +56,24 @@ export default {
     width: 80%;
     max-width: 600px;
     min-width: 200px;
-    margin: 0 auto 150px;
-    padding: 20px;
+    margin: 0 auto 100px;
+    padding: 15px;
     color: var(--font-out);
     text-shadow: var(--font-out-shadow);
     border-radius: 0 0 20px 20px;
-    border: 10px solid rgba(255,255,255,.3);
-    border-top: none;
+    border: 10px solid rgba(255,255,255,.2);
+    border-top: 0;
     background-image: var(--body-img);
     background-clip: border-box;
     box-sizing: border-box;
 }
 .account img {
   width: 100%;
+  padding: 10px;
+  background-image: var(--img-bg);
+  border: 1px solid rgba(255, 255, 255, .3);
+  border-radius: 20px;
+  box-sizing: border-box;
 }
 .rest-round {
     transform-origin: center -270px;
@@ -86,16 +95,21 @@ export default {
     text-shadow: 1px 1px 0 var(--text-black-shadow);
 }
 .account input {
-    width: 250px;
+    width: 50vw;
+    max-width: 250px;
+    min-width: 200px;
     margin-top: 10px;
 }
 .account > form {
-    width: 350px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     margin: 15px auto;
 }
 .account .button-v1 {
-    display: inline-block;
-    width: 280px;
+    width: 40vw;
+    max-width: 280px;
     margin-top: 25px;
 }
 .account .input-min {

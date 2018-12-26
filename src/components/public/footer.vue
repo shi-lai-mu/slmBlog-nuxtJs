@@ -208,7 +208,7 @@ footer {
                 height: 100px;
                 border-radius: 10px;
                 padding: 10px;
-                background-image: url('~@img/line-pattern-light-bg.png');
+                background-image: var(--img-bg);
                 border: 1px solid rgba(216, 217, 218,.3);
             }
         }

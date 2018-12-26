@@ -1,4 +1,3 @@
-@img-root: '~@img';
 // 大小
 @max-width: 1300px;
 @min-width: 250px;
@@ -39,6 +38,8 @@ html {
 
     --font-out: #14181E;
     --font-out-shadow: 1px 1px 0 #535d6e;
+
+    --img-bg: url('~@img/line-pattern-light-bg.png');
 }
 body {
     color: @color-font;
@@ -67,14 +68,43 @@ a {
     min-width: @min-width;
     margin: 0 auto;
 }
-
+form{
+    input {
+        padding: 5px 10px;
+        background: linear-gradient(#3d4855, #485360);
+        font-size: 16px;
+        text-shadow: 1px 1px 0 var(--text-black);
+        outline: none;
+        border-radius: 20px;
+        border-top: 1px solid #485465;
+        border-right: 1px solid #485465;
+        border-bottom: 1px solid #353d47;
+        border-left: 1px solid #485465;
+    }
+    .button-v1 {
+        display: block;
+        padding: 3px 10px;
+        line-height: 24px;
+        max-width: 485px;
+        margin: 0 auto;
+        background-image: url('~@img/blue-buttons-2.png');
+        background-position: left -43px;
+        background-repeat: no-repeat;
+        text-align: center;
+        text-shadow: -1px 1px 0 #333;
+        color: var(--color-mater-font);
+        border-radius: 20px;
+        cursor: pointer;
+        /* user-select: none; */
+    }
+}
 
 
 /* LOGO */
 h1.logo {
     margin: 0;
     height: 100px;
-    background: url('@{img-root}/logo.png') no-repeat center;
+    background: url('~@img/logo.png') no-repeat center;
     background-size: 300px 80px;
 }
 
@@ -89,7 +119,7 @@ h1.logo {
     height: 40vw;
     max-height: 359px;
     /* min-height: 133px; */
-    background: url('@{img-root}/slider-bg-blue.jpg') no-repeat center top;
+    background: url('~@img/slider-bg-blue.jpg') no-repeat center top;
     background-size: auto 100%;
     box-shadow: 0 10px 5px -3.5px rgba(0,0,0,.5);
 
@@ -107,7 +137,7 @@ h1.logo {
             min-width: 33px;
             height: 36px;
             margin: 0 10px;
-            background-image: url('@{img-root}/fade-slider-arrows.png');
+            background-image: url('~@img/fade-slider-arrows.png');
             cursor: pointer;
 
             &:hover {
@@ -139,7 +169,7 @@ h1.logo {
                 width: ~"calc(100% - 14px)";
                 padding: 7px;
                 margin: 7px;
-                background-image: url('@{img-root}/line-pattern-light-bg.png');
+                background-image: url('~@img/line-pattern-light-bg.png');
                 border: 1px solid #777;
                 box-sizing: border-box;
             }
@@ -155,7 +185,7 @@ h1.logo {
             width: 25px;
             height: 25px;
             margin: 0 2.5px;
-            background-image: url('@{img-root}/fade-bullets.png');
+            background-image: url('~@img/fade-bullets.png');
             cursor: pointer;
 
             &:hover {
@@ -181,7 +211,7 @@ h1.logo {
     min-width: @min-width;
     min-height: 250px;
     margin-bottom: 40px;
-    background-image: url('@{img-root}/content-bg.jpg');
+    background-image: url('~@img/content-bg.jpg');
     background-clip: content-box;
     border-radius: 0 0 15px 15px;
     border: 10px solid rgba(255,255,255,.1);
@@ -193,7 +223,7 @@ h1.logo {
     width: ~'calc(20% - 20px)';
     min-width: 200px;
     margin: 0 10px;
-    background-image: url('@{img-root}/pattern-bg.jpg');
+    background-image: url('~@img/pattern-bg.jpg');
     border: 0;
     box-shadow: 0 5px 5px rgba(0, 0, 0, .2);
 }
@@ -274,7 +304,7 @@ div:focus {
         margin: 15px 0 0 10px;
         height: 40px;
         width: 90px;
-        background: url('@{img-root}/menu.png') no-repeat;
+        background: url('~@img/menu.png') no-repeat;
         background-size: 55%;
     }
 
@@ -290,6 +320,7 @@ div:focus {
     }
     div.account {
         width: 100%;
+        margin: 0 auto;
     }
     
 }
