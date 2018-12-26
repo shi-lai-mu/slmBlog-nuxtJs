@@ -20,6 +20,12 @@ Vue.component('vueHeader', header)
 Vue.component('vueFooter', footer)
 Vue.component('vueTitle', title)
 
+const store = new VueX.Store({
+  state: {
+    user: false
+  }
+})
+
 router.afterEach((to, from, next) => {
   window.scrollTo(0, 0)
 })
@@ -28,6 +34,7 @@ router.afterEach((to, from, next) => {
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

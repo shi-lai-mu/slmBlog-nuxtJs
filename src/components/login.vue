@@ -6,14 +6,16 @@
 
             <div class="account">
                 <img src="@img/account-bg3.jpg" alt="图1" class="border-line">
-                <form>
+                <form action="">
                     <div>
-                        <label>账号</label><input type="text" name="log_user" class="input-1v">
+                        <label>账号</label>
+                        <input type="text" name="log_user" class="input-1v" v-model="login_user">
                     </div>
                     <div>
-                        <label>密码</label><input type="password" name="log_pass" class="input-1v">
+                        <label>密码</label>
+                        <input type="password" name="log_pass" class="input-1v" v-model="login_pass">
                     </div>
-                    <span class="button-v1" name="login">登陆</span>
+                    <span class="button-v1" @click="login">登陆</span>
                 </form>
             </div>
 
@@ -39,6 +41,12 @@
 import connect from '@pub/connecter'
 
 export default {
+  data () {
+    return {
+      login_user: null,
+      login_pass: null
+    }
+  },
   created () {
     connect.$emit('page', {
       title: {
@@ -46,6 +54,13 @@ export default {
         description: '欢迎回来 ~~~ '
       }
     })
+  },
+  methods: {
+    login () {
+      this.$http.get('//127.0.0.1/hello/11').then(res => {
+        console.log(res)
+      })
+    }
   }
 }
 </script>

@@ -37,7 +37,7 @@ html {
     --min-width: @min-width;
 
     --font-out: #14181E;
-    --font-out-shadow: 1px 1px 0 #535d6e;
+    --font-out-shadow: 1px 1px .5px #535d6e;
 
     --img-bg: url('~@img/line-pattern-light-bg.png');
 }
@@ -71,31 +71,28 @@ a {
 form{
     input {
         padding: 5px 10px;
+        border-radius: 20px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #485465 #485465 #353d47 #485465;
         background: linear-gradient(#3d4855, #485360);
         font-size: 16px;
         text-shadow: 1px 1px 0 var(--text-black);
         outline: none;
-        border-radius: 20px;
-        border-top: 1px solid #485465;
-        border-right: 1px solid #485465;
-        border-bottom: 1px solid #353d47;
-        border-left: 1px solid #485465;
     }
     .button-v1 {
         display: block;
-        padding: 3px 10px;
         line-height: 24px;
         max-width: 485px;
         margin: 0 auto;
-        background-image: url('~@img/blue-buttons-2.png');
-        background-position: left -43px;
-        background-repeat: no-repeat;
+        border-radius: 20px;
+        padding: 3px 10px;
+        background: url('~@img/blue-buttons-2.png') no-repeat left -43px;
         text-align: center;
         text-shadow: -1px 1px 0 #333;
         color: var(--color-mater-font);
-        border-radius: 20px;
         cursor: pointer;
-        /* user-select: none; */
+        user-select: none;
     }
 }
 
@@ -110,15 +107,14 @@ h1.logo {
 
 /*轮播图*/
 .shuffling {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
     flex-wrap: wrap;
+    position: relative;
     height: 40vw;
     max-height: 359px;
-    /* min-height: 133px; */
     background: url('~@img/slider-bg-blue.jpg') no-repeat center top;
     background-size: auto 100%;
     box-shadow: 0 10px 5px -3.5px rgba(0,0,0,.5);
@@ -134,8 +130,8 @@ h1.logo {
         // 左按钮
         .shuffling-left, .shuffling-right {
             display: inline-block;
-            min-width: 33px;
             height: 36px;
+            min-width: 33px;
             margin: 0 10px;
             background-image: url('~@img/fade-slider-arrows.png');
             cursor: pointer;
@@ -153,16 +149,14 @@ h1.logo {
     .shuffling-ling {
         position: relative;
         width: 100%;
-        /* height: calc(90vw / 2.05); */
         min-height: 267px;
-        /* max-height: 374px; */
         min-width: 250px;
         margin: 0 auto;
 
         li {
-            position: absolute;
             display: flex;
             align-items: center;
+            position: absolute;
             height: 100%;
 
             img {

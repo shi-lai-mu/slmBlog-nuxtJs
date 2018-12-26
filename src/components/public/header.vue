@@ -32,7 +32,7 @@
             </ul>
           </li>
         </ul>
-        <router-link to="login" v-if="!head.login">
+        <router-link to="login" v-if="!this.$store.state.user">
             <span class="header-nav-right">登录</span>
         </router-link>
         <span class="header-menu-right"></span>

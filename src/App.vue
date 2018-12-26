@@ -23,7 +23,6 @@ export default {
         this[key] = data[key]
       }
     })
-    console.log(123456)
   }
 }
 </script>
