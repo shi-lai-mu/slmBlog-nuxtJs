@@ -9,9 +9,10 @@ import http from '@pub/http'
 import header from '@pub/header'
 import footer from '@pub/footer'
 import title from '@pub/title'
-// import connecter from '@pub/connecter'
+import connecter from '@pub/connecter'
 
 Vue.prototype.$http = http
+Vue.prototype.$connecter = connecter
 Vue.use(VueX, VueMeta)
 
 Vue.config.productionTip = false

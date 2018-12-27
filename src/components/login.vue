@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import connect from '@pub/connecter'
 
 export default {
   data () {
@@ -51,7 +50,7 @@ export default {
     this.$http.get('user/hellos/11', false)
       .then(console.log)
 
-    connect.$emit('page', {
+    this.$connecter.$emit('page', {
       title: {
         tag: '登录',
         description: '欢迎回来 ~~~ '

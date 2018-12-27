@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import connecter from '@com/public/connecter.js'
 
 export default {
   data () {
@@ -18,7 +17,7 @@ export default {
     }
   },
   created () {
-    connecter.$on('page', data => {
+    this.$connecter.$on('page', data => {
       for (let key in data) {
         this[key] = data[key]
       }

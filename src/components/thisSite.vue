@@ -122,11 +122,10 @@
 </template>
 
 <script>
-import connect from '@com/public/connecter.js'
 
 export default {
   created () {
-    connect.$emit('pageInfo', {
+    this.$connecter.$emit('page', {
       title: {
         tag: '关于本站',
         description: '崇尚一技之长，不为学历凭能力!'
