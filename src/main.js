@@ -5,15 +5,14 @@ import VueX from 'vuex'
 import App from './App'
 import VueMeta from 'vue-meta'
 import router from './router'
-import VueResource from 'vue-resource'
+import http from '@pub/http'
 import header from '@pub/header'
 import footer from '@pub/footer'
 import title from '@pub/title'
 // import connecter from '@pub/connecter'
 
-Vue.use(VueMeta)
-Vue.use(VueResource)
-Vue.use(VueX)
+Vue.prototype.$http = http
+Vue.use(VueX, VueMeta)
 
 Vue.config.productionTip = false
 Vue.component('vueHeader', header)
@@ -22,7 +21,6 @@ Vue.component('vueTitle', title)
 
 const store = new VueX.Store({
   state: {
-    ip: 'mczyzy.cn',
     user: false
   }
 })

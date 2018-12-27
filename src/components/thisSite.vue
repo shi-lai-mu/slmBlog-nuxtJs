@@ -46,7 +46,7 @@
             <ul class="web-details">
                 <li>
                     <span>VUE(v2.9.6):</span>
-                    <p>vue-cli, vuex, vue-router, vue-resource</p>
+                    <p>vue-cli, vuex, vue-router, axios</p>
                 </li>
                 <li>
                     <span>服务器环境:</span>

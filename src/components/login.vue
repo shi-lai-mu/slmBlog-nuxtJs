@@ -48,6 +48,7 @@ export default {
     }
   },
   created () {
+    console.log(this.$http.get('http://127.0.0.1/user/hello/11',false))
     connect.$emit('page', {
       title: {
         tag: '登录',
@@ -57,8 +58,7 @@ export default {
   },
   methods: {
     login () {
-      this.$http.get('//127.0.0.1/hello/11').then(res => {
-        console.log(res)
+      this.axios.get(`//127.0.0.1/user/login`).then(res => {
       }).then(err => {
         console.log(err)
       })
