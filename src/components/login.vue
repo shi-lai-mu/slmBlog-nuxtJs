@@ -61,6 +61,7 @@ export default {
       this.$http.get(`user/login`, this.login)
         .then(res => {
           window.localStorage.setItem('userInfo', JSON.stringify(res))
+          this.$store.state.user = res
         })
     }
   }
