@@ -22,6 +22,9 @@ export default {
         this[key] = data[key]
       }
     })
+
+    // 读取本地的登录信息
+    this.$store.state.user = window.localStorage.getItem('userInfo')
   }
 }
 </script>

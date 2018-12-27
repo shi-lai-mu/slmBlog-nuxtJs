@@ -60,7 +60,7 @@ export default {
     loginEvent () {
       this.$http.get(`user/login`, this.login)
         .then(res => {
-          console.log(res)
+          window.localStorage.setItem('userInfo', JSON.stringify(res))
         })
     }
   }
