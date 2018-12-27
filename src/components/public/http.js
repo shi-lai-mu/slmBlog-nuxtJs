@@ -19,7 +19,7 @@ export default {
   get (url, data) {
     return new Promise((resolve, reject) => {
       $http
-        .get(url, axiosQs.stringify(data))
+        .get(url + (data ? '?' + axiosQs.stringify(data) : ''))
         .then(res => {
           if (res.data) {
             resolve(res.data)

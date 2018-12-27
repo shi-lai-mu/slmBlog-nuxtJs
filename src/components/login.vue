@@ -9,13 +9,13 @@
                 <form action="">
                     <div>
                         <label>账号</label>
-                        <input type="text" name="log_user" class="input-1v" v-model="login_user">
+                        <input type="text" name="log_user" class="input-1v" v-model="login.user">
                     </div>
                     <div>
                         <label>密码</label>
-                        <input type="password" name="log_pass" class="input-1v" v-model="login_pass">
+                        <input type="password" name="log_pass" class="input-1v" v-model="login.pass">
                     </div>
-                    <span class="button-v1" @click="login">登陆</span>
+                    <span class="button-v1" @click="loginEvent">登陆</span>
                 </form>
             </div>
 
@@ -42,14 +42,13 @@
 export default {
   data () {
     return {
-      login_user: null,
-      login_pass: null
+      login: {
+        user: null,
+        pass: null
+      }
     }
   },
   created () {
-    this.$http.get('user/hellos/11', false)
-      .then(console.log)
-
     this.$connecter.$emit('page', {
       title: {
         tag: '登录',
@@ -58,11 +57,11 @@ export default {
     })
   },
   methods: {
-    login () {
-      this.axios.get(`//127.0.0.1/user/login`).then(res => {
-      }).then(err => {
-        console.log(err)
-      })
+    loginEvent () {
+      this.$http.get(`user/login`, this.login)
+        .then(res => {
+          console.log(res)
+        })
     }
   }
 }
