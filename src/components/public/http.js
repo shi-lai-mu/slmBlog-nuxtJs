@@ -21,8 +21,11 @@ export default {
       $http
         .get(url, axiosQs.stringify(data))
         .then(res => {
-          console.log(res)
-          resolve(res.data)
+          if (res.data) {
+            resolve(res.data)
+          } else {
+            console.error(`${res.status}: ${res.statusText}`)
+          }
         })
         .catch(err => {
           console.error(err)
