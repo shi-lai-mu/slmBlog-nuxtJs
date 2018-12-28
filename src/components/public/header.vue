@@ -5,10 +5,12 @@
       <a href="//mczyzy.cn" title="史莱姆的博客">
         <h1 class="logo"></h1>
       </a>
-      <div class="header-nav">
+      <div class="header-nav clearfix">
+
         <router-link to="/" title="主页">
           <span class="header-nav-left"></span>
         </router-link>
+
         <ul class="header-nav-conter">
           <li>最新</li>
           <li>
@@ -32,31 +34,52 @@
             </ul>
           </li>
         </ul>
+
         <router-link to="login" v-if="!this.$store.state.user">
             <span class="header-nav-right">登录</span>
         </router-link>
-        <span class="header-menu-right"></span>
+
+        <span class="header-menu-right">
+            <ul class="header-menu-list">
+                <li>111111111</li>
+                <li>111111111</li>
+                <li>111111111</li>
+                <li>111111111</li>
+                <li>111111111</li>
+                <li>111111111</li>
+                <li>111111111</li>
+            </ul>
+        </span>
+
       </div>
     </header>
 
 </template>
 
 <script>
+
 export default {
-  props: ['head']
+  props: ['head'],
+  created () {
+    window.addEventListener('scroll', event => {
+    let child = this.$el.lastChild
+    let cList = child.classList
+    let elTop = this.$el.clientHeight - child.clientHeight
+    console.dir(cList)
+    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+      scrollTop >= elTop ? cList.add('header-nav-fixed') : cList.remove('header-nav-fixed')
+    })
+  }
 }
 </script>
 
 <style lang="less">
 
 header {
-    -webkit-user-select:none;
-    -moz-user-select:none;
-    -ms-user-select:none;
     user-select:none;
 
     .header-nav {
-        height: 75px;
+        min-height: 75px;
         list-style-type: none;
         color: var(--color-mater-font);
     }
@@ -82,6 +105,30 @@ header {
         text-shadow: 1px 1px 0 #e06a5f;
         line-height: 68px;
         background: url('~@img/Work-With-Us.png') no-repeat top left;
+    }
+}
+
+// 浮动
+.header-nav-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-image: url('~@img/hd-bg.png'), var(--body-img);
+    background-position: center;
+}
+
+// 移动端按钮
+.header-menu-right {
+
+    &:target .header-menu-list {
+        max-height: 200vh;
+    }
+
+    .header-menu-list {
+        overflow: hidden;
+        max-height: 0;
+        transition: 1s;
     }
 }
 
