@@ -209,6 +209,7 @@ header {
         box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
 
         ul.header-nav-conter {
+            display: block;
             float: initial;
             padding: 10px 20px;
             border-bottom: 1px solid #2C323C;
