@@ -208,7 +208,8 @@ header {
         transition: 1s;
         box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
 
-        & > li {
+        ul.header-nav-conter {
+            float: initial;
             padding: 10px 20px;
             border-bottom: 1px solid #2C323C;
             border-top: 1px solid #1F252E;
@@ -241,12 +242,12 @@ header {
             li:nth-of-type(1) {
                 border-top: 1px solid rgba(255, 255, 255, .1);
             }
+            & > ul {
+                overflow: hidden;
+                max-height: 0;
+                transition: .5s;
+            }
         }
-        // & > ul {
-        //     overflow: hidden;
-        //     max-height: 0;
-        //     transition: .5s;
-        // }
     }
 
     i {
@@ -263,10 +264,10 @@ header {
 }
 // 列表隐藏
 .list-hide .header-menu-list {
-    
-    .header-menu-list {
-    }
-    transition: .5s;
+    // position: absolute;
+    // overflow: hidden;
+    // max-height: 0;
+    // transition: .5s;
 }
 
 // 顶部导航栏
