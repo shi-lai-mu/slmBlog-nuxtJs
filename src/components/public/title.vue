@@ -49,6 +49,7 @@ export default {
 }
 
 .master-top-bg {
+    min-height: 175px;
     background-image: url('~@img/hd-bg.png');
     background-position: center;
 }
