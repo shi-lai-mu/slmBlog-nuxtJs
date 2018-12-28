@@ -39,8 +39,8 @@
             <span class="header-nav-right">登录</span>
         </router-link>
 
-        <span class="header-menu-right">
-            <ul class="header-menu-list">
+        <span class="header-menu-right" @click="menuToggle">
+            <ul :class="'header-menu-list ' + (menuState ? 'list-show' : 'list-hide') ">
                 <li>111111111</li>
                 <li>111111111</li>
                 <li>111111111</li>
@@ -60,15 +60,31 @@
 
 export default {
   props: ['head'],
+
+  data () {
+    return {
+      menuState: true
+    }
+  },
+
   created () {
-    window.addEventListener('scroll', event => {
-    let child = this.$el.lastChild
-    let cList = child.classList
-    let elTop = this.$el.clientHeight - child.clientHeight
-    console.dir(cList)
-    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-      scrollTop >= elTop ? cList.add('header-nav-fixed') : cList.remove('header-nav-fixed')
+    this.$nextTick(() => {
+      let child = this.$el.lastChild
+      let cList = child.classList
+      let elTop = this.$el.clientHeight - child.clientHeight
+
+      window.addEventListener('scroll', event => {
+        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+        scrollTop >= elTop ? cList.add('header-nav-fixed') : cList.remove('header-nav-fixed')
+      })
     })
+  },
+
+  methods: {
+    menuToggle: function() {
+      console.log(this.menuState)
+      this.menuState = !this.menuState
+    }
   }
 }
 </script>
@@ -123,14 +139,19 @@ header {
 // 移动端按钮
 .header-menu-right {
 
-    &:target .header-menu-list {
-        max-height: 200vh;
-    }
-
     .header-menu-list {
+        position: absolute;
         overflow: hidden;
+        left: 0;
         max-height: 0;
+        width: 100%;
+        background-image: var(--body-img);
+        transform: translateY(60px);
         transition: 1s;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
+    }
+    .list-show {
+        max-height: 200vh;
     }
 }
 

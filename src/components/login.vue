@@ -2,36 +2,32 @@
 
     <div class="content-row single clearfix">
 
-        <div class="content-box">
-
-            <div class="account">
-                <img src="@img/account-bg3.jpg" alt="图1" class="border-line">
-                <form action="">
-                    <div>
-                        <label>账号</label>
-                        <input type="text" name="log_user" class="input-1v" v-model="login.user">
-                    </div>
-                    <div>
-                        <label>密码</label>
-                        <input type="password" name="log_pass" class="input-1v" v-model="login.pass">
-                    </div>
-                    <span class="button-v1" @click="loginEvent">登陆</span>
-                </form>
-            </div>
-
-            <!-- <div class="account">
-                <img src="images/account-bg.jpg" alt="图1" class="border-line">
-                <form>
-                    <label>账号</label><input type="text" name="reg_user" class="input-1v" placeholder="用户名不能超过9位" data-name='账号'>
-                    <label>密码</label><input type="password" name="reg_pass" class="input-1v" placeholder="密码不能过短" data-name='密码'>
-                    <label>邮箱</label><input type="email" name="reg_email" class="input-1v" placeholder="最好输入QQ邮箱" data-name='邮箱'>
-                    <label>验证</label><input type="text" name="reg_code" class="input-1v input-min" placeholder="确认你非机器人" data-name='验证'><canvas></canvas>
-                    <label>代码</label><input type="text" name="reg_codes" class="input-1v" placeholder="填完邮箱点我即发送验证码" data-name='代码'>
-                    <span class="button-v1" name="register">注册</span>
-                </form>
-            </div> -->
-
+        <div class="account">
+            <img src="@img/account-bg3.jpg" alt="图1" class="border-line">
+            <form action="">
+                <div>
+                    <label>账号</label>
+                    <input type="text" name="log_user" class="input-1v" v-model="login.user">
+                </div>
+                <div>
+                    <label>密码</label>
+                    <input type="password" name="log_pass" class="input-1v" v-model="login.pass">
+                </div>
+                <span class="button-v1" @click="loginEvent">登陆</span>
+            </form>
         </div>
+
+    <!-- <div class="account">
+        <img src="images/account-bg.jpg" alt="图1" class="border-line">
+        <form>
+            <label>账号</label><input type="text" name="reg_user" class="input-1v" placeholder="用户名不能超过9位" data-name='账号'>
+            <label>密码</label><input type="password" name="reg_pass" class="input-1v" placeholder="密码不能过短" data-name='密码'>
+            <label>邮箱</label><input type="email" name="reg_email" class="input-1v" placeholder="最好输入QQ邮箱" data-name='邮箱'>
+            <label>验证</label><input type="text" name="reg_code" class="input-1v input-min" placeholder="确认你非机器人" data-name='验证'><canvas></canvas>
+            <label>代码</label><input type="text" name="reg_codes" class="input-1v" placeholder="填完邮箱点我即发送验证码" data-name='代码'>
+            <span class="button-v1" name="register">注册</span>
+        </form>
+    </div> -->
 
     </div>
 
