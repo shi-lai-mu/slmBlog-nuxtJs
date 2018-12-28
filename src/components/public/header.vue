@@ -11,35 +11,25 @@
           <span class="header-nav-left"></span>
         </router-link>
 
-        <ul class="header-nav-conter">
-          <li>最新</li>
-          <li>
-            <p>编程</p>
-            <span class="iconfont icon-fangxiangxia"></span>
-            <ul>
-               <li><a href="?page=blog_content&amp;list=javascript" class="max-a">JavaScript</a></li>
-               <li><a href="?page=blog_content&amp;list=css" class="max-a">Css</a></li>
-               <li><a href="?page=blog_content&amp;list=html" class="max-a">html</a></li>
-               <li><a href="?page=blog_content&amp;list=php" class="max-a">php</a></li>
-            </ul>
-          </li>
-          <li>
-            <p>资源</p>
-            <span class="iconfont icon-fangxiangxia"></span>
-            <ul>
-              <li><a href="?page=blog_content&amp;list=Windows" class="max-a">Windows</a></li>
-              <li><a href="?page=blog_content&amp;list=Andorid" class="max-a">Andorid</a></li>
-              <li><a href="?page=blog_content&amp;list=Web" class="max-a">Web</a></li>
-              <li><a href="?page=blog_content&amp;list=other" class="max-a">Other</a></li>
-            </ul>
-          </li>
-        </ul>
+        <span :class="'header-menu-right ' + (menuState ? 'list-show' : 'list-hide') " @click="menuToggle">
+            <i></i>
+            <span class="header-menu-list">
+                <ul class="header-nav-conter" v-for="menu in menuList" :key="menu">
+                    <li>{{ menu.tag }}
+                        <span v-if="menu.sub" class="iconfont icon-fangxiangxia"></span>
+                        <ul v-if="menu.sub">
+                        <li v-for="sub in menu.sub" :key="sub"><a :href="sub[1]">{{ sub[0] }}</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </span>
+        </span>
 
         <router-link to="login" v-if="!this.$store.state.user">
             <span class="header-nav-right">登录</span>
         </router-link>
 
-        <span :class="'header-menu-right ' + (menuState ? 'list-show' : 'list-hide') " @click="menuToggle">
+        <!-- <span :class="'header-menu-right ' + (menuState ? 'list-show' : 'list-hide') " @click="menuToggle">
             <i></i>
             <ul class="header-menu-list">
                 <li>
@@ -59,7 +49,7 @@
                 <li>111111111</li>
                 <li>111111111</li>
             </ul>
-        </span>
+        </span> -->
 
       </div>
     </header>
@@ -73,7 +63,30 @@ export default {
 
   data () {
     return {
-      menuState: true
+      menuState: false,
+      menuList: [
+        {
+          tag: '最新'
+        },
+        {
+          tag: '编程',
+          sub: [
+            ['JavaScript','#'],
+            ['PHP','#'],
+            ['CSS','#'],
+            ['HTML','#']
+          ]
+        },
+        {
+          tag: '资源',
+          sub: [
+            ['Windows','#'],
+            ['Andorid','#'],
+            ['Web','#'],
+            ['other','#']
+          ]
+        }
+      ]
     }
   },
 
@@ -178,12 +191,17 @@ header {
         }
     }
 
+    
+}
+// 列表显示
+.list-show {
+
     .header-menu-list {
         position: absolute;
         overflow: hidden;
         left: 0;
         z-index: 9999;
-        max-height: 0;
+        max-height: 100vh;
         width: 100%;
         background-image: var(--body-img);
         transform: translateY(55px);
@@ -224,18 +242,11 @@ header {
                 border-top: 1px solid rgba(255, 255, 255, .1);
             }
         }
-        ul {
-            overflow: hidden;
-            max-height: 0;
-            transition: .5s;
-        }
-    }
-}
-// 列表显示
-.list-show {
-
-    .header-menu-list {
-        max-height: 100vh;
+        // & > ul {
+        //     overflow: hidden;
+        //     max-height: 0;
+        //     transition: .5s;
+        // }
     }
 
     i {
@@ -252,6 +263,9 @@ header {
 }
 // 列表隐藏
 .list-hide .header-menu-list {
+    
+    .header-menu-list {
+    }
     transition: .5s;
 }
 
