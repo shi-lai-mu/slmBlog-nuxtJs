@@ -39,8 +39,9 @@
             <span class="header-nav-right">登录</span>
         </router-link>
 
-        <span class="header-menu-right" @click="menuToggle">
-            <ul :class="'header-menu-list ' + (menuState ? 'list-show' : 'list-hide') ">
+        <span :class="'header-menu-right ' + (menuState ? 'list-show' : 'list-hide') " @click="menuToggle">
+            <i></i>
+            <ul class="header-menu-list">
                 <li>111111111</li>
                 <li>111111111</li>
                 <li>111111111</li>
@@ -81,8 +82,7 @@ export default {
   },
 
   methods: {
-    menuToggle: function() {
-      console.log(this.menuState)
+    menuToggle: function () {
       this.menuState = !this.menuState
     }
   }
@@ -139,10 +139,37 @@ header {
 // 移动端按钮
 .header-menu-right {
 
+    i {
+        .i();
+        transform: translateY(22px) translateX(27px);
+
+        &::after{
+            content: '';
+            .i();
+            transform: translateY(7px);
+        }
+
+        &::before{
+            content: '';
+            .i();
+            transform: translateY(-7px);
+        }
+
+        .i {
+            position: absolute;
+            border-radius: 4px;
+            width: 20px;
+            height: 3px;
+            background-color: #303944;
+            transition: 1s;
+        }
+    }
+
     .header-menu-list {
         position: absolute;
         overflow: hidden;
         left: 0;
+        z-index: 9999;
         max-height: 0;
         width: 100%;
         background-image: var(--body-img);
@@ -150,8 +177,29 @@ header {
         transition: 1s;
         box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
     }
-    .list-show {
-        max-height: 200vh;
+}
+.list-show {
+
+    .header-menu-list {
+        max-height: 100vh;
+    }
+
+    i {
+        transition: 1s .5s;
+        background-color: transparent;
+        &::after{
+            transform: rotate(45deg);
+        }
+
+        &::before{
+            transform: rotate(-45deg);
+        }
+    }
+}
+.list-hide {
+
+    .header-menu-list {
+        transition: .5s;
     }
 }
 
