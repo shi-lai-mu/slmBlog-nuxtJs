@@ -13,16 +13,15 @@
 
         <span :class="'header-menu-right ' + (menuState ? 'list-show' : 'list-hide') " @click="menuToggle">
             <i></i>
-            <span class="header-menu-list">
-                <ul class="header-nav-conter" v-for="menu in menuList" :key="menu">
-                    <li>{{ menu.tag }}
-                        <span v-if="menu.sub" class="iconfont icon-fangxiangxia"></span>
-                        <ul v-if="menu.sub">
+            <ul class="header-menu-list">
+                <li class="header-nav-conter" v-for="menu in menuList" :key="menu">
+                    {{ menu.tag }}
+                    <span v-if="menu.sub" class="iconfont icon-fangxiangxia"></span>
+                    <ul v-if="menu.sub">
                         <li v-for="sub in menu.sub" :key="sub"><a :href="sub[1]">{{ sub[0] }}</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </span>
+                    </ul>
+                </li>
+            </ul>
         </span>
 
         <router-link to="login" v-if="!this.$store.state.user">
