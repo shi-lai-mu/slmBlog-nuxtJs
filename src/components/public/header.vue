@@ -42,7 +42,16 @@
         <span :class="'header-menu-right ' + (menuState ? 'list-show' : 'list-hide') " @click="menuToggle">
             <i></i>
             <ul class="header-menu-list">
-                <li>111111111</li>
+                <li>
+                    <span>ssssssssssssssss</span>
+                    <ul>
+                        <li>123456798</li>
+                        <li>123456798</li>
+                        <li>123456798</li>
+                        <li>123456798</li>
+                        <li>123456798</li>
+                    </ul>
+                </li>
                 <li>111111111</li>
                 <li>111111111</li>
                 <li>111111111</li>
@@ -75,6 +84,7 @@ export default {
       let elTop = this.$el.clientHeight - child.clientHeight
 
       window.addEventListener('scroll', event => {
+        this.menuState && (this.menuState = false)
         let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
         scrollTop >= elTop ? cList.add('header-nav-fixed') : cList.remove('header-nav-fixed')
       })
@@ -82,8 +92,10 @@ export default {
   },
 
   methods: {
-    menuToggle: function () {
-      this.menuState = !this.menuState
+    menuToggle: function (e) {
+      if (e.target.classList.contains('header-menu-right')) {
+        this.menuState = !this.menuState
+      }
     }
   }
 }
@@ -142,6 +154,7 @@ header {
     i {
         .i();
         transform: translateY(22px) translateX(27px);
+        pointer-events: none;
 
         &::after{
             content: '';
@@ -173,11 +186,52 @@ header {
         max-height: 0;
         width: 100%;
         background-image: var(--body-img);
-        transform: translateY(60px);
+        transform: translateY(55px);
         transition: 1s;
         box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
+
+        & > li {
+            padding: 10px 20px;
+            border-bottom: 1px solid #2C323C;
+            border-top: 1px solid #1F252E;
+            background-color: #252c36;
+
+            &:hover {
+                background-color: #374150;
+                color: #d1d7e6;
+
+                // 子导航 展开
+                ul {
+                    max-height: 50vh;
+                    margin-top: 10px;
+                }
+            }
+            span {
+                display: block;
+            }
+            li {
+                padding: 5px 20px;
+                border-bottom: 1px solid rgba(255, 255, 255, .1);
+
+                &:hover {
+                    color: #d1d7e6;
+                }
+                &:not(:hover) {
+                    color: var(--color-mater-font);
+                }
+            }
+            li:nth-of-type(1) {
+                border-top: 1px solid rgba(255, 255, 255, .1);
+            }
+        }
+        ul {
+            overflow: hidden;
+            max-height: 0;
+            transition: .5s;
+        }
     }
 }
+// 列表显示
 .list-show {
 
     .header-menu-list {
@@ -196,11 +250,9 @@ header {
         }
     }
 }
-.list-hide {
-
-    .header-menu-list {
-        transition: .5s;
-    }
+// 列表隐藏
+.list-hide .header-menu-list {
+    transition: .5s;
 }
 
 // 顶部导航栏
