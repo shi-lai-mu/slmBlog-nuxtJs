@@ -11,7 +11,7 @@
                 </div>
                 <div>
                     <label>密码</label>
-                    <input type="password" name="log_pass" class="input-1v" v-model="login.pass">
+                    <input type="password" name="log_pass" class="input-1v" v-model="login.pass_rsa">
                 </div>
                 <span class="button-v1" @click="loginEvent">登陆</span>
             </form>
@@ -40,7 +40,7 @@ export default {
     return {
       login: {
         user: null,
-        pass: null
+        pass_rsa: null
       }
     }
   },
@@ -56,6 +56,7 @@ export default {
     loginEvent () {
       this.$http.get(`user/login`, this.login)
         .then(res => {
+          console.log(res)
           window.localStorage.setItem('userInfo', JSON.stringify(res))
           this.$store.state.user = res
         })
