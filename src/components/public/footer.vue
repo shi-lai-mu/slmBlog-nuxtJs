@@ -142,9 +142,9 @@ footer {
                 height: 54px;
                 background-image: url('~@img/social-icons.png');
 
-                &:hover {
-                    background-position-y: 100%;
-                }
+            }
+            &:hover span {
+                background-position-y: 100%;
             }
         }
         li:nth-of-type(2) span {
