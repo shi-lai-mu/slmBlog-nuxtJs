@@ -23,13 +23,15 @@ export default {
         .then(res => {
           if (res.data) {
             resolve(res.data)
+          } else if (res.status === 200) {
+            reject(res)
           } else {
             console.error(`${res.status}: ${res.statusText}`)
           }
         })
         .catch(err => {
           console.error(err)
-          reject(err)
+          // reject(err)
         })
     })
   }
