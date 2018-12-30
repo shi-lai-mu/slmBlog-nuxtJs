@@ -15,7 +15,8 @@
                 </div>
                 <span class="button-v1" @click="loginEvent">登陆</span>
                 <span class="account-right">
-                    
+                    <i class="iconfont icon-ziyuan"></i>
+                    <span>QQ登录</span>
                 </span>
             </form>
         </div>
@@ -85,29 +86,89 @@ export default {
 </script>
 
 <style lang="less">
+
 .account {
     display: block;
     width: 80%;
     max-width: 600px;
     min-width: 200px;
     margin: 0 auto 100px;
+    border: 10px solid rgba(255,255,255,.2);
+    border-radius: 0 0 20px 20px;
     padding: 15px;
     color: var(--font-out);
     text-shadow: var(--font-out-shadow);
-    border-radius: 0 0 20px 20px;
-    border: 10px solid rgba(255,255,255,.2);
     border-top: 0;
     background-image: var(--body-img);
     background-clip: border-box;
     box-sizing: border-box;
-}
-.account img {
-  width: 100%;
-  padding: 10px;
-  background-image: var(--img-bg);
-  border: 1px solid rgba(255, 255, 255, .3);
-  border-radius: 20px;
-  box-sizing: border-box;
+
+    .account-right {
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+        text-align: right;
+        user-select: none;
+
+        span {
+            font-weight: bold;
+            font-size: .9em;
+            cursor: pointer;
+        }
+    }
+
+    img {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid rgba(255, 255, 255, .3);
+        border-radius: 20px;
+        background-image: var(--img-bg);
+        box-sizing: border-box;
+    }
+
+    label {
+        display: inline-block;
+        width: 50px;
+        margin-right: 20px;
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--text-black);
+        text-shadow: 1px 1px 0 var(--text-black-shadow);
+    }
+
+    input {
+        width: 50vw;
+        max-width: 250px;
+        min-width: 200px;
+        margin-top: 10px;
+    }
+    
+    canvas {
+        width: 90px;
+        height: 35px;
+        margin-left: 10px;
+        vertical-align: middle;
+        background: white;
+        border-radius: 5px;
+    }
+
+    .input-min {
+        width: 150px;
+    }
+    
+    .button-v1 {
+        width: 40vw;
+        max-width: 280px;
+        margin-top: 25px;
+    }
+
+    & > form {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 15px auto;
+    }
 }
 .rest-round {
     transform-origin: center -270px;
@@ -118,44 +179,5 @@ export default {
     z-index: 0;
     background-image: var(--body-img);
     transform: rotateZ(-90deg) translateX(534px) translateY(-27px);
-}
-.account label {
-    display: inline-block;
-    width: 50px;
-    margin-right: 20px;
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--text-black);
-    text-shadow: 1px 1px 0 var(--text-black-shadow);
-}
-.account input {
-    width: 50vw;
-    max-width: 250px;
-    min-width: 200px;
-    margin-top: 10px;
-}
-.account > form {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 15px auto;
-}
-.account .button-v1 {
-    width: 40vw;
-    max-width: 280px;
-    margin-top: 25px;
-}
-.account .input-min {
-    width: 150px;
-}
-.account canvas {
-    width: 90px;
-    height: 35px;
-    margin-left: 10px;
-    vertical-align: middle;
-    background: white;
-    border-radius: 5px;
-    /* user-select: none; */
 }
 </style>
