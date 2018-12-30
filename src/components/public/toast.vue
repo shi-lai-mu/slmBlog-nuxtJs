@@ -78,7 +78,6 @@ Message.prototype = {
       // 如果Toast不是false则有消失时间
       after['hide'] && (vue.show = setTimeout(Message.prototype.hide, after['hide']))
       show = this
-      console.log(after)
       // 触发驱动
       vue.msg = {
         _text: after['text'],

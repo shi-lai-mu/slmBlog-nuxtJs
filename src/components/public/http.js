@@ -32,8 +32,10 @@ export default {
         .then(res => {
           console.log(res, res.status, !res.data.error)
           if (!res.data.error) {
+            console.log('http ok')
             resolve(res)
           } else if (res.status === 200) {
+            console.log('http error')
             !res.data.error && (res.data.error = 'http get error!')
             reject(res)
           } else {

@@ -15,8 +15,10 @@
                 </div>
                 <span class="button-v1" @click="loginEvent">登陆</span>
                 <span class="account-right">
-                    <i class="iconfont icon-ziyuan"></i>
-                    <span>QQ登录</span>
+                    <a @click="qqLogin" :href="'https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&state=' + uid" target="_black">
+                        <i class="iconfont icon-ziyuan"></i>
+                        <span>QQ登录</span>
+                    </a>
                 </span>
             </form>
         </div>
@@ -44,7 +46,8 @@ export default {
       login: {
         user: null,
         pass_rsa: null
-      }
+      },
+      uid: null
     }
   },
   created () {
@@ -54,6 +57,7 @@ export default {
         description: '欢迎回来 ~~~ '
       }
     })
+    this.uid = Date.now()
   },
   methods: {
 
@@ -70,8 +74,8 @@ export default {
       if (self.login.user && self.login.pass_rsa) {
         self.$http.get(`user/login`, self.login)
           .then(res => {
-            window.localStorage.setItem('userInfo', JSON.stringify(res))
-            self.$store.state.user = res
+            window.localStorage.setItem('userInfo', JSON.stringify(res.data))
+            self.$store.state.user = res.data
             self.$connecter.$emit('page', { toast })
           })
           .catch(err => {
@@ -79,6 +83,46 @@ export default {
             toast.text = err.data.error
             self.$connecter.$emit('page', { toast })
           })
+      }
+    },
+
+    /**
+     * 点击QQ登录后，进行窗口检测
+     */
+    qqLogin () {
+      let toast = {
+        text: `QQ登录授权失败!`,
+        icon: 'error',
+        hideTime: 4000
+      }
+      let self = this
+      window.addEventListener('blur', blur)
+      function blur () {
+        // 当用户关闭授权窗口后 或者 取消授权 回到本窗口时
+        window.addEventListener('focus', focus)
+        function focus () {
+          window.removeEventListener('blur', blur)
+          window.removeEventListener('focus', focus)
+
+          // 检测授权uid是否存在服务器中
+          self.$http.get('qqLogin/exists', { uid: self.uid })
+            .then(res => {
+              // 授权uid存在
+              if (res.data.value) {
+                // window.localStorage.setItem('userInfo', JSON.stringify(res.data))
+                self.$store.state.user = JSON.parse(JSON.parse(res.data.value))
+                toast.icon = 'success'
+                toast.text = `授权成功, 欢迎回来 [${self.$store.state.user.nickname}]!`
+                self.$connecter.$emit('page', { toast })
+              } else {
+                toast.text = `授权失败, 回调值错误!`
+                self.$connecter.$emit('page', { toast })
+              }
+            })
+            .catch(() => {
+              self.$connecter.$emit('page', { toast })
+            })
+        }
       }
     }
   }
@@ -142,7 +186,7 @@ export default {
         min-width: 200px;
         margin-top: 10px;
     }
-    
+
     canvas {
         width: 90px;
         height: 35px;
@@ -155,7 +199,7 @@ export default {
     .input-min {
         width: 150px;
     }
-    
+
     .button-v1 {
         width: 40vw;
         max-width: 280px;
