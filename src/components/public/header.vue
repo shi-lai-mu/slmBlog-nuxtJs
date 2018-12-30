@@ -28,28 +28,6 @@
             <span class="header-nav-right">登录</span>
         </router-link>
 
-        <!-- <span :class="'header-menu-right ' + (menuState ? 'list-show' : 'list-hide') " @click="menuToggle">
-            <i></i>
-            <ul class="header-menu-list">
-                <li>
-                    <span>ssssssssssssssss</span>
-                    <ul>
-                        <li>123456798</li>
-                        <li>123456798</li>
-                        <li>123456798</li>
-                        <li>123456798</li>
-                        <li>123456798</li>
-                    </ul>
-                </li>
-                <li>111111111</li>
-                <li>111111111</li>
-                <li>111111111</li>
-                <li>111111111</li>
-                <li>111111111</li>
-                <li>111111111</li>
-            </ul>
-        </span> -->
-
       </div>
     </header>
 
@@ -95,7 +73,7 @@ export default {
       let cList = child.classList
       let elTop = this.$el.clientHeight - child.clientHeight
 
-      window.addEventListener('scroll', event => {
+      window.addEventListener('scroll', () => {
         this.menuState && (this.menuState = false)
         let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
         scrollTop >= elTop ? cList.add('header-nav-fixed') : cList.remove('header-nav-fixed')

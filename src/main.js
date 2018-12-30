@@ -6,9 +6,6 @@ import App from './App'
 import VueMeta from 'vue-meta'
 import router from './router'
 import http from '@pub/http'
-import header from '@pub/header'
-import footer from '@pub/footer'
-import title from '@pub/title'
 import connecter from '@pub/connecter'
 
 Vue.prototype.$http = http
@@ -16,9 +13,6 @@ Vue.prototype.$connecter = connecter
 Vue.use(VueX, VueMeta)
 
 Vue.config.productionTip = false
-Vue.component('vueHeader', header)
-Vue.component('vueFooter', footer)
-Vue.component('vueTitle', title)
 
 const store = new VueX.Store({
   state: {

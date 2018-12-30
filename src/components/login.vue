@@ -58,7 +58,7 @@ export default {
         .then(res => {
           console.log(res)
           window.localStorage.setItem('userInfo', JSON.stringify(res))
-          this.$store.state.user = res
+        //   this.$store.state.user = res
         })
     }
   }

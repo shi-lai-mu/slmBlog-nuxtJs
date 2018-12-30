@@ -1,15 +1,26 @@
 <template>
   <div class="conter">
-    <vueHeader :head="head"></vueHeader>
-    <vueTitle :title="title"></vueTitle>
+    <vue-header :head="head"></vue-header>
+    <vue-title :title="title"></vue-title>
     <router-view/>
-    <vueFooter></vueFooter>
+    <vue-footer></vue-footer>
+    <vue-toast></vue-toast>
   </div>
 </template>
 
 <script>
 
+import vueHeader from '@pub/header'
+import vueFooter from '@pub/footer'
+import vueTitle from '@pub/title'
+import vueToast from '@pub/toast'
+
 export default {
+  components: {
+    vueHeader,
+    vueFooter,
+    vueTitle
+  },
   data () {
     return {
       title: false,

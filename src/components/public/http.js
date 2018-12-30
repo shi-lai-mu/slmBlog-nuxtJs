@@ -29,8 +29,8 @@ export default {
       $http
         .get(url + (data ? '?' + axiosQs.stringify(data) : ''))
         .then(res => {
-          if (res.data) {
-            resolve(res.data)
+          if (!res.error) {
+            resolve(res)
           } else if (res.status === 200) {
             reject(res)
           } else {
