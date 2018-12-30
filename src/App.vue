@@ -4,7 +4,7 @@
     <vue-title :title="title"></vue-title>
     <router-view/>
     <vue-footer></vue-footer>
-    <vue-toast></vue-toast>
+    <vue-toast :toast="toast"></vue-toast>
   </div>
 </template>
 
@@ -19,12 +19,14 @@ export default {
   components: {
     vueHeader,
     vueFooter,
-    vueTitle
+    vueTitle,
+    vueToast
   },
   data () {
     return {
       title: false,
-      head: false
+      head: false,
+      toast: {}
     }
   },
   created () {
