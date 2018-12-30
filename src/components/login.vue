@@ -14,6 +14,9 @@
                     <input type="password" name="log_pass" class="input-1v" v-model="login.pass_rsa">
                 </div>
                 <span class="button-v1" @click="loginEvent">登陆</span>
+                <span class="account-right">
+                    
+                </span>
             </form>
         </div>
 
@@ -52,24 +55,30 @@ export default {
     })
   },
   methods: {
+
+    /**
+     * 登录按钮点击事件
+     */
     loginEvent () {
+      let self = this
       let toast = {
-        text: `登录成功,欢迎回来 [${this.login.user}]!`,
+        text: `登录成功,欢迎回来 [${self.login.user}]!`,
         icon: 'success',
         hideTime: 4000
       }
-      this.$http.get(`user/login`, this.login)
-        .then(res => {
-          console.log(res)
-          window.localStorage.setItem('userInfo', JSON.stringify(res))
-          this.$store.state.user = res
-          this.$connecter.$emit('page', { toast })
-        })
-        .catch(err => {
-          toast.icon = 'error'
-          toast.text = err.data.error
-          this.$connecter.$emit('page', { toast })
-        })
+      if (self.login.user && self.login.pass_rsa) {
+        self.$http.get(`user/login`, self.login)
+          .then(res => {
+            window.localStorage.setItem('userInfo', JSON.stringify(res))
+            self.$store.state.user = res
+            self.$connecter.$emit('page', { toast })
+          })
+          .catch(err => {
+            toast.icon = 'error'
+            toast.text = err.data.error
+            self.$connecter.$emit('page', { toast })
+          })
+      }
     }
   }
 }

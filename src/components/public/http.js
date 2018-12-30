@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'development') {
 export default {
   get (url, data) {
     return new Promise((resolve, reject) => {
-      let detail = [];
+      let detail = []
       for (let key in data) {
         if (key.indexOf('_rsa') > -1) {
           detail.push(rsa.encrypt(data[key]))
@@ -34,14 +34,13 @@ export default {
           if (!res.data.error) {
             resolve(res)
           } else if (res.status === 200) {
+            !res.data.error && (res.data.error = 'http get error!')
             reject(res)
           } else {
-            console.log(123456)
             console.error(`${res.status}: ${res.statusText}`)
           }
         })
         .catch(err => {
-          console.log(12345111116)
           console.error(err)
           // reject(err)
         })

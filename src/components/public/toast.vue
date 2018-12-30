@@ -14,7 +14,6 @@
 <script>
 let Task = []
 let show = null
-let hide = null
 let fn = []
 let vue = null
 let icon = {
@@ -39,7 +38,6 @@ export default {
   },
   watch: {
     toast (v, c) {
-      console.log(v, c)
       let Toast = new Message(this.toast)
       // 如果 没有正在显示的Toast则 显示 否则 如果是无限期显示的Toast则隐藏后显示
       !show ? Toast.send() : !show.data.hide && show.hide()
