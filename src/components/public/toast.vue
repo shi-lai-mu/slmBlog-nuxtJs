@@ -1,6 +1,6 @@
 <template>
-  <div :class="['toast',{'show': show}]">
-    <div :class="{'select' : msg.select}">
+  <div :class="['toast', {show}]">
+    <div :class="['clearfix', {'select' : msg.select, [msg['_type']]: msg['_type'] }]">
       <i v-if="msg._icon" :class="'iconfont icon-' + msg._icon"></i>
       <p>{{msg._text}}</p>
     </div>
@@ -80,7 +80,7 @@ Message.prototype = {
       // 如果Toast不是false则有消失时间
       after['hide'] && (vue.show = setTimeout(Message.prototype.hide, after['hide']))
       show = this
-      console.log(after['icon'])
+      console.log(after)
       // 触发驱动
       vue.msg = {
         _text: after['text'],
@@ -112,17 +112,47 @@ Message.check = function () {
 
 <style lang="less">
 .toast {
+  overflow: hidden;
   position: fixed;
   bottom: 5vh;
   right: 0;
   min-width: 15vw;
+  max-width: 50vw;
   line-height: 5vh;
-  padding: 0 10px;
   border-radius: 5px 0 0 5px;
+  word-wrap: break-word;
   background-color: #fff;
   box-shadow: 5px 10px 5px -5px rgba(0, 0, 0, .3);
   transition: 1s;
   transform: translateX(100%);
+
+  i, p {
+    float: left;
+  }
+  i {
+    margin: 0 10px;
+  }
+
+  .error {
+    background-color: #ffa7a1;
+    color: red;
+  }
+  .success {
+    background-color: #a7ffab;
+    color: #00b12c;
+  }
+  .warning {
+    background-color: #ffcb9a;
+    color: #cc7400;
+  }
+  .zhiwen, .saoma {
+    background-color: #aafff4;
+    color: #0087b1;
+  }
+  .loading {
+    background-color: #aeadff;
+    color: #0003a8;
+  }
 }
 
 .select {
@@ -137,31 +167,6 @@ Message.check = function () {
 }
 .show {
   transform: translateX(0);
-}
-
-.toast.error {
-  background-color: #ffa7a1;
-  color: red;
-}
-
-.toast.success {
-  background-color: #a7ffab;
-  color: #00b12c;
-}
-
-.toast.warning {
-  background-color: #ffcb9a;
-  color: #cc7400;
-}
-
-.toast.zhiwen, .saoma {
-  background-color: #aafff4;
-  color: #0087b1;
-}
-
-.toast.loading {
-  background-color: #aeadff;
-  color: #0003a8;
 }
 
 .toast icon {

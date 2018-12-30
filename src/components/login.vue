@@ -34,7 +34,6 @@
 </template>
 
 <script>
-let i = 0
 export default {
   data () {
     return {
@@ -54,18 +53,23 @@ export default {
   },
   methods: {
     loginEvent () {
-    //   this.$http.get(`user/login`, this.login)
-    //     .then(res => {
-    //       console.log(res)
-    //       window.localStorage.setItem('userInfo', JSON.stringify(res))
-    //     //   this.$store.state.user = res
-    //     })
-      i++
-      this.$connecter.$emit('page', {
-        toast: {
-          text: '登录' + i
-        }
-      })
+      let toast = {
+        text: `登录成功,欢迎回来 [${this.login.user}]!`,
+        icon: 'success',
+        hideTime: 4000
+      }
+      this.$http.get(`user/login`, this.login)
+        .then(res => {
+          console.log(res)
+          window.localStorage.setItem('userInfo', JSON.stringify(res))
+          this.$store.state.user = res
+          this.$connecter.$emit('page', { toast })
+        })
+        .catch(err => {
+          toast.icon = 'error'
+          toast.text = err.data.error
+          this.$connecter.$emit('page', { toast })
+        })
     }
   }
 }
