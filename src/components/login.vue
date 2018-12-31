@@ -2,7 +2,7 @@
 
     <div class="content-row single clearfix">
 
-        <div class="account">
+        <div :class="['account', {'login': page == 'login'}]">
             <img src="@img/account-bg3.jpg" alt="图1" class="border-line">
             <form action="">
                 <label>账号</label>
@@ -16,24 +16,34 @@
                     <i class="iconfont icon-ziyuan"></i>
                     <span>QQ登录</span>
                 </a>
-                <a @click="qqLogin" :href="qqLoginUrl" target="_black">
+                <a>
                     <i class="iconfont icon-zhuce"></i>
-                    <span>注册账号</span>
+                    <span @click="togglepage" data-page="register">注册账号</span>
                 </a>
             </span>
         </div>
 
-    <div class="account">
-        <img src="@img/account-bg3.jpg" alt="图1" class="border-line">
-        <form>
-            <label>账号</label><input type="text" name="reg_user" class="input-1v" placeholder="用户名不能超过9位" data-name='账号'>
-            <label>密码</label><input type="password" name="reg_pass" class="input-1v" placeholder="密码不能过短" data-name='密码'>
-            <label>邮箱</label><input type="email" name="reg_email" class="input-1v" placeholder="最好输入QQ邮箱" data-name='邮箱'>
-            <label>验证</label><input type="text" name="reg_code" class="input-1v input-min" placeholder="确认你非机器人" data-name='验证'><canvas></canvas>
-            <label>代码</label><input type="text" name="reg_codes" class="input-1v" placeholder="填完邮箱点我即发送验证码" data-name='代码'>
-            <span class="button-v1" name="register">注册</span>
-        </form>
-    </div>
+        <div :class="['account', {'register': page == 'register'}]">
+            <img src="@img/account-bg3.jpg" alt="图1" class="border-line">
+            <form>
+                <label>账号</label><input type="text" name="reg_user" class="input-1v" placeholder="用户名不能超过9位" data-name='账号'>
+                <label>密码</label><input type="password" name="reg_pass" class="input-1v" placeholder="密码不能过短" data-name='密码'>
+                <label>邮箱</label><input type="email" name="reg_email" class="input-1v" placeholder="最好输入QQ邮箱" data-name='邮箱'>
+                <label>验证</label><input type="text" name="reg_code" class="input-1v input-min" placeholder="确认你非机器人" data-name='验证'><canvas></canvas>
+                <label>代码</label><input type="text" name="reg_codes" class="input-1v" placeholder="填完邮箱点我即发送验证码" data-name='代码'>
+                <span class="button-v1" name="register">注册</span>
+            </form>
+            <span class="account-right">
+                <a @click="qqLogin" :href="qqLoginUrl" target="_black">
+                    <i class="iconfont icon-ziyuan"></i>
+                    <span>QQ登录</span>
+                </a>
+                <a>
+                    <i class="iconfont icon-zhuce"></i>
+                    <span @click="togglepage" data-page="login">登录账号</span>
+                </a>
+            </span>
+        </div>
 
     </div>
 
@@ -47,8 +57,9 @@ export default {
         user: null,
         pass_rsa: null
       },
-      uid: null,
-      qqLoginUrl: 'not url'
+      uid: Date.now(),
+      qqLoginUrl: 'not url',
+      page: 'login'
     }
   },
   created () {
@@ -58,10 +69,8 @@ export default {
         description: '欢迎回来 ~~~ '
       }
     })
-    this.uid = Date.now()
-    this.qqLoginUrl = this.$store.state.mobile ?
-      'https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=716027609&pt_3rd_aid=101540984&daid=383&pt_skey_valid=0&style=35&s_url=http%3A%2F%2Fconnect.qq.com&refer_cgi=authorize&which=&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&response_type=code&state=' + this.uid :
-      'https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&state=' + this.uid
+    this.qqLoginUrl = 'https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&state=' + this.uid
+    this.$store.state.mobile && (this.qqLoginUrl = 'https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=716027609&pt_3rd_aid=101540984&daid=383&pt_skey_valid=0&style=35&s_url=http%3A%2F%2Fconnect.qq.com&refer_cgi=authorize&which=&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&response_type=code&state=' + this.uid)
   },
   methods: {
 
@@ -128,28 +137,42 @@ export default {
             })
         }
       }
+    },
+
+    /**
+     * 切换为注册
+     */
+    togglepage (e) {
+      let data = e.target.dataset
+      if (data.page) {
+          this['page'] = data.page
+      }
     }
+
   }
 }
 </script>
 
 <style lang="less">
+.content-row {
+}
 
 .account {
     display: block;
     width: 80%;
     max-width: 600px;
     min-width: 200px;
-    margin: 0 auto 100px;
-    border: 10px solid rgba(255,255,255,.2);
+    max-height: 0;
     border-radius: 0 0 20px 20px;
-    padding: 15px;
+    opacity: 0;
+    margin: 0 auto;
     color: var(--font-out);
     text-shadow: var(--font-out-shadow);
-    border-top: 0;
     background-image: var(--body-img);
     background-clip: border-box;
     box-sizing: border-box;
+    transition: 1s;
+    transform: translateY(-100%);
 
     .account-right {
         display: block;
@@ -225,14 +248,13 @@ export default {
         margin: 15px auto;
     }
 }
-.rest-round {
-    transform-origin: center -270px;
-    transition: 2s;
+.login, .register {
+    max-height: 100vh;
+    margin: 0 auto 100px;
+    padding: 15px;
+    border: 10px solid rgba(255,255,255,.2);
+    border-top: 0;
+    opacity: 1;
+    transform: none;
 }
-// .account:nth-child(2) {
-//     position: absolute;
-//     z-index: 0;
-//     background-image: var(--body-img);
-//     transform: rotateZ(-90deg) translateX(534px) translateY(-27px);
-// }
 </style>
