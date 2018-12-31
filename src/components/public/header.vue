@@ -14,17 +14,17 @@
         <span :class="'header-menu-right ' + (menuState ? 'list-show' : 'list-hide') " @click="menuToggle">
             <i></i>
             <ul class="header-menu-list">
-                <li class="header-nav-conter" v-if="this.$store.state.mobile">
+                <li class="header-nav-conter" v-if="this.$store.state.mobile" @click="minMenu">
                     <span>账号</span>
                     <span class="iconfont icon-fangxiangxia"></span>
                     <ul>
-                        <li>登录</li>
+                        <li><router-link to="login" class="max-a">登录</router-link></li>
+                        <li><router-link to="login?register">注册</router-link></li>
                         <li>管理</li>
-                        <li>注册</li>
                         <li>安全退出</li>
                     </ul>
                 </li>
-                <li class="header-nav-conter" v-for="(menu, i) of menuList" :key="i">
+                <li @click="minMenu" class="header-nav-conter" v-for="(menu, i) of menuList" :key="i">
                     <span>{{ menu.tag }}</span>
                     <span v-if="menu.sub" class="iconfont icon-fangxiangxia"></span>
                     <ul v-if="menu.sub">
@@ -92,9 +92,15 @@ export default {
   },
 
   methods: {
-    menuToggle: function (e) {
+    menuToggle (e) {
       if (e.target.classList.contains('header-menu-right')) {
         this.menuState = !this.menuState
+      }
+    },
+    minMenu (e) {
+      let last = e.target.lastChild.tagName
+      if (!last || last.toLowerCase() !== 'ul') {
+        this.menuState = false
       }
     }
   }
@@ -219,8 +225,11 @@ header {
                     transform: rotate(180deg)
                 }
             }
-            span {
+            span:nth-child(2) {
                 display: block;
+            }
+            span {
+                pointer-events: none;
             }
             li {
                 padding: 5px 20px;
@@ -289,8 +298,6 @@ header {
         span:nth-child(2) {
             transform: rotate(180deg);
         }
-            // overflow: visible;
-
     }
 
     span {
@@ -328,7 +335,6 @@ header {
             border-bottom: 1px solid #2C323C;
             border-top: 1px solid #1F252E;
             background-color: #252c36;
-            // box-shadow: 0 5px 10px rgba(0, 0, 0, .5);
 
             &:hover {
                 background-color: #333c4a;

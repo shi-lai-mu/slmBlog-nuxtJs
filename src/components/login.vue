@@ -26,12 +26,12 @@
         <div :class="['account', {'register': page == 'register'}]">
             <img src="@img/account-bg3.jpg" alt="图1" class="border-line">
             <form>
-                <label>账号</label><input type="text" name="reg_user" class="input-1v" placeholder="用户名不能超过9位" data-name='账号'>
-                <label>密码</label><input type="password" name="reg_pass" class="input-1v" placeholder="密码不能过短" data-name='密码'>
-                <label>邮箱</label><input type="email" name="reg_email" class="input-1v" placeholder="最好输入QQ邮箱" data-name='邮箱'>
-                <label>验证</label><input type="text" name="reg_code" class="input-1v input-min" placeholder="确认你非机器人" data-name='验证'><canvas></canvas>
-                <label>代码</label><input type="text" name="reg_codes" class="input-1v" placeholder="填完邮箱点我即发送验证码" data-name='代码'>
-                <span class="button-v1" name="register">注册</span>
+                <label>账号</label><input type="text" v-model="register.user" class="input-1v" placeholder="用户名不能超过9位" data-name='账号'>
+                <label>密码</label><input type="password" v-model="register.pass_rsa" class="input-1v" placeholder="密码不能过短" data-name='密码'>
+                <!-- <label>邮箱</label><input type="email" v-model="register.email" class="input-1v" placeholder="最好输入QQ邮箱" data-name='邮箱'> -->
+                <!-- <label>验证</label><input type="text" v-model="register.code" class="input-1v input-min" placeholder="确认你非机器人" data-name='验证'><canvas></canvas> -->
+                <!-- <label>代码</label><input type="text" class="input-1v" placeholder="填完邮箱点我即发送验证码" data-name='代码'> -->
+                <span class="button-v1" @click="registerEvent">注册</span>
             </form>
             <span class="account-right">
                 <a @click="qqLogin" :href="qqLoginUrl" target="_black">
@@ -57,6 +57,12 @@ export default {
         user: null,
         pass_rsa: null
       },
+      register: {
+        user: null,
+        pass_rsa: null,
+        email: null,
+        code: null
+      },
       uid: Date.now(),
       qqLoginUrl: 'not url',
       page: 'login'
@@ -69,6 +75,8 @@ export default {
         description: '欢迎回来 ~~~ '
       }
     })
+    console.log(this.$route)
+    this.page = this.$route.query.register === null ? 'register' : 'login'
     this.qqLoginUrl = 'https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&state=' + this.uid
     this.$store.state.mobile && (this.qqLoginUrl = 'https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=716027609&pt_3rd_aid=101540984&daid=383&pt_skey_valid=0&style=35&s_url=http%3A%2F%2Fconnect.qq.com&refer_cgi=authorize&which=&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&response_type=code&state=' + this.uid)
   },
@@ -90,12 +98,25 @@ export default {
             window.localStorage.setItem('userInfo', JSON.stringify(res.data))
             self.$store.state.user = res.data
             self.$connecter.$emit('page', { toast })
+            self.$router.push({path: '/'})
           })
           .catch(err => {
             toast.icon = 'error'
             toast.text = err.data.error
             self.$connecter.$emit('page', { toast })
           })
+      }
+    },
+
+    /**
+     * 注册按钮点击事件
+     */
+    registerEvent () {
+      let self = this
+      let toast = {
+        text: `注册成功, [${self.login.user}] 欢迎加入!`,
+        icon: 'success',
+        hideTime: 4000
       }
     },
 
@@ -144,9 +165,7 @@ export default {
      */
     togglepage (e) {
       let data = e.target.dataset
-      if (data.page) {
-          this['page'] = data.page
-      }
+      data.page && (this['page'] = data.page)
     }
 
   }
@@ -172,7 +191,7 @@ export default {
     background-clip: border-box;
     box-sizing: border-box;
     transition: 1s;
-    transform: translateY(-100%);
+    transform: translateY(-30%);
 
     .account-right {
         display: block;

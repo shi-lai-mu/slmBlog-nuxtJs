@@ -46,7 +46,6 @@ export default {
     function resize (e) {
       document.body.className = window.innerWidth > 640 ? 'max' : 'centre'
       self.$store.state.mobile = window.innerWidth < 640
-      console.log(self.$store.state.mobile)
     }
     resize()
   }

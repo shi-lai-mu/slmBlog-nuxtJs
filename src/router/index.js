@@ -23,6 +23,10 @@ export default new Router({
       component: resolve => require(['@com/login'], resolve)
     },
     {
+      path: '/register',
+      component: resolve => require(['@com/login'], resolve)
+    },
+    {
       path: '*',
       component: resolve => require(['@com/error'], resolve)
     }
