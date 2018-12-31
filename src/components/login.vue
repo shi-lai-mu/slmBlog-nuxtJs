@@ -5,26 +5,26 @@
         <div class="account">
             <img src="@img/account-bg3.jpg" alt="图1" class="border-line">
             <form action="">
-                <div>
-                    <label>账号</label>
-                    <input type="text" name="log_user" class="input-1v" v-model="login.user">
-                </div>
-                <div>
-                    <label>密码</label>
-                    <input type="password" name="log_pass" class="input-1v" v-model="login.pass_rsa">
-                </div>
+                <label>账号</label>
+                <input type="text" name="log_user" class="input-1v" v-model="login.user">
+                <label>密码</label>
+                <input type="password" name="log_pass" class="input-1v" v-model="login.pass_rsa">
                 <span class="button-v1" @click="loginEvent">登陆</span>
-                <span class="account-right">
-                    <a @click="qqLogin" :href="qqLoginUrl" target="_black">
-                        <i class="iconfont icon-ziyuan"></i>
-                        <span>QQ登录</span>
-                    </a>
-                </span>
             </form>
+            <span class="account-right">
+                <a @click="qqLogin" :href="qqLoginUrl" target="_black">
+                    <i class="iconfont icon-ziyuan"></i>
+                    <span>QQ登录</span>
+                </a>
+                <a @click="qqLogin" :href="qqLoginUrl" target="_black">
+                    <i class="iconfont icon-zhuce"></i>
+                    <span>注册账号</span>
+                </a>
+            </span>
         </div>
 
-    <!-- <div class="account">
-        <img src="images/account-bg.jpg" alt="图1" class="border-line">
+    <div class="account">
+        <img src="@img/account-bg3.jpg" alt="图1" class="border-line">
         <form>
             <label>账号</label><input type="text" name="reg_user" class="input-1v" placeholder="用户名不能超过9位" data-name='账号'>
             <label>密码</label><input type="password" name="reg_pass" class="input-1v" placeholder="密码不能过短" data-name='密码'>
@@ -33,7 +33,7 @@
             <label>代码</label><input type="text" name="reg_codes" class="input-1v" placeholder="填完邮箱点我即发送验证码" data-name='代码'>
             <span class="button-v1" name="register">注册</span>
         </form>
-    </div> -->
+    </div>
 
     </div>
 
@@ -157,11 +157,15 @@ export default {
         margin-top: 10px;
         text-align: right;
         user-select: none;
+        font-weight: bold;
 
         span {
-            font-weight: bold;
             font-size: .9em;
             cursor: pointer;
+        }
+
+        a {
+            margin: 0 10px;
         }
     }
 
@@ -180,6 +184,7 @@ export default {
         margin-right: 20px;
         font-size: 20px;
         font-weight: 600;
+        line-height: 40px;
         color: var(--text-black);
         text-shadow: 1px 1px 0 var(--text-black-shadow);
     }
@@ -187,8 +192,8 @@ export default {
     input {
         width: 50vw;
         max-width: 250px;
-        min-width: 200px;
-        margin-top: 10px;
+        min-width: 100px;
+        margin: 5px 0;
     }
 
     canvas {
@@ -201,7 +206,8 @@ export default {
     }
 
     .input-min {
-        width: 150px;
+        width: 151px;
+        max-width: 151px;
     }
 
     .button-v1 {
@@ -215,6 +221,7 @@ export default {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
+        width: 345px;
         margin: 15px auto;
     }
 }
@@ -222,10 +229,10 @@ export default {
     transform-origin: center -270px;
     transition: 2s;
 }
-.account:nth-child(2) {
-    position: absolute;
-    z-index: 0;
-    background-image: var(--body-img);
-    transform: rotateZ(-90deg) translateX(534px) translateY(-27px);
-}
+// .account:nth-child(2) {
+//     position: absolute;
+//     z-index: 0;
+//     background-image: var(--body-img);
+//     transform: rotateZ(-90deg) translateX(534px) translateY(-27px);
+// }
 </style>
