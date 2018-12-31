@@ -286,7 +286,7 @@ header {
             max-height: 300px;
             padding-bottom: 5px;
         }
-        span {
+        span:nth-child(2) {
             transform: rotate(180deg);
         }
             // overflow: visible;
