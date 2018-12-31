@@ -14,8 +14,18 @@
         <span :class="'header-menu-right ' + (menuState ? 'list-show' : 'list-hide') " @click="menuToggle">
             <i></i>
             <ul class="header-menu-list">
+                <li class="header-nav-conter" v-if="this.$store.state.mobile">
+                    <span>账号</span>
+                    <span class="iconfont icon-fangxiangxia"></span>
+                    <ul>
+                        <li>登录</li>
+                        <li>管理</li>
+                        <li>注册</li>
+                        <li>安全退出</li>
+                    </ul>
+                </li>
                 <li class="header-nav-conter" v-for="(menu, i) of menuList" :key="i">
-                    {{ menu.tag }}
+                    <span>{{ menu.tag }}</span>
                     <span v-if="menu.sub" class="iconfont icon-fangxiangxia"></span>
                     <ul v-if="menu.sub">
                         <li v-for="(sub, n) in menu.sub" :key="n"><a :href="sub[1]">{{ sub[0] }}</a></li>

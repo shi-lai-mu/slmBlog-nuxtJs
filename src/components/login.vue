@@ -15,7 +15,7 @@
                 </div>
                 <span class="button-v1" @click="loginEvent">登陆</span>
                 <span class="account-right">
-                    <a @click="qqLogin" :href="'https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&state=' + uid" target="_black">
+                    <a @click="qqLogin" :href="qqLoginUrl" target="_black">
                         <i class="iconfont icon-ziyuan"></i>
                         <span>QQ登录</span>
                     </a>
@@ -47,7 +47,8 @@ export default {
         user: null,
         pass_rsa: null
       },
-      uid: null
+      uid: null,
+      qqLoginUrl: 'not url'
     }
   },
   created () {
@@ -58,6 +59,9 @@ export default {
       }
     })
     this.uid = Date.now()
+    this.qqLoginUrl = this.$store.state.mobile ?
+      'https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=716027609&pt_3rd_aid=101540984&daid=383&pt_skey_valid=0&style=35&s_url=http%3A%2F%2Fconnect.qq.com&refer_cgi=authorize&which=&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&response_type=code&state=' + this.uid :
+      'https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&state=' + this.uid
   },
   methods: {
 

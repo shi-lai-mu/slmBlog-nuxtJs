@@ -16,7 +16,9 @@ Vue.config.productionTip = false
 
 const store = new VueX.Store({
   state: {
-    user: false
+    user: false,
+    // 是否为移动端[小屏幕]
+    mobile: false
   }
 })
 
