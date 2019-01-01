@@ -7,10 +7,17 @@ import VueMeta from 'vue-meta'
 import router from './router'
 import http from '@pub/http'
 import connecter from '@pub/connecter'
+import VueLazyload from 'vue-lazyload'
 
 Vue.prototype.$http = http
 Vue.prototype.$connecter = connecter
 Vue.use(VueX, VueMeta)
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: '/static/error.png',
+  loading: '/static/loading.gif',
+  attempt: 1
+})
 
 Vue.config.productionTip = false
 

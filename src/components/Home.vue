@@ -5,7 +5,7 @@
             <div class="shuffling-flex">
                 <span class="shuffling-left"></span>
                 <ul class="shuffling-ling">
-                    <li><img src="~@img/nvs/lun4.png" alt="NAV-2"></li>
+                    <li><img v-lazy="'/static/lun4.png'" alt="NAV-2"></li>
                 </ul>
                 <span class="shuffling-right"></span>
             </div>
@@ -33,7 +33,7 @@
                         </ul>
                     </div>
                     <div class="content">
-                        <img :src="hot.img" alt="images">
+                        <img v-lazy="hot.img" alt="images">
                     </div>
                     <span>
                         <!-- 150字 预览文章 -->

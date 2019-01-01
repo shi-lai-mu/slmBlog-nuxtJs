@@ -21,6 +21,12 @@
     color: #14181E;
     text-shadow: 1px 1px 0 #535d6e;
 }
+img[lazy=loading] {
+    margin: 0 auto !important;
+    max-width: 200px !important;
+    height: 100% !important;
+    background-image: linear-gradient(180deg, #EDEDED, #dddddd) !important;
+}
 
 /* 公共 */
 html {
@@ -164,12 +170,13 @@ h1.logo {
             align-items: center;
             position: absolute;
             height: 100%;
+            width: 100%;
+            background-image: url('~@img/line-pattern-light-bg.png');
 
             img {
                 width: ~"calc(100% - 14px)";
                 padding: 7px;
                 margin: 7px;
-                background-image: url('~@img/line-pattern-light-bg.png');
                 border: 1px solid #777;
                 box-sizing: border-box;
             }
