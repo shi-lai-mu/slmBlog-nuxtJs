@@ -111,15 +111,18 @@ export default {
         }
     }
 
-    .content img {
-        /* height: max-content;
-        min-width: 100%; */
-        height: 100%;
-        margin: 0 auto;
-        transition: 2s;
-
-        &:hover {
-            transform: scale(1.2);
+    .content {
+        display: flex;
+        justify-content: center;
+        img {
+            /* height: max-content;
+            min-width: 100%; */
+            height: 100%;
+            margin: 0 auto;
+            transition: 2s;
+            &:hover {
+                transform: scale(1.2);
+            }
         }
     }
 
@@ -226,6 +229,7 @@ export default {
     }
     .info li {
         display: inline-block;
+        min-width: 2rem;
         margin: 0 10px;
         font-size: .8em;
         color: #aaa;

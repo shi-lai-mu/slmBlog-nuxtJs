@@ -202,6 +202,11 @@ h1.logo {
         }
     }
 }
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 /* 内容 */
 .content-box,
 .content-fixed-box {
@@ -297,7 +302,7 @@ div:focus {
     .tag-description,
     .shuffling .shuffling-flex .shuffling-left,
     .shuffling .shuffling-flex .shuffling-right,
-    .object .content,
+    div.object .content,
     .guide {
         display: none;
     }
