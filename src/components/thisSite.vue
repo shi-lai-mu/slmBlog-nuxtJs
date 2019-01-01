@@ -1,7 +1,7 @@
 <template>
     <div class="content-row single clearfix">
         <div class="content-box">
-            <img src="//mczyzy.cn/logo.png" alt="logo" class="logo">
+            <img src="//120.78.221.235/logo.png" alt="logo" class="logo">
             <h2>史莱姆的个人博客</h2>
             <ul class="web-master">
                 <li>
@@ -33,11 +33,11 @@
             <h2>站点框架</h2>
             <ul class="web-technology">
                 <li class="clearfix">
-                    <img src="//cn.vuejs.org/images/logo.png" alt="vue logo">
+                    <img src="//120.78.221.235/img/vue-logo.png" alt="vue logo">
                     <span>VUE 全家桶</span>
                 </li>
                 <li class="clearfix">
-                    <img src="//www.thinkphp.cn/Public/new/img/header_logo.png" alt="thinkphp logo">
+                    <img src="//120.78.221.235/img/tp-logo.png" alt="thinkphp logo">
                     <span>ThinkPHP 5.1</span>
                 </li>
             </ul>
