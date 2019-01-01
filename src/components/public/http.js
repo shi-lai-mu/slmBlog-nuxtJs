@@ -30,10 +30,10 @@ export default {
       $http
         .get(url + (data ? '?' + axiosQs.stringify(detail) : ''))
         .then(res => {
-          if (!res.data.error) {
+          if (res.data && !res.data.error) {
             resolve(res)
           } else if (res.status === 200) {
-            !res.data.error && (res.data.error = 'http get error!')
+            !res.data && (res.error = 'http get error!')
             reject(res)
           } else {
             console.error(`${res.status}: ${res.statusText}`)

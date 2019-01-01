@@ -26,8 +26,8 @@
         <div :class="['account', {'register': page == 'register'}]">
             <img src="@img/account-bg3.jpg" alt="图1" class="border-line">
             <form>
-                <label>账号</label><input type="text" v-model="register.user" class="input-1v" placeholder="用户名不能超过9位" data-name='账号'>
-                <label>密码</label><input type="password" v-model="register.pass_rsa" class="input-1v" placeholder="密码不能过短" data-name='密码'>
+                <label>账号</label><input type="text" v-model="register.user" placeholder="用户名不能超过9位">
+                <label>密码</label><input type="password" v-model="register.pass_rsa" placeholder="密码不能过短">
                 <!-- <label>邮箱</label><input type="email" v-model="register.email" class="input-1v" placeholder="最好输入QQ邮箱" data-name='邮箱'> -->
                 <!-- <label>验证</label><input type="text" v-model="register.code" class="input-1v input-min" placeholder="确认你非机器人" data-name='验证'><canvas></canvas> -->
                 <!-- <label>代码</label><input type="text" class="input-1v" placeholder="填完邮箱点我即发送验证码" data-name='代码'> -->
@@ -59,9 +59,7 @@ export default {
       },
       register: {
         user: null,
-        pass_rsa: null,
-        email: null,
-        code: null
+        pass_rsa: null
       },
       uid: Date.now(),
       qqLoginUrl: 'not url',
@@ -69,13 +67,13 @@ export default {
     }
   },
   created () {
+    this.$store.state.user && history.back(-1)
     this.$connecter.$emit('page', {
       title: {
         tag: '登录',
         description: '欢迎回来 ~~~ '
       }
     })
-    console.log(this.$route)
     this.page = this.$route.query.register === null ? 'register' : 'login'
     this.qqLoginUrl = 'https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&state=' + this.uid
     this.$store.state.mobile && (this.qqLoginUrl = 'https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=716027609&pt_3rd_aid=101540984&daid=383&pt_skey_valid=0&style=35&s_url=http%3A%2F%2Fconnect.qq.com&refer_cgi=authorize&which=&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&response_type=code&state=' + this.uid)
@@ -117,6 +115,20 @@ export default {
         text: `注册成功, [${self.login.user}] 欢迎加入!`,
         icon: 'success',
         hideTime: 4000
+      }
+      if (self.register.user && self.register.pass_rsa) {
+        self.$http.get(`user/register`, self.register)
+          .then(res => {
+            window.localStorage.setItem('userInfo', JSON.stringify(res.data))
+            self.$store.state.user = res.data
+            self.$connecter.$emit('page', { toast })
+            self.$router.push({path: '/'})
+          })
+          .catch(err => {
+            toast.icon = 'error'
+            toast.text = err.data.error
+            self.$connecter.$emit('page', { toast })
+          })
       }
     },
 
@@ -192,6 +204,7 @@ export default {
     box-sizing: border-box;
     transition: 1s;
     transform: translateY(-30%);
+    pointer-events: none;
 
     .account-right {
         display: block;
@@ -275,5 +288,6 @@ export default {
     border-top: 0;
     opacity: 1;
     transform: none;
+    pointer-events: initial;
 }
 </style>

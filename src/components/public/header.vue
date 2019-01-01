@@ -14,16 +14,7 @@
         <span :class="'header-menu-right ' + (menuState ? 'list-show' : 'list-hide') " @click="menuToggle">
             <i></i>
             <ul class="header-menu-list">
-                <li class="header-nav-conter" v-if="this.$store.state.mobile" @click="minMenu">
-                    <span>账号</span>
-                    <span class="iconfont icon-fangxiangxia"></span>
-                    <ul>
-                        <li><router-link to="login" class="max-a">登录</router-link></li>
-                        <li><router-link to="login?register">注册</router-link></li>
-                        <li>管理</li>
-                        <li>安全退出</li>
-                    </ul>
-                </li>
+
                 <li @click="minMenu" class="header-nav-conter" v-for="(menu, i) of menuList" :key="i">
                     <span>{{ menu.tag }}</span>
                     <span v-if="menu.sub" class="iconfont icon-fangxiangxia"></span>
@@ -31,6 +22,22 @@
                         <li v-for="(sub, n) in menu.sub" :key="n"><a :href="sub[1]">{{ sub[0] }}</a></li>
                     </ul>
                 </li>
+
+                <li class="header-nav-conter" v-if="this.$store.state.mobile" @click="minMenu">
+                    <span>账号</span>
+                    <span class="iconfont icon-fangxiangxia"></span>
+                    <ul>
+                        <li v-if="!this.$store.state.user">
+                            <router-link to="login" class="max-a">登录</router-link>
+                        </li>
+                        <li v-if="!this.$store.state.user">
+                            <router-link to="login?register" class="max-a">注册</router-link>
+                        </li>
+                        <li v-if="this.$store.state.user">管理</li>
+                        <li v-if="this.$store.state.user">安全退出</li>
+                    </ul>
+                </li>
+
             </ul>
         </span>
 
