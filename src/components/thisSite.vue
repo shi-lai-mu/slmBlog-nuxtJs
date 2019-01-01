@@ -1,7 +1,7 @@
 <template>
     <div class="content-row single clearfix">
         <div class="content-box">
-            <img src="//120.78.221.235/logo.png" alt="logo" class="logo">
+            <img src="//120.78.221.235/logo.png" alt="slm-logo" class="logo">
             <h2>史莱姆的个人博客</h2>
             <ul class="web-master">
                 <li>
