@@ -14,8 +14,8 @@ Vue.prototype.$connecter = connecter
 Vue.use(VueX, VueMeta)
 Vue.use(VueLazyload, {
   preLoad: 1.3,
-  error: '/static/error.png',
-  loading: '/static/loading.gif',
+  error: '//120.78.221.235/error.png',
+  loading: '//120.78.221.235/loading.gif',
   attempt: 1
 })
 

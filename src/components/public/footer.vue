@@ -107,7 +107,7 @@ footer {
         height: 75px;
         margin: 45px 0 2px;
         padding-top: 15px;
-        background: url('~@img/join-us-on-the-web-bg.png') no-repeat center;
+        background: url('//120.78.221.235/img/join-us-on-the-web-bg.png') no-repeat center;
         font-size: 40px;
         font-weight: bold;
         color: #202630;
@@ -140,7 +140,7 @@ footer {
                 display: inline-block;
                 width: 56px;
                 height: 54px;
-                background-image: url('~@img/social-icons.png');
+                background-image: url('http://120.78.221.235/img/social-icons.png');
 
             }
             &:hover span {

@@ -5,7 +5,7 @@
             <div class="shuffling-flex">
                 <span class="shuffling-left"></span>
                 <ul class="shuffling-ling">
-                    <li><img v-lazy="'/static/lun4.png'" alt="NAV-2"></li>
+                    <li><img v-lazy="'http://120.78.221.235/lun4.png'" alt="NAV-2"></li>
                 </ul>
                 <span class="shuffling-right"></span>
             </div>
@@ -100,7 +100,7 @@ export default {
     }
 
     &:hover {
-        background-image: url('~@img/home-slider-bg.png');
+        background-image: url('//120.78.221.235/img/home-slider-bg.png');
         background-position-y: -10px;
         background-position-x: center;
         background-size: auto;

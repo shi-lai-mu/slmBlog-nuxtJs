@@ -46,7 +46,7 @@ export default {
 
     ul li {
       padding: .5em 20px;
-      text-indent: 2em;
+      // text-indent: 2em;
     }
 
     ol {

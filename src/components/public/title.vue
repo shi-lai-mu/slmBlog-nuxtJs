@@ -26,7 +26,7 @@ export default {
         height: 87px;
         width: 100%;
         min-width: var(--min-width);
-        background: url('~@img/intro-bg.png') no-repeat center;
+        background: url('//120.78.221.235/img/intro-bg.png') no-repeat center;
     }
 
     .tag {
@@ -50,7 +50,7 @@ export default {
 
 .master-top-bg {
     min-height: 175px;
-    background-image: url('~@img/hd-bg.png');
+    background-image: url('//120.78.221.235/img/hd-bg.png');
     background-position: center;
 }
 </style>

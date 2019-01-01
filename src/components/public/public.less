@@ -2,6 +2,7 @@
 @max-width: 1300px;
 @min-width: 250px;
 
+@ip: '//120.78.221.235/img';
 // 颜色
 @color-red: #e64340;
 @color-font: #353535;
@@ -45,7 +46,7 @@ html {
     --font-out: #14181E;
     --font-out-shadow: 1px 1px .5px #535d6e;
 
-    --img-bg: url('~@img/line-pattern-light-bg.png');
+    --img-bg: url('@{ip}/line-pattern-light-bg.png');
 }
 body {
     color: @color-font;
@@ -93,7 +94,7 @@ form{
         margin: 0 auto;
         border-radius: 20px;
         padding: 3px 10px;
-        background: url('~@img/blue-buttons-2.png') no-repeat left -43px;
+        background: url('@{ip}/blue-buttons-2.png') no-repeat left -43px;
         text-align: center;
         text-shadow: -1px 1px 0 #333;
         color: var(--color-mater-font);
@@ -112,7 +113,7 @@ form{
 h1.logo {
     margin: 0;
     height: 100px;
-    background: url('~@img/logo.png') no-repeat center;
+    background: url('@{ip}/logo.png') no-repeat center;
     background-size: 300px 80px;
 }
 
@@ -127,7 +128,7 @@ h1.logo {
     width: 100%;
     height: 40vw;
     max-height: 359px;
-    background: url('~@img/slider-bg-blue.jpg') no-repeat center top;
+    background: url('@{ip}/slider-bg-blue.jpg') no-repeat center top;
     background-size: auto 100%;
     box-shadow: 0 10px 5px -3.5px rgba(0,0,0,.5);
 
@@ -145,7 +146,7 @@ h1.logo {
             height: 36px;
             min-width: 33px;
             margin: 0 10px;
-            background-image: url('~@img/fade-slider-arrows.png');
+            background-image: url('@{ip}/fade-slider-arrows.png');
             cursor: pointer;
 
             &:hover {
@@ -171,7 +172,7 @@ h1.logo {
             position: absolute;
             height: 100%;
             width: 100%;
-            background-image: url('~@img/line-pattern-light-bg.png');
+            background-image: url('@{ip}/line-pattern-light-bg.png');
 
             img {
                 width: ~"calc(100% - 14px)";
@@ -192,7 +193,7 @@ h1.logo {
             width: 25px;
             height: 25px;
             margin: 0 2.5px;
-            background-image: url('~@img/fade-bullets.png');
+            background-image: url('@{ip}/fade-bullets.png');
             cursor: pointer;
 
             &:hover {
@@ -223,7 +224,7 @@ h1.logo {
     min-width: @min-width;
     min-height: 250px;
     margin-bottom: 40px;
-    background-image: url('~@img/content-bg.jpg');
+    background-image: url('@{ip}/content-bg.jpg');
     background-clip: content-box;
     border-radius: 0 0 15px 15px;
     border: 10px solid rgba(255,255,255,.1);
@@ -235,7 +236,7 @@ h1.logo {
     width: ~'calc(20% - 20px)';
     min-width: 200px;
     margin: 0 10px;
-    background-image: url('~@img/pattern-bg.jpg');
+    background-image: url('@{ip}/pattern-bg.jpg');
     border: 0;
     box-shadow: 0 5px 5px rgba(0, 0, 0, .2);
 }
@@ -326,7 +327,7 @@ div:focus {
         margin: 15px 0 0 10px;
         height: 48px;
         width: 90px;
-        background: url('~@img/submit-button.png') no-repeat;
+        background: url('@{ip}/submit-button.png') no-repeat;
         background-size: 124px 144px;
     }
 

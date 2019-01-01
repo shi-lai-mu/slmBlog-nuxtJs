@@ -3,7 +3,7 @@
     <div class="content-row single clearfix">
 
         <div :class="['account', {'login': page == 'login'}]">
-            <img src="@img/account-bg3.jpg" alt="图1" class="border-line">
+            <img src="http://120.78.221.235/img/account-bg3.jpg" alt="图1" class="border-line">
             <form action="">
                 <label>账号</label>
                 <input type="text" name="log_user" class="input-1v" v-model="login.user">
@@ -24,7 +24,7 @@
         </div>
 
         <div :class="['account', {'register': page == 'register'}]">
-            <img src="@img/account-bg3.jpg" alt="图1" class="border-line">
+            <img src="http://120.78.221.235/img/account-bg3.jpg" alt="图1" class="border-line">
             <form>
                 <label>账号</label><input type="text" v-model="register.user" placeholder="用户名不能超过9位">
                 <label>密码</label><input type="password" v-model="register.pass_rsa" placeholder="密码不能过短">
