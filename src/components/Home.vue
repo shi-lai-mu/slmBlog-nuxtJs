@@ -18,25 +18,26 @@
         </div>
 
         <div class="content-row clearfix">
+            <div class="content-fixed-box">
+            </div>
             <div class="content-box">
 
                 <div class="object clearfloat clearfix" v-for="(hot, index) in hotList" :key="index">
-                    <a class="max-2a" href="#"></a>
+                    <a class="max-2" href="#"></a>
                     <div class="top clearfloat">
                         <h3 class="ellipsis">{{ hot.title }}</h3>
                         <ul>
-
                             <li v-for="(tag, i) in hot.tag" :key="i" :title="'查找' + tag + '标签'">
                                 <a href="#">{{ tag }}</a>
                             </li>
-                            
                         </ul>
                     </div>
                     <div class="content">
-                        <img :src="hot.img" alt="images">                </div>
+                        <img :src="hot.img" alt="images">
+                    </div>
                     <span>
                         <!-- 150字 预览文章 -->
-                        <p>??????????2015/04???????ES6?????????????ES6???&nbsp; &nbsp; &nbsp; &nbsp; ????�??�?????????????�javascript????????�?????�javascript????????????�??????...</p>
+                        <p>{{ hot.content }}</p>
                     </span>
                     <ul class="info">
                         <li>浏览: 29</li>
@@ -46,6 +47,8 @@
                     </ul>
                 </div>
 
+            </div>
+            <div class="content-fixed-box">
             </div>
         </div>
 
@@ -74,6 +77,7 @@ export default {
         res.data = res.data.map(index => {
           index.tag = index.tag.split('#')
           index.tag.shift()
+          index.content = index.content.replace(/(<[^>]+>|&\w+;)/img, '').substring(0, 125)
           return index
         })
         this.hotList = res.data
@@ -236,5 +240,9 @@ export default {
     padding: 10px;
     box-sizing: border-box;
     font-size: .9em;
+
+    p {
+        color: #888;
+    }
 }
 </style>
