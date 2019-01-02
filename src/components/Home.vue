@@ -26,7 +26,7 @@
                     <a class="max-2" href="#"></a>
                     <div class="top clearfloat">
                         <h3 class="ellipsis">{{ hot.title }}</h3>
-                        <ul>
+                        <ul class="font-shadow-black">
                             <li v-for="(tag, i) in hot.tag" :key="i" :title="'查找' + tag + '标签'">
                                 <a href="#">{{ tag }}</a>
                             </li>
@@ -40,10 +40,9 @@
                         <p>{{ hot.content }}</p>
                     </span>
                     <ul class="article-parameter">
-                        <li>浏览: 29</li>
-                        <li>热度:
-                            0℃                    </li>
-                        <li>发表: 2018-09-04 02:31:13</li>
+                        <li>浏览: {{ hot.lookCount }}</li>
+                        <li>评论: {{ hot.msgMe }}</li>
+                        <li>发表: {{ unTime(hot.createTime) }}</li>
                     </ul>
                 </div>
 
@@ -57,6 +56,8 @@
 </template>
 
 <script>
+
+import Time from '@com/public/dateForm'
 
 export default {
   data () {
@@ -82,6 +83,9 @@ export default {
         })
         this.hotList = res.data
       })
+  },
+  methods: {
+    unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000)
   }
 }
 </script>
@@ -214,10 +218,6 @@ export default {
         margin:  0 5px;
         background: url('~@img/tags-bg.png') no-repeat;
         background-position-x: -1px;
-        font-weight: 600;
-        color: var(--text-black);
-        text-shadow: 1px 1px 0 var(--text-black-shadow);
-        box-shadow: 8px 0 6px -6px rgba(0,0,0,.6);
         border-radius: 0 10px 5px 0;
         border: none;
         outline: none;
