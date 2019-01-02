@@ -25,21 +25,6 @@
                     </ul>
                 </li>
 
-                <!-- <li class="header-nav-conter" @click="minMenu">
-                    <span>账号</span>
-                    <span class="iconfont icon-fangxiangxia"></span>
-                    <ul>
-                        <li v-if="!this.$store.state.user">
-                            <router-link to="login" class="max-a">登录</router-link>
-                        </li>
-                        <li v-if="!this.$store.state.user">
-                            <router-link to="login?register" class="max-a">注册</router-link>
-                        </li>
-                        <li v-if="this.$store.state.user">管理</li>
-                        <li v-if="this.$store.state.user">安全退出</li>
-                    </ul>
-                </li> -->
-
             </ul>
         </span>
 

@@ -45,18 +45,6 @@
             <h2>技术细节</h2>
             <ul class="web-details">
                 <li>
-                    <span>VUE(v2.9.6):</span>
-                    <p>vue-cli, vuex, vue-router, axios, lazyload, vueMeta</p>
-                </li>
-                <li>
-                    <span>服务器环境:</span>
-                    <p>Ningx[v1.14.3](VUE), Aphache[v2.4.6](PHP)</p>
-                </li>
-                <li>
-                    <span>技术名词:</span>
-                    <p>前后端分离、单页应用、响应式、分布式服务器</p>
-                </li>
-                <li>
                     <span>CSS:</span>
                     <p>less</p>
                 </li>
@@ -65,10 +53,22 @@
                     <p>MySql</p>
                 </li>
                 <li>
-                    <span>服务器系统:</span>
+                    <span>VUE(v2.9.6):</span>
+                    <p>vue-cli, vuex, vue-router, axios, lazyload, vueMeta</p>
+                </li>
+                <li>
+                    <span>本站技术名词:</span>
+                    <p>前后端分离、单页应用、响应式、分布式服务器、H5网站</p>
+                </li>
+                <li>
+                    <span>服务器:</span>
                     <p>ContOS 7.2 [共两台服务器]</p>
-                    <p>主服务器: 逻辑业务运算,动静态</p>
-                    <p>子服务器: 图片等资源,文件IO,数据统计</p>
+                    <p class="sub"><em>- 主服务器:</em>逻辑业务运算,动静态</p>
+                    <p class="sub"><em>- 子服务器:</em>图片等资源,文件IO,数据统计</p>
+                </li>
+                <li>
+                    <span>服务器环境:</span>
+                    <p>Ningx[v1.14.3](VUE), Aphache[v2.4.6](PHP)</p>
                 </li>
             </ul>
 
@@ -96,7 +96,7 @@
             <ul class="web-details">
                 <li>
                     <span>技术支持:</span>
-                    <p>乌拉老师、海文老师</p>
+                    <p>乌拉老师、海文老师、张磊老师</p>
                 </li>
             </ul>
 
@@ -146,7 +146,7 @@ export default {
     color: #09007a;
     .logo {
         display: block;
-        width: 10vw;
+        width: 13vw;
         min-width: 100px;
         margin: 20px auto;
     }
@@ -179,6 +179,20 @@ export default {
             text-indent: 2rem;
             color: #666;
             white-space: nowrap;
+        }
+        .sub {
+            display: block;
+            text-indent: 3rem;
+            color: #888;
+
+            &:nth-last-child(1) {
+                margin-bottom: 20px;
+            }
+        }
+        em {
+            margin-right: 8px;
+            text-indent: 2rem;
+            color: #0b00a8;
         }
     }
 
