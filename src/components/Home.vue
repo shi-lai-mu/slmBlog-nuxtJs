@@ -43,7 +43,7 @@
                             <li>评论: {{ hot.msgMe }}</li>
                             <li>发表: {{ unTime(hot.createTime) }}</li>
                         </ul>
-                    </div>  
+                    </div>
                 </router-link>
             </div>
             <div class="content-fixed-box">
