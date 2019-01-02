@@ -46,7 +46,7 @@
             <ul class="web-details">
                 <li>
                     <span>VUE(v2.9.6):</span>
-                    <p>vue-cli, vuex, vue-router, axios</p>
+                    <p>vue-cli, vuex, vue-router, axios, lazyload, vueMeta</p>
                 </li>
                 <li>
                     <span>服务器环境:</span>
@@ -54,7 +54,7 @@
                 </li>
                 <li>
                     <span>技术名词:</span>
-                    <p>前后端分离、单页应用、响应式</p>
+                    <p>前后端分离、单页应用、响应式、分布式服务器</p>
                 </li>
                 <li>
                     <span>CSS:</span>
@@ -66,7 +66,9 @@
                 </li>
                 <li>
                     <span>服务器系统:</span>
-                    <p>ContOS 7.2</p>
+                    <p>ContOS 7.2 [共两台服务器]</p>
+                    <p>主服务器: 逻辑业务运算,动静态</p>
+                    <p>子服务器: 图片等资源,文件IO,数据统计</p>
                 </li>
             </ul>
 
@@ -101,6 +103,10 @@
             <h2>网站声明</h2>
 
             <ul class="web-details">
+                <li>
+                    <span>目标:</span>
+                    <p>我期望终有一日乃至2021年能入B站或与之匹敌的公司，从事自己所热爱的 前端/后端工作(偏前)。</p>
+                </li>
                 <li>
                     <span>内容:</span>
                     <p>本博客所有内容来源于网络、书籍和各类手册及自己原创。</p>

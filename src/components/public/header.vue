@@ -19,11 +19,13 @@
                     <span>{{ menu.tag }}</span>
                     <span v-if="menu.sub" class="iconfont icon-fangxiangxia"></span>
                     <ul v-if="menu.sub">
-                        <li v-for="(sub, n) in menu.sub" :key="n"><a :href="sub[1]">{{ sub[0] }}</a></li>
+                        <li v-for="(sub, n) in menu.sub" :key="n" v-if="!sub[2] || (sub[2] == 'login' && user) || (user && sub[2] == 'admin' && user.groupid === 9999)">
+                            <router-link :to="sub[1]" class="max-a">{{ sub[0] }}</router-link>
+                        </li>
                     </ul>
                 </li>
 
-                <li class="header-nav-conter" v-if="this.$store.state.mobile" @click="minMenu">
+                <!-- <li class="header-nav-conter" @click="minMenu">
                     <span>账号</span>
                     <span class="iconfont icon-fangxiangxia"></span>
                     <ul>
@@ -36,12 +38,12 @@
                         <li v-if="this.$store.state.user">管理</li>
                         <li v-if="this.$store.state.user">安全退出</li>
                     </ul>
-                </li>
+                </li> -->
 
             </ul>
         </span>
 
-        <router-link to="login" v-if="!this.$store.state.user">
+        <router-link to="login" v-if="!user">
             <span class="header-nav-right">登录</span>
         </router-link>
 
@@ -57,10 +59,18 @@ export default {
 
   data () {
     return {
+      user: this.$store.state.user,
       menuState: false,
       menuList: [
         {
-          tag: '最新'
+          tag: '文章',
+          sub: [
+            ['置顶', '#'],
+            ['最新', '#'],
+            ['最热', '#'],
+            ['精品', '#'],
+            ['讨论', '#']
+          ]
         },
         {
           tag: '编程',
@@ -79,6 +89,15 @@ export default {
             ['Web', '#'],
             ['other', '#']
           ]
+        },
+        {
+          tag: '账号',
+          sub: [
+            ['登录', 'login'],
+            ['注册', 'login?register'],
+            ['管理账号', '#', 'login'],
+            ['安全退出', '#', 'login']
+          ]
         }
       ]
     }
@@ -89,7 +108,7 @@ export default {
       let child = this.$el.lastChild
       let cList = child.classList
       let elTop = this.$el.clientHeight - child.clientHeight
-
+      console.log(this.user)
       window.addEventListener('scroll', () => {
         this.menuState && (this.menuState = false)
         let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
