@@ -36,7 +36,6 @@
                         <img v-lazy="hot.img" alt="images">
                     </div>
                     <span>
-                        <!-- 150字 预览文章 -->
                         <p>{{ hot.content }}</p>
                     </span>
                     <ul class="article-parameter">
@@ -78,7 +77,7 @@ export default {
         res.data = res.data.map(index => {
           index.tag = index.tag.split('#')
           index.tag.shift()
-          index.content = index.content.replace(/(<[^>]+>|&\w+;)/img, '').substring(0, 125)
+          index.content = index.content.replace(/(<[^>]+>|&\w+;)/img, '').substring(0, 125) + ' ...'
           return index
         })
         this.hotList = res.data
