@@ -1,6 +1,6 @@
 <template>
     <div class="content-row single clearfix">
-        <div class="content-box">
+        <div class="content-box thisSite">
             <img src="//120.78.221.235/logo.png" alt="slm-logo" class="logo">
             <h2>史莱姆的个人博客</h2>
             <ul class="web-master">
@@ -142,7 +142,7 @@ export default {
 </script>
 
 <style lang="less">
-.single {
+.single .thisSite {
     color: #09007a;
     .logo {
         display: block;

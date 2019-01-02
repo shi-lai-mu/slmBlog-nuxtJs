@@ -21,30 +21,30 @@
             <div class="content-fixed-box">
             </div>
             <div class="content-box">
-
-                <div class="article clearfloat clearfix" v-for="(hot, index) in hotList" :key="index">
-                    <a class="max-2" href="#"></a>
-                    <div class="top clearfloat">
-                        <h3 class="ellipsis">{{ hot.title }}</h3>
-                        <ul class="font-shadow-black">
-                            <li v-for="(tag, i) in hot.tag" :key="i" :title="'查找' + tag + '标签'">
-                                <a href="#">{{ tag }}</a>
-                            </li>
+                <router-link v-for="(hot, index) in hotList" :key="index" :to="'/article/' + hot.Id">
+                    <div class="article clearfloat clearfix">
+                        <a class="max-2" href="#"></a>
+                        <div class="top clearfloat">
+                            <h3 class="ellipsis">{{ hot.title }}</h3>
+                            <ul class="font-shadow-black">
+                                <li v-for="(tag, i) in hot.tag" :key="i" :title="'查找' + tag + '标签'">
+                                    <a href="#">{{ tag }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="content">
+                            <img v-lazy="hot.img" alt="images">
+                        </div>
+                        <span>
+                            <p>{{ hot.content }}</p>
+                        </span>
+                        <ul class="article-parameter">
+                            <li>浏览: {{ hot.lookCount }}</li>
+                            <li>评论: {{ hot.msgMe }}</li>
+                            <li>发表: {{ unTime(hot.createTime) }}</li>
                         </ul>
-                    </div>
-                    <div class="content">
-                        <img v-lazy="hot.img" alt="images">
-                    </div>
-                    <span>
-                        <p>{{ hot.content }}</p>
-                    </span>
-                    <ul class="article-parameter">
-                        <li>浏览: {{ hot.lookCount }}</li>
-                        <li>评论: {{ hot.msgMe }}</li>
-                        <li>发表: {{ unTime(hot.createTime) }}</li>
-                    </ul>
-                </div>
-
+                    </div>  
+                </router-link>
             </div>
             <div class="content-fixed-box">
             </div>
