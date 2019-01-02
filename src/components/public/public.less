@@ -1,6 +1,6 @@
 // 大小
 @max-width: 1300px;
-@min-width: 250px;
+@min-width: 300px;
 
 @ip: '//120.78.221.235/img';
 // 颜色
@@ -127,6 +127,7 @@ h1.logo {
     position: relative;
     width: 100%;
     height: 40vw;
+    min-height: 133px;
     max-height: 359px;
     background: url('@{ip}/slider-bg-blue.jpg') no-repeat center top;
     background-size: auto 100%;
@@ -231,6 +232,9 @@ h1.logo {
     border-top: none;
     box-sizing: border-box;
     box-shadow: 0 5px 5px rgba(0, 0, 0, .2);
+    .article-parameter li {
+        padding: 0;
+    }
 }
 .content-fixed-box {
     width: ~'calc(20% - 20px)';
@@ -274,7 +278,7 @@ div:focus {
     }
     .shuffling .shuffling-ling {
         height: ~'calc(90vw / 3.05)';
-        min-height: auto;
+        min-height: 98px;
     }
     footer .footer-nav-list .footer-nav-child:nth-child(4) {
         display: none;
@@ -310,12 +314,18 @@ div:focus {
     .tag-description,
     .shuffling .shuffling-flex .shuffling-left,
     .shuffling .shuffling-flex .shuffling-right,
-    div.object .content,
+    div.article .content,
     .guide {
         display: none;
     }
-    div.object > span {
-        width: 100%;
+    div.article >  {
+        span, h3 {
+            width: 100%;
+            margin: 15px 0;
+        }
+        .top {
+            overflow: initial;
+        }
     }
 
     .shuffling-select li {

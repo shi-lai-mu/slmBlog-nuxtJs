@@ -22,7 +22,7 @@
             </div>
             <div class="content-box">
 
-                <div class="object clearfloat clearfix" v-for="(hot, index) in hotList" :key="index">
+                <div class="article clearfloat clearfix" v-for="(hot, index) in hotList" :key="index">
                     <a class="max-2" href="#"></a>
                     <div class="top clearfloat">
                         <h3 class="ellipsis">{{ hot.title }}</h3>
@@ -39,7 +39,7 @@
                         <!-- 150字 预览文章 -->
                         <p>{{ hot.content }}</p>
                     </span>
-                    <ul class="info">
+                    <ul class="article-parameter">
                         <li>浏览: 29</li>
                         <li>热度:
                             0℃                    </li>
@@ -87,7 +87,7 @@ export default {
 </script>
 
 <style lang="less">
-.object {
+.article {
     position: relative;
     padding: 10px;
     text-align: left;
@@ -105,7 +105,7 @@ export default {
         background-position-x: center;
         background-size: auto;
 
-        .info {
+        .article-parameter {
             background-color: white;
             color: #aaa;
         }
@@ -136,7 +136,7 @@ export default {
         font-size: .9em;
     }
 
-    .info {
+    .article-parameter {
         float: right;
         display: flex;
         min-width: 40%;
@@ -151,6 +151,13 @@ export default {
 
         span {
             color: var(--button-font-shadow-color);
+        }
+        li {
+            display: inline-block;
+            min-width: 2rem;
+            margin: 0 10px;
+            font-size: .8em;
+            color: #aaa;
         }
     }
 
@@ -227,16 +234,9 @@ export default {
         font-weight: bold;
         color: var(--text-black-shadow)
     }
-    .info li {
-        display: inline-block;
-        min-width: 2rem;
-        margin: 0 10px;
-        font-size: .8em;
-        color: #aaa;
-    }
 }
 
-.object > span {
+.article > span {
     overflow: hidden;
     display: inline-block;
     width: 65%;
