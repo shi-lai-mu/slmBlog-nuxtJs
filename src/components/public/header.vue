@@ -93,7 +93,7 @@ export default {
       let child = this.$el.lastChild
       let cList = child.classList
       let elTop = this.$el.clientHeight - child.clientHeight
-      console.log(this.user)
+
       window.addEventListener('scroll', () => {
         this.menuState && (this.menuState = false)
         let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
@@ -106,6 +106,15 @@ export default {
     menuToggle (e) {
       if (e.target.classList.contains('header-menu-right')) {
         this.menuState = !this.menuState
+        this.menuState ? document.addEventListener('click', menuClick) : document.removeEventListener('click', menuClick)
+      }
+
+      let self = this
+      function menuClick(e) {
+        if(!self.$el.contains(e.target)) {
+            self.menuState = false
+            document.removeEventListener('click', menuClick)
+        }
       }
     },
     minMenu (e) {

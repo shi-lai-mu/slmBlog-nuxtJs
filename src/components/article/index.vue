@@ -12,26 +12,31 @@
         </h3>
       </header>
       <div class="article-body" v-html="article['content']"></div>
+      <Editor></Editor>
     </div>
   </div>
 </template>
 
 <script>
 
-import Time from '@com/public/dateForm'
+import Time from '@pub/dateForm'
+import Editor from '@pub/Editor'
 
 export default {
   data () {
     return {
-      article: []
+      article: [],
     }
   },
+  components: { Editor },
   created () {
-    this.$http.get('article/' + this.$route.params.id)
-      .then(res => {
-        console.log(res.data)
-        this.article = res.data
-      })
+    console.log(12456)
+    // this.$http.get('article/' + this.$route.params.id)
+    //   .then(res => {
+    //     this.article = res.data
+    //   })
+  },
+  mounted () {
   },
   methods: {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000)
@@ -63,12 +68,16 @@ export default {
     }
     .article-body {
       width: 98%;
-      margin: 0 auto 30px;
+      margin: 0 auto 50px;
 
       p {
         text-indent: 2em;
         word-break: break-all;
       }
+    }
+    .ql-editor {
+      display: block;
+      min-height: 200px;
     }
   }
 </style>
