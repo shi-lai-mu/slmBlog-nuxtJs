@@ -32,7 +32,7 @@
             <span class="header-nav-right">登录</span>
         </router-link>
         <router-link to="/login" v-else >
-            <span class="header-nav-right">+ 发帖</span>
+            <span class="header-nav-right"><i class="iconfont icon-add1"></i>发帖</span>
         </router-link>
 
       </div>
@@ -163,6 +163,10 @@ header {
         text-shadow: 1px 1px 0 #e06a5f;
         line-height: 68px;
         background: url('~@img/Work-With-Us.png') no-repeat top left;
+    }
+    .icon-add1 {
+        margin: 0 10px;
+        font-size: 20px;
     }
 }
 
