@@ -25,18 +25,15 @@ import Editor from '@pub/Editor'
 export default {
   data () {
     return {
-      article: [],
+      article: []
     }
   },
   components: { Editor },
   created () {
-    console.log(12456)
-    // this.$http.get('article/' + this.$route.params.id)
-    //   .then(res => {
-    //     this.article = res.data
-    //   })
-  },
-  mounted () {
+    this.$http.get('article/' + this.$route.params.id)
+      .then(res => {
+        this.article = res.data
+      })
   },
   methods: {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000)

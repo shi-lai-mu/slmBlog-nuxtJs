@@ -110,10 +110,10 @@ export default {
       }
 
       let self = this
-      function menuClick(e) {
-        if(!self.$el.contains(e.target)) {
-            self.menuState = false
-            document.removeEventListener('click', menuClick)
+      function menuClick (e) {
+        if (!self.$el.contains(e.target)) {
+          self.menuState = false
+          document.removeEventListener('click', menuClick)
         }
       }
     },

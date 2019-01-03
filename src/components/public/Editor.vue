@@ -14,7 +14,7 @@ export default {
       editorContent: ''
     }
   },
-  mounted() {
+  mounted () {
     var editor = new E(this.$refs.editor)
     editor.customConfig.onchange = (html) => {
       this.editorContent = html
@@ -24,7 +24,7 @@ export default {
     // 表情配置
     let lyList = []
     let i = 1
-    for(; i < 21; i ++) {
+    for (i; i < 21; i++) {
       lyList.push({
         alt: '加載中...',
         src: `${imgRoot}${i}.jpg`,
