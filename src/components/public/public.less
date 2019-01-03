@@ -80,40 +80,38 @@ a {
     min-width: @min-width;
     margin: 0 auto;
 }
-form{
-    input {
-        padding: 5px 10px;
-        border-radius: 20px;
-        border-width: 1px;
-        border-style: solid;
-        border-color: #485465 #485465 #353d47 #485465;
-        background: linear-gradient(#3d4855, #485360);
-        font-size: 16px;
-        text-shadow: 1px 1px 0 var(--text-black);
-        outline: none;
-    }
-    .button-v1 {
-        display: block;
-        line-height: 24px;
-        max-width: 485px;
-        margin: 0 auto;
-        border-radius: 20px;
-        padding: 3px 10px;
-        background: url('@{ip}/blue-buttons-2.png') no-repeat left -43px;
-        text-align: center;
-        text-shadow: -1px 1px 0 #333;
-        color: var(--color-mater-font);
-        cursor: pointer;
-        user-select: none;
 
-        &:hover {
-            color: #14181E;
-            text-shadow: .5px .5px 0 #444;
-            background-position-y: 100%;
-        }
+input {
+    padding: 5px 10px;
+    border-radius: 20px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #485465 #485465 #353d47 #485465;
+    background: linear-gradient(#3d4855, #485360);
+    font-size: 16px;
+    text-shadow: 1px 1px 0 var(--text-black);
+    outline: none;
+}
+.button-v1 {
+    display: block;
+    line-height: 24px;
+    max-width: 485px;
+    margin: 0 auto;
+    border-radius: 20px;
+    padding: 3px 10px;
+    background: url('@{ip}/blue-buttons-2.png') no-repeat left -43px;
+    text-align: center;
+    text-shadow: -1px 1px 0 #333;
+    color: var(--color-mater-font);
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+        color: #14181E;
+        text-shadow: .5px .5px 0 #444;
+        background-position-y: 100%;
     }
 }
-
 /* LOGO */
 h1.logo {
     margin: 0;
@@ -294,7 +292,7 @@ div:focus {
 @media screen and (max-width: 640px) {
 
     html {
-        font-size: .9em;
+        font-size: .8em;
     }
 
     h1.logo {
@@ -371,6 +369,14 @@ div:focus {
         max-width: 345px;
         .input-min { width: 50vw; min-width: 100px; }
         canvas { display: block; margin: 0 auto; width: 80%; }
+    }
+
+    // 文章
+    div.article-index .article-body {
+        width: 90%;
+    }
+    .editor {
+      width: 100%;
     }
     
 }

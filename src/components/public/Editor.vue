@@ -20,6 +20,7 @@ export default {
       this.editorContent = html
     }
     let imgRoot = 'http://120.78.221.235/img/emoji/'
+    editor.customConfig.uploadImgServer = '/upload'
 
     // 表情配置
     let lyList = []

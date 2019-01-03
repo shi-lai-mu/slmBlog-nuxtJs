@@ -2,7 +2,7 @@
   <div class="content-row single clearfix">
     <div class="content-box article-index">
       <header>
-        <h2 class="article-title">文章标题</h2>
+        <h2 class="article-title" v-text="article['title']"></h2>
         <h3 class="article-info">
           <span>shilaimu 发表于：<i class="iconfont icon-shizhong" title="时间">{{ unTime(article['createTime']) }}</i></span>
           <span>
@@ -12,7 +12,8 @@
         </h3>
       </header>
       <div class="article-body" v-html="article['content']"></div>
-      <Editor></Editor>
+      <Editor class="editor" ref="editor"></Editor>
+      <button class="button-v1 send">发送</button>
     </div>
   </div>
 </template>
@@ -21,6 +22,7 @@
 
 import Time from '@pub/dateForm'
 import Editor from '@pub/Editor'
+import { setInterval } from 'timers';
 
 export default {
   data () {
@@ -34,6 +36,7 @@ export default {
       .then(res => {
         this.article = res.data
       })
+    console.log(this.$refs.editor.editorContent)
   },
   methods: {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000)
@@ -43,7 +46,7 @@ export default {
 <style lang="less">
   .article-index {
     header {
-      width: 98%;
+      width: 90%;
       border-bottom: 1px solid #ccc;
       margin: 0 auto 30px;
 
@@ -64,8 +67,11 @@ export default {
       }
     }
     .article-body {
-      width: 98%;
-      margin: 0 auto 50px;
+      width: 80%;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #ccc;
+      margin: 0 auto 20px;
+      font-size: 1.2rem;
 
       p {
         text-indent: 2em;
@@ -75,6 +81,13 @@ export default {
     .ql-editor {
       display: block;
       min-height: 200px;
+    }
+    .send {
+      float: right;
+      width: 30%;
+      max-width: 150px;
+      border: 0;
+      margin: 20px;
     }
   }
 </style>
