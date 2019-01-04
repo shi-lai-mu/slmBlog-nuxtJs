@@ -36,7 +36,6 @@
 
 import Time from '@pub/dateForm'
 import Editor from '@pub/Editor'
-import { setInterval } from 'timers';
 
 export default {
   data () {

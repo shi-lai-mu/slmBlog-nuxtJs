@@ -1,6 +1,6 @@
 <template>
   <div class="conter">
-    <vue-header :head="head"></vue-header>
+    <vue-header :head="head" ref="head"></vue-header>
     <vue-title :title="title"></vue-title>
     <router-view/>
     <vue-footer></vue-footer>

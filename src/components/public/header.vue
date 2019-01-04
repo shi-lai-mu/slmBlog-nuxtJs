@@ -103,9 +103,14 @@ export default {
         let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
         scrollTop >= elTop ? cList.add('header-nav-fixed') : cList.remove('header-nav-fixed')
       })
+
+      // 通讯登录状态
+      this.$connecter.$on('user', data => {
+        console.log(1346784, data)
+        this.user = data
+      })
     })
   },
-
   methods: {
     menuToggle (e) {
       if (e.target.classList.contains('header-menu-right')) {

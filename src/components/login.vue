@@ -95,6 +95,7 @@ export default {
           .then(res => {
             window.localStorage.setItem('userInfo', JSON.stringify(res.data))
             self.$store.state.user = res.data
+            self.$connecter.$emit('user', res.data)
             self.$connecter.$emit('page', { toast })
             self.$router.push({path: '/'})
           })
@@ -121,6 +122,7 @@ export default {
           .then(res => {
             window.localStorage.setItem('userInfo', JSON.stringify(res.data))
             self.$store.state.user = res.data
+            self.$connecter.$emit('user', res.data)
             self.$connecter.$emit('page', { toast })
             self.$router.push({path: '/'})
           })
@@ -159,6 +161,7 @@ export default {
                 self.$store.state.user = JSON.parse(JSON.parse(res.data.value))
                 toast.icon = 'success'
                 toast.text = `授权成功, 欢迎回来 [${self.$store.state.user.nickname}]!`
+                self.$connecter.$emit('user', JSON.parse(JSON.parse(res.data.value)))
                 self.$connecter.$emit('page', { toast })
               } else {
                 toast.text = `授权失败, 回调值错误!`
