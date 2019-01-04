@@ -1,6 +1,7 @@
 <template>
   <div class="content-row single clearfix">
     <div :class="['content-box', 'article-index', { 'nick': article['title'] }, 'notContent']">
+
       <header>
         <h2 class="article-title">{{ article['title'] || 'loading...' }}</h2>
         <h3 class="article-info">
@@ -23,9 +24,14 @@
           <li class="notEnd"></li>
         </ul>
       </header>
+
       <div class="article-body" v-html="article['content']"></div>
-      <Editor class="editor" ref="editor" v-if="article['title']"></Editor>
-      <button class="button-v1 send">发送</button>
+
+      <div v-if="article['title']">
+        <Editor class="editor" ref="editor"></Editor>
+        <button class="button-v1 send">发送</button>
+      </div>
+
     </div>
   </div>
 </template>
@@ -79,6 +85,7 @@ export default {
       padding: 0 10px;
       margin-left: auto;
       margin-right: auto;
+      color: #eee;
       background-color: @bgColor;
       border-radius: 30px;
       transition: 1s;
@@ -117,6 +124,7 @@ export default {
     }
     .article-title {
       width: auto;
+      color: inherit;
       background-color: transparent;
     }
     @keyframes notCon {

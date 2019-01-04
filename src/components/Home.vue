@@ -5,7 +5,8 @@
             <div class="shuffling-flex">
                 <span class="shuffling-left"></span>
                 <ul class="shuffling-ling">
-                    <li><img v-lazy="'http://120.78.221.235/lun4.png'" alt="NAV-2"></li>
+                    <!-- http://120.78.221.235/lun4.png -->
+                    <li><img v-lazy="'/static/lun3.jpg'" alt="NAV-2"></li>
                 </ul>
                 <span class="shuffling-right"></span>
             </div>
@@ -73,14 +74,12 @@ export default {
     })
     this.$http.get('blog/hot')
       .then(res => {
-        console.log(res.data, res.data.tag)
-        res.data = res.data.map(index => {
+        this.hotList = res.data.map(index => {
           index.tag = index.tag.split('#')
           index.tag.shift()
           index.content = index.content.replace(/(<[^>]+>|&\w+;)/img, '').substring(0, 125) + ' ...'
           return index
         })
-        this.hotList = res.data
       })
   },
   methods: {
