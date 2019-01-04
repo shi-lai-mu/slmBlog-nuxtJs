@@ -1,8 +1,8 @@
 <template>
-  <div class="tag-description">
-    <span class="tag">{{ title.tag || '-- --' }}</span>
-    <span class="description">{{ title.description || '欢迎浏览史莱姆的博客!（°Д°）Ъ' }}</span>
-  </div>
+    <div class="tag-description">
+        <span class="tag">{{ title.tag || '-- --' }}</span>
+        <span class="description">{{ title.description || '欢迎浏览史莱姆的博客!（°Д°）Ъ' }}</span>
+    </div>
 </template>
 
 <script>
@@ -14,43 +14,43 @@ export default {
 <style lang="less">
 
 .tag-description {
-  overflow: auto;
-  width: 100%;
-  line-height: 80px;
-  text-align: left;
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    height: 87px;
+    overflow: auto;
     width: 100%;
-    min-width: var(--min-width);
-    background: url('//120.78.221.235/img/intro-bg.png') no-repeat center;
-  }
+    line-height: 80px;
+    text-align: left;
 
-  .tag {
-    position: relative;
-    margin: 0 30px;
-    font-size: 35px;
-    font-weight: 500;
-    text-shadow: 1px 1px 0 #000;
-    color: #CBD3E5;
-  }
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        height: 87px;
+        width: 100%;
+        min-width: var(--min-width);
+        background: url('//120.78.221.235/img/intro-bg.png') no-repeat center;
+    }
 
-  .description {
-    position: relative;
-    margin: 0;
-    font-family: 'mv';
-    font-weight: 400;
-    color: #14181E;
-    text-shadow: 1px 1px 0 #535d6e;
-  }
+    .tag {
+        position: relative;
+        margin: 0 30px;
+        font-size: 35px;
+        font-weight: 500;
+        text-shadow: 1px 1px 0 #000;
+        color: #CBD3E5;
+    }
+
+    .description {
+        position: relative;
+        margin: 0;
+        font-family: 'mv';
+        font-weight: 400;
+        color: #14181E;
+        text-shadow: 1px 1px 0 #535d6e;
+    }
 }
 
 .master-top-bg {
-  min-height: 175px;
-  background-image: url('//120.78.221.235/img/hd-bg.png');
-  background-position: center;
+    min-height: 175px;
+    background-image: url('//120.78.221.235/img/hd-bg.png');
+    background-position: center;
 }
 </style>

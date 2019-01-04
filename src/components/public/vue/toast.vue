@@ -1,13 +1,13 @@
 <template>
   <div :class="['toast', {show}]">
-  <div :class="['clearfix', {'select' : msg.select, [msg['_type']]: msg['_type'] }]">
-    <i v-if="msg._icon" :class="'iconfont icon-' + msg._icon"></i>
-    <p>{{msg._text}}</p>
-  </div>
+    <div :class="['clearfix', {'select' : msg.select, [msg['_type']]: msg['_type'] }]">
+      <i v-if="msg._icon" :class="'iconfont icon-' + msg._icon"></i>
+      <p>{{msg._text}}</p>
+    </div>
 
-  <!-- <div class="{{msg._type}}" bindtap='selectClick'>
-    <button :for="{{msg.select}}" :key="**this" class='{{item.color}}' data-fn="{{item._fn}}">{{item.p}}</button>
-  </div> -->
+    <!-- <div class="{{msg._type}}" bindtap='selectClick'>
+      <button :for="{{msg.select}}" :key="**this" class='{{item.color}}' data-fn="{{item._fn}}">{{item.p}}</button>
+    </div> -->
   </div>
 </template>
 
@@ -28,20 +28,20 @@ let icon = {
 export default {
   props: ['toast'],
   data () {
-  return {
-    show: false,
-    msg: {}
-  }
+    return {
+      show: false,
+      msg: {}
+    }
   },
   created () {
-  vue = this
+    vue = this
   },
   watch: {
-  toast (v, c) {
-    let Toast = new Message(this.toast)
-    // 如果 没有正在显示的Toast则 显示 否则 如果是无限期显示的Toast则隐藏后显示
-    !show ? Toast.send() : !show.data.hide && show.hide()
-  }
+    toast (v, c) {
+      let Toast = new Message(this.toast)
+      // 如果 没有正在显示的Toast则 显示 否则 如果是无限期显示的Toast则隐藏后显示
+      !show ? Toast.send() : !show.data.hide && show.hide()
+    }
   }
 }
 
@@ -51,16 +51,16 @@ function Message (data) {
   data.hideTime = (data.hideTime || data.hideTime === false) ? data.hideTime : 2500
   // 修复耦合度 短时间内最多重复两条相同消息
   if (Task.length) {
-  let t = Task[Task.length - 1]
-  if (t.text === data.text && t.icon === icon[data.icon]) return
+    let t = Task[Task.length - 1]
+    if (t.text === data.text && t.icon === icon[data.icon]) return
   }
   Task.push({
-  text: data.text,
-  icon: icon[data.icon] || '',
-  back: data.icon,
-  hide: data.hideTime,
-  callback: data.callback,
-  select: data.select || false
+    text: data.text,
+    icon: icon[data.icon] || '',
+    back: data.icon,
+    hide: data.hideTime,
+    callback: data.callback,
+    select: data.select || false
   })
 }
 
@@ -68,36 +68,36 @@ Message.prototype = {
   data: {},
   // 显示Toast
   send: function () {
-  let after = Task[0]
-  if (after && !show) {
-    // 记录触发函数
-    for (let key in after['select']) {
-    let val = after['select'][key]
-    after['select'][key]._fn = val.click ? fn.push(val.click) : false
+    let after = Task[0]
+    if (after && !show) {
+      // 记录触发函数
+      for (let key in after['select']) {
+        let val = after['select'][key]
+        after['select'][key]._fn = val.click ? fn.push(val.click) : false
+      }
+      // 如果Toast不是false则有消失时间
+      after['hide'] && (vue.show = setTimeout(Message.prototype.hide, after['hide']))
+      show = this
+      // 触发驱动
+      vue.msg = {
+        _text: after['text'],
+        _type: after['back'],
+        _icon: after['icon'],
+        select: after['select']
+      }
+      show.data = after
+      Task.shift()
     }
-    // 如果Toast不是false则有消失时间
-    after['hide'] && (vue.show = setTimeout(Message.prototype.hide, after['hide']))
-    show = this
-    // 触发驱动
-    vue.msg = {
-    _text: after['text'],
-    _type: after['back'],
-    _icon: after['icon'],
-    select: after['select']
-    }
-    show.data = after
-    Task.shift()
-  }
   },
 
   // 隐藏Toast
   hide: function () {
-  vue.show = false
-  show.data.callback && show.data.callback()
-  // 清空显示
-  show = null
-  // 400毫秒后检测列队
-  setTimeout(Message.check, 400)
+    vue.show = false
+    show.data.callback && show.data.callback()
+    // 清空显示
+    show = null
+    // 400毫秒后检测列队
+    setTimeout(Message.check, 400)
   }
 }
 
@@ -124,31 +124,31 @@ Message.check = function () {
   transform: translateX(100%);
 
   i, p {
-  float: left;
+    float: left;
   }
   i {
-  margin: 0 10px;
+    margin: 0 10px;
   }
 
   .error {
-  background-color: #ffa7a1;
-  color: red;
+    background-color: #ffa7a1;
+    color: red;
   }
   .success {
-  background-color: #a7ffab;
-  color: #00b12c;
+    background-color: #a7ffab;
+    color: #00b12c;
   }
   .warning {
-  background-color: #ffcb9a;
-  color: #cc7400;
+    background-color: #ffcb9a;
+    color: #cc7400;
   }
   .zhiwen, .saoma {
-  background-color: #aafff4;
-  color: #0087b1;
+    background-color: #aafff4;
+    color: #0087b1;
   }
   .loading {
-  background-color: #aeadff;
-  color: #0003a8;
+    background-color: #aeadff;
+    color: #0003a8;
   }
 }
 
@@ -159,7 +159,7 @@ Message.check = function () {
 
 @keyframes marTop {
   to {
-  bottom: calc(10vh + 30rpx);
+    bottom: calc(10vh + 30rpx);
   }
 }
 .show {
@@ -194,8 +194,8 @@ Message.check = function () {
 
 @keyframes maxH {
   to {
-  transform: translateX(0);
-  max-height: 10vw;
+    transform: translateX(0);
+    max-height: 10vw;
   }
 }
 

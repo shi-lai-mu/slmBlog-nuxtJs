@@ -1,5 +1,4 @@
 export default {
-
   form: (fmt, form) => {
     let date = form ? new Date(form) : new Date()
     let o = {
