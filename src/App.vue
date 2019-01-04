@@ -9,7 +9,6 @@
 </template>
 
 <script>
-
 import vueHeader from '@pub/vue/header'
 import vueFooter from '@pub/vue/footer'
 import vueTitle from '@pub/vue/title'
@@ -53,7 +52,5 @@ export default {
 </script>
 
 <style lang="less">
-
 @import '~@com/public/public.less';
-
 </style>
