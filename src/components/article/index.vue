@@ -1,32 +1,30 @@
 <template>
   <div class="content-row single clearfix">
-    <div :class="['content-box', 'article-index', { 'notContent': !article['title'] }]">
+    <div :class="['content-box', 'article-index', { 'nick': article['title'] }, 'notContent']">
       <header>
-        <h2 class="article-title" v-text="article['title']"></h2>
+        <h2 class="article-title">{{ article['title'] || 'loading...' }}</h2>
         <h3 class="article-info">
           <span>shilaimu 发表于：<i class="iconfont icon-shizhong" title="时间">{{ article['createTime'] && unTime(article['createTime']) }}</i></span>
-          <span>
-            <i class="iconfont icon-liaotian1" title="回复">{{ article['msgMe'] }}</i>
-            <i class="iconfont icon-liulan" title="浏览">{{ article['lookCount'] }}</i>
-          </span>
-          <ul v-if="!article['title']" class="notCon">
-            <li class="notP"></li>
-            <li></li>
-            <li class="notEnd"></li>
-            <li class="notP"></li>
-            <li></li>
-            <li></li>
-            <li class="notEnd"></li>
-            <li class="notP"></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li class="notEnd"></li>
-          </ul>
+          <i class="iconfont icon-liaotian1" title="回复">{{ article['msgMe'] }}</i>
+          <i class="iconfont icon-liulan" title="浏览">{{ article['lookCount'] }}</i>
         </h3>
+        <ul class="notCon" v-if="notCon">
+          <li class="notP"></li>
+          <li></li>
+          <li class="notEnd"></li>
+          <li class="notP"></li>
+          <li></li>
+          <li></li>
+          <li class="notEnd"></li>
+          <li class="notP"></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li class="notEnd"></li>
+        </ul>
       </header>
       <div class="article-body" v-html="article['content']"></div>
-      <Editor class="editor" ref="editor"></Editor>
+      <Editor class="editor" ref="editor" v-if="article['title']"></Editor>
       <button class="button-v1 send">发送</button>
     </div>
   </div>
@@ -40,7 +38,8 @@ import Editor from '@pub/Editor'
 export default {
   data () {
     return {
-      article: []
+      article: [],
+      notCon: true
     }
   },
   components: { Editor },
@@ -48,8 +47,10 @@ export default {
     this.$http.get('article/' + this.$route.params.id)
       .then(res => {
         this.article = res.data
+        setTimeout(() => {
+          this.notCon = !1
+        }, 400)
       })
-    console.log(this.$refs.editor.editorContent)
   },
   methods: {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000)
@@ -57,25 +58,33 @@ export default {
 }
 </script>
 <style lang="less">
+  @bgColor: #d6d6d6;
   .notContent {
-    @bgColor: #d6d6d6;
+    transition: 1s;
 
-    .notCon {
-      width: 90%;
-      border-top: 1px solid #ccc;
-      margin: 40px auto 0;
-    }
-
-    .article-title {
-      width: 30%;
-      height: 1.5rem;
-      margin-left: auto;
-      margin-right: auto;
-      background-color: @bgColor;
-      border-radius: 1rem;
+    .article-body {
+      opacity: 0;
       transition: 1s;
     }
     .notCon {
+      width: 90%;
+      border-top: 1px solid #ccc;
+      // margin: 40px auto 0;
+    }
+
+    .article-title {
+      display: block;
+      width: 50%;
+      min-height: 1rem;
+      padding: 0 10px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: @bgColor;
+      border-radius: 30px;
+      transition: 1s;
+    }
+    .notCon {
+      transition: 1s;
       li {
         width: 100%;
         height: 1.5rem;
@@ -94,8 +103,39 @@ export default {
       }
     }
   }
+  .nick {
+    .article-body {
+      opacity: 1;
+    }
+    .notCon {
+      opacity: 0;
+    }
+    .notCon {
+      animation: .5s notCon;
+      max-height: 100vh;
+      animation-fill-mode: forwards;
+    }
+    .article-title {
+      width: auto;
+      background-color: transparent;
+    }
+    @keyframes notCon {
+      to {
+        max-height: 0;
+      }
+    }
+    h3.article-info {
+      span, i {
+        padding: 0;
+        color: inherit;
+        background-color: transparent;
+        border-radius: 0;
+      }
+    }
+  }
   .article-index {
-    .notContent header {
+
+    header {
       width: 90%;
       border-bottom: 1px solid #ccc;
       margin: 0 auto 30px;
@@ -109,6 +149,14 @@ export default {
       text-align: center;
       font-weight: 400;
       color: #555;
+
+      span, i {
+        padding: 0 10px;
+        color: transparent;
+        background-color: @bgColor;
+        border-radius: 30px;
+        transition: 1s;
+      }
     }
 
     i {
