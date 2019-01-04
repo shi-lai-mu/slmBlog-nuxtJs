@@ -25,7 +25,7 @@
         </ul>
       </header>
 
-      <div class="article-body" v-html="article['content']"></div>
+      <div class="article-body" v-html="article['content']" ref="content"></div>
 
       <div v-if="article['title']">
         <Editor class="editor" ref="editor"></Editor>
@@ -50,12 +50,18 @@ export default {
   },
   components: { Editor },
   created () {
+    let self = this
     this.$http.get('article/' + this.$route.params.id)
       .then(res => {
         this.article = res.data
         setTimeout(() => {
           this.notCon = !1
         }, 400)
+        let el = this.$refs.content.getElementsByTagName('img').array.forEach(element => {
+          element.addEventLister('error', () => {
+            console.log(11)
+          })
+        });
       })
   },
   methods: {
