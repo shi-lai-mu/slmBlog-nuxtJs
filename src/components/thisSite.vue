@@ -100,8 +100,31 @@
                 </li>
             </ul>
 
-            <h2>网站声明</h2>
+            <h2>收录情况</h2>
+            <ul class="web-details">
+                <li>
+                    <span>百度搜索:</span>
+                    <p>
+                        <a href="//www.baidu.com/s?wd=site%3Amczyzy.cn" target="_black">[精准查看]</a>
+                        已收录本站 <icon class="iconfont icon-renzheng"></icon>
+                    </p>
+                </li>
+                <li>
+                    <span>谷歌搜索:</span>
+                    <p>
+                        <a href="//www.google.com/search?q=slm478889187@gmail.com" target="_black">[精准查看]</a>
+                        已收录本站 <icon class="iconfont icon-renzheng"></icon>
+                    </p>
+                </li>
+                <li>
+                    <span>腾讯登录:</span>
+                    <p>
+                        已获得授权 <icon class="iconfont icon-renzheng1"></icon>
+                    </p>
+                </li>
+            </ul>
 
+            <h2>网站声明</h2>
             <ul class="web-details">
                 <li>
                     <span>目标:</span>
@@ -118,6 +141,10 @@
                 <li>
                     <span>侵权:</span>
                     <p>部分内容如有侵权请联系并告知，在核实后会以删除或封文章处理。</p>
+                </li>
+                <li>
+                    <span>安全:</span>
+                    <p>隐私全采用RSA非对称加密传输, token防劫持, sha1+md5存入数据库</p>
                 </li>
             </ul>
 
@@ -154,6 +181,15 @@ export default {
         margin-top: 50px;
         font-size: 2rem;
         text-align: center;
+    }
+    .icon-renzheng,
+    .icon-renzheng1 {
+        font-size: 20px;
+        color: #0bc568;
+        text-shadow: 1px 1px 2px #ccc;
+    }
+    a {
+        color: #0bc568;
     }
     .web-master,
     .web-technology,
