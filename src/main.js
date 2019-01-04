@@ -3,19 +3,19 @@
 import Vue from 'vue'
 import VueX from 'vuex'
 import App from './App'
-import VueMeta from 'vue-meta'
 import router from './router'
-import http from '@pub/http'
-import connecter from '@pub/connecter'
+import VueMeta from 'vue-meta'
 import VueLazyload from 'vue-lazyload'
+import http from '@pub/js/http'
+import connecter from '@pub/js/connecter'
 
 Vue.prototype.$http = http
 Vue.prototype.$connecter = connecter
 Vue.use(VueX, VueMeta)
 Vue.use(VueLazyload, {
   preLoad: 1.3,
-  error: '//120.78.221.235/error.png',
-  loading: '//120.78.221.235/loading.gif',
+  error: '//120.78.221.235/img/error.png',
+  loading: '//120.78.221.235/img/loading.gif',
   attempt: 1
 })
 

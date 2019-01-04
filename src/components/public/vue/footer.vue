@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import Time from '@com/public/dateForm'
+import Time from '@pub/js/dateForm'
 
 export default {
   data () {

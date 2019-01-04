@@ -32,7 +32,7 @@ export default new Router({
     },
     {
       path: '*',
-      component: resolve => require(['@com/error'], resolve)
+      component: resolve => require(['@pub/vue/error'], resolve)
     }
   ]
 })

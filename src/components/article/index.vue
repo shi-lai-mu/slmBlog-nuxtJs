@@ -38,8 +38,8 @@
 
 <script>
 
-import Time from '@pub/dateForm'
-import Editor from '@pub/Editor'
+import Time from '@pub/js/dateForm'
+import Editor from '@pub/vue/Editor'
 
 export default {
   data () {

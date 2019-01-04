@@ -10,10 +10,10 @@
 
 <script>
 
-import vueHeader from '@pub/header'
-import vueFooter from '@pub/footer'
-import vueTitle from '@pub/title'
-import vueToast from '@pub/toast'
+import vueHeader from '@pub/vue/header'
+import vueFooter from '@pub/vue/footer'
+import vueTitle from '@pub/vue/title'
+import vueToast from '@pub/vue/toast'
 
 export default {
   components: {

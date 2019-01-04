@@ -6,7 +6,8 @@
                 <span class="shuffling-left"></span>
                 <ul class="shuffling-ling">
                     <!-- http://120.78.221.235/lun4.png -->
-                    <li><img v-lazy="'/static/lun3.jpg'" alt="NAV-2"></li>
+                    <li><img v-lazy="'http://120.78.221.235/img/shuffling/0.png'" alt="NAV-0"></li>
+                    <li><img v-lazy="'http://120.78.221.235/img/shuffling/1.jpg'" alt="NAV-1"></li>
                 </ul>
                 <span class="shuffling-right"></span>
             </div>
@@ -57,7 +58,7 @@
 
 <script>
 
-import Time from '@com/public/dateForm'
+import Time from '@pub/js/dateForm'
 
 export default {
   data () {

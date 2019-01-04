@@ -18,7 +18,7 @@
                 </li>
                 <li>
                     <span>GIT ：</span>
-                    <p><a href="https://gitee.com/shi_lai_mu" title="欢迎访问我的GIT">gitee.com/shi_lai_mu</a></p>
+                    <p><a href="https://gitee.com/shi_lai_mu" title="欢迎访问我的GIT">[访问]</a> gitee.com/shi_lai_mu</p>
                 </li>
                 <li>
                     <span>初衷：</span>
