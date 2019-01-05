@@ -1,24 +1,8 @@
 <template>
 
     <div class="conter clearfix">
-        <div class="shuffling">
-            <div class="shuffling-flex">
-                <span class="shuffling-left"></span>
-                <ul class="shuffling-ling">
-                    <!-- http://120.78.221.235/lun4.png -->
-                    <li><img v-lazy="'http://120.78.221.235/img/shuffling/0.png'" alt="NAV-0"></li>
-                    <li><img v-lazy="'http://120.78.221.235/img/shuffling/1.jpg'" alt="NAV-1"></li>
-                </ul>
-                <span class="shuffling-right"></span>
-            </div>
-            <ul class="shuffling-select">
-                <li class="on"></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
 
+        <shuffling></shuffling>
         <div class="content-row clearfix">
             <div class="content-fixed-box">
             </div>
@@ -59,6 +43,7 @@
 <script>
 
 import Time from '@pub/js/dateForm'
+import shuffling from '@pub/vue/shuffling'
 
 export default {
   data () {
@@ -85,6 +70,9 @@ export default {
   },
   methods: {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000)
+  },
+  components: {
+    shuffling
   }
 }
 </script>

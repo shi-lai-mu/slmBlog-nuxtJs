@@ -30,6 +30,12 @@
       <div v-if="article['title']">
         <Editor class="editor" ref="editor"></Editor>
         <button class="button-v1 send">发送</button>
+        <transition name='no-mode-fade'>
+          <button v-if='on' key='on' @click='on=false'>on</button>
+          <button v-if='on' key='off' @click='on=true'>off</button>
+          <button v-if='on' key='off' @click='on=true'>off</button>
+          <button v-else='' key='off' @click='on=true'>off</button>
+        </transition>
       </div>
 
     </div>
@@ -45,23 +51,26 @@ export default {
   data () {
     return {
       article: [],
-      notCon: true
+      notCon: true,
+      on: false
     }
   },
   components: { Editor },
   created () {
-    let self = this
     this.$http.get('article/' + this.$route.params.id)
       .then(res => {
         this.article = res.data
         setTimeout(() => {
           this.notCon = !1
         }, 400)
-        let el = this.$refs.content.getElementsByTagName('img').array.forEach(element => {
-          element.addEventLister('error', () => {
-            console.log(11)
-          })
-        });
+        this.$nextTick(() => {
+          let el = this.$refs.content.getElementsByTagName('img')
+          for (let i = 0, l = el.length; i < l; i++) {
+            el[i].addEventListener('error', function () {
+              this.src = '//120.78.221.235/img/error.png'
+            })
+          }
+        })
       })
   },
   methods: {
@@ -70,6 +79,21 @@ export default {
 }
 </script>
 <style lang="less">
+  .wrap button {
+    position: absolute;
+  }
+  .no-mode-fade-enter-active, .no-mode-fade-leave-active {
+    transition: all 1s
+  }
+  .no-mode-fade-enter, .no-mode-fade-leave-active {
+    opacity: 0;
+  }
+  .no-mode-fade-enter {
+    transform: translateX(100%);
+  }
+  .no-mode-fade-leave-active {
+    transform: translateX(-100%);
+  }
   @bgColor: #d6d6d6;
   .notContent {
     transition: 1s;
