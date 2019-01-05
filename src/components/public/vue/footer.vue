@@ -64,8 +64,8 @@
         <div class="copyright clearfix">
             <span class="copyright-left">© CopyRight 2018, <a href="//mczyzy.cn">MCZYZY.CN</a>, Inc.All Rights Reserved.</span>
             <ul class="copyright-right">
-                <li><router-link to="terms">条款和免责</router-link></li>
-                <li><router-link to="thisSite">关于本站</router-link></li>
+                <li><router-link to="/terms">条款和免责</router-link></li>
+                <li><router-link to="/thisSite">关于本站</router-link></li>
             </ul>
         </div>
         <div class="beian clearfix">

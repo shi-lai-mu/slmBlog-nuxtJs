@@ -31,7 +31,7 @@
         <router-link to="/login" v-if="!user">
             <span class="header-nav-right">登录</span>
         </router-link>
-        <router-link to="/article/addArticle" v-else >
+        <router-link to="/addArticle" v-else >
             <span class="header-nav-right"><i class="iconfont icon-add1"></i>发帖</span>
         </router-link>
 
