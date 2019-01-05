@@ -78,7 +78,7 @@ export default {
     createNext () {
       upInterval && clearInterval(upInterval)
       upInterval = setInterval(() => {
-        this.no ++
+        this.no++
       }, 5000)
     },
     up () {
