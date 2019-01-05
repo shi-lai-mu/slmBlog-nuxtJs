@@ -57,6 +57,12 @@ export default {
   },
   components: { Editor },
   created () {
+    this.$connecter.$emit('page', {
+      title: {
+        tag: '文章',
+        description: '如果感觉文章对你有帮助,欢迎留言哦...'
+      }
+    })
     this.$http.get('article/' + this.$route.params.id)
       .then(res => {
         this.article = res.data

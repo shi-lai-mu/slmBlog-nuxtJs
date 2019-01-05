@@ -42,9 +42,9 @@ export default {
         position: relative;
         margin: 0;
         font-family: 'mv';
-        font-weight: 400;
-        color: #14181E;
-        text-shadow: 1px 1px 0 #535d6e;
+        font-weight: 500;
+        color: #0c0f13;
+        text-shadow: 1px 1px 0 #666f80;
     }
 }
 

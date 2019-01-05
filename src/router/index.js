@@ -31,6 +31,10 @@ export default new Router({
       component: resolve => require(['@com/article/index'], resolve)
     },
     {
+      path: '/addArticle',
+      component: resolve => require(['@com/article/addArticle'], resolve)
+    },
+    {
       path: '*',
       component: resolve => require(['@pub/vue/error'], resolve)
     }
