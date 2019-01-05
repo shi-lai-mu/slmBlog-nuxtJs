@@ -3,7 +3,7 @@
       <div class="shuffling-flex">
           <span class="shuffling-left" @click="no--"></span>
           <ul class="shuffling-ling">
-            <li v-for="(item, key) in list" :key="key" :data-s="key" :class="item.css">
+            <li v-for="(item, key) in list" :key="key" :class="item.css">
               <img v-lazy="item.url" alt="NAV-0">
             </li>
             <!-- <li><img v-lazy="'http://120.78.221.235/img/shuffling/1.jpg'" alt="NAV-1"></li>
@@ -12,8 +12,8 @@
           </ul>
           <span class="shuffling-right" @click="no++"></span>
       </div>
-      <ul class="shuffling-select">
-          <li v-for="(item, key) in list" :key="key" :class="{ on: key == no }"></li>
+      <ul class="shuffling-select" @click="select">
+          <li v-for="(item, key) in list" :key="key" :class="{ on: key == no }" :data-i="key"></li>
       </ul>
   </div>
 </template>
@@ -33,21 +33,6 @@ export default {
           url: url + '0.png',
           page: false,
           css: {}
-        },
-        {
-          url: url + '1.jpg',
-          page: false,
-          css: {}
-        },
-        {
-          url: url + '0.png',
-          page: false,
-          css: {}
-        },
-        {
-          url: url + '1.jpg',
-          page: false,
-          css: {}
         }
       ]
     }
@@ -55,17 +40,16 @@ export default {
   watch: {
     no (nw, ol) {
       let len = this.list.length - 1
-      if(nw < 0) {
+      if (nw < 0) {
         this.no = len
         return
       }
-      if(nw > len) {
+      if (nw > len) {
         this.no = 0
         return
       }
       ol = Math.max(ol, 0)
       ol = Math.min(ol, len)
-      console.log(nw, ol)
       let CssOn = 'transformLeft'
       let olCssOff = 'transformRight'
       if (nw < ol) {
@@ -80,13 +64,18 @@ export default {
         look: true
       }
       setTimeout(() => {
-        (ol != this.no) && (this.list[ol].css = {})
-        (this.list[nw + 1] && nw + 1 != this.no) && (this.list[nw + 1].css = {})
-      }, 1000)
+        if (ol !== this.no) this.list[ol].css = {}
+        if (this.list[nw + 1] && nw + 1 !== this.no) this.list[nw + 1].css = {}
+      }, 400)
     }
   },
   created () {
     this.no = 0
+  },
+  methods: {
+    select (e) {
+      if (e.target.dataset.i) this.no = e.target.dataset.i
+    }
   }
 }
 </script>
