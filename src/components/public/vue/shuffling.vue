@@ -1,16 +1,13 @@
 <template>
   <div class="shuffling">
       <div class="shuffling-flex">
-          <span class="shuffling-left" @click="no--"></span>
+          <span class="shuffling-left" @click="up"></span>
           <ul class="shuffling-ling">
             <li v-for="(item, key) in list" :key="key" :class="item.css">
               <img v-lazy="item.url" alt="NAV-0">
             </li>
-            <!-- <li><img v-lazy="'http://120.78.221.235/img/shuffling/1.jpg'" alt="NAV-1"></li>
-            <li><img v-lazy="'http://120.78.221.235/img/shuffling/0.png'" alt="NAV-0"></li>
-            <li><img v-lazy="'http://120.78.221.235/img/shuffling/1.jpg'" alt="NAV-1"></li> -->
           </ul>
-          <span class="shuffling-right" @click="no++"></span>
+          <span class="shuffling-right" @click="down"></span>
       </div>
       <ul class="shuffling-select" @click="select">
           <li v-for="(item, key) in list" :key="key" :class="{ on: key == no }" :data-i="key"></li>
@@ -18,6 +15,7 @@
   </div>
 </template>
 <script>
+let upInterval = 0
 export default {
   data () {
     let url = 'http://120.78.221.235/img/shuffling/'
@@ -25,12 +23,12 @@ export default {
       no: 1,
       list: [
         {
-          url: url + '1.jpg',
+          url: url + '0.png',
           page: false,
           css: {}
         },
         {
-          url: url + '0.png',
+          url: url + '1.jpg',
           page: false,
           css: {}
         }
@@ -64,17 +62,32 @@ export default {
         look: true
       }
       setTimeout(() => {
-        if (ol !== this.no) this.list[ol].css = {}
-        if (this.list[nw + 1] && nw + 1 !== this.no) this.list[nw + 1].css = {}
+        if (ol !== this.no) this.list[ol].css = {none: 1}
+        if (this.list[nw + 1] && nw + 1 !== this.no) this.list[nw + 1].css = {none: 1}
       }, 400)
     }
   },
   created () {
     this.no = 0
+    this.createNext()
   },
   methods: {
     select (e) {
       if (e.target.dataset.i) this.no = e.target.dataset.i
+    },
+    createNext () {
+      upInterval && clearInterval(upInterval)
+      upInterval = setInterval(() => {
+        this.no ++
+      }, 5000)
+    },
+    up () {
+      this.no--
+      this.createNext()
+    },
+    down () {
+      this.no++
+      this.createNext()
     }
   }
 }
