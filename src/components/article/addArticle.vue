@@ -5,19 +5,19 @@
       <ul class="form">
         <li>
           <label>标题</label>
-          <input type="text">
+          <input type="text" v-model="title">
           <span class="bust">*</span>
         </li>
         <li>
           <label>分类</label>
-          <input type="text" placeholder="# 隔开分类">
+          <input type="text" placeholder="# 隔开分类" v-model="type">
           <span class="bust">*</span>
         </li>
         <li>
           <input type="file" id="upload_file" style="display: none" accept="image/gif,image/jpeg,image/jpg,image/png" ref="uploadFile" @change="imgChange">
 
           <button class="button-v1 upload_file" onclick="upload_file.click()" v-if="!webInput">{{ filePath ? '重新选择' : '上传本地封面' }}</button>
-          <button class="button-v1 upload_file" @click="webInput = !webInput">{{ webInput ? '重新选择方式' : '网络调用封面' }}</button>
+          <button class="button-v1 upload_file" @click="webInput = !webInput" v-if="!filePath">{{ webInput ? '重新选择方式' : '网络调用封面' }}</button>
           <input type="text" v-if="webInput" placeholder="完整图片的路径 如 http://xxxxx/xxxxx/xx.jpg" v-model="webPath">
 
           <span :class="['file-path', { 'file-path-max': filePath }]" v-text="filePath"></span>
@@ -32,7 +32,7 @@
         </li>
       </ul>
       <label class="content-title">文章内容</label>
-      <editor></editor>
+      <editor ref="editor"></editor>
       <button class="button-v1 send" @click="send">发表</button>
     </div>
   </div>
@@ -46,7 +46,9 @@ export default {
       filePath: null,
       uploadPath: null,
       webInput: false,
-      webPath: null
+      webPath: null,
+      title: null,
+      type: null
     }
   },
   created () {
@@ -82,6 +84,7 @@ export default {
             if (res.data) {
               if (res.data.data[0]) {
                 this.uploadPath = res.data.data[0]
+                this.webPath = null
               }
             } else {
               self.$connecter.$emit('page', {
@@ -91,10 +94,33 @@ export default {
             }
           })
       }
+    },
+
+    /**
+     * 发表文章按钮
+     */
+    send () {
+      let err = this.title.length < 4
+        ? '标题不能为空或过短'
+        : this.type.split('#').length < 1
+          ? '至少一个分类'
+          : this.$refs.editor.editorContent.length < 10
+            ? '这么点字...水军吧!!!'
+            : false
+
+      if (err) {
+        return this.$connecter.$emit('page', {
+          toast: {
+            text: err,
+            icon: 'error'
+          }
+        })
+      }
     }
   },
   components: { editor }
 }
+
 </script>
 
 <style lang="less">
