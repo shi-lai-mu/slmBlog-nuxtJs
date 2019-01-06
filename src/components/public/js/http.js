@@ -15,11 +15,11 @@ let $http = axios.create({
 })
 
 if (process.env.NODE_ENV === 'development') {
-  $http.defaults.baseURL = 'http://127.0.0.1:80'
+  $http.defaults.baseURL = 'http://127.0.0.1'
 }
 
 export default {
-  get (url, data, head) {
+  get (url, data) {
     return new Promise((resolve, reject) => {
       let detail = []
       for (let key in data) {
@@ -28,7 +28,7 @@ export default {
         } else detail[key] = data[key]
       }
       $http
-        .get(url + (data ? '?' + axiosQs.stringify(detail) : ''), head)
+        .get(url + (data ? '?' + axiosQs.stringify(detail) : ''))
         .then(res => {
           if (res.data && !res.data.error) {
             resolve(res)
@@ -47,13 +47,19 @@ export default {
   post (url, data, head) {
     return new Promise((resolve, reject) => {
       let detail = []
+      console.log(data)
+      var params = new URLSearchParams()
       for (let key in data) {
         if (key.indexOf('_rsa') > -1) {
           detail[key] = rsa.encrypt(data[key])
         } else detail[key] = data[key]
+        params.append(key, data[key])
+      }
+      if (data instanceof FormData) {
+        params = data
       }
       $http
-        .post(url, data, head)
+        .post(url, params, head)
         .then(res => {
           if (res.data && !res.data.error) {
             resolve(res)

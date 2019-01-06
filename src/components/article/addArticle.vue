@@ -109,12 +109,21 @@ export default {
             : false
 
       if (err) {
-        return this.$connecter.$emit('page', {
+        this.$connecter.$emit('page', {
           toast: {
             text: err,
             icon: 'error'
           }
         })
+      } else {
+        this.$http.post('article/add?token=' + this.$store.state.user.token, {
+          title: this.title,
+          type: this.type,
+          content: this.$refs.editor.editorContent
+        })
+          .then(res => {
+            console.log(res)
+          })
       }
     }
   },
