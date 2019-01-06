@@ -78,9 +78,6 @@ export default {
           }
         })
       })
-      .catch(err => {
-        // if (err.data.error)
-      })
   },
   methods: {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000)

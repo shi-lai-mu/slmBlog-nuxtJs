@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default {
-  get (url, data) {
+  get (url, data, head) {
     return new Promise((resolve, reject) => {
       let detail = []
       for (let key in data) {
@@ -28,8 +28,34 @@ export default {
         } else detail[key] = data[key]
       }
       $http
-        .get(url + (data ? '?' + axiosQs.stringify(detail) : ''))
+        .get(url + (data ? '?' + axiosQs.stringify(detail) : ''), head)
         .then(res => {
+          if (res.data && !res.data.error) {
+            resolve(res)
+          } else if (res.status === 200) {
+            !res.data && (res.error = 'http get error!')
+            reject(res)
+          } else {
+            console.error(`${res.status}: ${res.statusText}`)
+          }
+        })
+        .catch(err => {
+          console.error(err)
+        })
+    })
+  },
+  post (url, data, head) {
+    return new Promise((resolve, reject) => {
+      let detail = []
+      for (let key in data) {
+        if (key.indexOf('_rsa') > -1) {
+          detail[key] = rsa.encrypt(data[key])
+        } else detail[key] = data[key]
+      }
+      $http
+        .post(url, data, head)
+        .then(res => {
+          console.log(res)
           if (res.data && !res.data.error) {
             resolve(res)
           } else if (res.status === 200) {
