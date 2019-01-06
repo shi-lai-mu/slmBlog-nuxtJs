@@ -116,10 +116,13 @@ export default {
           }
         })
       } else {
-        this.$http.post('article/add?token=' + this.$store.state.user.token, {
+        let _user = this.$store.state.user
+        this.$http.post('article/add?token=' + _user.token, {
           title: this.title,
           type: this.type,
-          content: this.$refs.editor.editorContent
+          content: this.$refs.editor.editorContent,
+          uid: _user.id,
+          img: webPath || uploadPath
         })
           .then(res => {
             console.log(res)
