@@ -15,17 +15,25 @@
         </li>
         <li>
           <input type="file" id="upload_file" style="display: none" accept="image/gif,image/jpeg,image/jpg,image/png" ref="uploadFile" @change="imgChange">
-          <button class="button-v1 upload_file" onclick="upload_file.click()">{{ filePath ? '重新选择' : '选择 封面图片' }}</button>
+
+          <button class="button-v1 upload_file" onclick="upload_file.click()" v-if="!webInput">{{ filePath ? '重新选择' : '上传本地封面' }}</button>
+          <button class="button-v1 upload_file" @click="webInput = !webInput">{{ webInput ? '重新选择方式' : '网络调用封面' }}</button>
+          <input type="text" v-if="webInput" placeholder="完整图片的路径 如 http://xxxxx/xxxxx/xx.jpg" v-model="webPath">
+
           <span :class="['file-path', { 'file-path-max': filePath }]" v-text="filePath"></span>
-          <button v-if="filePath" class="button-v1 upload_file" @click="upload">确认上传</button>
-          <div v-if="filePath" class="img-look-box">
+          <button v-if="filePath && !uploadPath" class="button-v1 upload_file" @click="upload">确认上传</button>
+
+          <div v-if="filePath || webPath" class="img-look-box">
             <span class="look">预览区域</span>
-            <span class="look-info">等待 确认上传 ...</span>
+            <span class="look-info"  v-if="!uploadPath && !webPath">等待 确认上传 ...</span>
+            <img :src="webPath || ('//res.mczyzy.cn/img/upload/' + uploadPath)" v-else>
           </div>
+
         </li>
       </ul>
       <label class="content-title">文章内容</label>
       <editor></editor>
+      <button class="button-v1 send" @click="send">发表</button>
     </div>
   </div>
 </template>
@@ -35,7 +43,10 @@ import editor from '@pub/vue/Editor'
 export default {
   data () {
     return {
-      filePath: null
+      filePath: null,
+      uploadPath: null,
+      webInput: false,
+      webPath: null
     }
   },
   created () {
@@ -47,22 +58,37 @@ export default {
     })
   },
   methods: {
+
+    /**
+     * 实时路径
+     */
     imgChange (e) {
       this.filePath = e.target.value
     },
+
+    /**
+     * 上传封面
+     */
     upload (e) {
       let file = this.$refs.uploadFile.files[0]
       if (file) {
         let image = new FormData()
         image.append('file', file)
-        console.log(image, this.$store.state.user)
-        this.$http.post('http://120.78.221.235/file/i.php?token=' + this.$store.state.user.token, image, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
+        this.$http
+          .post('http://120.78.221.235/file/i.php?token=' + this.$store.state.user.token, image, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+          })
           .then(res => {
-            console.log(res)
+            if (res.data) {
+              if (res.data.data[0]) {
+                this.uploadPath = res.data.data[0]
+              }
+            } else {
+              self.$connecter.$emit('page', {
+                text: '封面上传失败!',
+                icon: 'error'
+              })
+            }
           })
       }
     }
@@ -83,6 +109,13 @@ export default {
       align-items: center;
       width: 100%;
     }
+    input {
+      width: 50%;
+      min-width: 200px;
+      margin: 10px;
+      font-size: 1.2em;
+      color: #ccc;
+    }
   }
 
   label {
@@ -93,13 +126,6 @@ export default {
     &::after {
       content: ' :';
     }
-  }
-  input {
-    width: 50%;
-    min-width: 200px;
-    margin: 10px;
-    font-size: 1.2em;
-    color: #ccc;
   }
   .upload_file {
     display: inline-block;
@@ -129,16 +155,20 @@ export default {
 
     .look,
     .look-info {
-      display: block;
+      position: absolute;
       width: 100%;
       text-align: center;
       font-size: 4.5em;
       font-weight: bold;
-      color: #bbb;
+      color: rgba(255, 255, 255, .2);
+      text-shadow: 0 0 10px rgba(0, 0, 0, .3);
     }
     .look-info {
       font-size: 1.3em;
       color: #777;
+    }
+    img {
+      width: 100%;
     }
   }
   .bust {
@@ -153,6 +183,10 @@ export default {
     border-top: 1px solid #ccc;
     margin: 10px 0;
     text-indent: 5%;
+  }
+  .send {
+    width: 90%;
+    margin: 20px auto;
   }
 }
 </style>

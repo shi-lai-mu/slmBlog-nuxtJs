@@ -19,7 +19,7 @@ export default {
     editor.customConfig.onchange = (html) => {
       this.editorContent = html
     }
-    let imgRoot = 'http://120.78.221.235/img/emoji/'
+    let imgRoot = 'http://res.mczyzy.cn/img/emoji/'
     editor.customConfig.uploadImgServer = 'http://120.78.221.235/file/i.php?token=' + this.$store.state.user.token
     editor.customConfig.imgIp = 'http://120.78.221.235/img/upload/'
     // 表情配置

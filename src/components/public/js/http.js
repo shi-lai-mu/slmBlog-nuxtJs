@@ -55,7 +55,6 @@ export default {
       $http
         .post(url, data, head)
         .then(res => {
-          console.log(res)
           if (res.data && !res.data.error) {
             resolve(res)
           } else if (res.status === 200) {
