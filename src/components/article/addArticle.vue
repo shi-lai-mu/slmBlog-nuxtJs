@@ -54,9 +54,9 @@ export default {
       let file = this.$refs.uploadFile.files[0]
       if (file) {
         let image = new FormData()
-        image.append('files', file)
-        console.log(image)
-        this.$http.post('http://120.78.221.235/file/i.php', image, {
+        image.append('file', file)
+        console.log(image, this.$store.state.user)
+        this.$http.post('http://120.78.221.235/file/i.php?token=' + this.$store.state.user.token, image, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
