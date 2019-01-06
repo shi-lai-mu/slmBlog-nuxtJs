@@ -122,7 +122,7 @@ export default {
           type: this.type,
           content: this.$refs.editor.editorContent,
           uid: _user.id,
-          img: webPath || uploadPath
+          img: this.webPath || this.uploadPath
         })
           .then(res => {
             console.log(res)

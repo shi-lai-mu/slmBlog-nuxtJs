@@ -83,7 +83,7 @@ export default {
           sub: [
             ['登录', '/login', 'register'],
             ['注册', '/login?register', 'register'],
-            ['发帖', '#', 'login'],
+            ['发帖', '/addArticle', 'login'],
             ['管理账号', '#', 'login'],
             ['安全退出', '#', 'login']
           ]
