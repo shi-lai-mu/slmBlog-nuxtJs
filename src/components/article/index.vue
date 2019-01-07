@@ -29,13 +29,7 @@
 
       <div v-if="article['title']">
         <Editor class="editor" ref="editor"></Editor>
-        <button class="button-v1 send">发送</button>
-        <transition name='no-mode-fade'>
-          <button v-if='on' key='on' @click='on=false'>on</button>
-          <button v-if='on' key='off' @click='on=true'>off</button>
-          <button v-if='on' key='off' @click='on=true'>off</button>
-          <button v-else='' key='off' @click='on=true'>off</button>
-        </transition>
+        <button class="button-v1 send">留言</button>
       </div>
 
     </div>
@@ -57,12 +51,22 @@ export default {
   },
   components: { Editor },
   created () {
+    // 百度推送
+    if (window.location.port !== '8080') {
+      (function () {
+        var bp = document.createElement('script')
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+        var s = document.getElementsByTagName('script')[0]
+        s.parentNode.insertBefore(bp, s)
+      })()
+    }
     this.$connecter.$emit('page', {
       title: {
         tag: '文章',
         description: '如果感觉文章对你有帮助,欢迎留言哦...'
       }
     })
+    // 请求文章内容
     this.$http.get('article/' + this.$route.params.id)
       .then(res => {
         this.article = res.data
