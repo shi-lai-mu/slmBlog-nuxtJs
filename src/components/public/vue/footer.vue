@@ -65,7 +65,7 @@
             <span class="copyright-left">© CopyRight 2018, <a href="//mczyzy.cn">MCZYZY.CN</a>, Inc.All Rights Reserved.</span>
             <ul class="copyright-right">
                 <li><router-link :to="{name:'terms'}">条款和免责</router-link></li>
-                <li><router-link :to="{name:'thisSite'}">关于本站</router-link></li>
+                <li><router-link :to="'/other/thisSite'">关于本站</router-link></li>
             </ul>
         </div>
         <div class="beian clearfix">
@@ -77,7 +77,7 @@
                 </p>
             </span>
         </div>
-		<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33038102331168" style="display:none;" title="纯属为了让某些爬虫快速识别备案"></a>
+        <a href="//www.beian.gov.cn/portal/registerSystemInfo?recordcode=33038102331168" title="纯属为了让某些爬虫快速识别备案"></a>
     </footer>
 </template>
 

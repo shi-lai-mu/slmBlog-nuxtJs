@@ -28,7 +28,7 @@
             </ul>
         </span>
 
-        <router-link to="/login" v-if="!user">
+        <router-link :to="{name: 'login'}" v-if="!user">
             <span class="header-nav-right">登录</span>
         </router-link>
         <router-link to="/addArticle" v-else >
@@ -81,8 +81,8 @@ export default {
         {
           tag: '账号',
           sub: [
-            ['登录', '/login', 'register'],
-            ['注册', '/login?register', 'register'],
+            ['登录', {name: 'login'}, 'register'],
+            ['注册', {name: 'register'}, 'register'],
             ['发帖', '/addArticle', 'login'],
             ['管理账号', '#', 'login'],
             ['安全退出', '#', 'login']

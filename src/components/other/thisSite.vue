@@ -106,20 +106,20 @@
                     <span>百度搜索:</span>
                     <p>
                         <a href="//www.baidu.com/s?wd=site%3Amczyzy.cn" target="_black">[精准查看]</a>
-                        已收录本站 <icon class="iconfont icon-renzheng"></icon>
+                        已收录本站 <i class="iconfont icon-renzheng"></i>
                     </p>
                 </li>
                 <li>
                     <span>谷歌搜索:</span>
                     <p>
                         <a href="//www.google.com/search?q=slm478889187@gmail.com" target="_black">[精准查看]</a>
-                        已收录本站 <icon class="iconfont icon-renzheng"></icon>
+                        已收录本站 <i class="iconfont icon-renzheng"></i>
                     </p>
                 </li>
                 <li>
                     <span>腾讯登录:</span>
                     <p>
-                        已获得授权 <icon class="iconfont icon-renzheng1"></icon>
+                        已获得授权 <i class="iconfont icon-renzheng1"></i>
                     </p>
                 </li>
             </ul>

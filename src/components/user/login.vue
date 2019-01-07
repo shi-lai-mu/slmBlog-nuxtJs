@@ -74,7 +74,7 @@ export default {
         description: '欢迎回来 ~~~ '
       }
     })
-    this.page = this.$route.query.register === null ? 'register' : 'login'
+    this.page = this.$route.name === 'register' ? 'register' : 'login'
     this.qqLoginUrl = 'https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&state=' + this.uid
     this.$store.state.mobile && (this.qqLoginUrl = 'https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=716027609&pt_3rd_aid=101540984&daid=383&pt_skey_valid=0&style=35&s_url=http%3A%2F%2Fconnect.qq.com&refer_cgi=authorize&which=&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&response_type=code&state=' + this.uid)
   },
@@ -188,8 +188,6 @@ export default {
 </script>
 
 <style lang="less">
-.content-row {
-}
 
 .account {
     display: block;

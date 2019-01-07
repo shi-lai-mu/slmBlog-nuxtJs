@@ -10,22 +10,6 @@ export default new Router({
       path: '/',
       component: resolve => require(['@com/Home'], resolve)
     },
-    // {
-    //   path: '/thisSite',
-    //   component: resolve => require(['@com/thisSite'], resolve)
-    // },
-    // {
-    //   path: '/terms',
-    //   component: resolve => require(['@com/terms'], resolve)
-    // },
-    {
-      path: '/login',
-      component: resolve => require(['@com/login'], resolve)
-    },
-    {
-      path: '/register',
-      component: resolve => require(['@com/login'], resolve)
-    },
     {
       path: '/article/:id',
       component: resolve => require(['@com/article/index'], resolve)
@@ -34,13 +18,9 @@ export default new Router({
       path: '/addArticle',
       component: resolve => require(['@com/article/addArticle'], resolve)
     },
-    {
-      path: '*',
-      component: resolve => require(['@pub/vue/error'], resolve)
-    },
+    // 其他路由
     {
       path: '/other',
-      name: 'other',
       component: resolve => require(['@com/other/index'], resolve),
       children: [
         {
@@ -54,6 +34,28 @@ export default new Router({
           component: resolve => require(['@com/other/terms'], resolve)
         }
       ]
+    },
+    // 用户路由
+    {
+      path: '/user',
+      name: 'user',
+      component: resolve => require(['@com/user/index.vue'], resolve),
+      children: [
+        {
+          path: 'login',
+          name: 'login',
+          component: resolve => require(['@com/user/login'], resolve)
+        },
+        {
+          path: 'register',
+          name: 'register',
+          component: resolve => require(['@com/user/login'], resolve)
+        }
+      ]
+    },
+    {
+      path: '*',
+      component: resolve => require(['@pub/vue/error'], resolve)
     }
   ]
 })
