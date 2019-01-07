@@ -21,7 +21,7 @@ export default new Router({
     // 其他路由
     {
       path: '/other',
-      component: resolve => require(['@com/other/index'], resolve),
+      component: resolve => require(['@pub/vue/parentRouter'], resolve),
       children: [
         {
           path: 'thisSite',
@@ -39,7 +39,7 @@ export default new Router({
     {
       path: '/user',
       name: 'user',
-      component: resolve => require(['@com/user/index.vue'], resolve),
+      component: resolve => require(['@pub/vue/parentRouter'], resolve),
       children: [
         {
           path: 'login',

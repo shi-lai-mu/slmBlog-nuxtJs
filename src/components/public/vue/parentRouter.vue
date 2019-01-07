@@ -30,7 +30,12 @@ export default {
       this.children = []
       // 路由判断与获取子路由
       let $router = this.$router
-      let routes = $router.options.routes[$router.app._uid]
+      let _uid = $router.options.routes.length - 1
+      let mainPath = $router.history.current.path
+      while (_uid > 0 && $router.options.routes[_uid].path !== mainPath) {
+        _uid--
+      }
+      let routes = $router.options.routes[_uid]
       if (routes) {
         let children = routes.children
         let router = $router.currentRoute.path.split('/')
