@@ -33,6 +33,7 @@
       </ul>
       <label class="content-title">文章内容</label>
       <editor ref="editor"></editor>
+      
       <button class="button-v1 send" @click="send">发表</button>
     </div>
   </div>

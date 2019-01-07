@@ -400,15 +400,19 @@ div:focus {
 
 
 ::-webkit-scrollbar {
-    width: 5px;
-    background-color: rgba(0, 0, 0, .3);
+    width: 10px;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, .1);
+    }
 }
 ::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, .4);
+    background-color: rgba(0, 0, 0, .5);
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .3) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .3) 50%, rgba(255, 255, 255, .3) 75%, transparent 75%, transparent);
     border-radius: 5px;
 
     &:hover {
-        background-color: rgba(255, 255, 255, .6);
+        background-color: #F90;
     }
     
     &:active {
