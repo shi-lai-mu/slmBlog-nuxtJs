@@ -1,5 +1,5 @@
 <template>
-    <footer>
+    <footer class="body-footer">
 
         <div class="guide clearfix">
             <p>关联账号</p>
@@ -77,6 +77,7 @@
                 </p>
             </span>
         </div>
+		<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33038102331168" style="display:none;" title="纯属为了让某些爬虫快速识别备案"></a>
     </footer>
 </template>
 
@@ -98,7 +99,7 @@ export default {
 </script>
 
 <style lang="less">
-footer {
+.body-footer {
     margin: 0 0 20px;
     color: #b6c3db;
     user-select:none;
@@ -271,5 +272,4 @@ footer {
         }
     }
 }
-
 </style>
