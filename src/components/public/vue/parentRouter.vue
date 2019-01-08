@@ -1,11 +1,14 @@
 <template>
   <div>
+
     <router-view></router-view>
+
     <ul v-if="children.length" class="child-list">
       <li v-for="(child, key) in children" :key="key">
         <router-link :to="{ name: child.path }">{{ child.path }}</router-link>
       </li>
     </ul>
+
   </div>
 </template>
 
@@ -13,6 +16,7 @@
 export default {
   data () {
     return {
+      // 子路由们
       children: []
     }
   },
@@ -20,6 +24,10 @@ export default {
     this.updateRoutes()
   },
   methods: {
+
+    /**
+     * 刷新路由状态
+     */
     updateRoutes () {
       this.$connecter.$emit('page', {
         title: {
@@ -50,6 +58,10 @@ export default {
       }
     }
   },
+
+  /**
+   * 点击后更新前进行刷新状态
+   */
   beforeUpdate () {
     this.updateRoutes()
   }

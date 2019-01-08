@@ -27,8 +27,26 @@ const store = new VueX.Store({
   }
 })
 
+// 路由后处理
 router.afterEach((to, from, next) => {
   window.scrollTo(0, 0)
+})
+
+// 路由前处理
+router.beforeEach((to, from, next) => {
+  to.matched.map(item => {
+    if (item.meta.requireAuth) {
+      console.log(item)
+      next({
+        name: 'error',
+        query: {
+          redirect: to.fullPath
+        }
+      })
+    } else {
+      next()
+    }
+  })
 })
 
 /* eslint-disable no-new */

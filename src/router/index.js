@@ -17,13 +17,16 @@ export default new Router({
       component: resolve => require(['@pub/vue/parentRouter'], resolve),
       children: [
         {
-          path: ':id',
-          component: resolve => require(['@com/article/index'], resolve)
-        },
-        {
           path: 'addArticle',
           name: 'addArticle',
+          meta: {
+            requireAuth: 'login'
+          },
           component: resolve => require(['@com/article/addArticle'], resolve)
+        },
+        {
+          path: ':id',
+          component: resolve => require(['@com/article/index'], resolve)
         }
       ]
     },
@@ -64,6 +67,7 @@ export default new Router({
     },
     {
       path: '*',
+      name: 'error',
       component: resolve => require(['@pub/vue/error'], resolve)
     }
   ]

@@ -120,7 +120,6 @@ export default {
         }
       ]
       this.menu.filter((item, index) => {
-        // item.sub = [...this.menuList[index].sub]
         if (item.sub) {
           item.sub = item.sub.filter(subItem => {
             // 设置了权限判断
@@ -133,7 +132,6 @@ export default {
                 // 管理员权限
                 (subItem[2] === 'admin' && (!this.user || (this.user && this.user.groupid !== 9999)))
               ) {
-                console.log(subItem)
                 subItem = false
               }
             }
