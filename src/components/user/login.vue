@@ -8,7 +8,7 @@
                 <label>账号</label>
                 <input type="text" name="log_user" class="input-1v" v-model="login.user">
                 <label>密码</label>
-                <input type="password" name="log_pass" class="input-1v" v-model="login.pass_rsa">
+                <input type="password" name="log_pass" class="input-1v" v-model="login.pass_rsa" @keyup.enter="loginEvent">
                 <span class="button-v1" @click="loginEvent">登陆</span>
             </form>
             <span class="account-right">

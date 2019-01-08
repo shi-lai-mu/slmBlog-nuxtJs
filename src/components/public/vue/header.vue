@@ -15,12 +15,13 @@
             <i></i>
             <ul class="header-menu-list">
 
-                <li @click="minMenu" class="header-nav-conter" v-for="(menu, i) of menuList" :key="i">
+                <li @click="minMenu" class="header-nav-conter" v-for="(menu, i) of menu" :key="i">
                     <span>{{ menu.tag }}</span>
                     <span v-if="menu.sub" class="iconfont icon-fangxiangxia"></span>
                     <ul v-if="menu.sub">
                         <li v-for="(sub, n) in menu.sub" :key="n">
-                            <router-link :to="sub[1]" class="max-a">{{ sub[0] }}</router-link>
+                            <router-link v-if="sub[1] == '#' || typeof sub[1] === 'object'" class="max-a" :to="sub[1]">{{ sub[0] }}</router-link>
+                            <span @click="runCommand(sub[1])" v-else>{{ sub[0] }}</span>
                         </li>
                     </ul>
                 </li>
@@ -44,12 +45,41 @@
 
 export default {
   props: ['head'],
-
   data () {
     return {
       user: this.$store.state.user,
       menuState: false,
-      menuList: [
+      menu: []
+    }
+  },
+
+  created () {
+    this.$nextTick(() => {
+      let child = this.$el.lastChild
+      let cList = child.classList
+      let elTop = this.$el.clientHeight - child.clientHeight
+
+      window.addEventListener('scroll', () => {
+        this.menuState && (this.menuState = false)
+        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+        scrollTop >= elTop ? cList.add('header-nav-fixed') : cList.remove('header-nav-fixed')
+      })
+
+      // 通讯登录状态
+      this.$connecter.$on('user', data => {
+        this.user = data
+        this.updateRouter()
+      })
+      this.updateRouter()
+    })
+  },
+  methods: {
+    /**
+     * 更新菜单路由指向
+     */
+    updateRouter () {
+      // 对权限进行判断
+      this.menu = [
         {
           tag: '文章',
           sub: [
@@ -89,37 +119,8 @@ export default {
           ]
         }
       ]
-    }
-  },
-
-  created () {
-    this.$nextTick(() => {
-      let child = this.$el.lastChild
-      let cList = child.classList
-      let elTop = this.$el.clientHeight - child.clientHeight
-
-      window.addEventListener('scroll', () => {
-        this.menuState && (this.menuState = false)
-        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-        scrollTop >= elTop ? cList.add('header-nav-fixed') : cList.remove('header-nav-fixed')
-      })
-
-      // 通讯登录状态
-      this.$connecter.$on('user', data => {
-        this.user = data
-        this.updateRouter()
-      })
-      this.updateRouter()
-    })
-  },
-  methods: {
-    /**
-     * 更新菜单路由指向
-     */
-    // v-if="!sub[2] || (sub[2] == 'login' && user) || (sub[2] == 'register' && !user) || (user && sub[2] == 'admin' && user.groupid === 9999)
-    updateRouter () {
-      // 对权限进行判断
-      this.menuList = this.menuList.map(item => {
+      this.menu.filter((item, index) => {
+        // item.sub = [...this.menuList[index].sub]
         if (item.sub) {
           item.sub = item.sub.filter(subItem => {
             // 设置了权限判断
@@ -132,6 +133,7 @@ export default {
                 // 管理员权限
                 (subItem[2] === 'admin' && (!this.user || (this.user && this.user.groupid !== 9999)))
               ) {
+                console.log(subItem)
                 subItem = false
               }
             }
@@ -174,7 +176,17 @@ export default {
      * 退出登录
      */
     outLogin () {
+      localStorage.removeItem('userInfo')
+      this.user = undefined
+      this.$store.state.user = undefined
+      this.updateRouter()
+    },
 
+    /**
+     * 运行命令
+     */
+    runCommand (key) {
+      this[key]()
     }
   }
 }

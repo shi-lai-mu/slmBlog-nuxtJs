@@ -38,7 +38,7 @@ export default {
     })
 
     // 读取本地的登录信息
-    self.$store.state.user = JSON.parse(window.localStorage.getItem('userInfo'))
+    self.$store.state.user = JSON.parse(localStorage.getItem('userInfo'))
 
     // 判断窗口大小
     window.addEventListener('resize', resize)
