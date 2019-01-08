@@ -81,23 +81,21 @@ export default {
 .article {
     position: relative;
     padding: 10px;
-    text-align: left;
-    vertical-align: text-top;
     border-top: 1px solid white;
     border-bottom: 1px solid #ccc;
+    text-align: left;
+    vertical-align: text-top;
 
     &:nth-child(1) {
         border-top: 0;
     }
 
     &:hover {
-        background-image: url('//120.78.221.235/img/home-slider-bg.png');
-        background-position-y: -10px;
-        background-position-x: center;
+        background: url('//120.78.221.235/img/home-slider-bg.png') -10px center;
         background-size: auto;
 
         .article-parameter {
-            background-color: white;
+            background-color: #fff;
             color: #aaa;
         }
     }
@@ -105,12 +103,12 @@ export default {
     .content {
         display: flex;
         justify-content: center;
+
         img {
-            /* height: max-content;
-            min-width: 100%; */
             height: 100%;
             margin: 0 auto;
             transition: 2s;
+
             &:hover {
                 transform: scale(1.2);
             }
@@ -118,8 +116,8 @@ export default {
     }
 
     .object > span {
-        overflow: hidden;
         display: inline-block;
+        overflow: hidden;
         width: 65%;
         height: 120px;
         padding: 10px;
@@ -128,21 +126,22 @@ export default {
     }
 
     .article-parameter {
-        float: right;
         display: flex;
-        min-width: 40%;
+        float: right;
         width: auto;
+        min-width: 40%;
         line-height: 25px;
         padding: 0 10px;
-        background-image: url('~@img/line-pattern-light-bg.png');
         border: 1px dashed;
         border-radius: 5px;
+        background-image: url('~@img/line-pattern-light-bg.png');
         color: #ccc;
         transition: 4s;
 
         span {
             color: var(--button-font-shadow-color);
         }
+
         li {
             display: inline-block;
             min-width: 2rem;
@@ -156,10 +155,10 @@ export default {
         overflow: hidden;
         float: left;
         position: relative;
-        margin-left: 10px;
         width: 30%;
         height: 155px;
         border: 10px solid transparent;
+        margin-left: 10px;
         background-image: url('~@img/line-pattern-light-bg.png');
         box-sizing: border-box;
 
@@ -202,7 +201,7 @@ export default {
         float: left;
         line-height: 35px;
         padding: 0 5px 0 20px;
-        margin:  0 5px;
+        margin: 0 5px;
         background: url('~@img/tags-bg.png') no-repeat;
         background-position-x: -1px;
         border-radius: 0 10px 5px 0;
@@ -224,8 +223,8 @@ export default {
 }
 
 .article > span {
-    overflow: hidden;
     display: inline-block;
+    overflow: hidden;
     width: 65%;
     height: 120px;
     padding: 10px;
