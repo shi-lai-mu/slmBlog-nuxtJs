@@ -8,6 +8,7 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'home',
       component: resolve => require(['@com/Home'], resolve)
     },
     // 文章路由
@@ -56,11 +57,17 @@ export default new Router({
         {
           path: 'login',
           name: 'login',
+          meta: {
+            requireAuth: 'register'
+          },
           component: resolve => require(['@com/user/login'], resolve)
         },
         {
           path: 'register',
           name: 'register',
+          meta: {
+            requireAuth: 'register'
+          },
           component: resolve => require(['@com/user/login'], resolve)
         }
       ]

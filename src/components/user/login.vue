@@ -67,7 +67,6 @@ export default {
     }
   },
   created () {
-    this.$store.state.user && history.back(-1)
     this.$connecter.$emit('page', {
       title: {
         tag: '登录',
@@ -97,7 +96,13 @@ export default {
             self.$store.state.user = res.data
             self.$connecter.$emit('user', res.data)
             self.$connecter.$emit('page', { toast })
-            self.$router.push({path: '/'})
+            let redirect = self.$router.currentRoute.query.redirect
+            console.log(redirect)
+            if (redirect) {
+              self.$router.push({path: redirect})
+            } else {
+              self.$router.push({ name: 'home' })
+            }
           })
           .catch(err => {
             toast.icon = 'error'

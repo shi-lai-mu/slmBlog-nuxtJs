@@ -164,8 +164,8 @@ export default {
      * 缩小菜单
      */
     minMenu (e) {
-      let last = e.target.lastChild.tagName
-      if (!last || last.toLowerCase() !== 'ul') {
+      let last = e.target.lastChild
+      if (!last || !last.tagName || last.tagName.toLowerCase() !== 'ul') {
         this.menuState = false
       }
     },
