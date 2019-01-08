@@ -19,7 +19,7 @@
                     <span>{{ menu.tag }}</span>
                     <span v-if="menu.sub" class="iconfont icon-fangxiangxia"></span>
                     <ul v-if="menu.sub">
-                        <li v-for="(sub, n) in menu.sub" :key="n" v-if="!sub[2] || (sub[2] == 'login' && user) || (sub[2] == 'register' && !user) || (user && sub[2] == 'admin' && user.groupid === 9999)">
+                        <li v-for="(sub, n) in menu.sub" :key="n">
                             <router-link :to="sub[1]" class="max-a">{{ sub[0] }}</router-link>
                         </li>
                     </ul>
@@ -28,10 +28,10 @@
             </ul>
         </span>
 
-        <router-link :to="{name: 'login'}" v-if="!user">
+        <router-link :to="{ name: 'login' }" v-if="!user">
             <span class="header-nav-right">登录</span>
         </router-link>
-        <router-link to="/addArticle" v-else >
+        <router-link :to="{ name: 'addArticle' }" v-else >
             <span class="header-nav-right"><i class="iconfont icon-add1"></i>发帖</span>
         </router-link>
 
@@ -81,11 +81,11 @@ export default {
         {
           tag: '账号',
           sub: [
-            ['登录', {name: 'login'}, 'register'],
-            ['注册', {name: 'register'}, 'register'],
-            ['发帖', '/addArticle', 'login'],
+            ['登录', { name: 'login' }, 'register'],
+            ['注册', { name: 'register' }, 'register'],
+            ['发帖', { name: 'addArticle' }, 'login'],
             ['管理账号', '#', 'login'],
-            ['安全退出', '#', 'login']
+            ['安全退出', 'outLogin', 'login']
           ]
         }
       ]
@@ -106,12 +106,45 @@ export default {
 
       // 通讯登录状态
       this.$connecter.$on('user', data => {
-        console.log(1346784, data)
         this.user = data
+        this.updateRouter()
       })
+      this.updateRouter()
     })
   },
   methods: {
+    /**
+     * 更新菜单路由指向
+     */
+    // v-if="!sub[2] || (sub[2] == 'login' && user) || (sub[2] == 'register' && !user) || (user && sub[2] == 'admin' && user.groupid === 9999)
+    updateRouter () {
+      // 对权限进行判断
+      this.menuList = this.menuList.map(item => {
+        if (item.sub) {
+          item.sub = item.sub.filter(subItem => {
+            // 设置了权限判断
+            if (subItem[2]) {
+              if (
+                // 未登录的权限
+                (subItem[2] === 'register' && this.user) ||
+                // 登录后的权限
+                (subItem[2] === 'login' && !this.user) ||
+                // 管理员权限
+                (subItem[2] === 'admin' && (!this.user || (this.user && this.user.groupid !== 9999)))
+              ) {
+                subItem = false
+              }
+            }
+            return subItem
+          })
+        }
+        return item
+      })
+    },
+
+    /**
+     * 菜单切换
+     */
     menuToggle (e) {
       if (e.target.classList.contains('header-menu-right')) {
         this.menuState = !this.menuState
@@ -126,11 +159,22 @@ export default {
         }
       }
     },
+
+    /**
+     * 缩小菜单
+     */
     minMenu (e) {
       let last = e.target.lastChild.tagName
       if (!last || last.toLowerCase() !== 'ul') {
         this.menuState = false
       }
+    },
+
+    /**
+     * 退出登录
+     */
+    outLogin () {
+
     }
   }
 }

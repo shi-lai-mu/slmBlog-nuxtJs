@@ -10,13 +10,22 @@ export default new Router({
       path: '/',
       component: resolve => require(['@com/Home'], resolve)
     },
+    // 文章路由
     {
-      path: '/article/:id',
-      component: resolve => require(['@com/article/index'], resolve)
-    },
-    {
-      path: '/addArticle',
-      component: resolve => require(['@com/article/addArticle'], resolve)
+      path: '/article',
+      name: 'article',
+      component: resolve => require(['@pub/vue/parentRouter'], resolve),
+      children: [
+        {
+          path: ':id',
+          component: resolve => require(['@com/article/index'], resolve)
+        },
+        {
+          path: 'addArticle',
+          name: 'addArticle',
+          component: resolve => require(['@com/article/addArticle'], resolve)
+        }
+      ]
     },
     // 其他路由
     {
