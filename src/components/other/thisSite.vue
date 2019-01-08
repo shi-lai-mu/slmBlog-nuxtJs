@@ -148,7 +148,25 @@
                 </li>
             </ul>
 
-            <br>
+            <h2>本站发展史</h2>
+            <ul class="web-details">
+                <li>
+                    <span>2018/08/25:</span>
+                    <p>原生PHP7 写个人博客[之前两年重写过三次]</p>
+                </li>
+                <li>
+                    <span>2018/10/03:</span>
+                    <p>原生PHP MVC重写博客</p>
+                </li>
+                <li>
+                    <span>2018/11/22:</span>
+                    <p>MVC ThinkPHP, MVVM Vue 重写博客</p>
+                </li>
+                <li>
+                    <span>注意:</span>
+                    <p>本人从不怕重写, 只怕原地踏步</p>
+                </li>
+            </ul>
 
         </div>
     </div>

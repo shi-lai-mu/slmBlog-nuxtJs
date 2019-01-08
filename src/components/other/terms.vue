@@ -1,6 +1,6 @@
 <template>
   <div class="content-row single clearfix">
-    <div class="content-box">
+    <div class="content-box terms">
       <h2>条款和免责</h2>
       <ul>
         <li>在使用 <b>史莱姆的个人博客 (以下简称本平台)</b> 提供的一切服务前，请务必仔细阅读并理解透彻本声明，您可以选择不使用本平台，但如果您使用本平台，将被视为完全认可此协议及其可能随时更新的内容</li>
@@ -36,7 +36,7 @@ export default {
 
 <style lang="less">
 
-  .content-box {
+  .terms {
 
     h2 {
       display: block;

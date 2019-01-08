@@ -19,7 +19,7 @@
                             </ul>
                         </div>
                         <div class="content">
-                            <img v-lazy="hot.img.indexOf('http') > -1 ? hot.img : '//res.mczyzy.cn/img/upload/' + hot.img" alt="images">
+                            <img v-lazy="hot.img.indexOf('//') > -1 ? hot.img : '//res.mczyzy.cn/img/upload/' + hot.img" alt="images">
                         </div>
                         <span>
                             <p>{{ hot.content }}</p>
