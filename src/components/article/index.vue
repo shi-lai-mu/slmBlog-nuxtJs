@@ -3,29 +3,29 @@
     <div :class="['content-box', 'article-index', { 'nick': article['title'] }, 'notContent']">
 
       <header>
-        <h2 class="article-title">{{ article['title'] || 'loading...' }}</h2>
+        <h2 class="article-title">{{ article.title || 'loading...' }}</h2>
         <h3 class="article-info">
-          <span>shilaimu 发表于：<i class="iconfont icon-shizhong" title="时间">{{ article['createTime'] && unTime(article['createTime']) }}</i></span>
-          <i class="iconfont icon-liaotian1" title="回复">{{ article['msgMe'] }}</i>
-          <i class="iconfont icon-liulan" title="浏览">{{ article['lookCount'] }}</i>
+          <span><span v-text="article.author.username"></span> 发表于：<i class="iconfont icon-shizhong" title="时间">{{ article.createTime && unTime(article.createTime) }}</i></span>
+          <i class="iconfont icon-liaotian1" title="回复">{{ article.msgMe }}</i>
+          <i class="iconfont icon-liulan" title="浏览">{{ article.lookCount }}</i>
         </h3>
         <ul class="notCon" v-if="notCon">
-          <li class="notP"></li>
+          <li class="not-p"></li>
           <li></li>
-          <li class="notEnd"></li>
-          <li class="notP"></li>
-          <li></li>
-          <li></li>
-          <li class="notEnd"></li>
-          <li class="notP"></li>
+          <li class="not-end"></li>
+          <li class="not-p"></li>
           <li></li>
           <li></li>
+          <li class="not-end"></li>
+          <li class="not-p"></li>
           <li></li>
-          <li class="notEnd"></li>
+          <li></li>
+          <li></li>
+          <li class="not-end"></li>
         </ul>
       </header>
 
-      <div class="article-body" v-html="article['content']" ref="content"></div>
+      <div class="article-body" v-html="article.content" ref="content"></div>
 
       <div v-if="article['title']">
         <Editor class="editor" ref="editor"></Editor>
@@ -44,7 +44,9 @@ import Editor from '@pub/vue/Editor'
 export default {
   data () {
     return {
-      article: [],
+      article: {
+        author: {}
+      },
       notCon: true,
       on: false
     }
@@ -70,6 +72,7 @@ export default {
     this.$http.get('article/' + this.$route.params.id)
       .then(res => {
         this.article = res.data
+        console.log(this.article)
         setTimeout(() => {
           this.notCon = !1
         }, 400)
@@ -140,11 +143,11 @@ export default {
         border-radius: 1rem;
       }
 
-      .notP {
+      .not-p {
         width: 90%;
         margin-right: 0;
       }
-      .notEnd {
+      .not-end {
         width: 50%;
         margin-left: 0;
       }
