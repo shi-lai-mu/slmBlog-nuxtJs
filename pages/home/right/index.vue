@@ -4,8 +4,8 @@
     <blogger />
     <notice :notice="right.notice" />
     <new-article :news="right.new"/>
-    <friendship :ship="right.ship" />
     <leaveMessage :message="right.leaveMessage" />
+    <friendship :ship="right.ship" />
   </aside>
 </template>
 
