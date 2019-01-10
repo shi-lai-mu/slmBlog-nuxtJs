@@ -325,20 +325,19 @@ div:focus {
     .tag-description,
     .shuffling .shuffling-flex .shuffling-left,
     .shuffling .shuffling-flex .shuffling-right,
-    div.article .content,
     .guide {
         display: none;
     }
     div.article >  {
-        span, h3 {
-            width: 100%;
-        }
-        h3 {
-            margin: 15px 0;
-        }
-        .top {
-            overflow: initial;
-        }
+        // span, h3 {
+        //     width: 100%;
+        // }
+        // h3 {
+        //     margin: 15px 0;
+        // }
+        // .top {
+        //     overflow: initial;
+        // }
     }
 
     .shuffling-select li {
@@ -395,6 +394,14 @@ div:focus {
     }
     footer .footer-nav-list .footer-nav-child h3 {
         font-size: 1rem;
+    }
+    div.article > {
+        span, h3 {
+            width: 100%;
+        }
+        .content {
+            display: none;
+        }
     }
 }
 

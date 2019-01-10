@@ -156,7 +156,10 @@ export default {
         float: left;
         position: relative;
         width: 30%;
-        height: 155px;
+        min-width: 100px;
+        height: 30vw;
+        max-height: 155px;
+        min-height: 100px;
         border: 10px solid transparent;
         margin-left: 10px;
         background-image: url('~@img/line-pattern-light-bg.png');
