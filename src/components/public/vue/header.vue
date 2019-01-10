@@ -21,7 +21,7 @@
                     <ul v-if="menu.sub">
                         <li v-for="(sub, n) in menu.sub" :key="n">
                             <router-link v-if="sub[1] == '#' || typeof sub[1] === 'object'" class="max-a" :to="sub[1]">{{ sub[0] }}</router-link>
-                            <span @click="runCommand(sub[1])" v-else>{{ sub[0] }}</span>
+                            <span class="max-a" @click="runCommand(sub[1])" v-else>{{ sub[0] }}</span>
                         </li>
                     </ul>
                 </li>
@@ -154,7 +154,7 @@ export default {
       let self = this
       function menuClick (e) {
         if (!self.$el.contains(e.target)) {
-          self.menuState = false
+        //   self.menuState = false
           document.removeEventListener('click', menuClick)
         }
       }
@@ -314,9 +314,6 @@ header {
             }
             span:nth-child(2) {
                 display: block;
-            }
-            span {
-                pointer-events: none;
             }
             li {
                 padding: 5px 20px;
