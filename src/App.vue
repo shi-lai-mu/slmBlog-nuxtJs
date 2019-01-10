@@ -53,4 +53,8 @@ export default {
 
 <style lang="less">
 @import '~@com/public/public.less';
+
+body > .conter {
+  overflow: hidden;
+}
 </style>

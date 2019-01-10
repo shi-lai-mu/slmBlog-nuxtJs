@@ -154,7 +154,7 @@ export default {
       let self = this
       function menuClick (e) {
         if (!self.$el.contains(e.target)) {
-        //   self.menuState = false
+          self.menuState = false
           document.removeEventListener('click', menuClick)
         }
       }

@@ -157,7 +157,7 @@ export default {
         position: relative;
         width: 30%;
         min-width: 100px;
-        height: 30vw;
+        height: 26vw;
         max-height: 155px;
         min-height: 100px;
         border: 10px solid transparent;
