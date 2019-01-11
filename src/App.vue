@@ -39,18 +39,33 @@ export default {
 
     // 读取本地的登录信息
     let user = JSON.parse(localStorage.getItem('userInfo'))
-    self.$store.state.user = user
 
     if (user) {
       // 判断token是否过期
       let token = user.token.split('-')
-      if (token[2] < Date.now()) {
-        this.$http.get('user/intoken', { token })
+      if (token[2] < Date.now() / 1000) {
+        this.$http.get('user/intoken', { token: user.token })
           .then(res => {
-            console.log(res);
+            if (res.token) {
+              user.token = res.token
+              localStorage.setItem('userInfo', user)
+            }
+          })
+          .catch(res => {
+            localStorage.removeItem('userInfo')
+            user = null
+            this.$connecter.$emit('user', false)
+            this.$router.push({
+              name: 'login'
+            })
+            this.toast = {
+              icon: 'warning',
+              text: '登录已过期,请重新登录!'
+            }
           })
       }
     }
+    self.$store.state.user = user
 
     // 判断窗口大小
     window.addEventListener('resize', resize)
