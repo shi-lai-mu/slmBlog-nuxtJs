@@ -42,28 +42,28 @@ export default {
 
     if (user) {
       // 判断token是否过期
-      let token = user.token.split('-')
-      if (token[2] < Date.now() / 1000) {
-        this.$http.get('user/intoken', { token: user.token })
-          .then(res => {
-            if (res.token) {
-              user.token = res.token
-              localStorage.setItem('userInfo', user)
+      this.$http.get('user/intoken', { token: user.token })
+        .then(res => {
+          if (res.token && res.token !== user.token) {
+            user.token = res.token
+            localStorage.setItem('userInfo', user)
+          }
+        })
+        .catch(res => {
+          localStorage.removeItem('userInfo')
+          user = null
+          this.$connecter.$emit('user', false)
+          this.$router.push({
+            name: 'login',
+            query: {
+              redirect: this.$router.history.current.path
             }
           })
-          .catch(res => {
-            localStorage.removeItem('userInfo')
-            user = null
-            this.$connecter.$emit('user', false)
-            this.$router.push({
-              name: 'login'
-            })
-            this.toast = {
-              icon: 'warning',
-              text: '登录已过期,请重新登录!'
-            }
-          })
-      }
+          this.toast = {
+            icon: 'warning',
+            text: '登录已过期,请重新登录!'
+          }
+        })
     }
     self.$store.state.user = user
 

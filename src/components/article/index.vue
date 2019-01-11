@@ -73,7 +73,6 @@ export default {
     this.$http.get('article/' + this.$route.params.id)
       .then(res => {
         this.article = res.data
-        console.log(this.article)
         setTimeout(() => {
           this.notCon = !1
         }, 400)

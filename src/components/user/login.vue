@@ -97,7 +97,6 @@ export default {
             self.$connecter.$emit('user', res.data)
             self.$connecter.$emit('page', { toast })
             let redirect = self.$router.currentRoute.query.redirect
-            console.log(redirect)
             if (redirect) {
               self.$router.push({path: redirect})
             } else {
