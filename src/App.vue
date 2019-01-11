@@ -44,12 +44,14 @@ export default {
       // 判断token是否过期
       this.$http.get('user/intoken', { token: user.token })
         .then(res => {
+          // 有新的token传回
           if (res.token && res.token !== user.token) {
             user.token = res.token
             localStorage.setItem('userInfo', user)
           }
         })
         .catch(res => {
+          // 出错/过期
           localStorage.removeItem('userInfo')
           user = null
           this.$connecter.$emit('user', false)

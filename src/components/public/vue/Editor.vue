@@ -63,8 +63,8 @@ export default {
     }
 
     let imgRoot = 'http://res.mczyzy.cn/img/emoji/'
-    editor.customConfig.uploadImgServer = this.$store.state.user ? 'http://120.78.221.235/file/i.php?token=' + this.$store.state.user.token : false
-    editor.customConfig.imgIp = 'http://120.78.221.235/img/upload/'
+    editor.customConfig.uploadImgServer = this.$store.state.user ? 'http://res.mczyzy.cn/file/i.php?token=' + this.$store.state.user.token : false
+    editor.customConfig.imgIp = 'http://res.mczyzy.cn/img/upload/'
     // 表情配置
     let lyList = []
     let i = 1

@@ -40,6 +40,7 @@
 
 import Time from '@pub/js/dateForm'
 import Editor from '@pub/vue/Editor'
+import Code from '@pub/js/code'
 
 export default {
   data () {
@@ -80,9 +81,12 @@ export default {
           let el = this.$refs.content.getElementsByTagName('img')
           for (let i = 0, l = el.length; i < l; i++) {
             el[i].addEventListener('error', function () {
-              this.src = '//120.78.221.235/img/error.png'
+              this.src = '//res.mczyzy.cn/img/error.png'
             })
           }
+          // 语法高亮
+          let pre = this.$refs.content
+          Code.parse(pre)
         })
       })
   },
