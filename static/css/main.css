@@ -5,6 +5,7 @@ body {
   overflow-x: hidden;
   --body-img: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFAQMAAAC3obSmAAAABlBMVEUuN0MsND8+ei+CAAAAD0lEQVQI12NgYGhgAAEPAAPSAMlMH3PVAAAAAElFTkSuQmCC);
   background-image: var(--body-img);
+  background-color: #303945;
 }
 @font-face {
   font-family: 'iconfont';  /* project id 956143 */

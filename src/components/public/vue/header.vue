@@ -237,6 +237,7 @@ header {
     width: 100%;
     z-index: 999;
     background-image: url('//120.78.221.235/img/hd-bg.png'), var(--body-img);
+    background-color: #303945;
     background-position: center bottom;
     box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
 }

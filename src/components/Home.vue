@@ -58,12 +58,15 @@ export default {
         description: '欢迎浏览史莱姆的博客!（°Д°）Ъ'
       }
     })
+    
+    // 簡介内容
+    let maxContent = this.$store.state.mobile ? 100 : 125
     this.$http.get('blog/hot')
       .then(res => {
         this.hotList = res.data.map(index => {
           index.tag = index.tag.split('#')
           index.tag.shift()
-          index.content = index.content.replace(/(<[^>]+>|&\w+;)/img, '').substring(0, 125) + ' ...'
+          index.content = index.content.replace(/(<[^>]+>|&\w+;)/img, '').substring(0, maxContent) + ' ...'
           return index
         })
       })
