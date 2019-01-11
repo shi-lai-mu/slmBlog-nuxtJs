@@ -16,25 +16,50 @@ export default {
   },
   mounted () {
     let editor = new E(this.$refs.editor)
+
     let inster = null
-    let name = this.$router.history.current.path
-    let storage = localStorage.getItem('editor') || {}
+
+    // 自动保存编辑器内容
+    let Store = (function (self) {
+      return class {
+        // IO存储的数据对象
+        value = {}
+        // 当前路由
+        path = self.$router.history.current.path
+
+        constructor () {
+          let stroe = localStorage.getItem('editor')
+          let _this = this
+          if (stroe) {
+            _this.value = JSON.parse(localStorage.getItem('editor'))
+          }
+          // 如果上次未编辑完则保存
+          if (_this.value[_this.path]) {
+            editor.txt.html(_this.value[_this.path])
+          }
+        }
+
+        // 清空编辑器内容
+        clear () {
+          this.set()
+          editor.txt.html('')
+        }
+
+        set (val) {
+          this.value[this.path] = val
+          if (!val) delete this.value[this.path]
+          localStorage.setItem('editor', JSON.stringify(this.value))
+        }
+      }
+    })(this)
 
     // 输入时赋值到全局
     editor.customConfig.onchange = (html) => {
       this.editorContent = html
-
-      // 自动保存内容
       clearTimeout(inster)
       inster = setTimeout(() => {
-        storage[name] = this.editorContent
-        localStorage.setItem('editor', storage[name])
+        this.Stores.set(this.editorContent)
       }, 1500)
-    }
-    editor.create()
-    // 如果上次未编辑完则保存
-    if (storage[name]) {
-      editor.txt.html(storage[name])
     }
 
     let imgRoot = 'http://res.mczyzy.cn/img/emoji/'
@@ -57,6 +82,8 @@ export default {
         content: lyList
       }
     ]
+    editor.create()
+    this.Stores = new Store()
   },
   methods: {
     hh () {

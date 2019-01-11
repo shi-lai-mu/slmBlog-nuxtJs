@@ -26,10 +26,10 @@
       </header>
 
       <div class="article-body" v-html="article.content" ref="content"></div>
-      
+
       <div :class="{ none: !article.title }">
         <Editor class="editor" ref="editor"></Editor>
-        <button class="button-v1 send">留言</button>
+        <button class="button-v1 send" @click="send">留言</button>
       </div>
 
     </div>
@@ -68,10 +68,7 @@ export default {
         description: '如果感觉文章对你有帮助,欢迎留言哦...'
       }
     })
-    this.$nextTick(() => {
-      console.log(this.$refs.editor.hh());
-    })
-    
+
     // 请求文章内容
     this.$http.get('article/' + this.$route.params.id)
       .then(res => {
@@ -91,7 +88,10 @@ export default {
       })
   },
   methods: {
-    unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000)
+    unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000),
+    send () {
+      this.$refs.editor.Stores.clear()
+    }
   }
 }
 </script>
