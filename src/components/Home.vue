@@ -58,7 +58,7 @@ export default {
         description: '欢迎浏览史莱姆的博客!（°Д°）Ъ'
       }
     })
-    
+
     // 簡介内容
     let maxContent = this.$store.state.mobile ? 100 : 125
     this.$http.get('blog/hot')

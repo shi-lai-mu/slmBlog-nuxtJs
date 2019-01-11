@@ -38,7 +38,19 @@ export default {
     })
 
     // 读取本地的登录信息
-    self.$store.state.user = JSON.parse(localStorage.getItem('userInfo'))
+    let user = JSON.parse(localStorage.getItem('userInfo'))
+    self.$store.state.user = user
+
+    if (user) {
+      // 判断token是否过期
+      let token = user.token.split('-')
+      if (token[2] < Date.now()) {
+        this.$http.get('user/intoken', { token })
+          .then(res => {
+            console.log(res);
+          })
+      }
+    }
 
     // 判断窗口大小
     window.addEventListener('resize', resize)

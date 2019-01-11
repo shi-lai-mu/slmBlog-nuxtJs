@@ -54,7 +54,7 @@ export default {
   components: { Editor },
   created () {
     // 百度推送
-    if (window.location.port !== '8080') {
+    if (window.location.host !== '127.0.0.1') {
       (function () {
         var bp = document.createElement('script')
         bp.src = 'http://push.zhanzhang.baidu.com/push.js'

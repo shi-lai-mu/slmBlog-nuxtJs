@@ -84,11 +84,6 @@ export default {
     ]
     editor.create()
     this.Stores = new Store()
-  },
-  methods: {
-    hh () {
-      console.log(12654)
-    }
   }
 }
 </script>
