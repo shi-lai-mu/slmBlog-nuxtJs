@@ -62,7 +62,7 @@
         </div>
 
         <div class="copyright clearfix">
-            <span class="copyright-left">© CopyRight 2018, <a href="//mczyzy.cn">MCZYZY.CN</a>, Inc.All Rights Reserved.</span>
+            <span class="copyright-left">© CopyRight 2018-2019, <a href="//mczyzy.cn">MCZYZY.CN</a>, Inc.All Rights Reserved.</span>
             <ul class="copyright-right">
                 <li><router-link :to="{name:'terms'}">条款和免责</router-link></li>
                 <li><router-link :to="'/other/thisSite'">关于本站</router-link></li>
