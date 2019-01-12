@@ -2,45 +2,6 @@ body .article-body code {
   color: #f8f8f0;
   background-color: #1E1E1E;
 }
-.javascript-keyword,
-.javascript-methods {
-  color: #e2be46;
-}
-.javascript-function {
-  color: #2994ff;
-}
-.javascript-return {
-  color: #ae81ff;
-}
-.javascript-operator {
-  color: #b83607;
-}
-.javascript-value {
-  color: #0ed1eb;
-}
-.javascript-key {
-  color: #f92672;
-}
-.javascript-white {
-  color: #fff;
-}
-.javascript-key-obj {
-  color: #a6e22e;
-}
-.javascript-variable {
-  color: red;
-}
-.javascript-string,
-.javascript-string span {
-  color: #ad00fd;
-}
-.javascript-html {
-  color: #143fb6;
-}
-.javascript-annotation,
-.javascript-annotation span {
-  color: #575757 !important;
-}
 .javascript-param {
   border-radius: 3px;
   padding: 1px 3px;
@@ -75,3 +36,17 @@ code .line-ul li .line {
   box-shadow: 5px 0 5px .8 #000;
   user-select: none;
 }
+
+/* javascript */
+.javascript-keyword, .javascript-methods { color: #e2be46; }
+.javascript-function { color: #2994ff; }
+.javascript-return { color: #ae81ff; }
+.javascript-operator { color: #b83607; }
+.javascript-value { color: #0ed1eb; }
+.javascript-key { color: #f92672; }
+.javascript-white { color: #fff; }
+.javascript-key-obj { color: #a6e22e; }
+.javascript-variable { color: red; }
+.javascript-string, .javascript-string span { color: #ad00fd; }
+.javascript-html { color: #143fb6; }
+.javascript-annotation, .javascript-annotation span { color: #575757 !important; }
