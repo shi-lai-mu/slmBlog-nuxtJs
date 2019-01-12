@@ -42,11 +42,11 @@ code .line-ul li .line {
 .javascript-function { color: #2994ff; }
 .javascript-return { color: #ae81ff; }
 .javascript-operator { color: #b83607; }
-.javascript-value { color: #0ed1eb; }
+.javascript-value { color: #0ed1eb !important; }
+.javascript-string, .javascript-string span { color: #ad00fd; }
 .javascript-key { color: #f92672; }
 .javascript-white { color: #fff; }
 .javascript-key-obj { color: #a6e22e; }
 .javascript-variable { color: red; }
-.javascript-string, .javascript-string span { color: #ad00fd; }
 .javascript-html { color: #143fb6; }
 .javascript-annotation, .javascript-annotation span { color: #575757 !important; }
