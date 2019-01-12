@@ -29,7 +29,7 @@ class Code {
     // 字符串
     'string': /('[\s\S]*?')|(`[\s\S]*?`)|((?!class=)`[\s\S]*?`)/g,
     // 注释
-    'annotation': /(\/\/[\s\S]*?\n)|(\/\*\*)[\n\s\S]*?\*\/|([\S\s]*?(\*)[\S\s\w]*?)/ig,
+    'annotation': /(\/\/[\s\S]*?\n)|(\/\*\*)[\n\s\S]*?\*\//ig,
     // 值
     'value': /(\s+\d+(?!:'))/g,
     // 'variable': /(\()\S+[\)]/,
@@ -40,15 +40,15 @@ class Code {
     // 返回值
     'return': /\b(:?return)\b/g,
     // 键
-    'key': /(this|\w+\.)/g,
+    'key': /(this|\w+(?=\.))/g,
     // 对象键
-    'key-obj': /((\w+:))/g,
+    'key-obj': /(\w+(?=:))/g,
     // 方法
     'methods': /(\.\S+\(\))/g,
     // 标签组
     'html': /&lt[^>]*>|&lt\/[^>]*>/ig
     // 净化污染 白色
-    // 'white': /[\(\),\.\:]/g,
+    // 'white': /[\(\),\.\:]/g
   }
 
   constructor (element) {
@@ -92,20 +92,27 @@ class Code {
     html = html.replace(/@param {\w+} \w+ \S+/g, word => {
       return `<span class="${this.model}-param">${word}</span>`
     })
-    html = this.line(html)
-    this.display(html)
+    this.line(html)
   }
 
+  /**
+   * 行数设置
+   */
   line (html) {
     let htmls = '<ul class="line-ul">'
     let arr = html.split('\n')
-    console.log(arr)
+    let annotation = 0
     for (let i = 1, l = arr.length; i < l; i++) {
+      // 多行注释
+      if (arr[i].indexOf('/*') > -1 || annotation) {
+        // 是否为结束行
+        annotation = arr[i].indexOf('*/') > -1 ? !1 : !0
+        arr[i] = `<span class="${this.model}-annotation">${arr[i]}</span>`
+      }
       htmls += `<li><span class="line">${i}</span>${arr[i]}</li>\n`
     }
     htmls += '</ul>'
-
-    return htmls
+    this.display(htmls)
   }
 
   /**

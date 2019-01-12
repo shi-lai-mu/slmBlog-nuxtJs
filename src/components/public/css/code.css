@@ -7,7 +7,7 @@ body .article-body code {
   color: #e2be46;
 }
 .javascript-function {
-  color: #99ccff;
+  color: #2994ff;
 }
 .javascript-return {
   color: #ae81ff;
@@ -32,7 +32,7 @@ body .article-body code {
 }
 .javascript-string,
 .javascript-string span {
-  color: #ad00fd !important;
+  color: #ad00fd;
 }
 .javascript-html {
   color: #143fb6;
@@ -46,7 +46,6 @@ body .article-body code {
   padding: 1px 3px;
   font-weight: bold;
   background-color: rgba(255, 255, 255, .8);
-  text-shadow: 0 0 2px #000;
 }
 code .line-ul {
   margin: 0;
@@ -61,7 +60,8 @@ code .line-ul li {
   transition: .5;
 }
 code .line-ul li:hover .line {
-  border: 1px solid #ccc;
+  border: 1px solid rgba(255, 255, 255, .5);
+  color: #ae81ff;
   background-color: rgba(255, 255, 255, .1);
 }
 code .line-ul li .line {
