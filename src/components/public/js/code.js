@@ -14,8 +14,8 @@ export default {
 
     // 代码高亮函数
     while (codeLen) {
-      let code = new Code(codeList[codeLen - 1])
-      console.log(code)
+      let parseCode = new Code(codeList[codeLen - 1])
+      parseCode.display()
       codeLen--
     }
   }
@@ -82,7 +82,7 @@ class Code {
     let regexp = this.regexp
     let html = this.innerText
     // 排除标签
-    html = html.replace(/&/gm, '&amp;').replace(/</gm, '&lt;')
+    html = this.innerText = html.replace(/&/gm, '&amp;').replace(/</gm, '&lt;')
 
     for (let exp in regexp) {
       html = html.replace(regexp[exp], word => {
@@ -112,13 +112,13 @@ class Code {
       htmls += `<li><span class="line">${i}</span>${arr[i]}</li>\n`
     }
     htmls += '</ul>'
-    this.display(htmls)
+    this.parseHTML = htmls
   }
 
   /**
    * 渲染输出
    */
-  display (html) {
-    this.$el.innerHTML = html
+  display (prase = true) {
+    this.$el.innerHTML = prase ? this.parseHTML : this.innerText
   }
 }
