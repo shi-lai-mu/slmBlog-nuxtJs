@@ -12,7 +12,7 @@
                 <span class="button-v1" @click="loginEvent">登陆</span>
             </form>
             <span class="account-right">
-                <a @click="qqLogin" :href="qqLoginUrl" target="_black">
+                <a @click="qqLogin" :href="qqLoginUrl" target="_black" rel="noopener noreferrer">
                     <i class="iconfont icon-ziyuan"></i>
                     <span>QQ登录</span>
                 </a>
@@ -34,7 +34,7 @@
                 <span class="button-v1" @click="registerEvent">注册</span>
             </form>
             <span class="account-right">
-                <a @click="qqLogin" :href="qqLoginUrl" target="_black">
+                <a @click="qqLogin" :href="qqLoginUrl" target="_black" rel="noopener noreferrer">
                     <i class="iconfont icon-ziyuan"></i>
                     <span>QQ登录</span>
                 </a>
@@ -73,9 +73,12 @@ export default {
         description: '欢迎回来 ~~~ '
       }
     })
+    // https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=310449128&redirect_uri=https%3A%2F%2Fbbs.acg-moe.com%2Fconnect.php%3Fmod%3Dlogin%26op%3Dcallback%26referer%3Dhttps%253A%252F%252Fbbs.acg-moe.com%252F&state=fa0f9cc65965959872315ff43d0f341b&scope=get_user_info%2Cadd_share%2Cadd_t%2Cadd_pic_t%2Cget_repost_list
+    // https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=716027609&pt_3rd_aid=101540984&daid=383&pt_skey_valid=0&style=35&s_url=http%3A%2F%2Fconnect.qq.com&refer_cgi=authorize&which=&response_type=code&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&response_type=code&state=
+    // https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=716027609&pt_3rd_aid=310449128&daid=383&pt_skey_valid=1&style=35&s_url=http%3A%2F%2Fconnect.qq.com&refer_cgi=authorize&which=&response_type=code&client_id=310449128&redirect_uri=https%3A%2F%2Fbbs.acg-moe.com%2Fconnect.php%3Fmod%3Dlogin%26op%3Dcallback%26referer%3Dhttps%253A%252F%252Fbbs.acg-moe.com%252Fmenhu%252F&state=fa0f9cc65965959872315ff43d0f341b&scope=get_user_info%2Cadd_share%2Cadd_t%2Cadd_pic_t%2Cget_repost_list&display=mobile
     this.page = this.$route.name === 'register' ? 'register' : 'login'
-    this.qqLoginUrl = 'https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&state=' + this.uid
-    this.$store.state.mobile && (this.qqLoginUrl = 'https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=716027609&pt_3rd_aid=101540984&daid=383&pt_skey_valid=0&style=35&s_url=http%3A%2F%2Fconnect.qq.com&refer_cgi=authorize&which=&client_id=101540984&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&response_type=code&state=' + this.uid)
+    this.qqLoginUrl = 'https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101540984&display=mobile&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&state=' + this.uid
+    this.$store.state.mobile && (this.qqLoginUrl = 'https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=716027609&pt_3rd_aid=101540984&daid=383&pt_skey_valid=1&style=35&s_url=http%3A%2F%2Fconnect.qq.com&refer_cgi=authorize&which=&client_id=101540984&response_type=code&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&state=' + this.uid + '&scope=get_user_info%2Cadd_share%2Cadd_t%2Cadd_pic_t%2Cget_repost_list&display=mobile')
   },
   methods: {
 
