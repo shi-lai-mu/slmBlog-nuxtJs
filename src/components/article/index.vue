@@ -85,8 +85,7 @@ export default {
             })
           }
           // 语法高亮
-          let pre = this.$refs.content
-          Code.parse(pre)
+          Code.parse(this.$refs.content)
         })
       })
   },

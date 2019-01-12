@@ -59,12 +59,11 @@ code .line-ul li {
   float: left;
   min-width: 100%;
   padding: 0;
-  border: 1px solid transparent;
   border-radius: 3px;
   margin: 0;
   transition: .5;
 }
-code .line-ul li:active {
+code .line-ul li:hover .line {
   border: 1px solid #ccc;
   background-color: rgba(255, 255, 255, .1);
 }
@@ -72,6 +71,8 @@ code .line-ul li .line {
   display: inline-block;
   width: 2rem;
   height: 100%;
+  padding: 2px 10px;
+  border: 1px solid transparent;
   margin-right: 10px;
   text-align: right;
   box-shadow: 5px 0 5px .8 #000;

@@ -10,7 +10,7 @@
         </li>
         <li>
           <label>分类</label>
-          <input type="text" placeholder="# 隔开分类" v-model="type">
+          <input type="text" placeholder="#隔开" v-model="type">
           <span class="bust">*</span>
         </li>
         <li>

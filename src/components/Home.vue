@@ -13,8 +13,8 @@
                         <div class="top clearfloat">
                             <h3 class="ellipsis">{{ hot.title }}</h3>
                             <ul class="font-shadow-black">
-                                <li v-for="(tag, i) in hot.tag" :key="i" :title="'查找' + tag + '标签'">
-                                    <a href="#">{{ tag }}</a>
+                                <li v-for="(type, i) in hot.type" :key="i" :title="'查找' + type + '标签'">
+                                    <a href="#">{{ type }}</a>
                                 </li>
                             </ul>
                         </div>
@@ -64,8 +64,8 @@ export default {
     this.$http.get('blog/hot')
       .then(res => {
         this.hotList = res.data.map(index => {
-          index.tag = index.tag.split('#')
-          index.tag.shift()
+          index.type = index.type.split('#')
+          index.type.shift()
           index.content = index.content.replace(/(<[^>]+>|&\w+;)/img, '').substring(0, maxContent) + ' ...'
           return index
         })
