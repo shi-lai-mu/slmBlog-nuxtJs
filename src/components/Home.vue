@@ -4,8 +4,6 @@
 
         <shuffling></shuffling>
         <div class="content-row clearfix">
-            <div class="content-fixed-box">
-            </div>
             <div class="content-box">
                 <router-link v-for="(hot, index) in hotList" :key="index" :to="'/article/' + hot.Id">
                     <div class="article clearfloat clearfix">

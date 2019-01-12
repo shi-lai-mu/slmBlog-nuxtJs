@@ -121,7 +121,7 @@ export default {
         },
         {
           tag: '留言板',
-          to: '/messaged'
+          to: { name: 'messaged' }
         }
       ]
       this.menu.filter((item, index) => {
