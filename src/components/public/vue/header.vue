@@ -16,8 +16,9 @@
             <ul class="header-menu-list">
 
                 <li @click="minMenu" class="header-nav-conter" v-for="(menu, i) of menu" :key="i">
-                    <span>{{ menu.tag }}</span>
-                    <span v-if="menu.sub" class="iconfont icon-fangxiangxia"></span>
+                    <router-link class="max-a" tag="span" :to="menu.to" v-if="!menu.sub">{{ menu.tag }}</router-link>
+                    <span v-else>{{ menu.tag }}</span>
+                    <span class="iconfont icon-fangxiangxia" v-if="menu.sub"></span>
                     <ul v-if="menu.sub">
                         <li v-for="(sub, n) in menu.sub" :key="n">
                             <router-link v-if="sub[1] == '#' || typeof sub[1] === 'object'" class="max-a" :to="sub[1]">{{ sub[0] }}</router-link>
@@ -91,7 +92,7 @@ export default {
           ]
         },
         {
-          tag: '编程',
+          tag: '技术',
           sub: [
             ['JavaScript', '#'],
             ['PHP', '#'],
@@ -117,6 +118,10 @@ export default {
             ['管理账号', '#', 'login'],
             ['安全退出', 'outLogin', 'login']
           ]
+        },
+        {
+          tag: '留言板',
+          to: '/messaged'
         }
       ]
       this.menu.filter((item, index) => {
