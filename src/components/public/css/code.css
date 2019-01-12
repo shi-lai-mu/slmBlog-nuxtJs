@@ -13,7 +13,7 @@ body .article-body code {
   color: #ae81ff;
 }
 .model-javascript .operator {
-  color: orangered;
+  color: #b83607;
 }
 .code-model .model-javascript {
 
@@ -33,12 +33,47 @@ body .article-body code {
 .variable {
   color: red;
 }
+.string,
+.string span {
+  color: #ad00fd !important;
+}
+.html {
+  color: #143fb6;
+}
 .model-javascript .annotation,
 .model-javascript .annotation span {
   color: #575757 !important;
 }
-body .article-body code::selection,
-body .article-body code span::selection {
-  color: red;
-  background-color: #fff;
+.param {
+  border-radius: 3px;
+  padding: 1px 3px;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, .8);
+  text-shadow: 0 0 2px #000;
+}
+code .line-ul {
+  margin: 0;
+  padding: 0;
+}
+code .line-ul li {
+  float: left;
+  min-width: 100%;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  margin: 0;
+  transition: .5;
+}
+code .line-ul li:active {
+  border: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, .1);
+}
+code .line-ul li .line {
+  display: inline-block;
+  width: 2rem;
+  height: 100%;
+  margin-right: 10px;
+  text-align: right;
+  box-shadow: 5px 0 5px .8 #000;
+  user-select: none;
 }
