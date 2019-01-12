@@ -79,6 +79,10 @@ export default {
     this.page = this.$route.name === 'register' ? 'register' : 'login'
     this.qqLoginUrl = 'https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101540984&display=mobile&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&state=' + this.uid
     this.$store.state.mobile && (this.qqLoginUrl = 'https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=716027609&pt_3rd_aid=101540984&daid=383&pt_skey_valid=1&style=35&s_url=http%3A%2F%2Fconnect.qq.com&refer_cgi=authorize&which=&client_id=101540984&response_type=code&redirect_uri=http%3A%2F%2Fmczyzy.cn%3A8080%2Fqqlogin%2Fcallback&state=' + this.uid + '&scope=get_user_info%2Cadd_share%2Cadd_t%2Cadd_pic_t%2Cget_repost_list&display=mobile')
+    // 移动端 qq登录兼容
+    if (this.$router.history.current.query.state) {
+      this.qqLoginState()
+    }
   },
   methods: {
 
@@ -145,13 +149,8 @@ export default {
      * 点击QQ登录后，进行窗口检测
      */
     qqLogin () {
-      let toast = {
-        text: `QQ登录授权失败!`,
-        icon: 'error',
-        hideTime: 4000
-      }
-      let self = this
       window.addEventListener('blur', blur)
+      let self = this
       function blur () {
         // 当用户关闭授权窗口后 或者 取消授权 回到本窗口时
         window.addEventListener('focus', focus)
@@ -160,26 +159,40 @@ export default {
           window.removeEventListener('focus', focus)
 
           // 检测授权uid是否存在服务器中
-          self.$http.get('qqLogin/exists', { uid: self.uid })
-            .then(res => {
-              // 授权uid存在
-              if (res.data.value) {
-                // window.localStorage.setItem('userInfo', JSON.stringify(res.data))
-                self.$store.state.user = JSON.parse(JSON.parse(res.data.value))
-                toast.icon = 'success'
-                toast.text = `授权成功, 欢迎回来 [${self.$store.state.user.nickname}]!`
-                self.$connecter.$emit('user', JSON.parse(JSON.parse(res.data.value)))
-                self.$connecter.$emit('page', { toast })
-              } else {
-                toast.text = `授权失败, 回调值错误!`
-                self.$connecter.$emit('page', { toast })
-              }
-            })
-            .catch(() => {
-              self.$connecter.$emit('page', { toast })
-            })
+          self.qqLoginState()
         }
       }
+    },
+
+    /**
+     * 检测QQ授权
+     */
+    qqLoginState (state) {
+      let self = this
+      let uid = this.$router.history.current.query.state || self.uid
+      let toast = {
+        text: `QQ登录授权失败!`,
+        icon: 'error',
+        hideTime: 4000
+      }
+      self.$http.get('qqLogin/exists', { uid })
+        .then(res => {
+          // 授权uid存在
+          if (res.data.value) {
+            // window.localStorage.setItem('userInfo', JSON.stringify(res.data))
+            self.$store.state.user = JSON.parse(JSON.parse(res.data.value))
+            toast.icon = 'success'
+            toast.text = `授权成功, 欢迎回来 [${self.$store.state.user.nickname}]!`
+            self.$connecter.$emit('user', JSON.parse(JSON.parse(res.data.value)))
+            self.$connecter.$emit('page', { toast })
+          } else {
+            toast.text = `授权失败, 回调值错误!`
+            self.$connecter.$emit('page', { toast })
+          }
+        })
+        .catch(() => {
+          self.$connecter.$emit('page', { toast })
+        })
     },
 
     /**
