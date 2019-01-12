@@ -2,49 +2,46 @@ body .article-body code {
   color: #f8f8f0;
   background-color: #1E1E1E;
 }
-.model-javascript .keyword,
-.model-javascript .methods {
+.javascript-keyword,
+.javascript-methods {
   color: #e2be46;
 }
-.model-javascript .function {
+.javascript-function {
   color: #99ccff;
 }
-.model-javascript .return {
+.javascript-return {
   color: #ae81ff;
 }
-.model-javascript .operator {
+.javascript-operator {
   color: #b83607;
 }
-.code-model .model-javascript {
-
-}
-.value {
+.javascript-value {
   color: #0ed1eb;
 }
-.key {
+.javascript-key {
   color: #f92672;
 }
-.white {
+.javascript-white {
   color: #fff;
 }
-.key-obj {
+.javascript-key-obj {
   color: #a6e22e;
 }
-.variable {
+.javascript-variable {
   color: red;
 }
-.string,
-.string span {
+.javascript-string,
+.javascript-string span {
   color: #ad00fd !important;
 }
-.html {
+.javascript-html {
   color: #143fb6;
 }
-.model-javascript .annotation,
-.model-javascript .annotation span {
+.javascript-annotation,
+.javascript-annotation span {
   color: #575757 !important;
 }
-.param {
+.javascript-param {
   border-radius: 3px;
   padding: 1px 3px;
   font-weight: bold;

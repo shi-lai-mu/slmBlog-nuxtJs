@@ -69,6 +69,7 @@ class Code {
       search[0].replace(model, keyword => {
         // 设置类名为 model-语言
         this.$el.className = 'model-' + keyword
+        this.model = keyword
       })
     }
     this.replace()
@@ -85,11 +86,11 @@ class Code {
 
     for (let exp in regexp) {
       html = html.replace(regexp[exp], word => {
-        return /<[^>]*>|<\/[^>]*>/ig.test(word) ? word : `<span class="${exp}">${word}</span>`
+        return /<[^>]*>|<\/[^>]*>/ig.test(word) ? word : `<span class="${this.model}-${exp}">${word}</span>`
       })
     }
     html = html.replace(/@param {\w+} \w+ \S+/g, word => {
-      return `<span class="param">${word}</span>`
+      return `<span class="${this.model}-param">${word}</span>`
     })
     html = this.line(html)
     this.display(html)
