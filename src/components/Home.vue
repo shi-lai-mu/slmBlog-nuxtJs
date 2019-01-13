@@ -24,7 +24,7 @@
                         </span>
                         <ul class="article-parameter">
                             <li>浏览: {{ hot.lookCount }}</li>
-                            <li>评论: {{ hot.msgMe }}</li>
+                            <li>评论: {{ hot.msg }}</li>
                             <li>发表: {{ unTime(hot.createTime) }}</li>
                         </ul>
                     </div>
