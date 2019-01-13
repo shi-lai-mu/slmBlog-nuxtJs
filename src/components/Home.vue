@@ -31,6 +31,20 @@
                 </router-link>
             </div>
             <div class="content-fixed-box">
+
+                <div class="content-left-box">
+                    <div class="content-left-tag">
+                        <span>置顶文章</span>
+                        <i class="iconfont icon-fangxiangxia"></i>
+                    </div>
+                    <ul class="content-left-list">
+                        <li>xxxxxxxxxxxxxxxxxxx</li>
+                        <li>xxxxxxxxxxxxxxxxxxx</li>
+                        <li>xxxxxxxxxxxxxxxxxxx</li>
+                        <li>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</li>
+                    </ul>
+                </div>
+
             </div>
         </div>
 
@@ -79,6 +93,8 @@ export default {
 </script>
 
 <style lang="less">
+@ip: '//res.mczyzy.cn/img';
+
 .article {
     position: relative;
     padding: 10px;
@@ -237,6 +253,43 @@ export default {
 
     p {
         color: #888;
+    }
+}
+// 左侧
+.content-fixed-box {
+    // background-image: none;
+
+    .content-left-box {
+        width: 90%;
+        padding: 2.5%;
+        border-radius: 5px;
+        margin: 10px auto;
+        background-image: url('@{ip}/pattern-bg.jpg');
+        box-shadow: 0 5px 5px rgba(0, 0, 0, .2);
+    }
+    .content-left-tag {
+        padding-bottom: 5px;
+        border-bottom: 1px solid #a2abbd;
+        font-weight: bold;
+
+        .icon-fangxiangxia {
+            display: inline-block;
+            float: right;
+            color: #666;
+            transform: rotate(-90deg);
+            cursor: pointer;
+        }
+    }
+    .content-left-list li {
+        overflow: hidden;
+        padding: 2px .5em;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color: #555;
+
+        &:hover {
+            font-weight: bold;
+        }
     }
 }
 </style>

@@ -33,6 +33,7 @@ code .line-ul li .line {
   border: 1px solid transparent;
   margin-right: 10px;
   text-align: right;
+  color: #888;
   box-shadow: 5px 0 5px .8 #000;
   user-select: none;
 }

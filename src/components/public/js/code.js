@@ -62,7 +62,7 @@ class Code {
    */
   identify () {
     // 开头判断如: "// javascript code-model"
-    let isModel = /^(\/\/ (?:javascript|css|html) code-model)/img
+    let isModel = /^(\/\/ (?:javascript|css|html) code-model)/ig
     let search = isModel.exec(this.innerText)
     if (isModel) {
       let model = /(javascript|css|html)+/i
@@ -89,6 +89,8 @@ class Code {
         return /<[^>]*>|<\/[^>]*>/ig.test(word) ? word : `<span class="${this.model}-${exp}">${word}</span>`
       })
     }
+
+    // 函数头部param注释
     html = html.replace(/@param {\w+} \w+ \S+/g, word => {
       return `<span class="${this.model}-param">${word}</span>`
     })
