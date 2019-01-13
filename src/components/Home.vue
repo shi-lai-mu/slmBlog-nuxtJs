@@ -37,8 +37,8 @@
                         <span>置顶文章</span>
                         <i class="iconfont icon-fangxiangxia"></i>
                     </div>
-                    <ul class="content-left-list">
-                        <li>xxxxxxxxxxxxxxxxxxx</li>
+                    <ul class="content-left-list" v-for="(top, i) in rightList['top']" :key="i">
+                        <router-link class="max-a" v-text="top.title" :to="'/article/' + top.Id"></router-link>
                     </ul>
                 </div>
 
@@ -57,7 +57,8 @@ import shuffling from '@pub/vue/shuffling'
 export default {
   data () {
     return {
-      hotList: []
+      hotList: [],
+      rightList: []
     }
   },
   created () {
@@ -79,12 +80,13 @@ export default {
           return index
         })
       })
-    
+
     // 右侧文章
     this.$http.get('blog/right')
-        .then(res => {
-            console.log(res)
-        })
+      .then(res => {
+        this.rightList = res.data
+        console.log(this.rightList)
+      })
   },
   methods: {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000)
