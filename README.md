@@ -1,4 +1,4 @@
-<div align=center><img width="100" height="120" src="http://mczyzy.cn/logo.png" alt="SLM-BLOG LOGO"/></div>
+<div align=center><img width="100" height="120" src="http://res.mczyzy.cn/logo.png" alt="SLM-BLOG LOGO"/></div>
 
 ## [SLM BLOG](http://mczyzy.cn)
 
