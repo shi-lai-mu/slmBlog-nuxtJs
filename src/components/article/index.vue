@@ -88,8 +88,19 @@ export default {
           Code.parse(this.$refs.content)
         })
       })
-      .catch(err => {
-        this.$router.push({ name: 'error' })
+      .catch(() => {
+        this.$router.push({
+          name: 'error',
+          query: {
+            error: '文章丢失!',
+            description: '找不到此文章啦...有可能是以下原因哦!',
+            select: [
+              'D错误',
+              '被删除',
+              '被封禁',
+            ]
+          }
+        })
       })
   },
   methods: {

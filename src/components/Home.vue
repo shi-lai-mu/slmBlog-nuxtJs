@@ -83,7 +83,7 @@ export default {
     // 右侧文章
     this.$http.get('blog/right')
         .then(res => {
-            
+            console.log(res)
         })
   },
   methods: {
