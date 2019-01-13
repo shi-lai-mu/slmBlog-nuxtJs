@@ -3,7 +3,12 @@
     <div :class="['content-box', 'article-index', { 'nick': article['title'] }, 'notContent']">
 
       <header>
-        <h2 class="article-title">{{ article.title }}<router-link to="P" class="editor-link">[重新编辑]</router-link></h2>
+        <h2 class="article-title">
+          {{ article.title }}
+          <router-link to="P" class="editor-link" v-if="editor">
+            <i class="iconfont icon-fatie"></i>重新编辑
+          </router-link>
+        </h2>
         <h3 class="article-info">
           <span><span v-text="article.author.username"></span> 发表于：<i class="iconfont icon-shizhong" title="时间">{{ article.createTime && unTime(article.createTime) }}</i></span>
           <i class="iconfont icon-liaotian1" title="回复">{{ article.msg }}</i>
@@ -63,6 +68,12 @@ export default {
     this.$http.get('article/' + this.$route.params.id)
       .then(res => {
         this.article = res.data
+        let user = this.$store.state.user
+        if (user) {
+          if (res.data.author.uid === user.id) {
+            this.editor = !0
+          }
+        }
         setTimeout(() => {
           this.notCon = !1
         }, 400)
@@ -198,6 +209,10 @@ export default {
       font-size: .6rem;
       font-weight: 100;
       color: #888;
+      white-space: nowrap;
+    }
+    .icon-fatie {
+      margin: 0;
     }
   }
   .article-index {

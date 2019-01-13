@@ -33,7 +33,7 @@ export default {
           detail[key] = rsa.encrypt(data[key])
         } else detail[key] = data[key]
       }
-      url += data ? '?' + axiosQs.stringify(detail) : ''
+      url += (data ? '?' + axiosQs.stringify(detail) : '')
 
       // 是否设置缓存
       if (storage) {
@@ -51,8 +51,7 @@ export default {
         }
       }
 
-      $http
-        .get(url + (data ? '?' + axiosQs.stringify(detail) : ''))
+      $http.get(url)
         .then(res => {
           if (res.data && !res.data.error) {
             resolve(res)
