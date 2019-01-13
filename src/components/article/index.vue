@@ -3,7 +3,7 @@
     <div :class="['content-box', 'article-index', { 'nick': article['title'] }, 'notContent']">
 
       <header>
-        <h2 class="article-title">{{ article.title || 'loading...' }}</h2>
+        <h2 class="article-title">{{ article.title }}<router-link to="P" class="editor-link">[重新编辑]</router-link></h2>
         <h3 class="article-info">
           <span><span v-text="article.author.username"></span> 发表于：<i class="iconfont icon-shizhong" title="时间">{{ article.createTime && unTime(article.createTime) }}</i></span>
           <i class="iconfont icon-liaotian1" title="回复">{{ article.msg }}</i>
@@ -16,6 +16,7 @@
 
       <div class="article-body" v-html="article.content" ref="content"></div>
 
+sadas
       <div :class="{ none: !article.title }">
         <Editor class="editor" ref="editor"></Editor>
         <button class="button-v1 send" @click="send">留言</button>
@@ -37,7 +38,7 @@ export default {
         author: {}
       },
       notCon: true,
-      on: false
+      editor: false
     }
   },
   components: { Editor },
@@ -46,7 +47,7 @@ export default {
     if (window.location.host !== '127.0.0.1') {
       (function () {
         var bp = document.createElement('script')
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+        bp.src = '//push.zhanzhang.baidu.com/push.js'
         var s = document.getElementsByTagName('script')[0]
         s.parentNode.insertBefore(bp, s)
       })()
@@ -161,6 +162,7 @@ export default {
       }
     }
   }
+  // 加载完
   .nick {
     .article-body {
       opacity: 1;
@@ -190,6 +192,12 @@ export default {
         background-color: transparent;
         border-radius: 0;
       }
+    }
+    .editor-link {
+      margin-left: 10px;
+      font-size: .6rem;
+      font-weight: 100;
+      color: #888;
     }
   }
   .article-index {
