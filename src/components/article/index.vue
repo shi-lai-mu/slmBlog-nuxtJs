@@ -88,6 +88,9 @@ export default {
           Code.parse(this.$refs.content)
         })
       })
+      .catch(err => {
+        this.$router.push({ name: 'error' })
+      })
   },
   methods: {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000),

@@ -39,9 +39,6 @@
                     </div>
                     <ul class="content-left-list">
                         <li>xxxxxxxxxxxxxxxxxxx</li>
-                        <li>xxxxxxxxxxxxxxxxxxx</li>
-                        <li>xxxxxxxxxxxxxxxxxxx</li>
-                        <li>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</li>
                     </ul>
                 </div>
 
@@ -82,6 +79,12 @@ export default {
           return index
         })
       })
+    
+    // 右侧文章
+    this.$http.get('blog/right')
+        .then(res => {
+            
+        })
   },
   methods: {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000)
