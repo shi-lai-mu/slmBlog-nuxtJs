@@ -78,7 +78,7 @@ export default {
         this.hotList = res.data.map(index => {
           index.type = index.type.split('#')
           index.type.shift()
-          index.content = index.content.replace(/(<[^>]+>|&\w+;)/img, '').substring(0, maxContent) + ' ...'
+          index.content = index.content.substring(0, maxContent) + ' ...'
           return index
         })
       })
