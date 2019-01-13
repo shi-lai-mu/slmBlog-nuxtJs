@@ -32,12 +32,12 @@
             </div>
             <div class="content-fixed-box">
 
-                <div class="content-left-box">
+                <div class="content-left-box" v-for="(right, v) in rightList" :key="v">
                     <div class="content-left-tag">
-                        <span>置顶文章</span>
+                        <span v-text="right['tag']"></span>
                         <i class="iconfont icon-fangxiangxia"></i>
                     </div>
-                    <ul class="content-left-list" v-for="(top, i) in rightList['top']" :key="i">
+                    <ul class="content-left-list" v-for="(top, i) in right['data']" :key="i">
                         <router-link class="max-a" tag="li" v-text="top.title" :to="'/article/' + top.Id"></router-link>
                     </ul>
                 </div>
@@ -82,7 +82,7 @@ export default {
       })
 
     // 右侧文章
-    this.$http.get('blog/right', false, 100)
+    this.$http.get('blog/right', false, 1)
       .then(res => {
         this.rightList = res.data
         console.log(this.rightList)
