@@ -82,7 +82,7 @@ export default {
       })
 
     // 右侧文章
-    this.$http.get('blog/right')
+    this.$http.get('blog/right', false, 100)
       .then(res => {
         this.rightList = res.data
         console.log(this.rightList)

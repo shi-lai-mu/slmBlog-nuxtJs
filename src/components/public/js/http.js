@@ -19,7 +19,13 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default {
-  get (url, data) {
+  /**
+   * axios get 请求
+   * @param {string} url GET URL请求
+   * @param {object} data GET json数据
+   * @param {number} storage 单位毫秒,0或以上
+   */
+  get (url, data, storage) {
     return new Promise((resolve, reject) => {
       let detail = []
       for (let key in data) {
@@ -27,11 +33,36 @@ export default {
           detail[key] = rsa.encrypt(data[key])
         } else detail[key] = data[key]
       }
+      url += data ? '?' + axiosQs.stringify(detail) : ''
+
+      // 是否设置缓存
+      if (storage) {
+        let stor = sessionStorage.getItem(url)
+        if (stor) {
+          stor = JSON.parse(stor)
+          // 存在缓存且没过期
+          if (stor.outTime > Date.now()) {
+            return resolve({
+              data: stor.data
+            })
+          } else {
+            sessionStorage.removeItem(url)
+          }
+        }
+      }
+
       $http
         .get(url + (data ? '?' + axiosQs.stringify(detail) : ''))
         .then(res => {
           if (res.data && !res.data.error) {
             resolve(res)
+            // 如果设置了缓存
+            if (storage) {
+              sessionStorage.setItem(url, JSON.stringify({
+                outTime: Date.now() + (storage * 1000),
+                data: res.data
+              }))
+            }
           } else if (res.status === 200) {
             !res.data && (res.error = 'http get error!')
             reject(res)
@@ -47,7 +78,6 @@ export default {
   post (url, data, head) {
     return new Promise((resolve, reject) => {
       let detail = []
-      console.log(data)
       var params = new URLSearchParams()
       for (let key in data) {
         if (key.indexOf('_rsa') > -1) {
