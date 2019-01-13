@@ -38,7 +38,7 @@
                         <i class="iconfont icon-fangxiangxia"></i>
                     </div>
                     <ul class="content-left-list" v-for="(top, i) in rightList['top']" :key="i">
-                        <router-link class="max-a" v-text="top.title" :to="'/article/' + top.Id"></router-link>
+                        <router-link class="max-a" tag="li" v-text="top.title" :to="'/article/' + top.Id"></router-link>
                     </ul>
                 </div>
 
@@ -291,6 +291,7 @@ export default {
         white-space: nowrap;
         text-overflow: ellipsis;
         color: #555;
+        cursor: pointer;
 
         &:hover {
             font-weight: bold;
