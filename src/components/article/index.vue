@@ -10,9 +10,14 @@
           </router-link>
         </h2>
         <h3 class="article-info">
-          <span><span v-text="article.author.username"></span> 发表于：<i class="iconfont icon-shizhong" title="时间">{{ article.createTime && unTime(article.createTime) }}</i></span>
-          <i class="iconfont icon-liaotian1" title="回复">{{ article.msg }}</i>
-          <i class="iconfont icon-liulan" title="浏览">{{ article.lookCount }}</i>
+          <span class="nowrap">
+            <span v-text="article.author.username"></span> 发表于：
+            <i class="iconfont icon-shizhong" title="时间">{{ article.createTime && unTime(article.createTime) }}</i>
+          </span>
+          <span class="nowrap">
+            <i class="iconfont icon-liaotian1" title="回复">{{ article.msg }}</i>
+            <i class="iconfont icon-liulan" title="浏览">{{ article.lookCount }}</i>
+          </span>
         </h3>
         <ul class="notCon" v-if="notCon">
           <li :class="[{ 'not-p': Math.random() > 0.6, 'not-end': Math.random() > 0.9 }]" v-for="i in 20" :key="i"></li>
@@ -21,7 +26,6 @@
 
       <div class="article-body" v-html="article.content" ref="content"></div>
 
-sadas
       <div :class="{ none: !article.title }">
         <Editor class="editor" ref="editor"></Editor>
         <button class="button-v1 send" @click="send">留言</button>
@@ -241,12 +245,15 @@ export default {
       }
     }
 
-    i {
+    header i {
       margin: 0 5px 0 15px;
       color: #888;
       &::before {
         margin-right: 5px;
       }
+    }
+    .nowrap {
+      white-space: nowrap;
     }
     .article-body {
       width: 80%;
