@@ -18,7 +18,7 @@
 let upInterval = 0
 export default {
   data () {
-    let url = 'http://120.78.221.235/img/shuffling/'
+    let url = 'http://res.mczyzy.cn/img/shuffling/'
     return {
       no: 1,
       list: [

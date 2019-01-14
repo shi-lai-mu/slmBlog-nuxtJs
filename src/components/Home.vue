@@ -113,7 +113,7 @@ export default {
     }
 
     &:hover {
-        background: url('//120.78.221.235/img/home-slider-bg.png') -10px center;
+        background: url('//res.mczyzy.cn/img/home-slider-bg.png') -10px center;
         background-size: auto;
 
         .article-parameter {

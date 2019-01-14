@@ -108,7 +108,7 @@ export default {
         height: 75px;
         margin: 45px 0 2px;
         padding-top: 15px;
-        background: url('//120.78.221.235/img/join-us-on-the-web-bg.png') no-repeat center;
+        background: url('//res.mczyzy.cn/img/join-us-on-the-web-bg.png') no-repeat center;
         font-size: 40px;
         font-weight: bold;
         color: #202630;
@@ -141,7 +141,7 @@ export default {
                 display: inline-block;
                 width: 56px;
                 height: 54px;
-                background-image: url('http://120.78.221.235/img/social-icons.png');
+                background-image: url('http://res.mczyzy.cn/img/social-icons.png');
 
             }
             &:hover span {
