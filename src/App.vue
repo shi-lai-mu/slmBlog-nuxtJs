@@ -72,8 +72,8 @@ export default {
     // 判断窗口大小
     window.addEventListener('resize', resize)
     function resize (e) {
-      document.body.className = window.innerWidth > 640 ? 'max' : 'centre'
-      self.$store.state.mobile = window.innerWidth < 640
+      document.body.className = window.innerWidth > 840 ? 'max' : 'centre'
+      self.$store.state.mobile = window.innerWidth < 840
     }
     resize()
   }
