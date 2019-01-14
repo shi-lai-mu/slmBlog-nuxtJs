@@ -25,25 +25,16 @@ export default new Router({
           component: resolve => require(['@com/article/addArticle'], resolve)
         },
         {
-          path: ':id',
-          component: resolve => require(['@com/article/index'], resolve)
-        }
-      ]
-    },
-    // 其他路由
-    {
-      path: '/other',
-      component: resolve => require(['@pub/vue/parentRouter'], resolve),
-      children: [
-        {
-          path: 'thisSite',
-          name: 'thisSite',
-          component: resolve => require(['@com/other/thisSite'], resolve)
+          path: 'againEditor',
+          name: 'againEditor',
+          meta: {
+            requireAuth: 'login'
+          },
+          component: resolve => require(['@com/article/addArticle'], resolve)
         },
         {
-          path: 'terms',
-          name: 'terms',
-          component: resolve => require(['@com/other/terms'], resolve)
+          path: ':id',
+          component: resolve => require(['@com/article/index'], resolve)
         }
       ]
     },
@@ -68,6 +59,28 @@ export default new Router({
             requireAuth: 'register'
           },
           component: resolve => require(['@com/user/login'], resolve)
+        }
+      ]
+    },
+    // 其他路由
+    {
+      path: '/other',
+      component: resolve => require(['@pub/vue/parentRouter'], resolve),
+      children: [
+        {
+          path: 'thisSite',
+          name: 'thisSite',
+          component: resolve => require(['@com/other/thisSite'], resolve)
+        },
+        {
+          path: 'terms',
+          name: 'terms',
+          component: resolve => require(['@com/other/terms'], resolve)
+        },
+        {
+          path: 'message',
+          name: 'terms',
+          component: resolve => require(['@com/other/terms'], resolve)
         }
       ]
     },

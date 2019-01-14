@@ -5,7 +5,7 @@
       <header>
         <h2 class="article-title">
           {{ article.title }}
-          <router-link to="P" class="editor-link" v-if="editor">
+          <router-link :to="{ name: 'againEditor', query: { editor: this.$route.params.id } }" class="editor-link" v-if="editor">
             <i class="iconfont icon-fatie"></i>重新编辑
           </router-link>
         </h2>

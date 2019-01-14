@@ -49,16 +49,29 @@ export default {
       webInput: false,
       webPath: null,
       title: null,
-      type: null
+      type: null,
+      editor: false
     }
   },
   created () {
+    this.editor = this.$route.query.editor
     this.$connecter.$emit('page', {
       title: {
-        tag: '发表文章',
-        description: '发表文章请注意原则哦!!!'
+        tag: !this.editor ? '发表文章' : '编辑文章',
+        description: !this.editor ? '发表文章请注意原则哦!' : '修改时请注意格式哦!'
       }
     })
+    // 编辑文章模式
+    if (this.editor) {
+      // 请求文章
+      this.$http
+        .get('article/editorArticle/' + this.editor, {
+          token: this.$store.state.user.token
+        })
+        .then(res => {
+          this.article = res.data
+        })
+    }
   },
   methods: {
 
@@ -78,7 +91,7 @@ export default {
         let image = new FormData()
         image.append('file', file)
         this.$http
-          .post('http://120.78.221.235/file/i.php?token=' + this.$store.state.user.token, image, {
+          .post('http://res.mczyzy.cn/file/i.php?token=' + this.$store.state.user.token, image, {
             headers: { 'Content-Type': 'multipart/form-data' }
           })
           .then(res => {
