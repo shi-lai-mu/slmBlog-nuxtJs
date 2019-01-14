@@ -34,7 +34,7 @@
       <label class="content-title">文章内容</label>
       <editor ref="editor"></editor>
 
-      <button class="button-v1 send" @click="send">发表</button>
+      <button class="button-v1 send" @click="send">{{ !editor ? '发表' : '保存' }}</button>
     </div>
   </div>
 </template>
@@ -70,6 +70,13 @@ export default {
         })
         .then(res => {
           this.article = res.data
+          this.$refs.editor.Stores.set(this.article.content)
+          this.type = this.article.type
+          this.title = this.article.title
+          this.webPath = this.article.img
+        })
+        .catch(() => {
+          this.$router.go(-1)
         })
     }
   },
