@@ -1,5 +1,5 @@
 <template>
-  <div class="conter">
+  <div>
     <vue-header :head="head" ref="head"></vue-header>
     <vue-title :title="title"></vue-title>
     <router-view/>

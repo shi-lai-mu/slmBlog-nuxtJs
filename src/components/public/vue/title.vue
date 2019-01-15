@@ -26,7 +26,6 @@ export default {
         height: 87px;
         width: 100%;
         min-width: var(--min-width);
-        background: url('//res.mczyzy.cn/img/intro-bg.png') no-repeat center;
     }
 
     .tag {

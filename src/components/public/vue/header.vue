@@ -1,15 +1,12 @@
 <template>
 
-    <header class="master-top-bg">
+    <header>
 
-      <a href="//mczyzy.cn" title="史莱姆的博客">
-        <h1 class="logo"></h1>
-      </a>
       <div class="header-nav clearfix">
 
-        <router-link to="/" title="主页">
-          <span class="header-nav-left"></span>
-        </router-link>
+        <h1>
+            <router-link to="/" class="LOGO"></router-link>
+        </h1>
 
         <span :class="'header-menu-right ' + (menuState ? 'list-show' : 'list-hide') " @click="menuToggle">
             <i></i>
@@ -196,10 +193,24 @@ export default {
 </script>
 
 <style lang="less">
-
 header {
-    user-select:none;
+    position: relative;
+    width: 100%;
+    z-index: 30;
+    background-color: #fff;
+    -webkit-user-select: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .07);
+    user-select: none;
 
+    .LOGO {
+        display: inline-block;
+        width: 42px;
+        height: 60px;
+        vertical-align: top;
+        overflow: hidden;
+        background: url('//res.mczyzy.cn/LOGO.png') no-repeat center;
+        background-size: 42px auto;
+    }
     .header-nav {
         min-height: 75px;
         list-style-type: none;
