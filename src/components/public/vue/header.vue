@@ -2,37 +2,33 @@
 
     <header>
 
-      <div class="header-nav clearfix">
+      <div class="header-nav clearfix conter">
 
-        <h1>
-            <router-link to="/" class="LOGO"></router-link>
+        <h1 class="LOGO">
+            <router-link to="/" class="max-a"></router-link>
         </h1>
 
-        <span :class="'header-menu-right ' + (menuState ? 'list-show' : 'list-hide') " @click="menuToggle">
+        <!-- 共享型菜单栏 -->
+        <nav :class="'header-menu-right ' + (menuState ? 'list-show' : 'list-hide') " @click="menuToggle">
             <i></i>
-            <ul class="header-menu-list">
+            <ul class="header-menu-list clearfix">
 
-                <li @click="minMenu" class="header-nav-conter" v-for="(menu, i) of menu" :key="i">
+                <li @click="minMenu" v-for="(menu, i) of menu" :key="i">
                     <router-link class="max-a" tag="span" :to="menu.to" v-if="!menu.sub">{{ menu.tag }}</router-link>
                     <span v-else>{{ menu.tag }}</span>
-                    <span class="iconfont icon-fangxiangxia" v-if="menu.sub"></span>
+                    <i class="iconfont icon-fangxiangxia" v-if="menu.sub"></i>
                     <ul v-if="menu.sub">
                         <li v-for="(sub, n) in menu.sub" :key="n">
-                            <router-link v-if="sub[1] == '#' || typeof sub[1] === 'object'" class="max-a" :to="sub[1]">{{ sub[0] }}</router-link>
-                            <span class="max-a" @click="runCommand(sub[1])" v-else>{{ sub[0] }}</span>
+                            <router-link v-if="sub[1] == '#' || typeof sub[1] === 'object'" :to="sub[1]" tag="span">{{ sub[0] }}</router-link>
+                            <span @click="runCommand(sub[1])" v-else>{{ sub[0] }}</span>
                         </li>
                     </ul>
                 </li>
 
             </ul>
-        </span>
+        </nav>
 
-        <router-link :to="{ name: 'login' }" v-if="!user">
-            <span class="header-nav-right">登录</span>
-        </router-link>
-        <router-link :to="{ name: 'addArticle' }" v-else >
-            <span class="header-nav-right"><i class="iconfont icon-add1"></i>发帖</span>
-        </router-link>
+        <input class="search">
 
       </div>
     </header>
@@ -204,58 +200,34 @@ header {
 
     .LOGO {
         display: inline-block;
-        width: 42px;
+        width: 52px;
         height: 60px;
-        vertical-align: top;
+        margin: 0;
+        vertical-align: middle;
         overflow: hidden;
         background: url('//res.mczyzy.cn/LOGO.png') no-repeat center;
-        background-size: 42px auto;
+        background-size: 100% auto;
     }
     .header-nav {
-        min-height: 75px;
+        line-height: 75px;
         list-style-type: none;
-        color: var(--color-mater-font);
     }
-    .header-nav-left {
-        float: left;
-        margin-top: 5px;
-        height: 60px;
-        width: 100px;
-        background: url('~@img/ribbon-home.png') no-repeat;
-
-        &:hover {
-            background-position-y: -68px;
-        }
+    nav {
+        display: inline-block;
+        margin-left: 40px;
     }
-    .header-nav-right {
-        float: right;
-        width: 180px;
-        padding: 0 20px;
-        text-align: center;
-        font-size: 1.3em;
-        font-weight: bold;
-        color: var(--color-font-bg);
-        text-shadow: 1px 1px 0 #e06a5f;
-        line-height: 68px;
-        background: url('~@img/Work-With-Us.png') no-repeat top left;
+    .search {
+        position: relative;
+        height: 40px;
+        padding-right: 40px;
+        border-radius: 5px;
+        z-index: 1;
+        box-sizing: border-box;
+        font-size: 14px;
+        color: #2e2a2b;
+        border: 2px solid #f1f1f1;
+        background-color: #f1f1f1;
     }
-    .icon-add1 {
-        margin: 0 10px;
-        font-size: 20px;
-    }
-}
-
-// 浮动
-.header-nav-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 999;
-    background-image: url('//res.mczyzy.cn/img/hd-bg.png'), var(--body-img);
-    background-color: #303945;
-    background-position: center bottom;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
 }
 
 // 移动端按钮
@@ -288,6 +260,7 @@ header {
         }
     }
 }
+
 // 列表显示
 .centre .list-show {
 
@@ -375,109 +348,20 @@ header {
 }
 
 // 顶部导航栏
-.list-hide .header-nav-conter,
-.max .header-nav-conter {
-    float: left;
-    padding: 3px 0;
-    margin: 23px 5px;
-    width: 90px;
-    font-weight: bold;
-    text-align: center;
+.list-hide .header-menu-list,
+.max .header-menu-list li {
+    display: inline-block;
     cursor: pointer;
-
-    &:hover, &:active {
-        background: url('~@img/nav-red-button.png') repeat-x center;
-        border-radius: 20px;
-        color: var(--color-font-bg);
-        text-shadow: 1px 1px 0 #e06a5f;
-        box-shadow: 1px 1px 2px #000;
-
-        ul {
-            max-height: 300px;
-            padding-bottom: 5px;
-        }
-        span:nth-child(2) {
-            transform: rotate(180deg);
-        }
-    }
 
     span {
         display: inline-block;
-        margin: 0;
-        transition: .5s transform;
+        padding-left: 40px;
+        font-size: 1rem;
+        line-height: 60px;
     }
 
-    p {
-        display: inline-block;
-    }
-    ul {
-        overflow: hidden;
-        position: absolute;
-        max-height: 0;
-        width: 170px;
-        margin-left: -45px;
-        margin-top: 5px;
-        padding-left: 15px;
-        border-radius: 0 0 5px 5px;
-        color: #63768d;
-        text-shadow: 1px 1px 0 black;
-        text-align: left;
-        font-weight: 200;
-        transition: 1s;
-        z-index: 9999;
-
-        li {
-            position: relative;
-            width: 140px;
-            margin-left: 5px;
-            padding: 5px 0;
-            text-indent: 1em;
-            font-weight: 500;
-            border-bottom: 1px solid #2C323C;
-            border-top: 1px solid #1F252E;
-            background-color: #252c36;
-
-            &:hover {
-                background-color: #333c4a;
-                color: var(--main-font-color);
-            }
-        }
-        li::after {
-            content: '';
-            width: 150px;
-            height: 100%;
-            top: 0;
-            left: -5px;
-            position: absolute;
-            background-color: #252c36;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, .5);
-            border-radius: 4px;
-            z-index: -1;
-        }
-
-        &>li:nth-child(1)::before {
-            content: '';
-            position: absolute;
-            left: -5px;
-            top: -15px;
-            width: 150px;
-            height: 14px;
-            background-image: url('~@img/arrow-nav.png');
-            border: 0;
-        }
-        &>li:nth-last-child(1) {
-            margin-bottom: 15px;
-            border-radius: 0 0 5px 5px;
-            border-bottom: 5px solid #1b2129;
-        }
-    }
-
-    ul::before  {
-        content: '';
-        display: block;
-        height: 15px;
-        width: 100%;
-        background-color: transparent;
+    & > ul {
+        display: none;
     }
 }
 
