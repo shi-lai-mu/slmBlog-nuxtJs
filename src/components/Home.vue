@@ -6,22 +6,19 @@
         <div class="content-row clearfix">
             <div class="content-box">
                 <router-link v-for="(hot, index) in hotList" :key="index" :to="'/article/' + hot.Id">
-                    <div class="article clearfloat clearfix">
-                        <a class="max-2" href="#"></a>
-                        <div class="top clearfloat">
+                    <div class="article clearfix">
+                        <div class="content">
+                            <img v-lazy="hot.img.indexOf('//') > -1 ? hot.img : '//res.mczyzy.cn/img/upload/' + hot.img" alt="images">
+                        </div>
+                        <div class="article-top">
                             <h3 class="ellipsis">{{ hot.title }}</h3>
                             <ul class="font-shadow-black">
                                 <li v-for="(type, i) in hot.type" :key="i" :title="'查找' + type + '标签'">
                                     <a href="#">{{ type }}</a>
                                 </li>
                             </ul>
+                            <p class="article-description ellipsis">{{ hot.content }}</p>
                         </div>
-                        <div class="content">
-                            <img v-lazy="hot.img.indexOf('//') > -1 ? hot.img : '//res.mczyzy.cn/img/upload/' + hot.img" alt="images">
-                        </div>
-                        <span>
-                            <p>{{ hot.content }}</p>
-                        </span>
                         <!-- <ul class="article-parameter">
                             <li>浏览: {{ hot.lookCount }}</li>
                             <li>评论: {{ hot.msg }}</li>
@@ -100,11 +97,13 @@ export default {
 <style lang="less">
 @ip: '//res.mczyzy.cn/img';
 
+.content-box {
+    padding: 0;
+}
 .article {
-    position: relative;
     padding: 10px;
     border-top: 1px solid white;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #e8e8e8;
     text-align: left;
     vertical-align: text-top;
 
@@ -113,8 +112,7 @@ export default {
     }
 
     &:hover {
-        background: url('//res.mczyzy.cn/img/home-slider-bg.png') -10px center;
-        background-size: auto;
+        background-color: #f9f9f9;
 
         .article-parameter {
             background-color: #fff;
@@ -122,14 +120,32 @@ export default {
         }
     }
 
+    .article-top {
+        overflow: hidden;
+        width: 60%;
+        margin: 10px 15px;
+
+        h3 {
+            display: inline-block;
+            margin: 0;
+            font-weight: 300;
+        }
+        .article-description {
+            padding: 10px 5px;
+            font-size: .9em;
+            color: #aaa;
+        }
+    }
+
     .content {
         display: flex;
         justify-content: center;
+        border-radius: 5px;
 
         img {
             height: 100%;
             margin: 0 auto;
-            transition: 2s;
+            transition: 1s;
 
             &:hover {
                 transform: scale(1.2);
@@ -182,10 +198,7 @@ export default {
         height: 26vw;
         max-height: 155px;
         min-height: 100px;
-        border: 10px solid transparent;
-        margin-left: 10px;
-        background-image: url('~@img/line-pattern-light-bg.png');
-        box-sizing: border-box;
+        margin: 10px;
 
         &:after {
             content: '';
@@ -195,19 +208,9 @@ export default {
             left: 0;
             width: 100%;
             height: 100%;
-            box-shadow: 0 0 20px rgba(0,0,0,.6) inset;
             pointer-events: none;
         }
     }
-
-    h3 {
-        position: relative;
-        float: left;
-        width: 27%;
-        min-width: 150px;
-        margin: 10px 15px 5px;
-    }
-
     .contents {
         padding: 30px 5vw;
         text-align: left;
@@ -216,23 +219,21 @@ export default {
         color: #333;
     }
 
-    .top {
-        overflow: hidden;
-        height: 35px;
-    }
-
-    .top li, .addContent .tags a, .top li, .addContent .tags button {
-        position: relative;
-        float: left;
-        line-height: 35px;
-        padding: 0 5px 0 20px;
+    .font-shadow-black li {
+        display: inline-block;
+        border: 1px solid #e8e8e8;
+        padding: 0 5px;
+        border-radius: 3px;
         margin: 0 5px;
-        background: url('~@img/tags-bg.png') no-repeat;
-        background-position-x: -1px;
-        border-radius: 0 10px 5px 0;
-        border: none;
-        outline: none;
-        cursor: pointer;
+        vertical-align: middle;
+        font-size: .8rem;
+        color: #999;
+        transition: .3s;
+
+        &:hover {
+            background-color: #e9e9e9;
+            transform: translateY(-1px);
+        }
     }
 
     .top li:hover, .addContent .tags a:hover, .top li:hover, .addContent .tags button:hover {
@@ -244,20 +245,6 @@ export default {
         font-size: 20px;
         font-weight: bold;
         color: var(--text-black-shadow)
-    }
-}
-
-.article > span {
-    display: inline-block;
-    overflow: hidden;
-    width: 65%;
-    height: 120px;
-    padding: 10px;
-    box-sizing: border-box;
-    font-size: .9em;
-
-    p {
-        color: #888;
     }
 }
 // 左侧

@@ -28,7 +28,7 @@
             </ul>
         </nav>
         
-        <span class="hot">留言板</span>
+        <span class="message">留言板</span>
         
         <span class="header-right">
             <input class="search">
@@ -198,7 +198,7 @@ header {
     z-index: 30;
     background-color: #fff;
     -webkit-user-select: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .07);
+    // box-shadow: 0 2px 5px rgba(0, 0, 0, .07);
     box-shadow: 0 0 25px rgba(99,196,218,.25);
     user-select: none;
 
@@ -231,20 +231,22 @@ header {
         text-indent: .5rem;
         font-size: 14px;
         color: #2e2a2b;
-        border: 2px solid #f1f1f1;
-        background-color: #f1f1f1;
+        border: 2px solid #eff9fc;
+        background-color: #f1f8fa;
         transition: .5s;
 
         &:focus {
-            border-radius: 20px;
-            background-color: #eee;
             width: 200px;
+            border: 2px solid #ddf6fd;
+            border-radius: 20px;
+            background-color: #eefafd;
+            box-shadow: 0 0 20px #f1f8fa;
             & + i {
-                color: #aaa;
+                color: #bff1ff;
             }
         }
     }
-    .hot {
+    .message {
         display: inline-block;
         min-width: 74px;
         padding: 0 5px;
@@ -254,14 +256,21 @@ header {
         font-size: 14px;
         font-weight: bold;
         color: #fff;
-        background-image: linear-gradient(90deg,#a370e1 0,#6186f0 54%,#2aa6ed 100%);
+        background-color: #6ed9f1;
+        box-shadow: 0 5px 10px 0 rgba(99,196,218,.3);
+        transition: .2s;
+        
+        &:hover {
+            box-shadow: 0 5px 10px 0 rgba(99,196,218,.4);
+            transform: translateY(-2px);
+        }
     }
     .icon-sou-suo {
         position: absolute;
         margin-top: 20px;
         font-size: 25px;
         line-height: 40px;
-        color: #ccc;
+        color: #8fe2f5;
         z-index: 2;
         vertical-align: middle;
         transition: .3s;
