@@ -28,7 +28,7 @@
             </ul>
         </nav>
         
-        <span class="message">留言板</span>
+        <span class="button-lv1 message">留言板</span>
         
         <span class="header-right">
             <input class="search">
@@ -196,9 +196,9 @@ header {
     position: relative;
     width: 100%;
     z-index: 30;
+    white-space: nowrap;
     background-color: #fff;
-    -webkit-user-select: none;
-    // box-shadow: 0 2px 5px rgba(0, 0, 0, .07);
+    user-select: none;
     box-shadow: 0 0 25px rgba(99,196,218,.25);
     user-select: none;
 
@@ -246,25 +246,6 @@ header {
             }
         }
     }
-    .message {
-        display: inline-block;
-        min-width: 74px;
-        padding: 0 5px;
-        border-radius: 15px;
-        line-height: 30px;
-        text-align: center;
-        font-size: 14px;
-        font-weight: bold;
-        color: #fff;
-        background-color: #6ed9f1;
-        box-shadow: 0 5px 10px 0 rgba(99,196,218,.3);
-        transition: .2s;
-        
-        &:hover {
-            box-shadow: 0 5px 10px 0 rgba(99,196,218,.4);
-            transform: translateY(-2px);
-        }
-    }
     .icon-sou-suo {
         position: absolute;
         margin-top: 20px;
@@ -288,7 +269,7 @@ header {
     }
     .focus {
         color: white;
-        background-color: #7a99f2;
+        background-color: #6ed9f1;
     }
 }
 

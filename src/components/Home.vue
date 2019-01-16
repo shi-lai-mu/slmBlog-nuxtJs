@@ -5,6 +5,7 @@
         <!-- <shuffling></shuffling> -->
         <div class="content-row clearfix">
 
+            <!-- 左侧 -->
             <div class="content-box">
                 <router-link v-for="(hot, index) in hotList" :key="index" :to="'/article/' + hot.Id">
                     <div class="article clearfix">
@@ -39,22 +40,34 @@
                 </ul>
             </div>
 
-            <div class="content-box content-aff-box">
-                <!-- <div class="content-left-box" v-for="(right, v) in rightList" :key="v">
-                    <div class="content-left-tag">
-                        <span v-text="right['tag']"></span>
-                        <i class="iconfont icon-fangxiangxia"></i>
+            <!-- 右侧 -->
+            <div class="content-aff-box">
+                <div class="content-box blogger">
+                    <img src="//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100" alt="史莱姆头像">
+                    <p class="name">史莱姆</p>
+                    <div class="select">
+                        <span class="button-lv0">关注</span>
+                        <span class="button-lv0">了解</span>
                     </div>
-                    <ul class="content-left-list" v-for="(top, i) in right['data']" :key="i">
-                        <router-link class="max-a" tag="li" v-text="top.title" :to="'/article/' + top.Id"></router-link>
-                    </ul>
-                </div> -->
+                </div>
+                <div class="content-box">
+
+                </div>
             </div>
 
         </div>
 
     </div>
 
+    <!-- <div class="content-left-box" v-for="(right, v) in rightList" :key="v">
+        <div class="content-left-tag">
+            <span v-text="right['tag']"></span>
+            <i class="iconfont icon-fangxiangxia"></i>
+        </div>
+        <ul class="content-left-list" v-for="(top, i) in right['data']" :key="i">
+            <router-link class="max-a" tag="li" v-text="top.title" :to="'/article/' + top.Id"></router-link>
+        </ul>
+    </div> -->
 </template>
 
 <script>
@@ -109,12 +122,47 @@ export default {
 @ip: '//res.mczyzy.cn/img';
 
 .content-row {
+    margin-top: 40px;
+
     .content-box {
         padding: 0;
     }
+    // 左侧
     .content-aff-box {
         float: right;
-        width: 27%;
+        width: 28%;
+
+        .content-box {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .blogger {
+            img {
+                display: block;
+                border-radius: 50%;
+                margin: 20px auto;
+                border: 10px solid rgba(99,196,218,.25);
+                transition: .2s;
+                &:hover {
+                    transform: translateY(-5px);
+                    border: 10px solid rgba(99,196,218,.4);
+                    box-shadow: 0 5px 25px rgba(0,0,0,.15);
+                }
+            }
+            .name {
+                color: #999;
+                text-align: center;
+                font-size: 1.2rem;
+            }
+            .select {
+                margin: 10px;
+                text-align: center;
+            }
+        }
+        .button-lv0 {
+            margin: 0 10px;
+        }
     }
 }
 .article {
