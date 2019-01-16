@@ -226,24 +226,39 @@ h1.logo {
     white-space: nowrap;
 }
 /* 内容 */
+// .content-box,
+// .content-fixed-box {
+//     float: left;
+//     overflow: hidden;
+//     width: 70%;
+//     min-width: @min-width;
+//     min-height: 250px;
+//     margin-bottom: 40px;
+//     background-image: url('@{ip}/content-bg.jpg');
+//     background-clip: content-box;
+//     border-radius: 0 0 15px 15px;
+//     border: 10px solid rgba(255,255,255,.1);
+//     border-top: none;
+//     box-sizing: border-box;
+//     box-shadow: 0 5px 5px rgba(0, 0, 0, .2);
+//     .article-parameter li {
+//         padding: 0;
+//     }
+// }
 .content-box,
 .content-fixed-box {
-    float: left;
+    display: inline-block;
     overflow: hidden;
     width: 70%;
     min-width: @min-width;
     min-height: 250px;
-    margin-bottom: 40px;
-    background-image: url('@{ip}/content-bg.jpg');
-    background-clip: content-box;
-    border-radius: 0 0 15px 15px;
-    border: 10px solid rgba(255,255,255,.1);
+    padding: 10px;
+    margin: 40px 0;
+    background-color: #fff;
+    border-radius: 5px 0;
     border-top: none;
     box-sizing: border-box;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, .2);
-    .article-parameter li {
-        padding: 0;
-    }
+    box-shadow: 0 0 25px rgba(99,196,218,.25);
 }
 .content-fixed-box {
     width: ~'calc(30% - 20px)';

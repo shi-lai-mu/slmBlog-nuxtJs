@@ -1,9 +1,9 @@
 <template>
   <div>
     <vue-header :head="head" ref="head"></vue-header>
-    <vue-title :title="title"></vue-title>
+    <!-- <vue-title :title="title"></vue-title> -->
     <router-view/>
-    <vue-footer></vue-footer>
+    <!-- <vue-footer></vue-footer> -->
     <vue-toast :toast="toast"></vue-toast>
   </div>
 </template>

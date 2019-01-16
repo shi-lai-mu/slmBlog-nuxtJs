@@ -9,7 +9,7 @@
         </h1>
 
         <!-- 共享型菜单栏 -->
-        <nav :class="'header-menu-right ' + (menuState ? 'list-show' : 'list-hide') " @click="menuToggle">
+        <nav :class="menuState ? 'list-show' : 'list-hide'" @click="menuToggle">
             <i></i>
             <ul class="header-menu-list clearfix">
 
@@ -27,9 +27,16 @@
 
             </ul>
         </nav>
+        
+        <span class="hot">留言板</span>
+        
+        <span class="header-right">
+            <input class="search">
+            <i class="iconfont icon-sou-suo"></i>
 
-        <input class="search">
-
+            <router-link :to="{ name: 'login' }" tag="span">登录</router-link>
+            <router-link :to="{ name: 'register' }" tag="span" class="focus">注册</router-link>
+        </span>
       </div>
     </header>
 
@@ -111,10 +118,6 @@ export default {
             ['管理账号', '#', 'login'],
             ['安全退出', 'outLogin', 'login']
           ]
-        },
-        {
-          tag: '留言板',
-          to: { name: 'messaged' }
         }
       ]
       this.menu.filter((item, index) => {
@@ -196,6 +199,7 @@ header {
     background-color: #fff;
     -webkit-user-select: none;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .07);
+    box-shadow: 0 0 25px rgba(99,196,218,.25);
     user-select: none;
 
     .LOGO {
@@ -214,19 +218,68 @@ header {
     }
     nav {
         display: inline-block;
-        margin-left: 40px;
+        margin: 0 40px;
     }
     .search {
         position: relative;
         height: 40px;
+        width: 100px;
         padding-right: 40px;
         border-radius: 5px;
         z-index: 1;
         box-sizing: border-box;
+        text-indent: .5rem;
         font-size: 14px;
         color: #2e2a2b;
         border: 2px solid #f1f1f1;
         background-color: #f1f1f1;
+        transition: .5s;
+
+        &:focus {
+            border-radius: 20px;
+            background-color: #eee;
+            width: 200px;
+            & + i {
+                color: #aaa;
+            }
+        }
+    }
+    .hot {
+        display: inline-block;
+        min-width: 74px;
+        padding: 0 5px;
+        border-radius: 15px;
+        line-height: 30px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        color: #fff;
+        background-image: linear-gradient(90deg,#a370e1 0,#6186f0 54%,#2aa6ed 100%);
+    }
+    .icon-sou-suo {
+        position: absolute;
+        margin-top: 20px;
+        font-size: 25px;
+        line-height: 40px;
+        color: #ccc;
+        z-index: 2;
+        vertical-align: middle;
+        transition: .3s;
+        transform: translateX(-45px);
+        cursor: pointer;
+    }
+    .header-right {
+        float: right;
+
+        span {
+            display: inline-block;
+            width: 90px;
+            text-align: center;
+        }
+    }
+    .focus {
+        color: white;
+        background-color: #7a99f2;
     }
 }
 

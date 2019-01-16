@@ -2,7 +2,7 @@
 
     <div class="conter clearfix">
 
-        <shuffling></shuffling>
+        <!-- <shuffling></shuffling> -->
         <div class="content-row clearfix">
             <div class="content-box">
                 <router-link v-for="(hot, index) in hotList" :key="index" :to="'/article/' + hot.Id">
@@ -22,15 +22,15 @@
                         <span>
                             <p>{{ hot.content }}</p>
                         </span>
-                        <ul class="article-parameter">
+                        <!-- <ul class="article-parameter">
                             <li>浏览: {{ hot.lookCount }}</li>
                             <li>评论: {{ hot.msg }}</li>
                             <li>发表: {{ unTime(hot.createTime) }}</li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </router-link>
             </div>
-            <div class="content-fixed-box">
+            <!-- <div class="content-fixed-box">
 
                 <div class="content-left-box" v-for="(right, v) in rightList" :key="v">
                     <div class="content-left-tag">
@@ -42,7 +42,7 @@
                     </ul>
                 </div>
 
-            </div>
+            </div> -->
         </div>
 
     </div>
