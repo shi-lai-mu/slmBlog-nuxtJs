@@ -25,7 +25,7 @@
                 </router-link>
                 <ul v-if="!hotList.length">
                     <!-- 展示伪装 -->
-                    <li v-for="i in 10" :key="i" class="article clearfix">
+                    <li v-for="i in 5" :key="i" class="article clearfix">
                         <div class="article-left">
                             <div class="no-black"></div>
                         </div>
@@ -74,7 +74,6 @@
 
 import Time from '@pub/js/dateForm'
 import shuffling from '@pub/vue/shuffling'
-import { setTimeout } from 'timers';
 
 export default {
   data () {
@@ -92,7 +91,7 @@ export default {
     })
 
     // 簡介内容
-    let maxContent = this.$store.state.mobile ? 100 : 125
+    // let maxContent = this.$store.state.mobile ? 100 : 125
     this.$http.get('blog/hot')
       .then(res => {
         this.hotList = res.data.map(index => {

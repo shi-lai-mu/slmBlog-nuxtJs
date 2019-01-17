@@ -17,7 +17,8 @@ let $http = axios.create({
 })
 
 if (process.env.NODE_ENV === 'development') {
-  $http.defaults.baseURL = 'http://127.0.0.1:8080'
+  $http.defaults.baseURL = 'http://mail.mczyzy.cn'
+  // $http.defaults.baseURL = 'http://127.0.0.1:8080'
 }
 
 export default {

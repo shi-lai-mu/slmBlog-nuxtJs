@@ -27,9 +27,9 @@
 
             </ul>
         </nav>
-        
+
         <span class="button-lv1 message">留言板</span>
-        
+
         <span class="header-right">
             <input class="search">
             <i class="iconfont icon-sou-suo"></i>
@@ -201,19 +201,19 @@ header {
     user-select: none;
     box-shadow: 0 0 25px rgba(99,196,218,.25);
     user-select: none;
+    line-height: 60px;
 
     .LOGO {
-        display: inline-block;
-        width: 52px;
+        float: left;
+        width: 42px;
         height: 60px;
         margin: 0;
         vertical-align: middle;
         overflow: hidden;
         background: url('//res.mczyzy.cn/LOGO.png') no-repeat center;
-        background-size: 100% auto;
+        background-size: 42px auto;
     }
     .header-nav {
-        line-height: 75px;
         list-style-type: none;
     }
     nav {
@@ -248,7 +248,7 @@ header {
     }
     .icon-sou-suo {
         position: absolute;
-        margin-top: 20px;
+        margin-top: 13px;
         font-size: 25px;
         line-height: 40px;
         color: #8fe2f5;
@@ -394,6 +394,7 @@ header {
 .list-hide .header-menu-list,
 .max .header-menu-list li {
     display: inline-block;
+    height: 60px;
     cursor: pointer;
 
     span {

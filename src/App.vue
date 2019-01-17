@@ -2,7 +2,7 @@
   <div>
     <vue-header :head="head" ref="head"></vue-header>
     <!-- <vue-title :title="title"></vue-title> -->
-    <router-view/>
+    <router-view ref="master"/>
     <vue-footer></vue-footer>
     <vue-toast :toast="toast"></vue-toast>
   </div>
@@ -82,8 +82,4 @@ export default {
 
 <style lang="less">
 @import '~@com/public/public.less';
-
-body > .conter {
-  overflow: hidden;
-}
 </style>
