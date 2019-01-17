@@ -33,20 +33,14 @@ export default {
     setInterval(() => {
       this.liveTime = Time.unForm(1535150280000)
     }, 1000)
-    // this.$nextTick(() => {
-    //   let footer = document.getElementsByClassName('body-footer')[0]
-    //   if (footer.offsetTop - footer.offsetHeight < screen.availHeight) {
-    //     footer.style.marginTop = screen.availHeight - footer.offsetTop - footer.offsetHeight + 'px'
-    //     console.log(footer.style.marginTop)
-    //   }
-    // })
   }
 }
 </script>
 
 <style lang="less">
 .body-footer {
-    margin: 0 0 20px;
+    margin-top: 20px;
+    padding-bottom: 20px;
     color: #b6c3db;
     user-select: none;
     background-color: #fff;
