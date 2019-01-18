@@ -1,16 +1,14 @@
 <template>
 
-    <header>
-
-      <div class="header-nav clearfix conter">
+    <header class="header-nav clearfix conter">
 
         <h1 class="LOGO">
             <router-link to="/" class="max-a"></router-link>
         </h1>
+        <i></i>
 
         <!-- 共享型菜单栏 -->
-        <nav :class="menuState ? 'list-show' : 'list-hide'" @click="menuToggle">
-            <i></i>
+        <!-- <nav :class="menuState ? 'list-show' : 'list-hide'" @click="menuToggle">
             <ul class="header-menu-list clearfix">
 
                 <li @click="minMenu" v-for="(menu, i) of menu" :key="i">
@@ -26,7 +24,7 @@
                 </li>
 
             </ul>
-        </nav>
+        </nav> -->
 
         <span class="button-lv1 message">留言板</span>
 
@@ -37,7 +35,6 @@
             <router-link :to="{ name: 'login' }" tag="span">登录</router-link>
             <router-link :to="{ name: 'register' }" tag="span" class="focus">注册</router-link>
         </span>
-      </div>
     </header>
 
 </template>
@@ -216,7 +213,7 @@ header {
     .header-nav {
         list-style-type: none;
     }
-    nav {
+    .max nav {
         display: inline-block;
         margin: 0 40px;
     }
@@ -274,122 +271,128 @@ header {
 }
 
 // 移动端按钮
-.centre .header-menu-right {
 
-    i {
+.centre i {
+    .i();
+    right: 20px;
+    top: 30px;
+    pointer-events: none;
+    &::after{
+        content: '';
         .i();
-        transform: translateY(22px) translateX(27px);
-        pointer-events: none;
-
-        &::after{
-            content: '';
-            .i();
-            transform: translateY(7px);
-        }
-
-        &::before{
-            content: '';
-            .i();
-            transform: translateY(-7px);
-        }
-
-        .i {
-            position: absolute;
-            border-radius: 4px;
-            width: 20px;
-            height: 3px;
-            background-color: #303944;
-            transition: 1s;
-        }
+        transform: translateY(7px);
     }
-}
-
-// 列表显示
-.centre .list-show {
-
-    .header-menu-list {
+    &::before{
+        content: '';
+        .i();
+        transform: translateY(-7px);
+    }
+    .i {
         position: absolute;
-        overflow: hidden;
-        left: 0;
-        z-index: 9999;
-        max-height: 100vh;
-        width: 100%;
-        background-image: var(--body-img);
-        transform: translateY(55px);
+        border-radius: 4px;
+        width: 20px;
+        height: 3px;
+        background-color: #7a7a7a;
         transition: 1s;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
-        .icon-fangxiangxia {
-            float: right;
-            transition: 1s;
-        }
-
-        li.header-nav-conter {
-            display: block;
-            float: initial;
-            padding: 10px 20px;
-            border-bottom: 1px solid #2C323C;
-            border-top: 1px solid #1F252E;
-            background-color: #252c36;
-
-            &:hover {
-                background-color: #374150;
-                color: #d1d7e6;
-
-                // 子导航 展开
-                ul {
-                    max-height: 50vh;
-                    margin-top: 10px;
-                }
-
-                .icon-fangxiangxia {
-                    transform: rotate(180deg)
-                }
-            }
-            span:nth-child(2) {
-                display: block;
-            }
-            li {
-                padding: 5px 20px;
-                border-bottom: 1px solid rgba(255, 255, 255, .1);
-
-                &:hover {
-                    color: #d1d7e6;
-                }
-                &:not(:hover) {
-                    color: var(--color-mater-font);
-                }
-            }
-            li:nth-of-type(1) {
-                border-top: 1px solid rgba(255, 255, 255, .1);
-            }
-            & > ul {
-                overflow: hidden;
-                max-height: 0;
-                transition: .5s;
-            }
-        }
-    }
-
-    i {
-        transition: 1s .5s;
-        background-color: transparent;
-        &::after{
-            transform: rotate(45deg);
-        }
-
-        &::before{
-            transform: rotate(-45deg);
-        }
     }
 }
-// 列表隐藏
-.centre .header-menu-list {
-    position: absolute;
-    overflow: hidden;
-    max-height: 0;
+
+.centre .list-hide {
+    position: fixed;
+    overflow-y: scroll;
+    top: -60px;
+    left: 0;
+    height: 100vh;
+    width: 40vw;
+    margin: 0;
+    background-color: #fff;
     transform: translateY(55px);
+    box-shadow: 0 0 25px rgba(99,196,218,.25);
+    
+    &::before {
+        content: "";
+        position: absolute;
+    }
 }
 
+// // 列表显示
+// .centre .list-show {
+
+//     .header-menu-list {
+//         position: absolute;
+//         overflow: hidden;
+//         left: 0;
+//         z-index: 9999;
+//         max-height: 100vh;
+//         width: 100%;
+//         background-image: var(--body-img);
+//         transform: translateY(55px);
+//         transition: 1s;
+//         box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
+//         .icon-fangxiangxia {
+//             float: right;
+//             transition: 1s;
+//         }
+
+//         li.header-nav-conter {
+//             display: block;
+//             float: initial;
+//             padding: 10px 20px;
+//             border-bottom: 1px solid #2C323C;
+//             border-top: 1px solid #1F252E;
+//             background-color: #252c36;
+
+//             &:hover {
+//                 background-color: #374150;
+//                 color: #d1d7e6;
+
+//                 // 子导航 展开
+//                 ul {
+//                     max-height: 50vh;
+//                     margin-top: 10px;
+//                 }
+
+//                 .icon-fangxiangxia {
+//                     transform: rotate(180deg)
+//                 }
+//             }
+//             span:nth-child(2) {
+//                 display: block;
+//             }
+//             li {
+//                 padding: 5px 20px;
+//                 border-bottom: 1px solid rgba(255, 255, 255, .1);
+
+//                 &:hover {
+//                     color: #d1d7e6;
+//                 }
+//                 &:not(:hover) {
+//                     color: var(--color-mater-font);
+//                 }
+//             }
+//             li:nth-of-type(1) {
+//                 border-top: 1px solid rgba(255, 255, 255, .1);
+//             }
+//             & > ul {
+//                 overflow: hidden;
+//                 max-height: 0;
+//                 transition: .5s;
+//             }
+//         }
+//     }
+
+//     i {
+//         transition: 1s .5s;
+//         background-color: transparent;
+//         &::after{
+//             transform: rotate(45deg);
+//         }
+
+//         &::before{
+//             transform: rotate(-45deg);
+//         }
+//     }
+// }
 // 顶部导航栏
 .list-hide .header-menu-list,
 .max .header-menu-list li {

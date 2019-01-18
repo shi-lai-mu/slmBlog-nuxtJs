@@ -1,6 +1,6 @@
 <template>
 
-    <div class="conter clearfix">
+    <tbody class="conter clearfix">
 
         <!-- <shuffling></shuffling> -->
         <div class="content-row clearfix">
@@ -56,7 +56,7 @@
             </div>
 
         </div>
-    </div>
+    </tbody>
 
     <!-- <div class="content-left-box" v-for="(right, v) in rightList" :key="v">
         <div class="content-left-tag">
