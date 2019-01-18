@@ -10,7 +10,7 @@
             <nav :class="menuState ? 'list-show' : 'list-hide'">
                 <ul class="header-menu-list clearfix">
 
-                    <li @click="minMenu" v-for="(menu, i) of menu" :key="i">
+                    <li class="clearfix" @click="minMenu" v-for="(menu, i) of menu" :key="i">
                         <router-link class="max-a" tag="span" :to="menu.to" v-if="!menu.sub">{{ menu.tag }}</router-link>
                         <span v-else>{{ menu.tag }}</span>
                         <i class="iconfont icon-fangxiangxia" v-if="menu.sub"></i>
@@ -138,7 +138,6 @@ export default {
 
     toggleMneu () {
       this.menuState = !this.menuState
-      console.log(window.tbody)
       window.tbody.className = this.menuState ? 'min-screen-left' : ''
     },
 
@@ -197,7 +196,7 @@ header {
     .header-nav {
         list-style-type: none;
     }
-    nav.list-hide {
+    nav {
         display: inline-block;
         margin: 0 40px;
     }
@@ -314,11 +313,29 @@ header {
             i {
                 float: right;
                 color: #ddd;
+                pointer-events: none;
+            }
+            & > span {
+                pointer-events: none;
             }
             // 子选项
             & > ul {
+                float: right;
                 overflow: hidden;
+                opacity: 0;
+                width: 90%;
                 max-height: 0;
+                text-indent: 0;
+                transition: .5s;
+            }
+            &:hover > ul {
+                overflow: hidden;
+                opacity: 1;
+                max-height: 100vh;
+                text-indent: 2rem;
+                li:hover {
+                    color: #6ed9f1;
+                }
             }
         }
     }
@@ -350,7 +367,8 @@ header {
         margin-top: 10px;
         background-color: #fff;
         opacity: 0;
-        box-shadow: 0 0 25px rgba(99,196,218,.25);
+        // box-shadow: 0 0 25px rgba(99,196,218,.25);
+        box-shadow: 0 2px 25px rgba(0,0,0,.25);
         transition: .5s;
         transform: translateY(10px);
 
@@ -392,8 +410,8 @@ header {
         }
     }
     &:hover > ul {
-        opacity: 1;
         visibility: inherit;
+        opacity: 1;
         transform: translateY(0);
     }
 }
