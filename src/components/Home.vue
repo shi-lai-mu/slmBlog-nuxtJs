@@ -32,7 +32,7 @@
                         <div class="article-right look-center">
                             <h3 class="ellipsis no-black"></h3>
                             <ul class="article-tag">
-                                <li v-for="i in 7" :key="i" class="no-black"></li>
+                                <li v-for="i in 5" :key="i" class="no-black"></li>
                             </ul>
                             <p class="article-description no-black"></p>
                         </div>
@@ -56,7 +56,6 @@
             </div>
 
         </div>
-
     </div>
 
     <!-- <div class="content-left-box" v-for="(right, v) in rightList" :key="v">
@@ -90,23 +89,22 @@ export default {
       }
     })
 
-    // 簡介内容
-    // let maxContent = this.$store.state.mobile ? 100 : 125
-    this.$http.get('blog/hot')
-      .then(res => {
-        this.hotList = res.data.map(index => {
-          index.type = index.type.split('#')
-          index.type.shift()
-          return index
-        })
-      })
+    // // 簡介内容
+    // this.$http.get('blog/hot')
+    //   .then(res => {
+    //     this.hotList = res.data.map(index => {
+    //       index.type = index.type.split('#')
+    //       index.type.shift()
+    //       return index
+    //     })
+    //   })
 
-    // 右侧文章
-    this.$http.get('blog/right', false, 1)
-      .then(res => {
-        this.rightList = res.data
-        console.log(this.rightList)
-      })
+    // // 右侧文章
+    // this.$http.get('blog/right', false, 1)
+    //   .then(res => {
+    //     this.rightList = res.data
+    //     console.log(this.rightList)
+    //   })
   },
   methods: {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000)
@@ -137,10 +135,11 @@ export default {
         }
 
         .blogger {
+            padding-bottom: 10px;
             img {
                 display: block;
                 border-radius: 50%;
-                margin: 20px auto;
+                margin: 20px auto 10px;
                 border: 10px solid rgba(99,196,218,.25);
                 transition: .2s;
                 &:hover {
@@ -152,7 +151,7 @@ export default {
             .name {
                 color: #999;
                 text-align: center;
-                font-size: 1.2rem;
+                font-size: 22px;
             }
             .select {
                 margin: 10px;
@@ -243,7 +242,7 @@ export default {
     // 掩饰
     .no-black {
         min-width: 8rem;
-        border-radius: 20px;
+        border-radius: 10px;
         margin: 10px 0;
         background-color: #f1f1f1;
     }

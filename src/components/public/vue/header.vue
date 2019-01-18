@@ -401,11 +401,62 @@ header {
         display: inline-block;
         padding-left: 40px;
         font-size: 1rem;
-        line-height: 60px;
     }
-
+    // 子菜单
     & > ul {
-        display: none;
+        position: absolute;
+        visibility: hidden;
+        min-width: 100px;
+        border-radius: 5px;
+        margin-left: 10px;
+        margin-top: 10px;
+        background-color: #fff;
+        opacity: 0;
+        box-shadow: 0 0 25px rgba(99,196,218,.25);
+        transition: .5s;
+        transform: translateY(10px);
+
+        li {
+            display: block;
+            text-align: center;
+            height: 38px;
+            line-height: 38px;
+            color: #888;
+
+            &:hover {
+                background-color: rgba(110, 217, 241, .6);
+                color: #fff;
+                border-radius: 5px;
+            }
+        }
+        span {
+            padding: 0 20px;
+            line-height: 1;
+        }
+        // 三角
+        &::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            border-width: 10px;
+            border-style: solid;
+            border-color: transparent transparent #fff transparent;
+            transform: translateY(-20px) translateX(-50%);
+        }
+        // 触摸铺垫
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 20px;
+            transform: translateY(-20px);
+        }
+    }
+    &:hover > ul {
+        opacity: 1;
+        visibility: inherit;
+        transform: translateY(0);
     }
 }
 
