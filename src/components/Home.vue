@@ -90,14 +90,14 @@ export default {
     })
 
     // // 簡介内容
-    // this.$http.get('blog/hot')
-    //   .then(res => {
-    //     this.hotList = res.data.map(index => {
-    //       index.type = index.type.split('#')
-    //       index.type.shift()
-    //       return index
-    //     })
-    //   })
+    this.$http.get('blog/hot')
+      .then(res => {
+        this.hotList = res.data.map(index => {
+          index.type = index.type.split('#')
+          index.type.shift()
+          return index
+        })
+      })
 
     // // 右侧文章
     // this.$http.get('blog/right', false, 1)

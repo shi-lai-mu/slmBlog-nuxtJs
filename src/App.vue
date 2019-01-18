@@ -1,5 +1,5 @@
 <template>
-  <div class="min-screen-left">
+  <div id="tbody">
     <vue-header :head="head" ref="head"></vue-header>
     <!-- <vue-title :title="title"></vue-title> -->
     <router-view ref="master"/>
@@ -82,10 +82,10 @@ export default {
 
 <style lang="less">
 @import '~@com/public/public.less';
-
+#tbody > tbody {
+  transition: .5s;
+}
 .min-screen-left > tbody {
   transform: translateX(50vw);
-  filter: blur(2px);
-
 }
 </style>

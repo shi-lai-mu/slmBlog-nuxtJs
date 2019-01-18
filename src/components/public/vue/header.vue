@@ -1,40 +1,40 @@
 <template>
 
-    <header class="header-nav clearfix conter">
+    <header>
+        <div class="header-nav clearfix conter">
+            <h1 class="LOGO">
+                <router-link to="/" class="max-a"></router-link>
+            </h1>
+            <span :class="['menu-list', {close: menuState}]" @click="toggleMneu"></span>
+            <!-- 共享型菜单栏 -->
+            <nav :class="menuState ? 'list-show' : 'list-hide'">
+                <ul class="header-menu-list clearfix">
 
-        <h1 class="LOGO">
-            <router-link to="/" class="max-a"></router-link>
-        </h1>
-        <i></i>
+                    <li @click="minMenu" v-for="(menu, i) of menu" :key="i">
+                        <router-link class="max-a" tag="span" :to="menu.to" v-if="!menu.sub">{{ menu.tag }}</router-link>
+                        <span v-else>{{ menu.tag }}</span>
+                        <i class="iconfont icon-fangxiangxia" v-if="menu.sub"></i>
+                        <ul v-if="menu.sub">
+                            <li v-for="(sub, n) in menu.sub" :key="n">
+                                <router-link v-if="sub[1] == '#' || typeof sub[1] === 'object'" :to="sub[1]" tag="span">{{ sub[0] }}</router-link>
+                                <span @click="runCommand(sub[1])" v-else>{{ sub[0] }}</span>
+                            </li>
+                        </ul>
+                    </li>
 
-        <!-- 共享型菜单栏 -->
-        <!-- <nav :class="menuState ? 'list-show' : 'list-hide'" @click="menuToggle">
-            <ul class="header-menu-list clearfix">
+                </ul>
+            </nav>
 
-                <li @click="minMenu" v-for="(menu, i) of menu" :key="i">
-                    <router-link class="max-a" tag="span" :to="menu.to" v-if="!menu.sub">{{ menu.tag }}</router-link>
-                    <span v-else>{{ menu.tag }}</span>
-                    <i class="iconfont icon-fangxiangxia" v-if="menu.sub"></i>
-                    <ul v-if="menu.sub">
-                        <li v-for="(sub, n) in menu.sub" :key="n">
-                            <router-link v-if="sub[1] == '#' || typeof sub[1] === 'object'" :to="sub[1]" tag="span">{{ sub[0] }}</router-link>
-                            <span @click="runCommand(sub[1])" v-else>{{ sub[0] }}</span>
-                        </li>
-                    </ul>
-                </li>
+            <span class="button-lv1 message">留言板</span>
 
-            </ul>
-        </nav> -->
+            <span class="header-right">
+                <input class="search">
+                <i class="iconfont icon-sou-suo"></i>
 
-        <span class="button-lv1 message">留言板</span>
-
-        <span class="header-right">
-            <input class="search">
-            <i class="iconfont icon-sou-suo"></i>
-
-            <router-link :to="{ name: 'login' }" tag="span">登录</router-link>
-            <router-link :to="{ name: 'register' }" tag="span" class="focus">注册</router-link>
-        </span>
+                <router-link :to="{ name: 'login' }" tag="span">登录</router-link>
+                <router-link :to="{ name: 'register' }" tag="span" class="focus">注册</router-link>
+            </span>
+        </div>
     </header>
 
 </template>
@@ -53,14 +53,10 @@ export default {
 
   created () {
     this.$nextTick(() => {
-      let child = this.$el.lastChild
-      let cList = child.classList
-      let elTop = this.$el.clientHeight - child.clientHeight
-
-      window.addEventListener('scroll', () => {
-        this.menuState && (this.menuState = false)
-        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-        scrollTop >= elTop ? cList.add('header-nav-fixed') : cList.remove('header-nav-fixed')
+      window.addEventListener('click', e => {
+        if (this.menuState && !this.$el.contains(e.target)) {
+          this.toggleMneu()
+        }
       })
 
       // 通讯登录状态
@@ -140,22 +136,10 @@ export default {
       })
     },
 
-    /**
-     * 菜单切换
-     */
-    menuToggle (e) {
-      if (e.target.classList.contains('header-menu-right')) {
-        this.menuState = !this.menuState
-        this.menuState ? document.addEventListener('click', menuClick) : document.removeEventListener('click', menuClick)
-      }
-
-      let self = this
-      function menuClick (e) {
-        if (!self.$el.contains(e.target)) {
-          self.menuState = false
-          document.removeEventListener('click', menuClick)
-        }
-      }
+    toggleMneu () {
+      this.menuState = !this.menuState
+      console.log(window.tbody)
+      window.tbody.className = this.menuState ? 'min-screen-left' : ''
     },
 
     /**
@@ -164,7 +148,7 @@ export default {
     minMenu (e) {
       let last = e.target.lastChild
       if (!last || !last.tagName || last.tagName.toLowerCase() !== 'ul') {
-        this.menuState = false
+        this.toggleMneu()
       }
     },
 
@@ -213,7 +197,7 @@ header {
     .header-nav {
         list-style-type: none;
     }
-    .max nav {
+    nav.list-hide {
         display: inline-block;
         margin: 0 40px;
     }
@@ -272,11 +256,10 @@ header {
 
 // 移动端按钮
 
-.centre i {
+.centre .menu-list {
     .i();
     right: 20px;
     top: 30px;
-    pointer-events: none;
     &::after{
         content: '';
         .i();
@@ -293,11 +276,21 @@ header {
         width: 20px;
         height: 3px;
         background-color: #7a7a7a;
-        transition: 1s;
+        transition: .5s;
+    }
+    &.close {
+        transition: .5s .1s;
+        background-color: transparent;
+        &::after{
+            transform: rotate(45deg);
+        }
+        &::before{
+            transform: rotate(-45deg);
+        }
     }
 }
 
-.centre .list-hide {
+.centre nav {
     position: fixed;
     overflow-y: scroll;
     top: -60px;
@@ -306,13 +299,14 @@ header {
     width: 40vw;
     margin: 0;
     background-color: #fff;
-    transform: translateY(55px);
+    opacity: 0;
     box-shadow: 0 0 25px rgba(99,196,218,.25);
-    
-    &::before {
-        content: "";
-        position: absolute;
-    }
+    transform: translateY(60px) translateX(-100%);
+    transition: .5s;
+}
+.centre nav.list-show {
+    opacity: 1;
+    transform: translateY(60px);
 }
 
 // // 列表显示
