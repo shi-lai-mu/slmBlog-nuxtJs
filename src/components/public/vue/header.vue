@@ -191,6 +191,7 @@ export default {
 
 <style lang="less">
 .header-hide {
+  opacity: 0;
   transform: translateY(-100%);
 }
 // 公共
@@ -209,6 +210,7 @@ export default {
     .LOGO {
         float: left;
         width: 42px;
+        height: 60px;
         margin: 0 20px;
         vertical-align: middle;
         overflow: hidden;

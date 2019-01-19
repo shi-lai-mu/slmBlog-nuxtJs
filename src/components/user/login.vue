@@ -1,10 +1,11 @@
 <template>
 
-    <tbody class="content-row single clearfix">
+    <tbody class="conter clearfix">
 
         <!-- 登录页 -->
         <div :class="['account', {'login': page == 'login'}]">
             <img src="//res.mczyzy.cn/img/account-bg3.jpg" alt="图1" class="border-line">
+
             <form action="">
                 <label>账号</label>
                 <input type="text" name="log_user" class="input-1v" v-model="login.user">
@@ -12,6 +13,7 @@
                 <input type="password" name="log_pass" class="input-1v" v-model="login.pass_rsa" @keyup.enter="loginEvent">
                 <span class="button-lv0" @click="loginEvent">登陆</span>
             </form>
+
             <span class="account-right">
                 <a @click="qqLogin" :href="qqLoginUrl" target="_black" rel="noopener noreferrer">
                     <i class="iconfont icon-ziyuan"></i>
@@ -214,14 +216,12 @@ export default {
     max-width: 600px;
     min-width: 200px;
     max-height: 0;
-    border-radius: 0 0 20px 20px;
-    opacity: 0;
+    border-radius: 20px;
     margin: 0 auto;
-    color: var(--font-out);
-    text-shadow: var(--font-out-shadow);
-    background-image: var(--body-img);
-    background-clip: border-box;
     box-sizing: border-box;
+    background-color: #fff;
+    opacity: 0;
+    box-shadow: var(--box-shadow);
     transition: 1s;
     transform: translateY(-30%);
     pointer-events: none;
@@ -249,7 +249,6 @@ export default {
         padding: 10px;
         border: 1px solid rgba(255, 255, 255, .3);
         border-radius: 20px;
-        background-image: var(--img-bg);
         box-sizing: border-box;
     }
 
@@ -269,6 +268,7 @@ export default {
         max-width: 250px;
         min-width: 100px;
         margin: 5px 0;
+        border: 0;
     }
 
     canvas {
