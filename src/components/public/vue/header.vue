@@ -8,9 +8,9 @@
             <span :class="['menu-list', {close: menuState}]" @click="toggleMneu"></span>
             <!-- 共享型菜单栏 -->
             <nav :class="menuState ? 'list-show' : 'list-hide'">
-                <ul class="header-menu-list clearfix">
+                <ul class="header-menu-list">
 
-                    <li class="clearfix" @click="minMenu" v-for="(menu, i) of menu" :key="i">
+                    <li @click="minMenu" v-for="(menu, i) of menu" :key="i">
                         <router-link class="max-a" tag="span" :to="menu.to" v-if="!menu.sub">{{ menu.tag }}</router-link>
                         <span v-else>{{ menu.tag }}</span>
                         <i class="iconfont icon-fangxiangxia" v-if="menu.sub"></i>
@@ -346,8 +346,8 @@ header {
 }
 
 // 顶部导航栏
-.list-hide .header-menu-list,
-.max .header-menu-list li {
+// .list-hide .header-menu-list ,
+.max .header-menu-list > li {
     display: inline-block;
     height: 60px;
     cursor: pointer;
