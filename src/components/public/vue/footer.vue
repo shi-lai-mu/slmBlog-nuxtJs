@@ -52,6 +52,7 @@ export default {
 .fixed-bottom {
   position: absolute;
   bottom: 0;
+  width: 100%;
 }
 .body-footer {
     margin-top: 20px;

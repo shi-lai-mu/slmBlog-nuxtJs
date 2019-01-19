@@ -1,38 +1,38 @@
 <template>
-  <div class="content-row single clearfix">
-    <div :class="['content-box', 'article-index', { 'nick': article['title'] }, 'notContent']">
+  <tbody class="conter single clearfix">
+      <div :class="['content-box', 'article-index', { 'nick': article['title'] }, 'notContent']">
 
-      <header>
-        <h2 class="article-title">
-          {{ article.title }}
-          <router-link :to="{ name: 'againEditor', query: { editor: this.$route.params.id } }" class="editor-link" v-if="editor">
-            <i class="iconfont icon-fatie"></i>重新编辑
-          </router-link>
-        </h2>
-        <h3 class="article-info">
-          <span class="nowrap">
-            <span v-text="article.author.username"></span> 发表于：
-            <i class="iconfont icon-shizhong" title="时间">{{ article.createTime && unTime(article.createTime) }}</i>
-          </span>
-          <span class="nowrap">
-            <i class="iconfont icon-liaotian1" title="回复">{{ article.msg }}</i>
-            <i class="iconfont icon-liulan" title="浏览">{{ article.lookCount }}</i>
-          </span>
-        </h3>
-        <ul class="notCon" v-if="notCon">
-          <li :class="[{ 'not-p': Math.random() > 0.6, 'not-end': Math.random() > 0.9 }]" v-for="i in 20" :key="i"></li>
-        </ul>
-      </header>
+        <header>
+          <h2 class="article-title">
+            {{ article.title }}
+            <router-link :to="{ name: 'againEditor', query: { editor: this.$route.params.id } }" class="editor-link" v-if="editor">
+              <i class="iconfont icon-fatie"></i>重新编辑
+            </router-link>
+          </h2>
+          <h3 class="article-info">
+            <span class="nowrap">
+              <span v-text="article.author.username"></span> 发表于：
+              <i class="iconfont icon-shizhong" title="时间">{{ article.createTime && unTime(article.createTime) }}</i>
+            </span>
+            <span class="nowrap">
+              <i class="iconfont icon-liaotian1" title="回复">{{ article.msg }}</i>
+              <i class="iconfont icon-liulan" title="浏览">{{ article.lookCount }}</i>
+            </span>
+          </h3>
+          <ul class="notCon" v-if="notCon">
+            <li :class="[{ 'not-p': Math.random() > 0.6, 'not-end': Math.random() > 0.9 }]" v-for="i in 20" :key="i"></li>
+          </ul>
+        </header>
 
-      <div class="article-body" v-html="article.content" ref="content"></div>
+        <div class="article-body" v-html="article.content" ref="content"></div>
 
-      <div :class="{ none: !article.title }">
-        <Editor class="editor" ref="editor"></Editor>
-        <button class="button-v1 send" @click="send">留言</button>
+        <div :class="{ none: !article.title }">
+          <Editor class="editor" ref="editor"></Editor>
+          <button class="button-v1 send" @click="send">留言</button>
+        </div>
+
       </div>
-
-    </div>
-  </div>
+  </tbody>
 </template>
 
 <script>

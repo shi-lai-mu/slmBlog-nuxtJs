@@ -1,5 +1,5 @@
 <template>
-    <div class="content-row single clearfix">
+    <tbody class="conter single clearfix">
         <div class="content-box thisSite">
             <img src="//res.mczyzy.cn/LOGO.png" alt="slm-logo" class="logo">
             <h2>史莱姆的个人博客</h2>
@@ -169,7 +169,7 @@
             </ul>
 
         </div>
-    </div>
+    </tbody>
 </template>
 
 <script>

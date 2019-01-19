@@ -3,7 +3,7 @@
     <vue-header :head="head" ref="head"></vue-header>
     <!-- <vue-title :title="title"></vue-title> -->
     <transition :name="transitionName" keep-alive>
-      <router-view ref="master"></router-view>
+      <router-view ref="master" class="tbody"></router-view>
     </transition>
     <vue-footer></vue-footer>
     <vue-toast :toast="toast"></vue-toast>
@@ -92,10 +92,12 @@ export default {
 
 <style lang="less">
 @import '~@com/public/public.less';
-#tbody > tbody {
+#tbody > tbody,
+#tbody > .tbody > tbody {
   transition: .5s;
 }
-.min-screen-left > tbody {
+.min-screen-left > tbody,
+.min-screen-left > .tbody > tbody {
   transform: translateX(50vw);
   opacity: .8;
 }

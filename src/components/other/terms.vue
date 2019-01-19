@@ -1,6 +1,6 @@
 <template>
-  <div class="content-row single clearfix">
-    <div class="content-box terms">
+  <tbody class="conter single clearfix terms">
+    <div class="content-box">
       <h2>条款和免责</h2>
       <ul>
         <li>在使用 <b>史莱姆的个人博客 (以下简称本平台)</b> 提供的一切服务前，请务必仔细阅读并理解透彻本声明，您可以选择不使用本平台，但如果您使用本平台，将被视为完全认可此协议及其可能随时更新的内容</li>
@@ -17,7 +17,7 @@
       <p class="ps">此协议中的"用户"包括一切访问本平台的用户，无论是否注册均适用于此协议!</p>
       <p class="ps">协议更新时间: 2018/09/05 10:00:03</p>
     </div>
-  </div>
+  </tbody>
 </template>
 
 <script>

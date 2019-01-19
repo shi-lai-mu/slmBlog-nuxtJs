@@ -1,64 +1,56 @@
 <template>
 
-    <tbody class="conter clearfix">
+    <tbody class="conter content-row clearfix">
 
-        <!-- <shuffling></shuffling> -->
-        <div class="content-row clearfix">
-
-            <!-- 左侧 -->
-            <div class="content-box">
-                <router-link v-for="(hot, index) in hotList" :key="index" :to="'/article/' + hot.Id">
-                    <div class="article clearfix">
-                        <div class="article-left">
-                            <img v-lazy="hot.img" alt="images">
-                        </div>
-                        <div class="article-right">
-                            <h3 class="ellipsis">{{ hot.title }}</h3>
-                            <ul class="article-tag">
-                                <li v-for="(type, i) in hot.type" :key="i" :title="'查找' + type + '标签'">
-                                    <a href="#">{{ type }}</a>
-                                </li>
-                            </ul>
-                            <p class="article-description ellipsis">{{ hot.description }}</p>
-                        </div>
-                    </div>
-                </router-link>
-                <ul v-if="!hotList.length">
-                    <!-- 展示伪装 -->
-                    <li v-for="i in 5" :key="i" class="article clearfix">
-                        <div class="article-left">
-                            <div class="no-black"></div>
-                        </div>
-                        <div class="article-right look-center">
-                            <h3 class="ellipsis no-black"></h3>
-                            <ul class="article-tag">
-                                <li v-for="i in 5" :key="i" class="no-black"></li>
-                            </ul>
-                            <p class="article-description no-black"></p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+      <!-- <shuffling></shuffling> -->
+      <!-- 左侧 -->
+      <div class="content-box">
+          <router-link v-for="(hot, index) in hotList" :key="index" :to="'/article/' + hot.Id">
+              <div class="article clearfix">
+                  <div class="article-left">
+                      <img v-lazy="hot.img" alt="images">
+                  </div>
+                  <div class="article-right">
+                      <h3 class="ellipsis">{{ hot.title }}</h3>
+                      <ul class="article-tag">
+                          <li v-for="(type, i) in hot.type" :key="i" :title="'查找' + type + '标签'">
+                              <a href="#">{{ type }}</a>
+                          </li>
+                      </ul>
+                      <p class="article-description ellipsis">{{ hot.description }}</p>
+                  </div>
+              </div>
+          </router-link>
+          <ul v-if="!hotList.length">
+              <!-- 展示伪装 -->
+              <li v-for="i in 5" :key="i" class="article clearfix">
+                  <div class="article-left">
+                      <div class="no-black"></div>
+                  </div>
+                  <div class="article-right look-center">
+                      <h3 class="ellipsis no-black"></h3>
+                      <ul class="article-tag">
+                          <li v-for="i in 5" :key="i" class="no-black"></li>
+                      </ul>
+                      <p class="article-description no-black"></p>
+                  </div>
+              </li>
+          </ul>
+      </div>
 
             <!-- 右侧 -->
-            <div class="content-aff-box">
-                <div class="content-box blogger">
-                    <img src="//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100" alt="史莱姆头像">
-                    <p class="name">史莱姆</p>
-                    <div class="select">
-                        <span class="button-lv0 button-blue">关注</span>
-                        <span class="button-lv0 button-green">了解</span>
-                    </div>
-                </div>
-                <div class="content-box">
-
-                </div>
-            </div>
-
-        </div>
-        <div class="loading" v-if="loading">
-          Loading...
-        </div>
+      <div class="content-aff-box">
+          <div class="content-box blogger">
+              <img src="//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100" alt="史莱姆头像">
+              <p class="name">史莱姆</p>
+              <div class="select">
+                  <span class="button-lv0 button-blue">关注</span>
+                  <span class="button-lv0 button-green">了解</span>
+              </div>
+          </div>
+          <div class="content-box">
+          </div>
+      </div>
     </tbody>
 
     <!-- <div class="content-left-box" v-for="(right, v) in rightList" :key="v">
