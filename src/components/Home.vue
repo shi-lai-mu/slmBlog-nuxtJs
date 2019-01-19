@@ -131,7 +131,7 @@ export default {
 
         .content-box {
             width: 100%;
-            margin-bottom: 20px;
+            margin: 20px 0;
         }
 
         .blogger {

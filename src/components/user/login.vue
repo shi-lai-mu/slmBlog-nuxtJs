@@ -213,42 +213,36 @@ export default {
 .account {
     display: block;
     width: 80%;
-    max-width: 600px;
     min-width: 200px;
+    max-width: 600px;
     max-height: 0;
-    border-radius: 20px;
+    border-radius: 5px;
     margin: 0 auto;
     box-sizing: border-box;
     background-color: #fff;
     opacity: 0;
     box-shadow: var(--box-shadow);
-    transition: 1s;
+    transition: .5s;
     transform: translateY(-30%);
     pointer-events: none;
 
+    // 底部右侧
     .account-right {
         display: block;
-        width: 100%;
         margin-top: 10px;
         text-align: right;
+        color: #888;
         user-select: none;
-        font-weight: bold;
+        font-size: .8rem;
 
-        span {
-            font-size: .9em;
-            cursor: pointer;
-        }
-
-        a {
-            margin: 0 10px;
-        }
+        span { cursor: pointer; }
+        a { margin: 0 10px; }
     }
 
     img {
         width: 100%;
-        padding: 10px;
         border: 1px solid rgba(255, 255, 255, .3);
-        border-radius: 20px;
+        border-radius: 10px;
         box-sizing: border-box;
     }
 
@@ -257,18 +251,25 @@ export default {
         width: 50px;
         margin-right: 20px;
         font-size: 20px;
-        font-weight: 600;
         line-height: 40px;
-        color: var(--text-black);
-        text-shadow: 1px 1px 0 var(--text-black-shadow);
+        color: #666;
     }
 
     input {
         width: 50vw;
         max-width: 250px;
         min-width: 100px;
-        margin: 5px 0;
         border: 0;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 5px;
+        font-size: 20px;
+        color: #999;
+        transition: .5s;
+
+        &:focus {
+          color: #555;
+          border-bottom: 1px solid #aaa;
+        }
     }
 
     canvas {
@@ -285,11 +286,6 @@ export default {
         max-width: 151px;
     }
 
-    .button-v1 {
-        width: 40vw;
-        max-width: 280px;
-        margin-top: 25px;
-    }
 
     & > form {
         display: flex;
@@ -304,8 +300,6 @@ export default {
     max-height: 100vh;
     margin: 0 auto 100px;
     padding: 15px;
-    border: 10px solid rgba(255,255,255,.2);
-    border-top: 0;
     opacity: 1;
     transform: none;
     pointer-events: initial;
