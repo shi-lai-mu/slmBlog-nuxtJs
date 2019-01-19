@@ -46,8 +46,8 @@
                     <img src="//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100" alt="史莱姆头像">
                     <p class="name">史莱姆</p>
                     <div class="select">
-                        <span class="button-lv0">关注</span>
-                        <span class="button-lv0">了解</span>
+                        <span class="button-lv0 button-blue">关注</span>
+                        <span class="button-lv0 button-green">了解</span>
                     </div>
                 </div>
                 <div class="content-box">

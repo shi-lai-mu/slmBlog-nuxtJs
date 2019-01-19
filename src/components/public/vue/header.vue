@@ -138,7 +138,9 @@ export default {
 
     toggleMneu () {
       this.menuState = !this.menuState
-      window.tbody.className = this.menuState ? 'min-screen-left' : ''
+      if (this.$store.state.mobile) {
+        window.tbody.className = this.menuState ? 'min-screen-left' : ''
+      }
     },
 
     /**
@@ -179,7 +181,7 @@ header {
     white-space: nowrap;
     background-color: #fff;
     user-select: none;
-    box-shadow: 0 0 25px rgba(99,196,218,.25);
+    box-shadow: var(--box-shadow);
     user-select: none;
     line-height: 60px;
 
@@ -299,7 +301,7 @@ header {
     margin: 0;
     background-color: #fff;
     opacity: 0;
-    box-shadow: 0 0 25px rgba(99,196,218,.25);
+    box-shadow: var(--box-shadow);
     transform: translateY(60px) translateX(-100%);
     transition: .5s;
 

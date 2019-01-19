@@ -1,5 +1,5 @@
 <template>
-  <div id="tbody">
+  <div id="tbody" ref="tbody">
     <vue-header :head="head" ref="head"></vue-header>
     <!-- <vue-title :title="title"></vue-title> -->
     <router-view ref="master"/>

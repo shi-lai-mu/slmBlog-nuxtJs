@@ -1,6 +1,6 @@
 <template>
 
-    <div class="content-row single clearfix">
+    <tbody class="content-row single clearfix">
 
         <div :class="['account', {'login': page == 'login'}]">
             <img src="http://res.mczyzy.cn/img/account-bg3.jpg" alt="图1" class="border-line">
@@ -45,7 +45,7 @@
             </span>
         </div>
 
-    </div>
+    </tbody>
 
 </template>
 
