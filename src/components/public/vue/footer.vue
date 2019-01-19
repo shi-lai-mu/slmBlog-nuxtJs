@@ -37,7 +37,7 @@ export default {
   watch: {
     '$route' (to, from) {
       setTimeout(() => {
-        if (document.body.clientHeight < screen.availHeight) {
+        if (document.body.clientHeight < screen.availHeight - this.$el.offsetHeight - 40) {
           this.$el.classList.add('fixed-bottom')
         } else {
           this.$el.classList.remove('fixed-bottom')
