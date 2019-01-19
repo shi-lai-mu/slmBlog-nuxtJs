@@ -439,8 +439,7 @@ export default {
         }
 
         span {
-            padding: 0 20px;
-            line-height: 1;
+            padding: 0;
         }
 
         // 三角
