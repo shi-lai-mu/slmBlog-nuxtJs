@@ -1,12 +1,13 @@
 <template>
 
-    <header>
+    <header class="nav-header">
         <div class="header-nav clearfix conter">
             <h1 class="LOGO">
                 <router-link to="/" class="max-a"></router-link>
             </h1>
+            <!-- 移动端按钮 -->
             <span :class="['menu-list', {close: menuState}]" @click="toggleMneu"></span>
-            <!-- 共享型菜单栏 -->
+            <!-- 响应型菜单栏 -->
             <nav :class="menuState ? 'list-show' : 'list-hide'">
                 <ul class="header-menu-list">
 
@@ -25,8 +26,10 @@
                 </ul>
             </nav>
 
+            <!-- 额外按钮 -->
             <span class="button-lv1 message">留言板</span>
 
+            <!-- 右侧内容 -->
             <span class="header-right">
                 <input class="search">
                 <i class="iconfont icon-sou-suo"></i>
@@ -53,13 +56,14 @@ export default {
 
   created () {
     this.$nextTick(() => {
-      window.addEventListener('click', e => {
+      // 失焦事件[移动端]
+      this.$store.state.mobile && window.addEventListener('click', e => {
         if (this.menuState && !this.$el.contains(e.target)) {
           this.toggleMneu()
         }
       })
 
-      // 通讯登录状态
+      // 观察登录状态
       this.$connecter.$on('user', data => {
         this.user = data
         this.updateRouter()
@@ -136,6 +140,9 @@ export default {
       })
     },
 
+    /**
+     * 开启/关闭 导航栏[移动端]
+     */
     toggleMneu () {
       this.menuState = !this.menuState
       if (this.$store.state.mobile) {
@@ -144,13 +151,20 @@ export default {
     },
 
     /**
-     * 缩小菜单
+     * 点击导航栏内部,子导航时缩小菜单[移动端事件]
      */
     minMenu (e) {
       let last = e.target.lastChild
       if (!last || !last.tagName || last.tagName.toLowerCase() !== 'ul') {
         this.toggleMneu()
       }
+    },
+
+    /**
+     * 运行命令
+     */
+    runCommand (key) {
+      this[key]()
     },
 
     /**
@@ -161,20 +175,14 @@ export default {
       this.user = undefined
       this.$store.state.user = undefined
       this.updateRouter()
-    },
-
-    /**
-     * 运行命令
-     */
-    runCommand (key) {
-      this[key]()
     }
   }
 }
 </script>
 
 <style lang="less">
-header {
+// 公共
+.nav-header {
     position: relative;
     width: 100%;
     z-index: 30;
@@ -195,13 +203,16 @@ header {
         background: url('//res.mczyzy.cn/LOGO.png') no-repeat center;
         background-size: 42px auto;
     }
+
     .header-nav {
         list-style-type: none;
     }
+
     nav {
         display: inline-block;
         margin: 0 40px;
     }
+
     .search {
         position: relative;
         height: 40px;
@@ -228,6 +239,7 @@ header {
             }
         }
     }
+
     .icon-sou-suo {
         position: absolute;
         margin-top: 13px;
@@ -240,37 +252,28 @@ header {
         transform: translateX(-45px);
         cursor: pointer;
     }
+
     .header-right {
         float: right;
-
         span {
             display: inline-block;
             width: 90px;
             text-align: center;
         }
     }
+
     .focus {
         color: white;
         background-color: #6ed9f1;
     }
 }
 
-// 移动端按钮
-
+// 移动端 按钮
 .centre .menu-list {
     .i();
     right: 20px;
     top: 30px;
-    &::after{
-        content: '';
-        .i();
-        transform: translateY(7px);
-    }
-    &::before{
-        content: '';
-        .i();
-        transform: translateY(-7px);
-    }
+
     .i {
         position: absolute;
         border-radius: 4px;
@@ -279,6 +282,20 @@ header {
         background-color: #7a7a7a;
         transition: .5s;
     }
+
+    &::after{
+        content: '';
+        .i();
+        transform: translateY(7px);
+    }
+
+    &::before{
+        content: '';
+        .i();
+        transform: translateY(-7px);
+    }
+
+    // 闭合状态
     &.close {
         transition: .5s .1s;
         background-color: transparent;
@@ -290,8 +307,8 @@ header {
         }
     }
 }
-
-.centre nav {
+// 移动端 导航栏
+.centre .nav-header nav {
     position: fixed;
     overflow-y: scroll;
     top: -60px;
@@ -320,7 +337,8 @@ header {
             & > span {
                 pointer-events: none;
             }
-            // 子选项
+
+            // 子导航
             & > ul {
                 float: right;
                 overflow: hidden;
@@ -330,6 +348,7 @@ header {
                 text-indent: 0;
                 transition: .5s;
             }
+
             &:hover > ul {
                 overflow: hidden;
                 opacity: 1;
@@ -348,13 +367,15 @@ header {
             }
         }
     }
-}
-.centre nav.list-show {
-    opacity: 1;
-    transform: translateY(60px);
+
+    // 列表显示
+    &.list-show {
+      opacity: 1;
+      transform: translateY(60px);
+    }
 }
 
-// 顶部导航栏
+// pc端 导航栏
 // .list-hide .header-menu-list ,
 .max .header-menu-list > li {
     display: inline-block;
@@ -394,10 +415,12 @@ header {
                 border-radius: 5px;
             }
         }
+
         span {
             padding: 0 20px;
             line-height: 1;
         }
+
         // 三角
         &::before {
             content: "";
@@ -408,6 +431,7 @@ header {
             border-color: transparent transparent #fff transparent;
             transform: translateY(-20px) translateX(-50%);
         }
+
         // 触摸铺垫
         &::after {
             content: "";
@@ -418,6 +442,8 @@ header {
             transform: translateY(-20px);
         }
     }
+
+    // 显示子栏目
     &:hover > ul {
         visibility: inherit;
         opacity: 1;
