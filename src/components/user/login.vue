@@ -2,14 +2,15 @@
 
     <tbody class="content-row single clearfix">
 
+        <!-- 登录页 -->
         <div :class="['account', {'login': page == 'login'}]">
-            <img src="http://res.mczyzy.cn/img/account-bg3.jpg" alt="图1" class="border-line">
+            <img src="//res.mczyzy.cn/img/account-bg3.jpg" alt="图1" class="border-line">
             <form action="">
                 <label>账号</label>
                 <input type="text" name="log_user" class="input-1v" v-model="login.user">
                 <label>密码</label>
                 <input type="password" name="log_pass" class="input-1v" v-model="login.pass_rsa" @keyup.enter="loginEvent">
-                <span class="button-v1" @click="loginEvent">登陆</span>
+                <span class="button-lv0" @click="loginEvent">登陆</span>
             </form>
             <span class="account-right">
                 <a @click="qqLogin" :href="qqLoginUrl" target="_black" rel="noopener noreferrer">
@@ -23,6 +24,7 @@
             </span>
         </div>
 
+        <!-- 注册页 -->
         <div :class="['account', {'register': page == 'register'}]">
             <img src="http://res.mczyzy.cn/img/account-bg3.jpg" alt="图1" class="border-line">
             <form>

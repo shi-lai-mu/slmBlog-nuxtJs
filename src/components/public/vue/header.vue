@@ -62,7 +62,16 @@ export default {
           this.toggleMneu()
         }
       })
-
+      // 向下滚动时收起顶部[pc端]
+      let scrollTop = 0
+      let $el = this.$el.classList
+      if (!this.$store.state.mobile) {
+        window.addEventListener('scroll', () => {
+          let scroll = document.documentElement.scrollTop || document.body.scrollTop
+          scrollTop < scroll ? $el.add('header-hide') : $el.remove('header-hide')
+          scrollTop = scroll
+        })
+      }
       // 观察登录状态
       this.$connecter.$on('user', data => {
         this.user = data
@@ -181,26 +190,29 @@ export default {
 </script>
 
 <style lang="less">
+.header-hide {
+  transform: translateY(-100%);
+}
 // 公共
 .nav-header {
-    position: relative;
-    width: 100%;
+    position: fixed;
+    top: 0;
     z-index: 30;
-    white-space: nowrap;
-    background-color: #fff;
-    user-select: none;
-    box-shadow: var(--box-shadow);
-    user-select: none;
+    width: 100%;
+    height: 60px;
     line-height: 60px;
+    background-color: #fff;
+    box-shadow: var(--box-shadow);
+    transition: 1s;
+    user-select: none;
 
     .LOGO {
         float: left;
         width: 42px;
-        height: 60px;
-        margin: 0;
+        margin: 0 20px;
         vertical-align: middle;
         overflow: hidden;
-        background: url('//res.mczyzy.cn/LOGO.png') no-repeat center;
+        background: url("//res.mczyzy.cn/LOGO.png") no-repeat center;
         background-size: 42px auto;
     }
 
@@ -210,7 +222,7 @@ export default {
 
     nav {
         display: inline-block;
-        margin: 0 40px;
+        margin: 0 20px;
     }
 
     .search {
@@ -379,7 +391,6 @@ export default {
 // .list-hide .header-menu-list ,
 .max .header-menu-list > li {
     display: inline-block;
-    height: 60px;
     cursor: pointer;
 
     span {
@@ -393,11 +404,10 @@ export default {
         visibility: hidden;
         min-width: 100px;
         border-radius: 5px;
-        margin-left: 10px;
         margin-top: 10px;
+        margin-left: 10px;
         background-color: #fff;
         opacity: 0;
-        // box-shadow: 0 0 25px rgba(99,196,218,.25);
         box-shadow: 0 2px 25px rgba(0,0,0,.25);
         transition: .5s;
         transform: translateY(10px);
