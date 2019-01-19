@@ -10,7 +10,7 @@
             <nav :class="menuState ? 'list-show' : 'list-hide'">
                 <ul class="header-menu-list">
 
-                    <li @click="minMenu" v-for="(menu, i) of menu" :key="i">
+                    <li class="clearfix" @click="minMenu" v-for="(menu, i) of menu" :key="i">
                         <router-link class="max-a" tag="span" :to="menu.to" v-if="!menu.sub">{{ menu.tag }}</router-link>
                         <span v-else>{{ menu.tag }}</span>
                         <i class="iconfont icon-fangxiangxia" v-if="menu.sub"></i>
@@ -334,6 +334,7 @@ header {
                 overflow: hidden;
                 opacity: 1;
                 max-height: 100vh;
+                visibility: inherit;
                 text-indent: 2rem;
                 li:hover {
                     color: #6ed9f1;

@@ -87,5 +87,6 @@ export default {
 }
 .min-screen-left > tbody {
   transform: translateX(50vw);
+  opacity: .8;
 }
 </style>

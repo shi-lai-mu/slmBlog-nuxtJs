@@ -27,6 +27,7 @@
     "vue-quill-editor": "^3.0.6",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
+    "vue-waves": "^0.1.1",
     "vuex": "^3.0.1",
     "wangeditor": "^3.1.1"
   },
