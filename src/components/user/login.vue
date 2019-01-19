@@ -35,7 +35,7 @@
                 <!-- <label>邮箱</label><input type="email" v-model="register.email" class="input-1v" placeholder="最好输入QQ邮箱" data-name='邮箱'> -->
                 <!-- <label>验证</label><input type="text" v-model="register.code" class="input-1v input-min" placeholder="确认你非机器人" data-name='验证'><canvas></canvas> -->
                 <!-- <label>代码</label><input type="text" class="input-1v" placeholder="填完邮箱点我即发送验证码" data-name='代码'> -->
-                <span class="button-v1" @click="registerEvent">注册</span>
+                <span class="button-lv0" @click="registerEvent">注册</span>
             </form>
             <span class="account-right">
                 <a @click="qqLogin" :href="qqLoginUrl" target="_black" rel="noopener noreferrer">
@@ -271,6 +271,10 @@ export default {
           border-bottom: 1px solid #aaa;
         }
     }
+    .button-lv0 {
+      margin-top: 30px;
+      width: 70%;
+    }
 
     canvas {
         width: 90px;
@@ -285,7 +289,6 @@ export default {
         width: 151px;
         max-width: 151px;
     }
-
 
     & > form {
         display: flex;

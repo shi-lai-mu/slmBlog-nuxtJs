@@ -2,7 +2,9 @@
   <div id="tbody" ref="tbody">
     <vue-header :head="head" ref="head"></vue-header>
     <!-- <vue-title :title="title"></vue-title> -->
-    <router-view ref="master"/>
+    <transition :name="transitionName" keep-alive>
+      <router-view ref="master"></router-view>
+    </transition>
     <vue-footer></vue-footer>
     <vue-toast :toast="toast"></vue-toast>
   </div>
@@ -25,7 +27,15 @@ export default {
     return {
       title: false,
       head: false,
-      toast: {}
+      toast: {},
+      transitionName: 'slide-right'
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      let isBack = this.$router.isBack
+      this.transitionName = isBack ? 'slide-left' : 'slide-right'
+      this.$router.isBack = false
     }
   },
   created () {
@@ -88,5 +98,15 @@ export default {
 .min-screen-left > tbody {
   transform: translateX(50vw);
   opacity: .8;
+}
+.slide-left-enter, .slide-right-leave-active {
+  opacity: 0;
+  -webkit-transform: translate(50px, 0);
+  transform: translate(50px, 0);
+}
+.slide-left-leave-active, .slide-right-enter {
+  opacity: 0;
+  -webkit-transform: translate(-50px, 0);
+  transform: translate(-50px, 0);
 }
 </style>

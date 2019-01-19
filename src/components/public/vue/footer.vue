@@ -1,5 +1,5 @@
 <template>
-    <footer class="body-footer">
+    <footer class="body-footer" id="bodyFooter">
         <div class="copyright clearfix">
             <span class="copyright-left">© CopyRight 2018-2019, <a href="//mczyzy.cn">MCZYZY.CN</a>, Inc.All Rights Reserved.</span>
             <ul class="copyright-right">
@@ -33,11 +33,26 @@ export default {
     setInterval(() => {
       this.liveTime = Time.unForm(1535150280000)
     }, 1000)
+  },
+  watch: {
+    '$route' (to, from) {
+      setTimeout(() => {
+        if (document.body.clientHeight < screen.availHeight) {
+          this.$el.classList.add('fixed-bottom')
+        } else {
+          this.$el.classList.remove('fixed-bottom')
+        }
+      }, 600)
+    }
   }
 }
 </script>
 
 <style lang="less">
+.fixed-bottom {
+  position: absolute;
+  bottom: 0;
+}
 .body-footer {
     margin-top: 20px;
     padding-bottom: 20px;

@@ -56,6 +56,9 @@
             </div>
 
         </div>
+        <div class="loading" v-if="loading">
+          Loading...
+        </div>
     </tbody>
 
     <!-- <div class="content-left-box" v-for="(right, v) in rightList" :key="v">
@@ -98,7 +101,7 @@ export default {
           return index
         })
       })
-
+    this.loading = false
     // // 右侧文章
     // this.$http.get('blog/right', false, 1)
     //   .then(res => {

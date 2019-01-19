@@ -17,8 +17,8 @@
                         <i class="iconfont icon-fangxiangxia" v-if="menu.sub"></i>
                         <ul v-if="menu.sub">
                             <li v-for="(sub, n) in menu.sub" :key="n">
-                                <router-link v-if="sub[1] == '#' || typeof sub[1] === 'object'" :to="sub[1]" tag="span">{{ sub[0] }}</router-link>
-                                <span @click="runCommand(sub[1])" v-else>{{ sub[0] }}</span>
+                                <router-link class="max-a" v-if="sub[1] == '#' || typeof sub[1] === 'object'" :to="sub[1]" tag="span">{{ sub[0] }}</router-link>
+                                <span class="max-a" @click="runCommand(sub[1])" v-else>{{ sub[0] }}</span>
                             </li>
                         </ul>
                     </li>
@@ -345,7 +345,9 @@ export default {
             border-bottom: 1px solid #f1f1f1;
             i {
                 float: right;
+                text-indent: 0;
                 color: #ddd;
+                transition: 1s;
                 pointer-events: none;
             }
             & > span {
@@ -357,21 +359,29 @@ export default {
                 float: right;
                 overflow: hidden;
                 opacity: 0;
-                width: 90%;
+                width: 100%;
                 max-height: 0;
                 text-indent: 0;
                 transition: .5s;
             }
 
-            &:hover > ul {
+            &:hover {
+              color: #222;
+              i {
+                transform: rotate(180deg);
+              }
+              & > ul {
                 overflow: hidden;
                 opacity: 1;
                 max-height: 100vh;
                 visibility: inherit;
                 text-indent: 2rem;
+                color: #888;
+
                 li:hover {
                     color: #6ed9f1;
                 }
+              }
             }
             &:after {
                 content: "";

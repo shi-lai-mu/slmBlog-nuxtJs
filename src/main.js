@@ -30,6 +30,10 @@ const store = new VueX.Store({
 // 路由后处理
 router.afterEach((to, from, next) => {
   window.scrollTo(0, 0)
+  // console.log(document.body.offsetHeight)
+  // if (document.body.offsetHeight < screen.availHeight) {
+  //   window.bodyFooter.classList.add('fixed-bottom')
+  // }
 })
 
 // 路由前处理
