@@ -36,11 +36,12 @@ export default {
     }, 1000)
     // 路由后 更新底部位置
     this.$connecter.$on('footerUpdate', () => {
-      if (document.body.clientHeight < screen.availHeight - this.$el.offsetHeight - 30) {
-        this.$el.classList.add('fixed-bottom')
-      } else {
-        this.$el.classList.remove('fixed-bottom')
-      }
+      this.$el.classList.remove('fixed-bottom')
+      setTimeout(() => {
+        if (document.body.clientHeight < screen.availHeight - this.$el.offsetHeight + 30) {
+          this.$el.classList.add('fixed-bottom')
+        }
+      }, 800)
     })
   }
 }
