@@ -136,7 +136,6 @@ export default {
         }
       })()
       this.CanvasBg = new CanvasBg()
-      console.log(this.CanvasBg)
     })
   }
 }

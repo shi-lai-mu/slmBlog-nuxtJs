@@ -30,20 +30,18 @@ export default {
     }
   },
   created () {
+    // 运行倒计时
     setInterval(() => {
       this.liveTime = Time.unForm(1535150280000)
     }, 1000)
-  },
-  watch: {
-    '$route' (to, from) {
-      setTimeout(() => {
-        if (document.body.clientHeight < screen.availHeight - this.$el.offsetHeight - 40) {
-          this.$el.classList.add('fixed-bottom')
-        } else {
-          this.$el.classList.remove('fixed-bottom')
-        }
-      }, 600)
-    }
+    // 路由后 更新底部位置
+    this.$connecter.$on('footerUpdate', () => {
+      if (document.body.clientHeight < screen.availHeight - this.$el.offsetHeight - 30) {
+        this.$el.classList.add('fixed-bottom')
+      } else {
+        this.$el.classList.remove('fixed-bottom')
+      }
+    })
   }
 }
 </script>

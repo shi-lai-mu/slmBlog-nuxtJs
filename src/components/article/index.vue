@@ -120,7 +120,7 @@ export default {
     position: absolute;
   }
   .no-mode-fade-enter-active, .no-mode-fade-leave-active {
-    transition: all 1s
+    transition: all .5s
   }
   .no-mode-fade-enter, .no-mode-fade-leave-active {
     opacity: 0;
@@ -133,11 +133,11 @@ export default {
   }
   @bgColor: #d6d6d6;
   .notContent {
-    transition: 1s;
+    transition: .5s;
 
     .article-body {
       opacity: 0;
-      transition: 1s;
+      transition: .5s;
     }
     .notCon {
       width: 90%;
@@ -155,10 +155,10 @@ export default {
       color: #eee;
       background-color: @bgColor;
       border-radius: 30px;
-      transition: 1s;
+      transition: .5s;
     }
     .notCon {
-      transition: 1s;
+      transition: .5s;
       li {
         width: 100%;
         height: 1.5rem;
@@ -241,7 +241,7 @@ export default {
         color: transparent;
         background-color: @bgColor;
         border-radius: 30px;
-        transition: 1s;
+        transition: .5s;
       }
     }
 
