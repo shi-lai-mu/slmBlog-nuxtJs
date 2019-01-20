@@ -215,7 +215,7 @@ h1.logo {
     min-width: @min-width;
     padding: 10px;
     border-radius: 5px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, .9);
     box-sizing: border-box;
     box-shadow: @shadow;
     transition: .5s;
@@ -328,12 +328,15 @@ div:focus { -webkit-tap-highlight-color: transparent; }
 }
 
 // 小于 350px
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 400px) {
     body {
         font-size: .8em;
     }
     footer .footer-nav-list .footer-nav-child h3 {
         font-size: 1rem;
+    }
+    .article div.article-right {
+      width: ~'calc(100% - 150px)';
     }
 }
 

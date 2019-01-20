@@ -1,5 +1,5 @@
 <template>
-  <div class="content-row single clearfix">
+  <tbody class="conter single clearfix">
     <div class="content-box addArticle">
 
       <ul class="form">
@@ -16,12 +16,12 @@
         <li>
           <input type="file" id="upload_file" style="display: none" accept="image/gif,image/jpeg,image/jpg,image/png" ref="uploadFile" @change="imgChange">
 
-          <button class="button-v1 upload_file" onclick="upload_file.click()" v-if="!webInput">{{ filePath ? '重新选择' : '上传本地封面' }}</button>
-          <button class="button-v1 upload_file" @click="webInput = !webInput" v-if="!filePath">{{ webInput ? '重新选择方式' : '网络调用封面' }}</button>
+          <button class="button-lv1 upload_file" onclick="upload_file.click()" v-if="!webInput">{{ filePath ? '重新选择' : '上传本地封面' }}</button>
+          <button class="button-lv1 upload_file" @click="webInput = !webInput" v-if="!filePath">{{ webInput ? '重新选择方式' : '网络调用封面' }}</button>
           <input type="text" v-if="webInput" placeholder="完整图片的路径 如 http://xxxxx/xxxxx/xx.jpg" v-model="webPath">
 
           <span :class="['file-path', { 'file-path-max': filePath }]" v-text="filePath"></span>
-          <button v-if="filePath && !uploadPath" class="button-v1 upload_file" @click="upload">确认上传</button>
+          <button v-if="filePath && !uploadPath" class="button-lv1 upload_file" @click="upload">确认上传</button>
 
           <div v-if="filePath || webPath" class="img-look-box">
             <span class="look">预览区域</span>
@@ -34,9 +34,9 @@
       <label class="content-title">文章内容</label>
       <editor ref="editor"></editor>
 
-      <button class="button-v1 send" @click="send">{{ !editor ? '发表' : '保存' }}</button>
+      <button class="button-lv0 button-lv1 send" @click="send">{{ !editor ? '发表' : '保存' }}</button>
     </div>
-  </div>
+  </tbody>
 </template>
 
 <script>

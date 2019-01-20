@@ -12,12 +12,12 @@
                   </div>
                   <div class="article-right">
                       <h3 class="ellipsis">{{ hot.title }}</h3>
+                      <p class="article-description ellipsis">{{ hot.description }}</p>
                       <ul class="article-tag">
                           <li v-for="(type, i) in hot.type" :key="i" :title="'查找' + type + '标签'">
                               <a href="#">{{ type }}</a>
                           </li>
                       </ul>
-                      <p class="article-description ellipsis">{{ hot.description }}</p>
                   </div>
               </div>
           </router-link>
