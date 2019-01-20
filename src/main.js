@@ -30,7 +30,6 @@ const store = new VueX.Store({
 // 路由后处理
 router.afterEach((to, from, next) => {
   window.scrollTo(0, 0)
-  console.log(this)
   connecter.$emit('footerUpdate', 1)
   // console.log(document.body.offsetHeight)
   // if (document.body.offsetHeight < screen.availHeight) {

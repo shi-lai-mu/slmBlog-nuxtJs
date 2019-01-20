@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <div ref="editor" style="text-align:left"></div>
-  </div>
+  <div ref="editor" style="text-align:left"></div>
 </template>
 
 <script>
