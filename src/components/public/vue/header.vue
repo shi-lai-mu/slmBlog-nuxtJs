@@ -340,7 +340,7 @@ export default {
         & > li {
             display: block;
             line-height: 30px;
-            text-indent: 2rem;
+            text-indent: 1rem;
             color: #666;
             border-bottom: 1px solid #f1f1f1;
             i {
@@ -363,6 +363,19 @@ export default {
                 max-height: 0;
                 text-indent: 0;
                 transition: .5s;
+
+                li {
+                  span::before {
+                      content: "";
+                      display: inline-block;
+                      width: 10px;
+                      height: 2px;
+                      vertical-align: middle;
+                      margin: 0 5px;
+                      font-weight: bold;
+                      background-color: rgba(0, 0, 0, .2);
+                  }
+                }
             }
 
             &:hover {
@@ -375,7 +388,7 @@ export default {
                 opacity: 1;
                 max-height: 100vh;
                 visibility: inherit;
-                text-indent: 2rem;
+                text-indent: 1rem;
                 color: #888;
 
                 li:hover {
@@ -383,7 +396,7 @@ export default {
                 }
               }
             }
-            &:after {
+            &::after {
                 content: "";
                 display: block;
                 height: 100%;
