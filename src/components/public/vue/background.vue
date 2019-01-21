@@ -15,8 +15,13 @@ export default {
 
       let CanvasBg = (function () {
         let ctx = canvas.getContext('2d')
-        let ctxCount = 80
-        if (!slef.$store.state.mobile) ctxCount = 100
+        let ctxCount = 40
+        let sizeMax = 5
+        // pc 端配置
+        if (!slef.$store.state.mobile) {
+          ctxCount = 200
+          sizeMax = 10
+        }
 
         return class Canvas {
           clearInter = null
@@ -28,22 +33,25 @@ export default {
               this.dots.push({
                 x: rand() * canvas.width + 2,
                 y: rand() * canvas.height + 2,
+                // 移动角度
                 xa: (rand() * 2 - 1) / 1.5,
                 ya: (rand() * 2 - 1) / 1.5,
+                // 颜色
                 color: {
-                  r: rand() * 256,
-                  g: rand() * 256,
-                  b: rand() * 256
+                  r: 25 + rand() * 250,
+                  g: 25 + rand() * 250,
+                  b: 25 + rand() * 250
                 },
-                size: (3 + rand() * 5) + (1 % window.devicePixelRatio)
+                // 设备像素修复
+                size: (3 + rand() * sizeMax) + (1 % window.devicePixelRatio),
+                big: rand() > 0.5 ? rand() * 4 : false,
+                kernel: rand() > 0.5
               })
             }
-            // canvas.style.height = screen.availWidth / window.devicePixelRatio
-            // canvas.style.width = screen.availWidth / window.devicePixelRatio
             window.requestAnimationFrame(this.draw.bind(this))
 
             // 随机数
-            function rand() {
+            function rand () {
               return Math.random()
             }
           }
@@ -67,28 +75,55 @@ export default {
 
                 // 连线
                 if (dx <= dot.size + otherDot.size + 100) {
-                  ctx.beginPath()
-                  ctx.moveTo(otherDot.x, otherDot.y)
-                  ctx.lineTo(dot.x, dot.y)
-                  ctx.strokeStyle = `rgba(${color},0.1)`
-                  ctx.lineWidth = 1
-                  ctx.stroke()
+                  dot.kernel && this.command({
+                    beginPath: 1,
+                    move: [otherDot.x, otherDot.y],
+                    line: [dot.x, dot.y],
+                    strokeStyle: [`rgba(${color},0.1)`],
+                    stroke: 1
+                  })
                 }
               }
-              // 绘制圆形
-              ctx.fillStyle = `rgba(${color},0.25)`
+              // 基础圆形
+              ctx.fillStyle = `rgba(${color},0.1)`
               ctx.beginPath()
               ctx.arc(dot.x - 0.5, dot.y - 0.5, dot.size, 0, 2 * Math.PI, false)
-              ctx.beginPath()
-              ctx.fillStyle = `rgba(${color},0.35)`
-              ctx.arc(dot.x - 0.5, dot.y - 0.5, dot.size / 2, 0, 2 * Math.PI, false)
               ctx.fill()
-              ctx.beginPath()
-              ctx.strokeStyle = `rgba(${color},0.15)`
-              ctx.arc(dot.x - 0.5, dot.y - 0.5, dot.size * 2, 0, 2 * Math.PI, false)
-              ctx.stroke()
+              // 内部核心
+              dot.kernel && this.command({
+                beginPath: 1,
+                fillStyle: [`rgba(${color},0.2)`],
+                arc: [dot.x - 0.5, dot.y - 0.5, dot.size / 2],
+                fill: 1
+              })
+              // 大圈
+              dot.big && this.command({
+                beginPath: 1,
+                strokeStyle: [`rgba(${color},0.15)`],
+                arc: [dot.x - 0.5, dot.y - 0.5, dot.size * dot.big],
+                stroke: 1
+              })
             }
             window.requestAnimationFrame(this.draw.bind(this))
+          }
+
+          // 命令绘制模式
+          command (commands) {
+            let cmdList = {
+              beginPath: () => ctx.beginPath(),
+              arc: (x, y, size) => ctx.arc(x, y, size, 0, Math.PI * 2, false),
+              line: (x, y) => ctx.lineTo(x, y),
+              move: (x, y) => ctx.moveTo(x, y),
+              fillStyle: color => (ctx.fillStyle = color),
+              strokeStyle: color => (ctx.strokeStyle = color),
+              stroke: () => ctx.stroke(),
+              fill: () => ctx.fill()
+            }
+            for (let cmd in commands) {
+              if (cmd in cmdList) {
+                cmdList[cmd](...commands[cmd])
+              }
+            }
           }
 
           // 改变大小时
@@ -117,6 +152,6 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: -1;
 }
 </style>
