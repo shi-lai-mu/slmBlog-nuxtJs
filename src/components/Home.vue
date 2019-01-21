@@ -38,14 +38,14 @@
           </ul>
       </div>
 
-            <!-- 右侧 -->
+      <!-- 右侧 -->
       <div class="content-aff-box">
           <div class="content-box blogger">
               <img src="//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100" alt="史莱姆头像">
               <p class="name">史莱姆</p>
               <div class="select">
-                  <span class="button-lv0 button-blue">关注</span>
-                  <span class="button-lv0 button-green">了解</span>
+                  <router-link class="button-lv0 button-blue" :to="{ name: 'login' }">关注</router-link>
+                  <router-link class="button-lv0 button-green" :to="{ name: 'thisSite' }">了解</router-link>
               </div>
           </div>
           <div class="content-box">
@@ -67,7 +67,6 @@
 <script>
 
 import Time from '@pub/js/dateForm'
-import shuffling from '@pub/vue/shuffling'
 
 export default {
   data () {
@@ -84,7 +83,7 @@ export default {
       }
     })
 
-    // // 簡介内容
+    // 热门内容
     this.$http.get('blog/hot')
       .then(res => {
         this.hotList = res.data.map(index => {
@@ -103,9 +102,6 @@ export default {
   },
   methods: {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000)
-  },
-  components: {
-    shuffling
   }
 }
 </script>
@@ -114,7 +110,7 @@ export default {
 @ip: '//res.mczyzy.cn/img';
 
 .content-row {
-    margin-top: 40px;
+    margin-bottom: 40px;
 
     .content-box {
         padding: 0;
@@ -126,7 +122,7 @@ export default {
 
         .content-box {
             width: 100%;
-            margin: 20px 0;
+             margin-bottom: 40px;
         }
 
         .blogger {

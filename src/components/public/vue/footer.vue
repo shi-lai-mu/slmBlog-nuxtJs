@@ -48,17 +48,19 @@ export default {
 </script>
 
 <style lang="less">
+// 浮动至底部
 .fixed-bottom {
   position: absolute;
   bottom: 0;
   width: 100%;
 }
+// 底部样式
 .body-footer {
     margin-top: 20px;
     padding-bottom: 20px;
     color: #b6c3db;
     user-select: none;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, .8);
 
     .copyright {
         display: flex;

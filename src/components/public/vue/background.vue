@@ -17,10 +17,12 @@ export default {
         let ctx = canvas.getContext('2d')
         let ctxCount = 40
         let sizeMax = 5
+        let lineWidth = 20
         // pc 端配置
         if (!slef.$store.state.mobile) {
           ctxCount = 200
           sizeMax = 10
+          lineWidth = 100
         }
 
         return class Canvas {
@@ -74,7 +76,7 @@ export default {
                 let dx = Math.pow(Math.pow(dot.x - otherDot.x, 2) + Math.pow(dot.y - otherDot.y, 2), 0.5)
 
                 // 连线
-                if (dx <= dot.size + otherDot.size + 100) {
+                if (dx <= dot.size + otherDot.size + lineWidth) {
                   dot.kernel && this.command({
                     beginPath: 1,
                     move: [otherDot.x, otherDot.y],

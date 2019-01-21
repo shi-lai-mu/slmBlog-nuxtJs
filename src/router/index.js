@@ -79,7 +79,7 @@ export default new Router({
         },
         {
           path: 'message',
-          name: 'terms',
+          name: 'message',
           component: resolve => require(['@com/other/terms'], resolve)
         }
       ]
