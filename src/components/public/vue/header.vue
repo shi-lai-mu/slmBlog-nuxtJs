@@ -1,48 +1,49 @@
 <template>
+  <header class="nav-header">
+    <div class="header-nav clearfix conter">
+      <h1 class="LOGO">
+        <router-link to="/" class="max-a"></router-link>
+      </h1>
+      <!-- 移动端按钮 -->
+      <span :class="['menu-list', {close: menuState}]" @click="toggleMneu"></span>
+      <!-- 响应型导航栏 -->
+      <nav :class="menuState ? 'list-show' : 'list-hide'">
+        <ul class="header-menu-list">
 
-    <header class="nav-header">
-        <div class="header-nav clearfix conter">
-            <h1 class="LOGO">
-                <router-link to="/" class="max-a"></router-link>
-            </h1>
-            <!-- 移动端按钮 -->
-            <span :class="['menu-list', {close: menuState}]" @click="toggleMneu"></span>
-            <!-- 响应型菜单栏 -->
-            <nav :class="menuState ? 'list-show' : 'list-hide'">
-                <ul class="header-menu-list">
+          <li @click="minMenu" v-for="(menu, i) of menu" :key="i">
+            <router-link class="max-a" tag="span" :to="menu.to" v-if="!menu.sub">{{ menu.tag }}</router-link>
+            <span v-else>{{ menu.tag }}</span>
+            <i class="iconfont icon-fangxiangxia" v-if="menu.sub"></i>
+            <!-- 子导航 -->
+            <ul v-if="menu.sub">
+              <li v-for="(sub, n) in menu.sub" :key="n">
+                <router-link class="max-a" v-if="sub[1] == '#' || typeof sub[1] === 'object'" :to="sub[1]" tag="span">{{ sub[0] }}</router-link>
+                <span class="max-a" @click="runCommand(sub[1])" v-else>{{ sub[0] }}</span>
+              </li>
+            </ul>
+          </li>
 
-                    <li @click="minMenu" v-for="(menu, i) of menu" :key="i">
-                        <router-link class="max-a" tag="span" :to="menu.to" v-if="!menu.sub">{{ menu.tag }}</router-link>
-                        <span v-else>{{ menu.tag }}</span>
-                        <i class="iconfont icon-fangxiangxia" v-if="menu.sub"></i>
-                        <ul v-if="menu.sub">
-                            <li v-for="(sub, n) in menu.sub" :key="n">
-                                <router-link class="max-a" v-if="sub[1] == '#' || typeof sub[1] === 'object'" :to="sub[1]" tag="span">{{ sub[0] }}</router-link>
-                                <span class="max-a" @click="runCommand(sub[1])" v-else>{{ sub[0] }}</span>
-                            </li>
-                        </ul>
-                    </li>
+        </ul>
+      </nav>
+      <!-- 额外按钮 -->
+      <span class="button-lv1 message">留言板</span>
+      <!-- 右侧内容 -->
+      <span class="header-right">
+        <span class="search-box">
+          <input class="search">
+          <i class="iconfont icon-sou-suo"></i>
+        </span>
 
-                </ul>
-            </nav>
+        <span class="not-login" v-if="!user" >
+          <router-link :to="{ name: 'login' }" tag="span">登录</router-link>
+          <router-link :to="{ name: 'register' }" tag="span" class="focus">注册</router-link>
+        </span>
+        <span class="login" v-if="!user">
+        </span>
 
-            <!-- 额外按钮 -->
-            <span class="button-lv1 message">留言板</span>
-
-            <!-- 右侧内容 -->
-            <span class="header-right">
-                <span class="search-box">
-                  <input class="search">
-                  <i class="iconfont icon-sou-suo"></i>
-                </span>
-                <span v-if="!user" class="not-login">
-                  <router-link :to="{ name: 'login' }" tag="span">登录</router-link>
-                  <router-link :to="{ name: 'register' }" tag="span" class="focus">注册</router-link>
-                </span>
-            </span>
-        </div>
-    </header>
-
+      </span>
+    </div>
+  </header>
 </template>
 
 <script>
@@ -279,7 +280,8 @@ export default {
 
   .header-right {
     float: right;
-    .not-login span {
+    .not-login span,
+    .login span {
       display: inline-block;
       width: 90px;
       text-align: center;
