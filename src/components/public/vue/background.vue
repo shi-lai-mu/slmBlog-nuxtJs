@@ -9,13 +9,14 @@
 export default {
   created () {
     this.$nextTick(() => {
+      // 如果为QQ浏览器则不进行计算
       if (/QQBrowser/.test(window.navigator.userAgent)) return
       // canvas
       let canvas = this.$refs.canvas
+      let ctx = canvas.getContext('2d')
       let slef = this
 
       let CanvasBg = (function () {
-        let ctx = canvas.getContext('2d')
         let ctxCount = 40
         let sizeMax = 5
         let lineWidth = 20
