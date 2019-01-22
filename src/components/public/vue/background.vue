@@ -40,9 +40,9 @@ export default {
                 ya: (rand() * 2 - 1) / 1.5,
                 // 颜色
                 color: {
-                  r: 25 + rand() * 250,
-                  g: 25 + rand() * 250,
-                  b: 25 + rand() * 250
+                  r: 25 + rand() * 225,
+                  g: 25 + rand() * 225,
+                  b: 25 + rand() * 225
                 },
                 // 设备像素修复
                 size: (3 + rand() * sizeMax) + (1 % window.devicePixelRatio),
@@ -81,32 +81,50 @@ export default {
                     beginPath: 1,
                     move: [otherDot.x, otherDot.y],
                     line: [dot.x, dot.y],
-                    strokeStyle: [`rgba(${color},0.1)`],
+                    strokeStyle: [this.hex(`rgba(${color},0.1)`)],
                     stroke: 1
                   })
                 }
               }
               // 基础圆形
-              ctx.fillStyle = `rgba(${color},0.1)`
+              ctx.fillStyle = this.hex(`rgba(${color},0.1)`)
               ctx.beginPath()
               ctx.arc(dot.x - 0.5, dot.y - 0.5, dot.size, 0, 2 * Math.PI, false)
               ctx.fill()
               // 内部核心
               dot.kernel && this.command({
                 beginPath: 1,
-                fillStyle: [`rgba(${color},0.2)`],
+                fillStyle: [this.hex(`rgba(${color},0.2)`)],
                 arc: [dot.x - 0.5, dot.y - 0.5, dot.size / 2],
                 fill: 1
               })
               // 大圈
               dot.big && this.command({
                 beginPath: 1,
-                strokeStyle: [`rgba(${color},0.15)`],
+                strokeStyle: [this.hex(`rgba(${color},0.15)`)],
                 arc: [dot.x - 0.5, dot.y - 0.5, dot.size * dot.big],
                 stroke: 1
               })
             }
             window.requestAnimationFrame(this.draw.bind(this))
+          }
+
+          // 适配器 RGBA 转 HEX
+          hex (rgba) {
+            if (!isNaN(rgba)) {
+              return ('0' + parseInt(rgba).toString(16)).slice(-2)
+            } else if ((/^rgba/i).test(rgba)) {
+              let exp = rgba.match(/(\d+(\.\d+))/ig)
+              return '#' + rgb(exp[0]) + rgb(exp[1]) + rgb(exp[2]) + opacity(exp[3])
+            }
+            // 转16进制
+            function rgb (val) {
+              return ('0' + parseInt(val).toString(16)).slice(-2)
+            }
+            // 透明度
+            function opacity (val) {
+              return val >= 1 ? 'FF' : val * 100 % 100
+            }
           }
 
           // 命令绘制模式
