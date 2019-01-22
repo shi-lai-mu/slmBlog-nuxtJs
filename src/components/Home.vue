@@ -41,7 +41,7 @@
       <!-- 右侧 -->
       <div class="content-aff-box">
           <div class="content-box blogger">
-              <img src="//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100" alt="史莱姆头像">
+              <img v-lazy="'//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100'" alt="史莱姆头像">
               <p class="name">史莱姆</p>
               <div class="select">
                   <router-link class="button-lv0 button-blue" :to="{ name: 'login' }">关注</router-link>

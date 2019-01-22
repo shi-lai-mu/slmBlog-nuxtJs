@@ -5,9 +5,13 @@
         <router-link to="/" class="max-a"></router-link>
       </h1>
       <!-- 移动端按钮 -->
-      <span :class="['menu-list', {close: menuState}]" @click="toggleMneu"></span>
+      <i :class="['menu-list', {close: menuState}]" @click="toggleMneu"></i>
       <!-- 响应型导航栏 -->
       <nav :class="menuState ? 'list-show' : 'list-hide'">
+        <span class="login-after" v-if="user">
+          <img class="user-icon" v-lazy="user.img" :alt="user.username + '的头像'">
+          <p class="user-name" v-text="user.username"></p>
+        </span>
         <ul class="header-menu-list">
 
           <li @click="minMenu" v-for="(menu, i) of menu" :key="i">
@@ -39,7 +43,7 @@
           <router-link class="focus" :to="{ name: 'register' }" tag="span">注册</router-link>
         </span>
         <span class="login-after focus" v-if="user">
-          <img class="user-icon" :src="user.img" :alt="user.username + '的头像'">
+          <img class="user-icon" v-lazy="user.img" :alt="user.username + '的头像'">
           <p class="user-name" v-text="user.username"></p>
         </span>
 
@@ -434,6 +438,21 @@ export default {
         height: 100%;
         clear: both;
       }
+    }
+  }
+  .login-after {
+    display: block;
+    background-color: #fafafa;
+
+    .user-icon {
+      display: block;
+      width: 80px;
+      border-radius: 50%;
+      margin: 0 auto;
+    }
+    .user-name {
+      font-size: 1.1rem;
+      text-align: center;
     }
   }
 
