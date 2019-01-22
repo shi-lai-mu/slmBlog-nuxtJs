@@ -176,6 +176,9 @@ export default {
       color: #ccc;
     }
   }
+  .button-lv1 {
+    border: 0;
+  }
 
   label {
     float: left;
@@ -244,6 +247,7 @@ export default {
     text-indent: 5%;
   }
   .send {
+    display: block;
     width: 90%;
     margin: 20px auto;
   }
