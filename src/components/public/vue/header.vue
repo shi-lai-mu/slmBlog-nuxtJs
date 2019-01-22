@@ -34,11 +34,13 @@
           <i class="iconfont icon-sou-suo"></i>
         </span>
 
-        <span class="not-login" v-if="!user" >
+        <span class="login-before" v-if="!user" >
           <router-link :to="{ name: 'login' }" tag="span">登录</router-link>
-          <router-link :to="{ name: 'register' }" tag="span" class="focus">注册</router-link>
+          <router-link class="focus" :to="{ name: 'register' }" tag="span">注册</router-link>
         </span>
-        <span class="login" v-if="!user">
+        <span class="login-after focus" v-if="user">
+          <img class="user-icon" :src="user.img" :alt="user.username + '的头像'">
+          <p class="user-name" v-text="user.username"></p>
         </span>
 
       </span>
@@ -280,17 +282,36 @@ export default {
 
   .header-right {
     float: right;
-    .not-login span,
-    .login span {
+    .login-before span,
+    .login-after {
       display: inline-block;
       width: 90px;
+      height: 60px;
       text-align: center;
+    }
+    .login-after {
+      width: auto;
+      margin: 0 20px;
+    }
+    .user-icon {
+      height: 40px;
+      border-radius: 50%;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+    .user-name {
+      display: inline-block;
+      margin: 0 10px;
+      font-size: 1.2rem;
+      font-weight: 500;
+      vertical-align: middle;
+      color: #fff;
     }
   }
 
   .focus {
     color: white;
-    background-color: #6ed9f1;
+    background-color: #95dff0;
   }
 }
 // 移动端 按钮
