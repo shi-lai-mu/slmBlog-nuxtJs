@@ -8,12 +8,12 @@ body {
 }
 @font-face {
   font-family: 'iconfont';  /* project id 956143 */
-  src: url('//at.alicdn.com/t/font_956143_hfp189mj9qs.eot');
-  src: url('//at.alicdn.com/t/font_956143_hfp189mj9qs.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_956143_hfp189mj9qs.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_956143_hfp189mj9qs.woff') format('woff'),
-  url('//at.alicdn.com/t/font_956143_hfp189mj9qs.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_956143_hfp189mj9qs.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_956143_7va2y1nfqnf.eot');
+  src: url('//at.alicdn.com/t/font_956143_7va2y1nfqnf.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_956143_7va2y1nfqnf.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_956143_7va2y1nfqnf.woff') format('woff'),
+  url('//at.alicdn.com/t/font_956143_7va2y1nfqnf.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_956143_7va2y1nfqnf.svg#iconfont') format('svg');
 }
 .iconfont {
   font-family: "iconfont" !important;
@@ -35,6 +35,10 @@ body {
   content: "\e73d";
 }
 
+.icon-yinle:before {
+  content: "\e637";
+}
+
 .icon-top01:before {
   content: "\e64e";
 }
@@ -45,6 +49,10 @@ body {
 
 .icon-icon_reply:before {
   content: "\e60a";
+}
+
+.icon-danquxunhuan:before {
+  content: "\e60e";
 }
 
 .icon-liulan:before {
@@ -91,6 +99,14 @@ body {
   content: "\e603";
 }
 
+.icon-next:before {
+  content: "\e60f";
+}
+
+.icon-xihuan1:before {
+  content: "\e602";
+}
+
 .icon-zhiwen:before {
   content: "\e60b";
 }
@@ -99,12 +115,24 @@ body {
   content: "\e611";
 }
 
+.icon-Shape:before {
+  content: "\e6a0";
+}
+
 .icon-loading:before {
   content: "\e6dc";
 }
 
 .icon-jinghua:before {
   content: "\e614";
+}
+
+.icon-zanting:before {
+  content: "\e62c";
+}
+
+.icon-zanting1:before {
+  content: "\e605";
 }
 
 .icon-renzheng:before {
@@ -123,8 +151,20 @@ body {
   content: "\e651";
 }
 
+.icon-shoucang:before {
+  content: "\e625";
+}
+
 .icon-ziyuan:before {
   content: "\e600";
+}
+
+.icon-suiji:before {
+  content: "\e6da";
+}
+
+.icon-shunxu1:before {
+  content: "\e6db";
 }
 
 .icon-huo:before {
@@ -134,3 +174,8 @@ body {
 .icon-sou-suo:before {
   content: "\e613";
 }
+
+.icon-up-copy:before {
+  content: "\e75d";
+}
+
