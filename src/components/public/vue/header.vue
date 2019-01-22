@@ -8,7 +8,7 @@
       <i :class="['menu-list', {close: menuState}]" @click="toggleMneu"></i>
       <!-- 响应型导航栏 -->
       <nav :class="menuState ? 'list-show' : 'list-hide'">
-        <span class="login-after" v-if="user">
+        <span class="login-after" v-if="user && $store.state.mobile">
           <img class="user-icon" v-lazy="user.img" :alt="user.username + '的头像'">
           <p class="user-name" v-text="user.username"></p>
         </span>
@@ -442,6 +442,7 @@ export default {
   }
   .login-after {
     display: block;
+    margin-left: 5px;
     background-color: #fafafa;
 
     .user-icon {
