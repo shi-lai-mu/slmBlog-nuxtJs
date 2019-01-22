@@ -163,7 +163,11 @@
                     <p>MVC ThinkPHP, MVVM Vue 重写博客</p>
                 </li>
                 <li>
-                    <span>注意:</span>
+                    <span>2018/01/15:</span>
+                    <p>重写前端样式,改为扁平式</p>
+                </li>
+                <li>
+                    <span>ps:</span>
                     <p>本人从不怕重写, 只怕原地踏步</p>
                 </li>
             </ul>
