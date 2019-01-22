@@ -8,9 +8,11 @@
       <i :class="['menu-list', {close: menuState}]" @click="toggleMneu"></i>
       <!-- 响应型导航栏 -->
       <nav :class="menuState ? 'list-show' : 'list-hide'">
-        <span class="login-after" v-if="user && $store.state.mobile">
-          <img class="user-icon" v-lazy="user.img" :alt="user.username + '的头像'">
-          <p class="user-name" v-text="user.username"></p>
+        <span class="login-after" v-if="$store.state.mobile">
+          <img class="user-icon" v-lazy="user.img || '//res.mczyzy.cn/img/user-default.jpg'" :alt="user.username + '的头像'">
+          <p class="user-name">
+            {{ user.username || '请先登录' }}
+          </p>
         </span>
         <ul class="header-menu-list">
 
@@ -58,7 +60,7 @@ export default {
   props: ['head'],
   data () {
     return {
-      user: this.$store.state.user,
+      user: this.$store.state.user || {},
       menuState: false,
       menu: []
     }

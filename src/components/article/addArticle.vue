@@ -14,6 +14,11 @@
           <span class="bust">*</span>
         </li>
         <li>
+          <label>简介</label>
+          <input type="text" v-model="description">
+          <span class="bust">*</span>
+        </li>
+        <li>
           <input type="file" id="upload_file" style="display: none" accept="image/gif,image/jpeg,image/jpg,image/png" ref="uploadFile" @change="imgChange">
 
           <button class="button-lv1 upload_file" onclick="upload_file.click()" v-if="!webInput">{{ filePath ? '重新选择' : '上传本地封面' }}</button>
@@ -50,7 +55,8 @@ export default {
       webPath: null,
       title: null,
       type: null,
-      editor: false
+      editor: false,
+      description: null
     }
   },
   created () {
@@ -143,7 +149,8 @@ export default {
           type: this.type,
           content: this.$refs.editor.editorContent,
           uid: _user.id,
-          img: this.webPath || this.uploadPath
+          img: this.webPath || this.uploadPath,
+          description: this.description
         })
           .then(res => {
             console.log(res)
