@@ -192,7 +192,7 @@ export default {
 
 <style lang="less">
 .single .thisSite {
-    color: #09007a;
+    color: #353535;
     .logo {
         display: block;
         width: 13vw;
@@ -228,7 +228,7 @@ export default {
             float: left;
             text-align: left;
             width: 10rem;
-            color: #09007a;
+            color: #3d3d3d;
             font-weight: bold;
         }
         p {
@@ -249,14 +249,15 @@ export default {
         }
         em {
             margin-right: 8px;
+            font-weight: bold;
             text-indent: 2rem;
-            color: #0b00a8;
+            color: #3d3d3d;
         }
     }
 
     .web-master {
         p {
-            color: #09007a;
+            color: #6d6d6d;
             text-indent: 1rem;
         }
     }
