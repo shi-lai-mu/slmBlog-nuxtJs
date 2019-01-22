@@ -7,6 +7,7 @@
     <vue-footer></vue-footer>
     <vue-toast :toast="toast"></vue-toast>
     <vue-background></vue-background>
+    <vue-music></vue-music>
   </div>
 </template>
 
@@ -15,13 +16,15 @@ import vueHeader from '@pub/vue/header'
 import vueFooter from '@pub/vue/footer'
 import vueToast from '@pub/vue/toast'
 import vueBackground from '@pub/vue/background'
+import vueMusic from '@pub/vue/music'
 
 export default {
   components: {
     vueHeader,
     vueFooter,
     vueToast,
-    vueBackground
+    vueBackground,
+    vueMusic
   },
   data () {
     return {
