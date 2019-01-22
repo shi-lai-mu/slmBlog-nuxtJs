@@ -38,8 +38,8 @@ export default {
     this.$connecter.$on('footerUpdate', () => {
       this.$el.classList.remove('fixed-bottom')
       setTimeout(() => {
-        if (document.body.clientHeight < screen.availHeight - this.$el.offsetHeight + 30) {
-          this.$el.classList.add('fixed-bottom')
+        if (document.documentElement.clientHeight > this.$el.offsetTop) {
+          this.$el.style.transform = `translateY(${document.documentElement.clientHeight - this.$el.offsetTop - this.$el.offsetHeight}px)`
         }
       }, 800)
     })
@@ -48,12 +48,6 @@ export default {
 </script>
 
 <style lang="less">
-// 浮动至底部
-.fixed-bottom {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
 // 底部样式
 .body-footer {
     margin-top: 20px;
