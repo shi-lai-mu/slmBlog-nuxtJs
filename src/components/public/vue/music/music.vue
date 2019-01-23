@@ -4,18 +4,20 @@
     <div :class="['music-list', { 'list-show': floatList }]">
 
       <div class="blur-bg">
-        <img src="https://y.gtimg.cn/music/photo_new/T002R300x300M000004FjinN2aVhQa.jpg?max_age=2592000" alt="">
+        <img src="https://y.gtimg.cn/music/photo_new/T002R300x300M000004JuMyS0z3N7s.jpg?max_age=2592000" alt="">
       </div>
 
       <!-- 选项卡 -->
-      <ul class="right-select">
-        <li><i class="iconfont icon-yinle"></i></li>
+      <ul class="right-select" :style="'color: ' + iconColor" @click="selectTab">
+        <li class="focus"><i class="iconfont icon-yinle"></i></li>
+        <li><i class="iconfont icon-yinleliebiaoxian"></i></li>
         <li><i class="iconfont icon-shoucang"></i></li>
-        <li><i class="iconfont icon-xihuan1"></i></li> 
+        <li><i class="iconfont icon-xihuan1"></i></li>
         <li><i class="iconfont icon-sou-suo"></i></li>
       </ul>
-
-      ccccccccccccasdasdsadsad
+      <keep-alive>
+        <component v-bind:is="current"></component>
+      </keep-alive>
     </div>
 
     <!-- 底部浮动 -->
@@ -25,7 +27,7 @@
         <div class="progress-load" style="width: 50%"></div>
       </div>
 
-      <img class="music-icon" src="https://y.gtimg.cn/music/photo_new/T002R300x300M000004FjinN2aVhQa.jpg?max_age=2592000" alt="音乐封面" @click="toggleList">
+      <img class="music-icon" src="https://y.gtimg.cn/music/photo_new/T002R300x300M000004JuMyS0z3N7s.jpg?max_age=2592000" alt="音乐封面" @click="toggleList">
 
       <span class="music-title">舞い落ちる雪のように</span>
 
@@ -42,18 +44,29 @@
 </template>
 
 <script>
+import imgColor from '@pub/js/getImageColor'
+import Home from '@pub/vue/music/Home'
 // 底部音乐插件
 export default {
   data () {
     return {
       floatState: !1,
       floatList: !1,
-      floatListBg: '#fff'
+      iconColor: '#ccc',
+      current: Home,
+      pages: {
+        Home
+      }
     }
   },
   created () {
+    imgColor.loadImg('https://y.gtimg.cn/music/photo_new/T002R300x300M000004JuMyS0z3N7s.jpg?max_age=2592000', rgb => {
+      console.log(rgb)
+      this.iconColor = rgb
+    })
   },
   methods: {
+    
     /**
      * 切换音乐浮动状态
      */
@@ -63,11 +76,19 @@ export default {
         this.floatList = !1
       }
     },
+
     /**
      * 切换音乐列表展示状态
      */
     toggleList () {
       this.floatList = !this.floatList
+    },
+
+    /**
+     * 选项卡点击事件
+     */
+    selectTab (e) {
+
     }
   }
 }
@@ -79,8 +100,8 @@ export default {
     // 浮动列表
     .music-list {
       position: fixed;
-      bottom: 50px;
-      z-index: 66;
+      bottom: 52px;
+      z-index: 70;
       width: calc(100vw - 50px);
       max-width: 500px;
       box-sizing: border-box;
@@ -120,23 +141,47 @@ export default {
         transform: translateX(100%);
 
         li {
+          position: relative;
           width: 40px;
           margin-bottom: 10px;
           box-sizing: border-box;
           border-radius: 0 5px 5px 0;
           padding: 5px;
           text-align: center;
-          background-color: #fff;
+          background-color: currentColor;
           box-shadow: 2px 0 5px #ccc;
+
+          &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, .3);
+          }
+          i {
+            position: relative;
+            font-size: 25px;
+            color: #ccc;
+            z-index: 2;
+          }
         }
-        i {
-          font-size: 25px;
-          color: #888;
+        // 选中的样式
+        li.focus {
+          box-shadow: 2px 2px 5px #aaa;
+
+          &::before {
+            background-color: transparent;
+          }
+          i {
+            color: #fff;
+          }
         }
       }
     }
     .music-list.list-show {
-      box-shadow: 0 0 10px #aaa;
+      box-shadow: 0 -2px 10px #ccc;
       height: 70vh;
       max-height: 70vh;
       opacity: 1;

@@ -16,7 +16,7 @@ import vueHeader from '@pub/vue/header'
 import vueFooter from '@pub/vue/footer'
 import vueToast from '@pub/vue/toast'
 import vueBackground from '@pub/vue/background'
-import vueMusic from '@pub/vue/music'
+import vueMusic from '@pub/vue/music/music'
 
 export default {
   components: {

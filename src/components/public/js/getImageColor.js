@@ -6,38 +6,42 @@ export default {
    */
   loadImg (url, cb) {
     let canvas = document.createElement('canvas')
+    document.body.append(canvas)
     let ctx = canvas.getContext('2d')
     // 实例化图像
     if (typeof url === 'string') {
       // 如果跨域请求图片[中介处理]
       if (/\/\//.test(url)) {
-        url = `//mczyzy.cn:8080/api/getImage?url=${encodeURIComponent(url)}`
+        url = `//127.0.0.1:8080/api/getImage?url=${encodeURIComponent(url)}`
       }
       let img = new Image()
       img.setAttribute('crossOrigin', 'anonymous')
       img.src = url
       // 加载完时
       img.onload = function () {
+        canvas.height = img.height
+        canvas.width = img.width
         ctx.drawImage(img, 0, 0)
         let imgData = ctx.getImageData(0, 0, img.width, img.height).data
         // 遍历像素 取总值
         let r = 0
         let g = 0
         let b = 0
-        for (let h = 0, lh = img.height; h < lh; h++) {
-          for (let w = 0, lw = img.width; w < lw; w++) {
-            r += imgData[((img.width * w) + h) * 4]
-            g += imgData[((img.width * w) + h) * 4 + 1]
-            b += imgData[((img.width * w) + h) * 4 + 2]
+        let wLength = parseInt(img.width / 5)
+        let hLength = parseInt(img.height / 5)
+        // 六分算法
+        for (let w = 0; w < 6; w++) {
+          for (let h = 0; h < 6; h++) {
+            r += imgData[((wLength * w) + (hLength * h)) * 4]
+            g += imgData[((wLength * w) + (hLength * h)) * 4 + 1]
+            b += imgData[((wLength * w) + (hLength * h)) * 4 + 2]
           }
         }
 
         // 计算平均色
-        let allXP = img.height * img.width
-        r = parseInt(r / allXP)
-        g = parseInt(r / allXP)
-        b = parseInt(r / allXP)
-
+        r = parseInt(r / 36)
+        g = parseInt(g / 36)
+        b = parseInt(b / 36)
         // 返回
         let rgb = `rgb(${r},${g},${b})`
         cb && cb(rgb)
