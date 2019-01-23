@@ -2,34 +2,33 @@
   <div class="bottom-music">
     <!-- 浮动列表 -->
     <div :class="['music-list', { 'list-show': floatList }]">
+
       <div class="blur-bg">
-         <!-- :style="'background-image: url(https://y.gtimg.cn/music/photo_new/T002R300x300M000004FjinN2aVhQa.jpg?max_age=2592000);'" -->
         <img src="https://y.gtimg.cn/music/photo_new/T002R300x300M000004FjinN2aVhQa.jpg?max_age=2592000" alt="">
       </div>
-      ccccccccccccasdasdsadsad
+
+      <!-- 选项卡 -->
       <ul class="right-select">
         <li><i class="iconfont icon-yinle"></i></li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
+        <li><i class="iconfont icon-shoucang"></i></li>
+        <li><i class="iconfont icon-xihuan1"></i></li> 
+        <li><i class="iconfont icon-sou-suo"></i></li>
       </ul>
+
+      ccccccccccccasdasdsadsad
     </div>
+
     <!-- 底部浮动 -->
     <div :class="['music-float', { 'float-show': floatState }]">
-      <!-- <i class="iconfont icon-zanting"></i>
-      <i class="iconfont icon-yinle"></i>
-      <i class="iconfont icon-xihuan1"></i>
-      <i class="iconfont icon-shunxu1"></i>
-      <i class="iconfont icon-Shape"></i>
-      <i class="iconfont icon-shoucang"></i>
-      <i class="iconfont icon-suiji"></i>
-      <i class="iconfont icon-danquxunhuan"></i> -->
+
       <div class="progress">
         <div class="progress-load" style="width: 50%"></div>
       </div>
+
       <img class="music-icon" src="https://y.gtimg.cn/music/photo_new/T002R300x300M000004FjinN2aVhQa.jpg?max_age=2592000" alt="音乐封面" @click="toggleList">
+
       <span class="music-title">舞い落ちる雪のように</span>
+
       <span class="music-right">
         <i class="iconfont icon-up-copy"></i>
         <i class="iconfont icon-zanting"></i>
@@ -38,6 +37,7 @@
       </span>
 
     </div>
+
   </div>
 </template>
 
@@ -84,7 +84,7 @@ export default {
       width: calc(100vw - 50px);
       max-width: 500px;
       box-sizing: border-box;
-      border-radius: 5px 5px 0 0;
+      border-top-left-radius: 10px;
       background-color: #fff;
       opacity: 0;
       transition: .5s;
