@@ -9,14 +9,12 @@
 
       <!-- 选项卡 -->
       <ul class="right-select" :style="'color: ' + iconColor" @click="selectTab">
-        <li class="focus"><i class="iconfont icon-yinle"></i></li>
-        <li><i class="iconfont icon-yinleliebiaoxian"></i></li>
-        <li><i class="iconfont icon-shoucang"></i></li>
-        <li><i class="iconfont icon-xihuan1"></i></li>
-        <li><i class="iconfont icon-sou-suo"></i></li>
+        <li v-for="(v, i) in pages" :key="i" :class="{ focus: currentTab == i }" :data-i="i">
+          <i :class="['iconfont', i]"></i>
+        </li>
       </ul>
       <keep-alive>
-        <component v-bind:is="current"></component>
+        <component :is="pages[currentTab]" ref="pages"></component>
       </keep-alive>
     </div>
 
@@ -46,27 +44,39 @@
 <script>
 import imgColor from '@pub/js/getImageColor'
 import Home from '@pub/vue/music/Home'
+import List from '@pub/vue/music/List'
 // 底部音乐插件
 export default {
   data () {
     return {
       floatState: !1,
       floatList: !1,
+      // 选项默认色
       iconColor: '#ccc',
-      current: Home,
+      // 默认选中
+      currentTab: 'icon-yinleliebiaoxian',
+      // 分页列表
       pages: {
-        Home
+        'icon-yinle': Home,
+        'icon-yinleliebiaoxian': List,
+        'icon-shoucang': null,
+        'icon-xihuan1': null,
+        'icon-sou-suo': null
       }
     }
   },
   created () {
     imgColor.loadImg('https://y.gtimg.cn/music/photo_new/T002R300x300M000004JuMyS0z3N7s.jpg?max_age=2592000', rgb => {
-      console.log(rgb)
       this.iconColor = rgb
+    })
+
+    // 监听音乐信息
+    this.$connecter.$on('music', data => {
+      console.log('监听到music发生变化:', data)
     })
   },
   methods: {
-    
+
     /**
      * 切换音乐浮动状态
      */
@@ -88,7 +98,10 @@ export default {
      * 选项卡点击事件
      */
     selectTab (e) {
-
+      if (e.target.dataset.i) {
+        this.currentTab = e.target.dataset.i
+        console.log(this.$refs.pages)
+      }
     }
   }
 }
@@ -165,6 +178,7 @@ export default {
             font-size: 25px;
             color: #ccc;
             z-index: 2;
+            pointer-events: none;
           }
         }
         // 选中的样式
