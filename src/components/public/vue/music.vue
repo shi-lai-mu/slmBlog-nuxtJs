@@ -1,8 +1,9 @@
 <template>
   <div class="bottom-music">
     <!-- 浮动列表 -->
-    <div :class="['music-list', { 'list-show': toggleList }]">
-      cccccccccccc
+    <div :class="['music-list', { 'list-show': floatList }]">
+      <div class="blur-bg" :style="'background-image: url(//res.mczyzy.cn/img/user-default.jpg)'"></div>
+      ccccccccccccasdasdsadsad
     </div>
     <!-- 底部浮动 -->
     <div :class="['music-float', { 'float-show': floatState }]">
@@ -25,22 +26,23 @@
         <i class="iconfont icon-next"></i>
         <i class="iconfont icon-fangxiangxia" @click="toggleFloat"></i>
       </span>
-      
+
     </div>
   </div>
 </template>
 
 <script>
+import imgColor from '@pub/js/getImageColor'
 // 底部音乐插件
 export default {
   data () {
     return {
       floatState: !1,
-      toggleList: !1
+      floatList: !1
     }
   },
   created () {
-
+    console.log(imgColor.loadImg('https://y.gtimg.cn/music/photo_new/T002R300x300M000004FjinN2aVhQa.jpg?max_age=2592000'))
   },
   methods: {
     /**
@@ -53,7 +55,7 @@ export default {
      * 切换音乐列表展示状态
      */
     toggleList () {
-      this.toggleList = !this.toggleList
+      this.floatList = !this.floatList
     }
   }
 }
@@ -64,7 +66,35 @@ export default {
 
     // 浮动列表
     .music-list {
+      position: fixed;
+      overflow: hidden;
+      bottom: 50px;
+      z-index: 66;
+      width: 100vw;
+      max-height: 0;
+      box-sizing: border-box;
+      border-radius: 5px 5px 0 0;
+      background-color: #fff;
+      opacity: 0;
+      transition: .5s;
 
+      // 模糊的背景
+      .blur-bg {
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100%;
+        filter: blur(5px);
+      }
+    }
+    .music-list.list-show {
+      box-shadow: 0 0 10px #aaa;
+      height: 70vh;
+      max-height: 70vh;
+      opacity: 1;
     }
 
     // 底部浮动
@@ -72,6 +102,7 @@ export default {
       position: fixed;
       left: 0;
       bottom: 0;
+      z-index: 67;
       width: 100vw;
       padding: 10px 0;
       border-top-right-radius: 5px;
@@ -131,7 +162,7 @@ export default {
       }
     }
 
-    .bottom-music-float.float-show {
+    .music-float.float-show {
       background-color: rgba(255, 255, 255, .95);
       box-shadow: 0 0 10px #aaa;
       transform: translateX(0);
