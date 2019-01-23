@@ -2,8 +2,18 @@
   <div class="bottom-music">
     <!-- 浮动列表 -->
     <div :class="['music-list', { 'list-show': floatList }]">
-      <div class="blur-bg" :style="'background-image: url(//res.mczyzy.cn/img/user-default.jpg)'"></div>
+      <div class="blur-bg">
+         <!-- :style="'background-image: url(https://y.gtimg.cn/music/photo_new/T002R300x300M000004FjinN2aVhQa.jpg?max_age=2592000);'" -->
+        <img src="https://y.gtimg.cn/music/photo_new/T002R300x300M000004FjinN2aVhQa.jpg?max_age=2592000" alt="">
+      </div>
       ccccccccccccasdasdsadsad
+      <ul class="right-select">
+        <li><i class="iconfont icon-yinle"></i></li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+      </ul>
     </div>
     <!-- 底部浮动 -->
     <div :class="['music-float', { 'float-show': floatState }]">
@@ -18,7 +28,7 @@
       <div class="progress">
         <div class="progress-load" style="width: 50%"></div>
       </div>
-      <img class="music-icon" src="//res.mczyzy.cn/img/user-default.jpg" alt="音乐封面" @click="toggleList">
+      <img class="music-icon" src="https://y.gtimg.cn/music/photo_new/T002R300x300M000004FjinN2aVhQa.jpg?max_age=2592000" alt="音乐封面" @click="toggleList">
       <span class="music-title">舞い落ちる雪のように</span>
       <span class="music-right">
         <i class="iconfont icon-up-copy"></i>
@@ -32,17 +42,16 @@
 </template>
 
 <script>
-import imgColor from '@pub/js/getImageColor'
 // 底部音乐插件
 export default {
   data () {
     return {
       floatState: !1,
-      floatList: !1
+      floatList: !1,
+      floatListBg: '#fff'
     }
   },
   created () {
-    console.log(imgColor.loadImg('https://y.gtimg.cn/music/photo_new/T002R300x300M000004FjinN2aVhQa.jpg?max_age=2592000'))
   },
   methods: {
     /**
@@ -50,6 +59,9 @@ export default {
      */
     toggleFloat () {
       this.floatState = !this.floatState
+      if (this.floatList) {
+        this.floatList = !1
+      }
     },
     /**
      * 切换音乐列表展示状态
@@ -67,27 +79,60 @@ export default {
     // 浮动列表
     .music-list {
       position: fixed;
-      overflow: hidden;
       bottom: 50px;
       z-index: 66;
-      width: 100vw;
-      max-height: 0;
+      width: calc(100vw - 50px);
+      max-width: 500px;
       box-sizing: border-box;
       border-radius: 5px 5px 0 0;
       background-color: #fff;
       opacity: 0;
       transition: .5s;
 
-      // 模糊的背景
+      // 模糊的背景容器
       .blur-bg {
         position: absolute;
+        overflow: hidden;
         z-index: -1;
         width: 100%;
         height: 100%;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 100%;
-        filter: blur(5px);
+
+        img {
+          height: 100%;
+          filter: blur(25px);
+          transform: translateX(-20%);
+        }
+
+        // 滤镜
+        &::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          // background-color: rgba(255, 255, 255, .5);
+        }
+      }
+
+      // 右侧选择卡
+      .right-select {
+        position: absolute;
+        right: 0;
+        transform: translateX(100%);
+
+        li {
+          width: 40px;
+          margin-bottom: 10px;
+          box-sizing: border-box;
+          border-radius: 0 5px 5px 0;
+          padding: 5px;
+          text-align: center;
+          background-color: #fff;
+          box-shadow: 2px 0 5px #ccc;
+        }
+        i {
+          font-size: 25px;
+          color: #888;
+        }
       }
     }
     .music-list.list-show {

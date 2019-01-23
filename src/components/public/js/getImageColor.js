@@ -2,8 +2,9 @@ export default {
   /**
    * 获取图像平均色
    * @param {string} url 图像路径/URL
+   * @param {function} cb 回调函数
    */
-  loadImg (url) {
+  loadImg (url, cb) {
     let canvas = document.createElement('canvas')
     let ctx = canvas.getContext('2d')
     // 实例化图像
@@ -36,7 +37,11 @@ export default {
         r = parseInt(r / allXP)
         g = parseInt(r / allXP)
         b = parseInt(r / allXP)
-        return `rgb(${r},${g},${b})`
+
+        // 返回
+        let rgb = `rgb(${r},${g},${b})`
+        cb && cb(rgb)
+        return rgb
       }
       // 加载错误
       img.onerror = console.error
