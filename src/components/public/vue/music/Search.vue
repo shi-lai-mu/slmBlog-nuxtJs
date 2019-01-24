@@ -1,7 +1,14 @@
 <template>
   <div class="music-search">
     <input class="search" type="text" v-model="searchs" placeholder="搜索 歌名/歌手" @keyup.enter="searchMusic">
-    asdasdsad
+    <ul class="song-list">
+      <li v-for="(song, i) in songList" :key="i">
+        <span class="song-name">{{ song.songname }}</span>
+        <span class="song-singer">{{ song.singer[0].name_hilight }}</span>
+        <span class="song-lyric">{{ song.albumname }}</span>
+        <span class="song-inter">{{ song.interval }}</span>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -9,7 +16,8 @@
 export default {
   data () {
     return {
-      searchs: null
+      searchs: null,
+      songList: []
     }
   },
   created () {
@@ -18,7 +26,17 @@ export default {
   methods: {
     searchMusic () {
       if (this.searchs) {
-        console.log(this.searchs)
+        // api/Music?fun=search&key=学猫叫&page=0
+        this.$http
+          .get('api/Music', {
+            fun: 'search',
+            key: this.searchs,
+            page: 1
+          })
+          .then(res => {
+            this.songList = res.data.data.song.list
+            console.log(this.songList)
+          })
       }
     }
   }
@@ -50,6 +68,38 @@ export default {
       width: 100%;
       height: 30%;
       background-image: linear-gradient(180deg, rgba(0, 0, 0, .3) 50%, transparent 100%);
+    }
+    .song-list {
+      margin-top: 20px;
+
+      li {
+        margin: 10px 5px;
+        border-radius: 5px;
+        padding: 5px;
+        background-color: rgba(255, 255, 255, .6);
+      }
+      span {
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #888;
+      }
+      // 歌曲信息
+      .song-name {
+        width: 100%;
+        color: #000;
+      }
+      .song-singer {
+        width: 20%;
+        color: #888;
+      }
+      .song-lyric {
+        width: 50%;
+      }
+      .song-inter {
+        width: 20%;
+      }
     }
   }
 </style>
