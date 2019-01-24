@@ -1,6 +1,6 @@
 <template>
   <div class="music-search">
-    <input class="search" type="text" v-model="searchs" placeholder="搜索 歌名/歌手">
+    <input class="search" type="text" v-model="searchs" placeholder="搜索 歌名/歌手" @keyup.enter="searchMusic">
     asdasdsad
   </div>
 </template>
@@ -16,6 +16,11 @@ export default {
     console.log('Home')
   },
   methods: {
+    searchMusic () {
+      if (this.searchs) {
+        console.log(this.searchs)
+      }
+    }
   }
 }
 </script>
@@ -28,9 +33,10 @@ export default {
     input {
       display: block;
       width: 90%;
+      margin: 10px auto;
       border: 0;
       border-radius: 20px;
-      margin: 10px auto;
+      padding: 5px;
       font-size: 1.5rem;
       text-align: center;
       color: #eee;

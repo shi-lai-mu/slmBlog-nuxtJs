@@ -55,7 +55,6 @@ import imgColor from '@pub/js/getImageColor'
 import Home from '@pub/vue/music/Home'
 import List from '@pub/vue/music/List'
 import Search from '@pub/vue/music/Search'
-import { setTimeout } from 'timers';
 // 底部音乐插件
 export default {
   data () {
