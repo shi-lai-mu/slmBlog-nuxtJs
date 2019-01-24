@@ -84,9 +84,25 @@ export default {
 
     // 判断窗口大小
     window.addEventListener('resize', resize)
+
+    let oldInnerHeight = window.innerHeight
+    let resizeTime = null
+
     function resize (e) {
       document.body.className = window.innerWidth > 840 ? 'max' : 'centre'
       self.$store.state.mobile = window.innerWidth < 840
+      // 节流
+      clearTimeout(resizeTime)
+      resizeTime = setTimeout(() => {
+        let newInner = window.innerHeight
+        // 防止移动端输入时键盘弹起导致布局变形 40为排除键盘
+        if (self.$store.state.mobile && oldInnerHeight - newInner < 40) {
+          let children = window.music.children
+          children[1].style.top = `${newInner - children[1].offsetHeight}px`
+          children[0].style.top = `${newInner - children[0].offsetHeight -  children[1].offsetHeight}px`
+          children[0].style.height = `${children[0].offsetHeight}px`
+        }
+      }, 300)
     }
     resize()
   }
