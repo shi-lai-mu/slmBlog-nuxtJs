@@ -6,13 +6,15 @@
         <span class="song-name">{{ song.songname }}</span>
         <span class="song-singer">{{ song.singer[0].name_hilight }}</span>
         <span class="song-lyric">{{ song.albumname }}</span>
-        <span class="song-inter">{{ song.interval }}</span>
+        <span class="song-inter">{{ utfc(song.interval) }}</span>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import Time from '@pub/js/dateForm'
+
 export default {
   data () {
     return {
@@ -24,6 +26,9 @@ export default {
     console.log('Home')
   },
   methods: {
+    /**
+     * 搜索音乐
+     */
     searchMusic () {
       if (this.searchs) {
         // api/Music?fun=search&key=学猫叫&page=0
@@ -38,6 +43,13 @@ export default {
             console.log(this.songList)
           })
       }
+    },
+
+    /**
+     * 转换时间
+     */
+    utfc (time) {
+      return Time.utfc(time)
     }
   }
 }

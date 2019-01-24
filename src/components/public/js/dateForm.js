@@ -1,4 +1,11 @@
 export default {
+
+  /**
+   * 时间戳转换为指定的时间格式
+   * @param {string} fmt 转换后的日期格式
+   * @param {number} form 时间戳,默认目前时间
+   * @return {string} 带格式的时间
+   */
   form: (fmt, form) => {
     let date = form ? new Date(form) : new Date()
     let o = {
@@ -43,8 +50,14 @@ export default {
     return fmt
   },
 
-  unForm: (time, outTime) => {
-    time -= outTime || new Date()
+  /**
+   * 计算 距离结束 还有多长带单位
+   * @param {number} time 结束时间
+   * @param {number} startTime 开始时间
+   * @return {string} 带单位的时间
+   */
+  unForm: (time, startTime) => {
+    time -= startTime || new Date()
     time /= 1000
     time < 0 && (time = -(time))
     let r = `时间转换失败: ${time}`
@@ -62,6 +75,17 @@ export default {
       r = Math.floor(time / 31104000) + '年' + Math.floor((time % 31104000) / 2592000) + '个月' + Math.floor(((time % 31104000) % 2592000) / 86400) + '天' + Math.floor((((time % 31104000) % 2592000) % 86400) / 3600) + '小时' + Math.floor(((((time % 31104000) % 2592000) % 86400) % 3600) / 60) + '分' + Math.floor((((((time % 31104000) % 2592000) % 86400) % 3600) % 60) % 60) + '秒'
     }
     return r
+  },
+
+  /**
+   * 将时间转为 00:00 或 00:00.00 格式
+   * @param {number} time 时间
+   * @param {number} fixed 是否带毫秒
+   */
+  utfc (time, fixed = 0) {
+    let num = (time % 60).toString()
+    let num2 = fixed ? num.substring(0, num.indexOf('.') + 3) : Math.ceil(num)
+    return ('00' + Math.floor(time / 60)).slice(-2) + ':' + ('00' + num2).slice((fixed > 0 ? -3 - fixed : -2))
   }
 
 }
