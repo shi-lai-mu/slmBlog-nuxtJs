@@ -13,6 +13,8 @@
           <i :class="['iconfont', i]"></i>
         </li>
       </ul>
+
+      <!-- 内容页 -->
       <keep-alive>
         <component :is="pages[currentTab]" ref="pages"></component>
       </keep-alive>
@@ -51,10 +53,12 @@ export default {
     return {
       floatState: !1,
       floatList: !1,
+      // 第一次加载
+      onlyLoad: !1,
       // 选项默认色
       iconColor: '#ccc',
       // 默认选中
-      currentTab: 'icon-yinleliebiaoxian',
+      currentTab: null,
       // 分页列表
       pages: {
         'icon-yinle': Home,
@@ -66,13 +70,12 @@ export default {
     }
   },
   created () {
-    imgColor.loadImg('https://y.gtimg.cn/music/photo_new/T002R300x300M000004JuMyS0z3N7s.jpg?max_age=2592000', rgb => {
-      this.iconColor = rgb
-    })
-
     // 监听音乐信息
     this.$connecter.$on('music', data => {
       console.log('监听到music发生变化:', data)
+      imgColor.loadImg('https://y.gtimg.cn/music/photo_new/T002R300x300M000004JuMyS0z3N7s.jpg?max_age=2592000', rgb => {
+        this.iconColor = rgb
+      })
     })
   },
   methods: {
@@ -81,9 +84,19 @@ export default {
      * 切换音乐浮动状态
      */
     toggleFloat () {
-      this.floatState = !this.floatState
-      if (this.floatList) {
-        this.floatList = !1
+      let self = this
+      self.floatState = !self.floatState
+      // 如果关闭时 列表为展开 则 关闭
+      if (self.floatList) {
+        self.floatList = !1
+      }
+      // 第一次点开,进行等一次加载,防止资源浪费
+      if (!self.onlyLoad) {
+        self.onlyLoad = !0
+        self.currentTab = 'icon-yinleliebiaoxian'
+        self.$connecter.$emit('music', {
+          data: 123465
+        })
       }
     },
 
@@ -117,11 +130,13 @@ export default {
       z-index: 70;
       width: calc(100vw - 50px);
       max-width: 500px;
+      height: 70vh;
       box-sizing: border-box;
       border-top-left-radius: 10px;
       background-color: #fff;
       opacity: 0;
       transition: .5s;
+      transform: translateX(-100%);
 
       // 模糊的背景容器
       .blur-bg {
@@ -146,7 +161,7 @@ export default {
           // background-color: rgba(255, 255, 255, .5);
         }
       }
-
+      
       // 右侧选择卡
       .right-select {
         position: absolute;
@@ -196,9 +211,8 @@ export default {
     }
     .music-list.list-show {
       box-shadow: 0 -2px 10px #ccc;
-      height: 70vh;
-      max-height: 70vh;
       opacity: 1;
+      transform: none;
     }
 
     // 底部浮动
