@@ -12,7 +12,7 @@ export default {
     if (typeof url === 'string') {
       // 如果跨域请求图片[中介处理]
       if (/\/\//.test(url)) {
-        url = `//127.0.0.1:8080/api/getImage?url=${encodeURIComponent(url)}`
+        url = `//mczyzy.cn:8080/api/getImage?url=${encodeURIComponent(url)}`
       }
       let img = new Image()
       img.setAttribute('crossOrigin', 'anonymous')
