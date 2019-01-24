@@ -54,6 +54,8 @@
 import imgColor from '@pub/js/getImageColor'
 import Home from '@pub/vue/music/Home'
 import List from '@pub/vue/music/List'
+import Search from '@pub/vue/music/Search'
+import { setTimeout } from 'timers';
 // 底部音乐插件
 export default {
   data () {
@@ -72,7 +74,7 @@ export default {
         'icon-yinleliebiaoxian': List,
         'icon-shoucang': null,
         'icon-xihuan1': null,
-        'icon-sou-suo': null
+        'icon-sou-suo': Search
       },
       // 工具栏内容 对应执行函数名
       tools: {
@@ -80,7 +82,7 @@ export default {
       // 工具栏显示个数 默认全部
       toolList: {
         'icon-sou-suo': false
-      },
+      }
     }
   },
   created () {
@@ -91,6 +93,13 @@ export default {
         this.iconColor = rgb
       })
     })
+    // 防止移动端输入时键盘弹起导致布局变形
+    this.$store.state.mobile && setTimeout(() => {
+      let children = this.$el.children
+      children[1].style.top = `${children[1].offsetTop}px`
+      children[0].style.top = `${children[0].offsetTop}px`
+      children[0].style.height = `${children[0].offsetHeight}px`
+    }, 2000)
   },
   methods: {
 
@@ -107,7 +116,7 @@ export default {
       // 第一次点开,进行等一次加载,防止资源浪费
       if (!self.onlyLoad) {
         self.onlyLoad = !0
-        self.currentTab = 'icon-yinleliebiaoxian'
+        self.currentTab = 'icon-sou-suo'
         self.$connecter.$emit('music', {
           data: 123465
         })
@@ -175,7 +184,7 @@ export default {
           // background-color: rgba(255, 255, 255, .5);
         }
       }
-      
+
       // 右侧选择卡
       .right-select-top,
       .right-select-bottom {
@@ -245,7 +254,9 @@ export default {
       bottom: 0;
       z-index: 67;
       width: 100vw;
+      height: 52px;
       padding: 10px 0;
+      box-sizing: border-box;
       border-top-right-radius: 5px;
       background-color: rgba(255, 255, 255, .6);
       box-shadow: 0 0 2px #ccc;
