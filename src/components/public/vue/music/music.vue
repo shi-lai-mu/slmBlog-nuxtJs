@@ -7,9 +7,16 @@
         <img src="https://y.gtimg.cn/music/photo_new/T002R300x300M000004JuMyS0z3N7s.jpg?max_age=2592000" alt="">
       </div>
 
-      <!-- 选项卡 -->
-      <ul class="right-select" :style="'color: ' + iconColor" @click="selectTab">
+      <!-- 顶部选项卡 -->
+      <ul class="right-select-top" :style="'color: ' + iconColor" @click="selectTab">
         <li v-for="(v, i) in pages" :key="i" :class="{ focus: currentTab == i }" :data-i="i">
+          <i :class="['iconfont', i]"></i>
+        </li>
+      </ul>
+
+      <!-- 底部选项卡 -->
+      <ul class="right-select-bottom" :style="'color: ' + iconColor" @click="selectTab">
+        <li v-for="(v, i) in tools" :key="i" :class="{ focus: currentTab == i }" :data-i="i">
           <i :class="['iconfont', i]"></i>
         </li>
       </ul>
@@ -66,7 +73,14 @@ export default {
         'icon-shoucang': null,
         'icon-xihuan1': null,
         'icon-sou-suo': null
-      }
+      },
+      // 工具栏内容 对应执行函数名
+      tools: {
+      },
+      // 工具栏显示个数 默认全部
+      toolList: {
+        'icon-sou-suo': false
+      },
     }
   },
   created () {
@@ -163,7 +177,8 @@ export default {
       }
       
       // 右侧选择卡
-      .right-select {
+      .right-select-top,
+      .right-select-bottom {
         position: absolute;
         right: 0;
         transform: translateX(100%);
@@ -206,6 +221,14 @@ export default {
           i {
             color: #fff;
           }
+        }
+      }
+      // 底部选项卡
+      .right-select-bottom {
+        bottom: 0;
+        li {
+          margin-top: 10px;
+          margin-bottom: 0;
         }
       }
     }
