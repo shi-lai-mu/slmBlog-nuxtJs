@@ -39,14 +39,24 @@ export default function (vue) {
       // 默认音乐数据
       this.loadMusic('004RiqvD4Necim')
       this.$el = vue.$refs.music
+
       // 存入 音乐控制的节点 datat-on: element
       let musicConsole = vue.$refs.musicConsole.getElementsByTagName('i')
-      for (let i = 0, l = musicConsole.lenght; i < l; i++) {
+      for (let i = 0, l = musicConsole.length; i < l; i++) {
         let data = musicConsole[i].dataset.on
         if (data) {
           this.store.conEl[data] = musicConsole[i]
         }
       }
+
+      // 图标更新 订阅
+      observer.$on('iconUpdate', () => {
+        // 主控件
+        let store = this.store
+        let $el = store.conEl
+
+        $el.toggle.className = store.state ? 'iconfont icon-zanting' : 'iconfont icon-zanting1'
+      })
     }
 
     /**
@@ -112,6 +122,7 @@ export default function (vue) {
       if (this.$el.play) {
         this.$el.play()
         this.store.state = !0
+        observer.$emit('iconUpdate')
       }
     }
 
@@ -122,6 +133,7 @@ export default function (vue) {
       if (this.$el.pause) {
         this.$el.pause()
         this.store.state = !1
+        observer.$emit('iconUpdate')
       }
     }
 

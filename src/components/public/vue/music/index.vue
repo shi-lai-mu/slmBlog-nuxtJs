@@ -41,7 +41,7 @@
 
       <span class="music-right" @click="musicConsole" ref="musicConsole">
         <i class="iconfont icon-up-copy" data-on="up"></i>
-        <i class="iconfont icon-zanting" data-on="toggle"></i>
+        <i class="iconfont icon-zanting1" data-on="toggle"></i>
         <i class="iconfont icon-next" data-on="down"></i>
         <i class="iconfont icon-fangxiangxia" @click="toggleFloat"></i>
       </span>
