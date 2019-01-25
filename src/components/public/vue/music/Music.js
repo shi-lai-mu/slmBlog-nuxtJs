@@ -64,6 +64,7 @@ export default function (vue) {
      * @param {string} songmid 音乐MID
      */
     loadMusic (songmid) {
+      this.SONGMID = songmid
       // 音乐信息
       vue.$http
         .get(`/api/Music?fun=getMusicInfo&code=${songmid}`)
@@ -101,7 +102,7 @@ export default function (vue) {
         // 数据顺序 对象, 封面图片, 播放路径, 歌名, 歌手, 歌简介, 歌上传时间, 相似歌曲
         vue.info = {
           img: `http://y.gtimg.cn/music/photo_new/T002R300x300M000${this.info.mid}.jpg`,
-          src: this.download.m4a,
+          src: `//dl.stream.qqmusic.qq.com/C400${this.SONGMID}.m4a?guid=2095717240&vkey=707A49EB0FE73DFEFC5F7967788AAC14537DEE0D648049F33F6B1A2A4A90037DC67FBB13486BFE68F39E9571677BC860DAFEB0C28F74B039&uin=0&fromtag=38`,
           tag: this.info.name,
           singername: this.info.singername,
           description: this.info.desc,
