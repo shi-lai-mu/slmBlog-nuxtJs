@@ -19,7 +19,7 @@ export default {
       let CanvasBg = (function () {
         let ctxCount = 40
         let sizeMax = 5
-        let lineWidth = 20
+        let lineWidth = 40
         // pc 端配置
         if (!slef.$store.state.mobile) {
           ctxCount = 200
