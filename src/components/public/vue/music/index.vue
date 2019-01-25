@@ -5,7 +5,7 @@
     <div :class="['music-list', { 'list-show': floatList }]">
 
       <div class="blur-bg">
-        <img :src="music.img" alt="">
+        <img :src="info.img" alt="">
       </div>
 
       <!-- 顶部选项卡 -->
@@ -35,17 +35,17 @@
         <div class="progress-load" style="width: 50%"></div>
       </div>
 
-      <img class="music-icon" :src="music.img" alt="音乐封面">
+      <img class="music-icon" :src="info.img" alt="音乐封面">
 
-      <span class="music-title" v-text="music.tag"></span>
+      <span class="music-title" v-text="info.tag"></span>
 
-      <span class="music-right" @click="musicConsole">
-        <i class="iconfont icon-up-copy"></i>
-        <i class="iconfont icon-zanting"></i>
-        <i class="iconfont icon-next"></i>
+      <span class="music-right" @click="musicConsole" ref="musicConsole">
+        <i class="iconfont icon-up-copy" data-on="up"></i>
+        <i class="iconfont icon-zanting" data-on="toggle"></i>
+        <i class="iconfont icon-next" data-on="down"></i>
         <i class="iconfont icon-fangxiangxia" @click="toggleFloat"></i>
       </span>
-      <audio :src="music.src" ref="music"></audio>
+      <audio :src="info.src" ref="music"></audio>
     </div>
   </div>
 </template>
@@ -84,8 +84,8 @@ export default {
         'icon-sou-suo': false
       },
       // 音乐信息
-      music: {
-        img: '//res.mczyzy.cn/LOGO.png',
+      info: {
+        img: 'http://res.mczyzy.cn/LOGO.png',
         src: '',
         tag: ''
       }
@@ -94,7 +94,7 @@ export default {
   created () {
     // 监听音乐信息
     this.$connecter.$on('music', data => {
-      imgColor.loadImg(this.music.img, rgb => {
+      imgColor.loadImg(this.info.img, rgb => {
         this.iconColor = rgb
       })
     })
@@ -137,8 +137,7 @@ export default {
       if (!self.onlyLoad) {
         self.onlyLoad = !0
         self.currentTab = 'icon-sou-suo'
-        let music = new (Music(self))()
-        // self.$refs.music.play()
+        this.Music = new (Music(self))()
       }
     },
 
@@ -164,7 +163,9 @@ export default {
     musicConsole (e) {
       if (e.target.tagName.toLowerCase() === 'i') {
         e.stopPropagation()
-        // this.music.obj.play()
+        if (e.target.dataset.on) {
+          this.Music[e.target.dataset.on](e.target)
+        }
       }
     }
   }
