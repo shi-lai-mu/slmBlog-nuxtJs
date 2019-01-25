@@ -31,7 +31,7 @@
     <!-- 底部浮动 -->
     <div :class="['music-float', { 'float-show': floatState }]" @click="toggleList" ref="musicConsole">
 
-      <div class="progress">
+      <div class="progress" @click="progress">
         <div class="progress-load" data-on="progress"></div>
       </div>
 
@@ -167,6 +167,14 @@ export default {
           this.Music[e.target.dataset.on](e.target)
         }
       }
+    },
+
+    /**
+     * 进度条点击事件
+     */
+    progress (e) {
+      e.stopPropagation()
+      this.Music.jump((e.clientX / (e.toElement.offsetWidth / 100)).toFixed(2))
     }
   }
 }
@@ -368,6 +376,7 @@ export default {
         padding: 0;
         margin: 0 auto;
         background-color: rgba(168, 230, 244, .3);
+        cursor: pointer;
       }
       .progress-load {
         position: absolute;
@@ -376,7 +385,7 @@ export default {
         height: 4px;
         background-color: #a8e6f4;
         background-image: linear-gradient(45deg, rgba(255, 255, 255, .5) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .5) 50%, rgba(255, 255, 255, .5) 75%, transparent 75%, transparent);
-        cursor: pointer;
+        pointer-events: none;
 
         &::after {
           content: "";
