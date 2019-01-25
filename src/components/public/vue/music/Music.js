@@ -3,6 +3,21 @@
  * @param {object} self vue
  */
 export default function (vue) {
+  // 观察者
+  // let observe = new (class obServer {
+  //   task = []
+  //   // 订阅
+  //   $on (key, callback) {
+  //     !this.task[key] && (this.task[key] = [])
+  //     this.task[key].push(callback)
+  //   }
+  //   // 发布
+  //   $emit (key, data) {
+  //     if (this.task[key]) {
+  //       this.task[key].forEach(fun => fun(data))
+  //     }
+  //   }
+  // })()
 
   // 音乐类
   return class Music {
@@ -16,11 +31,7 @@ export default function (vue) {
     // 存储vue
     constructor () {
       // 默认音乐数据
-      this.loadMusic({
-        img: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000002aSuOt1oSJ5Z.jpg?max_age=2592000',
-        src: 'http://123.157.255.144/amobile.music.tc.qq.com/C400001zFY0n2J2Eb0.m4a?guid=4041099672&vkey=01FAB8A50B37E41182CDAA8FD442B806E2EBC961FA7CB1333243B50B6B14D837E40A08380E04C0E91AE00A0C8CF0671C8B4D57CD3AF76DE3&uin=1251&fromtag=66',
-        tag: '舞い落ちる雪のように'
-      })
+      this.loadMusic()
       this.$el = vue.$refs.music
     }
 
@@ -29,20 +40,53 @@ export default function (vue) {
      * @param {string} songmid 音乐MID
      */
     loadMusic (songmid) {
-      vue.$http.get('http://127.0.0.1:8080/api/Music?fun=download&code=004RiqvD4Necim')
+      // 音乐信息
+      vue.$http
+        .get('/api/Music?fun=getMusicInfo&code=004RiqvD4Necim')
         .then(res => {
-          if (res.data && res.data.length === 2) {
-            this.info = JSON.parse(res.data[0])
-            this.download = JSON.parse(res.data[1])
-          }
+          console.log(res)
+          if (res.data) {
+            this.info = res.data.data
+            this.writeView()
+          } else throw Error(`请求[ ${songmid} ]音乐数据错误!`)
         })
-      // // 写入音乐数据
+        .catch(() => {
+          throw Error(`音乐获取失败, 请及时进行维护!!!`)
+        })
+
+      // 音乐下载地址 [最高无损]
+      vue.$http
+        .get('/api/Music?fun=download&code=004RiqvD4Necim')
+        .then(res => {
+          console.log(res)
+          if (res.data) {
+            this.download = res.data
+            this.writeView()
+          } else throw Error(`请求[ ${songmid} ]下载数据错误!`)
+        })
+        .catch(() => {
+          throw Error(`破解请求过于频繁,请稍后再试!`)
+        })
+    }
+
+    /**
+     * 音乐数据写入视图
+     */
+    writeView () {
+      if (!this.info.mid) return
+      // 默认播放 m4a 格式音乐
+      // 数据顺序 对象, 封面图片, 播放路径, 歌名, 歌手, 歌简介, 歌上传时间, 相似歌曲
       vue.music = {
         obj: vue.music.vue,
-        img: songmid.img,
-        src: songmid.src,
-        tag: songmid.tag
+        img: `http://y.gtimg.cn/music/photo_new/T002R300x300M000${this.info.mid}.jpg`,
+        src: this.download.m4a,
+        tag: this.info.name,
+        singername: this.info.singername,
+        description: this.info.desc,
+        upload: this.info.aDate,
+        list: this.info.list
       }
+      vue.$connecter.$emit('music')
     }
 
     /**

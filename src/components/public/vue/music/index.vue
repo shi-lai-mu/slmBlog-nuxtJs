@@ -85,7 +85,7 @@ export default {
       },
       // 音乐信息
       music: {
-        img: '',
+        img: '//res.mczyzy.cn/LOGO.png',
         src: '',
         tag: ''
       }
@@ -94,7 +94,6 @@ export default {
   created () {
     // 监听音乐信息
     this.$connecter.$on('music', data => {
-      console.log('监听到music发生变化:', data)
       imgColor.loadImg(this.music.img, rgb => {
         this.iconColor = rgb
       })
@@ -139,10 +138,7 @@ export default {
         self.onlyLoad = !0
         self.currentTab = 'icon-sou-suo'
         let music = new (Music(self))()
-        self.$connecter.$emit('music', {
-          music
-        })
-        self.$refs.music.play()
+        // self.$refs.music.play()
       }
     },
 
@@ -168,7 +164,7 @@ export default {
     musicConsole (e) {
       if (e.target.tagName.toLowerCase() === 'i') {
         e.stopPropagation()
-        this.music.obj.play()
+        // this.music.obj.play()
       }
     }
   }
