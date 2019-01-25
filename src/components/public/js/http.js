@@ -8,7 +8,7 @@ rsa.setPublic('D3379E6D621B0C3C96DB21F478468BAE8E117C6136774EBF0921F77F2D102ECCB
 
 let $http = axios.create({
   baseURL: 'http://mczyzy.cn:8080',
-  // timeout: 5000,
+  timeout: 15000,
   responseType: 'json',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'

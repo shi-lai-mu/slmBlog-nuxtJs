@@ -29,17 +29,17 @@
     </div>
 
     <!-- 底部浮动 -->
-    <div :class="['music-float', { 'float-show': floatState }]" @click="toggleList">
+    <div :class="['music-float', { 'float-show': floatState }]" @click="toggleList" ref="musicConsole">
 
       <div class="progress">
-        <div class="progress-load" style="width: 50%"></div>
+        <div class="progress-load" data-on="progress"></div>
       </div>
 
       <img class="music-icon" :src="info.img" alt="音乐封面">
 
       <span class="music-title" v-text="info.tag"></span>
 
-      <span class="music-right" @click="musicConsole" ref="musicConsole">
+      <span class="music-right" @click="musicConsole">
         <i class="iconfont icon-up-copy" data-on="up"></i>
         <i class="iconfont icon-zanting1" data-on="toggle"></i>
         <i class="iconfont icon-next" data-on="down"></i>
@@ -324,10 +324,11 @@ export default {
       .music-title {
         display: inline-block;
         overflow: hidden;
-        margin-left: 60px;
         width: calc(100vw - 260px);
-        text-overflow: ellipsis;
+        margin: 5px 0 0 60px;
+        font-size: 1.25rem;
         vertical-align: middle;
+        text-overflow: ellipsis;
         white-space: nowrap;
       }
 
@@ -375,6 +376,7 @@ export default {
         height: 4px;
         background-color: #a8e6f4;
         background-image: linear-gradient(45deg, rgba(255, 255, 255, .5) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .5) 50%, rgba(255, 255, 255, .5) 75%, transparent 75%, transparent);
+        cursor: pointer;
 
         &::after {
           content: "";

@@ -31,17 +31,20 @@ export default function (vue) {
     store = {
       // 是否正在播放
       state: false,
+      // 子控件
       conEl: {}
     }
+    // 定时器
+    currentTime = null
 
     // 存储vue
     constructor () {
       // 默认音乐数据
-      this.loadMusic('004RiqvD4Necim')
+      this.loadMusic('003OLhvp2nqSjQ')
       this.$el = vue.$refs.music
 
       // 存入 音乐控制的节点 datat-on: element
-      let musicConsole = vue.$refs.musicConsole.getElementsByTagName('i')
+      let musicConsole = vue.$refs.musicConsole.getElementsByTagName('*')
       for (let i = 0, l = musicConsole.length; i < l; i++) {
         let data = musicConsole[i].dataset.on
         if (data) {
@@ -64,18 +67,24 @@ export default function (vue) {
      * @param {string} songmid 音乐MID
      */
     loadMusic (songmid) {
-      this.SONGMID = songmid
       // 音乐信息
       vue.$http
         .get(`/api/Music?fun=getMusicInfo&code=${songmid}`)
         .then(res => {
           if (res.data) {
             this.info = res.data.data
+            // 选中songmid的ID
+            for (let song of this.info.list) {
+              if (song.albummid === songmid) {
+                this.info.song = song
+                break
+              }
+            }
             this.writeView()
-          } else throw Error(`请求[ ${songmid} ]音乐数据错误!`)
+          }
         })
-        .catch(() => {
-          throw Error(`音乐获取失败, 请及时进行维护!!!`)
+        .catch((e) => {
+          throw Error(songmid + `音乐 获取失败, 请及时进行维护!!!`)
         })
 
       // 音乐下载地址 [最高无损]
@@ -100,14 +109,15 @@ export default function (vue) {
       try {
         // 默认播放 m4a 格式音乐
         // 数据顺序 对象, 封面图片, 播放路径, 歌名, 歌手, 歌简介, 歌上传时间, 相似歌曲
+        let info = this.info
         vue.info = {
-          img: `http://y.gtimg.cn/music/photo_new/T002R300x300M000${this.info.mid}.jpg`,
-          src: `//dl.stream.qqmusic.qq.com/C400${this.SONGMID}.m4a?guid=2095717240&vkey=707A49EB0FE73DFEFC5F7967788AAC14537DEE0D648049F33F6B1A2A4A90037DC67FBB13486BFE68F39E9571677BC860DAFEB0C28F74B039&uin=0&fromtag=38`,
-          tag: this.info.name,
-          singername: this.info.singername,
-          description: this.info.desc,
-          upload: this.info.aDate,
-          list: this.info.list
+          img: `http://y.gtimg.cn/music/photo_new/T002R300x300M000${info.mid}.jpg`,
+          src: `//dl.stream.qqmusic.qq.com/C400${info.song.songmid}.m4a?guid=2095717240&vkey=707A49EB0FE73DFEFC5F7967788AAC14537DEE0D648049F33F6B1A2A4A90037DC67FBB13486BFE68F39E9571677BC860DAFEB0C28F74B039&uin=0&fromtag=38`,
+          tag: info.name,
+          singername: info.singername,
+          description: info.desc,
+          upload: info.aDate,
+          list: info.list
         }
       } catch (e) {
         throw Error(`写入音乐信息时出现未知错误:`, e)
@@ -124,6 +134,9 @@ export default function (vue) {
         this.$el.play()
         this.store.state = !0
         observer.$emit('iconUpdate')
+        let song = this.info.song
+
+        interval
       }
     }
 
