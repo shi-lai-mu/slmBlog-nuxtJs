@@ -1,5 +1,6 @@
 <template>
   <div class="bottom-music">
+
     <!-- 浮动列表 -->
     <div :class="['music-list', { 'list-show': floatList }]">
 
@@ -28,13 +29,13 @@
     </div>
 
     <!-- 底部浮动 -->
-    <div :class="['music-float', { 'float-show': floatState }]">
+    <div :class="['music-float', { 'float-show': floatState }]" @click="toggleList">
 
       <div class="progress">
         <div class="progress-load" style="width: 50%"></div>
       </div>
 
-      <img class="music-icon" :src="music.img" alt="音乐封面" @click="toggleList">
+      <img class="music-icon" :src="music.img" alt="音乐封面">
 
       <span class="music-title" v-text="music.tag"></span>
 
@@ -84,7 +85,7 @@ export default {
       },
       // 音乐信息
       music: {
-        img: null,
+        img: '',
         src: '',
         tag: ''
       }
@@ -166,6 +167,7 @@ export default {
      */
     musicConsole (e) {
       if (e.target.tagName.toLowerCase() === 'i') {
+        e.stopPropagation()
         this.music.obj.play()
       }
     }
