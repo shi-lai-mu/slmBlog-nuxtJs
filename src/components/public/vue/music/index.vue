@@ -1,5 +1,5 @@
 <template>
-  <div class="bottom-music" id="music">
+  <div class="bottom-music">
     <!-- 浮动列表 -->
     <div :class="['music-list', { 'list-show': floatList }]">
 
@@ -98,6 +98,28 @@ export default {
         this.iconColor = rgb
       })
     })
+
+    window.addEventListener('resize', resize)
+
+    let oldInnerHeight = window.innerHeight
+    let resizeTime = null
+    let self = this
+
+    function resize (e) {
+      // 节流
+      clearTimeout(resizeTime)
+      resizeTime = setTimeout(() => {
+        // 防止移动端输入时键盘弹起导致布局变形 40为排除键盘
+        let newInner = window.innerHeight
+        if (self.$store.state.mobile && oldInnerHeight - newInner < 40) {
+          let children = self.$el.children
+          children[1].style.top = `${newInner - children[1].offsetHeight}px`
+          children[0].style.top = `${newInner - children[0].offsetHeight - children[1].offsetHeight}px`
+          children[0].style.height = `${children[0].offsetHeight}px`
+        }
+      }, 300)
+    }
+    resize()
   },
   methods: {
 
