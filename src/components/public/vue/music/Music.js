@@ -141,7 +141,7 @@ export default function (vue) {
         let progress = this.store.conEl.progress
         this.interval = setInterval(() => {
           progress.style.width = `${music.currentTime / (song.interval / 100)}%`
-        }, 1000)
+        }, 500)
       }
     }
 
@@ -162,6 +162,17 @@ export default function (vue) {
      */
     toggle (el) {
       this.store.state ? this.stop() : this.play()
+    }
+
+    /**
+     * 播放跳转
+     * @param {number} interval 跳转百分比
+     */
+    jump (interval) {
+      let min = this.info.song.interval / 100
+      interval = Math.min(interval, 100)
+      interval = Math.max(interval, 0)
+      this.$el.currentTime = min * interval
     }
   }
 }
