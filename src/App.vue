@@ -16,7 +16,7 @@ import vueHeader from '@pub/vue/header'
 import vueFooter from '@pub/vue/footer'
 import vueToast from '@pub/vue/toast'
 import vueBackground from '@pub/vue/background'
-import vueMusic from '@pub/vue/music/music'
+import vueMusic from '@pub/vue/music/index'
 
 export default {
   components: {
@@ -99,7 +99,7 @@ export default {
         if (self.$store.state.mobile && oldInnerHeight - newInner < 40) {
           let children = window.music.children
           children[1].style.top = `${newInner - children[1].offsetHeight}px`
-          children[0].style.top = `${newInner - children[0].offsetHeight -  children[1].offsetHeight}px`
+          children[0].style.top = `${newInner - children[0].offsetHeight - children[1].offsetHeight}px`
           children[0].style.height = `${children[0].offsetHeight}px`
         }
       }, 300)

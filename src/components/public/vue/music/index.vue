@@ -4,7 +4,7 @@
     <div :class="['music-list', { 'list-show': floatList }]">
 
       <div class="blur-bg">
-        <img src="https://y.gtimg.cn/music/photo_new/T002R300x300M000004JuMyS0z3N7s.jpg?max_age=2592000" alt="">
+        <img :src="music.img" alt="">
       </div>
 
       <!-- 顶部选项卡 -->
@@ -34,19 +34,18 @@
         <div class="progress-load" style="width: 50%"></div>
       </div>
 
-      <img class="music-icon" src="https://y.gtimg.cn/music/photo_new/T002R300x300M000004JuMyS0z3N7s.jpg?max_age=2592000" alt="音乐封面" @click="toggleList">
+      <img class="music-icon" :src="music.img" alt="音乐封面" @click="toggleList">
 
-      <span class="music-title">舞い落ちる雪のように</span>
+      <span class="music-title" v-text="music.tag"></span>
 
-      <span class="music-right">
+      <span class="music-right" @click="musicConsole">
         <i class="iconfont icon-up-copy"></i>
         <i class="iconfont icon-zanting"></i>
         <i class="iconfont icon-next"></i>
         <i class="iconfont icon-fangxiangxia" @click="toggleFloat"></i>
       </span>
-
+      <audio :src="music.src" ref="music"></audio>
     </div>
-
   </div>
 </template>
 
@@ -55,6 +54,7 @@ import imgColor from '@pub/js/getImageColor'
 import Home from '@pub/vue/music/Home'
 import List from '@pub/vue/music/List'
 import Search from '@pub/vue/music/Search'
+import Music from '@pub/vue/music/Music'
 // 底部音乐插件
 export default {
   data () {
@@ -81,6 +81,12 @@ export default {
       // 工具栏显示个数 默认全部
       toolList: {
         'icon-sou-suo': false
+      },
+      // 音乐信息
+      music: {
+        img: null,
+        src: '',
+        tag: ''
       }
     }
   },
@@ -88,7 +94,7 @@ export default {
     // 监听音乐信息
     this.$connecter.$on('music', data => {
       console.log('监听到music发生变化:', data)
-      imgColor.loadImg('https://y.gtimg.cn/music/photo_new/T002R300x300M000004JuMyS0z3N7s.jpg?max_age=2592000', rgb => {
+      imgColor.loadImg(this.music.img, rgb => {
         this.iconColor = rgb
       })
     })
@@ -109,9 +115,11 @@ export default {
       if (!self.onlyLoad) {
         self.onlyLoad = !0
         self.currentTab = 'icon-sou-suo'
+        let music = new (Music(self))()
         self.$connecter.$emit('music', {
-          data: 123465
+          music
         })
+        self.$refs.music.play()
       }
     },
 
@@ -128,7 +136,15 @@ export default {
     selectTab (e) {
       if (e.target.dataset.i) {
         this.currentTab = e.target.dataset.i
-        console.log(this.$refs.pages)
+      }
+    },
+
+    /**
+     * 播放控制
+     */
+    musicConsole (e) {
+      if (e.target.tagName.toLowerCase() === 'i') {
+        this.music.obj.play()
       }
     }
   }

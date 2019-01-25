@@ -6,7 +6,6 @@ export default {
    */
   loadImg (url, cb) {
     let canvas = document.createElement('canvas')
-    document.body.append(canvas)
     let ctx = canvas.getContext('2d')
     // 实例化图像
     if (typeof url === 'string') {

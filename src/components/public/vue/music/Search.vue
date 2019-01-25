@@ -31,7 +31,6 @@ export default {
      */
     searchMusic () {
       if (this.searchs) {
-        // api/Music?fun=search&key=学猫叫&page=0
         this.$http
           .get('api/Music', {
             fun: 'search',
