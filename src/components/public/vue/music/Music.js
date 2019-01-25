@@ -131,12 +131,17 @@ export default function (vue) {
      */
     play () {
       if (this.$el.play) {
-        this.$el.play()
+        let music = this.$el
+        music.play()
         this.store.state = !0
         observer.$emit('iconUpdate')
-        let song = this.info.song
 
-        interval
+        // 监控进度条
+        let song = this.info.song
+        let progress = this.store.conEl.progress
+        this.interval = setInterval(() => {
+          progress.style.width = `${music.currentTime / (song.interval / 100)}%`
+        }, 1000)
       }
     }
 
