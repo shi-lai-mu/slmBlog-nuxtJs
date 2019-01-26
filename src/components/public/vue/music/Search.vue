@@ -6,12 +6,22 @@
         <span class="song-name" v-html="song.songname"></span>
         <span class="song-singer">{{ song.singers }}</span>
         <span class="song-lyric">{{ song.albumname }}</span>
-        <i class="iconfont icon-yinleliebiaoxian"></i>
+        <i class="iconfont icon-yinleliebiaoxian" @click="toggleList"></i>
         <span class="song-inter">{{ utfc(song.interval) }}</span>
       </li>
     </ul>
     <div class="search-state" v-if="state">
       <span class="state">搜索中...</span>
+    </div>
+    <div :class="['search-menu-hide', {'search-menu': searchList}]">
+      <ul>
+        <li>下载</li>
+        <li>下载</li>
+        <li>下载</li>
+        <li>下载</li>
+        <li>下载</li>
+        <li @click="toggleList">关闭</li>
+      </ul>
     </div>
   </div>
 </template>
@@ -23,8 +33,11 @@ export default {
   data () {
     return {
       searchs: null,
-      songList: [],
-      state: false
+      songList: [
+        {songname: 'xxxx', albumname: 'xasdasd'}
+      ],
+      state: !1,
+      searchList: !1
     }
   },
   created () {
@@ -86,6 +99,13 @@ export default {
      */
     utfc (time) {
       return Time.utfc(time)
+    },
+
+    /**
+     * 显示列表
+     */
+    toggleList () {
+      this.searchList = !this.searchList
     }
   }
 }
@@ -121,9 +141,9 @@ export default {
     .search-state {
       position: absolute;
       display: flex;
-      top: 0;
       justify-content: center;
       align-items: center;
+      top: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
@@ -172,6 +192,9 @@ export default {
       }
       i {
         float: right;
+        &:active {
+          color: #888;
+        }
       }
       sup {
         margin-left: 5px;
@@ -183,6 +206,52 @@ export default {
       }
       .HQ {
         color: #13CE66;
+      }
+    }
+    // 菜单列表
+    .search-menu-hide {
+      overflow: hidden;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      ul {
+        width: 30%;
+        opacity: 0;
+        visibility: hidden;
+        border-radius: 10px;
+        padding: 5px 10px;
+        text-align: center;
+        background-color: rgba(255, 255, 255, .8);
+        box-shadow: 0 0 10px 1000px rgba(0, 0, 0, .4);
+        transform: translateY(-50%);
+        transition: .5s;
+        li {
+          padding: 5px;
+          border-bottom: 1px solid #ccc;
+
+          &:active {
+            background-color: rgba(0, 0, 0, .1);
+          }
+
+          &:nth-last-child(1) {
+            border-bottom: 0;
+          }
+        }
+      }
+    }
+    .search-menu {
+      pointer-events: inherit;
+
+      ul {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: inherit;
       }
     }
   }
