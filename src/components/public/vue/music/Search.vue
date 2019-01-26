@@ -15,7 +15,7 @@
     </div>
     <div :class="['search-menu-hide', {'search-menu': searchList}]">
       <ul>
-        <li v-for="(v, k) in downList" :key="k" @click="download" :data-qu="v[1]" :data-i="v[2]">下载 {{ v[0] }}</li>
+        <li v-for="(v, k) in downList" :key="k" @click="download" :data-qu="v[1]" :data-i="v[2]" v-html="'下载 ' + v[0]"></li>
         <li @click="toggleList" class="close">关闭</li>
       </ul>
     </div>
@@ -108,7 +108,7 @@ export default {
           'size128': ['标准', '128MP3', i],
           'size320': ['高品质', '320MP3', i],
           'sizeape': ['无损1', 'APE', i],
-          'sizeflac': ['无损2', 'FLAC', i],
+          'sizeflac': ['无损2', 'FLAC', i]
         }
         let arr = []
         for (let v in quality) {
@@ -142,18 +142,19 @@ export default {
           xhr.onprogress = function (e) {
             let percent = (e.loaded / e.total * 100).toFixed(2)
             $el.innerHTML = `${oldTXT} [${percent}%]`
+            console.log(`${song.songname}(${song.singers}).${res.data.suffix}下載中...${percent}%`)
           }
           xhr.onload = function (e) {
             var blob = new Blob([this.response])
-            $el.innerHTML = `${oldTXT} [打包中...]`
             let a = document.createElement('a')
             a.href = URL.createObjectURL(blob)
             a.download = `${song.songname}(${song.singers}).${res.data.suffix}`
             document.body.appendChild(a)
             a.click()
+            $el.innerHTML = `${oldTXT} <span class="sup HQ">完成</span>`
             setTimeout(() => {
-              $el.innerHTML = `${oldTXT} <span class="sup HQ">完成</span>`
-            })
+              $el.innerHTML = oldTXT
+            }, 500)
           }
           xhr.onerror = function (e) {
             $el.innerHTML = `${oldTXT} [下载出错]`

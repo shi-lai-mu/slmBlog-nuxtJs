@@ -40,7 +40,7 @@ export default function (vue) {
     // 存储vue
     constructor () {
       // 默认音乐数据
-      this.loadMusic('')
+      this.loadMusic('003OLhvp2nqSjQ')
       this.$el = vue.$refs.music
 
       // 存入 音乐控制的节点 datat-on: element
@@ -113,7 +113,7 @@ export default function (vue) {
         let info = this.info
         vue.info = {
           img: `http://y.gtimg.cn/music/photo_new/T002R300x300M000${info.mid}.jpg`,
-          src: `//dl.stream.qqmusic.qq.com/C400${info.song.songmid}.m4a?guid=2095717240&vkey=707A49EB0FE73DFEFC5F7967788AAC14537DEE0D648049F33F6B1A2A4A90037DC67FBB13486BFE68F39E9571677BC860DAFEB0C28F74B039&uin=0&fromtag=38`,
+          src: `//dl.stream.qqmusic.qq.com/C400${info.song.songmid}.m4a?guid=2095717240&vkey=964E36A895E1925A43DF9C7DDE663900EC1E32D3EAA44EC3522BE7B9B105972928A4429879989377906E1207FA4BC11FB6FF59D478AC1A77&uin=0&fromtag=38`,
           tag: info.name,
           singername: info.singername,
           description: info.desc,
