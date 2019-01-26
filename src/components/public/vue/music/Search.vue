@@ -148,12 +148,12 @@ export default {
           xhr.onprogress = function (e) {
             let percent = (e.loaded / e.total * 100).toFixed(2)
             $el.innerHTML = `${oldTXT} [${percent}%]`
-            console.log(`${song.songname}(${song.singers}).${res.data.suffix}下載中...${percent}%`)
           }
           xhr.onload = function (e) {
             var blob = new Blob([this.response])
             a.href = URL.createObjectURL(blob)
-            a.download = `${song.songname}(${song.singers}).${res.data.suffix}`
+            let singers = song.singers.replace('/', '-')
+            a.download = `${song.songname}(${singers}).${res.data.suffix}`
             document.body.appendChild(a)
             a.click()
             $el.innerHTML = `${oldTXT} <span class="sup HQ">完成</span>`
