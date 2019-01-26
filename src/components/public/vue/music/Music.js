@@ -40,7 +40,7 @@ export default function (vue) {
     // 存储vue
     constructor () {
       // 默认音乐数据
-      this.loadMusic('003OLhvp2nqSjQ')
+      this.loadMusic('')
       this.$el = vue.$refs.music
 
       // 存入 音乐控制的节点 datat-on: element
@@ -67,6 +67,7 @@ export default function (vue) {
      * @param {string} songmid 音乐MID
      */
     loadMusic (songmid) {
+      if (!songmid) return
       // 音乐信息
       vue.$http
         .get(`/api/Music?fun=getMusicInfo&code=${songmid}`)

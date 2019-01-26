@@ -5,7 +5,7 @@
     <div :class="['music-list', { 'list-show': floatList }]">
 
       <div class="blur-bg">
-        <img :src="info.img" alt="">
+        <img v-if="info.img != 'http://res.mczyzy.cn/LOGO.png'" :src="info.img" alt="">
       </div>
 
       <!-- 顶部选项卡 -->
@@ -41,7 +41,7 @@
 
       <span class="music-right" @click="musicConsole">
         <i class="iconfont icon-up-copy" data-on="up"></i>
-          <i class="iconfont icon-zanting1" data-on="toggle"></i>
+        <i class="iconfont icon-zanting1" data-on="toggle"></i>
         <i class="iconfont icon-next" data-on="down"></i>
         <i class="iconfont icon-fangxiangxia" @click="toggleFloat"></i>
       </span>
@@ -72,8 +72,8 @@ export default {
       pages: {
         'icon-yinle': Home,
         'icon-yinleliebiaoxian': List,
-        // 'icon-shoucang': null,
-        // 'icon-xihuan1': null,
+        'icon-shoucang': null,
+        'icon-xihuan1': null,
         'icon-sou-suo': Search
       },
       // 工具栏内容 对应执行函数名
@@ -87,7 +87,7 @@ export default {
       info: {
         img: 'http://res.mczyzy.cn/LOGO.png',
         src: '',
-        tag: ''
+        tag: '点击展开工具栏'
       }
     }
   },
@@ -193,7 +193,7 @@ export default {
       height: 70vh;
       box-sizing: border-box;
       border-top-left-radius: 10px;
-      background-color: #fff;
+      background-color: #ccc;
       opacity: 0;
       transition: .5s;
       transform: translateX(-110%);
@@ -259,7 +259,7 @@ export default {
         }
         // 选中的样式
         li.focus {
-          box-shadow: 2px 2px 5px #aaa;
+          box-shadow: 3px 1px 5px #aaa;
 
           &::before {
             background-color: transparent;
