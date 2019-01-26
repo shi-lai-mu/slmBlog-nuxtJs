@@ -170,6 +170,7 @@ export default function (vue) {
      * @param {number} interval 跳转百分比
      */
     jump (interval) {
+      if (!this.store.state) return
       let min = this.info.song.interval / 100
       interval = Math.min(interval, 100)
       interval = Math.max(interval, 0)

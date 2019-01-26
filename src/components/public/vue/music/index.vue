@@ -60,14 +60,14 @@ import Music from '@pub/vue/music/Music'
 export default {
   data () {
     return {
-      floatState: !1,
-      floatList: !1,
+      floatState: !0,
+      floatList: !0,
       // 第一次加载
-      onlyLoad: !1,
+      onlyLoad: !0,
       // 选项默认色
       iconColor: '#222',
       // 默认选中
-      currentTab: null,
+      currentTab: 'icon-sou-suo',
       // 分页列表
       pages: {
         'icon-sou-suo': Search,
@@ -75,6 +75,7 @@ export default {
         'icon-yinleliebiaoxian': List,
         'icon-shoucang': null,
         'icon-xihuan1': null,
+        'icon-xiazai': null,
         'icon-shezhi': null
       },
       // 工具栏内容 对应执行函数名
@@ -237,7 +238,8 @@ export default {
           padding: 5px;
           text-align: center;
           background-color: currentColor;
-          box-shadow: 2px 0 5px #ccc;
+          box-shadow: 2px 0 5px rgba(0, 0, 0, .3);
+          text-shadow: 0 0 0 rgba(0, 0, 0, 1);
 
           &::before {
             content: "";
@@ -250,9 +252,9 @@ export default {
           }
           i {
             position: relative;
-            font-size: 25px;
-            color: #ccc;
             z-index: 2;
+            font-size: 25px;
+            color: rgba(255, 255, 255, .8);
             pointer-events: none;
           }
         }
@@ -278,7 +280,7 @@ export default {
       }
     }
     .music-list.list-show {
-      box-shadow: 0 -2px 10px #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .9);
       opacity: 1;
       transform: none;
     }
@@ -364,9 +366,9 @@ export default {
     }
 
     .music-float.float-show {
-      box-shadow: 0 0 10px #aaa;
-      transform: translateX(0);
       background-color: rgba(0, 0, 0, .9);
+      transform: translateX(0);
+      box-shadow: 0 0 10px #aaa;
 
       .right-toggle {
         border-bottom: 1px dashed #ccc;
@@ -391,22 +393,46 @@ export default {
       }
       .progress-load {
         position: absolute;
+        overflow: hidden;
         top: 0;
-        width: 30%;
         height: 4px;
         background-color: #a8e6f4;
-        background-image: linear-gradient(45deg, rgba(255, 255, 255, .5) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .5) 50%, rgba(255, 255, 255, .5) 75%, transparent 75%, transparent);
         pointer-events: none;
 
-        &::after {
+        &::before {
           content: "";
           position: absolute;
-          right: 0;
-          width: 3px;
-          height: 5.5px;
-          background-color: #7be0f7;
-          filter: blur(1px);
-          transform: translateY(-1px);
+          width: 120vw;
+          margin-left: -20%;
+          height: 4px;
+          background-image: linear-gradient(
+            50deg,
+            rgba(255, 255, 255, .8) 10%,
+            transparent 10%,
+            transparent 20%,
+            rgba(255, 255, 255, .8) 20%,
+            rgba(255, 255, 255, .5) 30%,
+            transparent 30%,
+            transparent 40%,
+            rgba(255, 255, 255, .8) 40%,
+            rgba(255, 255, 255, .5) 50%,
+            transparent 50%,
+            transparent 60%,
+            rgba(255, 255, 255, .8) 60%,
+            rgba(255, 255, 255, .5) 70%,
+            transparent 70%,
+            transparent 80%,
+            rgba(255, 255, 255, .8) 80%,
+            rgba(255, 255, 255, .5) 90%,
+            transparent 90%,
+            transparent
+          );
+          animation: 1s progress-an linear infinite;
+        }
+        @keyframes progress-an {
+          to {
+            transform: translateX(20%)
+          }
         }
       }
     }

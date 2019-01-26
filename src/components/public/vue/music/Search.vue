@@ -192,6 +192,10 @@ export default {
       text-align: center;
       color: #eee;
       background-color: rgba(255, 255, 255, .4);
+
+      &::placeholder {
+        mix-blend-mode: difference;
+      }
     }
 
     &::before {
@@ -228,7 +232,7 @@ export default {
         margin: 10px 5px;
         border-radius: 5px;
         padding: 5px;
-        background-color: rgba(255, 255, 255, .6);
+        background-color: rgba(255, 255, 255, .8);
       }
       span {
         display: inline-block;
@@ -280,7 +284,7 @@ export default {
         visibility: hidden;
         border-radius: 10px;
         padding: 5px 10px;
-        background-color: rgba(255, 255, 255, .8);
+        background-color: rgba(255, 255, 255, .98);
         box-shadow: 0 0 10px 1000px rgba(0, 0, 0, .4);
         transform: translateY(-50%);
         transition: .5s;
