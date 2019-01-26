@@ -43,7 +43,7 @@
         <i class="iconfont icon-up-copy" data-on="up"></i>
         <i class="iconfont icon-zanting1" data-on="toggle"></i>
         <i class="iconfont icon-next" data-on="down"></i>
-        <i class="iconfont icon-fangxiangxia" @click="toggleFloat"></i>
+        <i class="iconfont icon-fangxiangxia right-toggle" @click="toggleFloat"></i>
       </span>
       <audio :src="info.src" ref="music"></audio>
     </div>
@@ -65,16 +65,17 @@ export default {
       // 第一次加载
       onlyLoad: !1,
       // 选项默认色
-      iconColor: '#ccc',
+      iconColor: '#222',
       // 默认选中
       currentTab: null,
       // 分页列表
       pages: {
+        'icon-sou-suo': Search,
         'icon-yinle': Home,
         'icon-yinleliebiaoxian': List,
         'icon-shoucang': null,
         'icon-xihuan1': null,
-        'icon-sou-suo': Search
+        'icon-shezhi': null
       },
       // 工具栏内容 对应执行函数名
       tools: {
@@ -192,8 +193,7 @@ export default {
       max-width: 500px;
       height: 70vh;
       box-sizing: border-box;
-      border-top-left-radius: 10px;
-      background-color: #ccc;
+      background-color: #222;
       opacity: 0;
       transition: .5s;
       transform: translateX(-110%);
@@ -218,7 +218,6 @@ export default {
           position: absolute;
           width: 100%;
           height: 100%;
-          // background-color: rgba(255, 255, 255, .5);
         }
       }
 
@@ -295,7 +294,8 @@ export default {
       padding: 10px 0;
       box-sizing: border-box;
       border-top-right-radius: 5px;
-      background-color: rgba(255, 255, 255, .6);
+      color: #fff;
+      background-color: rgba(0, 0, 0, .7);
       box-shadow: 0 0 2px #ccc;
       transition: 1s;
       transform: translateX(calc(-100vw + 1.5rem));
@@ -303,6 +303,7 @@ export default {
       i {
         display: inline-block;
         font-size: 1.5rem;
+        color: #fff;
         vertical-align: middle;
         transition: .4s;
         cursor: pointer;
@@ -315,11 +316,20 @@ export default {
         }
       }
 
-      .icon-fangxiangxia {
+      .right-toggle {
         float: right;
         color: #ccc;
         transition: .5s;
         transform: rotate(270deg);
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: -10px;
+          width: 50px;
+          height: 1.5rem;
+
+        }
       }
 
       .music-icon {
@@ -328,6 +338,7 @@ export default {
         border: 2px solid #eee;
         border-radius: 50%;
         margin: -5px 0 0 5px;
+        background-color: rgba(255, 255, 255, .8);
       }
       .music-title {
         display: inline-block;
@@ -353,14 +364,14 @@ export default {
     }
 
     .music-float.float-show {
-      background-color: rgba(255, 255, 255, .95);
       box-shadow: 0 0 10px #aaa;
       transform: translateX(0);
+      background-color: rgba(0, 0, 0, .9);
 
-      .icon-fangxiangxia {
+      .right-toggle {
         border-bottom: 1px dashed #ccc;
         margin: 5px 0;
-        color: #777;
+        color: #eee;
         transform: rotate(90deg);
       }
 
