@@ -72,8 +72,8 @@ export default {
       pages: {
         'icon-yinle': Home,
         'icon-yinleliebiaoxian': List,
-        'icon-shoucang': null,
-        'icon-xihuan1': null,
+        // 'icon-shoucang': null,
+        // 'icon-xihuan1': null,
         'icon-sou-suo': Search
       },
       // 工具栏内容 对应执行函数名

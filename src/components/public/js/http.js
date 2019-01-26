@@ -79,6 +79,7 @@ export default {
           }
         })
         .catch(err => {
+          reject(err)
           console.error(err)
         })
     })

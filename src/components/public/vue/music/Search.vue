@@ -4,14 +4,15 @@
     <ul class="song-list">
       <li class="clearfix" v-for="(song, i) in songList" :key="i">
         <span class="song-name" v-html="song.songname"></span>
+        <span class="song-singer">{{ song.singers }}</span>
         <span class="song-lyric">{{ song.albumname }}</span>
         <i class="iconfont icon-yinleliebiaoxian"></i>
-        <span class="song-inter">{{ song.interval }}</span>
+        <span class="song-inter">{{ utfc(song.interval) }}</span>
       </li>
     </ul>
-    <box class="search-state" v-if="state">
+    <div class="search-state" v-if="state">
       <span class="state">搜索中...</span>
-    </box>
+    </div>
   </div>
 </template>
 
@@ -43,14 +44,39 @@ export default {
           })
           .then(res => {
             this.state = false
-            this.songList = res.data.song_list
-            for (let i = 0, l = this.songList.length; i < l; i++) {
-              let val = this.songList[i]
-              val.songname = val.songname.replace(`《${val.albumname}》`, "")
-              if (val.albumname === '空') {
+            let song = res.data.data.song.list
+            for (let i = 0; i < 20; i++) {
+              let val = song[i]
+              if (val.songname === val.albumname) {
                 val.albumname = ''
               }
+              // 歌手
+              let singer = ''
+              for (let j = 0, l = val.singer.length; j < l; j++) {
+                singer += val.singer[j].name + '/'
+              }
+              val.singers = singer.substring(0, singer.length - 2)
+              // 品质
+              let quality = {
+                sizeflac: 'SQ',
+                size320: 'HQ'
+              }
+              for (let v in quality) {
+                if (val[v] > 0) {
+                  val.songname += `<sup class="${quality[v]}">${quality[v]}</sup>`
+                  break
+                }
+              }
             }
+            this.songList = song
+            console.log(song)
+            // 学猫叫
+          })
+          .catch(() => {
+            this.state = '搜索超时!请稍后再试...'
+            setTimeout(() => {
+              this.state = !1
+            }, 1000)
           })
       }
     },
@@ -134,18 +160,29 @@ export default {
         color: #000;
       }
       .song-singer {
-        width: 20%;
+        width: 25%;
         color: #888;
       }
       .song-lyric {
         width: 50%;
       }
       .song-inter {
-        width: 20%;
+        width: 15%;
         float: right;
       }
       i {
         float: right;
+      }
+      sup {
+        margin-left: 5px;
+        padding: 0px 3px;
+        border: 1px solid currentColor;
+        border-radius: 5px;
+        color: #FFA500;
+        font-size: 10px;
+      }
+      .HQ {
+        color: #13CE66;
       }
     }
   }
