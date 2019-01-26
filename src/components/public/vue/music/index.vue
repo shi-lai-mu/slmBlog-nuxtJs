@@ -41,7 +41,7 @@
 
       <span class="music-right" @click="musicConsole">
         <i class="iconfont icon-up-copy" data-on="up"></i>
-        <i class="iconfont icon-zanting1" data-on="toggle"></i>
+          <i class="iconfont icon-zanting1" data-on="toggle"></i>
         <i class="iconfont icon-next" data-on="down"></i>
         <i class="iconfont icon-fangxiangxia" @click="toggleFloat"></i>
       </span>
@@ -196,7 +196,7 @@ export default {
       background-color: #fff;
       opacity: 0;
       transition: .5s;
-      transform: translateX(-100%);
+      transform: translateX(-110%);
 
       // 模糊的背景容器
       .blur-bg {
