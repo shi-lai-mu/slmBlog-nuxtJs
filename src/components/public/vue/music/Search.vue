@@ -130,6 +130,12 @@ export default {
       let oldTXT = $el.innerHTML
       $el.innerHTML = `${oldTXT} [破解权限中...]`
       let song = this.songList[dataset.i]
+      let a = document.createElement('a')
+      // 兼容检测
+      if (!('download' in a)) {
+        alert('抱歉您的浏览器不支持最新的属性,请尝试选择谷歌浏览器最新版!')
+        return
+      }
       this.$http
         .get(`api/Music?fun=download&code=${song.songmid}&type=${dataset.qu}`)
         .then(res => {
@@ -146,7 +152,6 @@ export default {
           }
           xhr.onload = function (e) {
             var blob = new Blob([this.response])
-            let a = document.createElement('a')
             a.href = URL.createObjectURL(blob)
             a.download = `${song.songname}(${song.singers}).${res.data.suffix}`
             document.body.appendChild(a)
