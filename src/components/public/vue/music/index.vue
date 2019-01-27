@@ -73,7 +73,6 @@ export default {
         'icon-yinle': Info,
         'icon-yinleliebiaoxian': List,
         'icon-shoucang': null,
-        'icon-xihuan1': null,
         'icon-xiazai': null,
         'icon-shezhi': null
       },
