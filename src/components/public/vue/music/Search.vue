@@ -1,7 +1,11 @@
 <template>
   <div class="music-search">
-    <input class="search" type="text" v-model="searchs" placeholder="搜索 歌名/歌手" @keyup.enter="searchMusic">
+
+    <!-- 搜索框 -->
+    <input class="search" type="text" v-model="searchs" placeholder="搜索 歌名/歌手" @keyup.enter="searchMusic" @input="searchChange">
+
     <ul class="song-list">
+      <!-- 搜索到的音乐 -->
       <li class="clearfix" v-for="(song, i) in songList" :key="i">
         <span class="song-name" v-html="song.songnames"></span>
         <span class="song-singer">{{ song.singers }}</span>
@@ -9,16 +13,30 @@
         <i class="iconfont icon-caidan" @click="toggleList" :data-i="i"></i>
         <span class="song-inter">{{ utfc(song.interval) }}</span>
       </li>
+      <!-- 历史音乐 -->
+      <div v-if="!searchs && searchHistory.length" class="searchHistory">
+        <span class="history-tag">搜索历史</span>
+        <ul class="history-list">
+          <li v-for="(item, index) in searchHistory" :key="index" @click="loadKey">
+            {{ item }}<i class="iconfont icon-wrong" :data-i="index" @click="history"></i>
+          </li>
+        </ul>
+        <span class="button-lv0 clearHistory" v-if="!searchs && searchHistory.length" @click="history">清空历史</span>
+      </div>
     </ul>
+
+    <!-- 状态 -->
     <div class="search-state" v-if="state">
       <span class="state">搜索中...</span>
     </div>
+    <!-- 菜单 -->
     <div :class="['search-menu-hide', {'search-menu': searchList}]">
       <ul>
         <li v-for="(v, k) in downList" :key="k" @click="download" :data-qu="v[1]" :data-i="v[2]" v-html="'下载 ' + v[0]"></li>
         <li @click="toggleList" class="close">关闭</li>
       </ul>
     </div>
+
   </div>
 </template>
 
@@ -32,10 +50,18 @@ export default {
       songList: [],
       state: !1,
       searchList: !1,
-      downList: []
+      // 下载品质列表
+      downList: [],
+      // 搜索历史
+      searchHistory: []
     }
   },
   created () {
+    // 读取搜索历史
+    let history = localStorage.getItem('searchHistory')
+    if (history) {
+      this.searchHistory = JSON.parse(localStorage.getItem('searchHistory'))
+    }
   },
   methods: {
     /**
@@ -43,11 +69,13 @@ export default {
      */
     searchMusic () {
       this.state = '搜索中...'
-      if (this.searchs) {
+      let search = this.searchs
+      if (search) {
+        this.history(search)
         this.$http
           .get('api/Music', {
             fun: 'search',
-            key: this.searchs,
+            key: search,
             page: 1
           })
           .then(res => {
@@ -170,6 +198,41 @@ export default {
         .catch(() => {
           $el.innerHTML = `${oldTXT} [破解失败!]`
         })
+    },
+
+    /**
+     * 搜索音乐
+     */
+    searchChange (e) {
+      // 清空列表
+      if (!e.data && this.songList) this.songList = []
+    },
+
+    /**
+     * 添加/刪除 一条记录/全部记录
+     */
+    history (v) {
+      let history = this.searchHistory
+      if (typeof v === 'string') {
+        if (history.indexOf(v) === -1) history.push(v)
+      } else {
+        let i = v.target.dataset.i
+        if (i) {
+          v.stopPropagation()
+          history.splice(i, 1)
+        } else {
+          this.searchHistory = []
+        }
+      }
+      localStorage.setItem('searchHistory', JSON.stringify(history))
+    },
+
+    /**
+     * 点击历史记录
+     */
+    loadKey (e) {
+      this.searchs = e.target.innerText
+      this.searchMusic()
     }
   }
 }
@@ -179,6 +242,15 @@ export default {
   .music-list .music-search {
     overflow-y: scroll;
     height: 100%;
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      height: 30%;
+      background-image: linear-gradient(180deg, rgba(0, 0, 0, .3) 50%, transparent 100%);
+    }
 
     // 搜索框
     input {
@@ -198,14 +270,6 @@ export default {
       }
     }
 
-    &::before {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      width: 100%;
-      height: 30%;
-      background-image: linear-gradient(180deg, rgba(0, 0, 0, .3) 50%, transparent 100%);
-    }
     .search-state {
       position: absolute;
       display: flex;
@@ -222,6 +286,48 @@ export default {
         font-size: 1.2rem;
         background-color: rgba(255, 255, 255, .8);
         box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+      }
+    }
+    // 搜索历史
+    .searchHistory {
+      .history-tag {
+        position: relative;
+        display: block;
+        text-align: center;
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          right: 5%;
+          width: 30%;
+          height: 1px;
+          margin: .6rem 0;
+          background-color: currentColor;
+        }
+        &::before {
+          left: 5%;
+        }
+      }
+      .history-list li {
+        display: inline-block;
+        background-color: #888;
+        box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+      }
+      .icon-wrong {
+        margin-left: 5px;
+        color: #777;
+        transform: translateY(0);
+      }
+      .clearHistory {
+        float: right;
+        margin-top: 50px;
+        border-radius: 5px;
+        font-weight: 100;
+        color: #353535;
+        background-color: #555;
+        &:active {
+          background-color: #888;
+        }
       }
     }
     // 搜索后的列表
