@@ -208,3 +208,22 @@ export default function () {
     }
   }
 }
+
+// <template>
+//   <div>
+//     <img src="" alt="">
+//     音乐信息{{ musicInfo.info.desc }}
+//   </div>
+// </template>
+// <script>
+// export default {
+//   data () {
+//     return {
+//       musicInfo: {}
+//     }
+//   },
+//   created () {
+//     this.musicInfo = this.$store.state.Music
+//   }
+// }
+// </script>

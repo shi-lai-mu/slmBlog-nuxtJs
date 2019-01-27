@@ -1,32 +1,32 @@
 <template>
-  <div class="music-info">
-    <img :src="`//y.gtimg.cn/music/photo_new/T002R300x300M000${info.mid}.jpg`" alt="音乐图片" class="music-icon">
-    <h2 class="music-name">{{ info.name }}</h2>
+  <div class="music-info" v-if="Music.info.singername">
+    <img :src="`//y.gtimg.cn/music/photo_new/T002R300x300M000${Music.info.mid}.jpg`" alt="音乐图片" class="music-icon">
+    <h2 class="music-name">{{ Music.info.name }}</h2>
     <h3>
       <i class="iconfont icon-geshou"> 歌手：</i>
-      {{ info.singername || '未知' }}
+      {{ Music.info.singername || '未知' }}
     </h3>
     <h3>
       <i class="iconfont icon-zhuanji"> 专辑：</i>
-      {{ info.genre || '未知' }}
+      {{ Music.info.genre || '未知' }}
     </h3>
     <h3>
       <i class="iconfont icon-yuzhong"> 语种：</i>
-      {{ info.lan || '未知' }}
+      {{ Music.info.lan || '未知' }}
     </h3>
     <h3>
       <i class="iconfont icon-gongsi"> 公司：</i>
-      {{ info.company || '未知' }}
+      {{ Music.info.company || '未知' }}
     </h3>
     <h3>
       <i class="iconfont icon-shijian"> 发行：</i>
-      {{ info.aDate || '未知' }}
+      {{ Music.info.aDate || '未知' }}
     </h3>
     <h3>
       <i class="iconfont icon-qufengliupai"> 简介：</i>
     </h3>
     <h3 class="music-desc">
-      {{ info.desc }}
+      {{ Music.info.desc }}
     </h3>
     
     <div class="icon-select">
@@ -34,17 +34,21 @@
       <span><i class="iconfont icon-xiazai"></i><p>列队</p></span>
     </div>
   </div>
+  <div class="not-music-info" v-else>
+    <p>未找到歌曲信息, 请先播放音乐!</p>
+  </div>
 </template>
 <script>
 export default {
   data () {
     return {
+      Music: {},
       info: {}
     }
   },
   created () {
-    this.info = this.$store.state.Music.info
-    console.log(this.info)
+    this.Music = this.$store.state.Music
+    this.info = this.Music.info
   }
 }
 </script>
@@ -110,5 +114,14 @@ export default {
         margin: 5px 0;
       }
     }
+  }
+  
+  .not-music-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 1.2rem;
+    color: #eee;
   }
 </style>
