@@ -32,6 +32,9 @@
     <!-- 菜单 -->
     <div :class="['search-menu-hide', {'search-menu': searchList}]">
       <ul>
+        <li>查看信息</li>
+        <li>收藏歌曲</li>
+        <li>加入下载</li>
         <li>
           下载音乐:
           <span class="download-list"  v-for="(v, k) in downList" :key="k" @click="download" :data-qu="v[1]" :data-i="v[2]" v-html="v[0]"></span>
@@ -131,10 +134,11 @@ export default {
         let song = this.songList[i]
         // 判断音乐品质
         let quality = {
+          'songid': ['流畅(试听版)', '24AAC', i],
           'size128': ['标准', '128MP3', i],
           'size320': ['高品质', '320MP3', i],
-          'sizeape': ['无损1', 'APE', i],
-          'sizeflac': ['无损2', 'FLAC', i]
+          'sizeape': ['无损APE', 'APE', i],
+          'sizeflac': ['无损FLAC', 'FLAC', i]
         }
         let arr = []
         for (let v in quality) {
@@ -275,7 +279,7 @@ export default {
     input {
       display: block;
       width: 90%;
-      margin: 10px auto;
+      margin: 10px 5%;
       border: 0;
       border-radius: 20px;
       padding: 5px;
@@ -328,6 +332,7 @@ export default {
       }
       .history-list li {
         display: inline-block;
+        color: #ddd;
         background-color: #888;
         box-shadow: 0 0 5px rgba(0, 0, 0, .5);
         cursor: pointer;
@@ -410,13 +415,17 @@ export default {
         visibility: hidden;
         border-radius: 10px;
         padding: 5px 10px;
+        font-weight: bold;
         background-color: rgba(255, 255, 255, .98);
         box-shadow: 0 0 10px 1000px rgba(0, 0, 0, .4);
         transform: translateY(-50%);
         transition: .5s;
+        cursor: pointer;
+
         li {
           padding: 5px;
           border-bottom: 1px solid #ccc;
+          user-select: none;
 
           &:active {
             background-color: rgba(0, 0, 0, .1);
@@ -428,8 +437,10 @@ export default {
         }
         .download-list {
           display: block;
-          cursor: pointer;
+          font-weight: normal;
+          color: #777;
           transition: .5s;
+          cursor: pointer;
 
           &:hover {
             color: #13CE66;
@@ -472,7 +483,9 @@ export default {
       color: #13CE66;
     }
     .close {
+      font-weight: normal;
       text-align: center;
+      color: #aaa;
     }
   }
 </style>
