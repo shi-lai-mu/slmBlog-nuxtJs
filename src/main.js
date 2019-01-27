@@ -34,10 +34,6 @@ const store = new VueX.Store({
 router.afterEach((to, from, next) => {
   window.scrollTo(0, 0)
   connecter.$emit('footerUpdate', 1)
-  // console.log(document.body.offsetHeight)
-  // if (document.body.offsetHeight < screen.availHeight) {
-  //   window.bodyFooter.classList.add('fixed-bottom')
-  // }
 })
 
 // 路由前处理

@@ -113,6 +113,7 @@ export default {
               !val.songnames && (val.songnames = val.songname)
             }
             this.songList = song
+            console.log(song)
           })
           .catch(() => {
             this.state = '搜索超时!请稍后再试...'
@@ -159,7 +160,7 @@ export default {
       let dataset = $el.dataset
       let oldTXT = $el.innerHTML
       // 判断是否正在下载
-      if ($el.innerHTML.indexOf('\[') > -1) return
+      if ($el.innerHTML.indexOf('[') > -1) return
       $el.innerHTML = `${oldTXT} [破解权限中...]`
       let song = this.songList[dataset.i]
       let a = document.createElement('a')
@@ -410,7 +411,7 @@ export default {
       pointer-events: none;
 
       ul {
-        min-width: 30%;
+        min-width: 60%;
         opacity: 0;
         visibility: hidden;
         border-radius: 10px;

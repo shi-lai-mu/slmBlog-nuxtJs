@@ -42,7 +42,7 @@ export default function () {
     // 存储vue
     constructor (vues) {
       // 默认音乐数据
-      // this.loadMusic('')
+      // this.loadMusic('003OLhvp2nqSjQ')
       vue = vues
       this.$el = vue.$refs.music
 
@@ -63,6 +63,13 @@ export default function () {
 
         $el.toggle.className = store.state ? 'iconfont icon-zanting' : 'iconfont icon-zanting1'
       })
+      // 进度条监听
+      let progress = this.store.conEl.progress
+      let music = this.$el
+      this.interval = setInterval(() => {
+        let song = this.info.song
+        if (song) progress.style.width = `${music.currentTime / (song.interval / 100)}%`
+      }, 500)
     }
 
     /**
@@ -146,13 +153,6 @@ export default function () {
         }
         self.store.state = !0
         observer.$emit('iconUpdate')
-
-        // 监控进度条
-        let song = self.info.song
-        let progress = self.store.conEl.progress
-        self.interval = setInterval(() => {
-          progress.style.width = `${music.currentTime / (song.interval / 100)}%`
-        }, 500)
       }
     }
 
@@ -181,7 +181,7 @@ export default function () {
      * @param {number} interval 跳转百分比
      */
     jump (interval) {
-      // if (!this.store.state) return
+      if (!this.store.state) return
       let min = this.info.song.interval / 100
       interval = Math.min(interval, 100)
       interval = Math.max(interval, 0)

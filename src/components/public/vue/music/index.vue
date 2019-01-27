@@ -51,8 +51,9 @@
 </template>
 
 <script>
-import Home from '@pub/vue/music/Home'
+// import Home from '@pub/vue/music/Home'
 import List from '@pub/vue/music/List'
+import Info from '@pub/vue/music/Info'
 import Search from '@pub/vue/music/Search'
 // 底部音乐插件
 export default {
@@ -69,7 +70,7 @@ export default {
       // 分页列表
       pages: {
         'icon-sou-suo': Search,
-        'icon-yinle': Home,
+        'icon-yinle': Info,
         'icon-yinleliebiaoxian': List,
         'icon-shoucang': null,
         'icon-xihuan1': null,
@@ -92,9 +93,9 @@ export default {
     }
   },
   created () {
-    this.Music = this.$store.state.Music
     this.$nextTick(() => {
-      this.Music = new this.Music(this)
+      let Mobj = this.$store.state.Music
+      this.Music = this.$store.state.Music = new Mobj(this)
     })
     // 监听音乐信息
     this.$connecter.$on('music', data => {
@@ -119,7 +120,7 @@ export default {
           children[0].style.top = `${newInner - children[0].offsetHeight - children[1].offsetHeight}px`
           children[0].style.height = `${children[0].offsetHeight}px`
         }
-      }, 300)
+      }, 100)
     }
     resize()
   },
@@ -289,7 +290,7 @@ export default {
       position: fixed;
       left: 0;
       bottom: 0;
-      z-index: 67;
+      z-index: 71;
       width: 100vw;
       height: 52px;
       padding: 10px 0;
