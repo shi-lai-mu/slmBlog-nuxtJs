@@ -2,7 +2,8 @@
  * 音乐函数
  * @param {object} self vue Object
  */
-export default function (vue) {
+export default function () {
+  let vue = {}
   // 观察者
   let observer = new (class obServer {
     task = []
@@ -38,9 +39,10 @@ export default function (vue) {
     currentTime = null
 
     // 存储vue
-    constructor () {
+    constructor (vues) {
       // 默认音乐数据
-      this.loadMusic('')
+      // this.loadMusic('')
+      vue = vues
       this.$el = vue.$refs.music
 
       // 存入 音乐控制的节点 datat-on: element
@@ -64,41 +66,40 @@ export default function (vue) {
 
     /**
      * 载入音乐
-     * @param {string} songmid 音乐MID
+     * @param {string} albummid 音乐MID
      */
-    loadMusic (songmid) {
-      if (!songmid) return
-      // 音乐信息
+    loadMusic (albummid, data) {
+      console.log(albummid)
+      if (!albummid) return
+      // 获取音乐信息
       vue.$http
-        .get(`/api/Music?fun=getMusicInfo&code=${songmid}`)
+        .get(`/api/Music?fun=getMusicInfo&code=${albummid}`)
         .then(res => {
           if (res.data) {
             this.info = res.data.data
+            console.log(res.data.data)
             // 选中songmid的ID
             for (let song of this.info.list) {
-              if (song.albummid === songmid) {
+              if (song.albummid === albummid) {
                 this.info.song = song
                 break
               }
             }
             this.writeView()
+            this.store.conEl.toggle.className = 'iconfont icon-caidan'
+            // 获取歌曲
+            if (this.info.song) {
+              this.getDownload(this.info.song.songmid, '24AAC', data => {
+                console.log(data)
+                this.info.src = data.url
+                this.writeView()
+                observer.$emit('iconUpdate')
+              })
+            }
           }
         })
         .catch((e) => {
-          throw Error(songmid + `音乐 获取失败, 请及时进行维护!!!`)
-        })
-
-      // 音乐下载地址 [最高无损]
-      vue.$http
-        .get(`/api/Music?fun=download&code=${songmid}`)
-        .then(res => {
-          if (res.data) {
-            this.download = res.data
-            this.writeView()
-          } else throw Error(`请求[ ${songmid} ]下载数据错误!`)
-        })
-        .catch(() => {
-          throw Error(`破解请求过于频繁,请稍后再试!`)
+          throw Error(albummid + `音乐 获取失败, 请及时进行维护!!!`)
         })
     }
 
@@ -113,7 +114,7 @@ export default function (vue) {
         let info = this.info
         vue.info = {
           img: `http://y.gtimg.cn/music/photo_new/T002R300x300M000${info.mid}.jpg`,
-          src: `//dl.stream.qqmusic.qq.com/C400${info.song.songmid}.m4a?guid=2095717240&vkey=964E36A895E1925A43DF9C7DDE663900EC1E32D3EAA44EC3522BE7B9B105972928A4429879989377906E1207FA4BC11FB6FF59D478AC1A77&uin=0&fromtag=38`,
+          src: info.src || `//dl.stream.qqmusic.qq.com/C400${info.song.songmid}.m4a?guid=2095717240&vkey=964E36A895E1925A43DF9C7DDE663900EC1E32D3EAA44EC3522BE7B9B105972928A4429879989377906E1207FA4BC11FB6FF59D478AC1A77&uin=0&fromtag=38`,
           tag: info.name,
           singername: info.singername,
           description: info.desc,
@@ -124,7 +125,7 @@ export default function (vue) {
         throw Error(`写入音乐信息时出现未知错误:`, e)
       }
       // 触发 内部更新
-      vue.$connecter.$emit('music')
+      // vue.$connecter.$emit('music')
     }
 
     /**
@@ -175,6 +176,25 @@ export default function (vue) {
       interval = Math.min(interval, 100)
       interval = Math.max(interval, 0)
       this.$el.currentTime = min * interval
+    }
+
+    /**
+     * 获取下载链接
+     * @param {string} songmid 音乐songmid
+     * @param {string} qu 音乐品质[24AAC, 128MP3, 320MP3, APE, FLAC]
+     * @param {function} cb 回调
+     */
+    getDownload (songmid, qu, cb) {
+      vue.$http
+        .get(`api/Music?fun=download&code=${songmid}&type=${qu}`)
+        .then(res => {
+          if (res.data) {
+            cb(res.data)
+          } else throw Error(`请求[ ${songmid} ]下载数据错误!`)
+        })
+        .catch(() => {
+          throw Error(`破解请求过于频繁,请稍后再试!`)
+        })
     }
   }
 }

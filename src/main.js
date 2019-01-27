@@ -6,6 +6,7 @@ import VueMeta from 'vue-meta'
 import VueLazyload from 'vue-lazyload'
 import http from '@pub/js/http'
 import connecter from '@pub/js/connecter'
+import Music from '@pub/vue/music/Music'
 
 Vue.prototype.$http = http
 Vue.prototype.$connecter = connecter
@@ -23,7 +24,9 @@ const store = new VueX.Store({
   state: {
     user: false,
     // 是否为移动端[小屏幕]
-    mobile: false
+    mobile: false,
+    // 音乐控件
+    Music: new Music()
   }
 })
 

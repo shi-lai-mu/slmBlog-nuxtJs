@@ -55,7 +55,6 @@ import imgColor from '@pub/js/getImageColor'
 import Home from '@pub/vue/music/Home'
 import List from '@pub/vue/music/List'
 import Search from '@pub/vue/music/Search'
-import Music from '@pub/vue/music/Music'
 // 底部音乐插件
 export default {
   data () {
@@ -94,11 +93,17 @@ export default {
     }
   },
   created () {
+    this.Music = this.$store.state.Music
+    this.$nextTick(() => {
+      this.Music = new this.Music(this)
+    })
     // 监听音乐信息
     this.$connecter.$on('music', data => {
-      imgColor.loadImg(this.info.img, rgb => {
-        this.iconColor = rgb
-      })
+      // imgColor.loadImg(this.info.img, rgb => {
+      //   this.iconColor = rgb
+      // })
+      console.log(data)
+      this.Music.loadMusic(data.albummid)
     })
 
     window.addEventListener('resize', resize)
@@ -139,7 +144,6 @@ export default {
       if (!self.onlyLoad) {
         self.onlyLoad = !0
         self.currentTab = 'icon-sou-suo'
-        this.Music = new (Music(self))()
       }
     },
 
@@ -355,6 +359,16 @@ export default {
 
       .music-right {
         float: right;
+
+        .icon-caidan {
+          transform: rotate(90deg);
+          animation: 1s hx linear infinite alternate;
+        }
+        @keyframes hx {
+          to {
+            opacity: .5;
+          }
+        }
 
         i {
           margin: 5px 10px;

@@ -6,7 +6,7 @@
 
     <ul class="song-list">
       <!-- 搜索到的音乐 -->
-      <li class="clearfix" v-for="(song, i) in songList" :key="i">
+      <li class="clearfix" v-for="(song, i) in songList" :key="i" :data-i="i" @click="playSong">
         <span class="song-name" v-html="song.songnames"></span>
         <span class="song-singer">{{ song.singers }}</span>
         <span class="song-lyric">{{ song.albumname }}</span>
@@ -44,6 +44,7 @@
 import Time from '@pub/js/dateForm'
 
 export default {
+  props: ['Music'],
   data () {
     return {
       searchs: null,
@@ -114,13 +115,6 @@ export default {
             }, 1000)
           })
       }
-    },
-
-    /**
-     * 转换时间
-     */
-    utfc (time) {
-      return Time.utfc(time)
     },
 
     /**
@@ -233,6 +227,24 @@ export default {
     loadKey (e) {
       this.searchs = e.target.innerText
       this.searchMusic()
+    },
+
+    /**
+     * 播放音乐
+     */
+    playSong (e) {
+      let i = e.target.dataset.i
+      if (i) {
+        let song = this.songList[i]
+        this.$connecter.$emit('music', song)
+      }
+    },
+
+    /**
+     * 转换时间
+     */
+    utfc (time) {
+      return Time.utfc(time)
     }
   }
 }
