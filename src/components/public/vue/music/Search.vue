@@ -32,7 +32,10 @@
     <!-- 菜单 -->
     <div :class="['search-menu-hide', {'search-menu': searchList}]">
       <ul>
-        <li v-for="(v, k) in downList" :key="k" @click="download" :data-qu="v[1]" :data-i="v[2]" v-html="'下载 ' + v[0]"></li>
+        <li>
+          下载音乐:
+          <span class="download-list"  v-for="(v, k) in downList" :key="k" @click="download" :data-qu="v[1]" :data-i="v[2]" v-html="v[0]"></span>
+        </li>
         <li @click="toggleList" class="close">关闭</li>
       </ul>
     </div>
@@ -182,7 +185,7 @@ export default {
             $el.innerHTML = `${oldTXT} <span class="sup HQ">完成</span>`
             setTimeout(() => {
               $el.innerHTML = oldTXT
-            }, 500)
+            }, 1500)
           }
           xhr.onerror = function (e) {
             $el.innerHTML = `${oldTXT} [下载出错]`
@@ -283,7 +286,6 @@ export default {
         mix-blend-mode: difference;
       }
     }
-
     .search-state {
       position: absolute;
       display: flex;
@@ -420,6 +422,28 @@ export default {
 
           &:nth-last-child(1) {
             border-bottom: 0;
+          }
+        }
+        .download-list {
+          display: block;
+          cursor: pointer;
+          transition: .5s;
+
+          &:hover {
+            color: #13CE66;
+            &::before {
+              content: "->";
+              color: #13CE66;
+              margin: 0 8px;
+            }
+          }
+
+          &::before {
+            content: "-";
+            display: inline-block;
+            margin: 0 10px;
+            color: #ccc;
+            transition: .5s;
           }
         }
       }

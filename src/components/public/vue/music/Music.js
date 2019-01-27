@@ -72,28 +72,29 @@ export default function () {
      */
     loadMusic (albummid, play = false) {
       if (!albummid) return
+      let self = this
       // 获取音乐信息
       vue.$http
         .get(`/api/Music?fun=getMusicInfo&code=${albummid}`)
         .then(res => {
           if (res.data) {
-            this.info = res.data.data
+            self.info = res.data.data
             // 选中songmid的ID
-            for (let song of this.info.list) {
+            for (let song of self.info.list) {
               if (song.albummid === albummid) {
-                this.info.song = song
+                self.info.song = song
                 break
               }
             }
-            this.writeView()
-            this.store.conEl.toggle.className = 'iconfont icon-caidan'
+            self.writeView()
+            self.store.conEl.toggle.className = 'iconfont icon-caidan'
             // 获取歌曲
-            if (this.info.song) {
-              this.getDownload(this.info.song.songmid, '24AAC', data => {
+            if (self.info.song) {
+              self.getDownload(self.info.song.songmid, '24AAC', data => {
                 vue.info.src = data.url
-                play && (this.$el.autoplay = true)
-                this.store.conEl.toggle.className = 'iconfont icon-zanting'
-                this.store.state = !0
+                play && (self.$el.autoplay = true)
+                self.store.conEl.toggle.className = 'iconfont icon-zanting'
+                self.store.state = !0
               })
             }
           }
@@ -135,20 +136,21 @@ export default function () {
      * 播放音乐
      */
     play () {
-      if (this.$el.play) {
-        let music = this.$el
+      let self = this
+      if (self.$el.play) {
+        let music = self.$el
         if (!music.autoplay) {
           music.play()
         } else {
           music.autoplay = true
         }
-        this.store.state = !0
+        self.store.state = !0
         observer.$emit('iconUpdate')
 
         // 监控进度条
-        let song = this.info.song
-        let progress = this.store.conEl.progress
-        this.interval = setInterval(() => {
+        let song = self.info.song
+        let progress = self.store.conEl.progress
+        self.interval = setInterval(() => {
           progress.style.width = `${music.currentTime / (song.interval / 100)}%`
         }, 500)
       }
@@ -179,7 +181,7 @@ export default function () {
      * @param {number} interval 跳转百分比
      */
     jump (interval) {
-      if (!this.store.state) return
+      // if (!this.store.state) return
       let min = this.info.song.interval / 100
       interval = Math.min(interval, 100)
       interval = Math.max(interval, 0)
