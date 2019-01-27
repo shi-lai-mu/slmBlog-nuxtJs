@@ -45,13 +45,12 @@
         <i class="iconfont icon-next" data-on="down"></i>
         <i class="iconfont icon-fangxiangxia right-toggle" @click="toggleFloat"></i>
       </span>
-      <audio :src="info.src" ref="music"></audio>
+      <audio :src="info.src" ref="music" autoplay></audio>
     </div>
   </div>
 </template>
 
 <script>
-import imgColor from '@pub/js/getImageColor'
 import Home from '@pub/vue/music/Home'
 import List from '@pub/vue/music/List'
 import Search from '@pub/vue/music/Search'
@@ -99,11 +98,7 @@ export default {
     })
     // 监听音乐信息
     this.$connecter.$on('music', data => {
-      // imgColor.loadImg(this.info.img, rgb => {
-      //   this.iconColor = rgb
-      // })
-      console.log(data)
-      this.Music.loadMusic(data.albummid)
+      this.Music.loadMusic(data.albummid, !!data.autoPlay)
     })
 
     window.addEventListener('resize', resize)

@@ -1,3 +1,4 @@
+import imgColor from '@pub/js/getImageColor'
 /**
  * 音乐函数
  * @param {object} self vue Object
@@ -67,9 +68,9 @@ export default function () {
     /**
      * 载入音乐
      * @param {string} albummid 音乐MID
+     * @param {boolean} play 是否立马播放
      */
-    loadMusic (albummid, data) {
-      console.log(albummid)
+    loadMusic (albummid, play = false) {
       if (!albummid) return
       // 获取音乐信息
       vue.$http
@@ -77,7 +78,6 @@ export default function () {
         .then(res => {
           if (res.data) {
             this.info = res.data.data
-            console.log(res.data.data)
             // 选中songmid的ID
             for (let song of this.info.list) {
               if (song.albummid === albummid) {
@@ -90,9 +90,8 @@ export default function () {
             // 获取歌曲
             if (this.info.song) {
               this.getDownload(this.info.song.songmid, '24AAC', data => {
-                console.log(data)
-                this.info.src = data.url
-                this.writeView()
+                vue.info.src = data.url
+                play && (this.$el.autoplay = true)
                 observer.$emit('iconUpdate')
               })
             }
@@ -112,9 +111,12 @@ export default function () {
         // 默认播放 m4a 格式音乐
         // 数据顺序 对象, 封面图片, 播放路径, 歌名, 歌手, 歌简介, 歌上传时间, 相似歌曲
         let info = this.info
+        imgColor.loadImg(vue.info.img, rgb => {
+          vue.iconColor = rgb
+        })
         vue.info = {
           img: `http://y.gtimg.cn/music/photo_new/T002R300x300M000${info.mid}.jpg`,
-          src: info.src || `//dl.stream.qqmusic.qq.com/C400${info.song.songmid}.m4a?guid=2095717240&vkey=964E36A895E1925A43DF9C7DDE663900EC1E32D3EAA44EC3522BE7B9B105972928A4429879989377906E1207FA4BC11FB6FF59D478AC1A77&uin=0&fromtag=38`,
+          src: info.src || '',
           tag: info.name,
           singername: info.singername,
           description: info.desc,
@@ -134,7 +136,11 @@ export default function () {
     play () {
       if (this.$el.play) {
         let music = this.$el
-        music.play()
+        if (!music.autoplay) {
+          music.play()
+        } else {
+          music.autoplay = true
+        }
         this.store.state = !0
         observer.$emit('iconUpdate')
 
@@ -153,6 +159,7 @@ export default function () {
     stop () {
       if (this.$el.pause) {
         this.$el.pause()
+        this.$el.autoplay = false
         this.store.state = !1
         observer.$emit('iconUpdate')
       }

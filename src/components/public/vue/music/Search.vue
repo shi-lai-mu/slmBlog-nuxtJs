@@ -124,6 +124,7 @@ export default {
       this.searchList = !this.searchList
       let i = e.target.dataset.i
       if (this.searchList && i) {
+        e.stopPropagation()
         let song = this.songList[i]
         // 判断音乐品质
         let quality = {
@@ -233,9 +234,10 @@ export default {
      * 播放音乐
      */
     playSong (e) {
-      let i = e.target.dataset.i
+      let i = e.target.dataset.i || e.target.parentElement.dataset.i
       if (i) {
         let song = this.songList[i]
+        song.autoPlay = !0
         this.$connecter.$emit('music', song)
       }
     },
@@ -324,6 +326,7 @@ export default {
         display: inline-block;
         background-color: #888;
         box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+        cursor: pointer;
       }
       .icon-wrong {
         margin-left: 5px;
@@ -351,6 +354,7 @@ export default {
         border-radius: 5px;
         padding: 5px;
         background-color: rgba(255, 255, 255, .8);
+        cursor: pointer;
       }
       span {
         display: inline-block;
