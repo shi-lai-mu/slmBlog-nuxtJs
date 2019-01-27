@@ -92,7 +92,8 @@ export default function () {
               this.getDownload(this.info.song.songmid, '24AAC', data => {
                 vue.info.src = data.url
                 play && (this.$el.autoplay = true)
-                observer.$emit('iconUpdate')
+                this.store.conEl.toggle.className = 'iconfont icon-zanting'
+                this.store.state = !0
               })
             }
           }
