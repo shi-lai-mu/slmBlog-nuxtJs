@@ -154,6 +154,8 @@ export default {
       let $el = e.target
       let dataset = $el.dataset
       let oldTXT = $el.innerHTML
+      // 判断是否正在下载
+      if ($el.innerHTML.indexOf('\[') > -1) return
       $el.innerHTML = `${oldTXT} [破解权限中...]`
       let song = this.songList[dataset.i]
       let a = document.createElement('a')
