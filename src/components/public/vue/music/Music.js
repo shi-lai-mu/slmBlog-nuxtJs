@@ -25,6 +25,13 @@ export default function () {
   return class Music {
     // 信息
     info = {}
+    // 增强工具
+    note = {
+      // 备忘录模式存储上次的歌曲
+      storage: [],
+      // 目前额外的歌曲信息[引用的地址]
+      store: {}
+    }
     // 下载位置
     download = {}
     // 接口 [qq: QQ音乐, wy: 网易, dog: 酷狗 ...]
@@ -82,7 +89,10 @@ export default function () {
       let self = this
       // 获取音乐信息
       vue.$http
-        .get(`/api/Music?fun=getMusicInfo&code=${albummid}`)
+        .get('/api/Music', {
+          fun: 'getMusicInfo',
+          code: albummid
+        })
         .then(res => {
           if (res.data) {
             self.info = res.data.data
@@ -95,7 +105,7 @@ export default function () {
             }
             self.writeView()
             self.store.conEl.toggle.className = 'iconfont icon-caidan'
-            // 获取歌曲
+            // 获取歌曲播放位置
             if (self.info.song) {
               self.getDownload(self.info.song.songmid, '24AAC', data => {
                 vue.info.src = data.url
@@ -131,7 +141,6 @@ export default function () {
         }
         imgColor.loadImg(vue.info.img, rgb => {
           vue.iconColor = rgb
-          console.log(rgb)
         })
       } catch (e) {
         throw Error(`写入音乐信息时出现未知错误:`, e)
