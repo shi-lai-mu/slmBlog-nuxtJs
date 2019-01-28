@@ -98,21 +98,22 @@ export default {
     // 加载额外信息要求： 本页被打开过，未在请求中，id不存在，id不同
     setInterval(() => {
       if ((!this.note.id || this.note.id !== this.Music.info.song.songid) && !request) {
-        this.note.id = false
-        request = !0
-        // 获取额外信息
-        this.$http
-          .get('/api/Music', {
-            fun: 'download',
-            type: 'ALL',
-            code: this.Music.info.song.songmid
-          })
-          .then(res => {
-            request = !1
-            this.note = res.data
-            this.info = Music
-            console.log(this.note, Music)
-          })
+        if (Music) {
+          this.note.id = false
+          request = !0
+          // 获取额外信息
+          this.$http
+            .get('/api/Music', {
+              fun: 'download',
+              type: 'ALL',
+              code: this.Music.info.song.songmid
+            })
+            .then(res => {
+              request = !1
+              this.note = res.data
+              this.info = Music
+            })
+        }
       }
     }, 1000)
   },

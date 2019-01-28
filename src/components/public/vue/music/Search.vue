@@ -12,17 +12,24 @@
         <i class="iconfont icon-caidan" @click="toggleList" :data-i="i"></i>
         <span class="song-inter">{{ utfc(song.interval) }}</span>
       </li>
-      <!-- 历史音乐 -->
-      <div v-if="!searchs && searchHistory.length" class="searchHistory">
-        <span class="history-tag">搜索历史</span>
-        <ul class="history-list">
-          <li v-for="(item, index) in searchHistory" :key="index" @click="loadKey">
-            {{ item }}<i class="iconfont icon-wrong" :data-i="index" @click="history"></i>
-          </li>
-        </ul>
-        <span class="button-lv0 clearHistory" v-if="!searchs && searchHistory.length" @click="history">清空历史</span>
-      </div>
     </ul>
+    <!-- 翻页 -->
+    <div class="song-page" v-if="songList.length || page.num > 1">
+      <span :class="['button-lv0', { 'not-but': page.num < 2 }]" @click="searchMusic(-1)">上一页</span>
+      <span>{{ page.num }}/{{ page.max }}</span>
+      <span :class="['button-lv0', { 'not-but': page.num >= page.max }]" @click="searchMusic(1)">下一页</span>
+    </div>
+
+    <!-- 历史音乐 -->
+    <div v-if="!searchs && searchHistory.length" class="searchHistory song-list">
+      <span class="history-tag">搜索历史</span>
+      <ul class="history-list">
+        <li v-for="(item, index) in searchHistory" :key="index" @click="loadKey">
+          {{ item }}<i class="iconfont icon-wrong" :data-i="index" @click="history"></i>
+        </li>
+      </ul>
+      <span class="button-lv0 clearHistory" v-if="!searchs && searchHistory.length" @click="history">清空历史</span>
+    </div>
 
     <!-- 状态 -->
     <div class="search-state" v-if="state">
@@ -59,7 +66,12 @@ export default {
       // 下载品质列表
       downList: [],
       // 搜索历史
-      searchHistory: []
+      searchHistory: [],
+      // 页数
+      page: {
+        num: 1,
+        max: 1
+      }
     }
   },
   created () {
@@ -73,7 +85,13 @@ export default {
     /**
      * 搜索音乐
      */
-    searchMusic () {
+    searchMusic (page) {
+      // 如果为翻页
+      if (page) {
+        this.page.num += page
+        this.songList = []
+      }
+      // 开始搜索
       this.state = '搜索中...'
       let search = this.searchs
       if (search) {
@@ -82,12 +100,12 @@ export default {
           .get('api/Music', {
             fun: 'search',
             key: search,
-            page: 1
+            page: this.page.num
           })
           .then(res => {
             this.state = false
             let song = res.data.data.song.list
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0, l = song.length; i < l; i++) {
               let val = song[i]
               if (val.songname === val.albumname) {
                 val.albumname = ''
@@ -111,8 +129,15 @@ export default {
               }
               !val.songnames && (val.songnames = val.songname)
             }
-            this.songList = song
             console.log(song)
+            this.songList = song
+
+            // 页数计算
+            let page = res.data.data.song
+            this.page = {
+              num: page.curpage,
+              max: Math.ceil(page.totalnum / 20)
+            }
           })
           .catch(() => {
             this.state = '搜索超时!请稍后再试...'
@@ -274,6 +299,26 @@ export default {
       height: 30%;
       background-image: linear-gradient(180deg, rgba(0, 0, 0, .3) 50%, transparent 100%);
     }
+    // 翻页
+    .song-page {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      margin: 20px 5px;
+      border-radius: 5px;
+      padding: 5px;
+      background-color: rgba(255, 255, 255, .8);
+      user-select: none;
+
+      & :nth-child(1),
+      & :nth-child(3) {
+        background-color: #999;
+      }
+      .not-but {
+        background-color: #ccc;
+        color: #eee;
+      }
+    }
 
     // 搜索框
     input {
@@ -346,8 +391,7 @@ export default {
         float: right;
         margin-top: 50px;
         border-radius: 5px;
-        font-weight: 100;
-        color: #353535;
+        color: #999;
         background-color: #555;
         &:active {
           background-color: #888;
