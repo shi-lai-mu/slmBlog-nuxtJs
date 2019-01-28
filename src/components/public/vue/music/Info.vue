@@ -36,6 +36,10 @@
           <span>时长：</span>
           <span class="right">{{ note.interval || '00:00' }}</span>
         </h3>
+        <h3 v-if="note['MV']">
+          <span class="half">MV：</span>
+          <span class="right right-dw">[下载]</span>
+        </h3>
         <h3 v-if="note['24AAC']">
           <span class="half">流畅音质[M4A]：</span>
           无法计算!
