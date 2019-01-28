@@ -8,12 +8,12 @@ body {
 }
 @font-face {
   font-family: 'iconfont';  /* project id 956143 */
-  src: url('//at.alicdn.com/t/font_956143_uckzztg6sos.eot');
-  src: url('//at.alicdn.com/t/font_956143_uckzztg6sos.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_956143_uckzztg6sos.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_956143_uckzztg6sos.woff') format('woff'),
-  url('//at.alicdn.com/t/font_956143_uckzztg6sos.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_956143_uckzztg6sos.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_956143_ue3aofb16vj.eot');
+  src: url('//at.alicdn.com/t/font_956143_ue3aofb16vj.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_956143_ue3aofb16vj.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_956143_ue3aofb16vj.woff') format('woff'),
+  url('//at.alicdn.com/t/font_956143_ue3aofb16vj.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_956143_ue3aofb16vj.svg#iconfont') format('svg');
 }
 .iconfont {
   font-family: "iconfont" !important;
@@ -21,6 +21,62 @@ body {
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-slm-loading::before {
+  display: inline-block;
+  animation: slmdeg 1s linear infinite;
+}
+.icon-slm-loading::after {
+    content: "";
+    position: absolute;
+    bottom: -0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: -1;
+    filter: blur(1px);
+  animation: slmdeg-shodow 1s linear infinite;
+  }
+@keyframes slmdeg-shodow {
+  20% {
+    background-color: rgba(0, 0, 0, .6);
+  }
+  50% {
+    transform: scale(1, 1);
+    background-color: rgba(0, 0, 0, .5);
+  }
+  70% {
+    transform: scale(.7, 1);
+    background-color: rgba(0, 0, 0, .3);
+  }
+  90% {
+    transform: scale(.6, 1);
+    background-color: rgba(0, 0, 0, .2);
+  }
+}
+@keyframes slmdeg {
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-20%) scale(1, 1.1);
+  }
+  50% {
+    transform: translateY(-30%);
+  }
+  70% {
+    transform: translateY(20%) scale(1, .5);
+  }
+  90% {
+    transform: translateY(25%) scale(1, .4);
+  }
+}
+
+.icon-slm:before {
+  content: "\e618";
 }
 
 .icon-fangxiangxia:before {
@@ -226,4 +282,3 @@ body {
 .icon-up-copy:before {
   content: "\e75d";
 }
-

@@ -42,13 +42,11 @@
 export default {
   data () {
     return {
-      Music: {},
-      info: {}
+      Music: {}
     }
   },
   created () {
     this.Music = this.$store.state.Music
-    this.info = this.Music.info
   }
 }
 </script>

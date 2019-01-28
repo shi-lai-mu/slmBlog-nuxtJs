@@ -1,6 +1,6 @@
 <template>
   <div class="music-search">
-
+    <i class="iconfont icon-slm"></i>
     <!-- 搜索框 -->
     <input class="search" type="text" v-model="searchs" placeholder="搜索 歌名/歌手" @keyup.enter="searchMusic" @input="searchChange">
 

@@ -120,9 +120,6 @@ export default function () {
         // 默认播放 m4a 格式音乐
         // 数据顺序 对象, 封面图片, 播放路径, 歌名, 歌手, 歌简介, 歌上传时间, 相似歌曲
         let info = this.info
-        imgColor.loadImg(vue.info.img, rgb => {
-          vue.iconColor = rgb
-        })
         vue.info = {
           img: `http://y.gtimg.cn/music/photo_new/T002R300x300M000${info.mid}.jpg`,
           src: info.src || '',
@@ -132,6 +129,10 @@ export default function () {
           upload: info.aDate,
           list: info.list
         }
+        imgColor.loadImg(vue.info.img, rgb => {
+          vue.iconColor = rgb
+          console.log(rgb)
+        })
       } catch (e) {
         throw Error(`写入音乐信息时出现未知错误:`, e)
       }
@@ -208,22 +209,3 @@ export default function () {
     }
   }
 }
-
-// <template>
-//   <div>
-//     <img src="" alt="">
-//     音乐信息{{ musicInfo.info.desc }}
-//   </div>
-// </template>
-// <script>
-// export default {
-//   data () {
-//     return {
-//       musicInfo: {}
-//     }
-//   },
-//   created () {
-//     this.musicInfo = this.$store.state.Music
-//   }
-// }
-// </script>
