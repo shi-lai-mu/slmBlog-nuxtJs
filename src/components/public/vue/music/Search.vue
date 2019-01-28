@@ -87,7 +87,7 @@ export default {
      */
     searchMusic (page) {
       // 如果为翻页
-      if (page) {
+      if (typeof page === 'number') {
         this.page.num += page
         this.songList = []
       }
@@ -95,6 +95,7 @@ export default {
       this.state = '搜索中...'
       let search = this.searchs
       if (search) {
+        // 加入历史搜索
         this.history(search)
         this.$http
           .get('api/Music', {

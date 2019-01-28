@@ -59,10 +59,10 @@ import Search from '@pub/vue/music/Search'
 export default {
   data () {
     return {
-      floatState: !0,
-      floatList: !0,
+      floatState: !1,
+      floatList: !1,
       // 第一次加载
-      onlyLoad: !0,
+      onlyLoad: !1,
       // 选项默认色
       iconColor: '#222',
       // 默认选中
