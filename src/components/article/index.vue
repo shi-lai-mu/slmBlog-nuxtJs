@@ -52,15 +52,6 @@ export default {
   },
   components: { Editor },
   created () {
-    // 百度推送
-    if (window.location.host !== '127.0.0.1') {
-      (function () {
-        var bp = document.createElement('script')
-        bp.src = '//push.zhanzhang.baidu.com/push.js'
-        var s = document.getElementsByTagName('script')[0]
-        s.parentNode.insertBefore(bp, s)
-      })()
-    }
     this.$connecter.$emit('page', {
       title: {
         tag: '文章',

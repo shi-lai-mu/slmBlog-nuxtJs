@@ -34,6 +34,15 @@ const store = new VueX.Store({
 router.afterEach((to, from, next) => {
   window.scrollTo(0, 0)
   connecter.$emit('footerUpdate', 1)
+  // 百度推送
+  if (window.location.host !== '127.0.0.1') {
+    (function () {
+      var bp = document.createElement('script')
+      bp.src = '//push.zhanzhang.baidu.com/push.js'
+      var s = document.getElementsByTagName('script')[0]
+      s.parentNode.insertBefore(bp, s)
+    })()
+  }
 })
 
 // 路由前处理
