@@ -13,7 +13,6 @@ export default new Router({
     // 文章路由
     {
       path: '/article',
-      name: 'article',
       component: resolve => require(['@pub/vue/parentRouter'], resolve),
       children: [
         {
@@ -34,6 +33,7 @@ export default new Router({
         },
         {
           path: ':id',
+          name: 'article',
           component: resolve => require(['@com/article/index'], resolve)
         }
       ]

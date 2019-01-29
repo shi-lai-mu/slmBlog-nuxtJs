@@ -4,23 +4,23 @@
 
       <!-- <shuffling></shuffling> -->
       <!-- 左侧 -->
-      <div class="content-box">
-          <router-link v-for="(hot, index) in hotList" :key="index" :to="'/article/' + hot.Id">
+      <div class="content-box" @click="tagClick">
+          <span v-for="(hot, index) in hotList" :key="index" :to="'/article/' + hot.Id" :data-article="hot.Id">
               <div class="article clearfix">
                   <div class="article-left">
-                      <img v-lazy="hot.img" alt="images">
+                      <img :src="hot.img" alt="images">
                   </div>
                   <div class="article-right">
                       <h3 class="ellipsis">{{ hot.title }}</h3>
                       <p class="article-description ellipsis">{{ hot.description }}</p>
                       <ul class="article-tag">
-                          <li v-for="(type, i) in hot.type" :key="i" :title="'查找' + type + '标签'">
-                              <a href="#">{{ type }}</a>
+                          <li v-for="(type, i) in hot.type" :key="i" :title="'查找 \'' + type + '\' 文章'" :data-tag="type">
+                              {{ type }}
                           </li>
                       </ul>
                   </div>
               </div>
-          </router-link>
+          </span>
           <ul v-if="!hotList.length">
               <!-- 展示伪装 -->
               <li v-for="i in 5" :key="i" class="article clearfix">
@@ -83,18 +83,7 @@ export default {
       }
     })
 
-    // 热门内容
-    this.$http.get('blog/hot')
-      .then(res => {
-        this.hotList = res.data.map(index => {
-          index.type = index.type.split('#')
-          index.type.shift()
-          if (index.img.indexOf('//') === -1) {
-            index.img = `//res.mczyzy.cn/img/upload/${index.img}`
-          }
-          return index
-        })
-      })
+    this.loadMaster()
     this.loading = false
     // // 右侧文章
     // this.$http.get('blog/right', false, 1)
@@ -104,7 +93,53 @@ export default {
     //   })
   },
   methods: {
-    unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000)
+    unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000),
+
+    /**
+     * 点击标签事件
+     */
+    tagClick (e) {
+      let dataset = e.target.dataset
+      // 查找标签
+      if (dataset.tag) {
+        // this.loadMaster(dataset.tag)
+        this.$router.push({
+          name: 'home',
+          params: {
+            id: dataset.article
+          }
+        })
+        return
+      }
+      // 打开文章
+      if (dataset.article) {
+        this.$router.push({
+          name: 'article',
+          params: {
+            id: dataset.article
+          }
+        })
+      }
+    },
+
+    /**
+     * 搜索文章
+     */
+    loadMaster (tag = false) {
+      // 热门内容
+      tag = tag ? { tag: tag } : this.$route.query.tag ? this.$route.query : false
+      this.$http.get('blog/hot', tag)
+        .then(res => {
+          this.hotList = res.data.map(index => {
+            index.type = index.type.split('#')
+            index.type.shift()
+            if (index.img.indexOf('//') === -1) {
+              index.img = `//res.mczyzy.cn/img/upload/${index.img}`
+            }
+            return index
+          })
+        })
+    }
   }
 }
 </script>
@@ -163,6 +198,7 @@ export default {
     border-bottom: 1px solid #e8e8e8;
     text-align: left;
     vertical-align: text-top;
+    pointer-events: none;
 
     &:nth-child(1) {
         border-top: 0;
@@ -228,6 +264,8 @@ export default {
         font-size: .8rem;
         color: #999;
         transition: .3s;
+        pointer-events: initial;
+
         &:hover {
             background-color: #e9e9e9;
             transform: translateY(-1px);
