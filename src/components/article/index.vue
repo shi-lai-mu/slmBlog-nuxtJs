@@ -24,12 +24,15 @@
           </ul>
         </header>
 
-        <div class="article-body" v-html="article.content" ref="content"></div>
+        <tbody class="article-body">
+          <img class="article-img" :src="article.img" :alt="article.title + '文章封面'">
+          <div v-html="article.content" ref="content"></div>
+        </tbody>
 
-        <div :class="{ none: !article.title }">
+        <footer :class="{ none: !article.title }">
           <Editor class="editor" ref="editor"></Editor>
           <button class="button-v1 send" @click="send">留言</button>
-        </div>
+        </footer>
 
       </div>
   </tbody>
@@ -50,6 +53,7 @@ export default {
       editor: false
     }
   },
+  // 编辑器组件
   components: { Editor },
   created () {
     this.$connecter.$emit('page', {
@@ -68,6 +72,10 @@ export default {
           if (res.data.author.uid === user.id) {
             this.editor = !0
           }
+        }
+        // 封面
+        if (this.article.img.indexOf('//') === -1) {
+          this.article.img = `//res.mczyzy.cn/img/upload/${this.article.img}`
         }
         setTimeout(() => {
           this.notCon = !1
@@ -210,7 +218,13 @@ export default {
       margin: 0;
     }
   }
+  // 正文
   .article-index {
+
+    .article-img {
+      display: block;
+      margin: 10px auto;
+    }
 
     header {
       width: 90%;

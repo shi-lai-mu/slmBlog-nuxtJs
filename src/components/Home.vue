@@ -89,6 +89,9 @@ export default {
         this.hotList = res.data.map(index => {
           index.type = index.type.split('#')
           index.type.shift()
+          if (index.img.indexOf('//') === -1) {
+            index.img = `//res.mczyzy.cn/img/upload/${index.img}`
+          }
           return index
         })
       })
