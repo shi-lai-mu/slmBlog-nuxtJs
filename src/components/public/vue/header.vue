@@ -151,7 +151,7 @@ export default {
                 // 登录后的权限
                 (subItem[2] === 'login' && !this.user.username) ||
                 // 管理员权限
-                (subItem[2] === 'admin' && (!this.user.username ||  this.user.groupid !== 9999))
+                (subItem[2] === 'admin' && (!this.user.username || this.user.groupid !== 9999))
               ) {
                 subItem = false
               }

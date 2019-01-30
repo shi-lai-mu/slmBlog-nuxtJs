@@ -1,67 +1,68 @@
 <template>
+  <tbody class="conter content-row clearfix">
 
-    <tbody class="conter content-row clearfix">
-
-      <!-- <shuffling></shuffling> -->
-      <!-- 左侧 -->
-      <div class="content-box" @click="tagClick">
-          <span v-for="(hot, index) in hotList" :key="index" :to="'/article/' + hot.Id" :data-article="hot.Id">
-              <div class="article clearfix">
-                  <div class="article-left">
-                      <img :src="hot.img" alt="images">
-                  </div>
-                  <div class="article-right">
-                      <h3 class="ellipsis">{{ hot.title }}</h3>
-                      <p class="article-description ellipsis">{{ hot.description }}</p>
-                      <ul class="article-tag">
-                          <li v-for="(type, i) in hot.type" :key="i" :title="'查找 \'' + type + '\' 文章'" :data-tag="type">
-                              {{ type }}
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-          </span>
-          <ul v-if="!hotList.length">
-              <!-- 展示伪装 -->
-              <li v-for="i in 5" :key="i" class="article clearfix">
-                  <div class="article-left">
-                      <div class="no-black"></div>
-                  </div>
-                  <div class="article-right look-center">
-                      <h3 class="ellipsis no-black"></h3>
-                      <ul class="article-tag">
-                          <li v-for="i in 5" :key="i" class="no-black"></li>
-                      </ul>
-                      <p class="article-description no-black"></p>
-                  </div>
+    <span :class="[{ searchArticle }, 'article-input', 'content-box']">
+      {{ searchArticle }}
+      <i class="iconfont icon-wrong" @click="clearModel"></i>
+    </span>
+    <!-- 左侧 -->
+    <div class="content-box" @click="tagClick">
+      <span v-for="(hot, index) in hotList" :key="index" :data-article="hot.Id">
+        <div class="article clearfix">
+          <div class="article-left">
+            <img :src="hot.img" alt="images">
+          </div>
+          <div class="article-right">
+            <h3 class="ellipsis">{{ hot.title }}</h3>
+            <p class="article-description ellipsis">{{ hot.description }}</p>
+            <ul class="article-tag">
+              <li v-for="(type, i) in hot.type" :key="i" :title="'查找 \'' + type + '\' 文章'" :data-tag="type">
+                {{ type }}
               </li>
-          </ul>
-      </div>
-
-      <!-- 右侧 -->
-      <div class="content-aff-box">
-          <div class="content-box blogger">
-              <img v-lazy="'//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100'" alt="史莱姆头像">
-              <p class="name">史莱姆</p>
-              <div class="select">
-                  <router-link class="button-lv0 button-blue" :to="{ name: 'login' }">关注</router-link>
-                  <router-link class="button-lv0 button-green" :to="{ name: 'thisSite' }">了解</router-link>
-              </div>
+            </ul>
           </div>
-          <div class="content-box">
-          </div>
-      </div>
-    </tbody>
-
-    <!-- <div class="content-left-box" v-for="(right, v) in rightList" :key="v">
-        <div class="content-left-tag">
-            <span v-text="right['tag']"></span>
-            <i class="iconfont icon-fangxiangxia"></i>
         </div>
-        <ul class="content-left-list" v-for="(top, i) in right['data']" :key="i">
-            <router-link class="max-a" tag="li" v-text="top.title" :to="'/article/' + top.Id"></router-link>
-        </ul>
-    </div> -->
+      </span>
+      <ul v-if="!hotList.length">
+        <!-- 展示伪装 -->
+        <li v-for="i in 5" :key="i" class="article clearfix">
+          <div class="article-left">
+            <div class="no-black"></div>
+          </div>
+          <div class="article-right look-center">
+            <h3 class="ellipsis no-black"></h3>
+            <ul class="article-tag">
+              <li v-for="i in 5" :key="i" class="no-black"></li>
+            </ul>
+            <p class="article-description no-black"></p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 右侧 -->
+    <div class="content-aff-box">
+      <div class="content-box blogger">
+        <img v-lazy="'//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100'" alt="史莱姆头像">
+        <p class="name">史莱姆</p>
+        <div class="select">
+          <router-link class="button-lv0 button-blue" :to="{ name: 'login' }">关注</router-link>
+          <router-link class="button-lv0 button-green" :to="{ name: 'thisSite' }">了解</router-link>
+        </div>
+      </div>
+      <div class="content-box">
+      </div>
+    </div>
+  </tbody>
+  <!-- <div class="content-left-box" v-for="(right, v) in rightList" :key="v">
+      <div class="content-left-tag">
+          <span v-text="right['tag']"></span>
+          <i class="iconfont icon-fangxiangxia"></i>
+      </div>
+      <ul class="content-left-list" v-for="(top, i) in right['data']" :key="i">
+          <router-link class="max-a" tag="li" v-text="top.title" :to="'/article/' + top.Id"></router-link>
+      </ul>
+  </div> -->
 </template>
 
 <script>
@@ -70,11 +71,11 @@ export default {
   data () {
     return {
       hotList: [],
-      rightList: []
+      rightList: [],
+      searchArticle: null
     }
   },
   created () {
-
     // 是否正在加载中
     this.loading = false
     // 加载主文章数据
@@ -111,6 +112,9 @@ export default {
      */
     loadMaster () {
       let model = this.$store.state.articleModel
+      if (model.keyword) {
+        this.searchArticle = `正在显示标签包含 '${model.keyword}' 的文章...`
+      }
       // 热门内容
       this.$http.get('blog/hot', model)
         .then(res => {
@@ -122,7 +126,17 @@ export default {
             }
             return index
           })
+          this.$connecter.$emit('footerUpdate')
         })
+    },
+
+    /**
+     * 清空文章模式
+     */
+    clearModel () {
+      this.$store.state.articleModel = {}
+      this.searchArticle = null
+      this.loadMaster()
     }
   }
 }
@@ -176,6 +190,25 @@ export default {
         }
     }
 }
+.content-row .searchArticle {
+  width: 100%;
+  max-height: 100px;
+  margin: 10px 0;
+  padding: 10px;
+  opacity: 1;
+}
+.article-input {
+  max-height: 0;
+  opacity: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+
+  .icon-wrong {
+    float: right;
+    color: #ccc;
+    cursor: pointer;
+  }
+}
+// 正文
 .article {
     padding: 10px;
     border-top: 1px solid white;
