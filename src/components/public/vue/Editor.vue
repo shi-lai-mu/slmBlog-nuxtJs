@@ -7,6 +7,7 @@ import 'wangeditor/release/wangEditor.css'
 import E from 'wangeditor'
 export default {
   name: 'editor',
+  props: ['model'],
   data () {
     return {
       editorContent: ''
@@ -17,6 +18,24 @@ export default {
 
     let inster = null
 
+    // 留言模式下的編輯器
+    if (this.model === 'send') {
+      editor.customConfig.menus = [
+        'italic',
+        'underline',
+        'strikeThrough',
+        'foreColor',
+        'backColor',
+        'link',
+        'quote',
+        'image',
+        'emoticon',
+        'image',
+        'table',
+        'undo',
+        'redo'
+      ]
+    }
     // 自动保存编辑器内容
     let Store = (function (self) {
       return class {

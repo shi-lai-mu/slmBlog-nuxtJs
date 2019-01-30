@@ -30,8 +30,8 @@
         </tbody>
 
         <footer :class="{ none: !article.title }">
-          <Editor class="editor" ref="editor"></Editor>
-          <button class="button-v1 send" @click="send">留言</button>
+          <Editor class="editor" ref="editor" model="send"></Editor>
+          <button class="button-lv0 send" @click="send">留言</button>
         </footer>
 
       </div>
