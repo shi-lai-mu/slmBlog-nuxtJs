@@ -195,7 +195,9 @@ export default {
      */
     outLogin () {
       localStorage.removeItem('userInfo')
-      this.user = undefined
+      this.user = {
+        img: '//res.mczyzy.cn/img/user-default.jpg'
+      }
       this.$store.state.user = undefined
       this.updateRouter()
     }
@@ -300,12 +302,6 @@ export default {
     .login-after {
       width: auto;
       margin: 0 20px;
-    }
-    .user-icon {
-      height: 40px;
-      border-radius: 50%;
-      margin-left: 10px;
-      vertical-align: middle;
     }
     .user-name {
       display: inline-block;

@@ -2,6 +2,7 @@
   <tbody class="conter single clearfix">
       <div :class="['content-box', 'article-index', { 'nick': article['title'] }, 'notContent']">
 
+        <!-- 头部信息 -->
         <header>
           <h2 class="article-title">
             {{ article.title }}
@@ -24,12 +25,33 @@
           </ul>
         </header>
 
+        <!-- 内容 -->
         <tbody class="article-body">
           <img class="article-img" :src="article.img" :alt="article.title + '文章封面'">
           <div v-html="article.content" ref="content"></div>
         </tbody>
 
-        <footer :class="{ none: !article.title }">
+        <!-- 尾部 -->
+        <footer :class="['article-body', { none: !article.title }]">
+          <!-- 留言 -->
+          <ul class="article-message">
+            <span class="message-tag">留言
+              <span class="message-right">(20)</span>
+            </span>
+            <li v-for="(item, index) in 3" :key="index" class="clearfix">
+              <div class="clearfix">
+                <img src="//res.mczyzy.cn/img/user-default.jpg" alt="用户头像" class="user-icon">
+                <span class="user-name">史莱姆</span>
+                <span class="user-info">
+                  2019年01月17日 下午7:03
+                  <span class="message-right">11楼</span>
+                </span>
+              </div>
+              <div class="message-content">
+                12145649878971564564saaaaaaaaaaaaaasssssssssssssssssaa
+              </div>
+            </li>
+          </ul>
           <Editor class="editor" ref="editor" model="send"></Editor>
           <button class="button-lv0 send" @click="send">留言</button>
         </footer>
@@ -115,22 +137,8 @@ export default {
 }
 </script>
 <style lang="less">
-  .wrap button {
-    position: absolute;
-  }
-  .no-mode-fade-enter-active, .no-mode-fade-leave-active {
-    transition: all .5s
-  }
-  .no-mode-fade-enter, .no-mode-fade-leave-active {
-    opacity: 0;
-  }
-  .no-mode-fade-enter {
-    transform: translateX(100%);
-  }
-  .no-mode-fade-leave-active {
-    transform: translateX(-100%);
-  }
   @bgColor: #d6d6d6;
+  // 伪装样式
   .notContent {
     transition: .5s;
 
@@ -221,16 +229,24 @@ export default {
   // 正文
   .article-index {
 
+    header {
+      width: 90%;
+      border-bottom: 1px solid #ccc;
+      margin: 0 auto 30px;
+      i {
+        margin: 0 5px 0 15px;
+        color: #888;
+        &::before {
+          margin-right: 5px;
+        }
+      }
+    }
+
     .article-img {
       display: block;
       margin: 10px auto;
     }
 
-    header {
-      width: 90%;
-      border-bottom: 1px solid #ccc;
-      margin: 0 auto 30px;
-    }
     .article-title {
       font-size: 2em;
       text-align: center;
@@ -250,13 +266,6 @@ export default {
       }
     }
 
-    header i {
-      margin: 0 5px 0 15px;
-      color: #888;
-      &::before {
-        margin-right: 5px;
-      }
-    }
     .nowrap {
       white-space: nowrap;
     }
@@ -272,9 +281,69 @@ export default {
         word-break: break-all;
       }
     }
-    .ql-editor {
-      display: block;
-      min-height: 200px;
+    // 留言样式
+    .article-message {
+      padding: 0;
+
+      li {
+        border-radius: 5px;
+        padding: 10px;
+        list-style: none;
+        background-color: #eee;
+        
+        .user-icon {
+          float: left;
+          margin-left: 0;
+        }
+      }
+      .message-tag {
+        position: relative;
+        display: block;
+        padding: 5px 10px;
+        color: #fff;
+        background-color: #aed9f3;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 4px;
+          height: 100%;
+          vertical-align: middle;
+          background-color: #0085d8;
+        }
+      }
+      .user-name,
+      .user-info {
+        float: left;
+        overflow: hidden;
+        width: calc(100% - 40px);
+        box-sizing: border-box;
+        padding-left: 20px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .user-info {
+        color: #aaa;
+        font-size: 1rem;
+      }
+      .message-content {
+        float: right;
+        width: calc(100% - 60px);
+        margin: 10px 5px;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, .8);
+        word-wrap: break-word;
+      }
+      .message-right {
+        float: right;
+      }
+    }
+    .editor .w-e-toolbar,
+    .editor .w-e-text-container {
+      width: 100%;
     }
     .send {
       float: right;
