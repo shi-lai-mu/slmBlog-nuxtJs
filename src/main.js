@@ -25,6 +25,8 @@ const store = new VueX.Store({
     user: false,
     // 是否为移动端[小屏幕]
     mobile: false,
+    // 文章显示模式
+    articleModel: false,
     // 音乐控件
     Music: new Music()
   }

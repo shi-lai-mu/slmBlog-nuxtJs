@@ -9,9 +9,9 @@
       <!-- 响应型导航栏 -->
       <nav :class="menuState ? 'list-show' : 'list-hide'">
         <span class="login-after" v-if="$store.state.mobile">
-          <img class="user-icon" v-lazy="user.img || '//res.mczyzy.cn/img/user-default.jpg'" :alt="user.username + '的头像'">
+          <img class="user-icon" v-lazy="user.img" :alt="user.username + '的头像'">
           <p class="user-name">
-            {{ user.username || '请先登录' }}
+            {{ user.username || '点击登录' }}
           </p>
         </span>
         <ul class="header-menu-list">
@@ -60,7 +60,9 @@ export default {
   props: ['head'],
   data () {
     return {
-      user: this.$store.state.user || {},
+      user: this.$store.state.user || {
+        img: '//res.mczyzy.cn/img/user-default.jpg'
+      },
       menuState: false,
       menu: []
     }
@@ -145,11 +147,11 @@ export default {
             if (subItem[2]) {
               if (
                 // 未登录的权限
-                (subItem[2] === 'register' && this.user) ||
+                (subItem[2] === 'register' && this.user.username) ||
                 // 登录后的权限
-                (subItem[2] === 'login' && !this.user) ||
+                (subItem[2] === 'login' && !this.user.username) ||
                 // 管理员权限
-                (subItem[2] === 'admin' && (!this.user || (this.user && this.user.groupid !== 9999)))
+                (subItem[2] === 'admin' && (!this.user.username ||  this.user.groupid !== 9999))
               ) {
                 subItem = false
               }

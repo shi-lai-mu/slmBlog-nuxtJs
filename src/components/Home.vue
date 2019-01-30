@@ -66,8 +66,6 @@
 
 <script>
 
-import Time from '@pub/js/dateForm'
-
 export default {
   data () {
     return {
@@ -76,24 +74,13 @@ export default {
     }
   },
   created () {
-    this.$connecter.$emit('page', {
-      title: {
-        tag: '首页',
-        description: '欢迎浏览史莱姆的博客!（°Д°）Ъ'
-      }
-    })
 
+    // 加载主文章数据
     this.loadMaster()
+    // 是否正在加载中
     this.loading = false
-    // // 右侧文章
-    // this.$http.get('blog/right', false, 1)
-    //   .then(res => {
-    //     this.rightList = res.data
-    //     console.log(this.rightList)
-    //   })
   },
   methods: {
-    unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000),
 
     /**
      * 点击标签事件
@@ -102,11 +89,10 @@ export default {
       let dataset = e.target.dataset
       // 查找标签
       if (dataset.tag) {
-        // this.loadMaster(dataset.tag)
         this.$router.push({
-          name: 'home',
+          name: 'searchKeyWord',
           params: {
-            id: dataset.article
+            tag: dataset.tag
           }
         })
         return
@@ -125,10 +111,9 @@ export default {
     /**
      * 搜索文章
      */
-    loadMaster (tag = false) {
+    loadMaster () {
       // 热门内容
-      tag = tag ? { tag: tag } : this.$route.query.tag ? this.$route.query : false
-      this.$http.get('blog/hot', tag)
+      this.$http.get('blog/hot', this.$route.query.tag ? this.$route.query : false)
         .then(res => {
           this.hotList = res.data.map(index => {
             index.type = index.type.split('#')
