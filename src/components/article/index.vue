@@ -131,7 +131,19 @@ export default {
   methods: {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000),
     send () {
-      this.$refs.editor.Stores.clear()
+      let user = this.$store.state.user
+      if (user) {
+        this.$http
+          .get('article/addMessage', {
+            id: this.$route.params.id,
+            token: user.token,
+            msg: this.$refs.editor.editorContent
+          })
+          .then(res => {
+            console.log(res)
+          })
+        this.$refs.editor.Stores.clear()
+      }
     }
   }
 }
@@ -290,7 +302,7 @@ export default {
         padding: 10px;
         list-style: none;
         background-color: #eee;
-        
+
         .user-icon {
           float: left;
           margin-left: 0;
