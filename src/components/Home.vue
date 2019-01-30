@@ -75,10 +75,10 @@ export default {
   },
   created () {
 
-    // 加载主文章数据
-    this.loadMaster()
     // 是否正在加载中
     this.loading = false
+    // 加载主文章数据
+    this.loadMaster()
   },
   methods: {
 
@@ -87,14 +87,12 @@ export default {
      */
     tagClick (e) {
       let dataset = e.target.dataset
-      // 查找标签
+      let state = this.$store.state
+
       if (dataset.tag) {
-        this.$router.push({
-          name: 'searchKeyWord',
-          params: {
-            tag: dataset.tag
-          }
-        })
+        // 关键词搜索
+        state.articleModel.keyword = dataset.tag
+        this.loadMaster()
         return
       }
       // 打开文章
@@ -112,8 +110,9 @@ export default {
      * 搜索文章
      */
     loadMaster () {
+      let model = this.$store.state.articleModel
       // 热门内容
-      this.$http.get('blog/hot', this.$route.query.tag ? this.$route.query : false)
+      this.$http.get('blog/hot', model)
         .then(res => {
           this.hotList = res.data.map(index => {
             index.type = index.type.split('#')
@@ -249,6 +248,7 @@ export default {
         font-size: .8rem;
         color: #999;
         transition: .3s;
+        cursor: pointer;
         pointer-events: initial;
 
         &:hover {
