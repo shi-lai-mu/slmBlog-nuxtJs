@@ -134,7 +134,7 @@ export default {
       let user = this.$store.state.user
       if (user) {
         this.$http
-          .get('article/addMessage', {
+          .post('article/addMessage', {
             id: this.$route.params.id,
             token: user.token,
             msg: this.$refs.editor.editorContent
