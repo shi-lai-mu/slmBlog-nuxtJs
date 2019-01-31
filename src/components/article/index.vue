@@ -38,18 +38,16 @@
             <span class="message-tag">留言
               <span class="message-right">(20)</span>
             </span>
-            <li v-for="(item, index) in 3" :key="index" class="clearfix">
+            <li v-for="(item, index) in article.msg" :key="index" class="clearfix">
               <div class="clearfix">
                 <img src="//res.mczyzy.cn/img/user-default.jpg" alt="用户头像" class="user-icon">
-                <span class="user-name">史莱姆</span>
+                <span class="user-name">{{ item.autherName }}</span>
                 <span class="user-info">
                   2019年01月17日 下午7:03
-                  <span class="message-right">11楼</span>
+                  <span class="message-right">{{ item.level }}楼</span>
                 </span>
               </div>
-              <div class="message-content">
-                12145649878971564564saaaaaaaaaaaaaasssssssssssssssssaa
-              </div>
+              <div class="message-content" v-html="item.content"></div>
             </li>
           </ul>
           <Editor class="editor" ref="editor" model="send"></Editor>
