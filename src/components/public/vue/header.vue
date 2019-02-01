@@ -9,7 +9,7 @@
         <i :class="['menu-list', {close: menuState}]"></i>
       </span>
       <!-- 响应型导航栏 -->
-      <nav :class="menuState ? 'list-show' : 'list-hide'">
+      <nav ref="mobilList" :class="menuState ? 'list-show' : 'list-hide'" :style="mobilStyle">
         <span class="login-after" v-if="$store.state.mobile">
           <img class="user-icon" v-lazy="user.img" :alt="user.username + '的头像'">
           <p class="user-name">
@@ -66,7 +66,8 @@ export default {
         img: '//res.mczyzy.cn/img/user-default.jpg'
       },
       menuState: false,
-      menu: []
+      menu: [],
+      mobilStyle: null
     }
   },
 
@@ -167,12 +168,18 @@ export default {
 
     /**
      * 开启/关闭 导航栏[移动端]
+     * @param {Boolean} state 切换状态
      */
-    toggleMneu () {
-      this.menuState = !this.menuState
+    toggleMneu (state) {
+      if (typeof state === 'boolean') {
+        if (this.menuState === state) return this.menuState
+        this.menuState = state
+      } else this.menuState = !this.menuState
+
       if (this.$store.state.mobile) {
         window.tbody.className = this.menuState ? 'min-screen-left' : ''
       }
+      return this.menuState
     },
 
     /**

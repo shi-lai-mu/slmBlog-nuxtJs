@@ -2,7 +2,7 @@
   <div id="tbody" ref="tbody">
     <vue-header :head="head" ref="head"></vue-header>
     <transition :name="transitionName" keep-alive>
-      <router-view ref="master" class="tbody"></router-view>
+      <router-view ref="master" class="tbody" :style="masterStyle"></router-view>
     </transition>
     <vue-footer></vue-footer>
     <vue-toast :toast="toast"></vue-toast>
@@ -31,10 +31,12 @@ export default {
       title: false,
       head: false,
       toast: {},
-      transitionName: 'slide-right'
+      transitionName: 'slide-right',
+      masterStyle: null
     }
   },
   watch: {
+    // 切换页面效果
     '$route' (to, from) {
       let isBack = this.$router.isBack
       this.transitionName = isBack ? 'slide-left' : 'slide-right'
@@ -89,6 +91,35 @@ export default {
       self.$store.state.mobile = window.innerWidth < 840
     }
     resize()
+    /**
+     * 移动端右划事件
+     */
+    this.$nextTick(() => {
+      let pointerX = 0
+      let screenW = screen.availWidth / 2 / 50
+      let $list = !1
+      let $state = !1
+      window.addEventListener('touchstart', e => {
+        pointerX = e.changedTouches[0].clientX
+      })
+      window.addEventListener('touchmove', e => {
+        let moveX = Math.min((e.changedTouches[0].clientX - pointerX) / screenW, 50)
+        if ($list && !$state) {
+          this.masterStyle = `transition: 0s; filter: blur(${1 / 50 * moveX}px);transform: translateX(${moveX}vw);`
+          $list.mobilStyle = `transition: 0s; opacity: ${1 / 50 * moveX};transform: translateY(${moveX}px);`
+        } else if (this.$refs.master) $list = this.$refs.head
+      })
+      window.addEventListener('touchend', e => {
+        if ($list) {
+          let moveX = Math.min((e.changedTouches[0].clientX - pointerX) / screenW, 50)
+          if (Math.abs(moveX) > 25) {
+            $state = $list.toggleMneu(moveX > 0)
+          }
+          this.masterStyle = ``
+          $list.mobilStyle = ``
+        }
+      })
+    })
   }
 }
 </script>
