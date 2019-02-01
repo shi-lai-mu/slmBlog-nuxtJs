@@ -42,6 +42,7 @@
 
     <!-- 右侧 -->
     <div class="content-aff-box">
+
       <div class="content-box blogger">
         <img v-lazy="'//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100'" alt="史莱姆头像">
         <p class="name">史莱姆</p>
@@ -50,8 +51,28 @@
           <router-link class="button-lv0 button-green" :to="{ name: 'thisSite' }">了解</router-link>
         </div>
       </div>
+
       <div class="content-box">
+        <span class="content-tag">
+          <span>友情链接:</span>
+          <span class="right">更多</span>
+        </span>
+        <ul class="content-list friendship">
+          <li>
+            <img src="//www.teenshare.club/favicon.ico" alt="梯云博客 LOGO">
+            <a href="//www.teenshare.club" target="_black">梯云博客</a>
+          </li>
+          <li>
+            <img src="//www.mxsina.com/favicon.ico" alt="蔚然博客 LOGO">
+            <a href="//www.mxsina.com" target="_black">蔚然博客</a>
+          </li>
+          <li>
+            <img src="//www.iwentao.top/favicon.ico" alt="竹泊博客 LOGO">
+            <a href="//www.iwentao.top" target="_black">竹泊博客</a>
+          </li>
+        </ul>
       </div>
+
     </div>
   </tbody>
   <!-- <div class="content-left-box" v-for="(right, v) in rightList" :key="v">
@@ -66,7 +87,6 @@
 </template>
 
 <script>
-
 export default {
   data () {
     return {
@@ -146,49 +166,96 @@ export default {
 @ip: '//res.mczyzy.cn/img';
 
 .content-row {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
+
+  .content-box {
+    overflow: hidden;
+    padding: 0;
+  }
+  .content-tag {
+    position: relative;
+    margin: 10px;
+    font-size: 1.2rem;
+    color: #666;
+
+    .right {
+      float: right;
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 5px;
+      height: 100%;
+      margin-left: -10px;
+      border-radius: 2px 0 0 2px;
+      background-color: #83e1f7;
+    }
+  }
+  // 左侧
+  .content-aff-box {
+    float: right;
+    width: 28%;
+  
+    .content-list {
+      margin: 10px 0;
+      color: #888;
+
+      li {
+        margin: 5px 0;
+      }
+    }
+    // 友情链接
+    .friendship {
+      img {
+        width: 20px;
+        margin-right: 10px;
+        vertical-align: middle;
+      }
+      li {
+        margin-left: 5%;
+        width: 90%;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #eee;
+      }
+    }
 
     .content-box {
-        padding: 0;
+      width: 100%;
+      margin-bottom: 20px;
+      padding: 10px;
     }
-    // 左侧
-    .content-aff-box {
-        float: right;
-        width: 28%;
 
-        .content-box {
-            width: 100%;
-             margin-bottom: 40px;
+    .blogger {
+      padding-bottom: 10px;
+      img {
+        display: block;
+        border-radius: 50%;
+        margin: 20px auto 10px;
+        border: 10px solid rgba(99,196,218,.25);
+        transition: .2s;
+        &:hover {
+          transform: translateY(-5px);
+          border: 10px solid rgba(99,196,218,.4);
+          box-shadow: 0 5px 25px rgba(0,0,0,.15);
         }
-
-        .blogger {
-            padding-bottom: 10px;
-            img {
-                display: block;
-                border-radius: 50%;
-                margin: 20px auto 10px;
-                border: 10px solid rgba(99,196,218,.25);
-                transition: .2s;
-                &:hover {
-                    transform: translateY(-5px);
-                    border: 10px solid rgba(99,196,218,.4);
-                    box-shadow: 0 5px 25px rgba(0,0,0,.15);
-                }
-            }
-            .name {
-                color: #999;
-                text-align: center;
-                font-size: 22px;
-            }
-            .select {
-                margin: 10px;
-                text-align: center;
-            }
-        }
-        .button-lv0 {
-            margin: 0 10px;
-        }
+      }
+      .name {
+        color: #999;
+        text-align: center;
+        font-size: 22px;
+      }
+      .select {
+        margin: 10px;
+        text-align: center;
+      }
     }
+    .button-lv0 {
+      margin: 0 10px;
+    }
+  }
 }
 .content-row .searchArticle {
   width: 100%;
@@ -210,99 +277,99 @@ export default {
 }
 // 正文
 .article {
-    padding: 10px;
-    border-top: 1px solid white;
-    border-bottom: 1px solid #e8e8e8;
-    text-align: left;
-    vertical-align: text-top;
-    pointer-events: none;
+  padding: 10px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid #e8e8e8;
+  text-align: left;
+  vertical-align: text-top;
+  pointer-events: none;
 
-    &:nth-child(1) {
-        border-top: 0;
+  &:nth-child(1) {
+    border-top: 0;
+  }
+
+  &:hover {
+    background-color: #f9f9f9;
+
+    .article-parameter {
+      background-color: #fff;
+      color: #aaa;
     }
+  }
 
-    &:hover {
-        background-color: #f9f9f9;
+  .article-right {
+    float: left;
+    width: 60%;
+    margin: 10px 15px;
 
-        .article-parameter {
-            background-color: #fff;
-            color: #aaa;
-        }
+    h3 {
+      display: inline-block;
+      padding: 10px 0;
+      margin: 0;
+      font-weight: 300;
     }
-
-    .article-right {
-        float: left;
-        width: 60%;
-        margin: 10px 15px;
-
-        h3 {
-            display: inline-block;
-            padding: 10px 0;
-            margin: 0;
-            font-weight: 300;
-        }
-        .article-description {
-            padding: 10px 5px;
-            font-size: .9em;
-            color: #aaa;
-        }
+    .article-description {
+      padding: 10px 5px;
+      font-size: .9em;
+      color: #aaa;
     }
+  }
 
-    .article-left {
-        display: flex;
-        justify-content: center;
-        overflow: hidden;
-        float: left;
-        width: 23%;
-        min-width: 100px;
-        height: 7vw;
-        max-height: 114px;
-        min-height: 100px;
-        border-radius: 5px;
-        margin: 10px;
+  .article-left {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    float: left;
+    width: 23%;
+    min-width: 100px;
+    height: 7vw;
+    max-height: 114px;
+    min-height: 100px;
+    border-radius: 5px;
+    margin: 10px;
 
-        img {
-            height: 100%;
-            margin: 0 auto;
-            transition: 1s;
+    img {
+      height: 100%;
+      margin: 0 auto;
+      transition: 1s;
 
-            &:hover {
-                transform: scale(1.2);
-            }
-        }
+      &:hover {
+        transform: scale(1.2);
+      }
     }
-    .article-tag li {
-        display: inline-block;
-        padding: 0 5px;
-        border: 1px solid #e8e8e8;
-        border-radius: 3px;
-        margin: 0 5px;
-        vertical-align: middle;
-        font-size: .8rem;
-        color: #999;
-        transition: .3s;
-        cursor: pointer;
-        pointer-events: initial;
+  }
+  .article-tag li {
+      display: inline-block;
+      padding: 0 5px;
+      border: 1px solid #e8e8e8;
+      border-radius: 3px;
+      margin: 0 5px;
+      vertical-align: middle;
+      font-size: .8rem;
+      color: #999;
+      transition: .3s;
+      cursor: pointer;
+      pointer-events: initial;
 
-        &:hover {
-            background-color: #e9e9e9;
-            transform: translateY(-1px);
-        }
-    }
-    // 掩饰
-    .no-black {
-        min-width: 8rem;
-        border-radius: 10px;
-        margin: 10px 0;
-        background-color: #f1f1f1;
-    }
-    li.no-black {
-        min-width: 1rem;
-        height: 1rem;
-        border: 0;
-    }
-    .look-center {
-        margin-top: 20px;
-    }
+      &:hover {
+        background-color: #e9e9e9;
+        transform: translateY(-1px);
+      }
+  }
+  // 掩饰
+  .no-black {
+    min-width: 8rem;
+    border-radius: 10px;
+    margin: 10px 0;
+    background-color: #f1f1f1;
+  }
+  li.no-black {
+    min-width: 1rem;
+    height: 1rem;
+    border: 0;
+  }
+  .look-center {
+    margin-top: 20px;
+  }
 }
 </style>
