@@ -43,7 +43,7 @@
                 <img src="//res.mczyzy.cn/img/user-default.jpg" alt="用户头像" class="user-icon">
                 <span class="user-name">{{ item.autherName }}</span>
                 <span class="user-info">
-                  2019年01月17日 下午7:03
+                  {{ unTime(article.msg.msgDate) }}
                   <span class="message-right">{{ item.level }}楼</span>
                 </span>
               </div>
@@ -130,7 +130,6 @@ export default {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000),
     send () {
       let user = this.$store.state.user
-      console.log(this.$refs.editor)
       if (user) {
         this.$http
           .post('article/addMessage', {
