@@ -213,6 +213,7 @@ export default {
   opacity: 0;
   transform: translateY(-100%);
 }
+
 // 公共
 .nav-header {
   position: fixed;
@@ -320,160 +321,162 @@ export default {
     background-color: #95dff0;
   }
 }
-// 移动端 按钮
-.centre .menu-touch {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  right: 20px;
-  top: 14px;
-  width: 30px;
-  height: 30px;
-}
-.centre .menu-list {
-  .i();
 
-  .i {
+//  移动端
+.centre {
+  // 按钮
+  .menu-touch {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    border-radius: 4px;
-    width: 20px;
-    height: 3px;
-    background-color: #7a7a7a;
+    right: 20px;
+    top: 14px;
+    width: 30px;
+    height: 30px;
+  }
+  .menu-list {
+    .i();
+
+    .i {
+      position: absolute;
+      border-radius: 4px;
+      width: 20px;
+      height: 3.5px;
+      background-color: #7a7a7a;
+      transition: .5s;
+    }
+
+    &::after,
+    &::before {
+      content: '';
+      .i();
+      transform: translateY(7.5px);
+    }
+
+    &::before {
+      transform: translateY(-7.5px);
+    }
+
+    // 闭合状态
+    &.close {
+      transition: .5s .1s;
+      background-color: transparent;
+      &::after{
+        transform: rotate(45deg);
+      }
+      &::before{
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  // 导航栏
+  .nav-header nav {
+    position: fixed;
+    overflow-y: scroll;
+    top: -60px;
+    left: 0;
+    height: 100vh;
+    width: 40vw;
+    margin: 0;
+    background-color: #fff;
+    opacity: 0;
+    box-shadow: var(--box-shadow);
+    transform: translateY(60px) translateX(-100%);
     transition: .5s;
-  }
 
-  &::after {
-    content: '';
-    .i();
-    height: 3.5px;
-    transform: translateY(7px);
-  }
-
-  &::before {
-    content: '';
-    .i();
-    height: 3.5px;
-    transform: translateY(-7px);
-  }
-
-  // 闭合状态
-  &.close {
-    transition: .5s .1s;
-    background-color: transparent;
-    &::after{
-      transform: rotate(45deg);
-    }
-    &::before{
-      transform: rotate(-45deg);
-    }
-  }
-}
-// 移动端 导航栏
-.centre .nav-header nav {
-  position: fixed;
-  overflow-y: scroll;
-  top: -60px;
-  left: 0;
-  height: 100vh;
-  width: 40vw;
-  margin: 0;
-  background-color: #fff;
-  opacity: 0;
-  box-shadow: var(--box-shadow);
-  transform: translateY(60px) translateX(-100%);
-  transition: .5s;
-
-  .header-menu-list {
-    & > li {
-      display: block;
-      line-height: 30px;
-      text-indent: 1rem;
-      color: #666;
-      border-bottom: 1px solid #f1f1f1;
-      i {
-        float: right;
-        text-indent: 0;
-        color: #ddd;
-        transition: 1s;
-        pointer-events: none;
-      }
-      & > span {
-        pointer-events: none;
-      }
-
-      // 子导航
-      & > ul {
-        float: right;
-        overflow: hidden;
-        opacity: 0;
-        width: 100%;
-        max-height: 0;
-        text-indent: 0;
-        transition: .5s;
-
-        li {
-          span::before {
-            content: "";
-            display: inline-block;
-            width: 10px;
-            height: 2px;
-            vertical-align: middle;
-            margin: 0 5px;
-            font-weight: bold;
-            background-color: rgba(0, 0, 0, .2);
-          }
-        }
-      }
-
-      &:hover {
-        color: #222;
-        i {
-          transform: rotate(180deg);
-        }
-        & > ul {
-          overflow: hidden;
-          opacity: 1;
-          max-height: 100vh;
-          visibility: inherit;
-          text-indent: 1rem;
-          color: #888;
-
-          li:hover {
-            color: #6ed9f1;
-          }
-        }
-      }
-      &::after {
-        content: "";
+    .header-menu-list {
+      & > li {
         display: block;
-        height: 100%;
-        clear: both;
+        line-height: 30px;
+        text-indent: 1rem;
+        color: #666;
+        border-bottom: 1px solid #f1f1f1;
+        i {
+          float: right;
+          text-indent: 0;
+          color: #ddd;
+          transition: 1s;
+          pointer-events: none;
+        }
+        & > span {
+          pointer-events: none;
+        }
+
+        // 子导航
+        & > ul {
+          float: right;
+          overflow: hidden;
+          opacity: 0;
+          width: 100%;
+          max-height: 0;
+          text-indent: 0;
+          transition: .5s;
+
+          li {
+            span::before {
+              content: "";
+              display: inline-block;
+              width: 10px;
+              height: 2px;
+              vertical-align: middle;
+              margin: 0 5px;
+              font-weight: bold;
+              background-color: rgba(0, 0, 0, .2);
+            }
+          }
+        }
+
+        &:hover {
+          color: #222;
+          i {
+            transform: rotate(180deg);
+          }
+          & > ul {
+            overflow: hidden;
+            opacity: 1;
+            max-height: 100vh;
+            visibility: inherit;
+            text-indent: 1rem;
+            color: #888;
+
+            li:hover {
+              color: #6ed9f1;
+            }
+          }
+        }
+        &::after {
+          content: "";
+          display: block;
+          height: 100%;
+          clear: both;
+        }
       }
     }
-  }
-  .login-after {
-    display: block;
-    margin-left: 5px;
-    background-color: #fafafa;
-
-    .user-icon {
+    .login-after {
       display: block;
-      height: 5rem;
-      border-radius: 50%;
-      margin: 0 auto;
-    }
-    .user-name {
-      font-size: 1.1rem;
-      text-align: center;
-    }
-  }
+      margin-left: 5px;
+      background-color: #fafafa;
 
-  // 列表显示
-  &.list-show {
-    opacity: 1;
-    transform: translateY(60px);
+      .user-icon {
+        display: block;
+        height: 5rem;
+        border-radius: 50%;
+        margin: 0 auto;
+      }
+      .user-name {
+        font-size: 1.1rem;
+        text-align: center;
+      }
+    }
+
+    // 列表显示
+    &.list-show {
+      opacity: 1;
+      transform: translateY(60px);
+    }
   }
 }
 
@@ -548,5 +551,4 @@ export default {
     transform: translateY(0);
   }
 }
-
 </style>
