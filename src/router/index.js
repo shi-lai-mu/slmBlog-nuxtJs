@@ -81,6 +81,10 @@ export default new Router({
           path: 'message',
           name: 'message',
           component: resolve => require(['@com/other/terms'], resolve)
+        },
+        {
+          path: 'friendship',
+          component: resolve => require(['@com/other/friendship'], resolve)
         }
       ]
     },

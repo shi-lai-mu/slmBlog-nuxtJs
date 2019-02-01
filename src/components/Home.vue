@@ -55,7 +55,7 @@
       <div class="content-box">
         <span class="content-tag">
           <span>友情链接:</span>
-          <span class="right">更多</span>
+          <router-link to="/other/friendship" class="right">更多</router-link>
         </span>
         <ul class="content-list friendship">
           <li>

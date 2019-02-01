@@ -164,10 +164,9 @@
                 </li>
                 <li>
                     <span>2018/01/15:</span>
-                    <p>重写前端样式,改为扁平式</p>
+                    <p>重写前端样式,设计为扁平式风格</p>
                 </li>
                 <li>
-                    <span>ps:</span>
                     <p>本人从不怕重写, 只怕原地踏步</p>
                 </li>
             </ul>
@@ -176,20 +175,6 @@
     </tbody>
 </template>
 
-<script>
-
-export default {
-  created () {
-    this.$connecter.$emit('page', {
-      title: {
-        tag: '关于本站',
-        description: '崇尚一技之长，不为学历凭能力!'
-      }
-    })
-  }
-}
-</script>
-
 <style lang="less">
 .single .thisSite {
     color: #353535;
@@ -197,6 +182,7 @@ export default {
         display: block;
         width: 13vw;
         min-width: 100px;
+        max-width: 130px;
         margin: 20px auto;
     }
     h2 {
