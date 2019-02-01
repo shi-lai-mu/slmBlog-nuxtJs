@@ -31,18 +31,18 @@ export default {
   },
   created () {
     // 运行倒计时
-    setInterval(() => {
-      this.liveTime = Time.unForm(1535150280000)
-    }, 1000)
+    // setInterval(() => {
+    //   this.liveTime = Time.unForm(1535150280000)
+    // }, 1000)
     // 路由后 更新底部位置
-    this.$connecter.$on('footerUpdate', () => {
-      this.$el.classList.remove('fixed-bottom')
-      setTimeout(() => {
-        if (document.documentElement.clientHeight > this.$el.offsetTop) {
-          this.$el.style.transform = `translateY(${document.documentElement.clientHeight - this.$el.offsetTop - this.$el.offsetHeight}px)`
-        }
-      }, 800)
-    })
+    // this.$connecter.$on('footerUpdate', () => {
+    //   this.$el.classList.remove('fixed-bottom')
+    //   setTimeout(() => {
+    //     if (document.documentElement.clientHeight > this.$el.offsetTop) {
+    //       this.$el.style.transform = `translateY(${document.documentElement.clientHeight - this.$el.offsetTop - this.$el.offsetHeight}px)`
+    //     }
+    //   }, 800)
+    // })
   }
 }
 </script>
