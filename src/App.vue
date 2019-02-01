@@ -95,28 +95,20 @@ export default {
      * 移动端右划事件
      */
     this.$nextTick(() => {
-      let pointerX = 0
+      let pointer = {}
       let screenW = screen.availWidth / 2 / 50
-      let $list = !1
-      let $state = !1
       window.addEventListener('touchstart', e => {
-        pointerX = e.changedTouches[0].clientX
-      })
-      window.addEventListener('touchmove', e => {
-        let moveX = Math.min((e.changedTouches[0].clientX - pointerX) / screenW, 50)
-        if ($list && !$state) {
-          this.masterStyle = `transition: 0s; filter: blur(${1 / 50 * moveX}px);transform: translateX(${moveX}vw);`
-          $list.mobilStyle = `transition: 0s; opacity: ${1 / 50 * moveX};transform: translateY(${moveX}px);`
-        } else if (this.$refs.master) $list = this.$refs.head
+        pointer = {
+          x: e.changedTouches[0].clientX,
+          y: e.changedTouches[0].clientY
+        }
       })
       window.addEventListener('touchend', e => {
-        if ($list) {
-          let moveX = Math.min((e.changedTouches[0].clientX - pointerX) / screenW, 50)
-          if (Math.abs(moveX) > 25) {
-            $state = $list.toggleMneu(moveX > 0)
+        if (pointer.x && Math.abs(pointer.y - e.changedTouches[0].clientY) < 30) {
+          let moveX = Math.min((e.changedTouches[0].clientX - pointer.x) / screenW, 50)
+          if (Math.abs(moveX) > 20) {
+            this.$refs.head.toggleMneu(moveX > 0)
           }
-          this.masterStyle = ``
-          $list.mobilStyle = ``
         }
       })
     })
