@@ -34,11 +34,11 @@
         <!-- 尾部 -->
         <footer :class="['article-body', { none: !article.title }]">
           <!-- 留言 -->
-          <ul class="article-message">
+          <ul class="article-message" v-if="article.msg">
             <span class="message-tag">留言
-              <span class="message-right">(20)</span>
+              <span class="message-right">({{ article.msg.all }})</span>
             </span>
-            <li v-for="(item, index) in article.msg" :key="index" class="clearfix">
+            <li v-for="(item, index) in article.msg.list" :key="index" class="clearfix">
               <div class="clearfix">
                 <img src="//res.mczyzy.cn/img/user-default.jpg" alt="用户头像" class="user-icon">
                 <span class="user-name">{{ item.autherName }}</span>
@@ -130,6 +130,7 @@ export default {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000),
     send () {
       let user = this.$store.state.user
+      console.log(this.$refs.editor)
       if (user) {
         this.$http
           .post('article/addMessage', {
@@ -349,6 +350,10 @@ export default {
       }
       .message-right {
         float: right;
+      }
+      p {
+        margin: 0;
+        text-indent: 0;
       }
     }
     .editor .w-e-toolbar,
