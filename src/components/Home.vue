@@ -198,7 +198,7 @@ export default {
   .content-aff-box {
     float: right;
     width: 28%;
-  
+
     .content-list {
       margin: 10px 0;
       color: #888;
