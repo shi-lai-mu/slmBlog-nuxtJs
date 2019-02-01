@@ -16,7 +16,7 @@
               <i class="iconfont icon-shizhong" title="时间">{{ article.createTime && unTime(article.createTime) }}</i>
             </span>
             <span class="nowrap">
-              <i class="iconfont icon-liaotian1" title="回复">{{ article.msg }}</i>
+              <i class="iconfont icon-liaotian1" title="回复">{{ article.msg.all }}</i>
               <i class="iconfont icon-liulan" title="浏览">{{ article.lookCount }}</i>
             </span>
           </h3>
@@ -282,7 +282,6 @@ export default {
     .article-body {
       width: 80%;
       padding-bottom: 30px;
-      border-bottom: 1px solid #ccc;
       margin: 0 auto 20px;
       font-size: 1.2rem;
 
@@ -309,6 +308,7 @@ export default {
       .message-tag {
         position: relative;
         display: block;
+        border-radius: 0 5px 5px 0;
         padding: 5px 10px;
         color: #fff;
         background-color: #aed9f3;
