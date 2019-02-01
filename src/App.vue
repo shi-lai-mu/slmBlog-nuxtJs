@@ -119,7 +119,7 @@ export default {
 <style lang="less">
 @import '~@com/public/public.less';
 #tbody > .tbody {
-  min-height: calc(100vh - 200px);
+  min-height: calc(100vh - 135px);
   transition: .5s;
 }
 .min-screen-left > .tbody {

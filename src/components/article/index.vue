@@ -16,7 +16,7 @@
               <i class="iconfont icon-shizhong" title="时间">{{ article.createTime && unTime(article.createTime) }}</i>
             </span>
             <span class="nowrap">
-              <i class="iconfont icon-liaotian1" title="回复">{{ article.msg.all }}</i>
+              <i class="iconfont icon-liaotian1" title="回复">{{ article.msg ? article.msg.all : '--' }}</i>
               <i class="iconfont icon-liulan" title="浏览">{{ article.lookCount }}</i>
             </span>
           </h3>
@@ -43,7 +43,7 @@
                 <img src="//res.mczyzy.cn/img/user-default.jpg" alt="用户头像" class="user-icon">
                 <span class="user-name">{{ item.autherName }}</span>
                 <span class="user-info">
-                  {{ unTime(article.msg.msgDate) }}
+                  {{ unTime(item.msgDate) }}
                   <span class="message-right">{{ item.level }}楼</span>
                 </span>
               </div>
