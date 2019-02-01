@@ -84,7 +84,7 @@
                 </li>
                 <li>
                     <span>设计:</span>
-                    <p>史莱姆(原型参考自网络)</p>
+                    <p>史莱姆(UI, 交互, LOGO)</p>
                 </li>
                 <li>
                     <span>图标:</span>

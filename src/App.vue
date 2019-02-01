@@ -101,7 +101,8 @@ export default {
 }
 .min-screen-left > .tbody {
   transform: translateX(50vw);
-  opacity: .8;
+  opacity: .7;
+  filter: blur(1px);
 }
 .slide-left-enter, .slide-right-leave-active {
   opacity: 0;

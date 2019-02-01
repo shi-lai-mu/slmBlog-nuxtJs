@@ -5,7 +5,9 @@
         <router-link to="/" class="max-a"></router-link>
       </h1>
       <!-- 移动端按钮 -->
-      <i :class="['menu-list', {close: menuState}]" @click="toggleMneu"></i>
+      <span class="menu-touch" @click="toggleMneu">
+        <i :class="['menu-list', {close: menuState}]"></i>
+      </span>
       <!-- 响应型导航栏 -->
       <nav :class="menuState ? 'list-show' : 'list-hide'">
         <span class="login-after" v-if="$store.state.mobile">
@@ -319,10 +321,19 @@ export default {
   }
 }
 // 移动端 按钮
+.centre .menu-touch {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 20px;
+  top: 14px;
+  width: 30px;
+  height: 30px;
+}
 .centre .menu-list {
   .i();
-  right: 20px;
-  top: 30px;
 
   .i {
     position: absolute;
@@ -333,15 +344,17 @@ export default {
     transition: .5s;
   }
 
-  &::after{
+  &::after {
     content: '';
     .i();
+    height: 3.5px;
     transform: translateY(7px);
   }
 
-  &::before{
+  &::before {
     content: '';
     .i();
+    height: 3.5px;
     transform: translateY(-7px);
   }
 
