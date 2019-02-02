@@ -38,7 +38,7 @@
       <!-- 右侧内容 -->
       <span class="header-right">
         <span class="search-box">
-          <input class="search">
+          <input class="search" @keyup.enter="searchKeyWord">
           <i class="iconfont icon-sou-suo"></i>
         </span>
 
@@ -210,6 +210,15 @@ export default {
       }
       this.$store.state.user = undefined
       this.updateRouter()
+    },
+
+    /**
+     * 搜索关键词
+     */
+    searchKeyWord (e) {
+      this.$connecter.$emit('searchKeyWord', e.target.value)
+      e.target.value = ''
+      e.target.blur()
     }
   }
 }

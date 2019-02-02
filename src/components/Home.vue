@@ -109,6 +109,12 @@ export default {
     this.loading = false
     // 加载主文章数据
     this.loadMaster()
+    // 订阅搜索
+    this.$connecter.$on('searchKeyWord', keyword => {
+      console.log(keyword)
+      this.$store.state.articleModel.keyword = keyword
+      this.loadMaster()
+    })
   },
   methods: {
 
