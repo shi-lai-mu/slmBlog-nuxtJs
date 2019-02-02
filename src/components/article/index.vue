@@ -12,7 +12,8 @@
           </h2>
           <h3 class="article-info">
             <span class="nowrap">
-              <span v-text="article.author.username"></span> 发表于：
+              <span v-text="article.author.username"></span>
+              <span>发表于：</span>
               <i class="iconfont icon-shizhong" title="时间">{{ article.createTime && unTime(article.createTime) }}</i>
             </span>
             <span class="nowrap">
@@ -35,7 +36,8 @@
         <footer :class="['article-body', { none: !article.title }]">
           <!-- 留言 -->
           <ul class="article-message" v-if="article.msg">
-            <span class="message-tag">留言
+            <span class="message-tag">
+              <span>留言</span>
               <span class="message-right">({{ article.msg.all }})</span>
             </span>
             <li v-for="(item, index) in article.msg.list" :key="index" class="clearfix">
@@ -156,6 +158,10 @@ export default {
       opacity: 0;
       transition: .5s;
     }
+    tbody.article-body {
+      margin-bottom: 50px;
+      border-bottom: 1px solid #ccc;
+    }
     .notCon {
       width: 90%;
       border-top: 1px solid #ccc;
@@ -244,7 +250,7 @@ export default {
       border-bottom: 1px solid #ccc;
       margin: 0 auto 30px;
       i {
-        margin: 0 5px 0 15px;
+        margin: 0 5px 0 10px;
         color: #888;
         &::before {
           margin-right: 5px;
@@ -309,9 +315,10 @@ export default {
         position: relative;
         display: block;
         border-radius: 0 5px 5px 0;
+        border-top: 2px solid #f7be23;
         padding: 5px 10px;
         color: #fff;
-        background-color: #aed9f3;
+        background-color: #f5d479;
 
         &::before {
           content: "";
@@ -321,7 +328,7 @@ export default {
           width: 4px;
           height: 100%;
           vertical-align: middle;
-          background-color: #0085d8;
+          background-color: #f7be23;
         }
       }
       .user-name,

@@ -7,8 +7,8 @@
     </span>
     <!-- 左侧 -->
     <div class="content-box" @click="tagClick">
-      <span v-for="(hot, index) in hotList" :key="index" :data-article="hot.Id">
-        <div class="article clearfix">
+      <ul>
+        <li class="article clearfix" v-for="(hot, index) in hotList" :key="index" :data-article="hot.Id">
           <div class="article-left">
             <img :src="hot.img" alt="images">
           </div>
@@ -21,8 +21,8 @@
               </li>
             </ul>
           </div>
-        </div>
-      </span>
+        </li>
+      </ul>
       <ul v-if="!hotList.length">
         <!-- 展示伪装 -->
         <li v-for="i in 5" :key="i" class="article clearfix">
@@ -117,6 +117,7 @@ export default {
         return
       }
       // 打开文章
+      console.log(e)
       if (dataset.article) {
         this.$router.push({
           name: 'article',
@@ -282,7 +283,7 @@ export default {
   border-bottom: 1px solid #e8e8e8;
   text-align: left;
   vertical-align: text-top;
-  pointer-events: none;
+  cursor: pointer;
 
   &:nth-child(1) {
     border-top: 0;
@@ -301,6 +302,7 @@ export default {
     float: left;
     width: 60%;
     margin: 10px 15px;
+    pointer-events: none;
 
     h3 {
       display: inline-block;
@@ -327,6 +329,7 @@ export default {
     min-height: 100px;
     border-radius: 5px;
     margin: 10px;
+    pointer-events: none;
 
     img {
       height: 100%;

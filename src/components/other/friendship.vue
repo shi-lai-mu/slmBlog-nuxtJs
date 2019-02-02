@@ -4,7 +4,7 @@
       <img src="//res.mczyzy.cn/LOGO.png" alt="slm-logo" class="logo">
       <h2>史莱姆的个人博客</h2>
       <h3 class="friendship-desc">本博客涉及范围html5,css3,es6,微信小程序,网站开发,技术交流,源码分享,php,nodejs</h3>
-      <button class="button-lv1">申请友链</button>
+      <a class="button-lv1" href="#no1">申请友链</a>
     </div>
 
     <ul class="content-box friendship friendship-list">
@@ -30,7 +30,7 @@
       </li>
     </ul>
 
-    <div class="content-box friendship">
+    <div class="content-box friendship" id="no1">
       <h2 class="friendship-tag">友情 链接 申请</h2>
 
       <div class="child-box">
