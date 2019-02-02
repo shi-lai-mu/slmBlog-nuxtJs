@@ -25,7 +25,7 @@
             <!-- 子导航 -->
             <ul v-if="menu.sub">
               <li v-for="(sub, n) in menu.sub" :key="n">
-                <router-link class="max-a" v-if="sub[1] == '#' || typeof sub === 'object' || typeof sub[1] === 'object'" :to="sub[1]" tag="span">{{ sub[0] }}</router-link>
+                <router-link class="max-a" v-if="sub[1] == '#' || sub.indexOf('/') > -1 || typeof sub[1] === 'object'" :to="sub[1]" tag="span">{{ sub[0] }}</router-link>
                 <span class="max-a" @click="runCommand(sub[1])" v-else>{{ sub[0] }}</span>
               </li>
             </ul>

@@ -6,7 +6,7 @@
       <i class="iconfont icon-wrong" @click="clearModel"></i>
     </span>
     <!-- 左侧 -->
-    <div class="content-box" @click="tagClick">
+    <div class="content-box article-list" @click="tagClick">
       <ul>
         <li class="article clearfix" v-for="(hot, index) in hotList" :key="index" :data-article="hot.Id">
           <div class="article-left">
@@ -38,7 +38,15 @@
           </div>
         </li>
       </ul>
-      sssss
+      <div class="page">
+        <span class="page-num">
+          <input onfocus="this.select()" v-model="page.num" @keyup.enter="pageSearch">/ {{ page.count }}
+        </span>
+        <span class="right">
+          <button class="button-lv1" @click="pageSearch(--page.num)">上一页</button>
+          <button class="button-lv1" @click="pageSearch(page.num++)">下一页</button>
+        </span>
+      </div>
     </div>
 
     <!-- 右侧 -->
@@ -80,15 +88,6 @@
 
     </div>
   </tbody>
-  <!-- <div class="content-left-box" v-for="(right, v) in rightList" :key="v">
-      <div class="content-left-tag">
-          <span v-text="right['tag']"></span>
-          <i class="iconfont icon-fangxiangxia"></i>
-      </div>
-      <ul class="content-left-list" v-for="(top, i) in right['data']" :key="i">
-          <router-link class="max-a" tag="li" v-text="top.title" :to="'/article/' + top.Id"></router-link>
-      </ul>
-  </div> -->
 </template>
 
 <script>
@@ -97,7 +96,12 @@ export default {
     return {
       hotList: [],
       rightList: [],
-      searchArticle: null
+      searchArticle: null,
+      page: {
+        all: 0,
+        count: 0,
+        num: 1
+      }
     }
   },
   created () {
@@ -122,7 +126,6 @@ export default {
         return
       }
       // 打开文章
-      console.log(e)
       if (dataset.article) {
         this.$router.push({
           name: 'article',
@@ -136,15 +139,18 @@ export default {
     /**
      * 搜索文章
      */
-    loadMaster () {
+    loadMaster (page = 1) {
       let model = this.$store.state.articleModel
       if (model.keyword) {
         this.searchArticle = `正在显示标签包含 '${model.keyword}' 的文章...`
       }
+      model.page = page
       // 热门内容
       this.$http.get('blog/hot', model)
         .then(res => {
-          this.hotList = res.data.map(index => {
+          const data = res.data
+          this.page = data
+          this.hotList = data.list.map(index => {
             index.type = index.type.split('#')
             index.type.shift()
             if (index.img.indexOf('//') === -1) {
@@ -153,6 +159,21 @@ export default {
             return index
           })
         })
+    },
+
+    /**
+     * 文章跳转
+     */
+    pageSearch (i) {
+      console.log(i)
+      if (i >= this.page.count) {
+        this.page.num = this.page.count
+        return
+      }
+      let page = this.page.num
+      if (!isNaN(page) && page > 0) {
+        this.loadMaster(page)
+      } else this.page.num = 1
     },
 
     /**
@@ -173,6 +194,10 @@ export default {
 .content-row {
   margin-bottom: 40px;
 
+  .right {
+    float: right;
+  }
+
   .content-box {
     overflow: hidden;
     padding: 0;
@@ -184,7 +209,6 @@ export default {
     color: #666;
 
     .right {
-      float: right;
       font-size: 1rem;
       color: #ccc;
     }
@@ -281,6 +305,29 @@ export default {
   }
 }
 // 正文
+.page {
+  .page-num {
+    line-height: 40px;
+    vertical-align: middle;
+    margin: 0 10px;
+    input {
+      width: 1rem;
+      margin: 5px;
+      border: 0;
+      border-radius: 2px;
+      text-align: right;
+      background-color: #eee;
+      user-select: all;
+    }
+  }
+  .button-lv1 {
+    margin: 5px 10px;
+    background-color: #bef2fd;
+  }
+}
+.article-list {
+  margin-bottom: 20px;
+}
 .article {
   padding: 10px;
   border-top: 1px solid white;
