@@ -60,8 +60,9 @@ export default {
 
           // 绘制函数
           draw () {
-            canvas.width = document.body.offsetWidth
-            canvas.height = document.documentElement.clientHeight
+            let doc = document.documentElement
+            canvas.width = doc.clientWidth
+            canvas.height = doc.clientHeight
             // ctx.scale(window.devicePixelRatio % 1, window.devicePixelRatio)
             for (var i = 0; i < ctxCount; i++) {
               let dot = this.dots[i]
@@ -152,10 +153,9 @@ export default {
 
           // 改变大小时
           resize () {
-            canvas.width = screen.availWidth
-            canvas.height = screen.availHeight
-            // canvas.style.height = screen.availWidth / window.devicePixelRatio
-            // canvas.style.width = screen.availWidth / window.devicePixelRatio
+            let doc = document.documentElement
+            canvas.width = doc.clientWidth
+            canvas.height = doc.clientHeight
           }
         }
       })()
