@@ -60,6 +60,10 @@
         </span>
         <ul class="content-list friendship">
           <li>
+            <img src="//www.xuanmo.xin/wp-content/uploads/2017/10/favicon-1.png" alt="轩陌博客 LOGO">
+            <a href="//www.xuanmo.xin" target="_black">轩陌博客</a>
+          </li>
+          <li>
             <img src="//www.teenshare.club/favicon.ico" alt="梯云博客 LOGO">
             <a href="//www.teenshare.club" target="_black">梯云博客</a>
           </li>
@@ -148,7 +152,6 @@ export default {
             }
             return index
           })
-          this.$connecter.$emit('footerUpdate')
         })
     },
 

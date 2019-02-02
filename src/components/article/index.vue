@@ -327,7 +327,6 @@ export default {
           left: 0;
           width: 4px;
           height: 100%;
-          vertical-align: middle;
           background-color: #f7be23;
         }
       }

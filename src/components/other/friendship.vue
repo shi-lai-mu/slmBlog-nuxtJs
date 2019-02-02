@@ -9,6 +9,12 @@
 
     <ul class="content-box friendship friendship-list">
       <li>
+        <a class="max-a" href="//www.xuanmo.xin" target="_black"></a>
+        <img src="//www.xuanmo.xin/wp-content/uploads/2017/10/favicon-1.png" alt="轩陌博客 LOGO">
+        <span class="friendship-name">轩陌博客</span>
+        <span class="friendship-desc">暂无简介。</span>
+      </li>
+      <li>
         <a class="max-a" href="//www.teenshare.club" target="_black"></a>
         <img src="//www.teenshare.club/favicon.ico" alt="梯云博客 LOGO">
         <span class="friendship-name">梯云博客</span>
@@ -124,15 +130,28 @@
     color: #555;
   }
   .child-box {
-    margin: 10px 0;
+    max-width: 1000px;
+    margin: 20px auto;
     border-radius: 5px;
     padding: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, .15);
 
     .child-tag {
+      position: relative;
+      margin: 10px -10px;
+      padding-left: 20px;
       font-size: 1.2rem;
       text-align: left;
-      color: #cd414b
+      color: #cd414b;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background-color: #fab1b6;
+      }
     }
     ol li {
       margin: 5px 0px;
@@ -143,7 +162,7 @@
       color: #777;
     }
     ul li {
-      margin-left: 20px;
+      margin: 10px 20px;
     }
     b {
       margin-right: 5px;
