@@ -42,11 +42,11 @@
           <i class="iconfont icon-sou-suo"></i>
         </span>
 
-        <span class="login-before" v-if="!user" >
+        <span class="login-before" v-if="!user.username" >
           <router-link :to="{ name: 'login' }" tag="span">登录</router-link>
           <router-link class="focus" :to="{ name: 'register' }" tag="span">注册</router-link>
         </span>
-        <span class="login-after focus" v-if="user">
+        <span class="login-after focus" v-else>
           <img class="user-icon" v-lazy="user.img" :alt="user.username + '的头像'">
           <p class="user-name" v-text="user.username"></p>
         </span>

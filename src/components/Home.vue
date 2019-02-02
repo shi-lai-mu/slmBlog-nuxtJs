@@ -123,6 +123,7 @@ export default {
         // 关键词搜索
         state.articleModel.keyword = dataset.tag
         this.loadMaster()
+        window.scrollTo(0, 0)
         return
       }
       // 打开文章
@@ -165,7 +166,6 @@ export default {
      * 文章跳转
      */
     pageSearch (i) {
-      console.log(i)
       if (i >= this.page.count) {
         this.page.num = this.page.count
         return
