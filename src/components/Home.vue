@@ -218,8 +218,8 @@ export default {
       position: absolute;
       width: 5px;
       height: 100%;
-      margin-left: -10px;
-      border-radius: 2px 0 0 2px;
+      margin-left: -20px;
+      border-radius: 0 5px 5px 0;
       background-color: #83e1f7;
     }
   }

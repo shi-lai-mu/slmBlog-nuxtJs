@@ -30,22 +30,20 @@ export default {
         return class Canvas {
           clearInter = null
           constructor () {
+            canvas.width = document.body.offsetWidth
+            canvas.height = document.documentElement.clientHeight
             this.resize()
             this.dots = []
             // 生成球体
             for (var i = 0; i < ctxCount; i++) {
               this.dots.push({
-                x: rand() * canvas.width + 2,
-                y: rand() * canvas.height + 2,
+                x: rand() * canvas.width - 20,
+                y: rand() * canvas.height,
                 // 移动角度
                 xa: (rand() * 2 - 1) / 1.5,
                 ya: (rand() * 2 - 1) / 1.5,
                 // 颜色
-                color: {
-                  r: 25 + rand() * 250,
-                  g: 25 + rand() * 250,
-                  b: 25 + rand() * 250
-                },
+                color: this.getRandColor(),
                 // 设备像素修复
                 size: (3 + rand() * sizeMax) + (1 % window.devicePixelRatio),
                 big: rand() > 0.5 ? rand() * 4 : false,
@@ -62,15 +60,28 @@ export default {
 
           // 绘制函数
           draw () {
-            canvas.width = screen.availWidth
+            canvas.width = document.body.offsetWidth
+            canvas.height = document.documentElement.clientHeight
             // ctx.scale(window.devicePixelRatio % 1, window.devicePixelRatio)
             for (var i = 0; i < ctxCount; i++) {
               let dot = this.dots[i]
               dot.x += dot.xa
               dot.y += dot.ya
-              // 边缘碰撞检测
-              dot.xa *= dot.x > (canvas.width - (dot.size / 2)) || dot.x < dot.size / 2 ? -1 : 1
-              dot.ya *= dot.y > (canvas.height - (dot.size / 2)) || dot.y < dot.size / 2 ? -1 : 1
+              // 边缘碰撞检并变色
+              if (dot.x > canvas.width || dot.x < dot.size / 2) {
+                dot.xa *= -1
+                dot.color = this.getRandColor()
+              }
+              if (dot.x > canvas.width || dot.x < dot.size / 2) {
+                dot.xa *= -1
+                dot.color = this.getRandColor()
+              }
+              if (dot.y > canvas.height || dot.y < dot.size / 2) {
+                dot.ya *= -1
+                dot.color = this.getRandColor()
+              }
+              // dot.xa *= dot.x > canvas.width || dot.x < dot.size / 2 ? -1 : 1
+              // dot.ya *= dot.y > canvas.height || dot.y < dot.size / 2 ? -1 : 1
               let color = `${dot.color.r},${dot.color.g},${dot.color.b}`
               // 连线检测
               for (var j = 0; j < ctxCount; j++) {
@@ -109,6 +120,15 @@ export default {
               })
             }
             window.requestAnimationFrame(this.draw.bind(this))
+          }
+
+          // 随机色
+          getRandColor () {
+            return {
+              r: 25 + Math.random() * 250,
+              g: 25 + Math.random() * 250,
+              b: 25 + Math.random() * 250
+            }
           }
 
           // 命令绘制模式
