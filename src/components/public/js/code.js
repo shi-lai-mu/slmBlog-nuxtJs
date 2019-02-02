@@ -66,11 +66,13 @@ class Code {
     let search = isModel.exec(this.innerText)
     if (isModel) {
       let model = /(javascript|css|html)+/i
-      search[0].replace(model, keyword => {
-        // 设置类名为 model-语言
-        this.$el.className = 'model-' + keyword
-        this.model = keyword
-      })
+      if (search) {
+        search[0].replace(model, keyword => {
+          // 设置类名为 model-语言
+          this.$el.className = 'model-' + keyword
+          this.model = keyword
+        })
+      }
     }
     this.replace()
   }

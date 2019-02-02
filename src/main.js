@@ -12,10 +12,10 @@ Vue.prototype.$http = http
 Vue.prototype.$connecter = connecter
 Vue.use(VueX, VueMeta)
 Vue.use(VueLazyload, {
-  preLoad: 1.3,
+  preLoad: 6,
   error: '//res.mczyzy.cn/img/error.png',
   loading: '//res.mczyzy.cn/img/loading.gif',
-  attempt: 1
+  attempt: 5
 })
 
 Vue.config.productionTip = false
