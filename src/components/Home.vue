@@ -38,6 +38,7 @@
           </div>
         </li>
       </ul>
+      sssss
     </div>
 
     <!-- 右侧 -->
@@ -225,8 +226,8 @@ export default {
 
     .content-box {
       width: 100%;
-      margin-bottom: 20px;
       padding: 10px;
+      margin-bottom: 20px;
     }
 
     .blogger {

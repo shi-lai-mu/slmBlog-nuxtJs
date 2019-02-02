@@ -35,16 +35,17 @@ const store = new VueX.Store({
 // 路由后处理
 router.afterEach((to, from, next) => {
   window.scrollTo(0, 0)
-  connecter.$emit('footerUpdate', 1)
-  // 百度推送
-  if (window.location.host !== '127.0.0.1') {
-    (function () {
-      var bp = document.createElement('script')
-      bp.src = '//push.zhanzhang.baidu.com/push.js'
-      var s = document.getElementsByTagName('script')[0]
-      s.parentNode.insertBefore(bp, s)
-    })()
-  }
+  // 百度推送 [三秒后推送]
+  setTimeout(() => {
+    if (window.location.host !== '127.0.0.1') {
+      (function () {
+        var bp = document.createElement('script')
+        bp.src = '//push.zhanzhang.baidu.com/push.js'
+        var s = document.getElementsByTagName('script')[0]
+        s.parentNode.insertBefore(bp, s)
+      })()
+    }
+  }, 3000)
 })
 
 // 路由前处理
