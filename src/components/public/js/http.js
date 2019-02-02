@@ -3,10 +3,10 @@ import axiosQs from 'qs'
 import jsrsasign from 'jsrsasign'
 import connecter from '@pub/js/connecter'
 
-let rsa = new jsrsasign.RSAKey()
+const rsa = new jsrsasign.RSAKey()
 rsa.setPublic('D3379E6D621B0C3C96DB21F478468BAE8E117C6136774EBF0921F77F2D102ECCB2EFCE4AF2722E6F3942E3D23A36E4E3AC9971896D4DFBD6F7A68C390117CA824C115F6AAC3828B7C5C5D4FF971228BC53CE714208C6283CBAEB3515BF71CC7841BDF44C731C329845896AC3EF7B1E64D51EDCF2D6BB6E106D24A17F5EB4BFDD', `10001`)
 
-let $http = axios.create({
+const $http = axios.create({
   baseURL: 'http://mczyzy.cn:8080',
   timeout: 15000,
   responseType: 'json',
@@ -16,8 +16,10 @@ let $http = axios.create({
   validateStatus: state => state
 })
 
+// 备忘录模式
+let store = {}
+
 if (process.env.NODE_ENV === 'development') {
-  // $http.defaults.baseURL = 'http://online.mczyzy.cn:8080'
   $http.defaults.baseURL = 'http://127.0.0.1:8080'
 }
 
@@ -53,11 +55,18 @@ export default {
           }
         }
       }
+      // 是否缓存
+      if (url in store) {
+        return resolve(store[url])
+      }
+      console.log(store)
 
       $http.get(url)
         .then(res => {
           if (res.data && !res.data.error) {
             resolve(res)
+            // 备忘录
+            store[url] = res
             // 如果设置了缓存
             if (storage) {
               sessionStorage.setItem(url, JSON.stringify({
@@ -84,6 +93,12 @@ export default {
         })
     })
   },
+  /**
+   * axios post 请求
+   * @param {string} url GET URL请求
+   * @param {object} data GET json数据
+   * @param {object} head 请求头部
+   */
   post (url, data, head) {
     return new Promise((resolve, reject) => {
       let detail = []

@@ -28,7 +28,9 @@ const store = new VueX.Store({
     // 文章显示模式
     articleModel: {},
     // 音乐控件
-    Music: new Music()
+    Music: new Music(),
+    // GET请求数据缓存
+    GET: {}
   }
 })
 

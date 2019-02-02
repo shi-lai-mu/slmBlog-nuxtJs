@@ -1,7 +1,7 @@
 <template>
   <tbody class="conter content-row clearfix">
 
-    <span :class="[{ searchArticle }, 'article-input', 'content-box']">
+    <span :class="[{ searchArticle }, { 'input-red': searchState }, 'article-input', 'content-box']">
       {{ searchArticle }}
       <i class="iconfont icon-wrong" @click="clearModel"></i>
     </span>
@@ -63,6 +63,31 @@
 
       <div class="content-box">
         <span class="content-tag">
+          <span>最新文章:</span>
+          <router-link to="/other/friendship" class="right">更多</router-link>
+        </span>
+        <ul class="content-list friendship">
+          <li>
+            <img src="//www.xuanmo.xin/wp-content/uploads/2017/10/favicon-1.png" alt="轩陌博客 LOGO">
+            <a href="//www.xuanmo.xin" target="_black">轩陌博客</a>
+          </li>
+          <li>
+            <img src="//www.teenshare.club/favicon.ico" alt="梯云博客 LOGO">
+            <a href="//www.teenshare.club" target="_black">梯云博客</a>
+          </li>
+          <li>
+            <img src="//www.mxsina.com/favicon.ico" alt="蔚然博客 LOGO">
+            <a href="//www.mxsina.com" target="_black">蔚然博客</a>
+          </li>
+          <li>
+            <img src="//www.iwentao.top/favicon.ico" alt="竹泊博客 LOGO">
+            <a href="//www.iwentao.top" target="_black">竹泊博客</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="content-box">
+        <span class="content-tag">
           <span>友情链接:</span>
           <router-link to="/other/friendship" class="right">更多</router-link>
         </span>
@@ -97,6 +122,7 @@ export default {
       hotList: [],
       rightList: [],
       searchArticle: null,
+      searchState: false,
       page: {
         all: 0,
         count: 0,
@@ -111,7 +137,6 @@ export default {
     this.loadMaster()
     // 订阅搜索
     this.$connecter.$on('searchKeyWord', keyword => {
-      console.log(keyword)
       this.$store.state.articleModel.keyword = keyword
       this.loadMaster()
     })
@@ -151,20 +176,31 @@ export default {
       if (model.keyword) {
         this.searchArticle = `正在显示标签包含 '${model.keyword}' 的文章...`
       }
-      model.page = page
+      if (model) model.page = page
       // 热门内容
       this.$http.get('blog/hot', model)
         .then(res => {
           const data = res.data
-          this.page = data
-          this.hotList = data.list.map(index => {
-            index.type = index.type.split('#')
-            index.type.shift()
-            if (index.img.indexOf('//') === -1) {
-              index.img = `//res.mczyzy.cn/img/upload/${index.img}`
-            }
-            return index
-          })
+          if (data.all) {
+            this.page = data
+            console.log(data)
+            this.hotList = data.list.map(index => {
+              console.log(typeof index.type)
+              if (typeof index.type === 'string') {
+                index.type = index.type.split('#')
+                index.type.shift()
+                if (index.img.indexOf('//') === -1) {
+                  index.img = `//res.mczyzy.cn/img/upload/${index.img}`
+                }
+              }
+              return index
+            })
+          } else {
+            this.searchState = 'red'
+            this.searchArticle = `抱歉, 未找到关于 '${model.keyword}' 的文章，请尝试换一个关键词...`
+            this.$store.state.articleModel = false
+            this.loadMaster()
+          }
         })
     },
 
@@ -188,6 +224,7 @@ export default {
     clearModel () {
       this.$store.state.articleModel = {}
       this.searchArticle = null
+      this.searchState = !1
       this.loadMaster()
     }
   }
@@ -308,6 +345,13 @@ export default {
     float: right;
     color: #ccc;
     cursor: pointer;
+  }
+}
+.input-red {
+  color: #fff;
+  background-color: #eb3a42;
+  .icon-wrong {
+    color: currentColor;
   }
 }
 // 正文
