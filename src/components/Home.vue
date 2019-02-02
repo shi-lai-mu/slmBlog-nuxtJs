@@ -61,7 +61,7 @@
         </div>
       </div>
 
-      <div :class="[rightList.new ? 'content-show': 'content-hide', 'content-box']">
+      <div class="content-box">
         <span class="content-tag">
           <span>最新文章:</span>
           <!-- <router-link to="/other/friendship" class="right">更多</router-link> -->
@@ -73,15 +73,14 @@
         </ul>
       </div>
 
-      <div :class="[rightList.ship ? 'content-show': 'content-hide', 'content-box']">
+      <div class="content-box">
         <span class="content-tag">
           <span>友情链接:</span>
           <router-link to="/other/friendship" class="right">更多</router-link>
         </span>
         <ul class="content-list friendship" v-if="rightList.ship">
           <li v-for="(item, key) in rightList.ship.data" :key="key">
-            <router-link :to="{ name: 'article', params: { id: item.Id } }">{{ item.title }}</router-link>
-            <img :src="item.icon" :alt="item.name + 'LOGO'">
+            <img :src="item.icon" :title="item.name + 'LOGO'">
             <a :href="item.web" target="_black">{{ item.name }}</a>
           </li>
         </ul>
@@ -286,23 +285,14 @@ export default {
       width: 100%;
       padding: 10px;
       margin-bottom: 20px;
-      transition: 1s;
-    }
-
-    .content-show {
-      max-height: 50vh;
-    }
-    .content-show:nth-child(3) {
-      transition: 1s .5s;
-    }
-    .content-hide {
-      max-height: 40px;
     }
 
     .blogger {
       padding-bottom: 10px;
       img {
         display: block;
+        width: 100px;
+        height: 100px;
         border-radius: 50%;
         margin: 20px auto 10px;
         border: 10px solid rgba(99,196,218,.25);

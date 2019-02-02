@@ -22,7 +22,7 @@ export default {
         let lineWidth = 40
         // pc 端配置
         if (!slef.$store.state.mobile) {
-          ctxCount = 200
+          ctxCount = 150
           sizeMax = 10
           lineWidth = 100
         }

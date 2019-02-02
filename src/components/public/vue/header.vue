@@ -480,8 +480,9 @@ export default {
       .user-icon {
         display: block;
         height: 5rem;
-        border-radius: 50%;
         margin: 0 auto;
+        border-radius: 50%;
+        padding-top: 20px;
       }
       .user-name {
         font-size: 1.1rem;
