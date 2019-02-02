@@ -61,52 +61,28 @@
         </div>
       </div>
 
-      <div class="content-box">
+      <div :class="[rightList.new ? 'content-show': 'content-hide', 'content-box']">
         <span class="content-tag">
           <span>最新文章:</span>
-          <router-link to="/other/friendship" class="right">更多</router-link>
+          <!-- <router-link to="/other/friendship" class="right">更多</router-link> -->
         </span>
-        <ul class="content-list friendship">
-          <li>
-            <img src="//www.xuanmo.xin/wp-content/uploads/2017/10/favicon-1.png" alt="轩陌博客 LOGO">
-            <a href="//www.xuanmo.xin" target="_black">轩陌博客</a>
-          </li>
-          <li>
-            <img src="//www.teenshare.club/favicon.ico" alt="梯云博客 LOGO">
-            <a href="//www.teenshare.club" target="_black">梯云博客</a>
-          </li>
-          <li>
-            <img src="//www.mxsina.com/favicon.ico" alt="蔚然博客 LOGO">
-            <a href="//www.mxsina.com" target="_black">蔚然博客</a>
-          </li>
-          <li>
-            <img src="//www.iwentao.top/favicon.ico" alt="竹泊博客 LOGO">
-            <a href="//www.iwentao.top" target="_black">竹泊博客</a>
+        <ul class="content-list friendship" v-if="rightList.new">
+          <li v-for="(item, key) in rightList.new.data" :key="key">
+            <router-link :to="{ name: 'article', params: { id: item.Id } }">{{ item.title }}</router-link>
           </li>
         </ul>
       </div>
 
-      <div class="content-box">
+      <div :class="[rightList.ship ? 'content-show': 'content-hide', 'content-box']">
         <span class="content-tag">
           <span>友情链接:</span>
           <router-link to="/other/friendship" class="right">更多</router-link>
         </span>
-        <ul class="content-list friendship">
-          <li>
-            <img src="//www.xuanmo.xin/wp-content/uploads/2017/10/favicon-1.png" alt="轩陌博客 LOGO">
-            <a href="//www.xuanmo.xin" target="_black">轩陌博客</a>
-          </li>
-          <li>
-            <img src="//www.teenshare.club/favicon.ico" alt="梯云博客 LOGO">
-            <a href="//www.teenshare.club" target="_black">梯云博客</a>
-          </li>
-          <li>
-            <img src="//www.mxsina.com/favicon.ico" alt="蔚然博客 LOGO">
-            <a href="//www.mxsina.com" target="_black">蔚然博客</a>
-          </li>
-          <li>
-            <img src="//www.iwentao.top/favicon.ico" alt="竹泊博客 LOGO">
-            <a href="//www.iwentao.top" target="_black">竹泊博客</a>
+        <ul class="content-list friendship" v-if="rightList.ship">
+          <li v-for="(item, key) in rightList.ship.data" :key="key">
+            <router-link :to="{ name: 'article', params: { id: item.Id } }">{{ item.title }}</router-link>
+            <img :src="item.icon" :alt="item.name + 'LOGO'">
+            <a :href="item.web" target="_black">{{ item.name }}</a>
           </li>
         </ul>
       </div>
@@ -178,14 +154,13 @@ export default {
       }
       if (model) model.page = page
       // 热门内容
-      this.$http.get('blog/hot', model)
+      this.$http
+        .get('blog/hot', model)
         .then(res => {
           const data = res.data
           if (data.all) {
             this.page = data
-            console.log(data)
             this.hotList = data.list.map(index => {
-              console.log(typeof index.type)
               if (typeof index.type === 'string') {
                 index.type = index.type.split('#')
                 index.type.shift()
@@ -201,6 +176,19 @@ export default {
             this.$store.state.articleModel = false
             this.loadMaster()
           }
+          // 加载右侧数据
+          this.loadRight()
+        })
+    },
+
+    /**
+     * 右侧数据加载
+     */
+    loadRight () {
+      this.$http
+        .get('blog/right')
+        .then(res => {
+          this.rightList = res.data
         })
     },
 
@@ -298,6 +286,17 @@ export default {
       width: 100%;
       padding: 10px;
       margin-bottom: 20px;
+      transition: 1s;
+    }
+
+    .content-show {
+      max-height: 50vh;
+    }
+    .content-show:nth-child(3) {
+      transition: 1s .5s;
+    }
+    .content-hide {
+      max-height: 40px;
     }
 
     .blogger {

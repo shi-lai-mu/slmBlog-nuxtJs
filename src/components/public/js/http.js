@@ -59,7 +59,6 @@ export default {
       if (url in store) {
         return resolve(store[url])
       }
-      console.log(store)
 
       $http.get(url)
         .then(res => {
