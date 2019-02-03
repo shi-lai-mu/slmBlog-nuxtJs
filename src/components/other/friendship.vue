@@ -10,31 +10,11 @@
     <div class="content-box friendship">
       <h2 class="friendship-tag">友情 链接</h2>
       <ul class="friendship friendship-list">
-        <li>
-          <a class="max-a" href="//www.xuanmo.xin" target="_black"></a>
-          <img src="//www.xuanmo.xin/wp-content/uploads/2017/10/favicon-1.png" alt="轩陌博客 LOGO">
-          <span class="friendship-name">轩陌博客</span>
-          <span class="friendship-desc">前端技术博客。</span>
-        </li>
-        <li>
-          <a class="max-a" href="//www.teenshare.club" target="_black"></a>
-          <img src="//www.teenshare.club/favicon.ico" alt="梯云博客 LOGO">
-          <span class="friendship-name">梯云博客</span>
-          <span class="friendship-desc">一个分享知识和资源的博客。</span>
-        </li>
-        <li>
-          <a class="max-a" href="//www.mxsina.com" target="_black"></a>
-          <img src="//www.mxsina.com/favicon.ico" alt="蔚然博客 LOGO">
-          <span class="friendship-name">蔚然博客</span>
-          <span class="friendship-desc">蔚然博客&技术交流</span>
-          <span></span>
-        </li>
-        <li>
-          <a class="max-a" href="//www.iwentao.top" target="_black"></a>
-          <img src="//www.iwentao.top/favicon.ico" alt="竹泊博客 LOGO">
-          <span class="friendship-name">竹泊博客</span>
-          <span class="friendship-desc">PHP后端技术博客。</span>
-          <span></span>
+        <li v-for="(item, index) in friendship" :key="index">
+          <a class="max-a" :href="item.web" target="_black"></a>
+          <img :src="item.icon" alt="轩陌博客 LOGO">
+          <span class="friendship-name">{{ item.name }}</span>
+          <span class="friendship-desc">{{ item.desc }}</span>
         </li>
       </ul>
     </div>
@@ -89,7 +69,19 @@
 </template>
 
 <script>
-
+export default {
+  data () {
+    return {
+      friendship: {}
+    }
+  },
+  created () {
+    this.$http.get('blog/friendship')
+      .then(res => {
+        this.friendship = res.data
+      })
+  }
+}
 </script>
 
 <style lang="less">
