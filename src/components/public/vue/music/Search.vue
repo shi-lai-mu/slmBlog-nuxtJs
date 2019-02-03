@@ -106,7 +106,7 @@ export default {
           .then(res => {
             this.state = false
             let song = res.data.data.song.list
-            this.$el.scrollTo(0,0)
+            this.$el.scrollTo(0, 0)
             for (let i = 0, l = song.length; i < l; i++) {
               let val = song[i]
               // 避免重复计算

@@ -55,6 +55,7 @@
 import List from '@pub/vue/music/List'
 import Info from '@pub/vue/music/Info'
 import Search from '@pub/vue/music/Search'
+import Setting from '@pub/vue/music/Setting'
 // 底部音乐插件
 export default {
   data () {
@@ -74,7 +75,7 @@ export default {
         'icon-yinleliebiaoxian': List,
         'icon-shoucang': null,
         'icon-xiazai': null,
-        'icon-shezhi': null
+        'icon-shezhi': Setting
       },
       // 工具栏内容 对应执行函数名
       tools: {
