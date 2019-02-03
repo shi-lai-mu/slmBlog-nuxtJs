@@ -10,7 +10,7 @@
         <span class="song-singer">{{ song.singers }}</span>
         <span class="song-lyric">{{ song.albumname }}</span>
         <i class="iconfont icon-caidan" @click="toggleList" :data-i="i"></i>
-        <span class="song-inter">{{ utfc(song.interval) }}</span>
+        <span class="song-inter">{{ song.interval }}</span>
       </li>
     </ul>
     <!-- 翻页 -->
@@ -106,8 +106,11 @@ export default {
           .then(res => {
             this.state = false
             let song = res.data.data.song.list
+            this.$el.scrollTo(0,0)
             for (let i = 0, l = song.length; i < l; i++) {
               let val = song[i]
+              // 避免重复计算
+              if (val.songnames) break
               if (val.songname === val.albumname) {
                 val.albumname = ''
               }
@@ -128,6 +131,9 @@ export default {
                   break
                 }
               }
+              // 播放时间
+              val.interval = Time.utfc(val.interval)
+              if (val.interval === '00:00') val.interval = '-- : --'
               !val.songnames && (val.songnames = val.songname)
             }
             console.log(song)
@@ -275,13 +281,6 @@ export default {
         song.autoPlay = !0
         this.$connecter.$emit('music', song)
       }
-    },
-
-    /**
-     * 转换时间
-     */
-    utfc (time) {
-      return Time.utfc(time)
     }
   }
 }
