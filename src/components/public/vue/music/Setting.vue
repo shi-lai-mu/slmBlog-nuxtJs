@@ -5,6 +5,7 @@
         <span class="setting-title">QQ音乐歌单绑定：</span>
         <input class="left" type="text" v-model="musicQQ" placeholder="输入QQ号,得到QQ音乐歌单">
         <button class="right" @click="getMusicQQ">{{ musicQQState }}</button>
+        <span class="ps" v-if="musicQQState == '绑定中'">现在可以看看歌单界面是否存在QQ音乐数据</span>
       </li>
       <li @click="setSkin">
         <span class="setting-title">音乐控件主题色[暂未开发]:</span>
@@ -23,8 +24,14 @@ export default {
       musicQQState: '绑定'
     }
   },
-  create () {
-    console.log(123465)
+  created () {
+    // 检测QQ歌单是否绑定
+    let QQSingle = localStorage.getItem('QQSingle')
+    if (QQSingle) {
+      QQSingle = JSON.parse(QQSingle)
+      this.musicQQ = QQSingle[0].uin + `[${QQSingle[0].name}]`
+      this.musicQQState = '绑定中'
+    }
   },
   methods: {
 
@@ -32,7 +39,7 @@ export default {
      * 获取QQ号下的歌单并绑定
      */
     getMusicQQ () {
-      if (/(\d){6,20}/.test(this.musicQQ)) {
+      if (this.musicQQState !== '绑定中' && /(\d){6,20}/.test(this.musicQQ)) {
         this.musicQQState = '分析中...'
         this.$http
           .get('api/Music', {
@@ -41,7 +48,9 @@ export default {
           })
           .then(res => {
             if (res.data[0].code === 0) {
-              this.musicQQState = '绑定完成'
+              this.musicQQState = '绑定中'
+              localStorage.setItem('QQSingle', JSON.stringify(res.data))
+              this.musicQQ = res.data[0].uin + `[${res.data[0].name}]`
             } else {
               this.musicQQState = '数据错误!'
             }
@@ -135,7 +144,8 @@ export default {
       width: 100%;
       font-weight: 200;
       font-size: .5rem;
-      color: #ccc;
+      text-align: right;
+      color: #bbb;
     }
   }
 </style>
