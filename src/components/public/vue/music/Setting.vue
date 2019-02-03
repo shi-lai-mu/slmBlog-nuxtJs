@@ -4,7 +4,7 @@
       <li>
         <span class="setting-title">QQ音乐歌单绑定：</span>
         <input class="left" type="text" v-model="musicQQ" placeholder="输入QQ号,得到QQ音乐歌单">
-        <button class="right" @click="getMusicQQ">绑定</button>
+        <button class="right" @click="getMusicQQ">{{ musicQQState }}</button>
       </li>
       <li @click="setSkin">
         <span class="setting-title">音乐控件主题色[暂未开发]:</span>
@@ -19,7 +19,8 @@
 export default {
   data () {
     return {
-      musicQQ: null
+      musicQQ: null,
+      musicQQState: '绑定'
     }
   },
   create () {
@@ -31,8 +32,21 @@ export default {
      * 获取QQ号下的歌单并绑定
      */
     getMusicQQ () {
-      this.$http
-        .get('api/Music?fun=QQSingle')
+      if (/(\d){6,20}/.test(this.musicQQ)) {
+        this.musicQQState = '分析中...'
+        this.$http
+          .get('api/Music', {
+            fun: 'QQSingle',
+            qq: this.musicQQ
+          })
+          .then(res => {
+            if (res.data[0].code === 0) {
+              this.musicQQState = '绑定完成'
+            } else {
+              this.musicQQState = '数据错误!'
+            }
+          })
+      }
     },
 
     /**

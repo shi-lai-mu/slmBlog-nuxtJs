@@ -66,7 +66,7 @@
           <span>最新文章:</span>
           <!-- <router-link to="/other/friendship" class="right">更多</router-link> -->
         </span>
-        <ol class="content-list friendship" v-if="rightList.new">
+        <ol class="content-list" v-if="rightList.new">
           <li v-for="(item, key) in rightList.new.data" :key="key">
             <router-link class="max-a" :to="{ name: 'article', params: { id: item.Id } }">{{ item.title }}</router-link>
           </li>
@@ -281,14 +281,21 @@ export default {
         width: 90%;
         padding-bottom: 5px;
         border-bottom: 1px solid #eee;
+        list-style: inherit;
 
         &:hover {
           color: #6bbcce;
         }
       }
     }
-    ol.friendship li {
+    ol li {
       margin-left: 7%;
+      list-style: inherit;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #eee;
+      .max-a {
+        position: initial;
+      }
     }
 
     .content-box {

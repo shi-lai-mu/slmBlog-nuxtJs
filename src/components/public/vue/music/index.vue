@@ -60,14 +60,14 @@ import Setting from '@pub/vue/music/Setting'
 export default {
   data () {
     return {
-      floatState: !1,
-      floatList: !1,
+      floatState: !0,
+      floatList: !0,
       // 第一次加载
-      onlyLoad: !1,
+      onlyLoad: !0,
       // 选项默认色
       iconColor: '#222',
       // 默认选中
-      currentTab: 'icon-sou-suo',
+      currentTab: 'icon-shezhi',
       // 分页列表
       pages: {
         'icon-sou-suo': Search,
