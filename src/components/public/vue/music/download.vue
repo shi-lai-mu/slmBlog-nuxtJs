@@ -6,7 +6,9 @@
       <i class="iconfont right icon-zanting"></i>
     </div>
     <ul class="down-list">
-      <li v-for="(item, index) in download.length" :key="index">xxxxxxx</li>
+      <li v-for="(item, index) in download.list" :key="index">
+        <span class="song-name ellipsis">{{ item.name }}</span>
+      </li>
     </ul>
   </div>
 </template>
@@ -54,6 +56,11 @@ export default {
       margin: 30px 10px;
       li {
         box-shadow: 0 5px 10px -2px rgba(0, 0, 0, .3);
+
+        .song-name {
+          display: inline-block;
+          width: 70%;
+        }
 
         &:hover {
           background-color: rgba(255, 255, 255, .9);

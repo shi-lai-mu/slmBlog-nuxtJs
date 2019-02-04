@@ -29,10 +29,13 @@
       <button class="download-all" v-if="single.song_list.length" @click="downloadAll">
         <i class="iconfont icon-xiazai"></i>{{ downloadState }}
       </button>
-      <ul :class="['download-list', { 'download-list-show': download['MP3_128'] }]" @click="selectDownload">
+      <ul :class="['download-list', { 'download-list-show': download['MP3_128'] && downloadtoggle }]" @click="selectDownload">
         <li v-for="(item, index) in download" :key="index" :data-down="index">
           <span>下载 {{ index }}</span>
           <span class="right">{{ item.name || "" }}</span>
+        </li>
+        <li style="text-align: center" @click="downloadtoggle = !1">
+          关闭
         </li>
       </ul>
 
@@ -60,7 +63,8 @@ export default {
       single: {},
       style: [],
       download: {},
-      downloadState: '下载全部'
+      downloadState: '下载全部',
+      downloadtoggle: !0
     }
   },
   created () {
@@ -213,6 +217,7 @@ export default {
               res.data[key].name = keys[key]
             }
           }
+          this.downloadtoggle = !0
           this.download = res.data
         })
       console.log(this.single)
@@ -223,7 +228,16 @@ export default {
      */
     selectDownload (e) {
       const down = e.target.dataset.down
-      if (down) {
+      const download = this.download
+      const Music = this.$store.state.Music
+      const single = this.single.song_list
+      if (down && download[down]) {
+        for (let i = 0, l = download[down].length; i < l; i++) {
+          Music.addDownload({
+            name: single[i].songnames,
+            src: download[down][i]
+          })
+        }
       }
     }
   }
@@ -319,7 +333,7 @@ export default {
       }
     }
     .download-list-show {
-      max-height: 50vh;
+      max-height: 40vh;
     }
     // 歌单列表
     .single {

@@ -218,5 +218,18 @@ export default function () {
           throw Error(`破解请求过于频繁,请稍后再试!`)
         })
     }
+
+    /**
+     * 添加至下载列队
+     */
+    addDownload (url) {
+      let download = this.download.list
+      // 如果存在下载列队内则退出
+      for (let i = 0, l = download.length; i < l; i++) {
+        if (url.src === download[i].src) return
+      }
+      this.download.list.push(url)
+      console.log(url)
+    }
   }
 }
