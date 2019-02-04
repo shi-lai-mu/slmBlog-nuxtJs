@@ -2,6 +2,7 @@
   <div class="qq-single">
     <div class="single" v-if="QQSingle">
       <div v-if="QQSingle[1]">
+        <span class="qqtz">爱 好 分 析</span>
         <div class="qqEcharts"></div>
       </div>
       <button class="update-single" v-html="updateSingleData" @click="updateSingle"></button>
@@ -40,7 +41,7 @@
       </ul>
 
       <ul class="song-list">
-        <li class="clearfix" v-for="(item, index) in single.song_list" :key="index">
+        <li class="clearfix" v-for="(item, index) in single.song_list" :key="index" @click="playSong" :data-id="index">
           <span class="song-name" v-html="item.songnames"></span>
           <span class="song-singer">{{ item.singers }}</span>
           <span class="song-lyric">{{ item.albumname }}</span>
@@ -218,7 +219,7 @@ export default {
           }
           this.downloadtoggle = !0
           this.download = res.data
-          downloadtoggle = !1
+          this.downloadtoggle = !1
         })
     },
 
@@ -240,6 +241,16 @@ export default {
         this.Music.downloadState = !0
         this.Music.allDownloadStart()
       }
+    },
+
+    /**
+     * 播放列表内的音乐
+     */
+    playSong (e) {
+      const id = e.target.dataset.id
+      if (id) {
+        this.$store.state.Music.loadMusic(this.single.song_list[id].albummid, true)
+      }
     }
   }
 }
@@ -249,7 +260,17 @@ export default {
   .qq-single {
     height: 100%;
     color: #ccc;
+    background-color: rgba(0, 0, 0, .3);
 
+    .qqtz {
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+      transform: translateY(20px);
+    }
     .qqEcharts {
       width: 100%;
       height: 300px;
@@ -290,6 +311,9 @@ export default {
         font-size: 2rem;
         color: rgba(255, 255, 255, .4);
       }
+    }
+    .song-list li span {
+      pointer-events: none;
     }
 
     // 更新歌单
