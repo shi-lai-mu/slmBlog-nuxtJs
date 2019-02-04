@@ -38,7 +38,7 @@ export default {
       this.Music.downloadState = !0
       this.Music.allDownloadStart()
     },
-    
+
     /**
      * 全部停止
      */

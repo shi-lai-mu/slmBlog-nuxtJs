@@ -84,6 +84,7 @@ export default {
       this.style = style
       this.updateSingleData = `更新${QQSingle[0].name}的歌单数据`
       this.QQSingle = QQSingle
+      this.Music = this.$store.state.Music
     }
   },
   mounted () {
@@ -219,7 +220,8 @@ export default {
           }
           this.downloadtoggle = !0
           this.download = res.data
-          this.downloadtoggle = !1
+          this.Music.downloadState = !1
+          this.Music.allDownloadStart()
         })
     },
 

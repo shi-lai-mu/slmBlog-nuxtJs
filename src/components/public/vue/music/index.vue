@@ -62,14 +62,14 @@ import download from '@pub/vue/music/download'
 export default {
   data () {
     return {
-      floatState: !0,
-      floatList: !0,
+      floatState: !1,
+      floatList: !1,
       // 第一次加载
-      onlyLoad: !0,
+      onlyLoad: !1,
       // 选项默认色
       iconColor: '#222',
       // 默认选中
-      currentTab: 'icon-shoucang',
+      currentTab: 'icon-sou-suo',
       // 分页列表
       pages: {
         'icon-sou-suo': Search,
