@@ -26,9 +26,16 @@
       <span class="ellipsis single-title" v-text="single.diss_name"></span>
       <span class="single-create">创建日期: {{ single.create_time }}</span>
       <span class="single-num">歌曲数量: {{ single.total_song_num }}</span>
-      <button class="downloadAll" v-if="single.song_list.length">
-        <i class="iconfont icon-xiazai"></i>下载全部 [最高品质]
+      <button class="download-all" v-if="single.song_list.length" @click="downloadAll">
+        <i class="iconfont icon-xiazai"></i>{{ downloadState }}
       </button>
+      <ul :class="['download-list', { 'download-list-show': download['MP3_128'] }]">
+        <li v-for="(item, index) in download" :key="index">
+          <span>下载 {{ index }}</span>
+          <span class="right">{{ item.name || "" }}</span>
+        </li>
+      </ul>
+
       <ul class="song-list">
         <li class="clearfix" v-for="(item, index) in single.song_list" :key="index">
           <span class="song-name" v-html="item.songnames"></span>
@@ -51,7 +58,9 @@ export default {
       QQSingle: null,
       updateSingleData: '',
       single: {},
-      style: []
+      style: [],
+      download: {},
+      downloadState: '下载全部'
     }
   },
   created () {
@@ -136,6 +145,7 @@ export default {
           song_list: [],
           total_song_num: 0
         }
+        this.download = {}
         this.$http.get('api/Music', {
           fun: 'getSingle',
           id: single[id].id,
@@ -176,6 +186,36 @@ export default {
      */
     clearSingle () {
       this.single = {}
+    },
+
+    /**
+     * 下载全部音乐
+     */
+    downloadAll () {
+      // batch
+      this.downloadState = '获取下载数据中...'
+      this.$http.get('api/Music', {
+        fun: 'SingleDownload',
+        code: this.single.batch.replace('=', '-')
+      })
+        .then(res => {
+          console.log(res)
+          const keys = {
+            DTS: 'VIP专属音质',
+            FLAC: '无损音质',
+            APE: '无损音质',
+            MP3_320: '高清音质',
+            MP3_128: '流畅音质',
+          }
+          this.downloadState = '请选择一种下载音乐品质!'
+          for (let key in res.data) {
+            if (key in keys) {
+              res.data[key].name = keys[key]
+            }
+          }
+          this.download = res.data
+        })
+      console.log(this.single)
     }
   }
 }
@@ -230,10 +270,10 @@ export default {
 
     // 更新歌单
     .update-single,
-    .downloadAll {
+    .download-all {
       display: block;
       width: 80%;
-      margin: 10px auto;
+      margin: 10px auto 0;
       border: 0;
       border-radius: 10px;
       box-sizing: border-box;
@@ -245,11 +285,34 @@ export default {
         margin-right: 10px;
       }
     }
+    // 下载按钮
+    .download-list {
+      overflow: hidden;
+      width: 60%;
+      max-height: 0;
+      margin:  0 auto;
+      border-radius: 0 0 10px 10px;
+      padding: 0 10px;
+      color: #333;
+      background-color: rgba(255, 255, 255, .6);
+      transition: 1s;
+      li {
+        padding: 5px 0;
+        border-top: 1px solid #888;
+        cursor: pointer;
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+    .download-list-show {
+      max-height: 50vh;
+    }
+    // 歌单列表
     .single {
       position: relative;
       overflow-y: scroll;
       height: 100%;
-      // 歌单列表
       .list {
         li {
           float: left;
@@ -293,6 +356,9 @@ export default {
       align-items: center;
       height: 100%;
       color: #999;
+    }
+    .right {
+      float: right;
     }
   }
 </style>
