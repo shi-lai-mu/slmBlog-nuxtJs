@@ -234,7 +234,6 @@ export default function () {
       url.state = 0
       url.ext = (url.src.match(/(:?\.m4a|\.mp3|\.flac)/))[0]
       this.download.list.push(url)
-      console.log(url)
     }
 
     /**
@@ -246,7 +245,6 @@ export default function () {
 
       let task = this.download.list[0]
       if (task && task.name) {
-        console.log(task.name + '开始下载')
         this.downloadMusic(task, () => {
           this.download.list.shift()
           if (this.downloadState) {

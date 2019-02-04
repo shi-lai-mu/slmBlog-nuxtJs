@@ -3,12 +3,13 @@
     <div class="down-state">
       共计({{ download.list.length }})条下载任务
       <i class="iconfont right icon-zanting1" @click="allStart"></i>
-      <i class="iconfont right icon-zanting"></i>
+      <i class="iconfont right icon-zanting" @click="allStop"></i>
     </div>
     <ul class="down-list">
       <li v-for="(item, index) in download.list" :key="index">
         <span class="song-name ellipsis">{{ item.name }}</span>
-        <span>{{ item.state }}</span>
+        <span v-if="!isNaN(item.state)">{{ item.state == 0 ? '等待下载' : item.state + '%' }}</span>
+        <span v-else>下载出错</span>
       </li>
     </ul>
   </div>
@@ -29,12 +30,20 @@ export default {
     this.download = this.Music.download
   },
   methods: {
+
     /**
      * 全部音乐开始下载
      */
     allStart () {
       this.Music.downloadState = !0
       this.Music.allDownloadStart()
+    },
+    
+    /**
+     * 全部停止
+     */
+    allStop () {
+      this.Music.downloadState = !1
     }
   }
 }

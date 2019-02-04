@@ -203,7 +203,6 @@ export default {
         code: this.single.batch.replace('=', '-')
       })
         .then(res => {
-          console.log(res)
           const keys = {
             DTS: 'VIP专属音质',
             FLAC: '无损音质',
@@ -219,8 +218,8 @@ export default {
           }
           this.downloadtoggle = !0
           this.download = res.data
+          downloadtoggle = !1
         })
-      console.log(this.single)
     },
 
     /**
@@ -238,6 +237,8 @@ export default {
             src: download[down][i]
           })
         }
+        this.Music.downloadState = !0
+        this.Music.allDownloadStart()
       }
     }
   }
