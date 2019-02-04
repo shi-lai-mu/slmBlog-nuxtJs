@@ -185,6 +185,76 @@ export default {
 
 <style lang="less">
   .bottom-music {
+    // 音乐列表
+    .song-list {
+      margin-top: 20px;
+
+      li {
+        margin: 10px 5px;
+        border-radius: 5px;
+        padding: 5px;
+        background-color: rgba(255, 255, 255, .8);
+        cursor: pointer;
+      }
+      span {
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #888;
+      }
+      // 歌曲信息
+      .song-name {
+        width: 100%;
+        padding-top: 1px;
+        color: #000;
+      }
+      .song-singer {
+        width: 25%;
+        color: #888;
+      }
+      .song-lyric {
+        width: 50%;
+      }
+      .song-inter {
+        width: 15%;
+        float: right;
+      }
+      i {
+        float: right;
+        font-size: 1.5rem;
+         color: #888;
+        transform: translateY(-10px);
+      }
+    }
+    // 选择
+    .icon-select {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 40px 0;
+      color: rgba(255, 255, 255, .7);
+      i {
+        text-align: center;
+        font-size: 3rem;
+        color: currentColor;
+      }
+      span {
+        margin: 0 10px;
+        text-align: center;
+        cursor: pointer;
+
+        &:active {
+          color: rgba(255, 255, 255, .9);
+        }
+      }
+      .nick {
+          color: rgba(250, 208, 21, .8);
+      }
+      p {
+        margin: 5px 0;
+      }
+    }
 
     // 浮动列表
     .music-list {

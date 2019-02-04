@@ -183,33 +183,6 @@ export default {
       color: #fff;
       user-select: none;
     }
-    .icon-select {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 40px 0;
-      color: rgba(255, 255, 255, .7);
-      i {
-        text-align: center;
-        font-size: 3rem;
-        color: currentColor;
-      }
-      span {
-        margin: 0 10px;
-        text-align: center;
-        cursor: pointer;
-
-        &:active {
-          color: rgba(255, 255, 255, .9);
-        }
-      }
-      .nick {
-          color: rgba(250, 208, 21, .8);
-      }
-      p {
-        margin: 5px 0;
-      }
-    }
   }
 
   .not-music-info {
