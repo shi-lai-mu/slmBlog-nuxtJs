@@ -143,25 +143,24 @@ export default {
         })
           .then(res => {
             let song = res.data.song_list
-            console.log(res.data)
             if (!res.data.msg) {
-                for (let i = 0, l = song.length; i < l; i++) {
-                  let val = song[i]
-                  // 避免重复计算
-                  if (val.songnames) break
-                  if (val.songname === val.albumname) {
-                    val.albumname = ''
-                  }
-                  // 歌手
-                  let singer = ''
-                  for (let j = 0, l = val.singer.length; j < l; j++) {
-                    singer += val.singer[j].name + '/'
-                  }
-                  val.singers = singer.substring(0, singer.length - 2)
-                  // 播放时间
-                  !val.songnames && (val.songnames = val.songname)
+              for (let i = 0, l = song.length; i < l; i++) {
+                let val = song[i]
+                // 避免重复计算
+                if (val.songnames) break
+                if (val.songname === val.albumname) {
+                  val.albumname = ''
                 }
-                this.single = res.data
+                // 歌手
+                let singer = ''
+                for (let j = 0, l = val.singer.length; j < l; j++) {
+                  singer += val.singer[j].name + '/'
+                }
+                val.singers = singer.substring(0, singer.length - 2)
+                // 播放时间
+                !val.songnames && (val.songnames = val.songname)
+              }
+              this.single = res.data
             } else {
               this.single.diss_name = res.data.msg
               setTimeout(() => {

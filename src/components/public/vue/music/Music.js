@@ -32,8 +32,10 @@ export default function () {
       // 目前额外的歌曲信息[引用的地址]
       store: {}
     }
-    // 下载位置
-    download = {}
+    // 下载列队
+    download = {
+      list: []
+    }
     // 接口 [qq: QQ音乐, wy: 网易, dog: 酷狗 ...]
     type = 'qq'
     // 内部数据

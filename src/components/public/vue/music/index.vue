@@ -57,6 +57,7 @@ import Info from '@pub/vue/music/Info'
 import Search from '@pub/vue/music/Search'
 import Setting from '@pub/vue/music/Setting'
 import collect from '@pub/vue/music/collect'
+import download from '@pub/vue/music/download'
 // 底部音乐插件
 export default {
   data () {
@@ -68,14 +69,14 @@ export default {
       // 选项默认色
       iconColor: '#222',
       // 默认选中
-      currentTab: 'icon-shoucang',
+      currentTab: 'icon-xiazai',
       // 分页列表
       pages: {
         'icon-sou-suo': Search,
         'icon-yinle': Info,
         'icon-yinleliebiaoxian': List,
         'icon-shoucang': collect,
-        'icon-xiazai': null,
+        'icon-xiazai': download,
         'icon-shezhi': Setting
       },
       // 工具栏内容 对应执行函数名

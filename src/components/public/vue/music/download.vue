@@ -1,0 +1,64 @@
+<template>
+  <div class="music-download">
+    <div class="down-state">
+      共计({{ download.length }})条下载任务
+      <i class="iconfont right icon-zanting1"></i>
+      <i class="iconfont right icon-zanting"></i>
+    </div>
+    <ul class="down-list">
+      <li v-for="(item, index) in download.length" :key="index">xxxxxxx</li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      download: {}
+    }
+  },
+  created () {
+    // 装入音乐控件
+    this.Music = this.$store.state.Music
+    this.download = this.Music.download
+  }
+}
+</script>
+
+<style lang="less">
+  .music-download {
+    overflow-y: scroll;
+    height: 100%;
+    color: #888;
+
+    .down-state,
+    .down-list li {
+      margin: 10px;
+      border-radius: 5px;
+      padding: 10px;
+      color: #333;
+      background-color: rgba(255, 255, 255, .6);
+      box-shadow: 0 5px 10px -2px rgba(0, 0, 0, .6);
+      transition: .5s;
+    }
+    .right {
+      float: right;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+    // 下载列表
+    .down-list {
+      margin: 30px 10px;
+      li {
+        box-shadow: 0 5px 10px -2px rgba(0, 0, 0, .3);
+
+        &:hover {
+          background-color: rgba(255, 255, 255, .9);
+          box-shadow: 0 5px 10px -2px rgba(0, 0, 0, .6);
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+</style>
