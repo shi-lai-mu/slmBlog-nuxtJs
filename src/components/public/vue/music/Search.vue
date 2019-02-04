@@ -136,7 +136,6 @@ export default {
               if (val.interval === '00:00') val.interval = '-- : --'
               !val.songnames && (val.songnames = val.songname)
             }
-            console.log(song)
             this.songList = song
 
             // 页数计算
@@ -186,7 +185,6 @@ export default {
      * 下载音乐
      */
     download (e) {
-      // 学猫叫
       let $el = e.target
       let dataset = $el.dataset
       let oldTXT = $el.innerHTML

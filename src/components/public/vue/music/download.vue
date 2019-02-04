@@ -2,12 +2,13 @@
   <div class="music-download">
     <div class="down-state">
       共计({{ download.list.length }})条下载任务
-      <i class="iconfont right icon-zanting1"></i>
+      <i class="iconfont right icon-zanting1" @click="allStart"></i>
       <i class="iconfont right icon-zanting"></i>
     </div>
     <ul class="down-list">
       <li v-for="(item, index) in download.list" :key="index">
         <span class="song-name ellipsis">{{ item.name }}</span>
+        <span>{{ item.state }}</span>
       </li>
     </ul>
   </div>
@@ -26,6 +27,15 @@ export default {
     // 装入音乐控件
     this.Music = this.$store.state.Music
     this.download = this.Music.download
+  },
+  methods: {
+    /**
+     * 全部音乐开始下载
+     */
+    allStart () {
+      this.Music.downloadState = !0
+      this.Music.allDownloadStart()
+    }
   }
 }
 </script>

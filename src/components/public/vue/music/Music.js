@@ -36,6 +36,8 @@ export default function () {
     download = {
       list: []
     }
+    // 下载状态
+    downloadState = !1
     // 接口 [qq: QQ音乐, wy: 网易, dog: 酷狗 ...]
     type = 'qq'
     // 内部数据
@@ -221,6 +223,7 @@ export default function () {
 
     /**
      * 添加至下载列队
+     * @param {object} url 包含name和src
      */
     addDownload (url) {
       let download = this.download.list
@@ -228,8 +231,59 @@ export default function () {
       for (let i = 0, l = download.length; i < l; i++) {
         if (url.src === download[i].src) return
       }
+      url.state = 0
+      url.ext = (url.src.match(/(:?\.m4a|\.mp3|\.flac)/))[0]
       this.download.list.push(url)
       console.log(url)
+    }
+
+    /**
+     * 开始下载全部音乐
+     */
+    allDownloadStart () {
+      // 更改为开始下载的状态
+      if (!this.downloadState) return
+
+      let task = this.download.list[0]
+      if (task && task.name) {
+        console.log(task.name + '开始下载')
+        this.downloadMusic(task, () => {
+          this.download.list.shift()
+          if (this.downloadState) {
+            this.allDownloadStart()
+          }
+        })
+      }
+    }
+
+    /**
+     * 下载音乐
+     * @param {object} data 音乐数据
+     * @param {functin} cb 下载完成后的回调
+     */
+    downloadMusic (data, cb) {
+      let xhr = new XMLHttpRequest()
+      xhr.responseType = 'blob'
+      let a = document.createElement('a')
+      xhr.onprogress = function (e) {
+        let percent = (e.loaded / e.total * 100).toFixed(2)
+        data.state = percent
+      }
+      xhr.onload = function (e) {
+        var blob = new Blob([this.response])
+        a.href = URL.createObjectURL(blob)
+        a.download = `${data.name}.${data.ext}`
+        document.body.appendChild(a)
+        a.click()
+        cb()
+      }
+      xhr.onerror = function (e) {
+        console.error(e)
+      }
+      if (data.src) {
+        xhr.open('get', data.src, true)
+        xhr.send()
+      }
     }
   }
 }
