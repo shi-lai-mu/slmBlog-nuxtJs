@@ -1,7 +1,7 @@
 <template>
   <div class="music-download">
     <div class="down-state">
-      共计({{ download.length }})条下载任务
+      共计({{ download.list.length }})条下载任务
       <i class="iconfont right icon-zanting1"></i>
       <i class="iconfont right icon-zanting"></i>
     </div>
@@ -15,7 +15,9 @@
 export default {
   data () {
     return {
-      download: {}
+      download: {
+        list: []
+      }
     }
   },
   created () {

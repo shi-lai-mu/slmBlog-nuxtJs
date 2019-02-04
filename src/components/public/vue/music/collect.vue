@@ -29,8 +29,8 @@
       <button class="download-all" v-if="single.song_list.length" @click="downloadAll">
         <i class="iconfont icon-xiazai"></i>{{ downloadState }}
       </button>
-      <ul :class="['download-list', { 'download-list-show': download['MP3_128'] }]">
-        <li v-for="(item, index) in download" :key="index">
+      <ul :class="['download-list', { 'download-list-show': download['MP3_128'] }]" @click="selectDownload">
+        <li v-for="(item, index) in download" :key="index" :data-down="index">
           <span>下载 {{ index }}</span>
           <span class="right">{{ item.name || "" }}</span>
         </li>
@@ -205,7 +205,7 @@ export default {
             FLAC: '无损音质',
             APE: '无损音质',
             MP3_320: '高清音质',
-            MP3_128: '流畅音质',
+            MP3_128: '流畅音质'
           }
           this.downloadState = '请选择一种下载音乐品质!'
           for (let key in res.data) {
@@ -216,6 +216,15 @@ export default {
           this.download = res.data
         })
       console.log(this.single)
+    },
+
+    /**
+     * 下载一种选项
+     */
+    selectDownload (e) {
+      const down = e.target.dataset.down
+      if (down) {
+      }
     }
   }
 }
@@ -299,9 +308,13 @@ export default {
       li {
         padding: 5px 0;
         border-top: 1px solid #888;
+        user-select: none;
         cursor: pointer;
         &:hover {
           color: #fff;
+        }
+        span {
+          pointer-events: none;
         }
       }
     }
