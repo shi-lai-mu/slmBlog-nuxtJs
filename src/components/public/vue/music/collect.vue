@@ -26,7 +26,9 @@
       <span class="ellipsis single-title" v-text="single.diss_name"></span>
       <span class="single-create">创建日期: {{ single.create_time }}</span>
       <span class="single-num">歌曲数量: {{ single.total_song_num }}</span>
-      <button class="downloadAll"><i class="iconfont icon-xiazai"></i>下载全部 [最高品质]</button>
+      <button class="downloadAll" v-if="single.song_list.length">
+        <i class="iconfont icon-xiazai"></i>下载全部 [最高品质]
+      </button>
       <ul class="song-list">
         <li class="clearfix" v-for="(item, index) in single.song_list" :key="index">
           <span class="song-name" v-html="item.songnames"></span>
@@ -127,6 +129,13 @@ export default {
       const id = e.target.dataset.index
       const single = this.QQSingle[0].disslist
       if (single[id]) {
+        this.single = {
+          create_time: '0000-00-00',
+          diss_name: '获取歌单中...',
+          logo: '//y.gtimg.cn/mediastyle/global/img/playlist_300.png',
+          song_list: [],
+          total_song_num: 0
+        }
         this.$http.get('api/Music', {
           fun: 'getSingle',
           id: single[id].id,
@@ -134,24 +143,31 @@ export default {
         })
           .then(res => {
             let song = res.data.song_list
-            for (let i = 0, l = song.length; i < l; i++) {
-              let val = song[i]
-              // 避免重复计算
-              if (val.songnames) break
-              if (val.songname === val.albumname) {
-                val.albumname = ''
-              }
-              // 歌手
-              let singer = ''
-              for (let j = 0, l = val.singer.length; j < l; j++) {
-                singer += val.singer[j].name + '/'
-              }
-              val.singers = singer.substring(0, singer.length - 2)
-              // 播放时间
-              !val.songnames && (val.songnames = val.songname)
+            console.log(res.data)
+            if (!res.data.msg) {
+                for (let i = 0, l = song.length; i < l; i++) {
+                  let val = song[i]
+                  // 避免重复计算
+                  if (val.songnames) break
+                  if (val.songname === val.albumname) {
+                    val.albumname = ''
+                  }
+                  // 歌手
+                  let singer = ''
+                  for (let j = 0, l = val.singer.length; j < l; j++) {
+                    singer += val.singer[j].name + '/'
+                  }
+                  val.singers = singer.substring(0, singer.length - 2)
+                  // 播放时间
+                  !val.songnames && (val.songnames = val.songname)
+                }
+                this.single = res.data
+            } else {
+              this.single.diss_name = res.data.msg
+              setTimeout(() => {
+                this.single = []
+              }, 2000)
             }
-            this.single = res.data
-            console.log(res)
           })
       }
     },
