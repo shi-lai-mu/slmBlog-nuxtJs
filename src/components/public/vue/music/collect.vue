@@ -1,6 +1,9 @@
 <template>
   <div class="qq-single">
     <div class="single" v-if="QQSingle">
+      <div v-if="QQSingle[1]">
+        <div class="qqEcharts"></div>
+      </div>
       <button class="update-single" v-html="updateSingleData" @click="updateSingle"></button>
       <ul class="list" @click="singleList">
         <li v-for="(item, index) in QQSingle[0].disslist" :key="index">
@@ -38,22 +41,58 @@
 </template>
 
 <script>
+// let echarts = require('echarts/lib/echarts')
+import echarts from 'echarts'
 export default {
   data () {
     return {
       QQSingle: null,
       updateSingleData: '',
-      single: {}
+      single: {},
+      style: []
     }
   },
   created () {
     // 检测QQ歌单是否绑定
     let QQSingle = localStorage.getItem('QQSingle')
     if (QQSingle) {
-      this.QQSingle = JSON.parse(QQSingle)
-      this.updateSingleData = `更新${this.QQSingle[0].name}的歌单数据`
-      console.log(this.QQSingle)
+      QQSingle = JSON.parse(QQSingle)
+      QQSingle[1] = JSON.parse(QQSingle[1])
+      let style = []
+      for (let i of QQSingle[1].data.genrelist) {
+        style.push({
+          value: i.percent,
+          name: i.genre
+        })
+      }
+      this.style = style
+      this.updateSingleData = `更新${QQSingle[0].name}的歌单数据`
+      this.QQSingle = QQSingle
     }
+  },
+  mounted () {
+    const qqEcharts = echarts.init(document.getElementsByClassName('qqEcharts')[0])
+    qqEcharts.setOption({
+      color: ['#dd6b66', '#759aa0', '#e69d87', '#8dc1a9', '#ea7e53', '#eedd78', '#73a373', '#73b9bc', '#7289ab', '#91ca8c', '#f49f42'],
+      series: [
+        {
+          name: '音乐风格',
+          type: 'pie',
+          radius: '50%',
+          selectedMode: 'single',
+          selectedOffset: 30,
+          clockwise: true,
+          label: {
+            normal: {
+              textStyle: {
+                color: '#fff'
+              }
+            }
+          },
+          data: this.style
+        }
+      ]
+    })
   },
   methods: {
     /**
@@ -132,6 +171,12 @@ export default {
     height: 100%;
     color: #ccc;
 
+    .qqEcharts {
+      width: 100%;
+      height: 300px;
+      color: #fff;
+    }
+
       // 音乐列表
     .qq-single-song {
       position: absolute;
@@ -160,7 +205,8 @@ export default {
         color: #888;
       }
       .icon-wrong {
-        float: right;
+        position: absolute;
+        right: 0;
         margin: 10px;
         font-size: 2rem;
         color: rgba(255, 255, 255, .4);

@@ -17,6 +17,7 @@
     "@tinymce/tinymce-vue": "^1.1.2",
     "axios": "^0.18.0",
     "blear.utils.code-highlight": "^2.1.0",
+    "echarts": "^4.2.0-rc.2",
     "jsencrypt": "^3.0.0-rc.1",
     "jsrsasign": "^8.0.12",
     "less": "^3.9.0",
