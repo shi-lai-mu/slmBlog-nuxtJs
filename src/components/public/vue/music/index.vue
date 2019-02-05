@@ -51,33 +51,26 @@
 </template>
 
 <script>
-// import Home from '@pub/vue/music/Home'
-import List from '@pub/vue/music/List'
-import Info from '@pub/vue/music/Info'
-import Search from '@pub/vue/music/Search'
-import Setting from '@pub/vue/music/Setting'
-import collect from '@pub/vue/music/collect'
-import download from '@pub/vue/music/download'
 // 底部音乐插件
 export default {
   data () {
     return {
-      floatState: !0,
-      floatList: !0,
+      floatState: !1,
+      floatList: !1,
       // 第一次加载
-      onlyLoad: !0,
+      onlyLoad: !1,
       // 选项默认色
       iconColor: '#222',
       // 默认选中
-      currentTab: 'icon-sou-suo',
+      currentTab: '',
       // 分页列表
       pages: {
-        'icon-sou-suo': Search,
-        'icon-yinle': Info,
-        'icon-yinleliebiaoxian': List,
-        'icon-shoucang': collect,
-        'icon-xiazai': download,
-        'icon-shezhi': Setting
+        'icon-sou-suo': 'Search',
+        'icon-yinle': 'Info',
+        'icon-yinleliebiaoxian': 'List',
+        'icon-shoucang': 'collect',
+        'icon-xiazai': 'download',
+        'icon-shezhi': 'Setting'
       },
       // 工具栏内容 对应执行函数名
       tools: {
@@ -134,14 +127,15 @@ export default {
     toggleFloat () {
       let self = this
       self.floatState = !self.floatState
+      // 第一次点开,进行等一次加载,防止资源浪费
+      if (!self.onlyLoad) {
+        this.pages['icon-sou-suo'] = resolve => require(['@pub/vue/music/Search'], resolve)
+        self.onlyLoad = !0
+        self.currentTab = 'icon-sou-suo'
+      }
       // 如果关闭时 列表为展开 则 关闭
       if (self.floatList) {
         self.floatList = !1
-      }
-      // 第一次点开,进行等一次加载,防止资源浪费
-      if (!self.onlyLoad) {
-        self.onlyLoad = !0
-        self.currentTab = 'icon-sou-suo'
       }
     },
 
@@ -156,8 +150,13 @@ export default {
      * 选项卡点击事件
      */
     selectTab (e) {
-      if (e.target.dataset.i) {
-        this.currentTab = e.target.dataset.i
+      const i = e.target.dataset.i
+      if (i) {
+        const page = this.pages[i]
+        if (typeof page === 'string') {
+          this.pages[i] = resolve => require([`@pub/vue/music/${page}`], resolve)
+        }
+        this.currentTab = i
       }
     },
 

@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueX from 'vuex'
 import App from './App'
 import router from './router'
-import VueMeta from 'vue-meta'
 import VueLazyload from 'vue-lazyload'
 import http from '@pub/js/http'
 import connecter from '@pub/js/connecter'
@@ -10,7 +9,7 @@ import Music from '@pub/vue/music/Music'
 
 Vue.prototype.$http = http
 Vue.prototype.$connecter = connecter
-Vue.use(VueX, VueMeta)
+Vue.use(VueX)
 Vue.use(VueLazyload, {
   preLoad: 6,
   error: '//res.mczyzy.cn/img/error.png',
