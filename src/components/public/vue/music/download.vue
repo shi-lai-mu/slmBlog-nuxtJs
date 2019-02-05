@@ -10,7 +10,7 @@
         <span class="song-name ellipsis">{{ item.name }}</span>
         <span v-if="!isNaN(item.state)">{{ item.state == 0 ? '等待下载' : item.state + '%' }}</span>
         <span v-else>下载出错</span>
-        <span class="progress" style="width: 50%"></span>
+        <span class="progress" :style="`width: ${ item.state > 0 && item.state }%`"></span>
       </li>
     </ul>
   </div>

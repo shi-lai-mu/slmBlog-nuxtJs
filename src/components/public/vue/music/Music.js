@@ -36,11 +36,7 @@ export default function () {
 
     // 下载列队
     download = {
-      list: [{
-        name: '123456',
-        url: 'xxxx',
-        state: 0
-      }]
+      list: []
     }
 
     // 下载状态
@@ -247,8 +243,10 @@ export default function () {
 
     /**
      * 开始下载全部音乐
+     * @param {boolean} start 是否为开始下载状态
      */
-    allDownloadStart () {
+    allDownloadStart (start) {
+      if (start) this.downloadState = !0
       // 更改为开始下载的状态
       if (!this.downloadState) return
 

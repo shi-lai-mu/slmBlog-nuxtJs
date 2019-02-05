@@ -5,7 +5,7 @@
         <span class="setting-title">QQ音乐歌单绑定：</span>
         <input class="left" type="text" v-model="musicQQ" placeholder="输入QQ号,得到QQ音乐歌单">
         <button class="right" @click="getMusicQQ">{{ musicQQState }}</button>
-        <span class="ps" v-if="musicQQState == '绑定中'">现在可以看看 '收藏界面' 是否存在QQ音乐数据</span>
+        <div class="ps" v-if="musicQQState == '绑定中'">现在可以看看 '收藏界面' 是否存在QQ音乐数据</div>
       </li>
       <li @click="setSkin">
         <span class="setting-title">音乐控件主题色[暂未开发]:</span>
@@ -39,7 +39,7 @@ export default {
      * 获取QQ号下的歌单并绑定
      */
     getMusicQQ () {
-      if (this.musicQQState !== '绑定中' && /(\d){6,20}/.test(this.musicQQ)) {
+      if (/(\d){6,20}/.test(this.musicQQ)) {
         this.musicQQState = '分析中...'
         this.$http
           .get('api/Music', {

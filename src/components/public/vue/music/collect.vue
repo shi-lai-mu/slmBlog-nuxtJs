@@ -1,7 +1,7 @@
 <template>
   <div class="qq-single">
     <div class="single" v-if="QQSingle">
-      <div v-if="QQSingle[1]">
+      <div v-show="QQSingle[1] && style.length">
         <span class="qqtz">爱 好 分 析</span>
         <div class="qqEcharts"></div>
       </div>
@@ -18,7 +18,7 @@
       </ul>
     </div>
     <div class="not-QQSingle" v-else>
-      未搜索到QQ音乐歌单数据,请前往 '设置页' 绑定QQ
+      未搜索到QQ音乐歌单数据,请前往 '设置页' 绑定QQ 或者 <span class="updateData" @click="updateData">刷新</span>
     </div>
     <!-- 歌单内容 -->
     <div class="qq-single-song" v-if="single.song_list">
@@ -69,23 +69,7 @@ export default {
     }
   },
   created () {
-    // 检测QQ歌单是否绑定
-    let QQSingle = localStorage.getItem('QQSingle')
-    if (QQSingle) {
-      QQSingle = JSON.parse(QQSingle)
-      QQSingle[1] = JSON.parse(QQSingle[1])
-      let style = []
-      for (let i of QQSingle[1].data.genrelist) {
-        style.push({
-          value: i.percent,
-          name: i.genre
-        })
-      }
-      this.style = style
-      this.updateSingleData = `更新${QQSingle[0].name}的歌单数据`
-      this.QQSingle = QQSingle
-      this.Music = this.$store.state.Music
-    }
+    this.updateData()
   },
   mounted () {
     const qqEcharts = echarts.init(document.getElementsByClassName('qqEcharts')[0])
@@ -198,6 +182,7 @@ export default {
      * 下载全部音乐
      */
     downloadAll () {
+      const Music = this.$store.state.Music
       // batch
       this.downloadState = '获取下载数据中...'
       this.$http.get('api/Music', {
@@ -220,8 +205,7 @@ export default {
           }
           this.downloadtoggle = !0
           this.download = res.data
-          this.Music.downloadState = !1
-          this.Music.allDownloadStart()
+          Music.allDownloadStart(!0)
         })
     },
 
@@ -240,8 +224,7 @@ export default {
             src: download[down][i]
           })
         }
-        this.Music.downloadState = !0
-        this.Music.allDownloadStart()
+        Music.allDownloadStart(!0)
       }
     },
 
@@ -252,6 +235,28 @@ export default {
       const id = e.target.dataset.id
       if (id) {
         this.$store.state.Music.loadMusic(this.single.song_list[id].albummid, true)
+      }
+    },
+
+    /**
+     * 刷新数据
+     */
+    updateData () {
+      // 检测QQ歌单是否绑定
+      let QQSingle = localStorage.getItem('QQSingle')
+      if (QQSingle) {
+        QQSingle = JSON.parse(QQSingle)
+        QQSingle[1] = JSON.parse(QQSingle[1])
+        let style = []
+        for (let i of QQSingle[1].data.genrelist) {
+          style.push({
+            value: i.percent,
+            name: i.genre
+          })
+        }
+        this.style = style
+        this.updateSingleData = `更新${QQSingle[0].name}的歌单数据`
+        this.QQSingle = QQSingle
       }
     }
   }
@@ -277,6 +282,13 @@ export default {
       width: 100%;
       height: 300px;
       color: #fff;
+    }
+
+    .updateData {
+      margin-left: 5px;
+      text-decoration: underline;
+      color: #ccc;
+      cursor: pointer;
     }
 
       // 音乐列表

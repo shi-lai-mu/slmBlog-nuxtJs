@@ -69,7 +69,7 @@ export default {
       // 选项默认色
       iconColor: '#222',
       // 默认选中
-      currentTab: 'icon-shoucang',
+      currentTab: 'icon-sou-suo',
       // 分页列表
       pages: {
         'icon-sou-suo': Search,
