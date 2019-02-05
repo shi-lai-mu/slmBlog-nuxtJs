@@ -10,6 +10,7 @@
         <span class="song-name ellipsis">{{ item.name }}</span>
         <span v-if="!isNaN(item.state)">{{ item.state == 0 ? '等待下载' : item.state + '%' }}</span>
         <span v-else>下载出错</span>
+        <span class="progress" style="width: 50%"></span>
       </li>
     </ul>
   </div>
@@ -74,8 +75,62 @@ export default {
     .down-list {
       margin: 30px 10px;
       li {
+        position: relative;
+        overflow: hidden;
         box-shadow: 0 5px 10px -2px rgba(0, 0, 0, .3);
 
+        .progress {
+          display: block;
+          position: absolute;
+          overflow: hidden;
+          top: 0;
+          left: 0;
+          height: 100%;
+          &::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            width: 1px;
+            height: 100%;
+            background-color: rgba(211, 211, 211, .3);
+          }
+          &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            margin-left: -40vw;
+            width: 130vw;
+            height: 100%;
+            background-image: linear-gradient(
+              50deg,
+              rgba(255, 255, 255, .2) 10%,
+              transparent 10%,
+              transparent 20%,
+              rgba(255, 255, 255, .2) 20%,
+              rgba(255, 255, 255, .2) 30%,
+              transparent 30%,
+              transparent 40%,
+              rgba(255, 255, 255, .2) 40%,
+              rgba(255, 255, 255, .2) 50%,
+              transparent 50%,
+              transparent 60%,
+              rgba(255, 255, 255, .2) 60%,
+              rgba(255, 255, 255, .2) 70%,
+              transparent 70%,
+              transparent 80%,
+              rgba(255, 255, 255, .2) 80%,
+              rgba(255, 255, 255, .2) 90%,
+              transparent 90%,
+              transparent
+            );
+            animation: 2s progress linear infinite;
+          }
+        }
+        @keyframes progress {
+          to {
+            transform: translateX(25vw);
+          }
+        }
         .song-name {
           display: inline-block;
           width: 70%;

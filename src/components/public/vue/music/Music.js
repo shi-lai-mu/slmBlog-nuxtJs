@@ -25,6 +25,7 @@ export default function () {
   return class Music {
     // 信息
     info = {}
+
     // 增强工具
     note = {
       // 备忘录模式存储上次的歌曲
@@ -32,14 +33,22 @@ export default function () {
       // 目前额外的歌曲信息[引用的地址]
       store: {}
     }
+
     // 下载列队
     download = {
-      list: []
+      list: [{
+        name: '123456',
+        url: 'xxxx',
+        state: 0
+      }]
     }
+
     // 下载状态
     downloadState = !1
+
     // 接口 [qq: QQ音乐, wy: 网易, dog: 酷狗 ...]
     type = 'qq'
+
     // 内部数据
     store = {
       // 是否正在播放
@@ -47,6 +56,7 @@ export default function () {
       // 子控件
       conEl: {}
     }
+
     // 定时器
     currentTime = null
 
@@ -56,7 +66,6 @@ export default function () {
       // this.loadMusic('003OLhvp2nqSjQ')
       vue = vues
       this.$el = vue.$refs.music
-
       // 存入 音乐控制的节点 datat-on: element
       let musicConsole = vue.$refs.musicConsole.getElementsByTagName('*')
       for (let i = 0, l = musicConsole.length; i < l; i++) {
