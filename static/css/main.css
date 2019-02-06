@@ -74,6 +74,28 @@ body {
     transform: translateY(25%) scale(1, .4);
   }
 }
+.master-screen-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.master-screen-loading .icon-slm-loading {
+  font-size: 20rem;
+  animation: slmdeg-loading 5s;
+  animation-fill-mode: forwards;
+  opacity: .8;
+}
+@keyframes slmdeg-loading {
+  50% {
+    font-size: 13rem;
+    transform: translateY(0) scale(.7);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh) scale(.2);
+  }
+}
 
 .icon-slm:before {
   content: "\e618";
