@@ -171,6 +171,17 @@ export default {
       box-shadow: 2px 3px 5px -2px rgba(0, 0, 0, 0.15)
     }
   }
+
+  @media screen and (max-width: 1100px) {
+    div.content-box {
+      &.article-index {
+        width: 100%;
+      }
+      &.article-right {
+        display: none;
+      }
+    }
+  }
   // 伪装样式
   .notContent {
     transition: .5s;

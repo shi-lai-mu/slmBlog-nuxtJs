@@ -188,35 +188,14 @@ div:focus { -webkit-tap-highlight-color: transparent; }
     .header-nav-right,
     .header-nav-left,
     .header-nav-conter,
-    .tag-description,
-    .shuffling .shuffling-flex .shuffling-left,
-    .shuffling .shuffling-flex .shuffling-right,
-    .guide {
+    .tag-description {
         display: none;
-    }
-
-    .shuffling-select li {
-        zoom: .6;
-    }
-
-    .header-menu-right {
-        float: left;
-        margin: 15px 0 0 10px;
-        height: 48px;
-        width: 90px;
-        background: url('@{ip}/submit-button.png') no-repeat;
-        background-size: 124px 144px;
     }
 
     // 内容
     .content-box {
         float: inherit;
         width: 100vw;
-
-    }
-    div.account {
-        width: 100%;
-        margin: 0 auto;
     }
     div.account > form {
         width: 100%;
@@ -224,26 +203,12 @@ div:focus { -webkit-tap-highlight-color: transparent; }
         .input-min { width: 50vw; min-width: 100px; }
         canvas { display: block; margin: 0 auto; width: 80%; }
     }
-
-    // 文章
-    div.article-index .article-body {
-        width: 90%;
-    }
-    .editor {
-      width: 100%;
-    }
 }
 
 // 小于 350px
 @media screen and (max-width: 400px) {
     body {
         font-size: .8em;
-    }
-    footer .footer-nav-list .footer-nav-child h3 {
-        font-size: 1rem;
-    }
-    .article div.article-right {
-      width: ~'calc(100% - 150px)';
     }
 }
 
