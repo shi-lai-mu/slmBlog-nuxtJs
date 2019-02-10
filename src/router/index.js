@@ -109,5 +109,46 @@ export default new Router({
     }
     cb && cb(name, !name)
     return !name
-  }
+  },
+  menu: [
+    {
+      tag: '文章',
+      sub: [
+        ['首页', '/'],
+        ['置顶', '#'],
+        ['最新', '#'],
+        ['最热', '#'],
+        ['精品', '#'],
+        ['讨论', '#']
+      ]
+    },
+    {
+      tag: '技术',
+      sub: [
+        ['JavaScript', '#'],
+        ['PHP', '#'],
+        ['CSS', '#'],
+        ['HTML', '#']
+      ]
+    },
+    {
+      tag: '资源',
+      sub: [
+        ['Windows', '#'],
+        ['Andorid', '#'],
+        ['Web', '#'],
+        ['other', '#']
+      ]
+    },
+    {
+      tag: '账号',
+      sub: [
+        ['登录', { name: 'login' }, 'register'],
+        ['注册', { name: 'register' }, 'register'],
+        ['发帖', { name: 'addArticle' }, 'admin'],
+        ['管理账号', '#', 'login'],
+        ['安全退出', 'outLogin', 'login']
+      ]
+    }
+  ]
 })
