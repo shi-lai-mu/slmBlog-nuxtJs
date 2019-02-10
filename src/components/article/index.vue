@@ -1,6 +1,6 @@
 <template>
   <tbody class="conter single clearfix">
-      <div :class="['content-box', 'article-index', { 'nick': article['title'] }, 'notContent']">
+    <div :class="['content-box', 'article-index', { 'nick': article['title'] }, 'notContent']">
 
         <!-- 头部信息 -->
         <header>
@@ -56,7 +56,8 @@
           <button class="button-lv0 send" @click="send">留言</button>
         </footer>
 
-      </div>
+    </div>
+    <div class="content-box article-right"></div>
   </tbody>
 </template>
 
@@ -148,8 +149,28 @@ export default {
   }
 }
 </script>
+
 <style lang="less">
   @bgColor: #d6d6d6;
+  .single {
+    position: relative;
+    line-height: 0;
+  }
+  .content-box {
+    line-height: normal;
+    &.article-index {
+      width: calc(100% - 300px);
+      border-radius: 5px 0 0 5px;
+    }
+    &.article-right {
+      position: absolute;
+      width: 300px;
+      height: 100%;
+      border-radius: 0 5px 5px 0;
+      background-color: rgba(250, 250, 250, .8);
+      box-shadow: 2px 3px 5px -2px rgba(0, 0, 0, 0.15)
+    }
+  }
   // 伪装样式
   .notContent {
     transition: .5s;
@@ -246,7 +267,7 @@ export default {
   .article-index {
 
     header {
-      width: 90%;
+      width: 95%;
       border-bottom: 1px solid #ccc;
       margin: 0 auto 30px;
       i {
@@ -286,7 +307,7 @@ export default {
       white-space: nowrap;
     }
     .article-body {
-      width: 80%;
+      width: 90%;
       padding-bottom: 30px;
       margin: 0 auto 20px;
       font-size: 1.2rem;
