@@ -19,7 +19,7 @@ export default new Router({
           path: 'addArticle',
           name: 'addArticle',
           meta: {
-            requireAuth: 'login'
+            requireAuth: 'admin'
           },
           component: resolve => require(['@com/article/addArticle'], resolve)
         },
@@ -93,5 +93,21 @@ export default new Router({
       name: 'error',
       component: resolve => require(['@pub/vue/error'], resolve)
     }
-  ]
+  ],
+  permissions: function (to, cb) {
+    let user = JSON.parse(localStorage.getItem('userInfo'))
+    let name = false
+    if (to === 'login' && !user) {
+      // 未登录
+      name = 'login'
+    } else if (to === 'register' && user) {
+      // 已登录
+      name = 'home'
+    } else if (to === 'admin' && (!user || user.groupid !== 9999)) {
+      // 非管理
+      name = 'home'
+    }
+    cb && cb(name, !name)
+    return !name
+  }
 })

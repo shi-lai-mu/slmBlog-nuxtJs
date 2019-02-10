@@ -138,7 +138,7 @@ export default {
           sub: [
             ['登录', { name: 'login' }, 'register'],
             ['注册', { name: 'register' }, 'register'],
-            ['发帖', { name: 'addArticle' }, 'login'],
+            ['发帖', { name: 'addArticle' }, 'admin'],
             ['管理账号', '#', 'login'],
             ['安全退出', 'outLogin', 'login']
           ]
@@ -149,16 +149,7 @@ export default {
           item.sub = item.sub.filter(subItem => {
             // 设置了权限判断
             if (subItem[2]) {
-              if (
-                // 未登录的权限
-                (subItem[2] === 'register' && this.user.username) ||
-                // 登录后的权限
-                (subItem[2] === 'login' && !this.user.username) ||
-                // 管理员权限
-                (subItem[2] === 'admin' && (!this.user.username || this.user.groupid !== 9999))
-              ) {
-                subItem = false
-              }
+              subItem = this.$router.options.permissions(subItem[2]) ? subItem : false
             }
             return subItem
           })

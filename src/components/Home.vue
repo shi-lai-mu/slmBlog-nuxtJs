@@ -440,11 +440,11 @@ export default {
 
     img {
       height: 100%;
-      margin: 0 auto;
       transition: 1s;
+      pointer-events: all;
 
       &:hover {
-        transform: scale(1.2);
+        transform: scale(1.5);
       }
     }
   }
@@ -457,13 +457,14 @@ export default {
       vertical-align: middle;
       font-size: .8rem;
       color: #999;
+      background-color: #fff;
       transition: .3s;
       cursor: pointer;
       pointer-events: initial;
 
       &:hover {
-        background-color: #e9e9e9;
-        transform: translateY(-1px);
+        // background-color: #e9e9e9;
+        border: 1px solid #999;
       }
   }
   // 掩饰

@@ -51,31 +51,30 @@ router.afterEach((to, from, next) => {
 
 // 路由前处理
 router.beforeEach((to, from, next) => {
-  let user = localStorage.getItem('userInfo')
+  // let user = localStorage.getItem('userInfo')
   to.matched.map(item => {
-    if (item.meta.requireAuth) {
-      let auth = item.meta.requireAuth
+    let auth = item.meta.requireAuth
+    if (auth) {
       let name = false
       let query = {}
-      if (auth === 'login' && !user) {
-        // 未登录
-        name = 'login'
-        query = {
-          redirect: to.fullPath
+      router.options.permissions(auth, (res, ok) => {
+        if (!ok) {
+          name = res
+          if (res === 'login') {
+            query = {
+              redirect: to.fullPath
+            }
+          }
         }
-      } else if (auth === 'register' && user) {
-        // 已登录
-        name = 'home'
-      } else if (auth === 'admin' && (!user || user.groupid !== 9999)) {
-        // 非管理
-        name = 'home'
-      }
+      })
       if (name) {
         next({ name, query })
       } else next()
     } else next()
   })
 })
+
+router.xxx = 123456
 
 /* eslint-disable no-new */
 new Vue({
