@@ -85,7 +85,6 @@ export default {
         description: '如果感觉文章对你有帮助,欢迎留言哦...'
       }
     })
-
     // 请求文章内容
     this.$http.get('article/' + this.$route.params.id)
       .then(res => {
