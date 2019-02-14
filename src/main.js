@@ -40,9 +40,9 @@ router.afterEach((to, from, next) => {
   setTimeout(() => {
     if (window.location.host !== '127.0.0.1') {
       (function () {
-        var bp = document.createElement('script')
+        let bp = document.createElement('script')
         bp.src = '//push.zhanzhang.baidu.com/push.js'
-        var s = document.getElementsByTagName('script')[0]
+        let s = document.getElementsByTagName('script')[0]
         s.parentNode.insertBefore(bp, s)
       })()
     }
