@@ -229,6 +229,7 @@ export default {
   .nick {
     .article-body {
       opacity: 1;
+      user-select: none;
     }
     .notCon {
       opacity: 0;
@@ -249,6 +250,7 @@ export default {
       }
     }
     h3.article-info {
+      user-select: none;
       span, i {
         padding: 0;
         color: inherit;
