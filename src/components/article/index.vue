@@ -57,7 +57,16 @@
         </footer>
 
     </div>
-    <div class="content-box article-right"></div>
+    <div class="content-box article-right">
+      <div class="article-right-box clearfix">
+        <div class="binary">
+          <i class="iconfont icon-shoucang-k"></i>收藏本文
+        </div>
+        <div class="binary">
+          <i class="iconfont icon-fenxiang"></i>分享本文
+        </div>
+      </div>
+    </div>
   </tbody>
 </template>
 
@@ -162,17 +171,6 @@ export default {
       border-radius: 0 5px 5px 0;
       background-color: rgba(250, 250, 250, .8);
       box-shadow: 2px 3px 5px -2px rgba(0, 0, 0, 0.15)
-    }
-  }
-
-  @media screen and (max-width: 1100px) {
-    div.content-box {
-      &.article-index {
-        width: 100%;
-      }
-      &.article-right {
-        display: none;
-      }
     }
   }
   // 伪装样式
@@ -398,6 +396,40 @@ export default {
       max-width: 150px;
       border: 0;
       margin: 20px;
+    }
+  }
+  // 正文
+  .article-right-box {
+    margin: 10px 0;
+
+    .binary {
+      float: left;
+      width: 50%;
+      font-size: 1.2rem;
+      text-align: center;
+      color: #666;
+      cursor: pointer;
+
+      .iconfont {
+        margin: 0 10px;
+        font-size: 1.5rem;
+        vertical-align: middle;
+      }
+
+      &:hover {
+        color: #333;
+      }
+    }
+  }
+  // 响应
+  @media screen and (max-width: 1100px) {
+    div.content-box {
+      &.article-index {
+        width: 100%;
+      }
+      &.article-right {
+        display: none;
+      }
     }
   }
 </style>
