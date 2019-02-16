@@ -58,6 +58,7 @@
 
     </div>
     <div class="content-box article-right">
+      <!-- 快捷工具 -->
       <div class="article-right-box clearfix">
         <div class="binary">
           <i class="iconfont icon-shoucang-k"></i>收藏本文
@@ -66,19 +67,22 @@
           <i class="iconfont icon-fenxiang"></i>分享本文
         </div>
       </div>
+      <!-- 标签类 -->
       <div class="article-right-box clearfix">
         <label class="article-right-title">标签</label>
         <ul class="article-right-tag">
           <li v-for="(item, index) in article.type" :key="index" v-text="item" @click="searchKeyWord(item)"></li>
         </ul>
       </div>
+      <!-- 导航树 -->
       <div class="article-right-box clearfix">
         <label class="article-right-title">导航</label>
-        <ul class="article-right-tree" v-if="article.tree">
-          <li v-for="(item, index) in article.tree" :key="index">
+        <ul class="article-right-tree" v-if="article.tree" @click="treeMove">
+          <li v-for="(item, index) in article.tree" :key="index" :data-move="index">
             {{ item.tag }}
+            <!-- 叶节点 -->
             <ul class="article-right-tree-sub" v-if="item.sub">
-              <li class="ellipsis" v-for="(sub, key) in item.sub" :key="key" v-text="sub"></li>
+              <li class="ellipsis" v-for="(sub, key) in item.sub" :key="key" v-html="sub" :title="sub" :data-move="`${index}-${key + 1}`"></li>
             </ul>
           </li>
         </ul>
@@ -147,11 +151,15 @@ export default {
         if (!this.article.tree) {
           let h2 = this.article.content.match(/<(h2|blockquote)[^>]*>.*?<\/(h2|blockquote)>/ig)
           let tree = []
+          // 建立树 添加导航点
+          let html = this.article.content
           for (let i = 0, len = h2.length; i < len; i++) {
             const content = h2[i].replace(/(<(\/)?\w+[^>]*>|:|：)/g, '')
             // 添加根
+            let className = 'move-'
             if (h2[i].search('h2') > -1) {
               tree.push({ tag: content })
+              className += i
             } else {
               let parent = i - 1
               // 找到父节点
@@ -162,13 +170,12 @@ export default {
               if (!tree[parent].sub) {
                 tree[parent].sub = []
               }
-              tree[parent].sub.push(content)
+              className += parent + '-' + tree[parent].sub.push(content)
             }
+            html = html.replace(h2[i], `<div class="${className}">${h2[i]}</div>`)
           }
           this.article.tree = tree
-
-          // 导航节点
-          
+          this.article.content = html
         }
       })
       .catch((err) => {
@@ -216,6 +223,16 @@ export default {
       this.$router.push({
         name: 'home'
       })
+    },
+
+    treeMove (e) {
+      const target = e.target.dataset.move
+      if (target) {
+        const node = document.getElementsByClassName('move-' + target)[0]
+        if (node && node.offsetTop) {
+          window.scrollBy(0, node.offsetTop)
+        }
+      }
     }
   }
 }
