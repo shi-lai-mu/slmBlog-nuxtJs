@@ -58,35 +58,37 @@
 
     </div>
     <div class="content-box article-right">
-      <!-- 快捷工具 -->
-      <div class="article-right-box clearfix">
-        <div class="binary">
-          <i class="iconfont icon-shoucang-k"></i>收藏本文
+      <div class="article-right-fixed">
+        <!-- 快捷工具 -->
+        <div class="article-right-box clearfix">
+          <div class="binary">
+            <i class="iconfont icon-shoucang-k"></i>收藏本文
+          </div>
+          <div class="binary">
+            <i class="iconfont icon-fenxiang"></i>分享本文
+          </div>
         </div>
-        <div class="binary">
-          <i class="iconfont icon-fenxiang"></i>分享本文
+        <!-- 标签类 -->
+        <div class="article-right-box clearfix">
+          <label class="article-right-title">标签</label>
+          <ul class="article-right-tag">
+            <li v-for="(item, index) in article.type" :key="index" v-text="item" @click="searchKeyWord(item)"></li>
+          </ul>
         </div>
-      </div>
-      <!-- 标签类 -->
-      <div class="article-right-box clearfix">
-        <label class="article-right-title">标签</label>
-        <ul class="article-right-tag">
-          <li v-for="(item, index) in article.type" :key="index" v-text="item" @click="searchKeyWord(item)"></li>
-        </ul>
-      </div>
-      <!-- 导航树 -->
-      <div class="article-right-box clearfix">
-        <label class="article-right-title">导航</label>
-        <ul class="article-right-tree" v-if="article.tree" @click="treeMove">
-          <li v-for="(item, index) in article.tree" :key="index" :data-move="index">
-            {{ item.tag }}
-            <!-- 叶节点 -->
-            <ul class="article-right-tree-sub" v-if="item.sub">
-              <li class="ellipsis" v-for="(sub, key) in item.sub" :key="key" v-html="sub" :title="sub" :data-move="`${index}-${key + 1}`"></li>
-            </ul>
-          </li>
-        </ul>
-        <span v-else>抱歉,本文未找到导航!</span>
+        <!-- 导航树 -->
+        <div class="article-right-box clearfix">
+          <label class="article-right-title">导航</label>
+          <ul class="article-right-tree" v-if="article.tree" @click="treeMove">
+            <li v-for="(item, index) in article.tree" :key="index" :data-move="index">
+              {{ item.tag }}
+              <!-- 叶节点 -->
+              <ul class="article-right-tree-sub" v-if="item.sub">
+                <li class="ellipsis" v-for="(sub, key) in item.sub" :key="key" v-html="sub" :title="sub" :data-move="`${index}-${key + 1}`"></li>
+              </ul>
+            </li>
+          </ul>
+          <span v-else>抱歉,本文未找到导航!</span>
+        </div>
       </div>
     </div>
   </tbody>
@@ -96,6 +98,7 @@
 import Time from '@pub/js/dateForm'
 import Editor from '@pub/vue/Editor'
 import Code from '@pub/js/code'
+import animation from '@pub/js/animation'
 
 export default {
   data () {
@@ -230,7 +233,25 @@ export default {
       if (target) {
         const node = document.getElementsByClassName('move-' + target)[0]
         if (node && node.offsetTop) {
-          window.scrollBy(0, node.offsetTop)
+          // window.scrollBy(0, node.offsetTop)
+          const ToTop = parseInt(node.offsetTop)
+          let WTop = parseInt(window.scrollY)
+          const endDate = 1000
+          animation.create((tw, oldTime) => {
+            const time = new Date() - oldTime
+            if (WTop < ToTop) {
+              WTop += tw.easeInStrong(time, 0, ToTop, endDate)
+            }
+            if (ToTop - WTop <= 0) {
+              node.className = 'treeFocus'
+              setTimeout(() => {
+                node.className = ''
+              }, 1500)
+              return false
+            }
+            window.scrollTo(0, WTop)
+            return true
+          })
         }
       }
     }
@@ -484,7 +505,7 @@ export default {
       margin: 20px;
     }
   }
-  // 正文
+  // 右侧
   .article-right-box {
     margin: 20px 0;
     // 二分
@@ -587,6 +608,27 @@ export default {
       &.article-right {
         display: none;
       }
+    }
+  }
+  // 导航
+  .article-right-fixed {
+    position: fixed;
+    width: 280px;
+  }
+  blockquote,
+  h2,
+  .treeFocus {
+    transition: 1s;
+  }
+  .treeFocus {
+    transform: translateX(-20px);
+    h2 {
+      color: #eb3a42;
+    }
+    blockquote {
+      color: #fff;
+      border-left: 8px solid #ad292f;
+      background-color: #eb3a42;
     }
   }
 </style>

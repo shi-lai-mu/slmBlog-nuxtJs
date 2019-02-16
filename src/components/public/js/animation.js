@@ -1,11 +1,15 @@
+
+const animation = window.requestAnimationFrame || function (fn) {
+  return setTimeout(fn, 1000 / 60)
+}
+
 export default {
   create (callback) {
-    const animation = window.requestAnimationFrame || function (fn) {
-      return setTimeout(fn, 1000 / 60)
+    const time = Date.now()
+    let ani = () => {
+      callback(Tween, time) && animation(ani)
     }
-
-    const cb = callback(Tween)
-    cb && animation(callback)
+    ani()
   }
 }
 /**
