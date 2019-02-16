@@ -66,6 +66,18 @@
           <i class="iconfont icon-fenxiang"></i>分享本文
         </div>
       </div>
+      <div class="article-right-box clearfix">
+        <label class="article-right-title">标签</label>
+        <ul class="article-right-tag">
+          <li v-for="(item, index) in article.type" :key="index" v-text="item" @click="searchKeyWord(item)"></li>
+        </ul>
+      </div>
+      <div class="article-right-box clearfix">
+        <label class="article-right-title">导航</label>
+        <div class="article-right-nav">
+          <a v-for="(item, index) in article.type" :key="index">{{ item }}</a>
+        </div>
+      </div>
     </div>
   </tbody>
 </template>
@@ -102,9 +114,14 @@ export default {
         if (this.article.img.indexOf('//') === -1) {
           this.article.img = `//res.mczyzy.cn/img/upload/${this.article.img}`
         }
-        setTimeout(() => {
-          this.notCon = !1
-        }, 400)
+        // 分类处理
+        if (typeof this.article.type === 'string') {
+          this.article.type = this.article.type.split('#')
+          this.article.type.shift()
+        }
+        // 隐藏骨架
+        this.notCon = !1
+        // 图像丢失处理
         this.$nextTick(() => {
           let el = this.$refs.content.getElementsByTagName('img')
           for (let i = 0, l = el.length; i < l; i++) {
@@ -123,7 +140,6 @@ export default {
             error: '文章丢失!',
             description: '找不到此文章啦...有可能是以下原因哦!',
             select: [
-              '被错误',
               '被删除',
               '被封禁'
             ]
@@ -133,6 +149,10 @@ export default {
   },
   methods: {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000),
+
+    /**
+     * 发送留言
+     */
     send () {
       let user = this.$store.state.user
       if (user) {
@@ -147,6 +167,16 @@ export default {
           })
         this.$refs.editor.Stores.clear()
       }
+    },
+
+    /**
+     * 搜索关键词
+     */
+    searchKeyWord (keyword) {
+      this.$connecter.$emit('searchKeyWord', keyword)
+      this.$router.push({
+        name: 'home'
+      })
     }
   }
 }
@@ -400,13 +430,12 @@ export default {
   }
   // 正文
   .article-right-box {
-    margin: 10px 0;
+    margin: 20px 0;
 
     .binary {
       float: left;
       width: 50%;
       font-size: 1.2rem;
-      text-align: center;
       color: #666;
       cursor: pointer;
 
@@ -418,6 +447,40 @@ export default {
 
       &:hover {
         color: #333;
+      }
+    }
+
+    .article-right-tag {
+      li {
+        float: left;
+        margin: 5px 5px 5px 10px;
+        border: 1px solid #ededed;
+        border-radius: 5px;
+        padding: 5px 15px;
+        color: #888;
+        background-color: #fff;
+        &:hover {
+          color: #444;
+          border: 1px solid #666;
+        }
+      }
+    }
+
+    .article-right-title {
+      position: relative;
+      margin: 10px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      line-height: 1.2;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: -20px;
+        width: 5px;
+        height: 100%;
+        border-radius: 0 5px 5px 0;
+        background-color: rgba(0, 0, 0, .1);
       }
     }
   }
