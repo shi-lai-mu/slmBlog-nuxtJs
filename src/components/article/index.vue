@@ -155,31 +155,34 @@ export default {
         // 导航树
         if (!this.article.tree) {
           let h2 = this.article.content.match(/<(h2|blockquote)[^>]*>.*?<\/(h2|blockquote)>/ig)
-          let tree = []
-          // 建立树 添加导航点
-          let html = this.article.content
-          for (let i = 0, len = h2.length; i < len; i++) {
-            const content = h2[i].replace(/(<(\/)?\w+[^>]*>|:|：)/g, '')
-            // 添加根
-            let className = 'move-'
-            if (h2[i].search('h2') > -1) {
-              className += tree.push({ tag: content }) - 1
-            } else {
-              let parent = i - 1
-              // 找到父节点
-              while (!tree[parent]) {
-                parent--
+          if (h2) {
+            let tree = []
+            // 建立树 添加导航点
+            let html = this.article.content
+            console.log(h2)
+            for (let i = 0, len = h2.length; i < len; i++) {
+              const content = h2[i].replace(/(<(\/)?\w+[^>]*>|:|：)/g, '')
+              // 添加根
+              let className = 'move-'
+              if (h2[i].search('h2') > -1) {
+                className += tree.push({ tag: content }) - 1
+              } else {
+                let parent = i - 1
+                // 找到父节点
+                while (!tree[parent]) {
+                  parent--
+                }
+                // 添加叶节点
+                if (!tree[parent].sub) {
+                  tree[parent].sub = []
+                }
+                className += parent + '-' + tree[parent].sub.push(content)
               }
-              // 添加叶节点
-              if (!tree[parent].sub) {
-                tree[parent].sub = []
-              }
-              className += parent + '-' + tree[parent].sub.push(content)
+              html = html.replace(h2[i], `<div class="${className}">${h2[i]}</div>`)
             }
-            html = html.replace(h2[i], `<div class="${className}">${h2[i]}</div>`)
+            this.article.tree = tree
+            this.article.content = html
           }
-          this.article.tree = tree
-          this.article.content = html
         }
       })
       .catch(() => {
