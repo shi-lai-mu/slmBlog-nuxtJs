@@ -140,14 +140,16 @@ export default {
 
         // 图像丢失处理
         this.$nextTick(() => {
-          let el = this.$refs.content.getElementsByTagName('img')
-          for (let i = 0, l = el.length; i < l; i++) {
-            el[i].addEventListener('error', function () {
-              this.src = '//res.mczyzy.cn/img/error.png'
-            })
+          if (this.$refs.content) {
+            let el = this.$refs.content.getElementsByTagName('img')
+            for (let i = 0, l = el.length; i < l; i++) {
+              el[i].addEventListener('error', function () {
+                this.src = '//res.mczyzy.cn/img/error.png'
+              })
+            }
+            // 语法高亮
+            Code.parse(this.$refs.content)
           }
-          // 语法高亮
-          Code.parse(this.$refs.content)
         })
 
         // 导航树
@@ -161,8 +163,7 @@ export default {
             // 添加根
             let className = 'move-'
             if (h2[i].search('h2') > -1) {
-              tree.push({ tag: content })
-              className += i
+              className += tree.push({ tag: content }) - 1
             } else {
               let parent = i - 1
               // 找到父节点
@@ -228,6 +229,7 @@ export default {
       const target = e.target.dataset.move
       if (target) {
         const node = document.getElementsByClassName('move-' + target)[0]
+        console.log(node, 'move-' + target)
         if (node && node.offsetTop) {
           const StTop = parseInt(window.scrollY)
           const ToTop = parseInt(node.offsetTop) - StTop
