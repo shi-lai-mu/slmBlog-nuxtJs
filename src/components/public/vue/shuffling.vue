@@ -1,17 +1,17 @@
 <template>
   <div class="shuffling">
-      <div class="shuffling-flex">
-          <span class="shuffling-left" @click="up"></span>
-          <ul class="shuffling-ling">
-            <li v-for="(item, key) in list" :key="key" :class="item.css">
-              <img v-lazy="item.url" alt="NAV-0">
-            </li>
-          </ul>
-          <span class="shuffling-right" @click="down"></span>
-      </div>
-      <ul class="shuffling-select" @click="select">
-          <li v-for="(item, key) in list" :key="key" :class="{ on: key == no }" :data-i="key"></li>
+    <div class="shuffling-flex">
+      <span class="shuffling-left" @click="up"></span>
+      <ul class="shuffling-ling">
+        <li v-for="(item, key) in list" :key="key" :class="item.css">
+          <img v-lazy="item.url" alt="NAV-0">
+        </li>
       </ul>
+      <span class="shuffling-right" @click="down"></span>
+    </div>
+    <ul class="shuffling-select" @click="select">
+      <li v-for="(item, key) in list" :key="key" :class="{ on: key == no }" :data-i="key"></li>
+    </ul>
   </div>
 </template>
 <script>

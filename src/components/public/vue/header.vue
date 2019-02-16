@@ -174,9 +174,7 @@ export default {
       return this.menuState
     },
 
-    /**
-     * 点击导航栏内部,子导航时缩小菜单[移动端事件]
-     */
+    /* 点击导航栏内部,子导航时缩小菜单[移动端事件] */
     minMenu (e) {
       let last = e.target.lastChild
       if (!last || !last.tagName || last.tagName.toLowerCase() !== 'ul') {
@@ -184,16 +182,12 @@ export default {
       }
     },
 
-    /**
-     * 运行命令
-     */
+    /* 运行命令 */
     runCommand (key) {
       this[key]()
     },
 
-    /**
-     * 退出登录
-     */
+    /* 退出登录 */
     outLogin () {
       localStorage.removeItem('userInfo')
       this.user = {
@@ -203,9 +197,7 @@ export default {
       this.updateRouter()
     },
 
-    /**
-     * 搜索关键词
-     */
+    /* 搜索关键词 */
     searchKeyWord (e) {
       this.$connecter.$emit('searchKeyWord', e.target.value)
       e.target.value = ''

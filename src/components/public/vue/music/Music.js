@@ -130,9 +130,7 @@ export default function () {
         })
     }
 
-    /**
-     * 音乐数据写入视图
-     */
+    /* 音乐数据写入视图 */
     writeView () {
       if (!this.info.mid) return
       try {
@@ -158,9 +156,7 @@ export default function () {
       // vue.$connecter.$emit('music')
     }
 
-    /**
-     * 播放音乐
-     */
+    /* 播放音乐 */
     play () {
       let self = this
       if (self.$el.play) {
@@ -175,9 +171,7 @@ export default function () {
       }
     }
 
-    /**
-     * 停止音乐
-     */
+    /* 停止音乐 */
     stop () {
       if (this.$el.pause) {
         this.$el.pause()

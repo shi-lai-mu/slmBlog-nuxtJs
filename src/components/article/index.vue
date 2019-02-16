@@ -159,7 +159,6 @@ export default {
             let tree = []
             // 建立树 添加导航点
             let html = this.article.content
-            console.log(h2)
             for (let i = 0, len = h2.length; i < len; i++) {
               const content = h2[i].replace(/(<(\/)?\w+[^>]*>|:|：)/g, '')
               // 添加根
@@ -232,7 +231,6 @@ export default {
       const target = e.target.dataset.move
       if (target) {
         const node = document.getElementsByClassName('move-' + target)[0]
-        console.log(node, 'move-' + target)
         if (node && node.offsetTop) {
           const StTop = parseInt(window.scrollY)
           const ToTop = parseInt(node.offsetTop) - StTop

@@ -1,23 +1,23 @@
 <template>
-    <footer class="body-footer" id="bodyFooter">
-        <div class="copyright clearfix">
-            <span class="copyright-left">© CopyRight 2018-2019, <a href="//mczyzy.cn">MCZYZY.CN</a>, Inc.All Rights Reserved.</span>
-            <ul class="copyright-right">
-                <li><router-link :to="{name:'terms'}">条款和免责</router-link></li>
-                <li><router-link :to="'/other/thisSite'">关于本站</router-link></li>
-            </ul>
-        </div>
-        <div class="beian clearfix">
-            <span class="beian-a">
-                <img class="beian-img" src="~@img/other/police_badge.png"/>
-                <p class="beian-p">
-                    <a target="_blank" href="//www.miitbeian.gov.cn">浙ICP备18049156号-1</a>
-                    <a target="_blank" href="//www.beian.gov.cn">(浙公网安备 33038102331168号)</a>
-                </p>
-            </span>
-        </div>
-        <a href="//www.beian.gov.cn/portal/registerSystemInfo?recordcode=33038102331168" title="纯属为了让某些爬虫快速识别备案"></a>
-    </footer>
+  <footer class="body-footer">
+    <div class="copyright clearfix">
+      <span class="copyright-left">© CopyRight 2018-2019, <a href="//mczyzy.cn">MCZYZY.CN</a>, Inc.All Rights Reserved.</span>
+      <ul class="copyright-right">
+        <li><router-link :to="{name:'terms'}">条款和免责</router-link></li>
+        <li><router-link :to="'/other/thisSite'">关于本站</router-link></li>
+      </ul>
+    </div>
+    <div class="beian clearfix">
+      <span class="beian-a">
+        <img class="beian-img" src="~@img/other/police_badge.png"/>
+        <p class="beian-p">
+          <a target="_blank" href="//www.miitbeian.gov.cn">浙ICP备18049156号-1</a>
+          <a target="_blank" href="//www.beian.gov.cn">(浙公网安备 33038102331168号)</a>
+        </p>
+      </span>
+    </div>
+    <a href="//www.beian.gov.cn/portal/registerSystemInfo?recordcode=33038102331168" title="纯属为了让某些爬虫快速识别备案"></a>
+  </footer>
 </template>
 
 <style lang="less">

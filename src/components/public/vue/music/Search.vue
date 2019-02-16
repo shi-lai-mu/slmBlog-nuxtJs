@@ -82,9 +82,7 @@ export default {
     }
   },
   methods: {
-    /**
-     * 搜索音乐
-     */
+    /* 搜索音乐 */
     searchMusic (page) {
       // 如果为翻页
       if (typeof page === 'number') {
@@ -154,9 +152,7 @@ export default {
       }
     },
 
-    /**
-     * 显示列表
-     */
+    /* 显示列表 */
     toggleList (e) {
       this.searchList = !this.searchList
       let i = e.target.dataset.i
@@ -181,9 +177,7 @@ export default {
       }
     },
 
-    /**
-     * 下载音乐
-     */
+    /* 下载音乐 */
     download (e) {
       let $el = e.target
       let dataset = $el.dataset
@@ -234,17 +228,13 @@ export default {
         })
     },
 
-    /**
-     * 搜索音乐
-     */
+    /* 搜索音乐 */
     searchChange (e) {
       // 清空列表
       if (!e.data && this.songList) this.songList = []
     },
 
-    /**
-     * 添加/刪除 一条记录/全部记录
-     */
+    /* 添加/刪除 一条记录/全部记录 */
     history (v) {
       let history = this.searchHistory
       if (typeof v === 'string') {
@@ -261,17 +251,13 @@ export default {
       localStorage.setItem('searchHistory', JSON.stringify(history))
     },
 
-    /**
-     * 点击历史记录
-     */
+    /* 点击历史记录 */
     loadKey (e) {
       this.searchs = e.target.innerText
       this.searchMusic()
     },
 
-    /**
-     * 播放音乐
-     */
+    /* 播放音乐 */
     playSong (e) {
       let i = e.target.dataset.i || e.target.parentElement.dataset.i
       if (i) {

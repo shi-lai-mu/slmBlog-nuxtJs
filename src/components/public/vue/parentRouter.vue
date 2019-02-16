@@ -25,9 +25,7 @@ export default {
   },
   methods: {
 
-    /**
-     * 刷新路由状态
-     */
+    /* 刷新路由状态 */
     updateRoutes () {
       this.$connecter.$emit('page', {
         title: {
@@ -59,9 +57,7 @@ export default {
     }
   },
 
-  /**
-   * 点击后更新前进行刷新状态
-   */
+  /* 点击后更新前进行刷新状态 */
   beforeUpdate () {
     this.updateRoutes()
   }

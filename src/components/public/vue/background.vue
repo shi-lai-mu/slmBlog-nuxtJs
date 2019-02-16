@@ -3,9 +3,7 @@
 </template>
 
 <script>
-/**
- * 背景组件
- */
+/* 背景组件 */
 export default {
   created () {
     this.$nextTick(() => {
