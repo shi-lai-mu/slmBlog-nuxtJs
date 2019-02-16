@@ -78,7 +78,7 @@
           <li v-for="(item, index) in article.tree" :key="index">
             {{ item.tag }}
             <ul class="article-right-tree-sub" v-if="item.sub">
-              <li></li>
+              <li class="ellipsis" v-for="(sub, key) in item.sub" :key="key" v-text="sub"></li>
             </ul>
           </li>
         </ul>
@@ -148,7 +148,7 @@ export default {
           let h2 = this.article.content.match(/<(h2|blockquote)[^>]*>.*?<\/(h2|blockquote)>/ig)
           let tree = []
           for (let i = 0, len = h2.length; i < len; i++) {
-            const content = h2[i].replace(/(<(\/)?\w+[^>]*>|:)/g, '')
+            const content = h2[i].replace(/(<(\/)?\w+[^>]*>|:|：)/g, '')
             // 添加根
             if (h2[i].search('h2') > -1) {
               tree.push({ tag: content })
@@ -166,6 +166,9 @@ export default {
             }
           }
           this.article.tree = tree
+
+          // 导航节点
+          
         }
       })
       .catch((err) => {
@@ -544,8 +547,17 @@ export default {
           }
         }
       }
-      .article-right-tree-sub {
-        
+      .article-right-tree-sub li {
+        color: #ccc;
+        &::before {
+          border: 3px solid rgba(0, 0, 0, .05);
+        }
+        &:hover {
+          color: #555;
+          &::before {
+            border: 3px solid #fb8869;
+          }
+        }
       }
     }
   }
