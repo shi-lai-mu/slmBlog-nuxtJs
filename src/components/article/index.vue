@@ -181,27 +181,24 @@ export default {
           this.article.content = html
         }
       })
-      .catch((err) => {
-        console.log(err)
-        // this.$router.push({
-        //   name: 'error',
-        //   query: {
-        //     error: '文章丢失!',
-        //     description: '找不到此文章啦...有可能是以下原因哦!',
-        //     select: [
-        //       '被删除',
-        //       '被封禁'
-        //     ]
-        //   }
-        // })
+      .catch(() => {
+        this.$router.push({
+          name: 'error',
+          query: {
+            error: '文章丢失!',
+            description: '找不到此文章啦...有可能是以下原因哦!',
+            select: [
+              '被删除',
+              '被封禁'
+            ]
+          }
+        })
       })
   },
   methods: {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000),
 
-    /**
-     * 发送留言
-     */
+    /* 发送留言 */
     send () {
       let user = this.$store.state.user
       if (user) {
@@ -218,9 +215,7 @@ export default {
       }
     },
 
-    /**
-     * 搜索关键词
-     */
+    /* 搜索关键词 */
     searchKeyWord (keyword) {
       this.$connecter.$emit('searchKeyWord', keyword)
       this.$router.push({
@@ -228,6 +223,7 @@ export default {
       })
     },
 
+    /* 导航移动 */
     treeMove (e) {
       const target = e.target.dataset.move
       if (target) {
@@ -236,10 +232,13 @@ export default {
           const StTop = parseInt(window.scrollY)
           const ToTop = parseInt(node.offsetTop) - StTop
           let WTop = StTop
+          // 变相结束时间
           let endDate = Math.abs(ToTop) > 700 ? 700 : Math.abs(ToTop)
+          // 移动动画
           animation.create((tw, oldTime) => {
             const time = new Date() - oldTime
             WTop = tw.linear(time, StTop, ToTop, endDate)
+            // 动画时间到
             if (endDate - time <= 0) {
               node.className = 'treeFocus'
               setTimeout(() => {
