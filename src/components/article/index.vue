@@ -233,19 +233,17 @@ export default {
       if (target) {
         const node = document.getElementsByClassName('move-' + target)[0]
         if (node && node.offsetTop) {
-          // window.scrollBy(0, node.offsetTop)
-          const ToTop = parseInt(node.offsetTop)
-          let WTop = parseInt(window.scrollY)
-          const endDate = 1000
+          const StTop = parseInt(window.scrollY)
+          const ToTop = parseInt(node.offsetTop) - StTop
+          let WTop = StTop
+          let endDate = Math.abs(ToTop) > 700 ? 700 : Math.abs(ToTop)
           animation.create((tw, oldTime) => {
             const time = new Date() - oldTime
-            if (WTop < ToTop) {
-              WTop += tw.easeInStrong(time, 0, ToTop, endDate)
-            }
-            if (ToTop - WTop <= 0) {
+            WTop = tw.linear(time, StTop, ToTop, endDate)
+            if (endDate - time <= 0) {
               node.className = 'treeFocus'
               setTimeout(() => {
-                node.className = ''
+                node.className = 'move-' + target
               }, 1500)
               return false
             }
@@ -508,6 +506,9 @@ export default {
   // 右侧
   .article-right-box {
     margin: 20px 0;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
     // 二分
     .binary {
       float: left;
