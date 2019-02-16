@@ -74,9 +74,15 @@
       </div>
       <div class="article-right-box clearfix">
         <label class="article-right-title">导航</label>
-        <div class="article-right-nav">
-          <a v-for="(item, index) in article.type" :key="index">{{ item }}</a>
-        </div>
+        <ul class="article-right-tree" v-if="article.tree">
+          <li v-for="(item, index) in article.tree" :key="index">
+            {{ item.tag }}
+            <ul class="article-right-tree-sub" v-if="item.sub">
+              <li></li>
+            </ul>
+          </li>
+        </ul>
+        <span v-else>抱歉,本文未找到导航!</span>
       </div>
     </div>
   </tbody>
@@ -110,17 +116,21 @@ export default {
             this.editor = !0
           }
         }
+
         // 封面
         if (this.article.img.indexOf('//') === -1) {
           this.article.img = `//res.mczyzy.cn/img/upload/${this.article.img}`
         }
+
         // 分类处理
         if (typeof this.article.type === 'string') {
           this.article.type = this.article.type.split('#')
           this.article.type.shift()
         }
+
         // 隐藏骨架
         this.notCon = !1
+
         // 图像丢失处理
         this.$nextTick(() => {
           let el = this.$refs.content.getElementsByTagName('img')
@@ -132,19 +142,45 @@ export default {
           // 语法高亮
           Code.parse(this.$refs.content)
         })
-      })
-      .catch(() => {
-        this.$router.push({
-          name: 'error',
-          query: {
-            error: '文章丢失!',
-            description: '找不到此文章啦...有可能是以下原因哦!',
-            select: [
-              '被删除',
-              '被封禁'
-            ]
+
+        // 导航树
+        if (!this.article.tree) {
+          let h2 = this.article.content.match(/<(h2|blockquote)[^>]*>.*?<\/(h2|blockquote)>/ig)
+          let tree = []
+          for (let i = 0, len = h2.length; i < len; i++) {
+            const content = h2[i].replace(/(<(\/)?\w+[^>]*>|:)/g, '')
+            // 添加根
+            if (h2[i].search('h2') > -1) {
+              tree.push({ tag: content })
+            } else {
+              let parent = i - 1
+              // 找到父节点
+              while (!tree[parent]) {
+                parent--
+              }
+              // 添加叶节点
+              if (!tree[parent].sub) {
+                tree[parent].sub = []
+              }
+              tree[parent].sub.push(content)
+            }
           }
-        })
+          this.article.tree = tree
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        // this.$router.push({
+        //   name: 'error',
+        //   query: {
+        //     error: '文章丢失!',
+        //     description: '找不到此文章啦...有可能是以下原因哦!',
+        //     select: [
+        //       '被删除',
+        //       '被封禁'
+        //     ]
+        //   }
+        // })
       })
   },
   methods: {
@@ -431,7 +467,7 @@ export default {
   // 正文
   .article-right-box {
     margin: 20px 0;
-
+    // 二分
     .binary {
       float: left;
       width: 50%;
@@ -439,14 +475,14 @@ export default {
       color: #666;
       cursor: pointer;
 
+      &:hover {
+        color: #333;
+      }
+
       .iconfont {
         margin: 0 10px;
         font-size: 1.5rem;
         vertical-align: middle;
-      }
-
-      &:hover {
-        color: #333;
       }
     }
 
@@ -459,6 +495,7 @@ export default {
         padding: 5px 15px;
         color: #888;
         background-color: #fff;
+        cursor: pointer;
         &:hover {
           color: #444;
           border: 1px solid #666;
@@ -481,6 +518,34 @@ export default {
         height: 100%;
         border-radius: 0 5px 5px 0;
         background-color: rgba(0, 0, 0, .1);
+      }
+    }
+    .article-right-tree {
+      li {
+        margin: 5px 20px;
+        color: #888;
+        cursor: pointer;
+
+        &::before {
+          content: '';
+          display: inline-block;
+          width: 6px;
+          height: 6px;
+          margin: -2px 15px 0 10px;
+          border: 3px solid rgba(0, 0, 0, .1);
+          border-radius: 50%;
+          vertical-align: middle;
+        }
+        &:hover {
+          color: #333;
+
+          &::before {
+            border: 3px solid #70d7cf;
+          }
+        }
+      }
+      .article-right-tree-sub {
+        
       }
     }
   }

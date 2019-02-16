@@ -149,7 +149,6 @@ export default {
           item.sub = item.sub.filter(subItem => {
             // 设置了权限判断
             if (subItem[2]) {
-              console.log(subItem[2])
               subItem = this.$router.options.permissions(subItem[2]) ? subItem : false
             }
             return subItem
