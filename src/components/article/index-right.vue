@@ -62,7 +62,6 @@ export default {
   },
   watch: {
     'article' () {
-      console.log(this.article)
       let data = this.article
       // 导航树
       if (!data.tree) {
@@ -103,10 +102,10 @@ export default {
   methods: {
     /* 搜索关键词 */
     searchKeyWord (keyword) {
-      this.$connecter.$emit('searchKeyWord', keyword)
       this.$router.push({
         name: 'home'
       })
+      this.$connecter.$emit('searchKeyWord', keyword)
     },
 
     /* 滚动监测 */
@@ -153,6 +152,7 @@ export default {
       }
     },
 
+    /* 获取树元素 */
     getTreeElement (el) {
       // 获取导航树
       const treeEl = el.querySelectorAll('div[class^="move-"]')
@@ -176,6 +176,15 @@ export default {
 </script>
 
 <style lang="less">
+.article-box {
+
+  .article-right {
+    position: absolute;
+    width: 300px;
+    height: 100%;
+    border-radius: 0 5px 5px 0;
+    background-color: rgba(250, 250, 250, .8);
+  }
   // 右侧
   .article-right-box {
     margin: 20px 0;
@@ -297,4 +306,17 @@ export default {
       background-color: #eb3a42;
     }
   }
+
+  // 响应
+  @media screen and (max-width: 1100px) {
+    div.content-box {
+      &.article-index {
+        width: 100%;
+      }
+      &.article-right {
+        display: none;
+      }
+    }
+  }
+}
 </style>

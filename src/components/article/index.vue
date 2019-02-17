@@ -1,5 +1,5 @@
 <template>
-  <tbody class="conter single clearfix">
+  <tbody class="conter article-box">
     <div :class="['content-box', 'article-index', { 'nick': article['title'] }, 'notContent']">
 
         <!-- 头部信息 -->
@@ -164,26 +164,11 @@ export default {
 </script>
 
 <style lang="less">
+.article-box {
+  position: relative;
+  line-height: 0;
   @bgColor: #d6d6d6;
-  .single {
-    position: relative;
-    line-height: 0;
-  }
-  .content-box {
-    line-height: normal;
-    &.article-index {
-      width: calc(100% - 300px);
-      border-radius: 5px 0 0 5px;
-    }
-    &.article-right {
-      position: absolute;
-      width: 300px;
-      height: 100%;
-      border-radius: 0 5px 5px 0;
-      background-color: rgba(250, 250, 250, .8);
-      box-shadow: 2px 3px 5px -2px rgba(0, 0, 0, 0.15)
-    }
-  }
+
   // 伪装样式
   .notContent {
     transition: .5s;
@@ -280,6 +265,8 @@ export default {
   }
   // 正文
   .article-index {
+    width: calc(100% - 300px);
+    border-radius: 5px 0 0 5px;
 
     header {
       width: 95%;
@@ -409,15 +396,5 @@ export default {
       margin: 20px;
     }
   }
-  // 响应
-  @media screen and (max-width: 1100px) {
-    div.content-box {
-      &.article-index {
-        width: 100%;
-      }
-      &.article-right {
-        display: none;
-      }
-    }
-  }
+}
 </style>
