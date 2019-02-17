@@ -185,6 +185,7 @@ export default {
     border-radius: 0 5px 5px 0;
     background-color: rgba(250, 250, 250, .8);
   }
+
   // 右侧
   .article-right-box {
     margin: 20px 0;
@@ -192,6 +193,7 @@ export default {
             user-select: none;
     -ms-user-select: none;
     -moz-user-select: none;
+
     // 二分
     .binary {
       float: left;
@@ -212,6 +214,7 @@ export default {
     }
 
     .article-right-tag {
+
       li {
         float: left;
         margin: 5px 5px 5px 10px;
@@ -221,6 +224,7 @@ export default {
         color: #888;
         background-color: #fff;
         cursor: pointer;
+
         &:hover {
           color: #444;
           border: 1px solid #666;
@@ -246,6 +250,7 @@ export default {
       }
     }
     .article-right-tree {
+
       li {
         margin: 5px 20px;
         color: #888;
@@ -261,6 +266,7 @@ export default {
           border-radius: 50%;
           vertical-align: middle;
         }
+
         &:hover,
         &.focus {
           color: #333;
@@ -272,12 +278,15 @@ export default {
       }
       .article-right-tree-sub li {
         color: #ccc;
+
         &::before {
           border: 3px solid rgba(0, 0, 0, .05);
         }
+
         &:hover,
         &.focus {
           color: #555;
+
           &::before {
             border: 3px solid #fb8869;
           }
@@ -291,18 +300,22 @@ export default {
     position: fixed;
     width: 280px;
   }
+
   blockquote,
   h2,
   .treeFocus {
     -webkit-transition: 1s;
     transition: 1s;
   }
+
   .treeFocus {
     -webkit-transform: translateX(-20px);
             transform: translateX(-20px);
+
     h2 {
       color: #eb3a42;
     }
+
     blockquote {
       color: #fff;
       border-left: 8px solid #ad292f;
@@ -313,9 +326,11 @@ export default {
   // 响应
   @media screen and (max-width: 1100px) {
     div.content-box {
+
       &.article-index {
         width: 100%;
       }
+      
       &.article-right {
         display: none;
       }

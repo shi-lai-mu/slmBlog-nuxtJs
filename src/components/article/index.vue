@@ -179,10 +179,12 @@ export default {
       -webkit-transition: .5s;
       transition: .5s;
     }
+
     tbody.article-body {
       border-bottom: 1px solid #ccc;
       margin-bottom: 50px;
     }
+
     .notCon {
       width: 90%;
       border-top: 1px solid #ccc;
@@ -204,6 +206,7 @@ export default {
     .notCon {
       -webkit-transition: .5s;
       transition: .5s;
+
       li {
         width: 100%;
         height: 1.5rem;
@@ -211,16 +214,19 @@ export default {
         margin: 1.5rem auto;
         background-color: @bgColor;
       }
+
       .not-p {
         width: 90%;
         margin-right: 0;
       }
+
       .not-end {
         width: 50%;
         margin-left: 0;
       }
     }
   }
+
   // 加载完
   .nick {
     .article-body {
@@ -230,9 +236,11 @@ export default {
           -ms-user-select: none;
               user-select: none;
     }
+
     .notCon {
       opacity: 0;
     }
+
     .notCon {
       max-height: 100vh;
       -webkit-animation: .5s notCon;
@@ -240,26 +248,31 @@ export default {
       -webkit-animation-fill-mode: forwards;
               animation-fill-mode: forwards;
     }
+
     .article-title {
       width: auto;
       color: inherit;
       background-color: transparent;
     }
+
     @-webkit-keyframes notCon {
       to {
         max-height: 0;
       }
     }
+
     @keyframes notCon {
       to {
         max-height: 0;
       }
     }
+
     h3.article-info {
       -webkit-user-select: none;
          -moz-user-select: none;
           -ms-user-select: none;
               user-select: none;
+
       span, i {
         padding: 0;
         border-radius: 0;
@@ -267,6 +280,7 @@ export default {
         background-color: transparent;
       }
     }
+
     .editor-link {
       margin-left: 10px;
       font-size: .6rem;
@@ -274,10 +288,12 @@ export default {
       color: #888;
       white-space: nowrap;
     }
+
     .icon-fatie {
       margin: 0;
     }
   }
+
   // 正文
   .article-index {
     width: calc(100% - 300px);
@@ -287,9 +303,11 @@ export default {
       width: 95%;
       border-bottom: 1px solid #ccc;
       margin: 0 auto 30px;
+      
       i {
         margin: 0 5px 0 10px;
         color: #888;
+
         &::before {
           margin-right: 5px;
         }
@@ -310,6 +328,7 @@ export default {
       font-weight: 400;
       text-align: center;
       color: #555;
+
       span, i {
         padding: 0 10px;
         border-radius: 30px;
@@ -319,9 +338,11 @@ export default {
         transition: .5s;
       }
     }
+
     .nowrap {
       white-space: nowrap;
     }
+
     .article-body {
       width: 90%;
       padding-bottom: 30px;
@@ -333,6 +354,7 @@ export default {
         word-break: break-all;
       }
     }
+
     // 留言样式
     .article-message {
       padding: 0;
@@ -348,6 +370,7 @@ export default {
           margin-left: 0;
         }
       }
+
       .message-tag {
         position: relative;
         display: block;
@@ -367,6 +390,7 @@ export default {
           background-color: #f7be23;
         }
       }
+
       .user-name,
       .user-info {
         float: left;
@@ -378,10 +402,12 @@ export default {
         white-space: nowrap;
         text-overflow: ellipsis;
       }
+
       .user-info {
         color: #aaa;
         font-size: 1rem;
       }
+
       .message-content {
         float: right;
         width: calc(100% - 60px);
@@ -391,18 +417,22 @@ export default {
         background-color: rgba(255, 255, 255, .8);
         word-wrap: break-word;
       }
+
       .message-right {
         float: right;
       }
+
       p {
         margin: 0;
         text-indent: 0;
       }
     }
+
     .editor .w-e-toolbar,
     .editor .w-e-text-container {
       width: 100%;
     }
+
     .send {
       float: right;
       width: 30%;
