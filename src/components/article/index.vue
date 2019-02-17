@@ -107,7 +107,8 @@ export default {
         author: {}
       },
       notCon: true,
-      editor: false
+      editor: false,
+      treeList: []
     }
   },
   // 编辑器组件
@@ -151,6 +152,17 @@ export default {
             }
             // 语法高亮
             Code.parse(this.$refs.content)
+
+            // 获取导航树
+            const treeEl = this.$el.querySelectorAll('div[class^="move-"]')
+            let treeList = []
+            for (let index = 0, len = treeEl.length; index < len; index++) {
+              treeList.push({
+                el: treeEl[index],
+                top: treeEl[index].offsetTop
+              })
+            }
+            this.treeList = treeList
           }
         })
 
@@ -185,11 +197,8 @@ export default {
             this.article.content = html
           }
         }
-
         // 滚动监听
-        window.addEventListener('scroll', e => {
-          console.log(e)
-        })
+        this.article.tree && window.addEventListener('scroll', this.scroll)
       })
       .catch(() => {
         this.$router.push({
@@ -205,8 +214,24 @@ export default {
         })
       })
   },
+  destroyed () {
+    this.article.tree && window.removeEventListener('scroll', this.scroll)
+  },
   methods: {
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000),
+
+    /* 滚动监测 */
+    scroll () {
+      const Top = window.scrollY + 50
+      const list = this.treeList
+      for (let index = 0, len = list.length; index < len; index++) {
+        const element = list[index]
+        const down = list[index + 1]
+        if (Top > element.top && (!down || Top < down.top)) {
+          console.log(index)
+        }
+      }
+    },
 
     /* 发送留言 */
     send () {
@@ -587,7 +612,8 @@ export default {
           border-radius: 50%;
           vertical-align: middle;
         }
-        &:hover {
+        &:hover,
+          {
           color: #333;
 
           &::before {
@@ -600,7 +626,8 @@ export default {
         &::before {
           border: 3px solid rgba(0, 0, 0, .05);
         }
-        &:hover {
+        &:hover,
+        &.focus {
           color: #555;
           &::before {
             border: 3px solid #fb8869;
