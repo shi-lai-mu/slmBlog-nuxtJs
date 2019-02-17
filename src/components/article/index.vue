@@ -79,13 +79,27 @@
         <div class="article-right-box clearfix">
           <label class="article-right-title">导航</label>
           <ul class="article-right-tree" v-if="article.tree" @click="treeMove">
-            <li v-for="(item, index) in article.tree" :key="index" :class="[{ focus: lookParent == index }]" :data-move="index">
+
+            <li
+              v-for="(item, index) in article.tree"
+              :key="index"
+              :class="[{ focus: lookParent == index }]"
+              :data-move="index"
+            >
               {{ item.tag }}
               <!-- 叶节点 -->
               <ul class="article-right-tree-sub" v-if="item.sub">
-                <li v-for="(sub, key) in item.sub" :key="key" :class="['ellipsis', { focus: lookTree == `${index}-${key + 1}` }]" v-html="sub" :title="sub" :data-move="`${index}-${key + 1}`"></li>
+                <li
+                  v-for="(sub, key) in item.sub"
+                  :key="key"
+                  :class="['ellipsis', { focus: lookTree == `${index}-${key + 1}` }]"
+                  :title="sub"
+                  :data-move="`${index}-${key + 1}`"
+                  v-html="sub"
+                ></li>
               </ul>
             </li>
+
           </ul>
           <span v-else>抱歉,本文未找到导航!</span>
         </div>
@@ -235,7 +249,6 @@ export default {
         if (Top > element.top && (!down || Top < down.top)) {
           this.lookTree = element.index
           this.lookParent = element.parent
-          console.log(element.parent)
         }
       }
     },
