@@ -59,12 +59,123 @@ export default {
       lookTree: '0',
       treeList: []
     }
+  },
+  watch: {
+    'article' () {
+      console.log(this.article)
+      let data = this.article
+      // 导航树
+      if (!data.tree) {
+        let h2 = data.content.match(/<(h2|blockquote)[^>]*>.*?<\/(h2|blockquote)>/ig)
+        if (h2) {
+          let tree = []
+          // 建立树 添加导航点
+          let html = data.content
+          for (let i = 0, len = h2.length; i < len; i++) {
+            const content = h2[i].replace(/(<(\/)?\w+[^>]*>|:|：)/g, '')
+            // 添加根
+            let className = 'move-'
+            if (h2[i].search('h2') > -1) {
+              className += tree.push({ tag: content }) - 1
+            } else {
+              let parent = i - 1
+              // 找到父节点
+              while (!tree[parent]) {
+                parent--
+              }
+              // 添加叶节点
+              if (!tree[parent].sub) {
+                tree[parent].sub = []
+              }
+              className += parent + '-' + tree[parent].sub.push(content)
+            }
+            html = html.replace(h2[i], `<div class="${className}">${h2[i]}</div>`)
+          }
+          data.tree = tree
+          data.content = html
+        }
+      }
+      // 滚动监听
+      data.tree && window.addEventListener('scroll', this.scroll)
+      this.article = data
+    }
+  },
+  methods: {
+    /* 搜索关键词 */
+    searchKeyWord (keyword) {
+      this.$connecter.$emit('searchKeyWord', keyword)
+      this.$router.push({
+        name: 'home'
+      })
+    },
+
+    /* 滚动监测 */
+    scroll () {
+      const Top = window.scrollY + 50
+      const list = this.treeList
+      for (let index = 0, len = list.length; index < len; index++) {
+        const element = list[index]
+        const down = list[index + 1]
+        if (Top > element.top && (!down || Top < down.top)) {
+          this.lookTree = element.index
+          this.lookParent = element.parent
+        }
+      }
+    },
+
+    /* 导航移动 */
+    treeMove (e) {
+      const target = e.target.dataset.move
+      if (target) {
+        const node = document.getElementsByClassName('move-' + target)[0]
+        if (node && node.offsetTop) {
+          const StTop = parseInt(window.scrollY)
+          const ToTop = parseInt(node.offsetTop) - StTop
+          let WTop = StTop
+          // 变相结束时间
+          let endDate = Math.abs(ToTop) > 700 ? 700 : Math.abs(ToTop)
+          // 移动动画
+          animation.create((tw, oldTime) => {
+            const time = new Date() - oldTime
+            WTop = tw.linear(time, StTop, ToTop, endDate)
+            // 动画时间到
+            if (endDate - time <= 0) {
+              node.className = 'treeFocus'
+              setTimeout(() => {
+                node.className = 'move-' + target
+              }, 1500)
+              return false
+            }
+            window.scrollTo(0, WTop)
+            return true
+          })
+        }
+      }
+    },
+
+    getTreeElement (el) {
+      // 获取导航树
+      const treeEl = el.querySelectorAll('div[class^="move-"]')
+      let treeList = []
+      for (let index = 0, len = treeEl.length; index < len; index++) {
+        const item = treeEl[index]
+        treeList.push({
+          el: item,
+          top: item.offsetTop,
+          index: item.className.replace('move-', ''),
+          parent: item.className.split('-')[1]
+        })
+      }
+      this.treeList = treeList
+    }
+  },
+  destroyed () {
+    this.article.tree && window.removeEventListener('scroll', this.scroll)
   }
 }
 </script>
 
 <style lang="less">
-  
   // 右侧
   .article-right-box {
     margin: 20px 0;
