@@ -79,11 +79,11 @@
         <div class="article-right-box clearfix">
           <label class="article-right-title">导航</label>
           <ul class="article-right-tree" v-if="article.tree" @click="treeMove">
-            <li v-for="(item, index) in article.tree" :key="index" :data-move="index">
+            <li v-for="(item, index) in article.tree" :key="index" :class="[{ focus: lookParent == index }]" :data-move="index">
               {{ item.tag }}
               <!-- 叶节点 -->
               <ul class="article-right-tree-sub" v-if="item.sub">
-                <li class="ellipsis" v-for="(sub, key) in item.sub" :key="key" v-html="sub" :title="sub" :data-move="`${index}-${key + 1}`"></li>
+                <li v-for="(sub, key) in item.sub" :key="key" :class="['ellipsis', { focus: lookTree == `${index}-${key + 1}` }]" v-html="sub" :title="sub" :data-move="`${index}-${key + 1}`"></li>
               </ul>
             </li>
           </ul>
@@ -95,9 +95,9 @@
 </template>
 
 <script>
+import Code from '@pub/js/code'
 import Time from '@pub/js/dateForm'
 import Editor from '@pub/vue/Editor'
-import Code from '@pub/js/code'
 import animation from '@pub/js/animation'
 
 export default {
@@ -108,6 +108,8 @@ export default {
       },
       notCon: true,
       editor: false,
+      lookParent: '0',
+      lookTree: '0',
       treeList: []
     }
   },
@@ -157,9 +159,12 @@ export default {
             const treeEl = this.$el.querySelectorAll('div[class^="move-"]')
             let treeList = []
             for (let index = 0, len = treeEl.length; index < len; index++) {
+              const item = treeEl[index]
               treeList.push({
-                el: treeEl[index],
-                top: treeEl[index].offsetTop
+                el: item,
+                top: item.offsetTop,
+                index: item.className.replace('move-', ''),
+                parent: item.className.split('-')[1]
               })
             }
             this.treeList = treeList
@@ -228,7 +233,9 @@ export default {
         const element = list[index]
         const down = list[index + 1]
         if (Top > element.top && (!down || Top < down.top)) {
-          console.log(index)
+          this.lookTree = element.index
+          this.lookParent = element.parent
+          console.log(element.parent)
         }
       }
     },
@@ -613,7 +620,7 @@ export default {
           vertical-align: middle;
         }
         &:hover,
-          {
+        &.focus {
           color: #333;
 
           &::before {
