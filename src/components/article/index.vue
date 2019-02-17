@@ -118,6 +118,8 @@ export default {
       .then(res => {
         this.article = res.data
         let user = this.$store.state.user
+
+        // 是否有编辑权限
         if (user) {
           if (res.data.author.uid === user.id) {
             this.editor = !0
@@ -183,6 +185,11 @@ export default {
             this.article.content = html
           }
         }
+
+        // 滚动监听
+        window.addEventListener('scroll', e => {
+          console.log(e)
+        })
       })
       .catch(() => {
         this.$router.push({
