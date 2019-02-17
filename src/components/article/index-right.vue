@@ -188,7 +188,8 @@ export default {
   // 右侧
   .article-right-box {
     margin: 20px 0;
-    user-select: none;
+    -webkit-user-select: none;
+            user-select: none;
     -ms-user-select: none;
     -moz-user-select: none;
     // 二分
@@ -293,10 +294,12 @@ export default {
   blockquote,
   h2,
   .treeFocus {
+    -webkit-transition: 1s;
     transition: 1s;
   }
   .treeFocus {
-    transform: translateX(-20px);
+    -webkit-transform: translateX(-20px);
+            transform: translateX(-20px);
     h2 {
       color: #eb3a42;
     }

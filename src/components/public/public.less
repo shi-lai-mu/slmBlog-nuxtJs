@@ -19,6 +19,7 @@ img[lazy=loading] {
   margin: 0 auto !important;
   max-width: 200px !important;
   height: 100% !important;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#EDEDED), to(#dddddd)) !important;
   background-image: linear-gradient(180deg, #EDEDED, #dddddd) !important;
 }
 
@@ -84,14 +85,21 @@ input, button {
   font-weight: bold;
   color: #fff;
   background-color: #6ed9f1;
-  box-shadow: @shadow;
+  -webkit-box-shadow: @shadow;
+          box-shadow: @shadow;
+  -webkit-transition: .2s;
   transition: .2s;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   cursor: pointer;
   
   &:active {
-    box-shadow: @click-shadow;
-    transform: translateY(-2px);
+    -webkit-box-shadow: @click-shadow;
+            box-shadow: @click-shadow;
+    -webkit-transform: translateY(-2px);
+            transform: translateY(-2px);
   }
 }
 .button-lv0   { background-color: #a2dfec; }
@@ -115,9 +123,12 @@ input, button {
   padding: 10px;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, .9);
-  box-sizing: border-box;
-  box-shadow: @shadow;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: @shadow;
+          box-shadow: @shadow;
   line-height: normal;
+  -webkit-transition: .5s;
   transition: .5s;
 }
 .single .content-box {
@@ -178,7 +189,8 @@ div:focus { -webkit-tap-highlight-color: transparent; }
   }
   .content-box,
   .content-fixed-box {
-    box-shadow: 0 0 15px rgba(99,196,218,.15);
+    -webkit-box-shadow: 0 0 15px rgba(99,196,218,.15);
+            box-shadow: 0 0 15px rgba(99,196,218,.15);
   }
   .header-nav-right,
   .header-nav-left,

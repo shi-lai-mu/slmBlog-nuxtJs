@@ -171,20 +171,21 @@ export default {
 
   // 伪装样式
   .notContent {
+    -webkit-transition: .5s;
     transition: .5s;
 
     .article-body {
       opacity: 0;
+      -webkit-transition: .5s;
       transition: .5s;
     }
     tbody.article-body {
-      margin-bottom: 50px;
       border-bottom: 1px solid #ccc;
+      margin-bottom: 50px;
     }
     .notCon {
       width: 90%;
       border-top: 1px solid #ccc;
-      // margin: 40px auto 0;
     }
 
     .article-title {
@@ -192,23 +193,24 @@ export default {
       width: 50%;
       min-height: 1rem;
       padding: 0 10px;
-      margin-left: auto;
-      margin-right: auto;
+      border-radius: 30px;
+      margin: 1.5rem auto;
       color: #eee;
       background-color: @bgColor;
-      border-radius: 30px;
+      -webkit-transition: .5s;
       transition: .5s;
     }
+
     .notCon {
+      -webkit-transition: .5s;
       transition: .5s;
       li {
         width: 100%;
         height: 1.5rem;
+        border-radius: 1rem;
         margin: 1.5rem auto;
         background-color: @bgColor;
-        border-radius: 1rem;
       }
-
       .not-p {
         width: 90%;
         margin-right: 0;
@@ -223,20 +225,30 @@ export default {
   .nick {
     .article-body {
       opacity: 1;
-      user-select: none;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
     }
     .notCon {
       opacity: 0;
     }
     .notCon {
-      animation: .5s notCon;
       max-height: 100vh;
-      animation-fill-mode: forwards;
+      -webkit-animation: .5s notCon;
+              animation: .5s notCon;
+      -webkit-animation-fill-mode: forwards;
+              animation-fill-mode: forwards;
     }
     .article-title {
       width: auto;
       color: inherit;
       background-color: transparent;
+    }
+    @-webkit-keyframes notCon {
+      to {
+        max-height: 0;
+      }
     }
     @keyframes notCon {
       to {
@@ -244,12 +256,15 @@ export default {
       }
     }
     h3.article-info {
-      user-select: none;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
       span, i {
         padding: 0;
+        border-radius: 0;
         color: inherit;
         background-color: transparent;
-        border-radius: 0;
       }
     }
     .editor-link {
@@ -292,19 +307,18 @@ export default {
     }
 
     .article-info {
-      text-align: center;
       font-weight: 400;
+      text-align: center;
       color: #555;
-
       span, i {
         padding: 0 10px;
+        border-radius: 30px;
         color: transparent;
         background-color: @bgColor;
-        border-radius: 30px;
+        -webkit-transition: .5s;
         transition: .5s;
       }
     }
-
     .nowrap {
       white-space: nowrap;
     }
@@ -358,7 +372,8 @@ export default {
         float: left;
         overflow: hidden;
         width: calc(100% - 40px);
-        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
         padding-left: 20px;
         white-space: nowrap;
         text-overflow: ellipsis;
