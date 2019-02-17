@@ -43,7 +43,7 @@
           </li>
 
         </ul>
-        <span v-else>抱歉,本文未找到导航!</span>
+        <div class="tree-not" v-else>抱歉,本文未找到导航!</div>
       </div>
     </div>
   </div>
@@ -293,6 +293,11 @@ export default {
         }
       }
     }
+  }
+
+  .tree-not {
+    margin: 10px;
+    color: #999;
   }
 
   // 导航
