@@ -259,10 +259,6 @@ export default {
         color: currentColor;
       }
     }
-
-    .right {
-      float: right;
-    }
   }
 
   // 左侧
@@ -342,23 +338,23 @@ export default {
       }
 
       .article-tag li {
-          display: inline-block;
-          padding: 0 5px;
-          margin: 0 5px;
-          font-size: .8rem;
-          color: #999;
-          vertical-align: middle;
-          cursor: pointer;
-          background-color: #fff;
-          border: 1px solid #e8e8e8;
-          border-radius: 3px;
-          -webkit-transition: .3s;
-          transition: .3s;
-          pointer-events: initial;
+        display: inline-block;
+        padding: 0 5px;
+        margin: 0 5px;
+        font-size: .8rem;
+        color: #999;
+        vertical-align: middle;
+        cursor: pointer;
+        background-color: #fff;
+        border: 1px solid #e8e8e8;
+        border-radius: 3px;
+        -webkit-transition: .3s;
+        transition: .3s;
+        pointer-events: initial;
 
-          &:hover {
-            border: 1px solid #999;
-          }
+        &:hover {
+          border: 1px solid #999;
+        }
       }
 
       // 骨架
@@ -368,11 +364,13 @@ export default {
         background-color: #f1f1f1;
         border-radius: 10px;
       }
+
       li.no-black {
         min-width: 1rem;
         height: 1rem;
         border: 0;
       }
+
       .look-center {
         margin-top: 20px;
       }
@@ -384,6 +382,7 @@ export default {
         margin: 0 10px;
         line-height: 40px;
         vertical-align: middle;
+
         input {
           width: 1rem;
           margin: 5px;
@@ -397,9 +396,14 @@ export default {
                   user-select: all;
         }
       }
+
       .button-lv1 {
         margin: 5px 10px;
         background-color: #bef2fd;
+      }
+
+      .right {
+        float: right;
       }
     }
   }
