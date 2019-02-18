@@ -1,5 +1,5 @@
 <template>
-  <tbody class="conter content-row clearfix">
+  <tbody class="conter content-row home">
 
     <span :class="[{ searchArticle }, { 'input-red': searchState }, 'article-input', 'content-box']">
       {{ searchArticle }}
@@ -221,8 +221,157 @@ export default {
 <style lang="less">
 @ip: '//res.mczyzy.cn/img';
 
-.content-row {
+.home {
   margin-bottom: 40px;
+
+  .page {
+    .page-num {
+      line-height: 40px;
+      vertical-align: middle;
+      margin: 0 10px;
+      input {
+        width: 1rem;
+        margin: 5px;
+        border: 0;
+        border-radius: 2px;
+        text-align: right;
+        background-color: #eee;
+        user-select: all;
+      }
+    }
+    .button-lv1 {
+      margin: 5px 10px;
+      background-color: #bef2fd;
+    }
+  }
+  .article-list {
+    margin-bottom: 20px;
+  }
+  .article {
+    padding: 10px;
+    border-top: 1px solid white;
+    border-bottom: 1px solid #e8e8e8;
+    text-align: left;
+    vertical-align: text-top;
+    cursor: pointer;
+
+    &:nth-child(1) {
+      border-top: 0;
+    }
+
+    &:hover {
+      background-color: #f9f9f9;
+
+      .article-parameter {
+        background-color: #fff;
+        color: #aaa;
+      }
+    }
+
+    .article-right {
+      float: left;
+      width: 60%;
+      margin: 10px 15px;
+      pointer-events: none;
+
+      h3 {
+        display: inline-block;
+        padding: 10px 0;
+        margin: 0;
+        font-weight: 300;
+      }
+      .article-description {
+        padding: 10px 5px;
+        font-size: .9em;
+        color: #aaa;
+      }
+    }
+
+    .article-left {
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      float: left;
+      width: 23%;
+      min-width: 100px;
+      height: 7vw;
+      max-height: 114px;
+      min-height: 100px;
+      border-radius: 5px;
+      margin: 10px;
+      pointer-events: none;
+
+      img {
+        height: 100%;
+        transition: 1s;
+        pointer-events: all;
+
+        &:hover {
+          transform: scale(1.5);
+        }
+      }
+    }
+    .article-tag li {
+        display: inline-block;
+        padding: 0 5px;
+        border: 1px solid #e8e8e8;
+        border-radius: 3px;
+        margin: 0 5px;
+        vertical-align: middle;
+        font-size: .8rem;
+        color: #999;
+        background-color: #fff;
+        transition: .3s;
+        cursor: pointer;
+        pointer-events: initial;
+
+        &:hover {
+          // background-color: #e9e9e9;
+          border: 1px solid #999;
+        }
+    }
+    // 掩饰
+    .no-black {
+      min-width: 8rem;
+      border-radius: 10px;
+      margin: 10px 0;
+      background-color: #f1f1f1;
+    }
+    li.no-black {
+      min-width: 1rem;
+      height: 1rem;
+      border: 0;
+    }
+    .look-center {
+      margin-top: 20px;
+    }
+  }
+  .article-input {
+    max-height: 0;
+    opacity: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+
+    .icon-wrong {
+      float: right;
+      color: #ccc;
+      cursor: pointer;
+    }
+  }
+  .input-red {
+    color: #fff;
+    background-color: #eb3a42;
+    .icon-wrong {
+      color: currentColor;
+    }
+  }
+
+  .searchArticle {
+    width: 100%;
+    max-height: 100px;
+    margin: 10px 0;
+    padding: 10px;
+    opacity: 1;
+  }
 
   .right {
     float: right;
@@ -333,154 +482,6 @@ export default {
     .button-lv0 {
       margin: 0 10px;
     }
-  }
-}
-.content-row .searchArticle {
-  width: 100%;
-  max-height: 100px;
-  margin: 10px 0;
-  padding: 10px;
-  opacity: 1;
-}
-.article-input {
-  max-height: 0;
-  opacity: 0;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
-
-  .icon-wrong {
-    float: right;
-    color: #ccc;
-    cursor: pointer;
-  }
-}
-.input-red {
-  color: #fff;
-  background-color: #eb3a42;
-  .icon-wrong {
-    color: currentColor;
-  }
-}
-// 正文
-.page {
-  .page-num {
-    line-height: 40px;
-    vertical-align: middle;
-    margin: 0 10px;
-    input {
-      width: 1rem;
-      margin: 5px;
-      border: 0;
-      border-radius: 2px;
-      text-align: right;
-      background-color: #eee;
-      user-select: all;
-    }
-  }
-  .button-lv1 {
-    margin: 5px 10px;
-    background-color: #bef2fd;
-  }
-}
-.article-list {
-  margin-bottom: 20px;
-}
-.article {
-  padding: 10px;
-  border-top: 1px solid white;
-  border-bottom: 1px solid #e8e8e8;
-  text-align: left;
-  vertical-align: text-top;
-  cursor: pointer;
-
-  &:nth-child(1) {
-    border-top: 0;
-  }
-
-  &:hover {
-    background-color: #f9f9f9;
-
-    .article-parameter {
-      background-color: #fff;
-      color: #aaa;
-    }
-  }
-
-  .article-right {
-    float: left;
-    width: 60%;
-    margin: 10px 15px;
-    pointer-events: none;
-
-    h3 {
-      display: inline-block;
-      padding: 10px 0;
-      margin: 0;
-      font-weight: 300;
-    }
-    .article-description {
-      padding: 10px 5px;
-      font-size: .9em;
-      color: #aaa;
-    }
-  }
-
-  .article-left {
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-    float: left;
-    width: 23%;
-    min-width: 100px;
-    height: 7vw;
-    max-height: 114px;
-    min-height: 100px;
-    border-radius: 5px;
-    margin: 10px;
-    pointer-events: none;
-
-    img {
-      height: 100%;
-      transition: 1s;
-      pointer-events: all;
-
-      &:hover {
-        transform: scale(1.5);
-      }
-    }
-  }
-  .article-tag li {
-      display: inline-block;
-      padding: 0 5px;
-      border: 1px solid #e8e8e8;
-      border-radius: 3px;
-      margin: 0 5px;
-      vertical-align: middle;
-      font-size: .8rem;
-      color: #999;
-      background-color: #fff;
-      transition: .3s;
-      cursor: pointer;
-      pointer-events: initial;
-
-      &:hover {
-        // background-color: #e9e9e9;
-        border: 1px solid #999;
-      }
-  }
-  // 掩饰
-  .no-black {
-    min-width: 8rem;
-    border-radius: 10px;
-    margin: 10px 0;
-    background-color: #f1f1f1;
-  }
-  li.no-black {
-    min-width: 1rem;
-    height: 1rem;
-    border: 0;
-  }
-  .look-center {
-    margin-top: 20px;
   }
 }
 </style>
