@@ -182,17 +182,17 @@ export default {
     position: absolute;
     width: 300px;
     height: 100%;
-    border-radius: 0 5px 5px 0;
     background-color: rgba(250, 250, 250, .8);
+    border-radius: 0 5px 5px 0;
   }
 
   // 右侧
   .article-right-box {
     margin: 20px 0;
     -webkit-user-select: none;
+      -moz-user-select: none;
+        -ms-user-select: none;
             user-select: none;
-    -ms-user-select: none;
-    -moz-user-select: none;
 
     // 二分
     .binary {
@@ -218,11 +218,11 @@ export default {
       li {
         float: left;
         margin: 5px 5px 5px 10px;
-        border: 1px solid #ededed;
-        border-radius: 5px;
         padding: 5px 15px;
         color: #888;
         background-color: #fff;
+        border: 1px solid #ededed;
+        border-radius: 5px;
         cursor: pointer;
 
         &:hover {
@@ -262,9 +262,9 @@ export default {
           width: 6px;
           height: 6px;
           margin: -2px 15px 0 10px;
+          vertical-align: middle;
           border: 3px solid rgba(0, 0, 0, .1);
           border-radius: 50%;
-          vertical-align: middle;
         }
 
         &:hover,
@@ -295,6 +295,7 @@ export default {
     }
   }
 
+  // 无树
   .tree-not {
     margin: 10px;
     color: #999;
@@ -310,7 +311,7 @@ export default {
   h2,
   .treeFocus {
     -webkit-transition: 1s;
-    transition: 1s;
+            transition: 1s;
   }
 
   .treeFocus {
