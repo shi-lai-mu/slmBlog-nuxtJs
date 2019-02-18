@@ -1,12 +1,18 @@
 <template>
   <div id="tbody" ref="tbody">
+    <!-- 顶部导航 -->
     <vue-header :head="head" ref="head"></vue-header>
+    <!-- 内容区域 -->
     <transition :name="transitionName" keep-alive>
       <router-view ref="master" class="tbody" :style="masterStyle"></router-view>
     </transition>
+    <!-- 底部区域 -->
     <vue-footer></vue-footer>
+    <!-- 提示框 -->
     <vue-toast :toast="toast"></vue-toast>
+    <!-- 背景 -->
     <vue-background></vue-background>
+    <!-- 音乐组件 -->
     <vue-music></vue-music>
   </div>
 </template>
@@ -28,7 +34,6 @@ export default {
   },
   data () {
     return {
-      title: false,
       head: false,
       toast: {},
       transitionName: 'slide-right',
@@ -91,9 +96,7 @@ export default {
       self.$store.state.mobile = window.innerWidth < 840
     }
     resize()
-    /**
-     * 移动端右划事件
-     */
+    /* 移动端右划事件 */
     this.$nextTick(() => {
       let pointer = {}
       let screenW = screen.availWidth / 2 / 50

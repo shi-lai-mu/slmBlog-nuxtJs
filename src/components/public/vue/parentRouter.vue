@@ -2,7 +2,6 @@
   <div>
 
     <router-view></router-view>
-
     <ul v-if="children.length" class="child-list">
       <li v-for="(child, key) in children" :key="key">
         <router-link :to="{ name: child.path }">{{ child.path }}</router-link>
@@ -35,7 +34,7 @@ export default {
       })
       this.children = []
       // 路由判断与获取子路由
-      let $router = this.$router
+      const $router = this.$router
       let _uid = $router.options.routes.length - 1
       let mainPath = $router.history.current.path
       while (_uid > 0 && $router.options.routes[_uid].path !== mainPath) {
@@ -44,7 +43,7 @@ export default {
       let routes = $router.options.routes[_uid]
       if (routes) {
         let children = routes.children
-        let router = $router.currentRoute.path.split('/')
+        const router = $router.currentRoute.path.split('/')
         if (children) {
           for (let child of children) {
             // 目前在子路由内
@@ -69,10 +68,10 @@ export default {
   li {
     display: block;
     padding: 10px;
-    border-radius: 5px;
     margin: 20px 10px;
     font-weight: bold;
     background-color: rgba(255, 255, 255, .5);
+    border-radius: 5px;
   }
 }
 </style>

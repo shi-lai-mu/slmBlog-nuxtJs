@@ -51,7 +51,6 @@ router.afterEach((to, from, next) => {
 
 // 路由前处理
 router.beforeEach((to, from, next) => {
-  // let user = localStorage.getItem('userInfo')
   to.matched.map(item => {
     let auth = item.meta.requireAuth
     if (auth) {

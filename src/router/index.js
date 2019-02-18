@@ -84,6 +84,7 @@ export default new Router({
         },
         {
           path: 'friendship',
+          name: 'friendship',
           component: resolve => require(['@com/other/friendship'], resolve)
         }
       ]
@@ -94,6 +95,13 @@ export default new Router({
       component: resolve => require(['@pub/vue/error'], resolve)
     }
   ],
+
+  /**
+   * 权限判断
+   * @param {string} to 路由名
+   * @param {*} cb 回调(返回目录， 是否有权限跳转)
+   * @return 是否有权限跳转
+   */
   permissions: function (to, cb) {
     let user = JSON.parse(localStorage.getItem('userInfo'))
     let name = false
