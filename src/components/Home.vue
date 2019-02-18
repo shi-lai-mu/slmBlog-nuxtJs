@@ -1,10 +1,12 @@
 <template>
   <tbody class="conter content-row home">
 
-    <span :class="[{ searchArticle }, { 'input-red': searchState }, 'article-input', 'content-box']">
+    <!-- 提示框 -->
+    <span :class="['content-box', { searchArticle }, { 'input-red': searchState }, 'article-input']">
       {{ searchArticle }}
       <i class="iconfont icon-wrong" @click="clearModel"></i>
     </span>
+
     <!-- 左侧 -->
     <div class="content-box article-list" @click="tagClick">
       <ul>
@@ -224,188 +226,210 @@ export default {
 .home {
   margin-bottom: 40px;
 
-  .page {
-    .page-num {
-      line-height: 40px;
-      vertical-align: middle;
-      margin: 0 10px;
-      input {
-        width: 1rem;
-        margin: 5px;
-        border: 0;
-        border-radius: 2px;
-        text-align: right;
-        background-color: #eee;
-        user-select: all;
-      }
-    }
-    .button-lv1 {
-      margin: 5px 10px;
-      background-color: #bef2fd;
-    }
+  .content-box {
+    overflow: hidden;
+    padding: 0;
   }
-  .article-list {
-    margin-bottom: 20px;
-  }
-  .article {
-    padding: 10px;
-    border-top: 1px solid white;
-    border-bottom: 1px solid #e8e8e8;
-    text-align: left;
-    vertical-align: text-top;
-    cursor: pointer;
 
-    &:nth-child(1) {
-      border-top: 0;
-    }
-
-    &:hover {
-      background-color: #f9f9f9;
-
-      .article-parameter {
-        background-color: #fff;
-        color: #aaa;
-      }
-    }
-
-    .article-right {
-      float: left;
-      width: 60%;
-      margin: 10px 15px;
-      pointer-events: none;
-
-      h3 {
-        display: inline-block;
-        padding: 10px 0;
-        margin: 0;
-        font-weight: 300;
-      }
-      .article-description {
-        padding: 10px 5px;
-        font-size: .9em;
-        color: #aaa;
-      }
-    }
-
-    .article-left {
-      display: flex;
-      justify-content: center;
-      overflow: hidden;
-      float: left;
-      width: 23%;
-      min-width: 100px;
-      height: 7vw;
-      max-height: 114px;
-      min-height: 100px;
-      border-radius: 5px;
-      margin: 10px;
-      pointer-events: none;
-
-      img {
-        height: 100%;
-        transition: 1s;
-        pointer-events: all;
-
-        &:hover {
-          transform: scale(1.5);
-        }
-      }
-    }
-    .article-tag li {
-        display: inline-block;
-        padding: 0 5px;
-        border: 1px solid #e8e8e8;
-        border-radius: 3px;
-        margin: 0 5px;
-        vertical-align: middle;
-        font-size: .8rem;
-        color: #999;
-        background-color: #fff;
-        transition: .3s;
-        cursor: pointer;
-        pointer-events: initial;
-
-        &:hover {
-          // background-color: #e9e9e9;
-          border: 1px solid #999;
-        }
-    }
-    // 掩饰
-    .no-black {
-      min-width: 8rem;
-      border-radius: 10px;
-      margin: 10px 0;
-      background-color: #f1f1f1;
-    }
-    li.no-black {
-      min-width: 1rem;
-      height: 1rem;
-      border: 0;
-    }
-    .look-center {
-      margin-top: 20px;
-    }
-  }
+  // 提示框
   .article-input {
     max-height: 0;
     opacity: 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
 
     .icon-wrong {
       float: right;
       color: #ccc;
       cursor: pointer;
     }
-  }
-  .input-red {
-    color: #fff;
-    background-color: #eb3a42;
-    .icon-wrong {
-      color: currentColor;
+
+    &.searchArticle {
+      width: 100%;
+      max-height: 100px;
+      margin: 10px 0;
+      padding: 10px;
+      opacity: 1;
     }
-  }
 
-  .searchArticle {
-    width: 100%;
-    max-height: 100px;
-    margin: 10px 0;
-    padding: 10px;
-    opacity: 1;
-  }
-
-  .right {
-    float: right;
-  }
-
-  .content-box {
-    overflow: hidden;
-    padding: 0;
-  }
-  .content-tag {
-    position: relative;
-    margin: 10px;
-    font-size: 1.2rem;
-    color: #666;
+    &.input-red {
+      color: #fff;
+      background-color: #eb3a42;
+      .icon-wrong {
+        color: currentColor;
+      }
+    }
 
     .right {
-      font-size: 1rem;
-      color: #ccc;
-    }
-
-    &::before {
-      content: '';
-      position: absolute;
-      width: 5px;
-      height: 100%;
-      margin-left: -20px;
-      border-radius: 0 5px 5px 0;
-      background-color: #83e1f7;
+      float: right;
     }
   }
+
   // 左侧
+  .article-list {
+    margin-bottom: 20px;
+
+    .article {
+      padding: 10px;
+      text-align: left;
+      vertical-align: text-top;
+      border-top: 1px solid white;
+      border-bottom: 1px solid #e8e8e8;
+      cursor: pointer;
+
+      &:nth-child(1) {
+        border-top: 0;
+      }
+
+      &:hover {
+        background-color: #f9f9f9;
+
+        .article-parameter {
+          color: #aaa;
+          background-color: #fff;
+        }
+      }
+
+      .article-right {
+        float: left;
+        width: 60%;
+        margin: 10px 15px;
+        pointer-events: none;
+
+        h3 {
+          display: inline-block;
+          padding: 10px 0;
+          margin: 0;
+          font-weight: 300;
+        }
+
+        .article-description {
+          padding: 10px 5px;
+          font-size: .9em;
+          color: #aaa;
+        }
+      }
+
+      .article-left {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        float: left;
+        width: 23%;
+        height: 7vw;
+        min-width: 100px;
+        min-height: 100px;
+        max-height: 114px;
+        margin: 10px;
+        overflow: hidden;
+        border-radius: 5px;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        pointer-events: none;
+
+        img {
+          height: 100%;
+          -webkit-transition: 1s;
+          transition: 1s;
+          pointer-events: all;
+
+          &:hover {
+            -webkit-transform: scale(1.5);
+                    transform: scale(1.5);
+          }
+        }
+      }
+
+      .article-tag li {
+          display: inline-block;
+          padding: 0 5px;
+          margin: 0 5px;
+          font-size: .8rem;
+          color: #999;
+          vertical-align: middle;
+          cursor: pointer;
+          background-color: #fff;
+          border: 1px solid #e8e8e8;
+          border-radius: 3px;
+          -webkit-transition: .3s;
+          transition: .3s;
+          pointer-events: initial;
+
+          &:hover {
+            border: 1px solid #999;
+          }
+      }
+
+      // 骨架
+      .no-black {
+        min-width: 8rem;
+        margin: 10px 0;
+        background-color: #f1f1f1;
+        border-radius: 10px;
+      }
+      li.no-black {
+        min-width: 1rem;
+        height: 1rem;
+        border: 0;
+      }
+      .look-center {
+        margin-top: 20px;
+      }
+    }
+
+    // 页数控制
+    .page {
+      .page-num {
+        margin: 0 10px;
+        line-height: 40px;
+        vertical-align: middle;
+        input {
+          width: 1rem;
+          margin: 5px;
+          text-align: right;
+          background-color: #eee;
+          border: 0;
+          border-radius: 2px;
+          -webkit-user-select: all;
+             -moz-user-select: all;
+              -ms-user-select: all;
+                  user-select: all;
+        }
+      }
+      .button-lv1 {
+        margin: 5px 10px;
+        background-color: #bef2fd;
+      }
+    }
+  }
+
+  // 右侧
   .content-aff-box {
     float: right;
     width: 28%;
+
+    .content-tag {
+      position: relative;
+      margin: 10px;
+      font-size: 1.2rem;
+      color: #666;
+
+      .right {
+        font-size: 1rem;
+        color: #ccc;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 5px;
+        height: 100%;
+        margin-left: -20px;
+        border-radius: 0 5px 5px 0;
+        background-color: #83e1f7;
+      }
+    }
 
     .content-list {
       margin: 10px 0;
@@ -415,33 +439,37 @@ export default {
         margin: 5px 0;
       }
     }
+
     // 友情链接
     .friendship {
       position: relative;
       padding-left: 0;
+
       img {
         width: 20px;
         margin-right: 10px;
         vertical-align: middle;
       }
+
       li {
-        list-style: inherit;
-        margin-left: 5%;
         width: 90%;
+        margin-left: 5%;
         padding-bottom: 5px;
-        border-bottom: 1px solid #eee;
         list-style: inherit;
+        border-bottom: 1px solid #eee;
 
         &:hover {
           color: #6bbcce;
         }
       }
     }
+
     ol li {
       margin-left: 7%;
-      list-style: inherit;
       padding-bottom: 5px;
+      list-style: inherit;
       border-bottom: 1px solid #eee;
+
       .max-a {
         position: initial;
       }
@@ -449,36 +477,44 @@ export default {
 
     .content-box {
       width: 100%;
-      padding: 10px;
       margin-bottom: 20px;
+      padding: 10px;
     }
 
     .blogger {
       padding-bottom: 10px;
+
       img {
         display: block;
         width: 100px;
         height: 100px;
-        border-radius: 50%;
         margin: 20px auto 10px;
         border: 10px solid rgba(99,196,218,.25);
+        border-radius: 50%;
+        -webkit-transition: .2s;
         transition: .2s;
+
         &:hover {
-          transform: translateY(-5px);
           border: 10px solid rgba(99,196,218,.4);
-          box-shadow: 0 5px 25px rgba(0,0,0,.15);
+          -webkit-box-shadow: 0 5px 25px rgba(0,0,0,.15);
+                  box-shadow: 0 5px 25px rgba(0,0,0,.15);
+          -webkit-transform: translateY(-5px);
+                  transform: translateY(-5px);
         }
       }
+
       .name {
         color: #999;
-        text-align: center;
         font-size: 22px;
+        text-align: center;
       }
+
       .select {
         margin: 10px;
         text-align: center;
       }
     }
+
     .button-lv0 {
       margin: 0 10px;
     }
