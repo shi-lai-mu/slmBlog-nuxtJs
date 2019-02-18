@@ -303,7 +303,7 @@ export default {
       width: 95%;
       margin: 0 auto 30px;
       border-bottom: 1px solid #ccc;
-      
+
       i {
         margin: 0 5px 0 10px;
         color: #888;

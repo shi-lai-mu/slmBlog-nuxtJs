@@ -336,7 +336,7 @@ export default {
       &.article-index {
         width: 100%;
       }
-      
+
       &.article-right {
         display: none;
       }

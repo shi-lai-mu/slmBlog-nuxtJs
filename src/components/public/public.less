@@ -35,7 +35,8 @@ html {
   --box-click-shadow: @click-shadow;
   font-size: .9em;
 }
-ul, li {
+ul,
+li {
   margin: 0;
   padding: 0;
   list-style-type: none;
@@ -76,19 +77,19 @@ input, button {
   display: inline-block;
   min-width: 74px;
   padding: 0 5px;
-  border: 0;
-  border-radius: 15px;
   margin: 5px 0;
-  line-height: 30px;
-  text-align: center;
   font-size: 14px;
   font-weight: bold;
+  line-height: 30px;
   color: #fff;
+  text-align: center;
   background-color: #6ed9f1;
+  border: 0;
+  border-radius: 15px;
   -webkit-box-shadow: @shadow;
           box-shadow: @shadow;
   -webkit-transition: .2s;
-  transition: .2s;
+          transition: .2s;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -109,27 +110,26 @@ input, button {
 
 .ellipsis {
   display: block;
-  overflow: hidden;
   width: 100%;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.content-box,
-.content-fixed-box {
+.content-box {
   display: inline-block;
-  overflow: hidden;
   width: 70%;
   min-width: @min-width;
   padding: 10px;
-  border-radius: 5px;
+  overflow: hidden;
+  line-height: normal;
   background-color: rgba(255, 255, 255, .9);
+  border-radius: 5px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   -webkit-box-shadow: @shadow;
           box-shadow: @shadow;
-  line-height: normal;
   -webkit-transition: .5s;
-  transition: .5s;
+          transition: .5s;
 }
 .single .content-box {
   float: none;
@@ -143,8 +143,8 @@ input, button {
 // 用户头像
 .user-icon {
   height: 40px;
-  border-radius: 50%;
   margin-left: 10px;
+  border-radius: 50%;
   vertical-align: middle;
 }
 // 取消蓝色选框
@@ -162,8 +162,8 @@ div:focus { -webkit-tap-highlight-color: transparent; }
   // 内容
   .content-box,
   .content-row div.content-aff-box {
-    float: inherit;
     display: block;
+    float: inherit;
     width: 100vw;
   }
   .header-nav .message {
@@ -187,16 +187,9 @@ div:focus { -webkit-tap-highlight-color: transparent; }
     left: 0;
     margin: 0 auto;
   }
-  .content-box,
-  .content-fixed-box {
+  .content-box {
     -webkit-box-shadow: 0 0 15px rgba(99,196,218,.15);
             box-shadow: 0 0 15px rgba(99,196,218,.15);
-  }
-  .header-nav-right,
-  .header-nav-left,
-  .header-nav-conter,
-  .tag-description {
-    display: none;
   }
   // 内容
   .content-box {
