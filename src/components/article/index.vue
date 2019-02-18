@@ -172,17 +172,17 @@ export default {
   // 伪装样式
   .notContent {
     -webkit-transition: .5s;
-    transition: .5s;
+            transition: .5s;
 
     .article-body {
-      opacity: 0;
       -webkit-transition: .5s;
-      transition: .5s;
+              transition: .5s;
+      opacity: 0;
     }
 
     tbody.article-body {
-      border-bottom: 1px solid #ccc;
       margin-bottom: 50px;
+      border-bottom: 1px solid #ccc;
     }
 
     .notCon {
@@ -194,25 +194,25 @@ export default {
       display: block;
       width: 50%;
       min-height: 1rem;
-      padding: 0 10px;
-      border-radius: 30px;
       margin: 1.5rem auto;
+      padding: 0 10px;
       color: #eee;
       background-color: @bgColor;
+      border-radius: 30px;
       -webkit-transition: .5s;
-      transition: .5s;
+              transition: .5s;
     }
 
     .notCon {
       -webkit-transition: .5s;
-      transition: .5s;
+              transition: .5s;
 
       li {
         width: 100%;
         height: 1.5rem;
-        border-radius: 1rem;
         margin: 1.5rem auto;
         background-color: @bgColor;
+        border-radius: 1rem;
       }
 
       .not-p {
@@ -275,9 +275,9 @@ export default {
 
       span, i {
         padding: 0;
-        border-radius: 0;
         color: inherit;
         background-color: transparent;
+        border-radius: 0;
       }
     }
 
@@ -301,8 +301,8 @@ export default {
 
     header {
       width: 95%;
-      border-bottom: 1px solid #ccc;
       margin: 0 auto 30px;
+      border-bottom: 1px solid #ccc;
       
       i {
         margin: 0 5px 0 10px;
@@ -326,16 +326,16 @@ export default {
 
     .article-info {
       font-weight: 400;
-      text-align: center;
       color: #555;
+      text-align: center;
 
       span, i {
         padding: 0 10px;
-        border-radius: 30px;
         color: transparent;
         background-color: @bgColor;
+        border-radius: 30px;
         -webkit-transition: .5s;
-        transition: .5s;
+                transition: .5s;
       }
     }
 
@@ -345,8 +345,8 @@ export default {
 
     .article-body {
       width: 90%;
-      padding-bottom: 30px;
       margin: 0 auto 20px;
+      padding-bottom: 30px;
       font-size: 1.2rem;
 
       p {
@@ -360,10 +360,10 @@ export default {
       padding: 0;
 
       li {
-        border-radius: 5px;
         padding: 10px;
         list-style: none;
         background-color: #eee;
+        border-radius: 5px;
 
         .user-icon {
           float: left;
@@ -374,47 +374,47 @@ export default {
       .message-tag {
         position: relative;
         display: block;
-        border-radius: 0 5px 5px 0;
-        border-top: 2px solid #f7be23;
         padding: 5px 10px;
         color: #fff;
         background-color: #f5d479;
+        border-top: 2px solid #f7be23;
+        border-radius: 0 5px 5px 0;
 
         &::before {
-          content: "";
           position: absolute;
           top: 0;
           left: 0;
           width: 4px;
           height: 100%;
           background-color: #f7be23;
+          content: "";
         }
       }
 
       .user-name,
       .user-info {
         float: left;
-        overflow: hidden;
         width: calc(100% - 40px);
+        overflow: hidden;
+        padding-left: 20px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         -webkit-box-sizing: border-box;
                 box-sizing: border-box;
-        padding-left: 20px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
       }
 
       .user-info {
-        color: #aaa;
         font-size: 1rem;
+        color: #aaa;
       }
 
       .message-content {
         float: right;
         width: calc(100% - 60px);
         margin: 10px 5px;
-        border-radius: 5px;
         padding: 10px;
         background-color: rgba(255, 255, 255, .8);
+        border-radius: 5px;
         word-wrap: break-word;
       }
 
@@ -437,8 +437,8 @@ export default {
       float: right;
       width: 30%;
       max-width: 150px;
-      border: 0;
       margin: 20px;
+      border: 0;
     }
   }
 }

@@ -190,7 +190,7 @@ export default {
   .article-right-box {
     margin: 20px 0;
     -webkit-user-select: none;
-      -moz-user-select: none;
+       -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
 
