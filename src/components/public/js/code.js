@@ -25,13 +25,13 @@ class Code {
   innerText = ''
   regexp = {
     // 关键词
-    'keyword': /\b(?:as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\b/ig,
+    'keyword': /\b(?:as|async|await|break|undefined|NaN|false|true|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\b/ig,
     // 字符串
     'string': /('[\s\S]*?')|(`[\s\S]*?`)|((?!class=)`[\s\S]*?`)/g,
     // 注释
-    'annotation': /(\/\/[\s\S]*?\n)|(\/\*\*)[\n\s\S]*?\*\//ig,
+    'annotation': /(\/\/[\s\S]*?\n)|(\/\/[\s\S]*?.*[^\n])|(\/\*\*)[\n\s\S]*?\*\//ig,
     // 值
-    'value': /(\s+\d+(?!:'))|(\${\w+})/g,
+    'value': /(\s+\d+(?!:'))|(\${\w+})|(\d+)/g,
     // 'variable': /(\()\S+[\)]/,
     // 符号
     'operator': /((?!\*|&lt)[+\-%](?!>|=|\S+>|\(|\*))|(>=|>=|\/=|\*=|-=|\+=|\+\+|--)/g,
@@ -62,9 +62,11 @@ class Code {
    */
   identify () {
     // 开头判断如: "// javascript code-model"
-    let isModel = /^(\/\/ (?:javascript|css|html) code-model)/ig
-    let search = isModel.exec(this.innerText)
+    let content = this.innerText
+    let isModel = /^(\/\/ (?:javascript|css|html) code-model\n)/ig
+    let search = isModel.exec(content)
     if (isModel) {
+      this.innerText = content.replace(isModel, '')
       let model = /(javascript|css|html)+/i
       if (search) {
         search[0].replace(model, keyword => {
@@ -88,7 +90,12 @@ class Code {
 
     for (let exp in regexp) {
       html = html.replace(regexp[exp], word => {
-        return /<[^>]*>|<\/[^>]*>/ig.test(word) ? word : `<span class="${this.model}-${exp}">${word}</span>`
+        if (/<[^>]*>|<\/[^>]*>/ig.test(word) ||
+             exp === 'annotation' ||
+             word.indexOf('annotation') === -1) {
+          return `<span class="${this.model}-${exp}">${word}</span>`
+        }
+        return word
       })
     }
 
@@ -106,14 +113,14 @@ class Code {
     let htmls = '<ul class="line-ul">'
     let arr = html.split('\n')
     let annotation = 0
-    for (let i = 1, l = arr.length; i < l; i++) {
+    for (let i = 0, l = arr.length; i < l; i++) {
       // 多行注释
       if (arr[i].indexOf('/*') > -1 || annotation) {
         // 是否为结束行
         annotation = arr[i].indexOf('*/') > -1 ? !1 : !0
         arr[i] = `<span class="${this.model}-annotation">${arr[i]}</span>`
       }
-      htmls += `<li><span class="line">${i}</span>${arr[i]}</li>\n`
+      htmls += `<li><span class="line">${i + 1}</span>${arr[i]}</li>\n`
     }
     htmls += '</ul>'
     this.parseHTML = htmls

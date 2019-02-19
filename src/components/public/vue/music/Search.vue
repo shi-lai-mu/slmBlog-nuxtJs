@@ -272,8 +272,8 @@ export default {
 
 <style lang="less">
   .music-list .music-search {
-    overflow-y: scroll;
     height: 100%;
+    overflow-y: scroll;
 
     &::before {
       content: "";
