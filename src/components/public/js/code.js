@@ -57,17 +57,20 @@ class Code {
    * 替换语法高亮
    */
   replace () {
-    let regexp = codeModel[this.model]
+    const model = this.model
+    let regexp = codeModel[model]
     let html = this.innerText
     // 排除标签
     html = this.innerText = html.replace(/&/gm, '&amp;').replace(/</gm, '&lt;')
 
     for (let exp in regexp) {
+      console.log(html)
       html = html.replace(regexp[exp], word => {
         if (/<[^>]*>|<\/[^>]*>/ig.test(word) ||
              exp === 'annotation' ||
-             word.indexOf('annotation') === -1) {
-          return `<span class="${this.model}-${exp}">${word}</span>`
+             word.indexOf('annotation') === -1 ||
+             model !== 'html') {
+          return `<span class="${model}-${exp}">${word}</span>`
         }
         return word
       })
@@ -75,7 +78,7 @@ class Code {
 
     // 函数头部param注释
     html = html.replace(/@param {\w+} \w+ \S+/g, word => {
-      return `<span class="${this.model}-param">${word}</span>`
+      return `<span class="${model}-param">${word}</span>`
     })
     this.line(html)
   }
