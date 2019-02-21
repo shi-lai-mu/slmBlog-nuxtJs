@@ -15,7 +15,7 @@
         </li>
         <li>
           <label>简介</label>
-          <input type="text" v-model="description">
+          <input type="text" placeholder="简短的介绍文章内容" v-model="description">
           <span class="bust">*</span>
         </li>
         <li>
@@ -80,6 +80,7 @@ export default {
           this.type = this.article.type
           this.title = this.article.title
           this.webPath = this.article.img
+          this.description = this.article.description
         })
         .catch(() => {
           this.$router.go(-1)
@@ -127,6 +128,7 @@ export default {
      * 发表文章按钮
      */
     send () {
+      console.log(this.$refs.editor.editorContent)
       let err = this.title.length < 4
         ? '标题不能为空或过短'
         : this.type.split('#').length < 1
@@ -144,7 +146,8 @@ export default {
         })
       } else {
         let _user = this.$store.state.user
-        this.$http.post('article/add?token=' + _user.token, {
+        let type = !this.editor ? 'add' : 'unEdit'
+        this.$http.post(`article/${type}?token=` + _user.token, {
           title: this.title,
           type: this.type,
           content: this.$refs.editor.editorContent,

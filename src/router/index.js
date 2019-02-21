@@ -16,12 +16,12 @@ export default new Router({
       component: resolve => require(['@pub/vue/parentRouter'], resolve),
       children: [
         {
-          path: 'addArticle',
-          name: 'addArticle',
+          path: 'editArticle',
+          name: 'editArticle',
           meta: {
             requireAuth: 'admin'
           },
-          component: resolve => require(['@com/article/addArticle'], resolve)
+          component: resolve => require(['@com/article/editArticle'], resolve)
         },
         {
           path: 'againEditor',
@@ -29,7 +29,7 @@ export default new Router({
           meta: {
             requireAuth: 'login'
           },
-          component: resolve => require(['@com/article/addArticle'], resolve)
+          component: resolve => require(['@com/article/editArticle'], resolve)
         },
         {
           path: ':id',

@@ -64,7 +64,6 @@ class Code {
     html = this.innerText = html.replace(/&/gm, '&amp;').replace(/</gm, '&lt;')
 
     for (let exp in regexp) {
-      console.log(html)
       html = html.replace(regexp[exp], word => {
         if (/<[^>]*>|<\/[^>]*>/ig.test(word) ||
              exp === 'annotation' ||
