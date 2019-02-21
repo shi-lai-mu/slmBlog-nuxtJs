@@ -401,11 +401,11 @@ export default {
         margin: 5px 10px;
         background-color: #bef2fd;
       }
-
-      .right {
-        float: right;
-      }
     }
+  }
+
+  .right {
+    float: right;
   }
 
   // 右侧
