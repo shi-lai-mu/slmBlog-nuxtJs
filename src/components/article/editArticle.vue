@@ -68,7 +68,7 @@ export default {
       }
     })
     // 编辑文章模式
-    if (this.editor) {
+    if (!isNaN(this.editor)) {
       // 请求文章
       this.$http
         .get('article/editorArticle/' + this.editor, {
@@ -80,6 +80,9 @@ export default {
           this.type = this.article.type
           this.title = this.article.title
           this.webPath = this.article.img
+          if (this.webPath.indexOf('//') === -1) {
+            this.webPath = `//res.mczyzy.cn/img/upload/${this.webPath}`
+          }
           this.description = this.article.description
         })
         .catch(() => {
@@ -128,12 +131,12 @@ export default {
      * 发表文章按钮
      */
     send () {
-      console.log(this.$refs.editor.editorContent)
+      const content = this.$refs.editor.editorContent
       let err = this.title.length < 4
         ? '标题不能为空或过短'
         : this.type.split('#').length < 1
           ? '至少一个分类'
-          : this.$refs.editor.editorContent.length < 10
+          : content.length < 10
             ? '这么点字...水军吧!!!'
             : false
 
@@ -146,14 +149,16 @@ export default {
         })
       } else {
         let _user = this.$store.state.user
-        let type = !this.editor ? 'add' : 'unEdit'
-        this.$http.post(`article/${type}?token=` + _user.token, {
+        let type = isNaN(this.editor) ? 'add' : 'unEditor'
+        this.$http.post(`article/${type}`, {
+          token: _user.token,
           title: this.title,
           type: this.type,
-          content: this.$refs.editor.editorContent,
+          content,
           uid: _user.id,
           img: this.webPath || this.uploadPath,
-          description: this.description
+          description: this.description,
+          editor: this.editor || false
         })
           .then(res => {
             console.log(res)
