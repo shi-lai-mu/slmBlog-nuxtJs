@@ -3,7 +3,7 @@
     <div class="single" v-if="QQSingle">
       <div v-show="QQSingle[1] && style.length">
         <span class="qqtz">爱 好 分 析</span>
-        <div class="qqEcharts"></div>
+        <div class="qqEcharts" ref="qqEcharts"></div>
       </div>
       <button class="update-single" v-html="updateSingleData" @click="updateSingle"></button>
       <ul class="list" @click="singleList">
@@ -72,28 +72,7 @@ export default {
     this.updateData()
   },
   mounted () {
-    const qqEcharts = echarts.init(document.getElementsByClassName('qqEcharts')[0])
-    qqEcharts.setOption({
-      color: ['#dd6b66', '#759aa0', '#e69d87', '#8dc1a9', '#ea7e53', '#eedd78', '#73a373', '#73b9bc', '#7289ab', '#91ca8c', '#f49f42'],
-      series: [
-        {
-          name: '音乐风格',
-          type: 'pie',
-          radius: '50%',
-          selectedMode: 'single',
-          selectedOffset: 30,
-          clockwise: true,
-          label: {
-            normal: {
-              textStyle: {
-                color: '#fff'
-              }
-            }
-          },
-          data: this.style
-        }
-      ]
-    })
+    this.updateEcharts()
   },
   methods: {
     /**
@@ -214,14 +193,21 @@ export default {
      */
     selectDownload (e) {
       const down = e.target.dataset.down
-      const download = this.download
+      let download = this.download[down]
       const Music = this.$store.state.Music
       const single = this.single.song_list
-      if (down && download[down]) {
-        for (let i = 0, l = download[down].length; i < l; i++) {
+      if (download) {
+        const url = download.url
+        if (url) {
+          let list = Object.keys(download)
+          download = list.splice(0, list.length - 2).map(v => {
+            return url.replace('{id}', download[v])
+          })
+        }
+        for (let i = 0, l = download.length; i < l; i++) {
           Music.addDownload({
             name: single[i].songnames,
-            src: download[down][i]
+            src: download[i]
           })
         }
         Music.allDownloadStart(!0)
@@ -257,6 +243,36 @@ export default {
         this.style = style
         this.updateSingleData = `更新${QQSingle[0].name}的歌单数据`
         this.QQSingle = QQSingle
+        this.updateEcharts()
+      }
+    },
+
+    updateEcharts () {
+      const qqEl = this.$refs.qqEcharts
+
+      if (qqEl) {
+        const qqEcharts = echarts.init(qqEl)
+        qqEcharts.setOption({
+          color: ['#dd6b66', '#759aa0', '#e69d87', '#8dc1a9', '#ea7e53', '#eedd78', '#73a373', '#73b9bc', '#7289ab', '#91ca8c', '#f49f42'],
+          series: [
+            {
+              name: '音乐风格',
+              type: 'pie',
+              radius: '50%',
+              selectedMode: 'single',
+              selectedOffset: 30,
+              clockwise: true,
+              label: {
+                normal: {
+                  textStyle: {
+                    color: '#fff'
+                  }
+                }
+              },
+              data: this.style
+            }
+          ]
+        })
       }
     }
   }
