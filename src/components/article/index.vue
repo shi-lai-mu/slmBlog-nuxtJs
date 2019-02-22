@@ -350,7 +350,6 @@ export default {
       font-size: 1.2rem;
 
       p {
-        text-indent: 2em;
         word-break: break-all;
       }
     }

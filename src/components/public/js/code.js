@@ -47,22 +47,35 @@ class Code {
           // 设置类名为 model-语言
           this.$el.className = 'model-' + keyword
           this.model = keyword
+
+          let html = this.form()
+          // 如果为 HTML 模式
+          if (keyword === 'html') {
+            // 内嵌 js 处理
+            html = html.replace(/&lt;script>[\s\S]*?&lt;\/script>/ig, key => {
+              const results = this.form(key.substring(18, key.length - 38), 'javascript')
+              return `&lt;script>${results}\n<span class="html-label">&lt;/script></span>`
+            })
+          }
+          this.line(html)
         })
       }
     }
-    this.replace()
   }
 
   /**
    * 替换语法高亮
    */
-  replace () {
-    const model = this.model
+  form (content, mod) {
+    const model = mod || this.model
     let regexp = codeModel[model]
-    let html = this.innerText
+    let html = content || this.innerText
     // 排除标签
-    html = this.innerText = html.replace(/&/gm, '&amp;').replace(/</gm, '&lt;')
+    if (!content) {
+      html = this.innerText = html.replace(/&/gm, '&amp;').replace(/</gm, '&lt;')
+    }
 
+    // 计算条件
     for (let exp in regexp) {
       html = html.replace(regexp[exp], word => {
         if (/<[^>]*>|<\/[^>]*>/ig.test(word) ||
@@ -76,10 +89,12 @@ class Code {
     }
 
     // 函数头部param注释
-    html = html.replace(/@param {\w+} \w+ \S+/g, word => {
-      return `<span class="${model}-param">${word}</span>`
-    })
-    this.line(html)
+    if (model === 'javascript') {
+      html = html.replace(/@param {\w+} \w+ \S+/g, word => {
+        return `<span class="${model}-param">${word}</span>`
+      })
+    }
+    return html
   }
 
   /**
