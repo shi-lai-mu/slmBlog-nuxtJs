@@ -42,12 +42,15 @@ code .line-ul li .line {
 /* javascript */
 .javascript-keyword, .javascript-methods,
   .css-keyword { color: #e2be46; }
-.javascript-function { color: #2994ff; }
+.javascript-function,
+  .css-string { color: #2994ff; }
 .javascript-return { color: #ae81ff; }
 .javascript-operator { color: #b83607; }
 .javascript-value,
   .css-value { color: #0ed1eb !important; }
-.javascript-string, .javascript-string span { color: #ad00fd; }
+.javascript-string, 
+  .javascript-string span,
+  .css-color { color: #ad00fd; }
 .javascript-key,
   .html-label { color: #f92672; }
 .javascript-white { color: #fff; }

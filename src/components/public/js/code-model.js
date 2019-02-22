@@ -33,9 +33,13 @@ export default {
   },
   css: {
     // 选择器
-    'key': /[*\w]+[\W]?(?={)/g,
+    'key': /[.*\w]+[\W]?(?={)/g,
+    // 颜色
+    'color': /(?:rgba|rgb|hsl)\([\s\S]*?\)/ig,
+    // 引用
+    'string': /(src|url)\([\s\S]*?\)/g,
     // 值
-    'value': /(\w+\d+(?!:'))|#\w+|\d+/g,
+    'value': /(\w+\d+(?!:'))|#\w+|[.]?\d+/g,
     // 属性
     'keyword': /[-\w]+(?=:)/g
   }
