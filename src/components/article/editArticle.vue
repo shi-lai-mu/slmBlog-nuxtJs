@@ -161,7 +161,14 @@ export default {
           editor: this.editor || false
         })
           .then(res => {
-            console.log(res)
+            if (res.data.state) {
+              this.$router.push({
+                name: 'article',
+                params: {
+                  id: this.editor
+                }
+              })
+            }
           })
       }
     }

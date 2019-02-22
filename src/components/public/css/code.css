@@ -19,6 +19,7 @@ code .line-ul li {
   border-radius: 3px;
   margin: 0;
   transition: .5;
+  user-select: text;
 }
 code .line-ul li:hover .line {
   border: 1px solid rgba(255, 255, 255, .5);
@@ -39,18 +40,23 @@ code .line-ul li .line {
 }
 
 /* javascript */
-.javascript-keyword, .javascript-methods { color: #e2be46; }
+.javascript-keyword, .javascript-methods,
+  .css-keyword { color: #e2be46; }
 .javascript-function { color: #2994ff; }
 .javascript-return { color: #ae81ff; }
 .javascript-operator { color: #b83607; }
-.javascript-value { color: #0ed1eb !important; }
+.javascript-value,
+  .css-value { color: #0ed1eb !important; }
 .javascript-string, .javascript-string span { color: #ad00fd; }
-.javascript-key { color: #f92672; }
+.javascript-key,
+  .html-label { color: #f92672; }
 .javascript-white { color: #fff; }
-.javascript-key-obj { color: #a6e22e; }
+  .javascript-key-obj,
+  .html-key,
+  .css-key { color: #a6e22e; }
 .javascript-variable { color: red; }
 .javascript-html { color: #143fb6; }
-.javascript-annotation, .javascript-annotation span { color: #575757 !important; }
-
-.html-label { color: #f92672; }
-.html-key { color: #a6e22e; }
+.javascript-annotation,
+  .javascript-annotation span,
+  .html-annotation { color: #575757 !important; }
+.javascript-param { padding: 1px 5px; color: #888; background-color: rgba(255, 255, 255, .1); border-radius: 2px; }
