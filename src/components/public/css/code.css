@@ -61,5 +61,6 @@ code .line-ul li .line {
 .javascript-html { color: #143fb6; }
 .javascript-annotation,
   .javascript-annotation span,
-  .html-annotation { color: #575757 !important; }
+  .html-annotation,
+  .html-annotation span { color: #575757 !important; }
 .javascript-param { padding: 1px 5px; color: #888; background-color: rgba(255, 255, 255, .1); border-radius: 2px; }

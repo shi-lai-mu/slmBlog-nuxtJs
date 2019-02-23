@@ -58,7 +58,6 @@ class Code {
             })
             // 内嵌 css 处理
             html = html.replace(/&lt;style>[\s\S]*?&lt;\/style>/ig, key => {
-              console.log(key)
               const results = this.form(key.substring(17, key.length - 36), 'css')
               return `&lt;style>${results}<span class="html-label">&lt;/style></span>`
             })
@@ -97,7 +96,6 @@ class Code {
     // 函数头部param注释
     if (model === 'javascript') {
       html = html.replace(/@param {\w+} \w+ \S+/g, word => {
-        console.log(word)
         return `<span class="${model}-param">${word}</span>`
       })
     }
