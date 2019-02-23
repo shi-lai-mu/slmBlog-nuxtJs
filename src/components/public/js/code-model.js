@@ -27,7 +27,7 @@ export default {
     // 标签
     'label': /(<|&lt;)[^>]*>|(<|&lt;)\/[^>]*>/ig,
     // 属性
-    'key': /\w+="(\w|\.|\s)+"/g,
+    'key': /[\w-]+="[\w.\s]+"/g,
     // 注释
     'annotation': /&lt;!-- [\s\S]*? -->/g
   },
@@ -39,7 +39,7 @@ export default {
     // 引用
     'string': /(src|url)\([\s\S]*?\)/g,
     // 值
-    'value': /(\w+\d+(?!:'))|#\w+|[.]?\d+/g,
+    'value': /(\w+\d+[\w]+(?!:'))|#\w+|[.]?\d+/g,
     // 属性
     'keyword': /[-\w]+(?=:)/g
   }

@@ -61,6 +61,11 @@ class Code {
               const results = this.form(key.substring(17, key.length - 36), 'css')
               return `&lt;style>${results}<span class="html-label">&lt;/style></span>`
             })
+            // 行内 css 处理
+            html = html.replace(/style="[\s\S]*?"/ig, key => {
+              const results = this.form(key.substring(7, key.length - 1), 'css')
+              return `<span class="html-key">style="<span style="color: #fff;">${results}</span>"</span>`
+            })
           }
           this.line(html)
         })
