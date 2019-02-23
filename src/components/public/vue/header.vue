@@ -91,6 +91,7 @@ export default {
       }
       // 观察登录状态
       this.$connecter.$on('user', data => {
+        console.log(123456)
         this.user = data
         this.updateRouter()
       })

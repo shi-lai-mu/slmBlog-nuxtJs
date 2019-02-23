@@ -45,6 +45,11 @@ export default new Router({
       component: resolve => require(['@pub/vue/parentRouter'], resolve),
       children: [
         {
+          path: 'center',
+          name: 'userCenter',
+          component: resolve => require(['@com/user/center'], resolve)
+        },
+        {
           path: 'login',
           name: 'login',
           meta: {
