@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: resolve => require(['@com/Home'], resolve)
+      component: resolve => require(['@com/Home/index'], resolve)
     },
     // 文章路由
     {
