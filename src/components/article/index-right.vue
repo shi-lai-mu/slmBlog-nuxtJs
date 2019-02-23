@@ -79,8 +79,14 @@ export default {
             } else {
               let parent = i - 1
               // 找到父节点
-              while (!tree[parent]) {
+              while (!tree[parent] && parent > 0) {
                 parent--
+              }
+              if (!tree[parent] && parent === -1) {
+                tree[0] = {
+                  tag: data.title
+                }
+                parent = 0
               }
               // 添加叶节点
               if (!tree[parent].sub) {
@@ -110,7 +116,7 @@ export default {
 
     /* 滚动监测 */
     scroll () {
-      const Top = window.scrollY + 50
+      const Top = window.scrollY + 150
       const list = this.treeList
       for (let index = 0, len = list.length; index < len; index++) {
         const element = list[index]
