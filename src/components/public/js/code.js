@@ -1,4 +1,4 @@
-import '@pub/css/code.css'
+import '@pub/css/code.min.css'
 import codeModel from './code-model'
 
 export default {
@@ -12,11 +12,10 @@ export default {
 
     let codeList = element.getElementsByTagName('code')
     let codeLen = codeList.length
-
     // 代码高亮函数
     while (codeLen) {
       let parseCode = new Code(codeList[codeLen - 1])
-      parseCode.display()
+      parseCode.display(!!parseCode.parseHTML)
       codeLen--
     }
   }
@@ -57,15 +56,15 @@ class Code {
               return `&lt;script>${results}\n<span class="html-label">&lt;/script></span>`
             })
             // 内嵌 css 处理
-            html = html.replace(/&lt;style>[\s\S]*?&lt;\/style>/ig, key => {
-              const results = this.form(key.substring(17, key.length - 36), 'css')
-              return `&lt;style>${results}<span class="html-label">&lt;/style></span>`
-            })
+              .replace(/&lt;style>[\s\S]*?&lt;\/style>/ig, key => {
+                const results = this.form(key.substring(17, key.length - 36), 'css')
+                return `&lt;style>${results}<span class="html-label">&lt;/style></span>`
+              })
             // 行内 css 处理
-            html = html.replace(/style="[\s\S]*?"/ig, key => {
-              const results = this.form(key.substring(7, key.length - 1), 'css')
-              return `<span class="html-key">style="<span style="color: #fff;">${results}</span>"</span>`
-            })
+              .replace(/style="[\s\S]*?"/ig, key => {
+                const results = this.form(key.substring(7, key.length - 1), 'css')
+                return `<span class="html-key">style="<span class="model-css">${results}</span>"</span>`
+              })
           }
           this.line(html)
         })

@@ -90,7 +90,7 @@ export default {
 
         // 是否有编辑权限
         if (user) {
-          if (res.data.author.uid === user.id) {
+          if (res.data.author.uid === user.id || user.groupid >= 9999) {
             slef.editor = !0
           }
         }
