@@ -250,10 +250,6 @@ export default {
     margin: 0 20px;
   }
 
-  .conter {
-    margin: 0 auto;
-  }
-
   .search-box {
     position: relative;
     float: left;

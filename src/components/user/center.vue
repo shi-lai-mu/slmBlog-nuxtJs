@@ -1,5 +1,6 @@
 <template>
   <tbody class="conter single user-center">
+
     <!-- 顶部信息 -->
     <div class="content-box user-info" :style="`background-image: url(${user.bg || '//res.mczyzy.cn/img/user-bg.webp'})`">
       <div class="user-info-img">
@@ -17,6 +18,10 @@
         <button class="button-lv1">关注</button>
         <button class="button-lv1">私信</button>
       </div>
+    </div>
+
+    <div class="conter">
+      0231263465
     </div>
   </tbody>
 </template>
