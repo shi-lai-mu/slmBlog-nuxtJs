@@ -39,6 +39,7 @@ export default {
   .user-center {
     color: #353535;
 
+    // 顶部
     .user-info {
       display: flex;
       min-height: 180px;
@@ -102,6 +103,7 @@ export default {
 
   @media screen and (max-width: 700px) {
     .user-center {
+      // 顶部
       .user-info {
         background-size: auto 100%;
 
@@ -120,10 +122,13 @@ export default {
             margin-bottom: 10px;
           }
           .user-uid {
-            display: block;
-            width: 100%;
-            margin-top: 5px;
+            display: none;
           }
+        }
+
+        .user-info-social {
+          width: 100%;
+          justify-content: center;
         }
       }
     }
