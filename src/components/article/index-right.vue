@@ -1,5 +1,5 @@
 <template>
-  <div class="content-box article-right">
+  <aside class="content-box article-right">
     <div class="article-right-fixed">
       <!-- 快捷工具 -->
       <div class="article-right-box clearfix">
@@ -46,7 +46,7 @@
         <div class="tree-not" v-else>抱歉,本文未找到导航!</div>
       </div>
     </div>
-  </div>
+  </aside>
 </template>
 
 <script>

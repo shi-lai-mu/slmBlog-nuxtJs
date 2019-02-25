@@ -1,45 +1,45 @@
 <template>
   <!-- 右侧 -->
-  <div class="content-aff-box">
-      <div class="content-box blogger">
-        <img v-lazy="user.img" :alt="user.username">
-        <p class="name" v-text="user.username"></p>
-        <div class="select">
-          <span v-if="!user.username">
-            <router-link class="button-lv0 button-blue" :to="{ name: 'login' }">关注</router-link>
-            <router-link class="button-lv0 button-green" :to="{ name: 'thisSite' }">了解</router-link>
-          </span>
-          <span v-else>
-            <router-link class="button-lv0 button-green" :to="{ name: 'userCenter' }">管理</router-link>
-          </span>
-        </div>
-      </div>
-
-      <div class="content-box">
-        <span class="content-tag">
-          <span>最新文章:</span>
-          <!-- <router-link to="/other/friendship" class="right">更多</router-link> -->
+  <aside class="content-aff-box">
+    <div class="content-box blogger">
+      <img v-lazy="user.img" :alt="user.username">
+      <p class="name" v-text="user.username"></p>
+      <div class="select">
+        <span v-if="!user.username">
+          <router-link class="button-lv0 button-blue" :to="{ name: 'login' }">关注</router-link>
+          <router-link class="button-lv0 button-green" :to="{ name: 'thisSite' }">了解</router-link>
         </span>
-        <ol class="content-list" v-if="rightList.new">
-          <li v-for="(item, key) in rightList.new.data" :key="key">
-            <router-link class="max-a" :to="{ name: 'article', params: { id: item.Id } }">{{ item.title }}</router-link>
-          </li>
-        </ol>
-      </div>
-
-      <div class="content-box">
-        <span class="content-tag">
-          <span>友情链接:</span>
-          <router-link to="/other/friendship" class="right">更多</router-link>
+        <span v-else>
+          <router-link class="button-lv0 button-green" :to="{ name: 'userCenter' }">管理</router-link>
         </span>
-        <ul class="content-list friendship" v-if="rightList.ship">
-          <li v-for="(item, key) in rightList.ship.data" :key="key">
-            <img :src="item.icon" :title="item.name + 'LOGO'">
-            <a :href="item.web" target="_black">{{ item.name }}</a>
-          </li>
-        </ul>
       </div>
-  </div>
+    </div>
+
+    <div class="content-box">
+      <span class="content-tag">
+        <span>最新文章:</span>
+        <!-- <router-link to="/other/friendship" class="right">更多</router-link> -->
+      </span>
+      <ol class="content-list" v-if="rightList.new">
+        <li v-for="(item, key) in rightList.new.data" :key="key">
+          <router-link class="max-a" :to="{ name: 'article', params: { id: item.Id } }">{{ item.title }}</router-link>
+        </li>
+      </ol>
+    </div>
+
+    <div class="content-box">
+      <span class="content-tag">
+        <span>友情链接:</span>
+        <router-link to="/other/friendship" class="right">更多</router-link>
+      </span>
+      <ul class="content-list friendship" v-if="rightList.ship">
+        <li v-for="(item, key) in rightList.ship.data" :key="key">
+          <img :src="item.icon" :title="item.name + 'LOGO'">
+          <a :href="item.web" target="_black">{{ item.name }}</a>
+        </li>
+      </ul>
+    </div>
+  </aside>
 </template>
 
 <script>

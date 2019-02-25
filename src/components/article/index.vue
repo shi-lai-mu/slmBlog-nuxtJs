@@ -1,6 +1,6 @@
 <template>
   <tbody class="conter article-box">
-    <div :class="['content-box', 'article-index', { 'nick': article['title'] }, 'notContent']">
+    <section :class="['content-box', 'article-index', { 'nick': article['title'] }, 'notContent']">
 
         <!-- 头部信息 -->
         <header>
@@ -55,7 +55,7 @@
           <Editor class="editor" ref="editor" model="send"></Editor>
           <button class="button-lv0 send" @click="send">留言</button>
         </footer>
-    </div>
+    </section>
     <index-right :article="article" ref="artRight"></index-right>
   </tbody>
 </template>

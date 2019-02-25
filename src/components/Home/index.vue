@@ -8,7 +8,7 @@
     </span>
 
     <!-- 左侧 -->
-    <div class="content-box article-list" @click="tagClick">
+    <section class="content-box article-list" @click="tagClick">
       <ul>
         <li class="article clearfix" v-for="(hot, index) in hotList" :key="index" :data-article="hot.Id">
           <div class="article-left">
@@ -49,7 +49,7 @@
           <button class="button-lv1" @click="pageSearch(page.num++)">下一页</button>
         </span>
       </div>
-    </div>
+    </section>
 
     <home-right></home-right>
   </tbody>
