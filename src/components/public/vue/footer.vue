@@ -16,7 +16,6 @@
         </p>
       </span>
     </div>
-    <a href="//www.beian.gov.cn/portal/registerSystemInfo?recordcode=33038102331168" title="纯属为了让某些爬虫快速识别备案"></a>
   </footer>
 </template>
 

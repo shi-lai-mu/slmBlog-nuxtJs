@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div class="content-box">
+    <aside class="content-box">
       <span class="content-tag">
         <span>最新文章:</span>
         <!-- <router-link to="/other/friendship" class="right">更多</router-link> -->
@@ -25,9 +25,9 @@
           <router-link class="max-a" :to="{ name: 'article', params: { id: item.Id } }">{{ item.title }}</router-link>
         </li>
       </ol>
-    </div>
+    </aside>
 
-    <div class="content-box">
+    <aside class="content-box">
       <span class="content-tag">
         <span>友情链接:</span>
         <router-link to="/other/friendship" class="right">更多</router-link>
@@ -38,7 +38,7 @@
           <a :href="item.web" target="_black">{{ item.name }}</a>
         </li>
       </ul>
-    </div>
+    </aside>
   </aside>
 </template>
 
