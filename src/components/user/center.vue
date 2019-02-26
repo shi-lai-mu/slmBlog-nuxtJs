@@ -20,9 +20,14 @@
       </div>
     </div>
 
-    <div class="conter ">
-      <div class="">
-
+    <div class="conter clearfix">
+      <aside class="user-left-box">
+        <div class="content-box">
+          ss
+        </div>
+      </aside>
+      <div class="content-box user-right-box">
+        asdsa
       </div>
     </div>
   </tbody>
@@ -38,6 +43,7 @@ export default {
   created () {
     this.user = this.$store.state.user
     console.log(this.user)
+    vue = this
   }
 }
 </script>
@@ -65,7 +71,7 @@ export default {
           border-radius: 50%;
         }
       }
-      
+
       .user-info-rmation {
         display: flex;
         padding: 10px 0;
@@ -106,9 +112,19 @@ export default {
         }
       }
     }
+
+    .user-right-box {
+      float: right;
+      width: calc(100% - 310px);
+    }
+
+    .user-left-box {
+      float: left;
+      width: 300px;
+    }
   }
 
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 950px) {
     .user-center {
       // 顶部
       .user-info {
@@ -125,6 +141,7 @@ export default {
 
         .user-info-rmation {
           text-align: center;
+          flex: auto;
           & > div {
             margin-bottom: 10px;
           }
@@ -137,6 +154,12 @@ export default {
           width: 100%;
           justify-content: center;
         }
+      }
+
+      .user-left-box,
+      .user-right-box {
+        width: 100%;
+        margin: 5px 0;
       }
     }
   }

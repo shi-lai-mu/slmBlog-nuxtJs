@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueX from 'vuex'
 import App from './App'
+import Meta from 'vue-meta'
 import router from './router'
 import VueLazyload from 'vue-lazyload'
 import http from '@pub/js/http'
@@ -16,7 +17,10 @@ Vue.use(VueLazyload, {
   loading: '//res.mczyzy.cn/img/loading.gif',
   attempt: 5
 })
-
+Vue.use(Meta, {
+  keyName: 'metaInfo',
+  attribute: 'data-vue-meta'
+})
 Vue.config.productionTip = false
 
 const store = new VueX.Store({
@@ -72,8 +76,6 @@ router.beforeEach((to, from, next) => {
     } else next()
   })
 })
-
-router.xxx = 123456
 
 /* eslint-disable no-new */
 new Vue({
