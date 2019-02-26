@@ -16,7 +16,7 @@
       </div>
       <div class="user-info-social">
         <button class="button-lv1">关注</button>
-        <button class="button-lv1">私信</button>
+        <button class="button-lv1" @click="on">私信</button>
       </div>
     </div>
 
@@ -26,7 +26,9 @@
         </ul>
       </aside>
       <div class="content-box user-right-box">
-        asdsa
+        <transition name="fade">
+          <component :is="componentList[componentId]"></component>
+        </transition>
       </div>
     </div>
   </tbody>
@@ -43,13 +45,23 @@ export default {
   },
   data () {
     return {
-      user: {}
+      user: {},
+      componentId: 0,
+      componentList: [
+        resolve => require(['./center-index'], resolve),
+        resolve => require(['./center-index2'], resolve)
+      ]
     }
   },
   created () {
     this.user = this.$store.state.user
     console.log(this.user)
     vue = this
+  },
+  methods: {
+    on () {
+      this.componentId = this.componentId ? 0 : 1
+    }
   }
 }
 </script>
@@ -127,6 +139,15 @@ export default {
     .user-left-box {
       float: left;
       width: 300px;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .5s;
+    }
+ 
+    .fade-enter, .fade-leave-to {
+      position: absolute;
+      opacity: 0;
     }
   }
 
