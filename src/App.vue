@@ -4,7 +4,7 @@
     <vue-header :head="head" ref="head"></vue-header>
     <!-- 内容区域 -->
     <transition :name="transitionName" keep-alive>
-      <router-view ref="master" class="tbody" :style="masterStyle"></router-view>
+      <router-view ref="master" class="tbody"></router-view>
     </transition>
     <!-- 底部区域 -->
     <vue-footer></vue-footer>
@@ -36,8 +36,7 @@ export default {
     return {
       head: false,
       toast: {},
-      transitionName: 'slide-right',
-      masterStyle: null
+      transitionName: 'slide-right'
     }
   },
   watch: {

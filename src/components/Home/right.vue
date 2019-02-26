@@ -18,7 +18,6 @@
     <aside class="content-box">
       <span class="content-tag">
         <span>最新文章:</span>
-        <!-- <router-link to="/other/friendship" class="right">更多</router-link> -->
       </span>
       <ol class="content-list" v-if="rightList.new">
         <li v-for="(item, key) in rightList.new.data" :key="key">

@@ -22,9 +22,8 @@
 
     <div class="conter clearfix">
       <aside class="user-left-box">
-        <div class="content-box">
-          ss
-        </div>
+        <ul class="content-box">
+        </ul>
       </aside>
       <div class="content-box user-right-box">
         asdsa
