@@ -174,6 +174,13 @@
         </div>
     </tbody>
 </template>
+<script>
+export default {
+  metaInfo: {
+    title: '史莱姆的博客-关于本站'
+  }
+}
+</script>
 
 <style lang="less">
 .single .thisSite {

@@ -23,6 +23,9 @@
 <script>
 
 export default {
+  metaInfo: {
+    title: '史莱姆的博客-条款和免责'
+  },
   created () {
     this.$connecter.$emit('page', {
       title: {

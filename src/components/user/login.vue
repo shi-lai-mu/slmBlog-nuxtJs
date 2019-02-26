@@ -55,6 +55,9 @@
 
 <script>
 export default {
+  metaInfo: {
+    title: '史莱姆的博客-账号管理'
+  },
   data () {
     return {
       login: {

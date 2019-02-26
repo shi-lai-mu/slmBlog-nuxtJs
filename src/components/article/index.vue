@@ -67,6 +67,11 @@ import Editor from '@pub/vue/Editor'
 import indexRight from './index-right'
 
 export default {
+  metaInfo () {
+    return {
+      title: '史莱姆的博客-' + this.article.title
+    }
+  },
   components: {
     Editor,
     indexRight
@@ -74,6 +79,7 @@ export default {
   data () {
     return {
       article: {
+        title: '博文',
         author: {}
       },
       notCon: true,

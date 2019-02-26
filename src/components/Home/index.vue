@@ -58,6 +58,9 @@
 <script>
 import homeRight from './right'
 export default {
+  metaInfo: {
+    title: `史莱姆的博客`
+  },
   components: {
     homeRight
   },

@@ -70,6 +70,9 @@
 
 <script>
 export default {
+  metaInfo: {
+    title: '史莱姆的博客-友情链接'
+  },
   data () {
     return {
       friendship: {}

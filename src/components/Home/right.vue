@@ -5,7 +5,7 @@
       <img v-lazy="user.img" :alt="user.username">
       <p class="name" v-text="user.username"></p>
       <div class="select">
-        <span v-if="!user.username">
+        <span v-if="!user.id">
           <router-link class="button-lv0 button-blue" :to="{ name: 'login' }">关注</router-link>
           <router-link class="button-lv0 button-green" :to="{ name: 'thisSite' }">了解</router-link>
         </span>

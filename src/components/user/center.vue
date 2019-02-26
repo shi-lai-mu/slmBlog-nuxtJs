@@ -34,7 +34,14 @@
 </template>
 
 <script>
+let vue
 export default {
+  metaInfo: {
+    titleTemplate: title => {
+      return vue.user.username + title
+    },
+    title: `的个人中心`
+  },
   data () {
     return {
       user: {}
