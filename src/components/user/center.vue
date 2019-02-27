@@ -16,7 +16,7 @@
       </div>
       <div class="user-info-social">
         <button class="button-lv1">关注</button>
-        <button class="button-lv1" @click="on">私信</button>
+        <button class="button-lv1">私信</button>
       </div>
     </div>
 
@@ -27,7 +27,13 @@
       </aside>
       <div class="content-box user-right-box">
         <ul class="clearfix user-right-nav">
-          <li v-for="(item, index) in componentList" :key="index">{{ item[0] }}</li>
+          <li
+            v-for="(item, index) in componentList"
+            @click="componentSelect"
+            :key="index"
+            :class="{selected: componentId == index}"
+            :data-id="index"
+          >{{ item[0] }}</li>
         </ul>
         <transition name="fade">
           <component :is="componentList[componentId][1]"></component>
@@ -63,8 +69,11 @@ export default {
     vue = this
   },
   methods: {
-    on () {
-      this.componentId = this.componentId ? 0 : 1
+    componentSelect (e) {
+      const id = e.target.dataset.id
+      if (id) {
+        this.componentId = id
+      }
     }
   }
 }
@@ -140,10 +149,20 @@ export default {
       width: calc(100% - 310px);
 
       .user-right-nav {
-        margin: 10px 0;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #eee;
+        -webkit-user-select: none;
+           -moz-user-select: none;
+            -ms-user-select: none;
+                user-select: none;
         li {
           float: left;
-          margin: 0 10px;
+          margin: 0 5px;
+          padding: 5px;
+          cursor: pointer;
+        }
+        .selected {
+          border-bottom: 3px solid #6ed9f1;
         }
       }
     }
