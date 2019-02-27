@@ -36,7 +36,7 @@
           >{{ item[0] }}</li>
         </ul>
         <transition name="fade">
-          <component :is="componentList[componentId][1]"></component>
+          <component :is="componentList[componentId][1]" :user="user"></component>
         </transition>
       </div>
     </div>
