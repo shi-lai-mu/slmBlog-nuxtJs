@@ -68,7 +68,6 @@ export default {
   },
   created () {
     this.user = this.$store.state.user
-    console.log(this.user)
     vue = this
   },
   methods: {
@@ -168,7 +167,8 @@ export default {
         border-bottom: 3px solid #6ed9f1;
       }
     }
-    
+
+    // 修复切换页放大的BUG
     .user-page {
       position: relative;
     }

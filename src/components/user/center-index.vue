@@ -5,9 +5,11 @@
       <li v-for="(item, index) in article.data" :key="index">
         <img :src="item.img" :alt="item.title">
         <div class="ellipsis article-info">
-          <div class="ellipsis article-list-title" v-text="item.title"></div>
-          <div class="ellipsis article-list-desc" v-text="item.description"></div>
-          <div class="article-list-time">{{ unTime(item.createTime) }}</div>
+          <router-link class="max-a" :to="{ name: 'article', params: { id: item.Id } }">
+            <div class="ellipsis article-list-title" v-text="item.title"></div>
+            <div class="ellipsis article-list-desc" v-text="item.description"></div>
+            <div class="article-list-time">{{ unTime(item.createTime) }}</div>
+          </router-link>
         </div>
       </li>
     </ul>
@@ -57,6 +59,7 @@ export default {
       width: 20%;
       max-width: 100px;
       margin-right: 10px;
+      border-radius: 5px;
     }
 
     .article-info {
@@ -67,14 +70,14 @@ export default {
       }
 
       .article-list-desc {
-        color: #666;
+        color: #aaa;
       }
 
       .article-list-time {
         float: right;
         margin-top: 5px;
         font-size: .8rem;
-        color: #999;
+        color: #ccc;
       }
     }
   }
