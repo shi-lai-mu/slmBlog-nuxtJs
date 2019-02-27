@@ -26,8 +26,11 @@
         </ul>
       </aside>
       <div class="content-box user-right-box">
+        <ul class="clearfix user-right-nav">
+          <li v-for="(item, index) in componentList" :key="index">{{ item[0] }}</li>
+        </ul>
         <transition name="fade">
-          <component :is="componentList[componentId]"></component>
+          <component :is="componentList[componentId][1]"></component>
         </transition>
       </div>
     </div>
@@ -47,9 +50,10 @@ export default {
     return {
       user: {},
       componentId: 0,
+      // 组件列表
       componentList: [
-        resolve => require(['./center-index'], resolve),
-        resolve => require(['./center-index2'], resolve)
+        ['最新', resolve => require(['./center-index'], resolve)],
+        ['热门', resolve => require(['./center-index2'], resolve)]
       ]
     }
   },
@@ -134,6 +138,14 @@ export default {
     .user-right-box {
       float: right;
       width: calc(100% - 310px);
+
+      .user-right-nav {
+        margin: 10px 0;
+        li {
+          float: left;
+          margin: 0 10px;
+        }
+      }
     }
 
     .user-left-box {
@@ -144,7 +156,7 @@ export default {
     .fade-enter-active, .fade-leave-active {
       transition: opacity .5s;
     }
- 
+
     .fade-enter, .fade-leave-to {
       position: absolute;
       opacity: 0;

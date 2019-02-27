@@ -89,9 +89,7 @@ export default {
   },
   methods: {
 
-    /**
-     * 点击标签事件
-     */
+    /* 点击标签事件 */
     tagClick (e) {
       let dataset = e.target.dataset
       let state = this.$store.state
@@ -114,9 +112,7 @@ export default {
       }
     },
 
-    /**
-     * 搜索文章
-     */
+    /* 搜索文章 */
     loadMaster (page = 1) {
       let model = this.$store.state.articleModel
       if (model.keyword) {
