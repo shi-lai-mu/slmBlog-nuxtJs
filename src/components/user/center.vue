@@ -80,11 +80,11 @@ export default {
 </script>
 
 <style lang="less">
-  .user-center {
-    color: #353535;
+.user-center {
+  color: #353535;
 
-    // 顶部
-    .user-info {
+  // 顶部
+  .user-info {
       display: flex;
       min-height: 180px;
       margin: 20px 0;
@@ -142,83 +142,83 @@ export default {
           margin: 0 10px;
         }
       }
-    }
+  }
 
-    .user-right-box {
-      float: right;
-      width: calc(100% - 310px);
+  .user-right-box {
+    float: right;
+    width: calc(100% - 310px);
 
-      .user-right-nav {
-        margin-bottom: 10px;
-        border-bottom: 1px solid #eee;
-        -webkit-user-select: none;
-           -moz-user-select: none;
-            -ms-user-select: none;
-                user-select: none;
-        li {
-          float: left;
-          margin: 0 5px;
-          padding: 5px;
-          cursor: pointer;
-        }
-        .selected {
-          border-bottom: 3px solid #6ed9f1;
-        }
+    .user-right-nav {
+      margin-bottom: 10px;
+      border-bottom: 1px solid #eee;
+      -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+      li {
+        float: left;
+        margin: 0 5px;
+        padding: 5px;
+        cursor: pointer;
       }
-    }
-
-    .user-left-box {
-      float: left;
-      width: 300px;
-    }
-
-    .fade-enter-active, .fade-leave-active {
-      transition: opacity .5s;
-    }
-
-    .fade-enter, .fade-leave-to {
-      position: absolute;
-      opacity: 0;
+      .selected {
+        border-bottom: 3px solid #6ed9f1;
+      }
     }
   }
 
-  @media screen and (max-width: 950px) {
-    .user-center {
-      // 顶部
-      .user-info {
-        background-size: auto 100%;
+  .user-left-box {
+    float: left;
+    width: 300px;
+  }
 
-        .user-info-img {
-          width: 100%;
-          margin: 0 0 10px;
-          img {
-            display: block;
-            margin: 0 auto;
-          }
-        }
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
 
-        .user-info-rmation {
-          text-align: center;
-          flex: auto;
-          & > div {
-            margin-bottom: 10px;
-          }
-          .user-uid {
-            display: none;
-          }
-        }
+  .fade-enter, .fade-leave-to {
+    position: absolute;
+    opacity: 0;
+  }
+}
 
-        .user-info-social {
-          width: 100%;
-          justify-content: center;
-        }
-      }
+@media screen and (max-width: 950px) {
+  .user-center {
+    // 顶部
+    .user-info {
+      background-size: auto 100%;
 
-      .user-left-box,
-      .user-right-box {
+      .user-info-img {
         width: 100%;
-        margin: 5px 0;
+        margin: 0 0 10px;
+        img {
+          display: block;
+          margin: 0 auto;
+        }
+      }
+
+      .user-info-rmation {
+        text-align: center;
+        flex: auto;
+        & > div {
+          margin-bottom: 10px;
+        }
+        .user-uid {
+          display: none;
+        }
+      }
+
+      .user-info-social {
+        width: 100%;
+        justify-content: center;
       }
     }
+
+    .user-left-box,
+    .user-right-box {
+      width: 100%;
+      margin: 5px 0;
+    }
   }
+}
 </style>

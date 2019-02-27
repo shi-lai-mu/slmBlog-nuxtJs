@@ -337,7 +337,7 @@ export default {
 
   // 响应
   @media screen and (max-width: 1100px) {
-    div.content-box {
+    .content-box {
 
       &.article-index {
         width: 100%;
