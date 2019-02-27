@@ -3,11 +3,11 @@
 
     <ul class="article-list">
       <li v-for="(item, index) in article.data" :key="index">
-        <img :src="item.img" alt="">
+        <img :src="item.img" :alt="item.title">
         <div class="ellipsis article-info">
-          <div class="ellipsis article-list-title">测试文章怎么在某种没怎么这么怎么怎么这么慢</div>
-          <div class="ellipsis article-list-desc">测试文章怎么在某种没怎么这么怎么怎么这么慢</div>
-          <div class="article-list-time">1550-50-13 09:00</div>
+          <div class="ellipsis article-list-title" v-text="item.title"></div>
+          <div class="ellipsis article-list-desc" v-text="item.description"></div>
+          <div class="article-list-time">{{ unTime(item.createTime) }}</div>
         </div>
       </li>
     </ul>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import Time from '@pub/js/dateForm'
 export default {
   props: ['user'],
   data () {
@@ -28,8 +29,16 @@ export default {
   created () {
     this.$http.get('article/getUserAll/0/0')
       .then(res => {
-        this.article.data = res.data
+        this.article.data = res.data.map(index => {
+          if (index.img.indexOf('//') === -1) {
+            index.img = `//res.mczyzy.cn/img/upload/${index.img}`
+          }
+          return index
+        })
       })
+  },
+  methods: {
+    unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000)
   }
 }
 </script>
@@ -39,6 +48,8 @@ export default {
   .article-list {
     li {
       display: flex;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
       align-items: center;
     }
 
@@ -61,6 +72,8 @@ export default {
 
       .article-list-time {
         float: right;
+        margin-top: 5px;
+        font-size: .8rem;
         color: #999;
       }
     }

@@ -218,6 +218,7 @@ export default {
     margin-bottom: 20px;
 
     .article {
+      display: flex;
       padding: 10px;
       text-align: left;
       vertical-align: text-top;

@@ -35,9 +35,12 @@
             :data-id="index"
           >{{ item[0] }}</li>
         </ul>
-        <transition name="fade">
-          <component :is="componentList[componentId][1]" :user="user"></component>
-        </transition>
+        <!-- 外面这层是修复隐藏时会放大 -->
+        <div class="user-page">
+          <transition name="fade">
+            <component :is="componentList[componentId][1]" :user="user"></component>
+          </transition>
+        </div>
       </div>
     </div>
   </tbody>
@@ -165,6 +168,10 @@ export default {
         border-bottom: 3px solid #6ed9f1;
       }
     }
+    
+    .user-page {
+      position: relative;
+    }
   }
 
   .user-left-box {
@@ -178,6 +185,7 @@ export default {
 
   .fade-enter, .fade-leave-to {
     position: absolute;
+    width: 100%;
     opacity: 0;
   }
 }
