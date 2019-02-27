@@ -69,7 +69,7 @@ import indexRight from './index-right'
 export default {
   metaInfo () {
     return {
-      title: '史莱姆的博客-' + this.article.title
+      title: '史莱姆的博客-' + (this.article.title || '博文')
     }
   },
   components: {
@@ -79,7 +79,6 @@ export default {
   data () {
     return {
       article: {
-        title: '博文',
         author: {}
       },
       notCon: true,
