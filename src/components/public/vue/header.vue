@@ -89,7 +89,7 @@ export default {
       let $el = this.$el.classList
       if (!this.$store.state.mobile) {
         window.addEventListener('scroll', () => {
-          let scroll = document.documentElement.scrollTop || document.body.scrollTop
+          const scroll = document.documentElement.scrollTop || document.body.scrollTop
           scrollTop < scroll ? $el.add('header-hide') : $el.remove('header-hide')
           scrollTop = scroll
         })
@@ -107,7 +107,9 @@ export default {
       // 如果在登录页不显示account
       this.account = !(to.path === '/user/login')
       // 如果登录了在首页则不显示account
-      to.path === '/' && !isNaN(this.user.id) && (this.account = !1)
+      if ((to.path === '/' || to.path === '/user/center') && !isNaN(this.user.id)) {
+        this.account = !1
+      }
     }
   },
   methods: {

@@ -25,6 +25,7 @@ Vue.config.productionTip = false
 
 const store = new VueX.Store({
   state: {
+    // 用户数据
     user: {
       username: '史莱姆',
       img: '//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100'

@@ -50,9 +50,6 @@ export default new Router({
         {
           path: 'center',
           name: 'userCenter',
-          meta: {
-            requireAuth: 'login'
-          },
           component: resolve => require(['@com/user/center'], resolve)
         },
         {
