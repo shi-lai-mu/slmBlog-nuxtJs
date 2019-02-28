@@ -5,7 +5,7 @@
       <img v-lazy="user.img" :alt="user.username">
       <p class="name" v-text="user.username"></p>
       <div class="select">
-        <span v-if="!user.id">
+        <span v-if="isNaN(user.id)">
           <router-link class="button-lv0 button-blue" :to="{ name: 'login' }">关注</router-link>
           <router-link class="button-lv0 button-green" :to="{ name: 'thisSite' }">了解</router-link>
         </span>
@@ -45,8 +45,12 @@
 export default {
   data () {
     return {
-      rightList: [],
-      user: {
+      rightList: []
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user || {
         username: '史莱姆',
         img: '//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100'
       }
@@ -58,13 +62,6 @@ export default {
       .then(res => {
         this.rightList = res.data
       })
-    this.$connecter.$on('user', data => {
-      console.log(data)
-    })
-    // 如果登录传入账号数据
-    const user = this.$store.state.user
-    user && (this.user = user)
-    console.log(user)
   }
 }
 </script>

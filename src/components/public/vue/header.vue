@@ -34,7 +34,7 @@
         </ul>
       </nav>
       <!-- 额外按钮 -->
-      <span class="button-lv1 message">留言板</span>
+      <!-- <span class="button-lv1 message">留言板</span> -->
       <!-- 右侧内容 -->
       <span class="header-right">
         <span class="search-box">
@@ -43,16 +43,16 @@
         </span>
 
         <transition name="fade">
-          <aside class="header-right" v-show="account">
-            <span class="login-before" v-if="!user.username">
-              <router-link :to="{ name: 'login' }" tag="span">登录</router-link>
-              <router-link class="focus" :to="{ name: 'register' }" tag="span">注册</router-link>
-            </span>
-            <span class="login-after focus" v-else>
+          <span class="login-before" v-show="account" v-if="!user.username">
+            <router-link :to="{ name: 'login' }" tag="span">登录</router-link>
+            <router-link class="focus" :to="{ name: 'register' }" tag="span">注册</router-link>
+          </span>
+          <span class="login-after focus" v-show="account" v-else>
+            <router-link :to="{ name: 'userCenter' }">
               <img class="user-icon" v-lazy="user.img" :alt="user.username + '的头像'">
               <p class="user-name" v-text="user.username"></p>
-            </span>
-          </aside>
+            </router-link>
+          </span>
         </transition>
 
       </span>
@@ -107,7 +107,7 @@ export default {
       // 如果在登录页不显示account
       this.account = !(to.path === '/user/login')
       // 如果登录了在首页则不显示account
-      (to.path === '/' && !isNaN(this.user.id)) && (this.account = !1)
+      to.path === '/' && !isNaN(this.user.id) && (this.account = !1)
     }
   },
   methods: {
@@ -152,7 +152,6 @@ export default {
             ['登录', { name: 'login' }, 'register'],
             ['注册', { name: 'register' }, 'register'],
             ['发帖', { name: 'editArticle' }, 'admin'],
-            ['管理账号', '#', 'login'],
             ['安全退出', 'outLogin', 'login']
           ]
         }

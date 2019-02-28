@@ -25,7 +25,10 @@ Vue.config.productionTip = false
 
 const store = new VueX.Store({
   state: {
-    user: false,
+    user: {
+      username: '史莱姆',
+      img: '//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100'
+    },
     // 是否为移动端[小屏幕]
     mobile: false,
     // 文章显示模式
