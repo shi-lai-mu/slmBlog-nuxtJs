@@ -229,3 +229,13 @@ div:focus { -webkit-tap-highlight-color: transparent; }
       background-color: #de4f3a;
     }
 }
+
+// transition动画
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-to {
+  width: 100%;
+  opacity: 0;
+}
