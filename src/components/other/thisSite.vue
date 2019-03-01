@@ -106,14 +106,14 @@
                     <span>百度搜索:</span>
                     <p>
                         <a href="//www.baidu.com/s?wd=site%3Amczyzy.cn" target="_black">[精准查看]</a>
-                        已收录本站 <i class="iconfont icon-renzheng"></i>
+                        已收录本站[2018-12 稳定排名 1] <i class="iconfont icon-renzheng"></i>
                     </p>
                 </li>
                 <li>
                     <span>谷歌搜索:</span>
                     <p>
                         <a href="//www.google.com/search?q=slm478889187@gmail.com" target="_black">[精准查看]</a>
-                        已收录本站 <i class="iconfont icon-renzheng"></i>
+                        已收录本站[2019-03 稳定排名 4] <i class="iconfont icon-renzheng"></i>
                     </p>
                 </li>
                 <li>
