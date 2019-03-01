@@ -29,17 +29,31 @@ export default {
     }
   },
   created () {
-    this.$http.get('article/getUserAll/0/0')
-      .then(res => {
-        this.article.data = res.data.map(index => {
-          if (index.img.indexOf('//') === -1) {
-            index.img = `//res.mczyzy.cn/img/upload/${index.img}`
-          }
-          return index
-        })
-      })
+    this.updateData()
+  },
+  watch: {
+    'user' () {
+      this.updateData()
+    }
   },
   methods: {
+    /* 更新数据 */
+    updateData () {
+      const user = this.user
+      if (!isNaN(user.id)) {
+        this.$http.get(`article/getUserAll/${user.id}/${this.article.page}`)
+          .then(res => {
+            this.article.data = res.data.map(index => {
+              if (index.img.indexOf('//') === -1) {
+                index.img = `//res.mczyzy.cn/img/upload/${index.img}`
+              }
+              return index
+            })
+          })
+      }
+    },
+
+    /* 时间转换 */
     unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000)
   }
 }

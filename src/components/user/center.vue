@@ -4,7 +4,7 @@
     <!-- 顶部信息 -->
     <div class="content-box user-info" :style="`background-image: url(${user.bg || '//res.mczyzy.cn/img/user-bg.webp'})`">
       <div class="user-info-img">
-        <img :src="user.img" alt="">
+        <img :src="user.img$ || '//res.mczyzy.cn/img/user-default.jpg'" alt="">
       </div>
       <div class="user-info-rmation">
         <div class="info-rmation-name">
@@ -14,13 +14,13 @@
         <div class="info-rmation-at">@{{ user.user }}</div>
         <div class="info-rmation-desc">{{ user.desc }}</div>
       </div>
-      <div class="user-info-social">
+      <div class="user-info-social" v-if="user.user != 'undefined'">
         <button class="button-lv1">关注</button>
         <button class="button-lv1">私信</button>
       </div>
     </div>
 
-    <div class="conter clearfix">
+    <div class="conter clearfix" v-if="user.user != 'undefined'">
       <aside class="user-left-box">
         <ul class="content-box">
         </ul>
@@ -38,7 +38,9 @@
         <!-- 外面这层是修复隐藏时会放大 -->
         <div class="user-page">
           <transition name="fade">
-            <component :is="componentList[componentId][1]" :user="user"></component>
+            <keep-alive>
+              <component :is="componentList[componentId][1]" :user="user"></component>
+            </keep-alive>
           </transition>
         </div>
       </div>
@@ -67,7 +69,35 @@ export default {
     }
   },
   created () {
-    this.user = this.$store.state.user
+    const user = this.$store.state.user
+    const ID = this.$route.params.id
+    if (ID) {
+      // 查看他人中心
+      this.$http.get(`/user/info/${ID}`)
+        .then(res => {
+          this.user = res.data
+        })
+        .catch(() => {
+          this.user = {
+            bg: false,
+            id: ID,
+            user: 'undefined',
+            username: '未查找到此ID!',
+            desc: '这个ID还没被注册 ฅ( ̳• ◡ • ̳)ฅ!'
+          }
+        })
+    } else if (user) {
+      // 查看个人中心
+      this.user = user
+    } else {
+      // 未登录
+      this.$router.push({
+        name: 'login',
+        query: {
+          redirect: this.$router.history.current.path
+        }
+      })
+    }
     vue = this
   },
   methods: {

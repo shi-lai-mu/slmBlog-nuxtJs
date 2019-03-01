@@ -67,6 +67,10 @@ export default new Router({
             requireAuth: 'register'
           },
           component: resolve => require(['@com/user/login'], resolve)
+        },
+        {
+          path: ':id',
+          component: resolve => require(['@com/user/center'], resolve)
         }
       ]
     },

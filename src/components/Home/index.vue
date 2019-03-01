@@ -145,9 +145,7 @@ export default {
         })
     },
 
-    /**
-     * 文章跳转
-     */
+    /* 文章跳转 */
     pageSearch (i) {
       if (i >= this.page.count) {
         this.page.num = this.page.count
@@ -159,9 +157,7 @@ export default {
       } else this.page.num = 1
     },
 
-    /**
-     * 清空文章模式
-     */
+    /* 清空文章模式 */
     clearModel () {
       this.$store.state.articleModel = {}
       this.searchArticle = null
