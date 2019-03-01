@@ -12,7 +12,7 @@
           </h2>
           <h3 class="article-info">
             <span class="nowrap">
-              <span v-text="article.author.username"></span>
+              <router-link :to="'/user/' + article.author.uid">{{ article.author.username }}</router-link>
               <span>发表于：</span>
               <i class="iconfont icon-shizhong" title="时间">{{ article.createTime && unTime(article.createTime) }}</i>
             </span>
@@ -40,6 +40,7 @@
               <span>留言</span>
               <span class="message-right">({{ article.msg.all }})</span>
             </span>
+            <!-- 留言内容 -->
             <li v-for="(item, index) in article.msg.list" :key="index" class="clearfix">
               <div class="clearfix">
                 <img src="//res.mczyzy.cn/img/user-default.jpg" alt="用户头像" class="user-icon">
