@@ -71,6 +71,7 @@ export default {
   created () {
     const user = this.$store.state.user
     const ID = this.$route.params.id
+
     if (ID) {
       // 查看他人中心
       this.$http.get(`/user/info/${ID}`)
@@ -80,7 +81,7 @@ export default {
         .catch(() => {
           this.user = {
             bg: false,
-            id: ID,
+            id: '--',
             user: 'undefined',
             username: '未查找到此ID!',
             desc: '这个ID还没被注册 ฅ( ̳• ◡ • ̳)ฅ!'

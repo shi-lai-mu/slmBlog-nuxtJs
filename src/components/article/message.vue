@@ -3,9 +3,7 @@
 
     <div class="clearfix">
       <ul class="tourists" v-if="!user">
-        <li><label>昵称：</label><input type="text"></li>
-        <li><label>邮箱：</label><input type="text"></li>
-        <li><label>头像：</label><input type="text"></li>
+        <li><label>昵称：</label><input type="text" v-model="username"></li>
       </ul>
       <Editor class="editor" ref="editor" model="send"></Editor>
       <button class="button-lv0 send" @click="send">留言</button>
@@ -21,7 +19,8 @@
       <li v-for="(item, index) in article.msg.list" :key="index" class="clearfix">
         <div class="clearfix">
           <img src="//res.mczyzy.cn/img/user-default.jpg" alt="用户头像" class="user-icon">
-          <router-link class="user-name" :to="'/user/@' + item.autherName">{{ item.autherName }}</router-link>
+          <span class="user-name" v-if="item.autherID < 0">{{ item.autherName }} <sup>游客</sup></span>
+          <router-link class="user-name" :to="'/user/' + item.autherName" v-else>{{ item.autherName }}</router-link>
           <span class="user-info">
             {{ unTime(item.msgDate) }}
             <span class="message-right">{{ item.level }}楼</span>
@@ -43,25 +42,60 @@ export default {
   },
   computed: {
     user () {
+      console.log(this.article)
       return this.$store.state.user
     }
+  },
+  data () {
+    return {
+      username: null
+    }
+  },
+  created () {
+    this.username = localStorage.getItem('message-username')
   },
   methods: {
     /* 发送留言 */
     send () {
-      const user = this.user
-      if (user) {
-        this.$http
-          .post('article/addMessage', {
-            id: this.$route.params.id,
-            token: user.token,
-            msg: this.$refs.editor.editorContent
+      let user = this.user
+      if (!user) {
+        // 游客留言
+        if (this.username) {
+          user = {
+            token: this.username
+          }
+        } else {
+          return this.$connecter.$emit('page', {
+            toast: {
+              icon: 'error',
+              text: '游客需要填写昵称才能留言!'
+            }
           })
-          .then(res => {
-            console.log(res)
-          })
-        this.$refs.editor.Stores.clear()
+        }
       }
+      this.$http
+        .post('article/addMessage', {
+          id: this.$route.params.id,
+          token: user.token,
+          msg: this.$refs.editor.editorContent
+        })
+        .then(res => {
+          // 留言成功
+          const data = res.data
+          this.article.msg.all++
+          this.article.msg.list.unshift({
+            ...data,
+            level: this.article.msg.all
+          })
+          this.$connecter.$emit('page', {
+            toast: {
+              icon: 'success',
+              text: '留言成功,感谢留言会让作者更加有动力哦!'
+            }
+          })
+          localStorage.setItem('message-username', this.username)
+          this.$refs.editor.Stores.clear()
+        })
     }
   }
 }
@@ -110,11 +144,18 @@ export default {
       float: left;
       width: calc(100% - 40px);
       overflow: hidden;
-      padding-left: 20px;
+      padding: 1px 0 0 20px;
       text-overflow: ellipsis;
       white-space: nowrap;
       -webkit-box-sizing: border-box;
               box-sizing: border-box;
+
+      sup {
+        padding: 0 2px;
+        color: #999;
+        border: 1px solid currentColor;
+        border-radius: 3px;
+      }
     }
 
     .user-info {

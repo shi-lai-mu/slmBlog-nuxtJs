@@ -83,6 +83,7 @@ export default {
               }
             })
           } else {
+            reject(res)
             console.error(`${res.status}: ${res.statusText}`)
           }
         })

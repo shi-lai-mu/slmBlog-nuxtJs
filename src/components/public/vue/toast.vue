@@ -48,7 +48,7 @@ export default {
 function Message (data) {
   if (typeof data !== 'object') throw Error('data 必须为 Object!')
   // 隐藏时间或持续显示 否则 1500ms 后消失
-  data.hideTime = (data.hideTime || data.hideTime === false) ? data.hideTime : 2500
+  data.hideTime = (data.hideTime || data.hideTime === false) ? data.hideTime : 4500
   // 修复耦合度 短时间内最多重复两条相同消息
   if (Task.length) {
     let t = Task[Task.length - 1]
