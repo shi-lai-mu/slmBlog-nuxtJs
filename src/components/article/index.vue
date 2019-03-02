@@ -131,6 +131,7 @@ export default {
           }
         })
         slef.article = data
+        console.log(data)
       })
       .catch(() => {
         this.$router.push({
