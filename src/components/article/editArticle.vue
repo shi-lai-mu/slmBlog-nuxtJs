@@ -132,9 +132,9 @@ export default {
      */
     send () {
       const content = this.$refs.editor.editorContent
-      let err = this.title.length < 4
+      let err = (!this.title || this.title.length < 4)
         ? '标题不能为空或过短'
-        : this.type.split('#').length < 1
+        : (!this.type || this.type.split('#').length < 1)
           ? '至少一个分类'
           : content.length < 10
             ? '这么点字...水军吧!!!'
