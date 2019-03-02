@@ -3,28 +3,7 @@
     <section :class="['content-box', 'article-index', { 'nick': article['title'] }, 'notContent']">
 
         <!-- 头部信息 -->
-        <header>
-          <h2 class="article-title">
-            {{ article.title }}
-            <router-link :to="{ name: 'againEditor', query: { editor: this.$route.params.id } }" class="editor-link" v-if="editor">
-              <i class="iconfont icon-fatie"></i>重新编辑
-            </router-link>
-          </h2>
-          <h3 class="article-info">
-            <span class="nowrap">
-              <router-link :to="'/user/' + article.author.id">{{ article.author.username }}</router-link>
-              <span>发表于：</span>
-              <i class="iconfont icon-shizhong" title="时间">{{ article.createTime && unTime(article.createTime) }}</i>
-            </span>
-            <span class="nowrap">
-              <i class="iconfont icon-liaotian1" title="回复">{{ article.msg ? article.msg.all : '--' }}</i>
-              <!-- <i class="iconfont icon-liulan" title="浏览">{{ article.lookCount }}</i> -->
-            </span>
-          </h3>
-          <ul class="notCon" v-if="notCon">
-            <li :class="[{ 'not-p': Math.random() > 0.6, 'not-end': Math.random() > 0.9 }]" v-for="i in 20" :key="i"></li>
-          </ul>
-        </header>
+        <atrcile-header :article="article" :unTime="unTime" :editor="editor" :notCon="notCon"></atrcile-header>
 
         <!-- 内容 -->
         <tbody class="article-body">
@@ -33,7 +12,6 @@
         </tbody>
 
         <!-- 尾部 -->
-        <!-- <footer :class="['article-body', { none: !article.title }]"></footer> -->
         <message :article="article" :unTime="unTime"></message>
 
     </section>
@@ -46,6 +24,7 @@ import Code from '@pub/js/code'
 import Time from '@pub/js/dateForm'
 import indexRight from './index-right'
 import message from './message'
+import atrcileHeader from './header'
 
 export default {
   metaInfo () {
@@ -55,7 +34,8 @@ export default {
   },
   components: {
     indexRight,
-    message
+    message,
+    atrcileHeader
   },
   data () {
     return {
@@ -127,7 +107,7 @@ export default {
       })
   },
   methods: {
-    unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000),
+    unTime: time => Time.form('yyyy-MM-dd HH:mm:ss', time * 1000)
   }
 }
 </script>
