@@ -200,6 +200,25 @@ export default {
         -ms-user-select: none;
             user-select: none;
 
+    // 作者
+    // .user-info {
+    //   display: flex;
+    //   margin-top: 10px;
+    //   padding: 10px 0;
+    //   border: 1px solid #eee;
+    //   border-radius: 10px;
+    //   align-items: center;
+
+    //   .user-icon {
+    //     height: 50px;
+    //     margin-right: 10px;
+    //   }
+    //   .user-name {
+    //     font-size: 1.1rem;
+    //     font-weight: 500;
+    //   }
+    // }
+
     // 二分
     .binary {
       float: left;

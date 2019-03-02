@@ -12,7 +12,7 @@
           </h2>
           <h3 class="article-info">
             <span class="nowrap">
-              <router-link :to="'/user/' + article.author.uid">{{ article.author.username }}</router-link>
+              <router-link :to="'/user/' + article.author.id">{{ article.author.username }}</router-link>
               <span>发表于：</span>
               <i class="iconfont icon-shizhong" title="时间">{{ article.createTime && unTime(article.createTime) }}</i>
             </span>
