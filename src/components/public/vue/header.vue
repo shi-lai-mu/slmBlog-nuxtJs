@@ -87,7 +87,6 @@ export default {
       })
       // 向下滚动时收起顶部[pc端]
       let scrollTop = 0
-      let $el = this.$el.classList
       let lastInter = null
       if (!this.$store.state.mobile) {
         window.addEventListener('scroll', () => {
