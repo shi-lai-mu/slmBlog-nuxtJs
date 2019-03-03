@@ -1,5 +1,5 @@
 <template>
-  <header class="header-nav">
+  <header :class="['header-nav', { 'header-hide': headerHide }]">
     <div class="conter">
       <h1 class="LOGO">
         <router-link to="/" class="max-a"></router-link>
@@ -72,7 +72,8 @@ export default {
       menuState: false,
       menu: [],
       mobilStyle: null,
-      account: !0
+      account: !0,
+      headerHide: false
     }
   },
 
@@ -87,11 +88,15 @@ export default {
       // 向下滚动时收起顶部[pc端]
       let scrollTop = 0
       let $el = this.$el.classList
+      let lastInter = null
       if (!this.$store.state.mobile) {
         window.addEventListener('scroll', () => {
-          const scroll = document.documentElement.scrollTop || document.body.scrollTop
-          scrollTop < scroll ? $el.add('header-hide') : $el.remove('header-hide')
-          scrollTop = scroll
+          clearTimeout(lastInter)
+          lastInter = setTimeout(() => {
+            const scroll = window.scrollY
+            this.headerHide = scrollTop < scroll
+            scrollTop = scroll
+          }, 100)
         })
       }
       // 观察登录状态
