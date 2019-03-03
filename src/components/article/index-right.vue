@@ -1,24 +1,23 @@
 <template>
   <aside class="content-box article-right">
-    <div class="article-right-fixed">
-      <!-- 快捷工具 -->
-      <div class="article-right-box clearfix">
-        <div class="binary">
-          <i class="iconfont icon-shoucang-k"></i>收藏本文
-        </div>
-        <div class="binary">
-          <i class="iconfont icon-fenxiang"></i>分享本文
-        </div>
+    <!-- 快捷工具 -->
+    <div class="article-right-box clearfix">
+      <div class="binary">
+        <i class="iconfont icon-shoucang-k"></i>收藏本文
       </div>
-      <!-- 标签类 -->
-      <div class="article-right-box clearfix">
-        <label class="article-right-title">标签</label>
-        <ul class="article-right-tag">
-          <li v-for="(item, index) in article.type" :key="index" v-text="item" @click="searchKeyWord(item)"></li>
-        </ul>
+      <div class="binary">
+        <i class="iconfont icon-fenxiang"></i>分享本文
       </div>
-      <!-- 导航树 -->
-      <div class="article-right-box clearfix">
+    </div>
+    <!-- 标签类 -->
+    <div class="article-right-box clearfix">
+      <label class="article-right-title">标签</label>
+      <ul class="article-right-tag">
+        <li v-for="(item, index) in article.type" :key="index" v-text="item" @click="searchKeyWord(item)"></li>
+      </ul>
+    </div>
+    <!-- 导航树 -->
+    <div :class="['article-right-box', 'clearfix', { 'article-right-fixed': navTreeFiy }]" ref="navTree">
         <label class="article-right-title">导航</label>
         <ul class="article-right-tree" v-if="article.tree" @click="treeMove">
 
@@ -44,21 +43,28 @@
 
         </ul>
         <div class="tree-not" v-else>抱歉,本文未找到导航!</div>
-      </div>
     </div>
   </aside>
 </template>
 
 <script>
 import animation from '@pub/js/animation'
+let navTreeTop = 0
 export default {
   props: ['article'],
   data () {
     return {
       lookParent: '0',
       lookTree: '0',
-      treeList: []
+      treeList: [],
+      navTree: {},
+      navTreeFiy: false
     }
+  },
+  created () {
+    this.$nextTick(() => {
+      navTreeTop = this.$refs.navTree.offsetTop
+    })
   },
   watch: {
     'article' () {
@@ -125,6 +131,11 @@ export default {
           this.lookTree = element.index
           this.lookParent = element.parent
         }
+      }
+      if (navTreeTop + 80 < window.scrollY && !this.navTreeFiy) {
+        this.navTreeFiy = !0
+      } else if (navTreeTop + 80 > window.scrollY && this.navTreeFiy) {
+        this.navTreeFiy = !1
       }
     },
 
@@ -330,6 +341,7 @@ export default {
   .article-right-fixed {
     position: fixed;
     width: 280px;
+    top: 50px;
   }
 
   blockquote,

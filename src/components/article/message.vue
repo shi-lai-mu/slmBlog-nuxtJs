@@ -42,7 +42,6 @@ export default {
   },
   computed: {
     user () {
-      console.log(this.article)
       return this.$store.state.user
     }
   },
@@ -58,6 +57,7 @@ export default {
     /* 发送留言 */
     send () {
       let user = this.user
+      const content = this.$refs.editor.editorContent
       if (!user) {
         // 游客留言
         if (this.username) {
@@ -72,6 +72,14 @@ export default {
             }
           })
         }
+      }
+      if (!content || content.length < 10) {
+        return this.$connecter.$emit('page', {
+          toast: {
+            icon: 'error',
+            text: '留言内容过少!'
+          }
+        })
       }
       this.$http
         .post('article/addMessage', {
