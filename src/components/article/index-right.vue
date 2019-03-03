@@ -50,6 +50,7 @@
 <script>
 import animation from '@pub/js/animation'
 let navTreeTop = 0
+let lastUpdate = 0
 export default {
   props: ['article'],
   data () {
@@ -122,20 +123,24 @@ export default {
 
     /* 滚动监测 */
     scroll () {
-      const Top = window.scrollY + 150
-      const list = this.treeList
-      for (let index = 0, len = list.length; index < len; index++) {
-        const element = list[index]
-        const down = list[index + 1]
-        if (Top > element.top && (!down || Top < down.top)) {
-          this.lookTree = element.index
-          this.lookParent = element.parent
+      const date = Date.now()
+      if (lastUpdate < date) {
+        lastUpdate = date + 50
+        const Top = window.scrollY + 150
+        const list = this.treeList
+        for (let index = 0, len = list.length; index < len; index++) {
+          const element = list[index]
+          const down = list[index + 1]
+          if (Top > element.top && (!down || Top < down.top)) {
+            this.lookTree = element.index
+            this.lookParent = element.parent
+          }
         }
-      }
-      if (navTreeTop + 80 < window.scrollY && !this.navTreeFiy) {
-        this.navTreeFiy = !0
-      } else if (navTreeTop + 80 > window.scrollY && this.navTreeFiy) {
-        this.navTreeFiy = !1
+        if (navTreeTop + 80 < window.scrollY && !this.navTreeFiy) {
+          this.navTreeFiy = !0
+        } else if (navTreeTop + 80 > window.scrollY && this.navTreeFiy) {
+          this.navTreeFiy = !1
+        }
       }
     },
 
