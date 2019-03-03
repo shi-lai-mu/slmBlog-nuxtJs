@@ -237,7 +237,7 @@ export default {
 
       .article-right {
         float: left;
-        width: 60%;
+        width: calc(100% - 100px);
         margin: 10px 15px;
         pointer-events: none;
 
