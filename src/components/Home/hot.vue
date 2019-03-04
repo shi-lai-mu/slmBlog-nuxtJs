@@ -56,8 +56,8 @@ export default {
   data () {
     return {
       hotList: [],
-      searchArticle: '12456',
-      searchState: true,
+      searchArticle: null,
+      searchState: false,
       page: {
         all: 0,
         count: 0,
@@ -156,16 +156,12 @@ export default {
 }
 </script>
 
-<style lang="less" scope>
+<style lang="less">
 // 左侧
-.article-list {
+.home .article-list {
   float: left;
   width: 70%;
   margin-bottom: 20px;
-
-  .content-box {
-    width: 100%;
-  }
 
   .article {
     position: relative;
@@ -309,6 +305,36 @@ export default {
     .button-lv1 {
       margin: 5px 10px;
       background-color: #bef2fd;
+    }
+  }
+
+  // 提示框
+  .article-input {
+    max-height: 0;
+    opacity: 0;
+    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+
+    .icon-wrong {
+      float: right;
+      color: #ccc;
+      cursor: pointer;
+    }
+
+    &.searchArticle {
+      width: 100%;
+      max-height: 100px;
+      margin-bottom: 10px;
+      padding: 10px;
+      opacity: 1;
+    }
+
+    &.input-red {
+      color: #fff;
+      background-color: #eb3a42;
+      .icon-wrong {
+        color: currentColor;
+      }
     }
   }
 }

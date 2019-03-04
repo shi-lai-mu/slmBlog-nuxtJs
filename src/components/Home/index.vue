@@ -26,38 +26,10 @@ export default {
   margin-bottom: 40px;
 
   .content-box {
-    overflow: hidden;
+    display: block;
+    width: 100%;
     padding: 0;
-  }
-
-  // 提示框
-  .article-input {
-    max-height: 0;
-    opacity: 0;
-    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
-
-    .icon-wrong {
-      float: right;
-      color: #ccc;
-      cursor: pointer;
-    }
-
-    &.searchArticle {
-      width: 100%;
-      max-height: 100px;
-      margin-bottom: 10px;
-      padding: 10px;
-      opacity: 1;
-    }
-
-    &.input-red {
-      color: #fff;
-      background-color: #eb3a42;
-      .icon-wrong {
-        color: currentColor;
-      }
-    }
+    overflow: hidden;
   }
 
   .right {
