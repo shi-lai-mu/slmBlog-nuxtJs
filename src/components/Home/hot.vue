@@ -1,5 +1,9 @@
 <template>
-  <div class="article-list">
+  <section class="article-list">
+    <div class="article-box-tag">
+      <i class="iconfont icon-hot"></i>
+      <span>热门文章</span>
+    </div>
     <!-- 提示框 -->
     <span :class="['content-box', { searchArticle }, { 'input-red': searchState }, 'article-input']">
       {{ searchArticle }}
@@ -48,7 +52,7 @@
         </span>
       </div>
     </section>
-  </div>
+  </section>
 </template>
 
 <script>

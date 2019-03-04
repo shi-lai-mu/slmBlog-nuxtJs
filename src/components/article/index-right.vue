@@ -121,6 +121,7 @@ export default {
         name: 'home'
       })
       this.$connecter.$emit('searchKeyWord', keyword)
+      this.$store.state.articleModel.keyword = keyword
     },
 
     /* 滚动监测 */
