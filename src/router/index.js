@@ -123,7 +123,7 @@ export default new Router({
     } else if (to === 'register' && user) {
       // 已登录
       name = 'home'
-    } else if (to === 'admin' && (!user || user.groupid !== 9999)) {
+    } else if (to === 'admin' && (!user || user.groupid < 9999)) {
       // 非管理
       name = 'home'
     }

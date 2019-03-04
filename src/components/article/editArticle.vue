@@ -161,13 +161,14 @@ export default {
           editor: this.editor || false
         })
           .then(res => {
-            if (res.data.state) {
+            if (res.data.ID) {
               this.$router.push({
                 name: 'article',
                 params: {
-                  id: this.editor
+                  id: res.data.ID
                 }
               })
+              this.$refs.editor.Stores.clear()
             }
           })
       }
