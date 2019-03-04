@@ -3,10 +3,12 @@
     <!-- 快捷工具 -->
     <div class="article-right-box clearfix">
       <div class="binary">
-        <i class="iconfont icon-shoucang-k"></i>收藏本文
+        <i class="iconfont icon-shoucang-k"></i>
+        <span>收藏本文</span>
       </div>
       <div class="binary">
-        <i class="iconfont icon-fenxiang"></i>分享本文
+        <i class="iconfont icon-fenxiang"></i>
+        <span>分享本文</span>
       </div>
     </div>
     <!-- 标签类 -->

@@ -10,11 +10,11 @@
     <!-- 左侧 -->
     <section class="content-box article-list" @click="tagClick">
       <ul>
-        <li class="article clearfix" v-for="(hot, index) in hotList" :key="index" :data-article="hot.Id">
+        <li class="article clearfix ellipsis" v-for="(hot, index) in hotList" :key="index" :data-article="hot.Id">
           <div class="article-left">
             <img :src="hot.img" alt="images">
           </div>
-          <div class="article-right">
+          <div class="article-right ellipsis">
             <h3 class="ellipsis">{{ hot.title }}</h3>
             <p class="article-description ellipsis">{{ hot.description }}</p>
             <ul class="article-tag">
@@ -32,7 +32,7 @@
             <div class="no-black"></div>
           </div>
           <div class="article-right look-center">
-            <h3 class="ellipsis no-black"></h3>
+            <h3 class="no-black"></h3>
             <ul class="article-tag">
               <li v-for="i in 5" :key="i" class="no-black"></li>
             </ul>
@@ -214,13 +214,17 @@ export default {
     margin-bottom: 20px;
 
     .article {
+      position: relative;
       display: flex;
       padding: 10px;
       text-align: left;
       vertical-align: text-top;
+      cursor: pointer;
+      align-items: center;
       border-top: 1px solid white;
       border-bottom: 1px solid #e8e8e8;
-      cursor: pointer;
+      box-sizing: border-box;
+      flex-wrap: wrap;
 
       &:nth-child(1) {
         border-top: 0;
@@ -237,19 +241,20 @@ export default {
 
       .article-right {
         float: left;
-        width: calc(100% - 100px);
+        width: calc(100% - 150px);
         margin: 10px 15px;
         pointer-events: none;
 
         h3 {
-          display: inline-block;
+          display: block;
+          width: 100%;
           padding: 10px 0;
           margin: 0;
           font-weight: 300;
         }
 
         .article-description {
-          padding: 10px 5px;
+          padding: 0 5px 10px;
           font-size: .9em;
           color: #aaa;
         }
@@ -260,11 +265,10 @@ export default {
         display: -ms-flexbox;
         display: flex;
         float: left;
-        width: 23%;
-        height: 7vw;
-        min-width: 100px;
-        min-height: 100px;
-        max-height: 114px;
+        width: 100px;
+        height: 10vw;
+        min-height: 80px;
+        max-height: 100px;
         margin: 10px;
         overflow: hidden;
         border-radius: 5px;
@@ -356,6 +360,10 @@ export default {
   .right {
     float: right;
   }
-
+  // @media screen and (max-width: 840px) {
+  //   .article-left {
+  //     width: calc(100% - 250px);
+  //   }
+  // }
 }
 </style>
