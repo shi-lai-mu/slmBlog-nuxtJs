@@ -55,19 +55,13 @@
   }
 
   .copyright-right {
+    display: flex;
     margin-top: 5px;
 
-    li {
-      float: left;
+    li:not(:last-child) {
       &::after {
         content: "|";
         margin: 0 7px;
-      }
-    }
-
-    :nth-last-child(1) {
-      &::after {
-        content: "";
       }
     }
   }
