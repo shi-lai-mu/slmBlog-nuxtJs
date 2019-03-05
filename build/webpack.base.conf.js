@@ -32,14 +32,13 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json', '.less'],
+    extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
-      '@src': resolve('src/assets'),
-      '@com': resolve('src/components'),
-      '@pub': resolve('src/components/public'),
-      '@img': resolve('src/assets/image'),
+      '@pub': resolve('src') + '/components/public',
+      '@com': resolve('src') + '/components',
+      '@img': resolve('src') + '/assets/image',
     }
   },
   module: {
@@ -60,7 +59,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[ext]')
+          name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
       },
       {
@@ -78,12 +77,7 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      },
-      {
-        test: /\.less$/,
-        loader: [ 'style-loader', 'css-loader', 'less-loader' ]
-      },
-      
+      }
     ]
   },
   node: {
