@@ -27,44 +27,24 @@
         </div>
 
         <!-- 注册页 -->
-        <div :class="['account', {'register': page == 'register'}]">
-            <img src="http://res.mczyzy.cn/img/account-bg3.jpg" alt="图1" class="border-line">
-            <form>
-                <label>账号</label><input type="text" v-model="register.user" placeholder="用户名不能超过9位">
-                <label>密码</label><input type="password" v-model="register.pass_rsa" placeholder="密码不能过短">
-                <!-- <label>邮箱</label><input type="email" v-model="register.email" class="input-1v" placeholder="最好输入QQ邮箱" data-name='邮箱'> -->
-                <!-- <label>验证</label><input type="text" v-model="register.code" class="input-1v input-min" placeholder="确认你非机器人" data-name='验证'><canvas></canvas> -->
-                <!-- <label>代码</label><input type="text" class="input-1v" placeholder="填完邮箱点我即发送验证码" data-name='代码'> -->
-                <span class="button-lv0" @click="registerEvent">注册</span>
-            </form>
-            <span class="account-right">
-                <a @click="qqLogin" :href="qqLoginUrl" target="_black" rel="noopener noreferrer">
-                    <i class="iconfont icon-ziyuan"></i>
-                    <span>QQ登录</span>
-                </a>
-                <a>
-                    <i class="iconfont icon-zhuce"></i>
-                    <span @click="togglepage" data-page="login">登录账号</span>
-                </a>
-            </span>
-        </div>
+        <register :togglepage="togglepage" :page="page"></register>
 
     </tbody>
 
 </template>
 
 <script>
+import register from './register'
 export default {
   metaInfo: {
     title: '史莱姆的博客-账号管理'
   },
+  components: {
+    register
+  },
   data () {
     return {
       login: {
-        user: null,
-        pass_rsa: null
-      },
-      register: {
         user: null,
         pass_rsa: null
       },
@@ -113,33 +93,6 @@ export default {
             } else {
               self.$router.push({ name: 'home' })
             }
-          })
-          .catch(err => {
-            toast.icon = 'error'
-            toast.text = err.data.error
-            self.$connecter.$emit('page', { toast })
-          })
-      }
-    },
-
-    /**
-     * 注册按钮点击事件
-     */
-    registerEvent () {
-      let self = this
-      let toast = {
-        text: `注册成功, [${self.login.user}] 欢迎加入!`,
-        icon: 'success',
-        hideTime: 4000
-      }
-      if (self.register.user && self.register.pass_rsa) {
-        self.$http.get(`user/register`, self.register)
-          .then(res => {
-            window.localStorage.setItem('userInfo', JSON.stringify(res.data))
-            self.$store.state.user = res.data
-            self.$connecter.$emit('user', res.data)
-            self.$connecter.$emit('page', { toast })
-            self.$router.push({path: '/'})
           })
           .catch(err => {
             toast.icon = 'error'
