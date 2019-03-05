@@ -25,10 +25,7 @@
                 </a>
             </span>
         </div>
-
-        <!-- 注册页 -->
         <register :togglepage="togglepage" :page="page"></register>
-
     </tbody>
 
 </template>
