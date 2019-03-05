@@ -40,7 +40,7 @@ export default {
   .right {
     float: right;
   }
-  
+
   // 左侧
   .article-list {
     float: left;
