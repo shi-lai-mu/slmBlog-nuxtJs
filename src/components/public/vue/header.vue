@@ -258,7 +258,7 @@ export default {
     margin: 0 20px;
     overflow: hidden;
     vertical-align: middle;
-    background: url("//res.mczyzy.cn/LOGO.png") no-repeat center;
+    background: url("//slmblog.com/LOGO.png") no-repeat center;
     background-size: 42px auto;
   }
 

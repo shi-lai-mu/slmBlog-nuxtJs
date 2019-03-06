@@ -1,7 +1,7 @@
 <template>
   <tbody class="conter single clearfix">
     <div class="content-box friendship">
-      <img src="//res.mczyzy.cn/LOGO.png" alt="slm-logo" class="logo">
+      <img src="//slmblog.com/LOGO.png" alt="slm-logo" class="logo">
       <h2>史莱姆的个人博客</h2>
       <h3 class="friendship-desc">本博客涉及范围html5,css3,es6,微信小程序,网站开发,技术交流,源码分享,php,nodejs</h3>
       <a class="button-lv1" href="#no1">申请友链</a>
@@ -38,7 +38,7 @@
           <li><b>名称:</b>史莱姆的博客</li>
           <li><b>域名:</b><a href="//mczyzy.cn" title="史莱姆的博客">http://mczyzy.cn</a></li>
           <li><b>简介:</b>一个注重技术研究与分享的博客。(可包含)</li>
-          <li><b>图标:</b><a href="//res.mczyzy.cn/LOGO.png" title="本站LOGO">http://res.mczyzy.cn/LOGO.png</a></li>
+          <li><b>图标:</b><a href="//slmblog.com/LOGO.png" title="本站LOGO">slmblog.com/LOGO.png</a></li>
         </ul>
       </div>
 

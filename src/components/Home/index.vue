@@ -173,7 +173,7 @@ export default {
   @media screen and (max-width: 1100px) {
     .article-list {
       display: block;
-      width: 100vw;
+      width: 100%;
     }
   }
 

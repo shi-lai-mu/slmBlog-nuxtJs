@@ -7,7 +7,7 @@
 
         <!-- 内容 -->
         <tbody class="article-body">
-          <img class="article-img" :src="article.img" :alt="article.title + '文章封面'">
+          <img class="article-img" :src="article.img" :alt="article.title + '文章封面'" v-if="article.img !== 'null'">
           <div v-html="article.content" ref="content"></div>
         </tbody>
 
@@ -15,14 +15,14 @@
         <message :article="article" :unTime="unTime"></message>
 
     </section>
-    <index-right :article="article" ref="artRight"></index-right>
+    <right :article="article" ref="artRight"></right>
   </tbody>
 </template>
 
 <script>
 import Code from '@pub/js/code'
 import Time from '@pub/js/dateForm'
-import indexRight from './index-right'
+import right from './right'
 import message from './message'
 import atrcileHeader from './header'
 
@@ -33,7 +33,7 @@ export default {
     }
   },
   components: {
-    indexRight,
+    right,
     message,
     atrcileHeader
   },
@@ -62,8 +62,8 @@ export default {
         }
 
         // 封面
-        if (data.img.indexOf('//') === -1) {
-          data.img = `//res.mczyzy.cn/img/upload/${data.img}`
+        if (data.img !== 'null' && data.img.indexOf('//') === -1) {
+          data.img = `//slmblog.com/img/upload/${data.img}`
         }
 
         // 分类处理
@@ -81,7 +81,7 @@ export default {
             let el = slef.$refs.content.getElementsByTagName('img')
             for (let i = 0, l = el.length; i < l; i++) {
               el[i].addEventListener('error', function () {
-                slef.src = '//res.mczyzy.cn/img/error.png'
+                slef.src = '//slmblog.com/img/error.png'
               })
             }
             // 语法高亮

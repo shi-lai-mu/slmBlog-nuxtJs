@@ -6,7 +6,7 @@
     </div>
     <!-- 提示框 -->
     <span :class="['content-box', { searchArticle }, { 'input-red': searchState }, 'article-input']">
-      {{ searchArticle }}
+      <span v-html="searchArticle"></span>
       <i class="iconfont icon-wrong" @click="clearModel"></i>
     </span>
     <!-- 内容区域 -->
@@ -60,8 +60,16 @@ export default {
   data () {
     return {
       hotList: [],
-      searchArticle: null,
-      searchState: false,
+      searchArticle: `
+        <p>子服务器正在进行新域名备案中!!可能导致站内图片加载失败!</p>
+        <p>后面几天博客将做成以下调整：</p>
+        <ol style="margin: 10px 0;">
+          <li>域名更改为: <a href="//slmblog.com">slmblog.com</a></li>
+          <li>HTTP升级为HTTPS</li>
+          <li>博客将保留前后端分离,改为服务端渲染!</li>
+        </ol>
+      `,
+      searchState: true,
       page: {
         all: 0,
         count: 0,
@@ -123,7 +131,7 @@ export default {
                 index.type = index.type.split('#')
                 index.type.shift()
                 if (index.img.indexOf('//') === -1) {
-                  index.img = `//res.mczyzy.cn/img/upload/${index.img}`
+                  index.img = `//slmblog.com/img/upload/${index.img}`
                 }
               }
               return index
@@ -165,6 +173,7 @@ export default {
   // 提示框
   .article-input {
     max-height: 0;
+    max-width: 100vw;
     opacity: 0;
     -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
             box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
@@ -177,7 +186,7 @@ export default {
 
     &.searchArticle {
       width: 100%;
-      max-height: 100px;
+      max-height: 200px;
       margin-bottom: 10px;
       padding: 10px;
       opacity: 1;
@@ -189,6 +198,9 @@ export default {
       .icon-wrong {
         color: currentColor;
       }
+    }
+    li {
+      list-style: inside
     }
   }
 

@@ -5,7 +5,7 @@
     <div :class="['music-list', { 'list-show': floatList }]">
 
       <div class="blur-bg">
-        <img v-if="info.img != 'http://res.mczyzy.cn/LOGO.png'" :src="info.img" alt="">
+        <img v-if="info.img != '//slmblog.com/LOGO.png'" :src="info.img" alt="">
       </div>
 
       <!-- 顶部选项卡 -->
@@ -81,7 +81,7 @@ export default {
       },
       // 音乐信息
       info: {
-        img: 'http://res.mczyzy.cn/LOGO.png',
+        img: '//slmblog.com/LOGO.png',
         src: '',
         tag: '点击展开工具栏'
       }
