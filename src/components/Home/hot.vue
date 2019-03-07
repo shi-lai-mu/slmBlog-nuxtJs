@@ -61,7 +61,7 @@ export default {
     return {
       hotList: [],
       searchArticle: `
-        <p>子服务器正在进行新域名备案中!!可能导致站内图片加载失败!</p>
+        <p>子服务器正在进行新域名备案中!!可能导致站内图片加载失败!首次加载巨慢...</p>
         <p>后面几天博客将做成以下调整：</p>
         <ol style="margin: 10px 0;">
           <li>域名更改为: <a href="//slmblog.com">slmblog.com</a></li>
