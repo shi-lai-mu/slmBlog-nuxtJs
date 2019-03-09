@@ -1,6 +1,5 @@
 const pkg = require('./package')
 
-
 module.exports = {
   mode: 'spa',
 
@@ -48,6 +47,9 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    // { src: '~/plugins/vue-lazyload.js', ssr: false },
+    // { src: '~/plugins/connecter.js', ssr: false },
+    { src: '~/plugins/axios' }
   ],
 
   /*
@@ -55,13 +57,18 @@ module.exports = {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
+    '@nuxtjs/axios'
   ],
   /*
   ** Axios module configuration
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    baseURL: '//127.0.0.1:8080',
+    timeout: 15000,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+    }
   },
 
   /*
@@ -71,8 +78,7 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx) {
-      
-    }
+    // extend(config, ctx) {
+    // }
   }
 }

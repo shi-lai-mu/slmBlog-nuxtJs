@@ -10,7 +10,8 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 
 /* Plugins */
 
-import nuxt_plugin_axios_d528b428 from 'nuxt_plugin_axios_d528b428' // Source: ./axios.js (mode: 'all')
+import nuxt_plugin_axios_7e957c76 from 'nuxt_plugin_axios_7e957c76' // Source: ./axios.js (mode: 'all')
+import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ..\\plugins\\axios (mode: 'all')
 
 // Component: <NoSsr>
 Vue.component(NoSsr.name, NoSsr)
@@ -128,7 +129,8 @@ async function createApp(ssrContext) {
 
   // Plugin execution
 
-  if (typeof nuxt_plugin_axios_d528b428 === 'function') await nuxt_plugin_axios_d528b428(app.context, inject)
+  if (typeof nuxt_plugin_axios_7e957c76 === 'function') await nuxt_plugin_axios_7e957c76(app.context, inject)
+  if (typeof nuxt_plugin_axios_3566aa80 === 'function') await nuxt_plugin_axios_3566aa80(app.context, inject)
 
   // If server-side, wait for async component to be resolved first
   if (process.server && ssrContext && ssrContext.url) {

@@ -2,8 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
-const _83be2bac = () => interopDefault(import('..\\pages\\bate.vue' /* webpackChunkName: "pages_bate" */))
-const _0fd90e08 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
+const _119e3985 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 
 Vue.use(Router)
 
@@ -66,12 +65,8 @@ export function createRouter() {
     scrollBehavior,
 
     routes: [{
-      path: "/bate",
-      component: _83be2bac,
-      name: "bate"
-    }, {
       path: "/",
-      component: _0fd90e08,
+      component: _119e3985,
       name: "index"
     }],
 
