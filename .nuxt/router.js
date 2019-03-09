@@ -2,24 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
+const _83be2bac = () => interopDefault(import('..\\pages\\bate.vue' /* webpackChunkName: "pages_bate" */))
+const _0fd90e08 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
+
 Vue.use(Router)
 
 if (process.client) {
-  if ('scrollRestoration' in window.history) {
-    window.history.scrollRestoration = 'manual'
-
-    // reset scrollRestoration to auto when leaving page, allowing page reload
-    // and back-navigation from other pages to use the browser to restore the
-    // scrolling position.
-    window.addEventListener('beforeunload', () => {
-      window.history.scrollRestoration = 'auto'
-    })
-
-    // Setting scrollRestoration to manual again when returning to this page.
-    window.addEventListener('load', () => {
-      window.history.scrollRestoration = 'manual'
-    })
-  }
+  window.history.scrollRestoration = 'manual'
 }
 const scrollBehavior = function (to, from, savedPosition) {
   // if the returned position is falsy or an empty object,
@@ -76,7 +65,15 @@ export function createRouter() {
     linkExactActiveClass: 'nuxt-link-exact-active',
     scrollBehavior,
 
-    routes: [],
+    routes: [{
+      path: "/bate",
+      component: _83be2bac,
+      name: "bate"
+    }, {
+      path: "/",
+      component: _0fd90e08,
+      name: "index"
+    }],
 
     fallback: false
   })

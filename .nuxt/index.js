@@ -10,10 +10,7 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 
 /* Plugins */
 
-import nuxt_plugin_axios_2b7cd576 from 'nuxt_plugin_axios_2b7cd576' // Source: ./axios.js (mode: 'all')
-import nuxt_plugin_vuelazyload_d07c1d40 from 'nuxt_plugin_vuelazyload_d07c1d40' // Source: ..\\plugins\\vue-lazyload.js (mode: 'client')
-import nuxt_plugin_connecter_56581414 from 'nuxt_plugin_connecter_56581414' // Source: ..\\plugins\\connecter.js (mode: 'client')
-import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ..\\plugins\\axios (mode: 'all')
+import nuxt_plugin_axios_d528b428 from 'nuxt_plugin_axios_d528b428' // Source: ./axios.js (mode: 'all')
 
 // Component: <NoSsr>
 Vue.component(NoSsr.name, NoSsr)
@@ -131,13 +128,7 @@ async function createApp(ssrContext) {
 
   // Plugin execution
 
-  if (typeof nuxt_plugin_axios_2b7cd576 === 'function') await nuxt_plugin_axios_2b7cd576(app.context, inject)
-  if (typeof nuxt_plugin_axios_3566aa80 === 'function') await nuxt_plugin_axios_3566aa80(app.context, inject)
-
-  if (process.client) {
-    if (typeof nuxt_plugin_vuelazyload_d07c1d40 === 'function') await nuxt_plugin_vuelazyload_d07c1d40(app.context, inject)
-    if (typeof nuxt_plugin_connecter_56581414 === 'function') await nuxt_plugin_connecter_56581414(app.context, inject)
-  }
+  if (typeof nuxt_plugin_axios_d528b428 === 'function') await nuxt_plugin_axios_d528b428(app.context, inject)
 
   // If server-side, wait for async component to be resolved first
   if (process.server && ssrContext && ssrContext.url) {
