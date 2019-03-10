@@ -41,7 +41,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    { src: 'static/css/public.less', lang: 'less' }
+    { src: 'static/css/public.less' }
   ],
 
   /*
@@ -49,7 +49,7 @@ module.exports = {
   */
   plugins: [
     // { src: 'vue-lazyload.js', ssr: false },
-    { src: '~/plugins/connecter.js', ssr: false },
+    // { src: '~/plugins/observer', ssr: false },
     { src: '~/plugins/axios' }
   ],
 

@@ -1,4 +1,7 @@
 export default {
-  SET_BLOG_HOT_LIST (store, data) {
+  SET_HOME_DATA (store, data) {
+    store.blog = data
+    console.log(store);
   }
 }
+

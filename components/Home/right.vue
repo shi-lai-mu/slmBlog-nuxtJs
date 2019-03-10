@@ -48,20 +48,20 @@ export default {
       rightList: []
     }
   },
-  // computed: {
-  //   user () {
-  //     return this.$store.state.user || {
-  //       username: '史莱姆',
-  //       img: '//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100'
-  //     }
-  //   }
-  // },
+  computed: {
+    user () {
+      return this.$store.state.user || {
+        username: '史莱姆',
+        img: '//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100'
+      }
+    }
+  },
   created () {
-    this.$http
-      .get('blog/right')
-      .then(res => {
-        this.rightList = res.data
-      })
+//     this.$axios
+//       .get('blog/right')
+//       .then(res => {
+//         this.rightList = res.data
+//       })
   }
 }
 </script>
