@@ -1,7 +1,7 @@
 const pkg = require('./package')
 
 module.exports = {
-  mode: 'spa',
+  mode: 'universal',
 
   /*
   ** Headers of the page
@@ -27,8 +27,8 @@ module.exports = {
       { name: 'google-site-verification', content: 'ego0URbKF1gcgY61F36Z1jMzo-zRQbCSnlm2qKbOyCY' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: '//slmblog.com/css/main.min.css' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      // { rel: 'stylesheet', href: '//slmblog.com/css/main.min.css' }
     ]
   },
 
@@ -41,14 +41,15 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    { src: 'static/css/public.less', lang: 'less' }
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    // { src: '~/plugins/vue-lazyload.js', ssr: false },
-    // { src: '~/plugins/connecter.js', ssr: false },
+    // { src: 'vue-lazyload.js', ssr: false },
+    { src: '~/plugins/connecter.js', ssr: false },
     { src: '~/plugins/axios' }
   ],
 
@@ -59,6 +60,7 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios'
   ],
+
   /*
   ** Axios module configuration
   */
@@ -70,6 +72,16 @@ module.exports = {
       'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
     }
   },
+
+  /**
+   * loader configuration
+   */
+  // loader: [
+  //   {
+  //     test: /\.less$/,
+  //     loaders: 'style-loader!css-loader!less-loader'
+  //   }
+  // ],
 
   /*
   ** Build configuration
