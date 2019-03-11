@@ -6,13 +6,10 @@ const IP = {
 }
 
 const handler = {
-  get(target, name) {
-    const value = target[name]
-    if (!value) throw Error(`Axios [${name}] API not exist!`)
+  get (target,  key, receiver) {
+    const value = Reflect.get(target, key, receiver);
+    if (!value) throw Error(`Axios [${ key }] API not exist!`)
     return (!value.search || value.search('//') >= 0) ? value : IP.main + value
-  },
-  set(target, name, value) {
-    return
   }
 }
 
