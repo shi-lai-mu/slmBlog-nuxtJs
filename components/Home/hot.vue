@@ -82,11 +82,10 @@ export default {
 //       this.loadMaster()
 //     })
   },
-  beforeMount() {
-  },
   methods: {
     /* 点击标签事件 */
     tagClick (e) {
+      console.log('222222222222222222222222222');
       let dataset = e.target.dataset
       let state = this.$store.state
 
@@ -98,14 +97,15 @@ export default {
         return
       }
       // 打开文章
-//       if (dataset.article) {
-//         this.$router.push({
-//           name: 'article',
-//           params: {
-//             id: dataset.article
-//           }
-//         })
-//       }
+      if (dataset.article) {
+        console.log(dataset);
+        this.$router.push({
+          name: 'article',
+          params: {
+            id: dataset.article
+          }
+        })
+      }
     },
 
     /* 搜索文章 */

@@ -41,7 +41,8 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    { src: 'static/css/public.less' }
+    { src: 'static/css/public.less' },
+    { src: 'static/css/main.min.css' }
   ],
 
   /*

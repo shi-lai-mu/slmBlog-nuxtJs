@@ -7,18 +7,21 @@ const IP = {
 
 const handler = {
   get(target, key, receiver) {
-    const value = Reflect.get(target, key, receiver);
+    const value = Reflect.get(target, key, receiver)
+    if (typeof value !== 'string' && key !== 'IP') return false
     if (!value) throw Error(`Axios [${ key }] API not exist!`)
     return (!value.search || value.search('//') >= 0) ? value : IP.main + value
   }
 }
 
 const API = {
-  // 首页热门
+  // 首页 热门 右侧
   HOME_HOT: 'blog/hot',
-  // 首页右侧
   HOME_RIGHT: 'blog/right',
-
+  
+  // 文章 内容
+  ARTCILE_CONTENT: 'article/:id',
+  
   /* IP 接口 */
   IP
 }

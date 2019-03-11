@@ -31,6 +31,7 @@ export default function ({ $axios, redirect }) {
         config.data = ''
       }
     }
+    console.log('API:  ' + config.url);
   })
 
   /**
@@ -61,11 +62,19 @@ export default function ({ $axios, redirect }) {
   
   /**
    * axios API request
-   * @param {string} api API库内的键
+   * @param {string/object} api API库内的键
    * @return 链式操作请求方式，内部传入与axios相同，排除第一个URL
    */
   $axios.api = api => {
-    const URL = API[api]
+    let URL = API[api]
+    
+    // 动态API
+    if (typeof api === 'object') {
+      URL = API[api.key]
+      for (const key in api.data) {
+        URL = URL.replace(`:${key}`, api.data[key])
+      }
+    }
     return {
       get: (...res) => $axios.get(URL, ...[{ api },res]),
       post: (...res) => $axios.post(URL, ...[{ api },res])

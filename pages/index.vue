@@ -14,6 +14,7 @@
   import homeTop from '~/components/Home/top'
 
   export default {
+    name: 'home',
     async asyncData ({ $axios }) {
       let data
       try {

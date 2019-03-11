@@ -254,7 +254,8 @@ export default {
           user-select: none;
 
   .conter {
-    margin: 0;
+    min-height: auto;
+    margin: 0 auto;
   }
 
   .LOGO {
@@ -338,7 +339,7 @@ export default {
 
     .login-after {
       width: auto;
-      margin: 0 20px;
+      margin-left: 20px;
     }
 
     .user-name {
