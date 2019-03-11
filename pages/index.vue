@@ -2,9 +2,9 @@
   <div class="conter content-row clearfix home">
     <div class="article-list">
       <home-top></home-top>
-      <home-hot :hot="hot"></home-hot>
+      <home-hot :hot="hot" />
     </div>
-    <home-right />
+    <home-right :right="right"/>
   </div>
 </template>
 
@@ -12,7 +12,6 @@
   import homeRight from '~/components/Home/right'
   import homeHot from '~/components/Home/hot'
   import homeTop from '~/components/Home/top'
-  import { mapState } from 'vuex'
 
   export default {
     async asyncData ({ $axios }) {

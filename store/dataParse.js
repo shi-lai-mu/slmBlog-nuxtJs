@@ -1,6 +1,8 @@
 /**
  * 数据处理
  */
+import API from './API'
+
 export default {
   // 首页热门
   HOME_HOT (data) {
@@ -8,6 +10,10 @@ export default {
       const val = data.list[i]
       val.type = val.type.split('#')
       val.type.shift()
+      
+      if (val.img.indexOf('//') === -1) {
+        val.img = API.IP.uploadImg + val.img
+      }
     }
     return data
   }

@@ -66,7 +66,6 @@ export default function ({ $axios, redirect }) {
    */
   $axios.api = api => {
     const URL = API[api]
-
     return {
       get: (...res) => $axios.get(URL, ...[{ api },res]),
       post: (...res) => $axios.post(URL, ...[{ api },res])

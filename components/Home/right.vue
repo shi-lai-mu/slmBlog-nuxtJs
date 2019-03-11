@@ -19,8 +19,8 @@
       <span class="content-tag">
         <span>最新文章:</span>
       </span>
-      <ol class="content-list" v-if="rightList.new">
-        <li v-for="(item, key) in rightList.new.data" :key="key">
+      <ol class="content-list" v-if="right.new">
+        <li v-for="(item, key) in right.new.data" :key="key">
           <router-link class="max-a" :to="{ name: 'article', params: { id: item.Id } }">{{ item.title }}</router-link>
         </li>
       </ol>
@@ -31,8 +31,8 @@
         <span>友情链接:</span>
         <router-link to="/other/friendship" class="right">更多</router-link>
       </span>
-      <ul class="content-list friendship" v-if="rightList.ship">
-        <li v-for="(item, key) in rightList.ship.data" :key="key">
+      <ul class="content-list friendship" v-if="right.ship">
+        <li v-for="(item, key) in right.ship.data" :key="key">
           <img :src="item.icon" :title="item.name + 'LOGO'">
           <a :href="item.web" target="_black">{{ item.name }}</a>
         </li>
@@ -43,11 +43,7 @@
 
 <script>
 export default {
-  data () {
-    return {
-      rightList: []
-    }
-  },
+  props: ['right'],
   computed: {
     user () {
       return this.$store.state.user || {

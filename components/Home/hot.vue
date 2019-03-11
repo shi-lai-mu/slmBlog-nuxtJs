@@ -84,6 +84,7 @@ export default {
     this.loading = false
     // 加载主文章数据
     this.loadMaster()
+    // console.log(this.$API.IP.uploadImg);
     // 订阅搜索
 //     this.observer.on('searchKeyWord', keyword => {
 //       this.$store.state.articleModel.keyword = keyword
