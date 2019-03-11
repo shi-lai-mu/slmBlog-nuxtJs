@@ -6,7 +6,7 @@ const IP = {
 }
 
 const handler = {
-  get (target,  key, receiver) {
+  get(target, key, receiver) {
     const value = Reflect.get(target, key, receiver);
     if (!value) throw Error(`Axios [${ key }] API not exist!`)
     return (!value.search || value.search('//') >= 0) ? value : IP.main + value
@@ -18,7 +18,7 @@ const API = {
   HOME_HOT: 'blog/hot',
   // 首页右侧
   HOME_RIGHT: 'blog/right',
-  
+
   /* IP 接口 */
   IP
 }

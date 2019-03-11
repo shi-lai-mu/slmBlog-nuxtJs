@@ -62,16 +62,8 @@ export default {
   data () {
     return {
       hotList: [],
-      searchArticle: `
-        <p>子服务器正在进行新域名备案中!!可能导致站内图片加载失败!首次加载巨慢...</p>
-        <p>后面几天博客将做成以下调整：</p>
-        <ol style="margin: 10px 0;">
-          <li>域名更改为: <a href="//slmblog.com">slmblog.com</a></li>
-          <li>HTTP升级为HTTPS</li>
-          <li>博客将保留前后端分离,改为服务端渲染!</li>
-        </ol>
-      `,
-      searchState: true,
+      searchArticle: '',
+      searchState: false,
       page: {
         all: 0,
         count: 0,
@@ -84,12 +76,14 @@ export default {
     this.loading = false
     // 加载主文章数据
     this.loadMaster()
-    // console.log(this.$API.IP.uploadImg);
     // 订阅搜索
 //     this.observer.on('searchKeyWord', keyword => {
 //       this.$store.state.articleModel.keyword = keyword
 //       this.loadMaster()
 //     })
+  },
+  beforeMount() {
+  	console.log(121311212121212121212121212);
   },
   methods: {
     /* 点击标签事件 */
@@ -105,14 +99,14 @@ export default {
         return
       }
       // 打开文章
-      if (dataset.article) {
-        this.$router.push({
-          name: 'article',
-          params: {
-            id: dataset.article
-          }
-        })
-      }
+//       if (dataset.article) {
+//         this.$router.push({
+//           name: 'article',
+//           params: {
+//             id: dataset.article
+//           }
+//         })
+//       }
     },
 
     /* 搜索文章 */

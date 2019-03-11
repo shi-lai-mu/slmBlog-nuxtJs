@@ -2,7 +2,7 @@
   <!-- 右侧 -->
   <aside class="content-aff-box">
     <div class="content-box blogger">
-      <img v-lazy="user.img" :alt="user.username">
+      <img :src="user.img" :alt="user.username">
       <p class="name" v-text="user.username"></p>
       <div class="select">
         <span v-if="isNaN(user.id)">
@@ -46,18 +46,12 @@ export default {
   props: ['right'],
   computed: {
     user () {
+      console.log(this.$store.state.user);
       return this.$store.state.user || {
         username: '史莱姆',
         img: '//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100'
       }
     }
-  },
-  created () {
-//     this.$axios
-//       .get('blog/right')
-//       .then(res => {
-//         this.rightList = res.data
-//       })
   }
 }
 </script>

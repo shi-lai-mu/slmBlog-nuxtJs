@@ -1,15 +1,18 @@
 <template>
-  <div class="boss">
+  <div class="boss" id="tbody" ref="tbody">
     <home-Header />
     <nuxt />
+    <home-footer />
   </div>
 </template>
 
 <script>
 import homeHeader from '~/components/layout/header'
+import homeFooter from '~/components/layout/footer'
 export default {
   components: {
-    homeHeader
+    homeHeader,
+    homeFooter
   },
   created () {
     console.log('-------------------------------------------------------------');
