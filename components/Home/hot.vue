@@ -83,7 +83,6 @@ export default {
 //     })
   },
   beforeMount() {
-  	console.log(121311212121212121212121212);
   },
   methods: {
     /* 点击标签事件 */

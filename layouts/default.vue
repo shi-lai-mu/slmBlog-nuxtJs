@@ -1,24 +1,21 @@
 <template>
   <div class="boss" id="tbody" ref="tbody">
-    <home-Header />
+    <main-background />
+    <main-Header />
     <nuxt />
-    <home-footer />
+    <main-footer />
   </div>
 </template>
 
 <script>
-import homeHeader from '~/components/layout/header'
-import homeFooter from '~/components/layout/footer'
+import mainHeader from '~/components/layout/header'
+import mainFooter from '~/components/layout/footer'
+import mainBackground from '~/components/layout/background'
 export default {
   components: {
-    homeHeader,
-    homeFooter
-  },
-  created () {
-    console.log('-------------------------------------------------------------');
-    this.$nextTick(function(){
-      console.dir(this.$el && this.$el.offsetWidth);
-    })
+    mainHeader,
+    mainFooter,
+    mainBackground
   }
 }
 </script>
