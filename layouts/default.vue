@@ -20,12 +20,6 @@ export default {
     mainFooter,
     mainBackground
   },
-  mounted () {
-    this.$nextTick(() => {
-      this.$nuxt.$loading.start()
-      setTimeout(() => this.$nuxt.$loading.finish(), 500)
-    })
-  },
   watch: {
     '$route' () {
       window.scrollTo(0, 0)

@@ -74,13 +74,7 @@ body {
     transform: translateY(25%) scale(1, .4);
   }
 }
-.master-screen-loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-.master-screen-loading .icon-slm-loading {
+.icon-slm-loading {
   font-size: 20rem;
   animation: slmdeg-loading 5s;
   animation-fill-mode: forwards;

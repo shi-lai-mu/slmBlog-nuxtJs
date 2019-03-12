@@ -36,7 +36,8 @@ module.exports = {
   */
   loading: {
     color: 'rgba(1, 188, 255, .7)',
-    height: '3px'
+    height: '3px',
+    failedColor: 'red'
   },
 
   /*

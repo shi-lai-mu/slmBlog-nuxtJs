@@ -30,21 +30,6 @@
           </div>
         </li>
       </ul>
-      <ul v-if="!hot.list.length">
-        <!-- 展示伪装 -->
-        <li v-for="i in 5" :key="i" class="article clearfix">
-          <div class="article-left">
-            <div class="no-black"></div>
-          </div>
-          <div class="article-right look-center">
-            <h3 class="no-black"></h3>
-            <p class="article-description no-black"></p>
-            <ul class="article-tag">
-              <li v-for="i in 5" :key="i" class="no-black"></li>
-            </ul>
-          </div>
-        </li>
-      </ul>
       <div class="page">
         <span class="page-num">
           <input onfocus="this.select()" v-model="page.num" @keyup.enter="pageSearch">/ {{ page.count }}

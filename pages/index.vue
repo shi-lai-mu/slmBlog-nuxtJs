@@ -158,26 +158,6 @@
             border: 1px solid #999;
           }
         }
-
-        // 骨架
-        .no-black {
-          min-width: 8rem;
-          margin: 10px 0;
-          background-color: #f1f1f1;
-          min-height: .5rem;
-          border-radius: 10px;
-        }
-
-        li.no-black {
-          min-width: 1rem;
-          height: 1rem;
-          border: 0;
-          background-color: #f1f1f1;
-        }
-
-        .look-center {
-          margin-top: 20px;
-        }
       }
     }
 
