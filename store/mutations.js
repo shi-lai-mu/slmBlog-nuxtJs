@@ -1,7 +1,13 @@
 export default {
-  SET_HOME_DATA (store, data) {
-    store.blog = data
-    console.log(store);
+  
+  // 设置首页文章模式
+  SET_ARTICLE_MODEL (store, data) {
+    store.articleModel = data
+  },
+
+  // 清空文章模式
+  CLEAR_ARTICLE_MODEL (store) {
+    store.articleModel = {}
   }
 }
 

@@ -3,7 +3,7 @@ import NuxtLoading from './components/nuxt-loading.vue'
 
 import '..\\static\\css\\public.less'
 
-import '..\\static\\css\\main.min.css'
+import '..\\static\\css\\icon.css'
 
 import _6f6c098b from '..\\layouts\\default.vue'
 

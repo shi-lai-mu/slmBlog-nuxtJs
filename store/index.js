@@ -16,8 +16,7 @@ const createStore = () => {
       // 是否为移动端[小屏幕]
       mobile: false,
       // 文章显示模式
-      articleModel: {},
-      blog: {}
+      articleModel: {}
     }),
     actions,
     mutations

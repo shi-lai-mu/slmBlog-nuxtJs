@@ -15,7 +15,7 @@
     <!-- 内容区域 -->
     <section class="content-box" @click="tagClick">
       <ul>
-        <li class="article clearfix ellipsis" v-for="(hot, index) in hot.list" :key="index" :data-article="hot.Id">
+        <li class="article clearfix ellipsis" v-for="(hot, index) in (hotList.list || hot.list)" :key="index" :data-article="hot.Id">
           <div class="article-left">
             <img :src="hot.img" alt="images">
           </div>
@@ -75,70 +75,48 @@ export default {
       }
     }
   },
+  watch: {
+    'hot' (data) {
+      console.log(data);
+    }
+  },
   created () {
     // 是否正在加载中
     this.loading = false
-    // 加载主文章数据
-    this.loadMaster()
-    // 订阅搜索
-//     this.observer.on('searchKeyWord', keyword => {
-//       this.$store.state.articleModel.keyword = keyword
-//       this.loadMaster()
-//     })
   },
   methods: {
     /* 点击标签事件 */
     tagClick (e) {
-      console.log('222222222222222222222222222');
       let dataset = e.target.dataset
-      let state = this.$store.state
 
       if (dataset.tag) {
         // 关键词搜索
-        state.articleModel.keyword = dataset.tag
-        this.loadMaster()
+        this.loadMaster(1, dataset.tag)
         window.scrollTo(0, 0)
         return
       }
       // 打开文章
       if (dataset.article) {
-        console.log(dataset);
-        console.log(this.$router);
         this.$router.push('article/' + dataset.article)
       }
     },
 
     /* 搜索文章 */
-    loadMaster (page = 1) {
-      let model = this.$store.state.articleModel
-      if (model.keyword) {
-        this.searchArticle = `正在显示标签包含 '${model.keyword}' 的文章...`
+    loadMaster (page = 1, keyword) {
+      let key = {}
+      const slef = this
+      if (keyword) {
+        slef.searchArticle = `正在显示标签包含 '${keyword}' 的文章...`
+        key = { page, keyword }
       }
-      if (model) model.page = page
-      // 热门内容
-//       this.$axios
-//         .get('blog/hot', model)
-//         .then(res => {
-//           const data = res.data
-//           if (data.all) {
-//             this.page = data
-//             this.hotList = data.list.map(index => {
-//               if (typeof index.type === 'string') {
-//                 index.type = index.type.split('#')
-//                 index.type.shift()
-//                 if (index.img.indexOf('//') === -1) {
-//                   index.img = `//slmblog.com/img/upload/${index.img}`
-//                 }
-//               }
-//               return index
-//             })
-//           } else {
-//             this.searchState = 'red'
-//             this.searchArticle = `抱歉, 未找到关于 '${model.keyword}' 的文章，请尝试换一个关键词...`
-//             this.$store.state.articleModel = false
-//             this.loadMaster()
-//           }
-//         })
+      slef.$store.dispatch('ARTICLE_MODEL', key)
+      slef.$axios
+        .api('HOME_HOT')
+        .get({ data: key })
+        .then(data => {
+          console.log(slef.hot);
+          slef.hotList = data
+        })
     },
 
     /* 文章跳转 */
@@ -155,10 +133,11 @@ export default {
 
     /* 清空文章模式 */
     clearModel () {
-      this.$store.state.articleModel = {}
-      this.searchArticle = null
-      this.searchState = !1
-      this.loadMaster()
+      const slef = this
+      slef.$store.commit('CLEAR_ARTICLE_MODEL')
+      slef.searchArticle = null
+      slef.searchState = !1
+      slef.hotList = []
     }
   }
 }

@@ -14,7 +14,6 @@
       </span>
       <span class="nowrap">
         <i class="iconfont icon-liaotian1" title="回复">{{ article.msg ? article.msg.all : '--' }}</i>
-        <!-- <i class="iconfont icon-liulan" title="浏览">{{ article.lookCount }}</i> -->
       </span>
     </h3>
     <ul class="notCon" v-if="notCon">

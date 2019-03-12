@@ -34,9 +34,6 @@ export default {
   },
   data () {
     return {
-//       article: {
-//         author: {}
-//       },
       notCon: false,
       editor: false
     }
@@ -50,7 +47,6 @@ export default {
       }
     }).get()
     return { article }
-    console.log(content);
 //       .then(res => {
 //         let data = res.data
 //         let user = slef.$store.state.user

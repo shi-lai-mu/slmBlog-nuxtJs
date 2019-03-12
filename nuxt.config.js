@@ -28,21 +28,23 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-      // { rel: 'stylesheet', href: '//slmblog.com/css/main.min.css' }
     ]
   },
 
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: {
+    color: 'rgba(1, 188, 255, .7)',
+    height: '3px'
+  },
 
   /*
   ** Global CSS
   */
   css: [
     { src: 'static/css/public.less' },
-    { src: 'static/css/main.min.css' }
+    { src: 'static/css/icon.css' }
   ],
 
   /*
@@ -58,7 +60,6 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios'
   ],
 
@@ -74,24 +75,11 @@ module.exports = {
     }
   },
 
-  /**
-   * loader configuration
-   */
-  // loader: [
-  //   {
-  //     test: /\.less$/,
-  //     loaders: 'style-loader!css-loader!less-loader'
-  //   }
-  // ],
-
   /*
   ** Build configuration
   */
   build: {
     extractCSS: true
-    /*
-    ** You can extend webpack config here
-    */
     // extend(config, ctx) {
     // }
   },

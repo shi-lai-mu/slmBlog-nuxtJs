@@ -1,4 +1,4 @@
-import '~/static/css/code.min.css'
+import '~/static/css/code.css'
 // import codeModel from './code-model'
 const codeModel = {
   javascript: {

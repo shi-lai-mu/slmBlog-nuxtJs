@@ -31,7 +31,7 @@ export default function ({ $axios, redirect }) {
         config.data = ''
       }
     }
-    console.log('API:  ' + config.url);
+    console.log('API:  ' + config.url, config);
   })
 
   /**
@@ -76,8 +76,11 @@ export default function ({ $axios, redirect }) {
       }
     }
     return {
-      get: (...res) => $axios.get(URL, ...[{ api },res]),
-      post: (...res) => $axios.post(URL, ...[{ api },res])
+      get: (res) => {
+        console.log({api, ...res});
+        return $axios.get(URL, {api, ...res})
+      },
+      post: (...res) => $axios.post(URL, ...[{ api }, ...res])
     }
   }
 }
