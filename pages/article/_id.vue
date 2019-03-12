@@ -27,6 +27,16 @@ import message from '~/components/artcile/message'
 import atrcileHeader from '~/components/artcile/header'
  
 export default {
+  head () {
+    const art = this.article
+    return {
+      title: art.title,
+      meta: [
+        { name: 'description', hid: 'description', itemprop: 'description', content: art.description },
+        { itemprop: 'image', hid: 'qqlogo', content: art.img ? art.img : '/QQLOGO.jpg' },
+      ]
+    }
+  },
   components: {
     right,
     message,
@@ -40,6 +50,7 @@ export default {
         id: route.params.id
       }
     }).get()
+    console.log(article);
     return { article }
   },
   methods: {
