@@ -14,6 +14,7 @@ import mainHeader from '~/components/layout/header'
 import mainFooter from '~/components/layout/footer'
 import mainBackground from '~/components/layout/background'
 export default {
+  scrollToTop: true,
   components: {
     mainHeader,
     mainFooter,
@@ -24,6 +25,11 @@ export default {
       this.$nuxt.$loading.start()
       setTimeout(() => this.$nuxt.$loading.finish(), 500)
     })
+  },
+  watch: {
+    '$route' () {
+      window.scrollTo(0, 0)
+    }
   }
 }
 </script>
@@ -35,6 +41,6 @@ export default {
 .test-enter, .test-leave-active {
   opacity: 0;
   -webkit-transform: translate(-50px, 0);
-  transform: translate(-50px, 0);
+          transform: translate(-50px, 0);
 }
 </style>
