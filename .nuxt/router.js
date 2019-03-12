@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 
 const _2bbe5b79 = () => interopDefault(import('..\\pages\\article\\index.vue' /* webpackChunkName: "pages_article_index" */))
+const _05c90094 = () => interopDefault(import('..\\pages\\other\\terms.vue' /* webpackChunkName: "pages_other_terms" */))
+const _0c15ab08 = () => interopDefault(import('..\\pages\\other\\thisSite.vue' /* webpackChunkName: "pages_other_thisSite" */))
 const _3beee821 = () => interopDefault(import('..\\pages\\article\\_id.vue' /* webpackChunkName: "pages_article__id" */))
 const _119e3985 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 
@@ -70,6 +72,14 @@ export function createRouter() {
       path: "/article",
       component: _2bbe5b79,
       name: "article"
+    }, {
+      path: "/other/terms",
+      component: _05c90094,
+      name: "other-terms"
+    }, {
+      path: "/other/thisSite",
+      component: _0c15ab08,
+      name: "other-thisSite"
     }, {
       path: "/article/:id",
       component: _3beee821,

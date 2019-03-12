@@ -75,11 +75,6 @@ export default {
       }
     }
   },
-  watch: {
-    'hot' (data) {
-      console.log(data);
-    }
-  },
   created () {
     // 是否正在加载中
     this.loading = false
