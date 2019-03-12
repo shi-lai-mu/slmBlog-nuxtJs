@@ -1,22 +1,22 @@
 <template>
-  <tbody class="conter article-box">
-    <section :class="['content-box', 'article-index', { 'nick': article['title'] }, 'notContent']">
+  <section class="conter article-box">
+    <article :class="['content-box', 'article-index', { 'nick': article['title'] }, 'notContent']">
 
         <!-- 头部信息 -->
         <atrcile-header :article="article" :unTime="unTime" :editor="editor" :notCon="notCon"></atrcile-header>
 
         <!-- 内容 -->
-        <tbody class="article-body">
-          <img class="article-img" :src="article.img" :alt="article.title + '文章封面'" v-if="article.img !== 'null'">
+        <div class="article-body">
+          <img class="article-img" :alt="article.title + '文章封面'" :src="article.img" v-if="article.img !== 'null'">
           <div v-html="article.content" ref="content"></div>
-        </tbody>
+        </div>
 
         <!-- 尾部 -->
         <message :article="article" :unTime="unTime"></message>
 
-    </section>
+    </article>
     <right :article="article" ref="artRight"></right>
-  </tbody>
+  </section>
 </template>
 
 <script>
@@ -37,13 +37,12 @@ export default {
 //       article: {
 //         author: {}
 //       },
-      notCon: true,
+      notCon: false,
       editor: false
     }
   },
   async asyncData ({ $axios, route }) {
     // 请求文章内容
-    // 'http://127.0.0.1:8080/article/' + route.params.id
     const article = await $axios.api({
       key: 'ARTCILE_CONTENT',
       data: {
@@ -131,7 +130,7 @@ export default {
       opacity: 0;
     }
 
-    tbody.article-body {
+    article.article-body {
       margin-bottom: 50px;
       border-bottom: 1px solid #ccc;
     }

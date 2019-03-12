@@ -193,6 +193,10 @@
       font-size: 20px;
       font-weight: 600;
       line-height: 32px;
+      h3 {
+        display: inline-block;
+        margin: 0;
+      }
     }
   }
 </style>

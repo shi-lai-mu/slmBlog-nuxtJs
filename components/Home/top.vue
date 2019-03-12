@@ -2,7 +2,7 @@
   <section v-show="notice.length">
     <div class="article-box-tag">
       <i class="iconfont icon-gonggao"></i>
-      <span>博客公告</span>
+      <h3>博客公告</h3>
     </div>
     <ul class="content-box notice">
       <li v-for="(item, index) in notice" :key="index">{{ item.description }}</li>

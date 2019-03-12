@@ -2,7 +2,9 @@
   <div class="boss" id="tbody" ref="tbody">
     <main-background />
     <main-Header />
-    <nuxt />
+    <transition name="test">
+      <nuxt />
+    </transition>
     <main-footer />
   </div>
 </template>
@@ -19,3 +21,14 @@ export default {
   }
 }
 </script>
+
+<style lang="less">
+.test-enter-active, .test-leave-active {
+  transition: 1s;
+}
+.test-enter, .test-leave-active {
+  opacity: 0;
+  -webkit-transform: translate(-50px, 0);
+  transform: translate(-50px, 0);
+}
+</style>

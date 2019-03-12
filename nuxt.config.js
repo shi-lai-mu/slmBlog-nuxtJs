@@ -49,8 +49,6 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    // { src: 'vue-lazyload.js', ssr: false },
-    // { src: '~/plugins/observer', ssr: false },
     { src: '~/plugins/axios' },
     { src: '~/store/API', ssr: false },
     { src: '~/plugins/events', ssr: false }
@@ -90,10 +88,15 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    extractCSS: true
     /*
     ** You can extend webpack config here
     */
     // extend(config, ctx) {
     // }
+  },
+  
+  performance: {
+    prefetch: false
   }
 }

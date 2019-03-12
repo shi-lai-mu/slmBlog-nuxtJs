@@ -1,6 +1,7 @@
 <template>
-  <!-- 右侧 -->
   <aside class="content-aff-box">
+
+    <!-- 右侧 -->
     <div class="content-box blogger">
       <img :src="user.img" :alt="user.username">
       <p class="name" v-text="user.username"></p>
@@ -38,6 +39,7 @@
         </li>
       </ul>
     </aside>
+
   </aside>
 </template>
 
@@ -46,7 +48,6 @@ export default {
   props: ['right'],
   computed: {
     user () {
-      // console.log(this.$store.state.user);
       return this.$store.state.user || {
         username: '史莱姆',
         img: '//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100'

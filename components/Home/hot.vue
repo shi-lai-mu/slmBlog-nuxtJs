@@ -1,14 +1,17 @@
 <template>
   <section>
+
     <div class="article-box-tag">
       <i class="iconfont icon-hot"></i>
-      <span>热门文章</span>
+      <h3>热门文章</h3>
     </div>
+
     <!-- 提示框 -->
     <span :class="['content-box', { searchArticle }, { 'input-red': searchState }, 'article-input']">
       <span v-html="searchArticle"></span>
       <i class="iconfont icon-wrong" @click="clearModel"></i>
     </span>
+
     <!-- 内容区域 -->
     <section class="content-box" @click="tagClick">
       <ul>
@@ -52,6 +55,7 @@
         </span>
       </div>
     </section>
+
   </section>
 </template>
 
@@ -99,12 +103,8 @@ export default {
       // 打开文章
       if (dataset.article) {
         console.log(dataset);
-        this.$router.push({
-          name: 'article',
-          params: {
-            id: dataset.article
-          }
-        })
+        console.log(this.$router);
+        this.$router.push('article/' + dataset.article)
       }
     },
 

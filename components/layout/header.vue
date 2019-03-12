@@ -2,7 +2,7 @@
   <header :class="['header-nav', { 'header-hide': headerHide }]">
     <div class="conter">
       <h1 class="LOGO">
-        <router-link to="/" class="max-a"></router-link>
+        <nuxt-link :to="{ name: 'index' }" class="max-a"></nuxt-link>
       </h1>
       <!-- 移动端按钮 -->
       <span class="menu-touch" @click="toggleMneu">
