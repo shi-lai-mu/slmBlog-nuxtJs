@@ -18,6 +18,16 @@
 
     <aside class="content-box">
       <span class="content-tag">
+        <span>博客公告:</span>
+        <p class="content-desc">
+          <i class="iconfont icon-gonggao"></i>
+          {{ right.notice.description }}
+        </p>
+      </span>
+    </aside>
+
+    <aside class="content-box">
+      <span class="content-tag">
         <span>最新文章:</span>
       </span>
       <ol class="content-list" v-if="right.new">
@@ -48,10 +58,7 @@ export default {
   props: ['right'],
   computed: {
     user () {
-      return this.$store.state.user || {
-        username: '史莱姆',
-        img: '//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100'
-      }
+      return this.$store.state.user
     }
   }
 }
@@ -65,13 +72,22 @@ export default {
 
     .content-tag {
       position: relative;
-      margin: 10px;
       font-size: 1.2rem;
       color: #666;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
 
       .right {
         font-size: 1rem;
         color: #ccc;
+      }
+      .icon-gonggao,
+      .content-desc {
+        margin: 5px;
+        color: #888;
+        font-size: .9rem;
       }
 
       &::before {
@@ -79,7 +95,7 @@ export default {
         position: absolute;
         width: 5px;
         height: 100%;
-        margin-left: -20px;
+        margin-left: -10px;
         border-radius: 0 5px 5px 0;
         background-color: #83e1f7;
       }

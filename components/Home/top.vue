@@ -37,6 +37,10 @@ export default {
       border-top: 0;
     }
 
+    &:hover {
+      background-color: rgba(0, 0, 0, .01);
+    }
+
     .description {
       display: inline-block;
       width: 50%;

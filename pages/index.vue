@@ -23,10 +23,10 @@
           right: await $axios.api('HOME_RIGHT').get(),
           top: await $axios.api('HOME_TOP').get()
         }
-        console.log(data);
       } catch (e) {
         throw Error('首页数据请求失败: ' + e)
       }
+      console.log(data);
       return data
     },
     components: {
