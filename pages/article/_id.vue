@@ -2,8 +2,9 @@
   <section class="conter article-box">
     <article class="content-box article-index">
 
+        <!--  :editor="editor" -->
         <!-- 头部信息 -->
-        <atrcile-header :article="article" :unTime="unTime" :editor="editor" :notCon="notCon"></atrcile-header>
+        <atrcile-header :article="article" :unTime="unTime"></atrcile-header>
 
         <!-- 内容 -->
         <div class="article-body">

@@ -16,5 +16,12 @@ export default {
       }
     }
     return data
+  },
+
+  // 文章内容
+  ARTCILE_CONTENT (data) {
+    data.type = data.type.split('#')
+    data.type.shift()
+    return data
   }
 }

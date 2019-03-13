@@ -13,8 +13,8 @@
           }"
           class="max-a"
         >
-        {{ item.title }}
-        <span class="description ellipsis">[ {{ item.description }} ]</span>
+          {{ item.title }}
+          <span class="description ellipsis">[ {{ item.description }} ]</span>
         </nuxt-link>
       </li>
     </ul>

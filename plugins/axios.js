@@ -41,7 +41,7 @@ export default function ({ $axios, redirect }) {
     let { data } = res
 
     // 根据API 对数据进行处理
-    const api = res.config.api
+    let api = res.config.api
     if (api && dataParse[api]) {
       data = dataParse[api](data)
     }
@@ -74,6 +74,7 @@ export default function ({ $axios, redirect }) {
       for (const key in api.data) {
         URL = URL.replace(`:${key}`, api.data[key])
       }
+      api = api.key
     }
     return {
       get: res => $axios.get(URL, {api, ...res}),

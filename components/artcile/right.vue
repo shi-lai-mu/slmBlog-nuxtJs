@@ -15,7 +15,12 @@
     <div class="article-right-box clearfix">
       <label class="article-right-title">标签</label>
       <ul class="article-right-tag">
-        <li v-for="(item, index) in article.type" :key="index" v-text="item" @click="searchKeyWord(item)"></li>
+        <li
+          v-for="(item, index) in article.type"
+          :key="index"
+          v-text="item"
+          @click="searchKeyWord(item)"
+        ></li>
       </ul>
     </div>
     <!-- 导航树 -->
