@@ -20,7 +20,8 @@ const API = {
   // 首页 热门 右侧
   HOME_HOT: 'blog/hot',
   HOME_RIGHT: 'blog/right',
-  NOTICE: 'blog/special/1?tag=公告',
+  HOME_NOTICE: 'blog/special/1?tag=公告',
+  HOME_TOP: 'blog/special/1?tag=置顶',
   
   // 文章 内容
   ARTCILE_CONTENT: 'article/:id',

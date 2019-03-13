@@ -1,23 +1,49 @@
 <template>
-  <section v-show="notice.length">
+  <section v-show="top.length">
     <div class="article-box-tag">
       <i class="iconfont icon-zhiding"></i>
-      <h3>博客公告</h3>
+      <h3>置顶区域</h3>
     </div>
-    <ul class="content-box notice">
-      <li v-for="(item, index) in notice" :key="index">{{ item.description }}</li>
+    <ul class="content-box top">
+      <li v-for="(item, index) in top" :key="index">
+        <nuxt-link
+          :to="{
+            name: 'article-id',
+            params: { id: item.Id }
+          }"
+          class="max-a"
+        >
+        {{ item.title }}
+        <span class="description ellipsis">[ {{ item.description }} ]</span>
+        </nuxt-link>
+      </li>
     </ul>
   </section>
 </template>
 
 <script>
 export default {
-  props: ['notice']
+  props: ['top']
 }
 </script>
 
 <style lang="less">
-.home .notice li {
-  padding: 5px 10px;
+.home .top {
+  li {
+    padding: 10px;
+    border-top: 1px solid #eee;
+
+    &:not(:last-child) {
+      border-top: 0;
+    }
+
+    .description {
+      display: inline-block;
+      width: 50%;
+      margin-left: 20px;
+      vertical-align: sub;
+      color: #ccc;
+    }
+  }
 }
 </style>

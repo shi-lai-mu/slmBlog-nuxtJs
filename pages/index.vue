@@ -1,7 +1,7 @@
 <template>
   <div class="conter content-row clearfix home">
     <div class="article-list">
-      <home-top :notice="notice"></home-top>
+      <home-top :top="top"></home-top>
       <home-hot :hot="hot" />
     </div>
     <home-right :right="right"/>
@@ -21,7 +21,7 @@
         data = {
           hot: await $axios.api('HOME_HOT').get(),
           right: await $axios.api('HOME_RIGHT').get(),
-          notice: await $axios.api('NOTICE').get()
+          top: await $axios.api('HOME_TOP').get()
         }
         console.log(data);
       } catch (e) {
