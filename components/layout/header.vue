@@ -33,8 +33,6 @@
 
         </ul>
       </nav>
-      <!-- 额外按钮 -->
-      <!-- <span class="button-lv1 message">留言板</span> -->
       <!-- 右侧内容 -->
       <span class="header-right">
         <span class="search-box">
@@ -218,7 +216,7 @@ export default {
 
     /* 搜索关键词 */
     searchKeyWord (e) {
-      this.$connecter.$emit('searchKeyWord', e.target.value)
+      this.observer.emit('searchKeyWord', e.target.value)
       e.target.value = ''
       e.target.blur()
     }

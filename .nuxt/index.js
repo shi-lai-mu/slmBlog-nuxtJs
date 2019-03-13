@@ -15,6 +15,7 @@ import nuxt_plugin_axios_7e957c76 from 'nuxt_plugin_axios_7e957c76' // Source: .
 import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ..\\plugins\\axios (mode: 'all')
 import nuxt_plugin_API_00ed39c5 from 'nuxt_plugin_API_00ed39c5' // Source: ..\\store\\API (mode: 'client')
 import nuxt_plugin_events_6a03e7e2 from 'nuxt_plugin_events_6a03e7e2' // Source: ..\\plugins\\events (mode: 'client')
+import nuxt_plugin_observer_07de984c from 'nuxt_plugin_observer_07de984c' // Source: ..\\plugins\\observer (mode: 'client')
 
 // Component: <NoSsr>
 Vue.component(NoSsr.name, NoSsr)
@@ -159,6 +160,7 @@ async function createApp(ssrContext) {
   if (process.client) {
     if (typeof nuxt_plugin_API_00ed39c5 === 'function') await nuxt_plugin_API_00ed39c5(app.context, inject)
     if (typeof nuxt_plugin_events_6a03e7e2 === 'function') await nuxt_plugin_events_6a03e7e2(app.context, inject)
+    if (typeof nuxt_plugin_observer_07de984c === 'function') await nuxt_plugin_observer_07de984c(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first

@@ -60,9 +60,8 @@ export default {
       }
     }
   },
-  created () {
-    // 是否正在加载中
-    this.loading = false
+  mounted () {
+    this.observer.on('searchKeyWord', this.loadMaster)
   },
   methods: {
     /* 点击标签事件 */
@@ -71,7 +70,7 @@ export default {
 
       // 关键词搜索
       if (dataset.tag) {
-        this.loadMaster(1, dataset.tag)
+        this.loadMaster(dataset.tag)
         window.scrollTo(0, 0)
         return
       }
@@ -83,7 +82,7 @@ export default {
     },
 
     /* 搜索文章 */
-    loadMaster (page = 1, keyword) {
+    loadMaster (keyword, page = 1) {
       let key = {}
       const slef = this
       if (keyword) {
