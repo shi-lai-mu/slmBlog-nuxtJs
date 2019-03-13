@@ -5,7 +5,7 @@
       <ul class="tourists" v-if="!user">
         <li><label>昵称：</label><input type="text" v-model="username"></li>
       </ul>
-      <!-- <Editor class="editor" ref="editor" model="send"></Editor> -->
+      <Editor class="editor" ref="editor" model="send"></Editor>
       <button class="button-lv0 send" @click="send">留言</button>
     </div>
 
@@ -34,12 +34,12 @@
 </template>
 
 <script>
-// import Editor from '@pub/vue/Editor'
+import Editor from '~/plugins/Editor'
 export default {
   props: ['article', 'unTime'],
-//   components: {
-//     Editor
-//   },
+  components: {
+    Editor
+  },
   computed: {
     user () {
       return this.$store.state.user
