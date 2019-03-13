@@ -23,8 +23,8 @@ module.exports = {
       { name: 'robots', content: 'all' },
       { name: 'Copyright', content: 'slmblog.com' },
       { name: 'theme-color', content: '#fff' },
-      { name: 'baidu-site-verification', content: 'Zl2SY1gIKO' },
-      { name: 'google-site-verification', content: 'ego0URbKF1gcgY61F36Z1jMzo-zRQbCSnlm2qKbOyCY' }
+      { name: 'baidu-site-verification', content: 'y5VuyW34xO' },
+      { name: 'google-site-verification', content: 'LsmBI4ZEP2h0Ni17kTFRG7A_kKO7zONt51w_GYjM2Gs' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -69,7 +69,7 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: '//127.0.0.1:8080',
+    baseURL: 'https://slmblog.com/api/',
     timeout: 15000,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'

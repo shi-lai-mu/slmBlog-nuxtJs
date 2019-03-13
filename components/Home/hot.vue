@@ -69,12 +69,13 @@ export default {
     tagClick (e) {
       let dataset = e.target.dataset
 
+      // 关键词搜索
       if (dataset.tag) {
-        // 关键词搜索
         this.loadMaster(1, dataset.tag)
         window.scrollTo(0, 0)
         return
       }
+
       // 打开文章
       if (dataset.article) {
         this.$router.push('article/' + dataset.article)

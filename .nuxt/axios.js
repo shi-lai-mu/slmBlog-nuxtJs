@@ -106,8 +106,8 @@ const setupProgress = (axios, ctx) => {
 export default (ctx, inject) => {
   // baseURL
   const baseURL = process.browser
-      ? '//127.0.0.1:8080'
-      : (process.env._AXIOS_BASE_URL_ || '//127.0.0.1:8080')
+      ? 'https://slmblog.com/api/'
+      : (process.env._AXIOS_BASE_URL_ || 'https://slmblog.com/api/')
 
   // Create fresh objects for all default header scopes
   // Axios creates only one which is shared across SSR requests!

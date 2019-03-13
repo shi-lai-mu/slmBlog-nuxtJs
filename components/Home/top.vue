@@ -12,21 +12,7 @@
 
 <script>
 export default {
-  data () {
-    return {
-      notice: []
-    }
-  },
-  created () {
-    // this.$axios.get('blog/special/1', {
-    //   data: {
-    //     tag: '公告'
-    //   }
-    // }).then(res => {
-    //   // console.log(res)
-    //   this.notice = res.data
-    // })
-  }
+  props: ['notice']
 }
 </script>
 

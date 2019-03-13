@@ -1,7 +1,7 @@
 <template>
   <div class="conter content-row clearfix home">
     <div class="article-list">
-      <home-top></home-top>
+      <home-top :notice="notice"></home-top>
       <home-hot :hot="hot" />
     </div>
     <home-right :right="right"/>
@@ -20,8 +20,10 @@
       try {
         data = {
           hot: await $axios.api('HOME_HOT').get(),
-          right: await $axios.api('HOME_RIGHT').get()
+          right: await $axios.api('HOME_RIGHT').get(),
+          notice: await $axios.api('NOTICE').get()
         }
+        console.log(data);
       } catch (e) {
         throw Error('首页数据请求失败: ' + e)
       }
@@ -36,7 +38,7 @@
 </script>
 
 <style lang="less">
-  @ip: '//res.mczyzy.cn/img';
+  @ip: '/img';
 
   .home {
     margin-bottom: 40px;

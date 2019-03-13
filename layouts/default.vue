@@ -15,14 +15,29 @@ import mainFooter from '~/components/layout/footer'
 import mainBackground from '~/components/layout/background'
 export default {
   scrollToTop: true,
+  head: {
+    title: '史莱姆的博客'
+  },
   components: {
     mainHeader,
     mainFooter,
     mainBackground
   },
   watch: {
-    '$route' () {
+    '$route' (to, from) {
       window.scrollTo(0, 0)
+      this.baiduPush()
+    }
+  },
+  mounted () {
+    this.baiduPush()
+  },
+  methods: {
+    baiduPush () {
+      const bp = document.createElement('script')
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+      let s = document.getElementsByTagName('script')[0]
+      s.parentNode.insertBefore(bp, s)
     }
   }
 }

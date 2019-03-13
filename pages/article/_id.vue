@@ -50,7 +50,6 @@ export default {
         id: route.params.id
       }
     }).get()
-    console.log(article);
     return { article }
   },
   methods: {
