@@ -1,7 +1,7 @@
 <template>
   <section v-show="notice.length">
     <div class="article-box-tag">
-      <i class="iconfont icon-gonggao"></i>
+      <i class="iconfont icon-zhiding"></i>
       <h3>博客公告</h3>
     </div>
     <ul class="content-box notice">
