@@ -26,7 +26,6 @@
       } catch (e) {
         throw Error('首页数据请求失败: ' + e)
       }
-      console.log(data);
       return data
     },
     components: {

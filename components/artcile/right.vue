@@ -26,10 +26,10 @@
     <!-- 导航树 -->
     <div :class="['article-right-box', 'clearfix', { 'article-right-fixed': navTreeFiy }]" ref="navTree">
         <label class="article-right-title">导航</label>
-        <ul class="article-right-tree" v-if="article.tree" @click="treeMove">
+        <ul class="article-right-tree" v-if="tree.length" @click="treeMove">
 
           <li
-            v-for="(item, index) in article.tree"
+            v-for="(item, index) in tree"
             :key="index"
             :class="[{ focus: lookParent == index }]"
             :data-move="index"
@@ -65,17 +65,12 @@ export default {
       lookParent: '0',
       lookTree: '0',
       treeList: [],
+      tree: [],
       navTree: {},
       navTreeFiy: false
     }
   },
-  beforeMount () {
-    this.$nextTick(() => {
-      navTreeTop = this.$refs.navTree.offsetTop
-    })
-  },
-  watch: {
-    'article' () {
+  mounted () {
       let data = this.article
       // 导航树
       if (!data.tree) {
@@ -110,14 +105,15 @@ export default {
             }
             html = html.replace(h2[i], `<div class="${className}">${h2[i]}</div>`)
           }
-          data.tree = tree
+          this.tree = tree
           data.content = html
         }
       }
       // 滚动监听
-      data.tree && window.addEventListener('scroll', this.scroll)
-      this.article = data
-    }
+      this.tree.length && window.addEventListener('scroll', this.scroll)
+    this.$nextTick(() => {
+      navTreeTop = this.$refs.navTree.offsetTop
+    })
   },
   methods: {
     /* 搜索关键词 */

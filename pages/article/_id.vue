@@ -53,6 +53,11 @@ export default {
     }).get()
     return { article }
   },
+  mounted () {
+    this.$nextTick(() => {
+      Code.parse(this.$refs.content)
+    })
+  },
   methods: {
     unTime: time => form('yyyy-MM-dd HH:mm:ss', time * 1000)
   }
