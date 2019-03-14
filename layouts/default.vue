@@ -6,6 +6,7 @@
       <nuxt />
     </transition>
     <main-footer />
+    <music />
   </div>
 </template>
 
@@ -13,6 +14,7 @@
 import mainHeader from '~/components/layout/header'
 import mainFooter from '~/components/layout/footer'
 import mainBackground from '~/components/layout/background'
+import music from '~/components/music/index'
 export default {
   scrollToTop: true,
   head: {
@@ -21,7 +23,8 @@ export default {
   components: {
     mainHeader,
     mainFooter,
-    mainBackground
+    mainBackground,
+    music
   },
   watch: {
     '$route' (to, from) {
