@@ -32,7 +32,7 @@
       </span>
       <ol class="content-list" v-if="right.new">
         <li v-for="(item, key) in right.new.data" :key="key">
-          <router-link class="max-a" :to="{ name: 'article', params: { id: item.Id } }">{{ item.title }}</router-link>
+          <router-link class="max-a" :to="{ name: 'article-id', params: { id: item.Id } }">{{ item.title }}</router-link>
         </li>
       </ol>
     </aside>
