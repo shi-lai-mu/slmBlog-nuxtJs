@@ -79,29 +79,29 @@ export default {
   created () {
     this.$nextTick(() => {
       // 失焦事件[移动端]
-      //       this.$store.state.mobile && window.addEventListener('click', e => {
-      //         if (this.menuState && !this.$el.contains(e.target)) {
-      //           this.toggleMneu()
-      //         }
-      //       })
-      //       // 向下滚动时收起顶部[pc端]
-      //       let scrollTop = 0
-      //       let lastInter = null
-      //       if (!this.$store.state.mobile) {
-      //         window.addEventListener('scroll', () => {
-      //           clearTimeout(lastInter)
-      //           lastInter = setTimeout(() => {
-      //             const scroll = window.scrollY
-      //             this.headerHide = scrollTop < scroll
-      //             scrollTop = scroll
-      //           }, 100)
-      //         })
-      //       }
-      //       // 观察登录状态
-      //       this.$connecter.$on('user', data => {
-      //         this.user = data
-      //         this.updateRouter()
-      //       })
+      this.$store.state.mobile && window.addEventListener('click', e => {
+        if (this.menuState && !this.$el.contains(e.target)) {
+          this.toggleMneu()
+        }
+      })
+      // 向下滚动时收起顶部[pc端]
+      let scrollTop = 0
+      let lastInter = null
+      if (!this.$store.state.mobile) {
+        window.addEventListener('scroll', () => {
+          clearTimeout(lastInter)
+          lastInter = setTimeout(() => {
+            const scroll = window.scrollY
+            this.headerHide = scrollTop < scroll
+            scrollTop = scroll
+          }, 100)
+        })
+      }
+      // 观察登录状态
+      // this.$connecter.$on('user', data => {
+      //   this.user = data
+      //   this.updateRouter()
+      // })
       this.updateRouter()
     })
   },
@@ -186,7 +186,11 @@ export default {
       } else this.menuState = !this.menuState
 
       if (this.$store.state.mobile) {
-        window.tbody.className = this.menuState ? 'min-screen-left' : ''
+        console.log(this.observer.is('body'))
+        this.observer.emit('body', {
+          key: 'className',
+          value: this.menuState ? 'min-screen-left' : ''
+        })
       }
       return this.menuState
     },
@@ -407,6 +411,8 @@ export default {
 
     // 闭合状态
     &.close {
+      -webkit-transition: .5s .1s;
+      transition: .5s .1s;
       background-color: transparent;
 
       &::after{
@@ -436,8 +442,6 @@ export default {
             box-shadow: var(--box-shadow);
     -webkit-transform: translateY(60px) translateX(-100%);
             transform: translateY(60px) translateX(-100%);
-    -webkit-transition: .5s;
-            transition: .5s;
 
     .header-menu-list {
       & > li {

@@ -18,5 +18,10 @@ Vue.prototype.observer = {
     for (let i = 0, len = taskList.length; i < len; i++) {
       taskList[i](val)
     }
+  },
+
+  // 是否订阅
+  is(key) {
+    return !!list[key]
   }
- }
+}

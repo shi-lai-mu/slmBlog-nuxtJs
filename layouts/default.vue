@@ -1,5 +1,5 @@
 <template>
-  <div class="boss" id="tbody" ref="tbody">
+  <div class="boss" ref="body">
     <main-background />
     <main-Header />
     <transition name="test">
@@ -43,6 +43,10 @@ export default {
       slef.$store.dispatch('IS_MOBILE', window.innerWidth)
     }
     resize()
+    // refs.body 订阅
+    this.observer.on('body', option => {
+      this.$refs.body.className = option.value ? option.value : 'boss'
+    })
   },
   methods: {
     baiduPush () {
@@ -63,5 +67,14 @@ export default {
   opacity: 0;
   -webkit-transform: translate(-50px, 0);
           transform: translate(-50px, 0);
+}
+.boss {
+  transition: 1s;
+}
+.min-screen-left > .conter {
+  transform: translateX(50vw);
+  opacity: .7;
+  filter: blur(1px);
+  transition: .5s;
 }
 </style>
