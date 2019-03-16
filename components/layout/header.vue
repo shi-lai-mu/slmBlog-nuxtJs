@@ -76,7 +76,7 @@ export default {
     }
   },
 
-  created () {
+  mounted () {
     this.$nextTick(() => {
       // 失焦事件[移动端]
       this.$store.state.mobile && window.addEventListener('click', e => {

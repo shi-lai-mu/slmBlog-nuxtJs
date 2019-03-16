@@ -24,8 +24,8 @@
       </ul>
     </div>
     <!-- 导航树 -->
-    <div :class="['article-right-box', 'clearfix', { 'article-right-fixed': navTreeFiy }]" ref="navTree">
-        <label class="article-right-title">导航</label>
+    <div :class="['article-right-box', 'clearfix', { 'article-right-fixed': navTreeFly }]" ref="navTree">
+        <label class="article-right-title">目录</label>
         <ul class="article-right-tree" v-if="tree.length" @click="treeMove">
 
           <li
@@ -67,50 +67,50 @@ export default {
       treeList: [],
       tree: [],
       navTree: {},
-      navTreeFiy: false
+      navTreeFly: false
     }
   },
   mounted () {
-      let data = this.article
-      // 导航树
-      if (!data.tree) {
-        let h2 = data.content.match(/<(h2|blockquote)[^>]*>.*?<\/(h2|blockquote)>/ig)
-        if (h2) {
-          let tree = []
-          // 建立树 添加导航点
-          let html = data.content
-          for (let i = 0, len = h2.length; i < len; i++) {
-            const content = h2[i].replace(/(<(\/)?\w+[^>]*>|:|：)/g, '')
-            // 添加根
-            let className = 'move-'
-            if (h2[i].search('h2') > -1) {
-              className += tree.push({ tag: content }) - 1
-            } else {
-              let parent = i - 1
-              // 找到父节点
-              while (!tree[parent] && parent > 0) {
-                parent--
-              }
-              if (!tree[parent] && parent === -1) {
-                tree[0] = {
-                  tag: data.title
-                }
-                parent = 0
-              }
-              // 添加叶节点
-              if (!tree[parent].sub) {
-                tree[parent].sub = []
-              }
-              className += parent + '-' + tree[parent].sub.push(content)
+    let data = this.article
+    // 导航树
+    if (!data.tree) {
+      let h2 = data.content.match(/<(h2|blockquote)[^>]*>.*?<\/(h2|blockquote)>/ig)
+      if (h2) {
+        let tree = []
+        // 建立树 添加导航点
+        let html = data.content
+        for (let i = 0, len = h2.length; i < len; i++) {
+          const content = h2[i].replace(/(<(\/)?\w+[^>]*>|:|：)/g, '')
+          // 添加根
+          let className = 'move-'
+          if (h2[i].search('h2') > -1) {
+            className += tree.push({ tag: content }) - 1
+          } else {
+            let parent = i - 1
+            // 找到父节点
+            while (!tree[parent] && parent > 0) {
+              parent--
             }
-            html = html.replace(h2[i], `<div class="${className}">${h2[i]}</div>`)
+            if (!tree[parent] && parent === -1) {
+              tree[0] = {
+                tag: data.title
+              }
+              parent = 0
+            }
+            // 添加叶节点
+            if (!tree[parent].sub) {
+              tree[parent].sub = []
+            }
+            className += parent + '-' + tree[parent].sub.push(content)
           }
-          this.tree = tree
-          data.content = html
+          html = html.replace(h2[i], `<div class="${className}">${h2[i]}</div>`)
         }
+        this.tree = tree
+        data.content = html
       }
-      // 滚动监听
-      this.tree.length && window.addEventListener('scroll', this.scroll)
+    }
+    // 滚动监听
+    // this.tree.length && window.addEventListener('scroll', this.scroll)
     this.$nextTick(() => {
       navTreeTop = this.$refs.navTree.offsetTop
     })
@@ -140,10 +140,10 @@ export default {
             this.lookParent = element.parent
           }
         }
-        if (navTreeTop + 80 < window.scrollY && !this.navTreeFiy) {
-          this.navTreeFiy = !0
-        } else if (navTreeTop + 80 > window.scrollY && this.navTreeFiy) {
-          this.navTreeFiy = !1
+        if (navTreeTop + 80 < window.scrollY && !this.navTreeFly) {
+          this.navTreeFly = !0
+        } else if (navTreeTop + 80 > window.scrollY && this.navTreeFly) {
+          this.navTreeFly = !1
         }
       }
     },
@@ -219,25 +219,6 @@ export default {
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
-
-    // 作者
-    // .user-info {
-    //   display: flex;
-    //   margin-top: 10px;
-    //   padding: 10px 0;
-    //   border: 1px solid #eee;
-    //   border-radius: 10px;
-    //   align-items: center;
-
-    //   .user-icon {
-    //     height: 50px;
-    //     margin-right: 10px;
-    //   }
-    //   .user-name {
-    //     font-size: 1.1rem;
-    //     font-weight: 500;
-    //   }
-    // }
 
     // 二分
     .binary {

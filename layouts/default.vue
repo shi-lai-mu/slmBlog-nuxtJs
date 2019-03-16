@@ -43,6 +43,7 @@ export default {
       slef.$store.dispatch('IS_MOBILE', window.innerWidth)
     }
     resize()
+
     // refs.body 订阅
     this.observer.on('body', option => {
       this.$refs.body.className = option.value ? option.value : 'boss'

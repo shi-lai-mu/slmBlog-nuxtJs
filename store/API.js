@@ -25,6 +25,9 @@ const API = {
   
   // 文章 内容
   ARTCILE_CONTENT: 'article/:id',
+
+  // 友情链接
+  FIRENDSHIP: 'blog/friendship',
   
   /* IP 接口 */
   IP
