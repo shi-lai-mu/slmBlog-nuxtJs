@@ -54,7 +54,6 @@ module.exports = {
   plugins: [
     { src: '~/plugins/axios' },
     { src: '~/store/API', ssr: false },
-    { src: '~/plugins/events', ssr: false },
     { src: '~/plugins/observer', ssr: false }
   ],
 

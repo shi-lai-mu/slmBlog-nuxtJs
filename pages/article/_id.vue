@@ -115,8 +115,7 @@ export default {
       margin: 0 auto 20px;
       padding-bottom: 30px;
       font-size: 1.2rem;
-      opacity: .2;
-      transform: translateY(200px);
+      transform: translateY(100px);
       animation: article-up 1s .2s;
       animation-fill-mode: forwards;
 
@@ -126,7 +125,6 @@ export default {
     }
     @keyframes article-up {
       to {
-        opacity: 1;
         transform: translateY(0);
       }
     }

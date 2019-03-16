@@ -11,7 +11,7 @@
       <!-- 响应型导航栏 -->
       <nav ref="mobilList" :class="menuState ? 'list-show' : 'list-hide'" :style="mobilStyle">
         <span class="login-after" v-if="$store.state.mobile">
-          <img class="user-icon" v-lazy="user.img" :alt="user.username + '的头像'">
+          <img class="user-icon" :src="user.img" :alt="user.username + '的头像'">
           <p class="user-name">
             {{ user.username || '点击登录' }}
           </p>
@@ -79,29 +79,29 @@ export default {
   created () {
     this.$nextTick(() => {
       // 失焦事件[移动端]
-//       this.$store.state.mobile && window.addEventListener('click', e => {
-//         if (this.menuState && !this.$el.contains(e.target)) {
-//           this.toggleMneu()
-//         }
-//       })
-//       // 向下滚动时收起顶部[pc端]
-//       let scrollTop = 0
-//       let lastInter = null
-//       if (!this.$store.state.mobile) {
-//         window.addEventListener('scroll', () => {
-//           clearTimeout(lastInter)
-//           lastInter = setTimeout(() => {
-//             const scroll = window.scrollY
-//             this.headerHide = scrollTop < scroll
-//             scrollTop = scroll
-//           }, 100)
-//         })
-//       }
-//       // 观察登录状态
-//       this.$connecter.$on('user', data => {
-//         this.user = data
-//         this.updateRouter()
-//       })
+      //       this.$store.state.mobile && window.addEventListener('click', e => {
+      //         if (this.menuState && !this.$el.contains(e.target)) {
+      //           this.toggleMneu()
+      //         }
+      //       })
+      //       // 向下滚动时收起顶部[pc端]
+      //       let scrollTop = 0
+      //       let lastInter = null
+      //       if (!this.$store.state.mobile) {
+      //         window.addEventListener('scroll', () => {
+      //           clearTimeout(lastInter)
+      //           lastInter = setTimeout(() => {
+      //             const scroll = window.scrollY
+      //             this.headerHide = scrollTop < scroll
+      //             scrollTop = scroll
+      //           }, 100)
+      //         })
+      //       }
+      //       // 观察登录状态
+      //       this.$connecter.$on('user', data => {
+      //         this.user = data
+      //         this.updateRouter()
+      //       })
       this.updateRouter()
     })
   },
@@ -206,12 +206,12 @@ export default {
 
     /* 退出登录 */
     outLogin () {
-//       localStorage.removeItem('userInfo')
-//       this.user = {
-//         img: '//res.mczyzy.cn/img/user-default.jpg'
-//       }
-//       this.$store.state.user = undefined
-//       this.updateRouter()
+      //       localStorage.removeItem('userInfo')
+      //       this.user = {
+      //         img: '//res.mczyzy.cn/img/user-default.jpg'
+      //       }
+      //       this.$store.state.user = undefined
+      //       this.updateRouter()
     },
 
     /* 搜索关键词 */
@@ -407,8 +407,6 @@ export default {
 
     // 闭合状态
     &.close {
-      -webkit-transition: .5s .1s;
-      transition: .5s .1s;
       background-color: transparent;
 
       &::after{
