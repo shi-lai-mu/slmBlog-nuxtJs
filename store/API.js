@@ -1,7 +1,7 @@
 // 代理 API 接口
 import Vue from 'vue'
 const IP = {
-  main: 'https://slmblog.com/api/',
+  main: 'https://api.slmblog.com/',
   img: 'https://img.slmblog.com/'
 }
 IP.uploadImg = IP.img + '/img/upload/'

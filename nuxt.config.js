@@ -69,11 +69,12 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'https://slmblog.com/api/',
+    baseURL: 'https://api.slmblog.com/',
     timeout: 15000,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-    }
+    },
+    rejectUnauthorized: false
   },
 
   /*
