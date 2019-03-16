@@ -17,7 +17,7 @@ module.exports = {
       { name: 'renderer', content: 'webkit' },
       { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
       { itemprop: 'author', content: '史莱姆[qq: 478889187]' },
-      { itemprop: 'image', hid: 'qqlogo', content: '/QQLOGO.jpg' },
+      { itemprop: 'image', hid: 'qqlogo', content: 'https://img.slmblog.com/QQLOGO.jpg' },
       { itemprop: 'name', content: '史莱姆的博客' },
       { name: 'format-detection', content: 'telephone=no' },
       { name: 'robots', content: 'all' },
@@ -27,7 +27,7 @@ module.exports = {
       { name: 'google-site-verification', content: 'LsmBI4ZEP2h0Ni17kTFRG7A_kKO7zONt51w_GYjM2Gs' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: 'https://img.slmblog.com/favicon.ico' }
     ]
   },
 
@@ -81,8 +81,6 @@ module.exports = {
   */
   build: {
     extractCSS: true
-    // extend(config, ctx) {
-    // }
   },
 
   performance: {

@@ -66,7 +66,7 @@ export default {
   data () {
     return {
       user: this.$store.state.user || {
-        img: '/img/user-default.jpg'
+        img: this.$API.IP.img + '/img/user-default.jpg'
       },
       menuState: false,
       menu: [],

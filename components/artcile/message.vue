@@ -18,7 +18,7 @@
       <!-- 留言内容 -->
       <li v-for="(item, index) in article.msg.list" :key="index" class="clearfix">
         <div class="clearfix">
-          <img src="/img/user-default.jpg" alt="用户头像" class="user-icon">
+          <img :src="$API.IP.img + '/img/user-default.jpg'" alt="用户头像" class="user-icon">
           <span class="user-name" v-if="item.autherID < 0">{{ item.autherName }} <sup>游客</sup></span>
           <router-link class="user-name" :to="'/user/' + item.autherName" v-else>{{ item.autherName }}</router-link>
           <span class="user-info">

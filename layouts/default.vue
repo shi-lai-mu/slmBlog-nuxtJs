@@ -50,6 +50,7 @@ export default {
     })
   },
   methods: {
+    // 百度推送
     baiduPush () {
       const bp = document.createElement('script')
       bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
