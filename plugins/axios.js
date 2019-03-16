@@ -59,7 +59,7 @@ export default function ({ $axios, redirect }) {
       redirect('/400')
     }
   })
-  
+
   /**
    * axios API request
    * @param {string/object} api API库内的键
@@ -67,7 +67,7 @@ export default function ({ $axios, redirect }) {
    */
   $axios.api = api => {
     let URL = API[api]
-    
+
     // 动态API
     if (typeof api === 'object') {
       URL = API[api.key]
@@ -77,8 +77,8 @@ export default function ({ $axios, redirect }) {
       api = api.key
     }
     return {
-      get: res => $axios.get(URL, {api, ...res}),
-      post: res => $axios.post(URL, {api, ...res})
+      get: res => $axios.get(URL, { api, ...res }),
+      post: res => $axios.post(URL, { api, ...res })
     }
   }
 }

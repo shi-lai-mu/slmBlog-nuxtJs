@@ -9,30 +9,30 @@
 </template>
 
 <script>
-  import homeRight from '~/components/Home/right'
-  import homeHot from '~/components/Home/hot'
-  import homeTop from '~/components/Home/top'
+import homeRight from '~/components/Home/right'
+import homeHot from '~/components/Home/hot'
+import homeTop from '~/components/Home/top'
 
-  export default {
-    async asyncData ({ $axios }) {
-      let data
-      try {
-        data = {
-          hot: await $axios.api('HOME_HOT').get(),
-          right: await $axios.api('HOME_RIGHT').get(),
-          top: await $axios.api('HOME_TOP').get()
-        }
-      } catch (e) {
-        throw Error('首页数据请求失败: ' + e)
+export default {
+  async asyncData ({ $axios }) {
+    let data
+    try {
+      data = {
+        hot: await $axios.api('HOME_HOT').get(),
+        right: await $axios.api('HOME_RIGHT').get(),
+        top: await $axios.api('HOME_TOP').get()
       }
-      return data
-    },
-    components: {
-      homeHot,
-      homeRight,
-      homeTop
+    } catch (e) {
+      throw Error('首页数据请求失败: ' + e)
     }
+    return data
+  },
+  components: {
+    homeHot,
+    homeRight,
+    homeTop
   }
+}
 </script>
 
 <style lang="less">

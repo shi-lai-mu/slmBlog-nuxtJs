@@ -33,7 +33,16 @@ export default {
     }
   },
   mounted () {
-    this.baiduPush()
+    const slef = this
+    slef.baiduPush()
+
+    // 缩放窗口时 响应式处理
+    window.addEventListener('resize', resize)
+    function resize (e) {
+      document.body.className = window.innerWidth > 840 ? 'max' : 'centre'
+      slef.$store.dispatch('IS_MOBILE', window.innerWidth)
+    }
+    resize()
   },
   methods: {
     baiduPush () {

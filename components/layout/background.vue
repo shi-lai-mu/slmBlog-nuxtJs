@@ -61,7 +61,6 @@ export default {
             let doc = document.documentElement
             canvas.width = doc.clientWidth
             canvas.height = doc.clientHeight
-            // ctx.scale(window.devicePixelRatio % 1, window.devicePixelRatio)
             for (var i = 0; i < ctxCount; i++) {
               let dot = this.dots[i]
               dot.x += dot.xa
@@ -71,16 +70,12 @@ export default {
                 dot.xa *= -1
                 dot.color = this.getRandColor()
               }
-              if (dot.x > canvas.width || dot.x < dot.size / 2) {
-                dot.xa *= -1
-                dot.color = this.getRandColor()
-              }
               if (dot.y > canvas.height || dot.y < dot.size / 2) {
                 dot.ya *= -1
                 dot.color = this.getRandColor()
               }
-//               dot.xa *= dot.x > canvas.width || dot.x < dot.size / 2 ? -1 : 1
-//               dot.ya *= dot.y > canvas.height || dot.y < dot.size / 2 ? -1 : 1
+              // dot.xa *= dot.x > canvas.width || dot.x < dot.size / 2 ? -1 : 1
+              // dot.ya *= dot.y > canvas.height || dot.y < dot.size / 2 ? -1 : 1
               let color = `${dot.color.r},${dot.color.g},${dot.color.b}`
               // 连线检测
               for (var j = 0; j < ctxCount; j++) {

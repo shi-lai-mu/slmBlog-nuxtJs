@@ -3,7 +3,7 @@
  */
 window.addEventListener('resize', resize)
 
-function resize(e) {
+function resize (e) {
   document.body.className = window.innerWidth > 840 ? 'max' : 'centre'
 }
 resize()
@@ -27,4 +27,4 @@ resize()
 //     }
 //   })
 // })
-// 
+//

@@ -26,15 +26,15 @@ import { form } from '~/plugins/tool'
 import right from '~/components/artcile/right'
 import message from '~/components/artcile/message'
 import atrcileHeader from '~/components/artcile/header'
- 
+
 export default {
   head () {
     const art = this.article
     return {
-      title: art.title,
+      title: art.title + '-史莱姆的博客',
       meta: [
         { name: 'description', hid: 'description', itemprop: 'description', content: art.description },
-        { itemprop: 'image', hid: 'qqlogo', content: art.img ? art.img : '/QQLOGO.jpg' },
+        { itemprop: 'image', hid: 'qqlogo', content: art.img ? art.img : '/QQLOGO.jpg' }
       ]
     }
   },
