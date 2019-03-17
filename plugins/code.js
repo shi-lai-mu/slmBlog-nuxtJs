@@ -157,7 +157,9 @@ class Code {
    */
   line (html) {
     let htmls = '<ul class="line-ul">'
+    console.log('code')
     let arr = html.split('\n')
+    console.log('codsse')
     let annotation = 0
     for (let i = 0, l = arr.length; i < l; i++) {
       // 多行注释

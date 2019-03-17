@@ -35,7 +35,7 @@ export default function ({ $axios, redirect }) {
         config.data = ''
       }
     }
-    console.log('API:  ' + config.url)
+    // console.log('API:  ' + config.url)
   })
 
   /**

@@ -4,7 +4,7 @@ const IP = {
   main: 'https://api.slmblog.com/',
   img: 'https://img.slmblog.com/'
 }
-IP.uploadImg = IP.img + '/img/upload/'
+IP.uploadImg = IP.img + 'img/upload/'
 
 const handler = {
   get(target, key, receiver) {

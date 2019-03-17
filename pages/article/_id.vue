@@ -2,18 +2,18 @@
   <section class="conter article-box">
     <article class="content-box article-index">
 
-        <!--  :editor="editor" -->
-        <!-- 头部信息 -->
-        <atrcile-header :article="article" :unTime="unTime"></atrcile-header>
+      <!--  :editor="editor" -->
+      <!-- 头部信息 -->
+      <atrcile-header :article="article" :unTime="unTime"></atrcile-header>
 
-        <!-- 内容 -->
-        <div class="article-body">
-          <img class="article-img" :alt="article.title + '文章封面'" :src="article.img" v-if="article.img !== 'null'">
-          <div v-html="article.content" ref="content"></div>
-        </div>
+      <!-- 内容 -->
+      <div class="article-body">
+        <img class="article-img" :alt="article.title + '文章封面'" :src="article.img" v-if="article.img !== 'null'">
+        <div v-html="article.content" ref="content"></div>
+      </div>
 
-        <!-- 尾部 -->
-        <message :article="article" :unTime="unTime"></message>
+      <!-- 尾部 -->
+      <message :article="article" :unTime="unTime"></message>
 
     </article>
     <right :article="article" ref="artRight"></right>
@@ -45,13 +45,19 @@ export default {
     message,
     atrcileHeader
   },
-  async asyncData ({ $axios, route }) {
+  async asyncData ({ $axios, route, redirect }) {
     // 请求文章内容
+    const id = route.params.id
+    if (!/^\d+$/.test(id)) {
+      return {
+        article: {
+          author: {}
+        }
+      }
+    }
     const article = await $axios.api({
       key: 'ARTCILE_CONTENT',
-      data: {
-        id: route.params.id
-      }
+      data: { id }
     }).cache()
     return { article }
   },
