@@ -6,7 +6,10 @@ const _2bbe5b79 = () => interopDefault(import('..\\pages\\article\\index.vue' /*
 const _ad73a6c6 = () => interopDefault(import('..\\pages\\other\\friendship.vue' /* webpackChunkName: "pages_other_friendship" */))
 const _05c90094 = () => interopDefault(import('..\\pages\\other\\terms.vue' /* webpackChunkName: "pages_other_terms" */))
 const _0c15ab08 = () => interopDefault(import('..\\pages\\other\\thisSite.vue' /* webpackChunkName: "pages_other_thisSite" */))
+const _5b09ebf7 = () => interopDefault(import('..\\pages\\user\\ment\\hot.vue' /* webpackChunkName: "pages_user_ment_hot" */))
+const _f0edc06c = () => interopDefault(import('..\\pages\\user\\ment\\new.vue' /* webpackChunkName: "pages_user_ment_new" */))
 const _3beee821 = () => interopDefault(import('..\\pages\\article\\_id.vue' /* webpackChunkName: "pages_article__id" */))
+const _2c40f602 = () => interopDefault(import('..\\pages\\user\\_id.vue' /* webpackChunkName: "pages_user__id" */))
 const _119e3985 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 
 Vue.use(Router)
@@ -86,9 +89,21 @@ export function createRouter() {
       component: _0c15ab08,
       name: "other-thisSite"
     }, {
+      path: "/user/ment/hot",
+      component: _5b09ebf7,
+      name: "user-ment-hot"
+    }, {
+      path: "/user/ment/new",
+      component: _f0edc06c,
+      name: "user-ment-new"
+    }, {
       path: "/article/:id",
       component: _3beee821,
       name: "article-id"
+    }, {
+      path: "/user/:id?",
+      component: _2c40f602,
+      name: "user-id"
     }, {
       path: "/",
       component: _119e3985,

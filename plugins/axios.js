@@ -45,7 +45,6 @@ export default function ({ $axios, redirect }) {
     if (api && dataParse[api]) {
       data = dataParse[api](data)
     }
-
     return data
   })
 

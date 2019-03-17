@@ -23,13 +23,16 @@ const API = {
   HOME_RIGHT: 'blog/right',
   HOME_NOTICE: 'blog/special/1?tag=公告',
   HOME_TOP: 'blog/special/1?tag=置顶',
+  // 友情链接
+  FIRENDSHIP: 'blog/friendship',
   
   // 文章 内容
   ARTCILE_CONTENT: 'article/:id',
 
-  // 友情链接
-  FIRENDSHIP: 'blog/friendship',
-  
+  // 用户
+  USER_INFO: 'user/info/:id',
+  USER_ALL_ARTCILE: 'article/getUserAll/:id',
+
   /* IP 接口 */
   IP
 }
