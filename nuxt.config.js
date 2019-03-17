@@ -18,7 +18,7 @@ module.exports = {
       { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
       { itemprop: 'author', content: '史莱姆[qq: 478889187]' },
       { itemprop: 'image', hid: 'qqlogo', content: 'https://img.slmblog.com/QQLOGO.jpg' },
-      { itemprop: 'name', content: '史莱姆的博客' },
+      { itemprop: 'name', hid: 'qqname', content: '史莱姆的博客' },
       { name: 'format-detection', content: 'telephone=no' },
       { name: 'robots', content: 'all' },
       { name: 'Copyright', content: 'slmblog.com' },

@@ -23,6 +23,9 @@ export default {
   ARTCILE_CONTENT (data) {
     data.type = data.type.split('#')
     data.type.shift()
+    if (data.img.indexOf('//') === -1) {
+      data.img = API.IP.uploadImg + data.img
+    }
     return data
   },
 

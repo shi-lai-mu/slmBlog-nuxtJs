@@ -31,10 +31,12 @@ export default {
   head () {
     const art = this.article
     return {
+      // { itemprop: 'name', content: '史莱姆的博客' },
       title: art.title + '-史莱姆的博客',
       meta: [
         { name: 'description', hid: 'description', itemprop: 'description', content: art.description },
-        { itemprop: 'image', hid: 'qqlogo', content: art.img ? art.img : '/QQLOGO.jpg' }
+        { itemprop: 'name', hid: 'qqname', content: '史莱姆的博客-' + art.title },
+        { itemprop: 'image', hid: 'qqlogo', content: art.img ? art.img : 'https://img.slmblog.com/QQLOGO.jpg' }
       ]
     }
   },
