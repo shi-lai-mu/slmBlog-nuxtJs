@@ -6,8 +6,8 @@ const _2bbe5b79 = () => interopDefault(import('..\\pages\\article\\index.vue' /*
 const _ad73a6c6 = () => interopDefault(import('..\\pages\\other\\friendship.vue' /* webpackChunkName: "pages_other_friendship" */))
 const _05c90094 = () => interopDefault(import('..\\pages\\other\\terms.vue' /* webpackChunkName: "pages_other_terms" */))
 const _0c15ab08 = () => interopDefault(import('..\\pages\\other\\thisSite.vue' /* webpackChunkName: "pages_other_thisSite" */))
-const _196c1831 = () => interopDefault(import('..\\pages\\user\\login.vue' /* webpackChunkName: "pages_user_login" */))
-const _71741c9a = () => interopDefault(import('..\\pages\\user\\regiser.vue' /* webpackChunkName: "pages_user_regiser" */))
+const _3cdd16a2 = () => interopDefault(import('..\\pages\\user\\admin\\login.vue' /* webpackChunkName: "pages_user_admin_login" */))
+const _fac4320c = () => interopDefault(import('..\\pages\\user\\admin\\register.vue' /* webpackChunkName: "pages_user_admin_register" */))
 const _5b09ebf7 = () => interopDefault(import('..\\pages\\user\\ment\\hot.vue' /* webpackChunkName: "pages_user_ment_hot" */))
 const _f0edc06c = () => interopDefault(import('..\\pages\\user\\ment\\new.vue' /* webpackChunkName: "pages_user_ment_new" */))
 const _3beee821 = () => interopDefault(import('..\\pages\\article\\_id.vue' /* webpackChunkName: "pages_article__id" */))
@@ -91,13 +91,13 @@ export function createRouter() {
       component: _0c15ab08,
       name: "other-thisSite"
     }, {
-      path: "/user/login",
-      component: _196c1831,
-      name: "user-login"
+      path: "/user/admin/login",
+      component: _3cdd16a2,
+      name: "user-admin-login"
     }, {
-      path: "/user/regiser",
-      component: _71741c9a,
-      name: "user-regiser"
+      path: "/user/admin/register",
+      component: _fac4320c,
+      name: "user-admin-register"
     }, {
       path: "/user/ment/hot",
       component: _5b09ebf7,

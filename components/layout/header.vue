@@ -42,8 +42,8 @@
 
         <transition name="fade">
           <span class="login-before" v-show="account" v-if="!user.id">
-            <router-link :to="{ name: 'user-login' }" tag="span">登录</router-link>
-            <router-link class="focus" :to="{ name: 'user-register' }" tag="span">注册</router-link>
+            <router-link to="/user/admin/login" tag="span">登录</router-link>
+            <router-link class="focus" to="/user/admin/register" tag="span">注册</router-link>
           </span>
           <span class="login-after focus" v-show="account" v-else>
             <router-link :to="{ name: 'userCenter' }">
@@ -108,7 +108,7 @@ export default {
   watch: {
     '$route' (to) {
       // 如果在登录页不显示account
-      this.account = !(to.path === '/user/login')
+      this.account = !(to.path === '/user/admin/login')
       // 如果登录了在首页则不显示account
       if ((to.path === '/' || to.path === '/user/center') && !isNaN(this.user.id)) {
         this.account = !1
@@ -154,8 +154,8 @@ export default {
         {
           tag: '账号',
           sub: [
-            ['登录', { name: 'login' }, 'register'],
-            ['注册', { name: 'register' }, 'register'],
+            ['登录', { name: 'user-admin-login' }, 'register'],
+            ['注册', { name: 'user-admin-register' }, 'register'],
             ['发帖', { name: 'editArticle' }, 'admin'],
             ['安全退出', 'outLogin', 'login']
           ]

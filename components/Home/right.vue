@@ -7,7 +7,7 @@
       <p class="name" v-text="user.username"></p>
       <div class="select">
         <span v-if="isNaN(user.id)">
-          <router-link class="button-lv0 button-blue" :to="{ name: 'login' }">关注</router-link>
+          <router-link class="button-lv0 button-blue" to="/user/admin/login">关注</router-link>
           <router-link class="button-lv0 button-green" :to="{ name: 'user-id', params: { id: 0 } }">了解</router-link>
         </span>
         <span v-else>
