@@ -10,7 +10,7 @@
                 </li>
                 <li>
                     <span>邮箱：</span>
-                    <p>slm@mczyzy.cn</p>
+                    <p>admin@slmblog.com</p>
                 </li>
                 <li>
                     <span>企鹅：</span>
@@ -49,16 +49,16 @@
             <h2>技术细节</h2>
             <ul class="web-details">
                 <li>
+                    <span>VUE(v2.9.6):</span>
+                    <p>vue-cli, vuex, vue-router, axios, lazyload, vueMeta, NuxtJs</p>
+                </li>
+                <li>
                     <span>CSS:</span>
                     <p>less</p>
                 </li>
                 <li>
                     <span>数据库:</span>
                     <p>MySql</p>
-                </li>
-                <li>
-                    <span>VUE(v2.9.6):</span>
-                    <p>vue-cli, vuex, vue-router, axios, lazyload, vueMeta</p>
                 </li>
                 <li>
                     <span>本站技术名词:</span>
@@ -92,7 +92,7 @@
                 </li>
                 <li>
                     <span>图标:</span>
-                    <p>阿里巴巴(iconfont)</p>
+                    <p>史莱姆、阿里巴巴(iconfont)</p>
                 </li>
             </ul>
 
@@ -100,7 +100,9 @@
             <ul class="web-details">
                 <li>
                     <span>技术支持:</span>
-                    <p>乌拉老师、海文老师、张磊老师</p>
+                    <p>乌拉老师、阿飞老师、海文老师、张磊老师</p>
+                    <span>精神支持:</span>
+                    <p>乌拉老师、阿飞老师【特别致谢凌晨也在为我指导方向的乌拉老师】</p>
                 </li>
             </ul>
 
@@ -109,14 +111,14 @@
                 <li>
                     <span>百度搜索:</span>
                     <p>
-                        <a href="//www.baidu.com/s?wd=site%3Amczyzy.cn" target="_black">[精准查看]</a>
+                        <a href="//www.baidu.com/s?wd=site%3Aslmblog.com" target="_black">[精准查看]</a>
                         已收录本站[2018-12 稳定排名 1] <i class="iconfont icon-renzheng"></i>
                     </p>
                 </li>
                 <li>
                     <span>谷歌搜索:</span>
                     <p>
-                        <a href="//www.google.com/search?q=slm478889187@gmail.com" target="_black">[精准查看]</a>
+                        <a href="//www.google.com/search?q=site:slmblog.com" target="_black">[精准查看]</a>
                         已收录本站[2019-03 稳定排名 4] <i class="iconfont icon-renzheng"></i>
                     </p>
                 </li>
@@ -171,16 +173,16 @@
                     <p>重写前端样式,设计为扁平式风格</p>
                 </li>
                 <li>
-                    <span>2019/03/4:</span>
+                    <span>2019/03/04:</span>
                     <p>域名从 mczyzy.cn 变更为 slmblog.com</p>
                 </li>
                 <li>
-                    <span>2019/03/6:</span>
+                    <span>2019/03/06:</span>
                     <p>升级为HTTPS协议</p>
                 </li>
                 <li>
                     <span>2019/03/10:</span>
-                    <p>博客移植为SSR渲染，VUE+NUXTJS</p>
+                    <p>博客移植为SSR渲染，VUE+NuxtJS</p>
                 </li>
                 <li>
                     <p>本人从不怕重写, 只怕原地踏步</p>

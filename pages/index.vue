@@ -1,11 +1,11 @@
 <template>
-  <div class="conter content-row clearfix home">
+  <section class="conter content-row clearfix home">
     <div class="article-list">
       <home-top :top="top"></home-top>
       <home-hot :hot="hot" />
     </div>
     <home-right :right="right"/>
-  </div>
+  </section>
 </template>
 
 <script>

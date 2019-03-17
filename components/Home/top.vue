@@ -30,7 +30,6 @@ export default {
 <style lang="less">
 .home .top {
   li {
-    padding: 10px;
     border-top: 1px solid #eee;
 
     &:not(:last-child) {
@@ -47,6 +46,9 @@ export default {
       margin-left: 20px;
       vertical-align: sub;
       color: #ccc;
+    }
+    .max-a {
+      padding: 10px;
     }
   }
 }
