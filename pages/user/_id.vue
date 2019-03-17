@@ -45,6 +45,7 @@
         </div>
       </div>
     </div>
+
   </section>
 </template>
 
@@ -73,7 +74,7 @@ export default {
     const user = await $axios.api({
       key: 'USER_INFO',
       data: { id }
-    }).get()
+    }).cache()
     return { user }
   },
   methods: {
@@ -93,63 +94,63 @@ export default {
 
   // 顶部
   .user-info {
+    display: flex;
+    min-height: 180px;
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #505d6c;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    flex-wrap: wrap;
+
+    .user-info-img {
+      margin-right: 50px;
+      img {
+        width: 140px;
+        height: 100%;
+        border-radius: 50%;
+      }
+    }
+
+    .user-info-rmation {
       display: flex;
-      min-height: 180px;
-      margin: 20px 0;
-      padding: 20px;
-      background-color: #505d6c;
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
+      padding: 10px 0;
+      color: #eee;
+      flex: 1 0 auto;
       flex-wrap: wrap;
 
-      .user-info-img {
-        margin-right: 50px;
-        img {
-          width: 140px;
-          height: 100%;
-          border-radius: 50%;
+      .info-rmation-name {
+        width: 100%;
+        font-size: 2rem;
+        font-weight: bold;
+
+        .user-uid {
+          color: #ccc;
+          font-size: 1.4rem;
+          font-weight: 400;
         }
       }
-
-      .user-info-rmation {
-        display: flex;
-        padding: 10px 0;
-        color: #eee;
-        flex: 1 0 auto;
-        flex-wrap: wrap;
-
-        .info-rmation-name {
-          width: 100%;
-          font-size: 2rem;
-          font-weight: bold;
-
-          .user-uid {
-            color: #ccc;
-            font-size: 1.4rem;
-            font-weight: 400;
-          }
-        }
-        .info-rmation-at {
-          width: 100%;
-          font-size: 1.5rem;
-          font-weight: 200;
-        }
-        .info-rmation-desc {
-          width: 100%;
-          font-size: 1rem;
-          font-weight: 100;
-        }
+      .info-rmation-at {
+        width: 100%;
+        font-size: 1.5rem;
+        font-weight: 200;
       }
-
-      .user-info-social {
-        display: flex;
-        align-items: center;
-
-        .button-lv1 {
-          height: 2rem;
-          margin: 0 10px;
-        }
+      .info-rmation-desc {
+        width: 100%;
+        font-size: 1rem;
+        font-weight: 100;
       }
+    }
+
+    .user-info-social {
+      display: flex;
+      align-items: center;
+
+      .button-lv1 {
+        height: 2rem;
+        margin: 0 10px;
+      }
+    }
   }
 
   .user-right-box {

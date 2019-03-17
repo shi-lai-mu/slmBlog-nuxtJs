@@ -18,9 +18,9 @@ export default {
     let data
     try {
       data = {
-        hot: await $axios.api('HOME_HOT').get(),
-        right: await $axios.api('HOME_RIGHT').get(),
-        top: await $axios.api('HOME_TOP').get()
+        hot: await $axios.api('HOME_HOT').cache(),
+        right: await $axios.api('HOME_RIGHT').cache(),
+        top: await $axios.api('HOME_TOP').cache()
       }
     } catch (e) {
       throw Error('首页数据请求失败: ' + e)

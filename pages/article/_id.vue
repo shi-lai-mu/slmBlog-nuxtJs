@@ -50,7 +50,7 @@ export default {
       data: {
         id: route.params.id
       }
-    }).get()
+    }).cache()
     return { article }
   },
   mounted () {

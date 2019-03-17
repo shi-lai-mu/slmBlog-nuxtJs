@@ -95,8 +95,6 @@ export default function ({ $axios, redirect }) {
     let cache = _CACHE_[url]
     if (!cache) {
       cache = $axios.get(url, options).then(res => (_CACHE_[url] = res))
-    } else {
-      console.log('利用了缓存')
     }
     return cache
   }

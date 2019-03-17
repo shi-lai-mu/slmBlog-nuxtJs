@@ -41,9 +41,9 @@
         </span>
 
         <transition name="fade">
-          <span class="login-before" v-show="account" v-if="!user.username">
-            <router-link :to="{ name: 'login' }" tag="span">登录</router-link>
-            <router-link class="focus" :to="{ name: 'register' }" tag="span">注册</router-link>
+          <span class="login-before" v-show="account" v-if="!user.id">
+            <router-link :to="{ name: 'user-login' }" tag="span">登录</router-link>
+            <router-link class="focus" :to="{ name: 'user-register' }" tag="span">注册</router-link>
           </span>
           <span class="login-after focus" v-show="account" v-else>
             <router-link :to="{ name: 'userCenter' }">
