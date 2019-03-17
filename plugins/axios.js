@@ -7,10 +7,14 @@ import dataParse from '~/store/dataParse'
 const RSA = new jsrsasign.RSAKey()
 RSA.setPublic('D3379E6D621B0C3C96DB21F478468BAE8E117C6136774EBF0921F77F2D102ECCB2EFCE4AF2722E6F3942E3D23A36E4E3AC9971896D4DFBD6F7A68C390117CA824C115F6AAC3828B7C5C5D4FF971228BC53CE714208C6283CBAEB3515BF71CC7841BDF44C731C329845896AC3EF7B1E64D51EDCF2D6BB6E106D24A17F5EB4BFDD', `10001`)
 
+// 缓存
+const _CACHE_ = []
+
 export default function ({ $axios, redirect }) {
   /**
    * axios Request
    */
+
   $axios.onRequest(config => {
     const data = config.data
 
@@ -77,7 +81,23 @@ export default function ({ $axios, redirect }) {
     }
     return {
       get: res => $axios.get(URL, { api, ...res }),
-      post: res => $axios.post(URL, { api, ...res })
+      post: res => $axios.post(URL, { api, ...res }),
+      cache: res => $axios.cache(URL, { api, ...res })
     }
+  }
+
+  /**
+   * axios cache get request
+   * @param {string} url url目标
+   * @return 链式操作请求方式，内部传入与axios相同，排除第一个URL
+   */
+  $axios.cache = (url, options) => {
+    let cache = _CACHE_[url]
+    if (!cache) {
+      cache = $axios.get(url, options).then(res => (_CACHE_[url] = res))
+    } else {
+      console.log('利用了缓存')
+    }
+    return cache
   }
 }
