@@ -4,6 +4,7 @@ import { interopDefault } from './utils'
 
 const _2bbe5b79 = () => interopDefault(import('..\\pages\\article\\index.vue' /* webpackChunkName: "pages_article_index" */))
 const _ad73a6c6 = () => interopDefault(import('..\\pages\\other\\friendship.vue' /* webpackChunkName: "pages_other_friendship" */))
+const _19e4205b = () => interopDefault(import('..\\pages\\other\\me.vue' /* webpackChunkName: "pages_other_me" */))
 const _05c90094 = () => interopDefault(import('..\\pages\\other\\terms.vue' /* webpackChunkName: "pages_other_terms" */))
 const _0c15ab08 = () => interopDefault(import('..\\pages\\other\\thisSite.vue' /* webpackChunkName: "pages_other_thisSite" */))
 const _3cdd16a2 = () => interopDefault(import('..\\pages\\user\\admin\\login.vue' /* webpackChunkName: "pages_user_admin_login" */))
@@ -82,6 +83,10 @@ export function createRouter() {
       path: "/other/friendship",
       component: _ad73a6c6,
       name: "other-friendship"
+    }, {
+      path: "/other/me",
+      component: _19e4205b,
+      name: "other-me"
     }, {
       path: "/other/terms",
       component: _05c90094,
