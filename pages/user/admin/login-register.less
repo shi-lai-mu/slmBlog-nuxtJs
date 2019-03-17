@@ -1,0 +1,88 @@
+
+
+.account {
+  display: block;
+  width: 80%;
+  min-width: 200px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 15px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: var(--box-shadow);
+  transition: .5s;
+
+  // 底部右侧
+  .account-right {
+      display: block;
+      margin-top: 10px;
+      text-align: right;
+      color: #888;
+      user-select: none;
+      font-size: .8rem;
+
+      span { cursor: pointer; }
+      a { margin: 0 10px; }
+  }
+
+  img {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, .3);
+      border-radius: 10px;
+      box-sizing: border-box;
+  }
+
+  label {
+      display: inline-block;
+      width: 50px;
+      margin-right: 20px;
+      font-size: 20px;
+      line-height: 40px;
+      color: #666;
+  }
+
+  input {
+      width: 50vw;
+      max-width: 250px;
+      min-width: 100px;
+      border: 0;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 5px;
+      font-size: 20px;
+      color: #999;
+      transition: .5s;
+
+      &:focus {
+        color: #555;
+        border-bottom: 1px solid #aaa;
+      }
+  }
+  .button-lv0 {
+    margin-top: 30px;
+    width: 70%;
+  }
+
+  canvas {
+      width: 90px;
+      height: 35px;
+      margin-left: 10px;
+      vertical-align: middle;
+      background: white;
+      border-radius: 5px;
+  }
+
+  .input-min {
+      width: 151px;
+      max-width: 151px;
+  }
+
+  & > form {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 345px;
+      margin: 15px auto;
+  }
+}
