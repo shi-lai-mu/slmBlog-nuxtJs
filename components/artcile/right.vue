@@ -185,7 +185,6 @@ export default {
       let treeList = []
       for (let index = 0, len = treeEl.length; index < len; index++) {
         const item = treeEl[index]
-        console.log(14477)
         treeList.push({
           el: item,
           top: item.offsetTop,

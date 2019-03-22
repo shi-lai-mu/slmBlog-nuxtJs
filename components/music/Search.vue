@@ -136,7 +136,7 @@ export default {
               if (val.interval === '00:00') val.interval = '-- : --'
               !val.songnames && (val.songnames = val.songname)
             }
-            console.log(song);
+            // console.log(song);
             this.songList = song
 
             // 页数计算
@@ -164,7 +164,7 @@ export default {
         let song = this.songList[i]
         // 判断音乐品质
         let quality = {
-          'songid': ['流畅(试听版)', '24AAC', i],
+          'songid': ['流畅', '192AAC', i],
           'size128': ['标准', '128MP3', i],
           'size320': ['高品质', '320MP3', i],
           'sizeape': ['无损APE', 'APE', i],
@@ -195,10 +195,11 @@ export default {
         alert('抱歉您的浏览器不支持最新的属性,请尝试选择谷歌浏览器最新版!')
         return
       }
-      this.$http
+      this.$axios
         .get(`api/Music?fun=download&code=${song.songmid}&type=${dataset.qu}`)
         .then(res => {
-          let url = res.data.url
+          console.log(res)
+          let url = res.url
           let xhr = new XMLHttpRequest()
           xhr.responseType = 'blob'
           xhr.onloadstart = function (e) {
@@ -212,7 +213,7 @@ export default {
             var blob = new Blob([this.response])
             a.href = URL.createObjectURL(blob)
             let singers = song.singers.replace('/', '-')
-            a.download = `${song.songname}(${singers}).${res.data.suffix}`
+            a.download = `${song.songname}(${singers}).${res.suffix}`
             document.body.appendChild(a)
             a.click()
             $el.innerHTML = `${oldTXT} <span class="sup HQ">完成</span>`
@@ -266,7 +267,7 @@ export default {
       if (i) {
         let song = this.songList[i]
         song.autoPlay = !0
-        this.$connecter.$emit('music', song)
+        this.observer.emit('music', song)
       }
     }
   }

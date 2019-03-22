@@ -43,15 +43,18 @@ export default {
     getMusicQQ () {
       if (this.musicQQState !== '分析中...' && /(\d){6,20}/.test(this.musicQQ)) {
         this.musicQQState = '分析中...'
-        this.$http
+        this.$axios
           .get('api/Music', {
-            fun: 'QQSingle',
-            qq: this.musicQQ
+            data: {
+              fun: 'QQSingle',
+              qq: this.musicQQ
+            }
           })
           .then(res => {
-            if (res.data[0].code === 0) {
+            console.log(res)
+            if (res[0].code === 0) {
               this.musicQQState = '绑定中'
-              localStorage.setItem('QQSingle', JSON.stringify(res.data))
+              localStorage.setItem('QQSingle', JSON.stringify(res))
               this.musicQQ = res.data[0].uin + `[${res.data[0].name}]`
             } else {
               this.musicQQState = '数据错误!'

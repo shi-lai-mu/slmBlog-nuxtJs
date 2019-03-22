@@ -97,14 +97,16 @@ export default function () {
       if (!albummid) return
       let self = this
       // 获取音乐信息
-      vue.$http
+      vue.$axios
         .get('/api/Music', {
-          fun: 'getMusicInfo',
-          code: albummid
+          data: {
+            fun: 'getMusicInfo',
+            code: albummid
+          }
         })
         .then(res => {
           if (res.data) {
-            self.info = res.data.data
+            self.info = res.data
             // 选中songmid的ID
             for (let song of self.info.list) {
               if (song.albummid === albummid) {
@@ -116,7 +118,7 @@ export default function () {
             self.store.conEl.toggle.className = 'iconfont icon-caidan'
             // 获取歌曲播放位置
             if (self.info.song) {
-              self.getDownload(self.info.song.songmid, '24AAC', data => {
+              self.getDownload(self.info.song.songmid, '48AAC', data => {
                 vue.info.src = data.url
                 play && (self.$el.autoplay = true)
                 self.store.conEl.toggle.className = 'iconfont icon-zanting'
@@ -126,7 +128,7 @@ export default function () {
           }
         })
         .catch((e) => {
-          throw Error(albummid + `音乐 获取失败, 请及时进行维护!!!`)
+          throw Error(albummid + `音乐 获取失败, 请及时进行维护!!!\nError:` + e)
         })
     }
 
@@ -146,11 +148,11 @@ export default function () {
           upload: info.aDate,
           list: info.list
         }
-        imgColor.loadImg(vue.info.img, rgb => {
+        loadImg(vue.info.img, rgb => {
           vue.iconColor = rgb
         })
       } catch (e) {
-        throw Error(`写入音乐信息时出现未知错误:`, e)
+        throw Error(`写入音乐信息时出现未知错误: ${e}`)
       }
       // 触发 内部更新
       // vue.$connecter.$emit('music')
@@ -208,15 +210,15 @@ export default function () {
      * @param {function} cb 回调
      */
     getDownload (songmid, qu, cb) {
-      vue.$http
+      vue.$axios
         .get(`api/Music?fun=download&code=${songmid}&type=${qu}`)
         .then(res => {
-          if (res.data) {
-            cb(res.data)
+          if (res.url) {
+            cb(res)
           } else throw Error(`请求[ ${songmid} ]下载数据错误!`)
         })
-        .catch(() => {
-          throw Error(`破解请求过于频繁,请稍后再试!`)
+        .catch(e => {
+          throw Error(`破解请求过于频繁,请稍后再试!` + e)
         })
     }
 

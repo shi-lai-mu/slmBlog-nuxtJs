@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import Music from '~/components/music/Music'
+import Music from './Music'
 // 底部音乐插件
 export default {
   data () {
@@ -90,12 +90,12 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
-      this.Music = this.$store.state.Music = new Music(this)
+      this.Music = this.$store.state.Music = new (new Music)(this)
     })
     // 监听音乐信息
-//     this.$connecter.$on('music', data => {
-//       this.Music.loadMusic(data.albummid, !!data.autoPlay)
-//     })
+    this.observer.on('music', data => {
+      this.Music.loadMusic(data.albummid, !!data.autoPlay)
+    })
 
     window.addEventListener('resize', resize)
 

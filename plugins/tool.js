@@ -117,8 +117,6 @@ const utfc = (time, fixed = 0) => {
   return ('00' + Math.floor(time / 60)).slice(-2) + ':' + ('00' + num2).slice((fixed > 0 ? -3 - fixed : -2))
 }
 
-
-
 /**
  * 获取图像平均色
  * @param {string} url 图像路径/URL
@@ -131,13 +129,13 @@ const loadImg = (url, cb) => {
   if (typeof url === 'string') {
     // 如果跨域请求图片[中介处理]
     if (/\/\//.test(url)) {
-      url = `//mczyzy.cn:8080/api/getImage?url=${encodeURIComponent(url)}`
+      url = `https://api.slmblog.com/api/getImage?url=${encodeURIComponent(url)}`
     }
     let img = new Image()
     img.setAttribute('crossOrigin', 'anonymous')
     img.src = url
     // 加载完时
-    img.onload = function() {
+    img.onload = function () {
       canvas.height = img.height
       canvas.width = img.width
       ctx.drawImage(img, 0, 0)
@@ -175,5 +173,6 @@ export {
   permissions,
   unForm,
   form,
-  utfc
+  utfc,
+  loadImg
 }

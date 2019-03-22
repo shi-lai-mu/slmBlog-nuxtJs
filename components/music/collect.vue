@@ -30,7 +30,7 @@
       <button class="download-all" v-if="single.song_list.length" @click="downloadAll">
         <i class="iconfont icon-xiazai"></i>{{ downloadState }}
       </button>
-      <ul :class="['download-list', { 'download-list-show': download['MP3_128'] && downloadtoggle }]" @click="selectDownload">
+      <ul :class="['download-list', { 'download-list-show': download && downloadtoggle }]" @click="selectDownload">
         <li v-for="(item, index) in download" :key="index" :data-down="index">
           <span>下载 {{ index }}</span>
           <span class="right">{{ item.name || "" }}</span>
@@ -81,10 +81,12 @@ export default {
     updateSingle () {
       if (this.QQSingle[0].uin) {
         this.updateSingleData = `<i class="iconfont icon-slm icon-slm-loading"></i>更新${this.QQSingle[0].uin}的歌单中...!`
-        this.$http
+        this.$axios
           .get('api/Music', {
-            fun: 'QQSingle',
-            qq: this.QQSingle[0].uin
+            data: {
+              fun: 'QQSingle',
+              qq: this.QQSingle[0].uin
+            }
           })
           .then(res => {
             if (res.data[0].code === 0) {
@@ -115,14 +117,18 @@ export default {
           total_song_num: 0
         }
         this.download = {}
-        this.$http.get('api/Music', {
-          fun: 'getSingle',
-          id: single[id].id,
-          qq: this.QQSingle[0].uin
+        this.$axios.get('api/Music', {
+          data: {
+            fun: 'getSingle',
+            id: single[id].id,
+            qq: this.QQSingle[0].uin
+          }
         })
           .then(res => {
-            let song = res.data.song_list
-            if (!res.data.msg) {
+            console.log('----------------')
+            console.log(res)
+            let song = res.song_list
+            if (!res.msg) {
               for (let i = 0, l = song.length; i < l; i++) {
                 let val = song[i]
                 // 避免重复计算
@@ -139,9 +145,9 @@ export default {
                 // 播放时间
                 !val.songnames && (val.songnames = val.songname)
               }
-              this.single = res.data
+              this.single = res
             } else {
-              this.single.diss_name = res.data.msg
+              this.single.diss_name = res.msg
               setTimeout(() => {
                 this.single = []
               }, 2000)
@@ -164,9 +170,11 @@ export default {
       const Music = this.$store.state.Music
       // batch
       this.downloadState = '获取下载数据中...'
-      this.$http.get('api/Music', {
-        fun: 'SingleDownload',
-        code: this.single.batch.replace('=', '-')
+      this.$axios.get('api/Music', {
+        data: {
+          fun: 'SingleDownload',
+          code: this.single.batch.replace('=', '-')
+        }
       })
         .then(res => {
           const keys = {
@@ -177,13 +185,8 @@ export default {
             MP3_128: '流畅音质'
           }
           this.downloadState = '请选择一种下载音乐品质!'
-          for (let key in res.data) {
-            if (key in keys) {
-              res.data[key].name = keys[key]
-            }
-          }
           this.downloadtoggle = !0
-          this.download = res.data
+          this.download = res
           Music.allDownloadStart(!0)
         })
     },
