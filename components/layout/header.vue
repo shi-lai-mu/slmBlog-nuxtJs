@@ -59,7 +59,6 @@
 </template>
 
 <script>
-import { permissions } from '~/plugins/tool'
 import { mapState } from 'vuex'
 
 export default {
@@ -155,6 +154,7 @@ export default {
           ]
         }
       ]
+      const permissions = this.$router.permissions
       this.menu.filter((item, index) => {
         if (item.sub) {
           item.sub = item.sub.filter(subItem => {

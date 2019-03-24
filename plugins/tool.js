@@ -1,28 +1,4 @@
 /**
- * 权限判断
- * @param {string} to 路由名
- * @param {*} cb 回调(返回目录， 是否有权限跳转)
- * @return 是否有权限跳转
- */
-const permissions = (to, cb) => {
-  // let user = JSON.parse(localStorage.getItem('userInfo'))
-  let user = false
-  let name = false
-  if (to === 'login' && !user) {
-    // 未登录
-    name = 'login'
-  } else if (to === 'register' && user) {
-    // 已登录
-    name = 'home'
-  } else if (to === 'admin' && (!user || user.groupid < 9999)) {
-    // 非管理
-    name = 'home'
-  }
-  cb && cb(name, !name)
-  return !name
-}
-
-/**
  * 时间戳转换为指定的时间格式
  * @param {string} fmt 转换后的日期格式
  * @param {number} form 时间戳,默认目前时间
@@ -59,8 +35,7 @@ const form = (fmt, form) => {
     fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
   }
   if (/(E+)/.test(fmt)) {
-    fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? '星期' : '周') : '') + week[date.getDay() +
-      ''])
+    fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? '星期' : '周') : '') + week[date.getDay() + ''])
   }
   if (/(q+)/.test(fmt)) {
     fmt = fmt.replace(RegExp.$1, season[o['q+']] + ((RegExp.$1.length > 1) ? '季' : ''))
