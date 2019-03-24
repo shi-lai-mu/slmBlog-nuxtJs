@@ -17,7 +17,14 @@ export default {
 
   // 设置用户信息
   SET_USER (store, user) {
-    if (typeof user === 'string') user = JSON.parse(user)
+    if (typeof user === 'string') {
+      if (user === 'default') {
+        user = {
+          username: '史莱姆',
+          img: '//thirdqq.qlogo.cn/g?b=sdk&k=s3zxCIMMOxfQibT9H8la8zg&s=100'
+        }
+      } else user = JSON.parse(user)
+    }
     store.user = user
   }
 }

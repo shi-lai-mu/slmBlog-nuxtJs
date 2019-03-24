@@ -11,7 +11,7 @@
           <router-link class="button-lv0 button-green" :to="{ name: 'other-me'}">了解</router-link>
         </span>
         <span v-else>
-          <router-link class="button-lv0 button-green" :to="{ name: 'userCenter' }">管理</router-link>
+          <router-link class="button-lv0 button-green" :to="{ name: 'user-id', params: { id: user.id }}">管理</router-link>
         </span>
       </div>
     </div>

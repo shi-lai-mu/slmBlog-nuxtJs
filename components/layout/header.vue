@@ -46,7 +46,7 @@
             <router-link class="focus" to="/user/admin/register" tag="span">注册</router-link>
           </span>
           <span class="login-after focus" v-show="account" v-else>
-            <router-link :to="{ name: 'userCenter' }">
+            <router-link :to="{ name: 'user-id', params: { id: user.id }}">
               <img class="user-icon" :src="user.img" :alt="user.username + '的头像'">
               <p class="user-name" v-text="user.username"></p>
             </router-link>
@@ -204,12 +204,9 @@ export default {
 
     /* 退出登录 */
     outLogin () {
-      //       localStorage.removeItem('userInfo')
-      //       this.user = {
-      //         img: '//res.mczyzy.cn/img/user-default.jpg'
-      //       }
-      //       this.$store.state.user = undefined
-      //       this.updateRouter()
+      localStorage.removeItem('userInfo')
+      this.$store.dispatch('USER', 'default')
+      this.updateRouter()
     },
 
     /* 搜索关键词 */
