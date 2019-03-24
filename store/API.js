@@ -32,6 +32,7 @@ const API = {
   // 用户
   USER_INFO: 'user/info/:id',
   USER_ALL_ARTCILE: 'article/getUserAll/:id',
+  USER_LOGIN: 'user/login',
 
   /* IP 接口 */
   IP

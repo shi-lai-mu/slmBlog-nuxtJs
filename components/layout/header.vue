@@ -41,7 +41,7 @@
         </span>
 
         <transition name="fade">
-          <span class="login-before" v-show="account" v-if="!user.id">
+          <span class="login-before" v-show="account" v-if="isNaN(user.id)">
             <router-link to="/user/admin/login" tag="span">登录</router-link>
             <router-link class="focus" to="/user/admin/register" tag="span">注册</router-link>
           </span>
@@ -60,14 +60,17 @@
 
 <script>
 import { permissions } from '~/plugins/tool'
+import { mapState } from 'vuex'
 
 export default {
   props: ['head'],
+  computed: {
+    ...mapState({
+      user: 'user'
+    })
+  },
   data () {
     return {
-      user: this.$store.state.user || {
-        img: this.$API.IP.img + '/img/user-default.jpg'
-      },
       menuState: false,
       menu: [],
       mobilStyle: null,
@@ -98,10 +101,11 @@ export default {
         })
       }
       // 观察登录状态
-      // this.$connecter.$on('user', data => {
-      //   this.user = data
-      //   this.updateRouter()
-      // })
+      this.observer.on('user', data => {
+        console.log('-----------1----', data)
+        this.user = data
+        // this.updateRouter()
+      })
       this.updateRouter()
     })
   },

@@ -60,23 +60,29 @@ export default {
         hideTime: 4000
       }
       if (self.login.user && self.login.pass_rsa) {
-        self.$http.get(`user/login`, self.login)
-          .then(res => {
-            window.localStorage.setItem('userInfo', JSON.stringify(res.data))
-            self.$store.state.user = res.data
-            self.$connecter.$emit('user', res.data)
-            self.$connecter.$emit('page', { toast })
-            let redirect = self.$router.currentRoute.query.redirect
-            if (redirect) {
-              self.$router.push({path: redirect})
-            } else {
-              self.$router.push({ name: 'home' })
+        
+        self.$axios.api('USER_LOGIN').get({
+          data: {
+            user: self.login.user,
+            rsa: {
+              pass_rsa: self.login.pass_rsa
             }
+          }
+        })
+          .then(res => {
+            window.localStorage.setItem('userInfo', JSON.stringify(res))
+            self.$store.dispatch('USER', res)
+            // self.observer.emit('user', data)
+            // self.$connecter.$emit('page', { toast })
+            // let redirect = self.$router.currentRoute.query.redirect
+            // if (redirect) {
+            //   self.$router.push({path: redirect})
+            // } else {
+            //   self.$router.push({ name: 'home' })
+            // }
           })
           .catch(err => {
-            toast.icon = 'error'
-            toast.text = err.data.error
-            self.$connecter.$emit('page', { toast })
+            console.error(err)
           })
       }
     },
@@ -111,7 +117,7 @@ export default {
         icon: 'error',
         hideTime: 4000
       }
-      self.$http.get('qqLogin/exists', { uid })
+      self.$axios.get('qqLogin/exists', { uid })
         .then(res => {
           // 授权uid存在
           if (res.data.value) {

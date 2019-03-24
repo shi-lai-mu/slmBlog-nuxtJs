@@ -6,5 +6,10 @@ export default {
 
   async IS_MOBILE ({ commit }, width) {
     commit('MOBILE', width < 840)
+  },
+
+  async USER ({ commit }, user) {
+    console.log(user)
+    commit('SET_USER', user)
   }
 }

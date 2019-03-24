@@ -36,6 +36,9 @@ export default {
     const slef = this
     slef.baiduPush()
 
+    const user = localStorage.getItem('userInfo')
+    user && self.$nuxt.$store.dispatch('USER', user)
+
     // 缩放窗口时 响应式处理
     window.addEventListener('resize', resize)
     function resize (e) {

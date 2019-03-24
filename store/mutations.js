@@ -13,5 +13,11 @@ export default {
   // 设置是否为移动端
   MOBILE (store, mobile) {
     store.mobile = mobile
+  },
+
+  // 设置用户信息
+  SET_USER (store, user) {
+    if (typeof user === 'string') user = JSON.parse(user)
+    store.user = user
   }
 }

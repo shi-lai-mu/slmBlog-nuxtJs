@@ -15,6 +15,7 @@ import nuxt_plugin_axios_7e957c76 from 'nuxt_plugin_axios_7e957c76' // Source: .
 import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ..\\plugins\\axios (mode: 'all')
 import nuxt_plugin_API_00ed39c5 from 'nuxt_plugin_API_00ed39c5' // Source: ..\\store\\API (mode: 'client')
 import nuxt_plugin_observer_07de984c from 'nuxt_plugin_observer_07de984c' // Source: ..\\plugins\\observer (mode: 'client')
+import nuxt_plugin_route_338f5eda from 'nuxt_plugin_route_338f5eda' // Source: ..\\plugins\\route (mode: 'all')
 
 // Component: <NoSsr>
 Vue.component(NoSsr.name, NoSsr)
@@ -155,6 +156,7 @@ async function createApp(ssrContext) {
 
   if (typeof nuxt_plugin_axios_7e957c76 === 'function') await nuxt_plugin_axios_7e957c76(app.context, inject)
   if (typeof nuxt_plugin_axios_3566aa80 === 'function') await nuxt_plugin_axios_3566aa80(app.context, inject)
+  if (typeof nuxt_plugin_route_338f5eda === 'function') await nuxt_plugin_route_338f5eda(app.context, inject)
 
   if (process.client) {
     if (typeof nuxt_plugin_API_00ed39c5 === 'function') await nuxt_plugin_API_00ed39c5(app.context, inject)
