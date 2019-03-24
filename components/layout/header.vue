@@ -100,23 +100,13 @@ export default {
           }, 100)
         })
       }
-      // 观察登录状态
-      this.observer.on('user', data => {
-        console.log('-----------1----', data)
-        this.user = data
-        // this.updateRouter()
-      })
       this.updateRouter()
     })
+    this.rightShow(this.$route)
   },
   watch: {
     '$route' (to) {
-      // 如果在登录页不显示account
-      this.account = !(to.path === '/user/admin/login')
-      // 如果登录了在首页则不显示account
-      if ((to.path === '/' || to.path === '/user/center') && !isNaN(this.user.id)) {
-        this.account = !1
-      }
+      this.rightShow(to)
     }
   },
   methods: {
@@ -227,6 +217,17 @@ export default {
       this.observer.emit('searchKeyWord', e.target.value)
       e.target.value = ''
       e.target.blur()
+    },
+
+    /* 右侧显示判断 */
+    rightShow (to) {
+      const path = to.path
+      // 如果在登录页不显示account
+      this.account = !(path === '/user/admin/login' || path === '/user/admin/register')
+      // 如果登录了在首页则不显示account
+      if ((path === '/' || path === '/user/center') && !isNaN(this.user.id)) {
+        this.account = !1
+      }
     }
   }
 }

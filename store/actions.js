@@ -9,7 +9,6 @@ export default {
   },
 
   async USER ({ commit }, user) {
-    console.log(user)
     commit('SET_USER', user)
   }
 }
