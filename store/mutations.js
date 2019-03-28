@@ -25,6 +25,7 @@ export default {
         }
       } else user = JSON.parse(user)
     }
+    this.$router.user = user
     store.user = user
   }
 }

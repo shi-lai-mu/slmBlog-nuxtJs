@@ -93,7 +93,6 @@ export default {
         .api('HOME_HOT')
         .get({ data: key })
         .then(data => {
-          console.log(slef.hot);
           slef.hotList = data
         })
     },

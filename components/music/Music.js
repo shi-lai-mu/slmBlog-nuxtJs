@@ -276,11 +276,12 @@ export default function () {
         a.download = `${data.name}.${data.ext}`
         document.body.appendChild(a)
         a.click()
-        cb()
+        cb && cb()
       }
       xhr.onerror = function (e) {
         console.error(e)
       }
+      data.src = data.src.replace('http://streamoc.music.tc.qq.com/', 'https://slmblog.com/download/music/')
       if (data.src) {
         xhr.open('get', data.src, true)
         xhr.send()

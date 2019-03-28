@@ -1,13 +1,13 @@
-export default ({ app, store }) => {
+export default ({ app, store, observer }) => {
   /**
    * 路由权限设置
    */
   app.router.map = {
     // 未登录权限
-    register: [
-      'login',
-      'regiser'
-    ],
+    register: {
+      '/user/admin/login': 'go-1',
+      '/user/admin/regiser': 'go-1'
+    },
     // 登录权限
     login: [
 
@@ -18,27 +18,27 @@ export default ({ app, store }) => {
     ]
   }
 
-  app.router.afterEach((to, from) => {
-    // app.router.push({
-    //   name: 'index'
-    // })
-    // to.matched.map(item => {
-    //   let auth = item.meta.requireAuth
-    //   if (auth) {
-    //     let name = false
-    //     let query = {}
-    //     app.router.permissions(auth, (res, ok) => {
-    //       if (!ok) {
-    //         name = res
-    //         if (res === 'login') {
-    //           query = {
-    //             redirect: to.fullPath
-    //           }
-    //         }
-    //       }
-    //     })
-    //   }
-    // })
+  const map = app.router.map
+  app.router.afterEach(to => {
+    const path = to.path
+    for (const key in map) {
+      const item = map[key]
+      // 存在权限内
+      const child = item[path]
+      if (child) {
+        const val = app.router.permissions(key, false)
+        if (!val) {
+          if (child === 'go-1') {
+            app.router.go(-1)
+          } else {
+            app.router.push({
+              name: child
+            })
+          }
+        }
+        break
+      }
+    }
   })
 
   app.router.user = store.state.user
@@ -50,15 +50,15 @@ export default ({ app, store }) => {
    * @return 是否有权限跳转
    */
   app.router.permissions = function (to, cb) {
-    let user = JSON.parse(localStorage.getItem('userInfo'))
+    let user = app.router.user
     let name = false
-    if (to === 'login' && !user) {
+    if (to === 'login' && !user.token) {
       // 未登录
       name = 'login'
-    } else if (to === 'register' && user) {
+    } else if (to === 'register' && user.token) {
       // 已登录
       name = 'home'
-    } else if (to === 'admin' && (!user || user.groupid < 9999)) {
+    } else if (to === 'admin' && (!user.token || user.groupid !== 9999)) {
       // 非管理
       name = 'home'
     }

@@ -224,6 +224,7 @@ export default {
           xhr.onerror = function (e) {
             $el.innerHTML = `${oldTXT} [下载出错]`
           }
+          url = url.replace('http://streamoc.music.tc.qq.com/', 'https://slmblog.com/download/music/')
           xhr.open('get', url, true)
           xhr.send()
         })

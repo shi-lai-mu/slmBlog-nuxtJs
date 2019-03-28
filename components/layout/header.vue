@@ -160,6 +160,7 @@ export default {
           item.sub = item.sub.filter(subItem => {
             // 设置了权限判断
             if (subItem[2]) {
+              // console.log(subItem[0], subItem[2], permissions(subItem[2]))
               subItem = permissions(subItem[2]) ? subItem : false
             }
             return subItem
