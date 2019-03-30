@@ -198,7 +198,16 @@ export default {
       this.$axios
         .get(`api/Music?fun=download&code=${song.songmid}&type=${dataset.qu}`)
         .then(res => {
-          console.log(res)
+          console.info('祝贺你喜提彩蛋~!')
+          console.table([
+            {
+              '歌名': song.songname,
+              '歌手': song.singers,
+              '时长': song.interval
+            }
+          ])
+          console.log(`%c${song.songname} 极速版下载链接：${res.url}`,"color:red")
+
           let url = res.url
           let xhr = new XMLHttpRequest()
           xhr.responseType = 'blob'
@@ -207,7 +216,7 @@ export default {
           }
           xhr.onprogress = function (e) {
             let percent = (e.loaded / e.total * 100).toFixed(2)
-            $el.innerHTML = `${oldTXT} [${percent}%]`
+            $el.innerHTML = `${oldTXT} [${percent}%][控制台有极速版]`
           }
           xhr.onload = function (e) {
             var blob = new Blob([this.response])

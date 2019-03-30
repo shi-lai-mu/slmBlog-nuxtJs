@@ -260,6 +260,7 @@ export default {
     .music-list {
       position: fixed;
       bottom: 52px;
+      left: -110%;
       z-index: 70;
       width: calc(100vw - 50px);
       max-width: 500px;
@@ -268,7 +269,6 @@ export default {
       background-color: #222;
       opacity: 0;
       transition: .5s;
-      transform: translateX(-110%);
 
       // 模糊的背景容器
       .blur-bg {
@@ -353,13 +353,13 @@ export default {
     .music-list.list-show {
       box-shadow: 0 0 10px rgba(0, 0, 0, .9);
       opacity: 1;
-      transform: none;
+      left: 0;
     }
 
     // 底部浮动
     .music-float {
       position: fixed;
-      left: 0;
+      left: calc(-100vw + 1.5rem);
       bottom: 0;
       z-index: 71;
       width: 100vw;
@@ -371,7 +371,6 @@ export default {
       background-color: rgba(0, 0, 0, .7);
       box-shadow: 0 0 2px #ccc;
       transition: 1s;
-      transform: translateX(calc(-100vw + 1.5rem));
 
       i {
         display: inline-block;
@@ -448,7 +447,7 @@ export default {
 
     .music-float.float-show {
       background-color: rgba(0, 0, 0, .9);
-      transform: translateX(0);
+      left: 0;
       box-shadow: 0 0 10px #aaa;
 
       .right-toggle {

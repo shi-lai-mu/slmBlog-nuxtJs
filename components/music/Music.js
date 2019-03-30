@@ -278,9 +278,7 @@ export default function () {
         a.click()
         cb && cb()
       }
-      xhr.onerror = function (e) {
-        console.error(e)
-      }
+      xhr.onerror = console.error
       data.src = data.src.replace('http://streamoc.music.tc.qq.com/', 'https://slmblog.com/download/music/')
       if (data.src) {
         xhr.open('get', data.src, true)
