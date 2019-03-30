@@ -2,7 +2,7 @@
   <div class="bottom-music">
 
     <!-- 浮动列表 -->
-    <div :class="['music-list', { 'list-show': floatList }]">
+    <div :class="['music-list', { 'list-show': floatList }]" @mousewheel="wheel">
 
       <div class="blur-bg">
         <img v-if="info.img != '//slmblog.com/LOGO.png'" :src="info.img" alt="">
@@ -120,7 +120,6 @@ export default {
     resize()
   },
   methods: {
-
     /**
      * 切换音乐浮动状态
      */
@@ -178,6 +177,9 @@ export default {
     progress (e) {
       e.stopPropagation()
       this.Music.jump((e.clientX / (e.toElement.offsetWidth / 100)).toFixed(2))
+    },
+    wheel (e) {
+      e.stopPropagation();
     }
   }
 }

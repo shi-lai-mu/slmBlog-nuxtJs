@@ -65,7 +65,7 @@ export default {
       style: [],
       download: {},
       downloadState: '下载全部',
-      downloadtoggle: !0
+      downloadtoggle: !1
     }
   },
   created () {
