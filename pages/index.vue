@@ -27,6 +27,24 @@ export default {
     }
     return data
   },
+  mounted () {
+    console.log(65444444)
+    this.$nextTick(() => {
+      this.observer.emit('toast', {
+        text: '12345645648789745362102310'
+      })
+      setTimeout(() => {
+        this.observer.emit('toast', {
+          text: '666666666666666'
+        })
+      }, 2000)
+      setTimeout(() => {
+        this.observer.emit('toast', {
+          text: '666666666666666'
+        })
+      }, 3000)
+    })
+  },
   components: {
     homeHot,
     homeRight,
