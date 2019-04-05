@@ -8,12 +8,12 @@ body {
 }
 @font-face {
   font-family: 'iconfont';  /* project id 956143 */
-  src: url('//at.alicdn.com/t/font_956143_jjpbl2h3rar.eot');
-  src: url('//at.alicdn.com/t/font_956143_jjpbl2h3rar.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_956143_jjpbl2h3rar.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_956143_jjpbl2h3rar.woff') format('woff'),
-  url('//at.alicdn.com/t/font_956143_jjpbl2h3rar.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_956143_jjpbl2h3rar.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_956143_nwn297pzgoj.eot');
+  src: url('//at.alicdn.com/t/font_956143_nwn297pzgoj.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_956143_nwn297pzgoj.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_956143_nwn297pzgoj.woff') format('woff'),
+  url('//at.alicdn.com/t/font_956143_nwn297pzgoj.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_956143_nwn297pzgoj.svg#iconfont') format('svg');
 }
 .iconfont {
   font-family: "iconfont" !important;
@@ -21,74 +21,6 @@ body {
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-slm-loading::before {
-  display: inline-block;
-  animation: slmdeg 1s linear infinite;
-}
-.icon-slm-loading::after {
-    content: "";
-    position: absolute;
-    bottom: -0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, .5);
-    z-index: -1;
-    filter: blur(1px);
-  animation: slmdeg-shodow 1s linear infinite;
-  }
-@keyframes slmdeg-shodow {
-  20% {
-    background-color: rgba(0, 0, 0, .6);
-  }
-  50% {
-    transform: scale(1, 1);
-    background-color: rgba(0, 0, 0, .5);
-  }
-  70% {
-    transform: scale(.7, 1);
-    background-color: rgba(0, 0, 0, .3);
-  }
-  90% {
-    transform: scale(.6, 1);
-    background-color: rgba(0, 0, 0, .2);
-  }
-}
-@keyframes slmdeg {
-  0% {
-    transform: translateY(0);
-  }
-  20% {
-    transform: translateY(-20%) scale(1, 1.1);
-  }
-  50% {
-    transform: translateY(-30%);
-  }
-  70% {
-    transform: translateY(20%) scale(1, .5);
-  }
-  90% {
-    transform: translateY(25%) scale(1, .4);
-  }
-}
-.icon-slm-loading {
-  font-size: 20rem;
-  animation: slmdeg-loading 5s;
-  animation-fill-mode: forwards;
-  opacity: .8;
-}
-@keyframes slmdeg-loading {
-  50% {
-    font-size: 13rem;
-    transform: translateY(0) scale(.7);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-100vh) scale(.2);
-  }
 }
 
 .icon-weXin:before {
@@ -143,6 +75,10 @@ body {
   content: "\e61b";
 }
 
+.icon-myDiary:before {
+  content: "\e662";
+}
+
 .icon-liaotian1:before {
   content: "\e606";
 }
@@ -153,6 +89,10 @@ body {
 
 .icon-yuanchuang:before {
   content: "\e612";
+}
+
+.icon-liuyanban:before {
+  content: "\e62a";
 }
 
 .icon-qqkongjian:before {
@@ -171,12 +111,20 @@ body {
   content: "\e601";
 }
 
+.icon-tongji:before {
+  content: "\e62b";
+}
+
 .icon-cloud-remind:before {
   content: "\e711";
 }
 
 .icon-chenggong:before {
   content: "\e609";
+}
+
+.icon-yijianfankui:before {
+  content: "\e64b";
 }
 
 .icon-tags:before {
@@ -307,12 +255,24 @@ body {
   content: "\e600";
 }
 
+.icon-safe:before {
+  content: "\e666";
+}
+
+.icon-wodefenxiang:before {
+  content: "\e77f";
+}
+
 .icon-suiji:before {
   content: "\e6da";
 }
 
 .icon-shunxu1:before {
   content: "\e6db";
+}
+
+.icon-xitongtixing-:before {
+  content: "\e62e";
 }
 
 .icon-dianzan:before {
@@ -341,5 +301,41 @@ body {
 
 .icon-slm:before {
   content: "\e618";
+}
+
+.icon-wodezhuti:before {
+  content: "\e62d";
+}
+
+.icon-hudongdating:before {
+  content: "\e630";
+}
+
+.icon-shezhi1:before {
+  content: "\e717";
+}
+
+.icon-guanbi-xianxing:before {
+  content: "\e61c";
+}
+
+.icon-fanhuidingbuzhiding:before {
+  content: "\e61e";
+}
+
+.icon-guanli-xianxing:before {
+  content: "\e61f";
+}
+
+.icon-gonggao-xianxing:before {
+  content: "\e620";
+}
+
+.icon-luru-xianxing:before {
+  content: "\e621";
+}
+
+.icon-xinjian-xianxing:before {
+  content: "\e624";
 }
 
