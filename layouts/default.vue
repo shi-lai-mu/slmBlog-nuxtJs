@@ -12,11 +12,11 @@
 </template>
 
 <script>
-import mainHeader from '~/components/layout/header'
-import mainFooter from '~/components/layout/footer'
-import mainBackground from '~/components/layout/background'
+import mainHeader from './components/header'
+import mainFooter from './components/footer'
+import mainBackground from './components/background'
 import music from '~/components/music/index'
-import Toast from '~/components/layout/Toast'
+import Toast from './components/Toast'
 
 export default {
   scrollToTop: true,
@@ -52,13 +52,13 @@ export default {
     resize()
 
     // refs.body 订阅
-    this.observer.on('body', option => {
-      this.$refs.body.className = option.value ? option.value : 'boss'
+    slef.observer.on('body', option => {
+      slef.$refs.body.className = option.value ? option.value : 'boss'
     })
 
     // 问候
-    this.$nextTick(() => {
-      this.observer.emit('toast', {
+    slef.$nextTick(() => {
+      slef.observer.emit('toast', {
         text: '欢迎访问, 史莱姆的博客!'
       })
     })

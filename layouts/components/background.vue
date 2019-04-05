@@ -3,12 +3,12 @@
 </template>
 
 <script>
-/* 背景组件 */
+/* slmblog 背景组件 */
 export default {
   beforeMount () {
     this.$nextTick(() => {
       // 如果为QQ浏览器则不进行计算
-      // if (/QQBrowser/.test(window.navigator.userAgent)) return
+      if (/QQBrowser/.test(window.navigator.userAgent)) return
       // canvas
       let canvas = this.$refs.canvas
       let ctx = canvas.getContext('2d')
@@ -20,7 +20,7 @@ export default {
         let lineWidth = 40
         // pc 端配置
         if (!slef.$store.state.mobile) {
-          ctxCount = 150
+          ctxCount = 100
           sizeMax = 10
           lineWidth = 100
         }
