@@ -2,7 +2,8 @@
 import Vue from 'vue'
 const IP = {
   main: 'https://api.slmblog.com/',
-  img: 'https://img.slmblog.com/'
+  img: 'https://img.slmblog.com/',
+  io: 'https://io.slmblog.com/'
 }
 IP.uploadImg = IP.img + 'img/upload/'
 
@@ -33,6 +34,9 @@ const API = {
   USER_INFO: 'user/info/:id',
   USER_ALL_ARTCILE: 'article/getUserAll/:id',
   USER_LOGIN: 'user/login',
+  
+  // IO接口
+  IMAGER_UPLOAD: IP.io + 'i.php?token=:token',
 
   /* IP 接口 */
   IP

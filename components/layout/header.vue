@@ -149,7 +149,7 @@ export default {
           sub: [
             ['登录', { name: 'user-admin-login' }, 'register'],
             ['注册', { name: 'user-admin-register' }, 'register'],
-            ['发帖', { name: 'editArticle' }, 'admin'],
+            ['发帖', { name: 'article-editArticle' }, 'admin'],
             ['安全退出', 'outLogin', 'login']
           ]
         }

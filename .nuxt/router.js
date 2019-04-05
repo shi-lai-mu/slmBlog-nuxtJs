@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 
 const _2bbe5b79 = () => interopDefault(import('..\\pages\\article\\index.vue' /* webpackChunkName: "pages_article_index" */))
+const _5b24141a = () => interopDefault(import('..\\pages\\article\\editArticle.vue' /* webpackChunkName: "pages_article_editArticle" */))
 const _ad73a6c6 = () => interopDefault(import('..\\pages\\other\\friendship.vue' /* webpackChunkName: "pages_other_friendship" */))
 const _19e4205b = () => interopDefault(import('..\\pages\\other\\me.vue' /* webpackChunkName: "pages_other_me" */))
 const _05c90094 = () => interopDefault(import('..\\pages\\other\\terms.vue' /* webpackChunkName: "pages_other_terms" */))
@@ -79,6 +80,10 @@ export function createRouter() {
       path: "/article",
       component: _2bbe5b79,
       name: "article"
+    }, {
+      path: "/article/editArticle",
+      component: _5b24141a,
+      name: "article-editArticle"
     }, {
       path: "/other/friendship",
       component: _ad73a6c6,

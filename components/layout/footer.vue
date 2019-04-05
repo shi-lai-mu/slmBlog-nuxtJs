@@ -9,7 +9,7 @@
     </div>
     <div class="beian clearfix">
       <span class="beian-a">
-        <img class="beian-img" src="img/police_badge.png"/>
+        <img class="beian-img" src="/img/police_badge.png"/>
         <p class="beian-p">
           <a target="_blank" href="//www.miitbeian.gov.cn">浙ICP备18049156号-2</a>
           <a target="_blank" href="//www.beian.gov.cn">(浙公网安备 33038102331168号)</a>

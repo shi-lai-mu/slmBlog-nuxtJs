@@ -31,7 +31,6 @@ export default {
   head () {
     const art = this.article
     return {
-      // { itemprop: 'name', content: '史莱姆的博客' },
       title: art.title + '-史莱姆的博客',
       meta: [
         { name: 'description', hid: 'description', itemprop: 'description', content: art.description },

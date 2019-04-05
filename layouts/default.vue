@@ -7,6 +7,7 @@
     </transition>
     <main-footer />
     <music />
+    <Toast />
   </div>
 </template>
 
@@ -15,6 +16,8 @@ import mainHeader from '~/components/layout/header'
 import mainFooter from '~/components/layout/footer'
 import mainBackground from '~/components/layout/background'
 import music from '~/components/music/index'
+import Toast from '~/components/layout/Toast'
+
 export default {
   scrollToTop: true,
   head: {
@@ -24,7 +27,8 @@ export default {
     mainHeader,
     mainFooter,
     mainBackground,
-    music
+    music,
+    Toast
   },
   watch: {
     '$route' (to, from) {
@@ -51,6 +55,9 @@ export default {
     this.observer.on('body', option => {
       this.$refs.body.className = option.value ? option.value : 'boss'
     })
+
+    console.log('%cSLM BLOG%c version 1.5.0', 'font-size: 40px;color: rgb(254,65,129);font-weight: bold;', 'font-size: 20px;color: rgb(254,65,129)')
+    console.log('      %c欢迎访问 史莱姆的博客!', 'font-size: 20px;color: rgb(254,65,129)')
   },
   methods: {
     // 百度推送
