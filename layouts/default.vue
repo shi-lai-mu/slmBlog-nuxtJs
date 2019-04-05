@@ -56,6 +56,13 @@ export default {
       this.$refs.body.className = option.value ? option.value : 'boss'
     })
 
+    // 问候
+    this.$nextTick(() => {
+      this.observer.emit('toast', {
+        text: '欢迎访问, 史莱姆的博客!'
+      })
+    })
+
     console.log('%cSLM BLOG%c version 1.5.0', 'font-size: 40px;color: rgb(254,65,129);font-weight: bold;', 'font-size: 20px;color: rgb(254,65,129)')
     console.log('      %c欢迎访问 史莱姆的博客!', 'font-size: 20px;color: rgb(254,65,129)')
   },

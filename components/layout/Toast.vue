@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div :class="['toast', { show: item.show }]" v-for="(item, index) in task" :key="index" :style="'top:' + (80 + (index * 140)) + 'px'">
+    <div :class="['toast', { show: item.show }, { action: item.action }]" v-for="(item, index) in task" :key="index" :style="'top:' + (80 + (index * 140)) + 'px'">
 
       <!-- 内容区域 -->
       <div class="tag">
         <i :class="'iconfont icon-' + item.icon"></i>
         <span v-text="item.title"></span>
-        <i class="iconfont icon-guanbi-xianxing"></i>
+        <i class="iconfont icon-guanbi-xianxing" @click="close" :data-id="index"></i>
       </div>
       <div class="content" v-html="item.text"></div>
 
@@ -26,25 +26,6 @@
 export default {
   data () {
     return {
-      // title: '系统通知',
-      // icon: 'gonggao-xianxing',
-      // text: '欢迎访问史莱姆的博客!',
-      // time: 2000,
-      // show: !1,
-      // select: [
-      //   {
-      //     value: '是',
-      //     action: function () {
-      //       console.log('按下了 是')
-      //     }
-      //   },
-      //   {
-      //     value: '否',
-      //     action: function () {
-      //       console.log('按下了 否')
-      //     }
-      //   }
-      // ]
       task: []
     }
   },
@@ -56,28 +37,44 @@ export default {
         title: obj.title || '系统通知',
         icon: obj.icon || 'gonggao-xianxing',
         text: obj.text || '欢迎访问史莱姆的博客!',
-        time: obj.time || 2000,
+        time: obj.time || 2500,
+        action: obj.action || !1,
         show: !1,
         select: obj.select || []
       }
-      this.task.push(newToast)
+
+      // 加入显示列队
+      const index = this.task.push(newToast)
+
       setTimeout(() => {
+        // 渲染完显示
         newToast.show = !0
+        // 几秒后消失 如果 time为false则等待关闭状态
+        !isNaN(newToast.time) && setTimeout(() => that.close(index - 1), newToast.time)
       }, 100)
-      console.log(obj)
     })
   },
   methods: {
 
-    /* 互动区 点击处理 */
+    /* 互动区 点击处理 如果执行函数返回true则关闭窗口 */
     selectClick (e) {
       const id = e.target.dataset.id
-      const select = this.select
+      const select = this.task[id].select
 
       if (id && select[id]) {
         const item = select[id]
-        item.action.call(item.that ? item.that : this)
+        const cb = item.action.call(item.that ? item.that : this)
+        cb && this.close(id)
       }
+    },
+
+    /* 关闭 */
+    close (e) {
+      const id = isNaN(e) ? e.target.dataset.id : e
+      this.task[id].show = !1
+      setTimeout(() => {
+        this.task.splice(id, 1)
+      }, 400)
     }
   }
 }
@@ -101,7 +98,9 @@ export default {
 
     &.show {
       transform: translateX(0);
-      // animation: 1.5s .5s toast ease-in-out infinite alternate;
+    }
+    &.action {
+      animation: 1.5s .5s toast ease-in-out infinite alternate;
     }
 
     .user-none {
