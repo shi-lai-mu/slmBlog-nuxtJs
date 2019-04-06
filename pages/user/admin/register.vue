@@ -57,6 +57,7 @@ export default {
                 time: false,
                 text: `注册成功, [${reg.user || ""}] 欢迎加入!`
               })
+              that.observer.emit('HeaderRouter')
             } else that.observer.emit("toast", res)
           })
       } else {

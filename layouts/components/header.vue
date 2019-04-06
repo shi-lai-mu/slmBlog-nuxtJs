@@ -100,6 +100,7 @@ export default {
         })
       }
       this.updateRouter()
+      this.observer.on('HeaderRouter', this.updateRouter)
     })
     this.rightShow(this.$route)
   },

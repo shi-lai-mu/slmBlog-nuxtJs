@@ -104,7 +104,8 @@ export default {
                     }
                   }
                 ]
-              });
+              })
+              that.observer.emit('HeaderRouter')
               const page = that.$route.query.page
               if (page) {
                 that.$router.push({ path: page })

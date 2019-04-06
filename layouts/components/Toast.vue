@@ -74,14 +74,13 @@ export default {
       if (id && select[id]) {
         const item = select[id]
         const cb = item.action.call(item.that ? item.that : this)
-        cb && this.close(id)
+        cb && this.close(id - 1)
       }
     },
 
     /* 关闭 */
     close (e) {
       const id = isNaN(e) ? e.target.dataset.id : e
-      if (!this.task[id]) id--
       this.task[id].show = !1
       setTimeout(() => {
         this.task.splice(id, 1)
