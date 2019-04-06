@@ -8,7 +8,7 @@
         <label>账号</label>
         <input type="text" v-model="register.user" @dblclick="addUser" ref="userInput">
         <label>密码</label>
-        <input type="password" v-model="register.pass_rsa">
+        <input type="password" v-model="register.pass_rsa" autocomplete="tel">
         <!-- <label>邮箱</label><input type="email" v-model="register.email" class="input-1v" placeholder="最好输入QQ邮箱" data-name='邮箱'> -->
         <!-- <label>验证</label><input type="text" v-model="register.code" class="input-1v input-min" placeholder="确认你非机器人" data-name='验证'><canvas></canvas> -->
         <!-- <label>代码</label><input type="text" class="input-1v" placeholder="填完邮箱点我即发送验证码" data-name='代码'> -->
@@ -55,6 +55,7 @@ export default {
           })
           .then(res => {
             console.log(res);
+            
             // window.localStorage.setItem('userInfo', JSON.stringify(res.data))
             // self.$store.state.user = res.data
             // self.observer.emit('page', { toast })

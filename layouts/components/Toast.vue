@@ -43,6 +43,14 @@ export default {
         select: obj.select || []
       }
 
+      // 自动识别为错误警告
+      if (obj.error) {
+        newToast.icon = 'wrong'
+        newToast.title = '系统警告'
+        newToast.text = obj.error
+        newToast.time = 4000
+      }
+
       // 加入显示列队
       const index = this.task.push(newToast)
 
