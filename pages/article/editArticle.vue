@@ -146,8 +146,9 @@ export default {
         })
       } else {
         let _user = that.$store.state.user
-        let type = isNaN(that.editor) ? 'add' : 'unEditor'
-        that.$axios.post(`http://127.0.0.1:8080/article/${type}`, {
+        let type = isNaN(that.editor) ? 'ARTICLE_ADD' : 'ARTICLE_UNEDITOR'
+
+        that.$axios.api(type).post({
           token: _user.token,
           title: that.title,
           type: that.type,
@@ -156,17 +157,13 @@ export default {
           img: that.webPath || that.uploadPath,
           description: that.description,
           editor: that.editor || false
-        },{
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
         })
           .then(res => {
-            if (res.data.ID) {
+            if (res.ID) {
               that.$router.push({
-                name: 'article',
+                name: 'article-id',
                 params: {
-                  id: res.data.ID
+                  id: res.ID
                 }
               })
               that.$refs.editor.Stores.clear()

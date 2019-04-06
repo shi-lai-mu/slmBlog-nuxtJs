@@ -68,7 +68,6 @@ export default {
     selectClick (e) {
       const id = e.target.dataset.id
       const parent = e.target.parentElement.dataset.parent
-
       const select = this.task[parent].select
 
       if (id && select[id]) {

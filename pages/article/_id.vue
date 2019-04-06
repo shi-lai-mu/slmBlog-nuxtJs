@@ -2,13 +2,12 @@
   <section class="conter article-box">
     <article class="content-box article-index">
 
-      <!--  :editor="editor" -->
       <!-- 头部信息 -->
-      <atrcile-header :article="article" :unTime="unTime"></atrcile-header>
+      <atrcile-header :article="article" :unTime="unTime" :editor="editor"></atrcile-header>
 
       <!-- 内容 -->
       <div class="article-body">
-        <img class="article-img" :alt="article.title + '文章封面'" :src="article.img" v-if="article.img !== 'null'">
+        <img class="article-img" :alt="article.title + '文章封面'" :src="article.img" v-if="article.img">
         <div v-html="article.content" ref="content"></div>
       </div>
 
@@ -28,6 +27,11 @@ import message from '~/components/artcile/message'
 import atrcileHeader from '~/components/artcile/header'
 
 export default {
+  data () {
+    return {
+      editor: false
+    }
+  },
   head () {
     const art = this.article
     return {
@@ -44,9 +48,9 @@ export default {
     message,
     atrcileHeader
   },
-  async asyncData ({ $axios, route, redirect }) {
+  async asyncData ({ $axios, route }) {
     // 请求文章内容
-    const id = route.params.id
+    let id = route.params.id
     if (!/^\d+$/.test(id)) {
       return {
         article: {
@@ -54,15 +58,30 @@ export default {
         }
       }
     }
-    const article = await $axios.api({
-      key: 'ARTCILE_CONTENT',
-      data: { id }
-    }).cache()
+    const article = await $axios
+      .api({
+        key: 'ARTCILE_CONTENT',
+        data: { id }
+      })
+      .cache()
+      // .catch(() => {
+      //   this.$router.go(-1)
+      // })
     return { article }
   },
   mounted () {
     this.$nextTick(() => {
-      Code.parse(this.$refs.content)
+      const that = this
+      Code.parse(that.$refs.content)
+      const user = that.$store.state.user
+      const data = that.article
+
+      // 是否有编辑权限
+      if (user) {
+        if (data.author.uid === user.id || user.groupid >= 9999) {
+          that.editor = !0
+        }
+      }
     })
   },
   methods: {

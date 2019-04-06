@@ -12,7 +12,7 @@ export default {
       val.type = val.type.split('#')
       val.type.shift()
 
-      if (val.img.indexOf('//') === -1) {
+      if (val.img && val.img.indexOf('//') === -1) {
         val.img = API.IP.uploadImg + val.img
       }
     }
@@ -21,19 +21,21 @@ export default {
 
   // 文章内容
   ARTCILE_CONTENT (data) {
-    data.type = data.type.split('#')
-    data.type.shift()
-    if (data.img.indexOf('//') === -1) {
-      data.img = API.IP.uploadImg + data.img
+    if (data.type) {
+      data.type = data.type.split('#')
+      data.type.shift()
+      if (data.img && data.img.indexOf('//') === -1) {
+        data.img = API.IP.uploadImg + data.img
+      }
+      return data
     }
-    return data
   },
 
   // 个人中心 热门文章
   USER_ALL_ARTCILE (data) {
     data = data.map(index => {
       // 图片域名
-      if (index.img.indexOf('//') === -1) {
+      if (index.img && index.img.indexOf('//') === -1) {
         index.img = API.IP.uploadImg + index.img
       }
       // 时间

@@ -38,7 +38,8 @@ const API = {
   
   // IO接口
   IMAGER_UPLOAD: IP.io + 'i.php?token=:token',
-  ARTICLE_ADD: 'article/:type',
+  ARTICLE_ADD: 'article/add',
+  ARTICLE_UNEDITOR: 'article/unEditor',
 
   /* IP 接口 */
   IP

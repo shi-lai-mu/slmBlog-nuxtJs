@@ -15,15 +15,10 @@ import homeTop from '~/components/Home/top'
 
 export default {
   async asyncData ({ $axios }) {
-    let data
-    try {
-      data = {
-        hot: await $axios.api('HOME_HOT').cache(),
-        right: await $axios.api('HOME_RIGHT').cache(),
-        top: await $axios.api('HOME_TOP').cache()
-      }
-    } catch (e) {
-      throw Error('首页数据请求失败: ' + e)
+    let data = {
+      hot: await $axios.api('HOME_HOT').cache(),
+      right: await $axios.api('HOME_RIGHT').cache(),
+      top: await $axios.api('HOME_TOP').cache()
     }
     return data
   },

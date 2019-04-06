@@ -2,7 +2,7 @@
   <header>
     <h2 class="article-title">
       {{ article.title }}
-      <router-link :to="{ name: 'againEditor', query: { editor: this.$route.params.id } }" class="editor-link" v-if="editor">
+      <router-link :to="{ name: 'article-editArticle', query: { editor: this.$route.params.id } }" class="editor-link" v-if="editor">
         <i class="iconfont icon-fatie"></i>重新编辑
       </router-link>
     </h2>
@@ -27,3 +27,10 @@ export default {
   props: ['article', 'unTime', 'notCon', 'editor']
 }
 </script>
+
+<style lang="less">
+  .editor-link {
+    font-size: 15px;
+    color: #888;
+  }
+</style>

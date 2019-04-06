@@ -41,8 +41,8 @@ export default {
   methods: {
     /* 注册按钮点击事件 */
     registerEvent() {
-      let that = this;
-      const reg = that.register;
+      let that = this
+      const reg = that.register
       // 判断注册信息是否全面
       if (reg.user && reg.rsa.pass && reg.user) {
         that.$axios
@@ -51,10 +51,9 @@ export default {
           .then(res => {
             if (!res.error) {
               that.$store.dispatch('USER', res)
-              that.$router.push({path: '/'})
+              that.$router.push({ path: '/' })
               that.observer.emit('toast', {
                 icon: 'zhiwen',
-                time: false,
                 text: `注册成功, [${reg.user || ""}] 欢迎加入!`
               })
               that.observer.emit('HeaderRouter')
