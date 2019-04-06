@@ -28,6 +28,8 @@ export default {
       }
       this.$router.user = user
       store.user = user
+    } else if (typeof user === 'object') {
+      localStorage.setItem('userInfo', JSON.stringify(user))
     }
   }
 }

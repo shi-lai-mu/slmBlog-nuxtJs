@@ -8,7 +8,7 @@
         <label>账号</label>
         <input type="text" v-model="register.user" @dblclick="addUser" ref="userInput">
         <label>密码</label>
-        <input type="password" v-model="register.pass_rsa" autocomplete="tel">
+        <input type="password" v-model="register.rsa.pass" autocomplete="tel">
         <!-- <label>邮箱</label><input type="email" v-model="register.email" class="input-1v" placeholder="最好输入QQ邮箱" data-name='邮箱'> -->
         <!-- <label>验证</label><input type="text" v-model="register.code" class="input-1v input-min" placeholder="确认你非机器人" data-name='验证'><canvas></canvas> -->
         <!-- <label>代码</label><input type="text" class="input-1v" placeholder="填完邮箱点我即发送验证码" data-name='代码'> -->
@@ -31,7 +31,9 @@ export default {
     return {
       register: {
         user: null,
-        pass_rsa: null,
+        rsa: {
+          pass: null
+        },
         username: null
       }
     };
@@ -41,33 +43,24 @@ export default {
     registerEvent() {
       let self = this;
       const reg = self.register;
-      let toast = {
-        text: `注册成功, [${reg.user || ""}] 欢迎加入!`,
-        icon: "success",
-        hideTime: 4000
-      };
       // 判断注册信息是否全面
-      if (reg.user && reg.pass_rsa && reg.user) {
+      if (reg.user && reg.rsa.pass && reg.user) {
         self.$axios
           .api("USER_REGISTER")
-          .post({
-            data: reg
-          })
+          .post(reg)
           .then(res => {
-            console.log(res);
-            
-            // window.localStorage.setItem('userInfo', JSON.stringify(res.data))
-            // self.$store.state.user = res.data
-            // self.observer.emit('page', { toast })
-            // self.$router.push({path: '/'})
+            if (!res.error) {
+              this.$store.dispatch('USER', res)
+              self.$router.push({path: '/'})
+              self.observer.emit('toast', {
+                icon: "success",
+                text: `注册成功, [${reg.user || ""}] 欢迎加入!`
+              })
+            } else self.observer.emit("toast", res)
           })
       } else {
         self.observer.emit("toast", {
-          toast: {
-            text: `请将信息填写完整!`,
-            icon: "error",
-            hideTime: 3000
-          }
+          error: `请将信息填写完整!`
         });
       }
     },

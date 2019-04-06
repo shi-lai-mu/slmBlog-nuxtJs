@@ -34,9 +34,9 @@ export default {
 
     that.observer.on('toast', obj => {
       const newToast = {
-        title: obj.title || '系统通知',
+        title: obj.title,
         icon: obj.icon || 'gonggao-xianxing',
-        text: obj.text || '欢迎访问史莱姆的博客!',
+        text: obj.text || '信息获取错误',
         time: obj.time === undefined ? 2500 : obj.time,
         action: obj.action || !1,
         show: !1,
