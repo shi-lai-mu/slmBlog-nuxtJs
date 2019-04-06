@@ -83,8 +83,8 @@ export default {
           })
           .then(res => {
             if (!res.error) {
-              window.localStorage.setItem("userInfo", JSON.stringify(res));
-              that.$store.dispatch("USER", res);
+              window.localStorage.setItem("userInfo", JSON.stringify(res))
+              that.$store.dispatch("USER", res)
               that.observer.emit("toast", {
                 icon: "zhiwen",
                 text: `登录成功,欢迎回来 [${that.login.user}]!`,
@@ -100,40 +100,41 @@ export default {
                       that.$router.push({
                         path: "/user/" + res.id
                       });
+                      return true
                     }
                   }
                 ]
               });
-              const page = that.$route.query.page;
+              const page = that.$route.query.page
               if (page) {
-                that.$router.push({ path: page });
+                that.$router.push({ path: page })
               } else {
-                that.$router.push({ path: "/" });
+                that.$router.push({ path: "/" })
               }
-            } else that.observer.emit("toast", res);
-          });
+            } else that.observer.emit("toast", res)
+          })
       } else
         that.observer.emit("toast", {
           icon: "wrong",
           text: "请将信息先写完整!"
-        });
+        })
     },
 
     /**
      * 点击QQ登录后，进行窗口检测
      */
     qqLogin() {
-      window.addEventListener("blur", blur);
-      let self = this;
+      window.addEventListener("blur", blur)
+      let self = this
       function blur() {
         // 当用户关闭授权窗口后 或者 取消授权 回到本窗口时
-        window.addEventListener("focus", focus);
+        window.addEventListener("focus", focus)
         function focus() {
-          window.removeEventListener("blur", blur);
-          window.removeEventListener("focus", focus);
+          window.removeEventListener("blur", blur)
+          window.removeEventListener("focus", focus)
 
           // 检测授权uid是否存在服务器中
-          self.qqLoginState();
+          self.qqLoginState()
         }
       }
     },
@@ -142,8 +143,8 @@ export default {
      * 检测QQ授权
      */
     qqLoginState(state) {
-      let self = this;
-      let uid = this.$router.history.current.query.state || self.uid;
+      let self = this
+      let uid = this.$router.history.current.query.state || self.uid
       let toast = {
         text: `QQ登录授权失败!`,
         icon: "error",
@@ -155,23 +156,23 @@ export default {
           // 授权uid存在
           if (res.data.value) {
             // window.localStorage.setItem('userInfo', JSON.stringify(res.data))
-            self.$store.state.user = JSON.parse(JSON.parse(res.data.value));
-            toast.icon = "success";
+            self.$store.state.user = JSON.parse(JSON.parse(res.data.value))
+            toast.icon = "success"
             toast.text = `授权成功, 欢迎回来 [${
               self.$store.state.user.nickname
-            }]!`;
+            }]!`
             self.$connecter.$emit(
               "user",
               JSON.parse(JSON.parse(res.data.value))
             );
-            self.$connecter.$emit("page", { toast });
+            self.$connecter.$emit("page", { toast })
           } else {
             toast.text = `授权失败, 回调值错误!`;
-            self.$connecter.$emit("page", { toast });
+            self.$connecter.$emit("page", { toast })
           }
         })
         .catch(() => {
-          self.$connecter.$emit("page", { toast });
+          self.$connecter.$emit("page", { toast })
         });
     }
   }

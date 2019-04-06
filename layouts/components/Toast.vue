@@ -81,6 +81,7 @@ export default {
     /* 关闭 */
     close (e) {
       const id = isNaN(e) ? e.target.dataset.id : e
+      if (!this.task[id]) id--
       this.task[id].show = !1
       setTimeout(() => {
         this.task.splice(id, 1)

@@ -6,7 +6,7 @@ export default ({ app, store, observer }) => {
     // 未登录权限
     register: {
       '/user/admin/login': 'go-1',
-      '/user/admin/regiser': 'go-1'
+      '/user/admin/register': 'go-1'
     },
     // 登录权限
     login: [
