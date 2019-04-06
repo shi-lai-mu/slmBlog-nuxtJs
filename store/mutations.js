@@ -26,10 +26,10 @@ export default {
       } else {
         user = JSON.parse(user)
       }
-      this.$router.user = user
-      store.user = user
     } else if (typeof user === 'object') {
       localStorage.setItem('userInfo', JSON.stringify(user))
     }
+    this.$router.user = user
+    store.user = user
   }
 }

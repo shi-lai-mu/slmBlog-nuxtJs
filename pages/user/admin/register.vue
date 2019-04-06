@@ -41,26 +41,27 @@ export default {
   methods: {
     /* 注册按钮点击事件 */
     registerEvent() {
-      let self = this;
-      const reg = self.register;
+      let that = this;
+      const reg = that.register;
       // 判断注册信息是否全面
       if (reg.user && reg.rsa.pass && reg.user) {
-        self.$axios
+        that.$axios
           .api("USER_REGISTER")
           .post(reg)
           .then(res => {
             if (!res.error) {
-              this.$store.dispatch('USER', res)
-              self.$router.push({path: '/'})
-              self.observer.emit('toast', {
-                icon: "success",
+              that.$store.dispatch('USER', res)
+              that.$router.push({path: '/'})
+              that.observer.emit('toast', {
+                icon: 'zhiwen',
+                time: false,
                 text: `注册成功, [${reg.user || ""}] 欢迎加入!`
               })
-            } else self.observer.emit("toast", res)
+            } else that.observer.emit("toast", res)
           })
       } else {
-        self.observer.emit("toast", {
-          error: `请将信息填写完整!`
+        that.observer.emit("toast", {
+          error: '请将信息填写完整!'
         });
       }
     },

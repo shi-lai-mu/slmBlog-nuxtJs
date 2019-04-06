@@ -34,7 +34,7 @@ export default {
 
     that.observer.on('toast', obj => {
       const newToast = {
-        title: obj.title,
+        title: obj.title || '系统通知',
         icon: obj.icon || 'gonggao-xianxing',
         text: obj.text || '信息获取错误',
         time: obj.time === undefined ? 2500 : obj.time,
@@ -67,7 +67,9 @@ export default {
     /* 互动区 点击处理 如果执行函数返回true则关闭窗口 */
     selectClick (e) {
       const id = e.target.dataset.id
-      const select = this.task[id].select
+      const parent = e.target.parentElement.dataset.parent
+
+      const select = this.task[parent].select
 
       if (id && select[id]) {
         const item = select[id]
@@ -114,9 +116,11 @@ export default {
     &.wrong {
       background-color: #ffa7a1;
       color: red;
-      .content {
-        color: red;
-      }
+    }
+    &.success,
+    &.zhiwen {
+      background-color: #a7ffab;
+      color: #00b12c;
     }
 
     .user-none {
@@ -130,7 +134,6 @@ export default {
       float: right;
       font-size: .9rem;
       font-weight: bold;
-      color: #ccc;
 
       &:active {
         color: #333;
@@ -150,32 +153,33 @@ export default {
 
     .content {
       text-indent: 1.5rem;
-      color: #888;
     }
 
     .select {
       position: absolute;
       bottom: 0;
       left: 0;
-      display: -webkit-flex;
       display: flex;
       height: 40px;
       width: 100%;
       align-items: center;
-      border-top: 1px solid #ddd;
+      border-top: 1px solid currentColor;
       .user-none();
 
       .button {
+        display: flex;
         flex: 1;
-        text-align: center;
-        color: #888;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
 
         &:not(:last-child) {
-          border-right: 1px solid #ddd;
+          border-right: 1px solid currentColor;
         }
 
         &:active {
           color: #333;
+          background-color: rgba(0, 0, 0, .1);
         }
       }
     }
