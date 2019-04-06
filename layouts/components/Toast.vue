@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="['toast', { show: item.show }, { action: item.action }]" v-for="(item, index) in task" :key="index" :style="'top:' + (80 + (index * 140)) + 'px'">
+    <div :class="['toast', { show: item.show }, { action: item.action }, item.icon]" v-for="(item, index) in task" :key="index" :style="'top:' + (80 + (index * 140)) + 'px'">
 
       <!-- 内容区域 -->
       <div class="tag">
@@ -37,7 +37,7 @@ export default {
         title: obj.title || '系统通知',
         icon: obj.icon || 'gonggao-xianxing',
         text: obj.text || '欢迎访问史莱姆的博客!',
-        time: obj.time || 2500,
+        time: obj.time === undefined ? 2500 : obj.time,
         action: obj.action || !1,
         show: !1,
         select: obj.select || []
@@ -50,7 +50,7 @@ export default {
         // 渲染完显示
         newToast.show = !0
         // 几秒后消失 如果 time为false则等待关闭状态
-        !isNaN(newToast.time) && setTimeout(() => that.close(index - 1), newToast.time)
+        newToast.time !== false && setTimeout(() => that.close(index - 1), newToast.time)
       }, 100)
     })
   },
@@ -101,6 +101,14 @@ export default {
     }
     &.action {
       animation: 1.5s .5s toast ease-in-out infinite alternate;
+    }
+    /* 颜色 */
+    &.wrong {
+      background-color: #ffa7a1;
+      color: red;
+      .content {
+        color: red;
+      }
     }
 
     .user-none {

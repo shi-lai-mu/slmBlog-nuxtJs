@@ -15,8 +15,10 @@ Vue.prototype.observer = {
   // 发布
   emit(key, val) {
     const taskList = list[key]
-    for (let i = 0, len = taskList.length; i < len; i++) {
-      taskList[i](val)
+    if (taskList) {
+      for (let i = 0, len = taskList.length; i < len; i++) {
+        taskList[i](val)
+      }
     }
   }
 }

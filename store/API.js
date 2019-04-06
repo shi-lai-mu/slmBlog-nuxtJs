@@ -34,9 +34,11 @@ const API = {
   USER_INFO: 'user/info/:id',
   USER_ALL_ARTCILE: 'article/getUserAll/:id',
   USER_LOGIN: 'user/login',
+  USER_REGISTER: 'user/register',
   
   // IO接口
   IMAGER_UPLOAD: IP.io + 'i.php?token=:token',
+  ARTICLE_ADD: 'article/:type',
 
   /* IP 接口 */
   IP

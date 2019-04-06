@@ -46,6 +46,10 @@
 
 <script>
 import Editor from '~/plugins/Editor'
+import API from '~/store/API'
+
+import axiosQs from 'qs'
+
 export default {
   data () {
     return {
@@ -60,33 +64,28 @@ export default {
     }
   },
   mounted () {
-    this.editor = this.$route.query.editor
-    // this.$connecter.$emit('page', {
-    //   title: {
-    //     tag: !this.editor ? '发表文章' : '编辑文章',
-    //     description: !this.editor ? '发表文章请注意原则哦!' : '修改时请注意格式哦!'
-    //   }
-    // })
     // 编辑文章模式
-    if (!isNaN(this.editor)) {
+    const that = this
+    that.editor = that.$route.query.editor
+    if (!isNaN(that.editor)) {
       // 请求文章
-      this.$axios
-        .get('article/editorArticle/' + this.editor, {
-          token: this.$store.state.user.token
+      that.$axios
+        .get('article/editorArticle/' + that.editor, {
+          token: that.$store.state.user.token
         })
         .then(res => {
-          this.article = res.data
-          this.$refs.editor.Stores.set(this.article.content)
-          this.type = this.article.type
-          this.title = this.article.title
-          this.webPath = this.article.img
-          if (this.webPath.indexOf('//') === -1) {
-            this.webPath = `//res.mczyzy.cn/img/upload/${this.webPath}`
+          that.article = res.data
+          that.$refs.editor.Stores.set(that.article.content)
+          that.type = that.article.type
+          that.title = that.article.title
+          that.webPath = that.article.img
+          if (that.webPath.indexOf('//') === -1) {
+            that.webPath = `${API.IP.img}/img/upload/${that.webPath}`
           }
-          this.description = this.article.description
+          that.description = that.article.description
         })
         .catch(() => {
-          this.$router.go(-1)
+          that.$router.go(-1)
         })
     }
   },
@@ -128,44 +127,49 @@ export default {
      * 发表文章按钮
      */
     send () {
-      const content = this.$refs.editor.editorContent
-      let err = (!this.title || this.title.length < 4)
-        ? '标题不能为空或过短'
-        : (!this.type || this.type.split('#').length < 1)
-          ? '至少一个分类'
+      const that = this
+      const content = that.$refs.editor.editorContent
+
+      let err = (!that.title || that.title.length < 4)
+        ? '标题不能为空或过短!'
+        : (!that.type || that.type.split('#').length < 1)
+          ? '至少一个分类!'
           : content.length < 10
             ? '这么点字...水军吧!!!'
             : false
 
       if (err) {
-        this.$connecter.$emit('page', {
-          toast: {
-            text: err,
-            icon: 'error'
-          }
+        that.observer.emit('toast', {
+          text: err,
+          icon: 'wrong',
+          time: 4000
         })
       } else {
-        let _user = this.$store.state.user
-        let type = isNaN(this.editor) ? 'add' : 'unEditor'
-        this.$http.post(`article/${type}`, {
+        let _user = that.$store.state.user
+        let type = isNaN(that.editor) ? 'add' : 'unEditor'
+        that.$axios.post(`http://127.0.0.1:8080/article/${type}`, {
           token: _user.token,
-          title: this.title,
-          type: this.type,
+          title: that.title,
+          type: that.type,
           content,
           uid: _user.id,
-          img: this.webPath || this.uploadPath,
-          description: this.description,
-          editor: this.editor || false
+          img: that.webPath || that.uploadPath,
+          description: that.description,
+          editor: that.editor || false
+        },{
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
         })
           .then(res => {
             if (res.data.ID) {
-              this.$router.push({
+              that.$router.push({
                 name: 'article',
                 params: {
                   id: res.data.ID
                 }
               })
-              this.$refs.editor.Stores.clear()
+              that.$refs.editor.Stores.clear()
             }
           })
       }

@@ -56,9 +56,9 @@ export default {
       slef.$refs.body.className = option.value ? option.value : 'boss'
     })
 
-    // 问候
     slef.$nextTick(() => {
-      slef.observer.emit('toast', {
+      // PC版 问候
+      !slef.$store.state.mobile && slef.observer.emit('toast', {
         text: '欢迎访问, 史莱姆的博客!'
       })
     })
