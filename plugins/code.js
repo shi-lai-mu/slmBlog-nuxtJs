@@ -69,20 +69,31 @@ export default {
 }
 
 class Code {
+  Text = ''
   innerText = ''
+  unDisplay = false
 
   constructor (element) {
-    this.$el = element
-    this.innerText = element.innerText
-    this.identify()
+    const that = this
+    that.$el = element
+    that.innerText = that.Text = element.innerText
+    that.identify()
   }
 
   /**
    * 代码语言判断
    */
-  identify () {
+  identify (unDisplay) {
     // 开头判断如: "// javascript code-model"
     const that = this
+
+    // 二次渲染模式
+    if (unDisplay) {
+      that.innerText = that.codeEl.innerText
+      // 恢复模式
+      that.innerText = `// ${that.model} code-model\n${that.innerText}`
+      that.unDisplay = true
+    }
     let content = that.innerText
     let isModel = /^(\/\/ (?:javascript|css|html) code-model\n)/ig
     let search = isModel.exec(content)
@@ -176,10 +187,11 @@ class Code {
     }
     htmls += '</ul>'
     line += '</ul>'
-    this.parseHTML = line + htmls
-    this.lineNumber = i
-    this.addEvents()
-    this.consolePanel(htmls)
+
+    const that = this
+    that.parseHTML = line + htmls
+    that.lineNumber = i
+    !that.unDisplay && that.consolePanel(htmls)
   }
 
   /**
@@ -223,13 +235,17 @@ class Code {
     const children = that.$el.children
     that.lineEl = children[0]
     that.codeEl = children[1]
+    console.log('渲染完成!')
   }
 
   /**
    * 事件添加
    */
-  addEvents () {
-
+  Events = {
+    keydown: e => {
+      // 回车
+      this.identify(1)
+    }
   }
 
   /**
@@ -257,7 +273,9 @@ class Code {
           !activeEl && (activeEl = this)
           Model = swit ? '编辑' : '正常'
 
-          that.$el.setAttribute('contenteditable', swit)
+          that.codeEl.setAttribute('contenteditable', swit)
+          that.$el.onkeyup = swit ? that.Events.keydown : null
+          !swit && that.display(that.parseHTML)
         }
       },
       {
@@ -279,6 +297,8 @@ class Code {
             const item = span[i]
             item.setAttribute('contenteditable', swit)
           }
+          that.$el.onkeyup = swit ? that.Events.keydown : null
+          !swit && that.display(that.parseHTML)
         }
       },
       {
