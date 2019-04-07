@@ -71,21 +71,24 @@ export default {
       // 请求文章
       that.$axios
         .get('article/editorArticle/' + that.editor, {
-          token: that.$store.state.user.token
+          data: {
+            token: that.$store.state.user.token
+          }
         })
         .then(res => {
-          that.article = res.data
-          that.$refs.editor.Stores.set(that.article.content)
-          that.type = that.article.type
-          that.title = that.article.title
-          that.webPath = that.article.img
-          if (that.webPath.indexOf('//') === -1) {
+          that.$refs.editor.Stores.set(res.content)
+          that.type = res.type
+          that.title = res.title
+          that.webPath = res.img
+          if (that.webPath && that.webPath.indexOf('//') === -1) {
             that.webPath = `${API.IP.img}/img/upload/${that.webPath}`
           }
-          that.description = that.article.description
+          that.description = res.description
         })
-        .catch(() => {
+        .catch(err => {
+          that.observer.emit('toast', err)
           that.$router.go(-1)
+          throw Error(err)
         })
     }
   },
