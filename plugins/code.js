@@ -157,21 +157,27 @@ class Code {
    * 行数设置
    */
   line (html) {
-    let htmls = '<ul class="line-ul">'
+    let htmls = '<ul class="code-ul">'
+    let line = '<ul class="line-ul">'
     let arr = html.split('\n')
     let annotation = 0
-    for (let i = 0, l = arr.length; i < l; i++) {
+    let i = 0
+    // <span class="line">${i + 1}</span>
+    for (let l = arr.length; i < l; i++) {
       // 多行注释
       if (arr[i].indexOf('/*') > -1 || annotation) {
         // 是否为结束行
         annotation = arr[i].indexOf('*/') > -1 ? !1 : !0
-        arr[i] = `<span class="${this.model}-annotation">${arr[i]}</span>`
+        arr[i] = `<span class="${ this.model }-annotation">${ arr[i] }</span>`
       }
-      htmls += `<li><span class="line">${i + 1}</span>${arr[i]}</li>\n`
+      htmls += `<li>${arr[i] || ' '}</li>`
+      line += `<li>${i + 1}</li>`
     }
     htmls += '</ul>'
-    this.parseHTML = htmls
+    line += '</ul>'
+    this.parseHTML = line + htmls
     this.consolePanel(htmls)
+    this.lineNumber = i
   }
 
   /**
@@ -181,13 +187,6 @@ class Code {
     let consolePanel = document.createElement('div')
     const that = this
     consolePanel.className = 'code-console-box'
-
-    // 收起
-    const upCode = document.createElement('i')
-    upCode.className = 'iconfont icon-up'
-    upCode.onclick = () => {
-      console.log(upCode, that.$el)
-    }
 
     // 添加工具
     this.tools().forEach(item => {
@@ -208,16 +207,20 @@ class Code {
       consolePanel.appendChild(tool)
     })
 
-    // consolePanel.appendChild(upCode)
     that.$el.parentNode.insertBefore(consolePanel, that.$el)
-    // this.$el.insertBefore(consolePanel)
   }
 
   /**
-   * 渲染输出
+   * 渲染 输出
    */
   display (prase = true) {
-    this.$el.innerHTML = prase ? this.parseHTML : this.innerText
+    const that = this
+    that.$el.innerHTML = prase ? that.parseHTML : that.innerText
+
+    // 存入后期调用
+    const children = that.$el.children
+    that.lineEl = children[0]
+    that.codeEl = children[1]
   }
 
   /**
@@ -226,43 +229,57 @@ class Code {
   tools () {
     const that = this
     // 工具状态
+    let Model = '正常'
+    const active = ' active'
 
     return [
       {
         type: 'i',
-        title: '编辑',
-        className: 'iconfont icon-luru-xianxing',
+        title: '词组编辑',
+        className: 'iconfont icon-ciyuntupucopy',
         fn: function() {
           const span = that.$el.lastChild.getElementsByTagName('span')
-          console.log(span.length)
+          let switchs = true
+
+          if (Model === '词组') {
+            switchs = false
+            Model = '正常'
+            this.className = this.className.replace(active, '')
+          } else {
+            Model = '词组'
+            this.className += active
+          }
+
           for (let i = 0, len = span.length; i < len; i++) {
             const item = span[i]
             if (item.className !== 'line') {
-              item.setAttribute('contenteditable', 'true')
+              item.setAttribute('contenteditable', switchs)
             }
           }
         }
       },
       {
         type: 'i',
-        title: '缩小',
+        title: '收起',
         className: 'iconfont icon-up',
         fn: function() {
           const elClass = that.$el.className
           const className = ' close'
           if (elClass.indexOf(className) === -1) {
             that.$el.className += className
-            this.style.transform = ''
+            this.style.transform = 'rotate(180deg)'
+            this.title = '展开'
           } else {
             that.$el.className = elClass.replace(className, '')
-            this.style.transform = 'rotate(180deg)'
+            this.style.transform = ''
+            this.title = '收起'
           }
         }
       },
       {
         type: 'div',
         title: '关于',
-        className: 'info iconfont icon-caidan',
+        className: 'info iconfont icon-guanyu',
         fn: null,
         child: [
           {
