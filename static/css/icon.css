@@ -31,6 +31,12 @@ body {
   content: "\e684";
 }
 
+.icon-up:before {
+  display: inline-block;
+  content: "\e684";
+  transform: rotate(180deg);
+}
+
 .icon-shizhong:before {
   content: "\e627";
 }

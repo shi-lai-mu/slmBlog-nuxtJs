@@ -33,15 +33,16 @@ export default {
   watch: {
     '$route' (to, from) {
       window.scrollTo(0, 0)
-      this.baiduPush()
+      // this.baiduPush()
     }
   },
   mounted () {
     const slef = this
-    slef.baiduPush()
+    // slef.baiduPush()
 
-    const user = localStorage.getItem('userInfo')
+    let user = localStorage.getItem('userInfo')
     slef.$nuxt.$store.dispatch('USER', user || 'default')
+    user = slef.$store.state.user
 
     // 缩放窗口时 响应式处理
     window.addEventListener('resize', resize)
@@ -59,7 +60,7 @@ export default {
     slef.$nextTick(() => {
       // PC版 问候
       !slef.$store.state.mobile && slef.observer.emit('toast', {
-        text: '欢迎访问, 史莱姆的博客!'
+        text: isNaN(user.id) ? '欢迎访问, 史莱姆的博客!' : `欢迎回来 ${user.username}`
       })
     })
 
