@@ -56,53 +56,47 @@ export default {
   methods: {
     /* 发送留言 */
     send () {
-      let user = this.user
-      const content = this.$refs.editor.editorContent
+      const that = this
+      let user = that.user
+      const content = that.$refs.editor.editorContent
       if (!user) {
         // 游客留言
-        if (this.username) {
+        if (that.username) {
           user = {
-            token: this.username
+            token: that.username
           }
         } else {
-          return this.$connecter.$emit('page', {
-            toast: {
-              icon: 'error',
-              text: '游客需要填写昵称才能留言!'
-            }
+          return that.observer.emit('toast', {
+            error: '游客需要填写昵称才能留言!'
           })
         }
       }
       if (!content || content.length < 10) {
-        return this.$connecter.$emit('page', {
-          toast: {
-            icon: 'error',
-            text: '留言内容过少!'
-          }
+        return that.observer.emit('toast', {
+          error: '留言内容过少!'
         })
       }
-      this.$http
-        .post('article/addMessage', {
-          id: this.$route.params.id,
+      that.$axios
+        .api('ARTICLE_ADD_MESSAGE')
+        .post({
+          id: that.$route.params.id,
           token: user.token,
-          msg: this.$refs.editor.editorContent
+          msg: that.$refs.editor.editorContent
         })
         .then(res => {
           // 留言成功
           const data = res.data
-          this.article.msg.all++
-          this.article.msg.list.unshift({
+          that.article.msg.all++
+          that.article.msg.list.unshift({
             ...data,
-            level: this.article.msg.all
+            level: that.article.msg.all
           })
-          this.$connecter.$emit('page', {
-            toast: {
-              icon: 'success',
-              text: '留言成功,感谢留言会让作者更加有动力哦!'
-            }
+          that.observer.emit('toast', {
+            icon: 'success',
+            text: '留言成功,感谢留言会让作者更加有动力哦!'
           })
-          localStorage.setItem('message-username', this.username)
-          this.$refs.editor.Stores.clear()
+          localStorage.setItem('message-username', that.username)
+          that.$refs.editor.Stores.clear()
         })
     }
   }

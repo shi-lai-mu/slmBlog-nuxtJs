@@ -131,6 +131,7 @@ export default {
      */
     send () {
       const that = this
+      that.editor = that.$route.query.editor
       const content = that.$refs.editor.editorContent
 
       let err = (!that.title || that.title.length < 4)

@@ -40,6 +40,7 @@ const API = {
   IMAGER_UPLOAD: IP.io + 'i.php?token=:token',
   ARTICLE_ADD: 'article/add',
   ARTICLE_UNEDITOR: 'article/unEditor',
+  ARTICLE_ADD_MESSAGE: 'article/addMessage',
 
   /* IP 接口 */
   IP
