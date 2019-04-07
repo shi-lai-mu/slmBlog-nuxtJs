@@ -1,4 +1,5 @@
 import '~/static/css/code.css'
+const __VARSION__ = '1.3.0'
 // import codeModel from './code-model'
 const codeModel = {
   javascript: {
@@ -176,8 +177,9 @@ class Code {
     htmls += '</ul>'
     line += '</ul>'
     this.parseHTML = line + htmls
-    this.consolePanel(htmls)
     this.lineNumber = i
+    this.addEvents()
+    this.consolePanel(htmls)
   }
 
   /**
@@ -224,39 +226,74 @@ class Code {
   }
 
   /**
+   * 事件添加
+   */
+  addEvents () {
+
+  }
+
+  /**
    * 工具列表
    */
   tools () {
     const that = this
     // 工具状态
     let Model = '正常'
-    const active = ' active'
+    let activeEl = false
+    const active = 'active'
 
     return [
+      {
+        type: 'i',
+        title: '编辑',
+        className: 'iconfont icon-Code',
+        fn: function() {
+          const swit = this.classList.toggle(active)
+
+          if (activeEl && Model !== '编辑') {
+            activeEl.classList.remove(active)
+            activeEl = this
+          }
+          !activeEl && (activeEl = this)
+          Model = swit ? '编辑' : '正常'
+
+          that.$el.setAttribute('contenteditable', swit)
+        }
+      },
       {
         type: 'i',
         title: '词组编辑',
         className: 'iconfont icon-ciyuntupucopy',
         fn: function() {
-          const span = that.$el.lastChild.getElementsByTagName('span')
-          let switchs = true
+          const span = that.codeEl.getElementsByTagName('span')
+          const swit = this.classList.toggle(active)
 
-          if (Model === '词组') {
-            switchs = false
-            Model = '正常'
-            this.className = this.className.replace(active, '')
-          } else {
-            Model = '词组'
-            this.className += active
+          if (activeEl && Model !== '词组') {
+            activeEl.classList.remove(active)
+            activeEl = this
           }
+          !activeEl && (activeEl = this)
+          Model = swit ? '词组' : '正常'
 
           for (let i = 0, len = span.length; i < len; i++) {
             const item = span[i]
-            if (item.className !== 'line') {
-              item.setAttribute('contenteditable', switchs)
-            }
+            item.setAttribute('contenteditable', swit)
           }
         }
+      },
+      {
+        type: 'div',
+        title: '关于',
+        className: 'info iconfont icon-guanyu',
+        fn: null,
+        child: [
+          {
+            type: 'div',
+            className: 'info-child',
+            fn: null,
+            html:  `<h3>关于本组件</h3><p>作者：史莱姆</p><p>版本：${ __VARSION__ }</p><p>行数：${ that.lineNumber }</p>`
+          }
+        ]
       },
       {
         type: 'i',
@@ -275,20 +312,6 @@ class Code {
             this.title = '收起'
           }
         }
-      },
-      {
-        type: 'div',
-        title: '关于',
-        className: 'info iconfont icon-guanyu',
-        fn: null,
-        child: [
-          {
-            type: 'div',
-            className: 'info-child',
-            fn: null,
-            html:  `<h3>关于本组件</h3><p>作者：史莱姆</p><p>版本：v1.3.0</p>`
-          }
-        ]
       },
       {
         type: 'i',
