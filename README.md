@@ -1,4 +1,4 @@
-<div align=center><img width="100"src="https://images.gitee.com/uploads/images/2019/0130/203624_c343fd46_1774840.png" alt="SLM-BLOG LOGO"/></div>
+<div align=center><img width="100"src="https://slmblog.com/LOGO.png" alt="SLM-BLOG LOGO"/></div>
 
 ## [SLM BLOG](http://mczyzy.cn)
 
