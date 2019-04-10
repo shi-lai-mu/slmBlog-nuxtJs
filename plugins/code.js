@@ -1,5 +1,5 @@
 import '~/static/css/code.css'
-const __VARSION__ = '1.3.0'
+const __VARSION__ = '1.3.5'
 // import codeModel from './code-model'
 const codeModel = {
   javascript: {
