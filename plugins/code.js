@@ -1,5 +1,5 @@
 import '~/static/css/code.css'
-const __VARSION__ = '1.3.6'
+const __VARSION__ = '1.3.8'
 // import codeModel from './code-model'
 const codeModel = {
   javascript: {
@@ -320,7 +320,12 @@ class Code {
             type: 'div',
             className: 'info-child',
             fn: null,
-            html:  `<h3>关于本语法高亮组件</h3><p>组件作者：史莱姆</p><p>组件版本：${ __VARSION__ }</p><p>初始行数：${ that.lineNumber }</p><p>渲染耗时：${ Date.now() - that.startTime }ms</p>`
+            html:  `<h3>关于本语法高亮组件</h3>` +
+            `<p>组件作者：史莱姆</p>` +
+            `<p>组件版本：${ __VARSION__ }</p>` +
+            `<p>初始行数：${ that.lineNumber }</p>` +
+            `<p>渲染耗时：${ Date.now() - that.startTime }ms</p>` +
+            `<p>开源地址：<a href="https://github.com/shi-lai-mu/vue-light-plugin">访问GITHUB</a></p>`
           }
         ]
       },

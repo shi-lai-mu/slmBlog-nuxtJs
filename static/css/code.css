@@ -101,6 +101,9 @@ code .line-ul li {
   transition: .5s;
   transform: translateX(-95%) translateY(20px);
 }
+.info:hover .info-child p {
+  color: #ccc;
+}
 .info:hover .info-child {
   opacity: 1;
   visibility: initial;
