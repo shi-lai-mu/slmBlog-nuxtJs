@@ -1,5 +1,5 @@
 import '~/static/css/code.css'
-const __VARSION__ = '1.3.5'
+const __VARSION__ = '1.3.6'
 // import codeModel from './code-model'
 const codeModel = {
   javascript: {
@@ -201,8 +201,11 @@ class Code {
     let consolePanel = document.createElement('div')
     const that = this
     consolePanel.className = 'code-console-box'
+    consolePanel.innerHTML = `<span class="code-model">${ that.model }</span>`
 
     // 添加工具
+    const toolBox = document.createElement('span')
+    toolBox.className = 'tool-box'
     this.tools().forEach(item => {
       const tool = document.createElement(item.type)
       tool.className = item.className
@@ -218,8 +221,9 @@ class Code {
         child.innerHTML = childs.html || ''
         tool.appendChild(child)
       })
-      consolePanel.appendChild(tool)
+      toolBox.appendChild(tool)
     })
+    consolePanel.appendChild(toolBox)
 
     that.$el.parentNode.insertBefore(consolePanel, that.$el)
   }
