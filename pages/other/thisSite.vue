@@ -182,7 +182,7 @@
         </li>
         <li>
           <span>2019/03/10:</span>
-          <p>博客移植为SSR渲染，VUE+NuxtJS</p>
+          <p>博客重构为SSR渲染，VUE+NuxtJS</p>
         </li>
         <li>
           <p>本人从不怕重写, 只怕原地踏步</p>
