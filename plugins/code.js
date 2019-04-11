@@ -235,7 +235,6 @@ class Code {
     const children = that.$el.children
     that.lineEl = children[0]
     that.codeEl = children[1]
-    console.log('渲染完成!')
   }
 
   /**
