@@ -69,12 +69,18 @@ export default {
 }
 
 class Code {
+  // 源文本
   Text = ''
+  // 解析后的文本
   innerText = ''
+  // 重渲染模式
   unDisplay = false
+  // 开始渲染时间
+  startTime = 0
 
   constructor (element) {
     const that = this
+    that.startTime = Date.now()
     that.$el = element
     that.innerText = that.Text = element.innerText
     that.identify()
@@ -201,7 +207,7 @@ class Code {
     let consolePanel = document.createElement('div')
     const that = this
     consolePanel.className = 'code-console-box'
-    consolePanel.innerHTML = `<span class="code-model">${ that.model }</span>`
+    consolePanel.innerHTML = `<span class="code-model">${ that.model } Code</span>`
 
     // 添加工具
     const toolBox = document.createElement('span')
@@ -314,7 +320,7 @@ class Code {
             type: 'div',
             className: 'info-child',
             fn: null,
-            html:  `<h3>关于本组件</h3><p>作者：史莱姆</p><p>版本：${ __VARSION__ }</p><p>行数：${ that.lineNumber }</p>`
+            html:  `<h3>关于本语法高亮组件</h3><p>组件作者：史莱姆</p><p>组件版本：${ __VARSION__ }</p><p>初始行数：${ that.lineNumber }</p><p>渲染耗时：${ Date.now() - that.startTime }ms</p>`
           }
         ]
       },
