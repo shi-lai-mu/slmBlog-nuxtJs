@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import Code from '~/plugins/code'
+import Code from '~/plugins/lightCode/index'
 import { form } from '~/plugins/tool'
 import right from '~/components/artcile/right'
 import message from '~/components/artcile/message'

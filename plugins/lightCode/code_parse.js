@@ -1,72 +1,4 @@
-import '~/static/css/code.css'
-const __VARSION__ = '1.3.8'
-// import codeModel from './code-model'
-const codeModel = {
-  javascript: {
-    // 关键词
-    'keyword': /\b(as|async|await|break|undefined|NaN|false|true|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\b/ig,
-    // 字符串
-    'string': /('[\s\S]*?')|(`[\s\S]*?`)|((?!class=)`[\s\S]*?`)/g,
-    // 注释
-    'annotation': /(\/\/[\s\S]*?\n)|(\/\/[\s\S]*?.*[^\n])|(\/\*\*)[\n\s\S]*?\*\//ig,
-    // 值
-    'value': /\${\w+}|\b\d+|(\.\.\.)\w+|(\w)+(?=,|\)| (=|\*|\+|-|%)|\n|;| \|\||\W?})/g,
-    // 符号
-    'operator': /((?!\*|&lt)[+\-%](?!>|=|\S+>|\(|\*))|(>=|>=|\/=|\*=|-=|\+=|\+\+|--)/g,
-    // 函数、调用
-    'function': /[_$a-z\xA0-\uFFFF][$\w\xA0-\uFFFF]*(?=\s*\()/ig,
-    // 返回值
-    'return': /\b(:?return)\b/g,
-    // 键
-    'key': /(this|[$_]?\w+(?=\.))/g,
-    // 对象键
-    'key-obj': /\w+(?=:)/g,
-    // 方法
-    'methods': /(\.\S+\(\))/g,
-    // 标签组
-    'html': /&lt[^>]*>|&lt\/[^>]*>/ig
-  },
-  html: {
-    // 标签
-    'label': /(<|&lt;)[^>]*>|(<|&lt;)\/[^>]*>/ig,
-    // 属性
-    'key': /[\w-]+="[\w.\s]+"/g,
-    // 注释
-    'annotation': /&lt;!-- [\s\S]*? -->/g
-  },
-  css: {
-    // 选择器
-    'key': /[.*\w]+[\W]?(?={)/g,
-    // 颜色
-    'color': /(?:rgba|rgb|hsl)\([\s\S]*?\)/ig,
-    // 引用
-    'string': /(src|url)\([\s\S]*?\)/g,
-    // 值
-    'value': /(\w+\d+[\w]+(?!:'))|#\w+|[.]?\d+/g,
-    // 属性
-    'keyword': /[-\w]+(?=:)/g
-  }
-}
-
-export default {
-
-  /**
-   * parse 解析代码模板
-   * @param {Element} element 需要解析的el元素
-   */
-  parse (element) {
-    if (!(element instanceof HTMLElement)) throw Error('element is not HTMLElement!')
-
-    let codeList = element.getElementsByTagName('code')
-    let codeLen = codeList.length
-    // 代码高亮函数
-    while (codeLen) {
-      let parseCode = new Code(codeList[codeLen - 1])
-      parseCode.display(!!parseCode.parseHTML)
-      codeLen--
-    }
-  }
-}
+import codeModel from './code_mode'
 
 class Code {
   // 源文本
@@ -77,43 +9,66 @@ class Code {
   unDisplay = false
   // 开始渲染时间
   startTime = 0
+  // 皮肤主题
+  skin = ''
 
-  constructor (element) {
+  /**
+   * 构造函数
+   * @param {HTMLElement} element 被渲染的元素 code 标签
+   * @param {Object} parent 入口的this，用于调用版本信息等接口
+   */
+  constructor (element, parent) {
     const that = this
+    that.parent = parent
+
+    // 渲染开始时间
     that.startTime = Date.now()
+    // 渲染元素
     that.$el = element
+    // 渲染文本 初始文本
     that.innerText = that.Text = element.innerText
+    // 解析 代码模型 可用的代码模式
+    that.codeModelType = codeModel.parseModelType()
+
+    // 渲染入口
     that.identify()
   }
+
 
   /**
    * 代码语言判断
    */
   identify (unDisplay) {
-    // 开头判断如: "// javascript code-model"
     const that = this
 
     // 二次渲染模式
     if (unDisplay) {
       that.innerText = that.codeEl.innerText
       // 恢复模式
-      that.innerText = `// ${that.model} code-model\n${that.innerText}`
       that.unDisplay = true
     }
-    let content = that.innerText
-    let isModel = /^(\/\/ (?:javascript|css|html) code-model\n)/ig
-    let search = isModel.exec(content)
+    // 开头判断如: "// javascript code-model"
+    const codeModelType = that.codeModelType
+
+    let content = that.innerText,
+        isModel = `^(\/\/ (?:${ codeModelType.exp }) code-model\n)`,
+        search = new RegExp(isModel, 'ig').exec(content)
+
+    // 如果识别出模式
     if (isModel) {
       that.innerText = content.replace(isModel, '')
       let model = /(javascript|css|html)+/i
       if (search) {
         search[0].replace(model, keyword => {
           // 设置类名为 model-语言
-          that.$el.className = 'model-' + keyword
+          that.$el.className = `model-${ keyword } ${ that.skin }`
           that.model = keyword
 
+          // 普通渲染
           let html = that.form()
-          // 如果为 HTML 模式
+
+          // 如果为 HTML 模式 [混合模式渲染]
+          //    混合模式思路：找到文本内作用域后分割渲染
           if (keyword === 'html') {
             // 内嵌 js 处理
             html = html.replace(/&lt;script>[\s\S]*?&lt;\/script>/ig, key => {
@@ -131,19 +86,23 @@ class Code {
                 return `<span class="html-key">style="<span class="model-css">${results}</span>"</span>`
               })
           }
+
           that.line(html)
         })
       }
     }
   }
 
+
   /**
-   * 替换语法高亮
+   * 渲染语法
    */
   form (content, mod) {
-    const model = mod || this.model
-    let regexp = codeModel[model]
+    const model = mod || this.model,
+          regexp = codeModel[model]
+
     let html = content || this.innerText
+
     // 排除标签
     if (!content) {
       html = this.innerText = html.replace(/&/gm, '&amp;').replace(/</gm, '&lt;')
@@ -152,10 +111,13 @@ class Code {
     // 计算条件
     for (let exp in regexp) {
       html = html.replace(regexp[exp], word => {
-        if (/<[^>]*>|<\/[^>]*>/ig.test(word) ||
+
+        if (
+          /<[^>]*>|<\/[^>]*>/ig.test(word) ||
              exp === 'annotation' ||
              word.indexOf('annotation') === -1 ||
-             model !== 'html') {
+             model !== 'html'
+        ) {
           return `<span class="${model}-${exp}">${word}</span>`
         }
         return word
@@ -171,16 +133,17 @@ class Code {
     return html
   }
 
+
+  
   /**
-   * 行数设置
+   * 行数渲染
    */
   line (html) {
-    let htmls = '<ul class="code-ul">'
-    let line = '<ul class="line-ul">'
-    let arr = html.split('\n')
-    let annotation = 0
-    let i = 0
-    // <span class="line">${i + 1}</span>
+    let htmls = '<ul class="code-ul">',
+        line = '<ul class="line-ul">',
+        arr = html.split('\n'),annotation = 0,
+        i = 0
+
     for (let l = arr.length; i < l; i++) {
       // 多行注释
       if (arr[i].indexOf('/*') > -1 || annotation) {
@@ -197,17 +160,20 @@ class Code {
     const that = this
     that.parseHTML = line + htmls
     that.lineNumber = i
-    !that.unDisplay && that.consolePanel(htmls)
+
+    // 如果非重绘模式 则 渲染控制台
+    that.unDisplay ? that.display() : that.consolePanel()
   }
+
 
   /**
    * 控制按钮添加
    */
-  consolePanel (html) {
+  consolePanel () {
     let consolePanel = document.createElement('div')
     const that = this
-    consolePanel.className = 'code-console-box'
-    consolePanel.innerHTML = `<span class="code-model">${ that.model } Code</span>`
+    consolePanel.className = `code-console-box ${ that.skin }`
+    consolePanel.innerHTML = `<span class="code-model">史莱姆渲染器 - ${ that.model } Code</span>`
 
     // 添加工具
     const toolBox = document.createElement('span')
@@ -230,9 +196,10 @@ class Code {
       toolBox.appendChild(tool)
     })
     consolePanel.appendChild(toolBox)
-
+    // 渲染 控制台
     that.$el.parentNode.insertBefore(consolePanel, that.$el)
   }
+
 
   /**
    * 渲染 输出
@@ -241,31 +208,34 @@ class Code {
     const that = this
     that.$el.innerHTML = prase ? that.parseHTML : that.innerText
 
-    // 存入后期调用
+    // 存入 后期调用
     const children = that.$el.children
     that.lineEl = children[0]
     that.codeEl = children[1]
   }
+
 
   /**
    * 事件添加
    */
   Events = {
     keydown: e => {
-      // 回车
+      // 回车 重绘渲染 模式
       this.identify(1)
     }
   }
+
 
   /**
    * 工具列表
    */
   tools () {
-    const that = this
-    // 工具状态
-    let Model = '正常'
-    let activeEl = false
-    const active = 'active'
+    const that = this,
+          active = 'active'
+
+    // 私有 工具 状态
+    let Model = '正常',
+        activeEl = false
 
     return [
       {
@@ -283,8 +253,7 @@ class Code {
           Model = swit ? '编辑' : '正常'
 
           that.codeEl.setAttribute('contenteditable', swit)
-          that.$el.onkeyup = swit ? that.Events.keydown : null
-          !swit && that.display(that.parseHTML)
+          !swit && that.identify(1)
         }
       },
       {
@@ -306,8 +275,20 @@ class Code {
             const item = span[i]
             item.setAttribute('contenteditable', swit)
           }
-          that.$el.onkeyup = swit ? that.Events.keydown : null
-          !swit && that.display(that.parseHTML)
+          !swit && that.identify(1)
+        }
+      },
+      {
+        type: 'i',
+        title: '切换皮肤',
+        className: 'iconfont icon-wodezhuti',
+        fn: function() {
+          that.codeEl.getElementsByTagName('span')
+          this.classList.toggle(active)
+
+          that.skin = !that.skin ? 'while' : ''
+          this.parentElement.parentElement.className = 'code-console-box ' + that.skin
+          that.identify(1)
         }
       },
       {
@@ -321,11 +302,13 @@ class Code {
             className: 'info-child',
             fn: null,
             html:  `<h3>关于本语法高亮组件</h3>` +
-            `<p>组件作者：史莱姆</p>` +
-            `<p>组件版本：${ __VARSION__ }</p>` +
-            `<p>初始行数：${ that.lineNumber }</p>` +
-            `<p>渲染耗时：${ Date.now() - that.startTime }ms</p>` +
-            `<p>开源地址：<a href="https://github.com/shi-lai-mu/vue-light-plugin">访问GITHUB</a></p>`
+                   `<p>组件作者：${ that.parent.getAuthor() }</p>` +
+                   `<p>组件版本：${ that.parent.getVersion() }</p>` +
+                   `<p>初始行数：${ that.lineNumber }</p>` +
+                   `<p>渲染模式：${ that.model }</p>` +
+                   `<p>渲染字数：${ that.Text.length }</p>` +
+                   `<p>渲染耗时：${ Date.now() - that.startTime }ms</p>` +
+                   `<br><p>开源地址：<a href="https://github.com/shi-lai-mu/vue-light-plugin">访问GITHUB</a></p>`
           }
         ]
       },
@@ -359,3 +342,5 @@ class Code {
     ]
   }
 }
+
+export default Code

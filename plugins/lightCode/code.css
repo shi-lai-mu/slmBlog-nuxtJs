@@ -8,8 +8,9 @@ body .article-body code {
   border-radius: 0 0 3px 3px !important;
   transition: .5s;
 }
-body .article-body code.close {
-  max-height: 0;
+
+body .article-body .close {
+  max-height: 0 !important;
 }
 .model-javascript {
   padding: 1px 3px;
@@ -23,6 +24,7 @@ code .code-ul,
 code .line-ul {
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 code .line-ul li,
 code .code-ul li {
@@ -45,11 +47,37 @@ code .code-ul li:hover {
 }
 code .line-ul {
   margin-right: 10px;
+  padding-right: 5px;
+  border-right: 1px solid #333;
 }
 code .line-ul li {
   width: 2rem;
   user-select: none;
   text-align: right;
+}
+
+/* 白色皮肤 */
+body .article-body code.while {
+  color: #333;
+  background-color: #f8f8f0;
+}
+code.while .line-ul {
+  border-right: 1px solid #ccc;
+}
+.code-console-box.while {
+  background-color: #f1f1f0;
+  border-bottom: 3px solid #e6e6e6;
+}
+.code-console-box.while .code-model {
+  color: #333;
+}
+.code-console-box.while .info .info-child {
+  background-color: #eee;
+  color: #333;
+  box-shadow: 2px 4px 5px rgba(0, 0, 0, .3);
+}
+.code-console-box.while .info:hover .info-child p {
+  color: #666;
 }
 
 /* 控制台 */
@@ -109,6 +137,8 @@ code .line-ul li {
   visibility: initial;
   transform: translateX(-95%) translateY(10px);
 }
+
+/* 语法颜色 模型-关键词名 */
 
 .javascript-keyword,
 .javascript-methods,

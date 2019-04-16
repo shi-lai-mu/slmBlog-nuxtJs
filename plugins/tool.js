@@ -145,7 +145,6 @@ const loadImg = (url, cb) => {
 }
 
 export {
-  permissions,
   unForm,
   form,
   utfc,
