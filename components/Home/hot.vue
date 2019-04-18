@@ -30,13 +30,13 @@
           </div>
         </li>
       </ul>
-      <div class="page">
-        <span class="page-num">
-          <input onfocus="this.select()" v-model="page.num" @keyup.enter="pageSearch">/ {{ page.count }}
+      <div class="hot">
+        <span class="hot-num">
+          <input onfocus="this.select()" v-model="hot.num" @keyup.enter="hotSearch">/ {{ hot.count }}
         </span>
         <span class="right">
-          <button class="button-lv1" @click="pageSearch(--page.num)">上一页</button>
-          <button class="button-lv1" @click="pageSearch(page.num++)">下一页</button>
+          <button class="button-lv1" @click="hotSearch(--hot.num)">上一页</button>
+          <button class="button-lv1" @click="hotSearch(hot.num++)">下一页</button>
         </span>
       </div>
     </section>
@@ -51,12 +51,7 @@ export default {
     return {
       hotList: [],
       searchArticle: '',
-      searchState: false,
-      page: {
-        all: 0,
-        count: 0,
-        num: 1
-      }
+      searchState: false
     }
   },
   mounted () {
@@ -86,8 +81,8 @@ export default {
       const slef = this
       if (keyword) {
         slef.searchArticle = `正在显示标签包含 '${keyword}' 的文章...`
-        key = { page, keyword }
       }
+      key = { page, keyword }
       slef.$store.dispatch('ARTICLE_MODEL', key)
       slef.$axios
         .api('HOME_HOT')
@@ -98,15 +93,15 @@ export default {
     },
 
     /* 文章跳转 */
-    pageSearch (i) {
-      if (i >= this.page.count) {
-        this.page.num = this.page.count
+    hotSearch (i) {
+      if (i >= this.hot.count) {
+        this.hot.num = this.hot.count
         return
       }
-      let page = this.page.num
-      if (!isNaN(page) && page > 0) {
-        this.loadMaster(page)
-      } else this.page.num = 1
+      let hot = this.hot.num
+      if (!isNaN(hot) && hot > 0) {
+        this.loadMaster(false, hot)
+      } else this.hot.num = 1
     },
 
     /* 清空文章模式 */
@@ -158,8 +153,8 @@ export default {
   }
 
 // 页数控制
-  .page {
-    .page-num {
+  .hot {
+    .hot-num {
       margin: 0 10px;
       line-height: 40px;
       vertical-align: middle;

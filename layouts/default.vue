@@ -64,7 +64,7 @@ export default {
       })
     })
 
-    console.log('%cSLM BLOG%c version 1.5.0', 'font-size: 40px;color: rgb(254,65,129);font-weight: bold;', 'font-size: 20px;color: rgb(254,65,129)')
+    console.log('%cSLM BLOG%c version 1.5.1', 'font-size: 40px;color: rgb(254,65,129);font-weight: bold;', 'font-size: 20px;color: rgb(254,65,129)')
     console.log('      %c欢迎访问 史莱姆的博客!', 'font-size: 20px;color: rgb(254,65,129)')
   },
   methods: {
