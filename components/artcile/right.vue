@@ -11,6 +11,21 @@
         <span>分享本文</span>
       </div>
     </div>
+    <!-- 作者 -->
+    <div class="article-right-box clearfix">
+      <label class="article-right-title">作者</label>
+      <div class="author-box">
+        <img :src="article.author.img" :alt="article.author.username + '的头像'" class="author-img">
+        <div class="author-info ellipsis">
+          <div class="author-name" v-text="article.author.username"></div>
+          <div class="author-desc ellipsis" v-text="article.author.desc">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</div>
+          <div class="button-box">
+            <router-link class="button" :to="'/user/' + article.author.id">查看</router-link>
+            <span class="button" @click="not">私聊</span>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- 标签类 -->
     <div class="article-right-box clearfix">
       <label class="article-right-title">标签</label>
@@ -72,6 +87,7 @@ export default {
   },
   mounted () {
     let data = this.article
+    console.log(data)
     // 导航树
     if (!data.tree) {
       let h2 = data.content.match(/<(h2|blockquote|li)[^>]*>.*?<\/(h2|blockquote|li)>/ig)
@@ -197,6 +213,11 @@ export default {
         })
       }
       this.treeList = treeList
+    },
+    not () {
+      this.observer.emit('toast', {
+        text: '抱歉,该功能未开发!'
+      })
     }
   },
   destroyed () {
@@ -329,6 +350,58 @@ export default {
   .tree-not {
     margin: 10px;
     color: #999;
+  }
+
+  // 作者
+  .author-box {
+    display: flex;
+    margin-top: 5px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, .5);
+    border: 1px solid #eee;
+    border-radius: 5px;
+    transition: .5s;
+
+    .author-img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+      border-radius: 50%;
+      flex: 1;
+    }
+
+    .author-info {
+      width: 100%;
+    }
+
+    .author-name {
+      font-weight: bold;
+      color: #555;
+    }
+
+    .author-desc {
+      font-size: .8em;
+      color: #888;
+    }
+
+    &:hover {
+      background-color: #fff;
+    }
+
+    .button-box {
+      display: flex;
+      margin-top: 10px;
+      justify-content: flex-end;
+      font-size: .8em;
+      color: #bbb;
+
+      .button {
+        margin: 0 10px;
+        padding: 3px 10px;
+        border: 1px solid currentColor;
+        border-radius: 20px;
+      }
+    }
   }
 
   // 导航
