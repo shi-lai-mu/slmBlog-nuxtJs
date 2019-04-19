@@ -157,6 +157,14 @@ export default {
     float: right;
     width: calc(100% - 310px);
 
+    
+    .not-data {
+      line-height: 30vh;
+      font-size: 1.5em;
+      text-align: center;
+      color: #ccc;
+    }
+
     .user-right-nav {
       margin-bottom: 10px;
       border-bottom: 1px solid #eee;

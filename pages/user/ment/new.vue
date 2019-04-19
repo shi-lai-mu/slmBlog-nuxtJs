@@ -1,16 +1,21 @@
 <template>
-  <ul class="article-list">
-    <li v-for="(item, index) in hot" :key="index">
-      <img :src="item.img" :alt="item.title">
-      <div class="ellipsis article-info">
-        <router-link class="max-a" :to="{ name: 'article-id', params: { id: item.Id } }">
-          <div class="ellipsis article-list-title" v-text="item.title"></div>
-          <div class="ellipsis article-list-desc" v-text="item.description"></div>
-          <div class="article-list-time">{{ item.createTime }}</div>
-        </router-link>
-      </div>
-    </li>
-  </ul>
+  <div>
+    <ul class="article-list">
+      <li v-for="(item, index) in hot" :key="index">
+        <img :src="item.img" :alt="item.title">
+        <div class="ellipsis article-info">
+          <router-link class="max-a" :to="{ name: 'article-id', params: { id: item.Id } }">
+            <div class="ellipsis article-list-title" v-text="item.title"></div>
+            <div class="ellipsis article-list-desc" v-text="item.description"></div>
+            <div class="article-list-time">{{ item.createTime }}</div>
+          </router-link>
+        </div>
+      </li>
+    </ul>
+    <div v-if="!hot.length" class="not-data">
+      (ΩДΩ)!! 这位大佬还没发布啥文章...
+    </div>
+  </div>
 </template>
 
 <script>
