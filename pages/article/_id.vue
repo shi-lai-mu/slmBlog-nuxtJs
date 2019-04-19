@@ -64,9 +64,6 @@ export default {
         data: { id }
       })
       .cache()
-      // .catch(() => {
-      //   this.$router.go(-1)
-      // })
     return { article }
   },
   mounted () {
@@ -75,6 +72,7 @@ export default {
       Code.parse(that.$refs.content)
       const user = that.$store.state.user
       const data = that.article
+      that.$refs.artRight.getTreeElement(that.$el)
 
       // 是否有编辑权限
       if (user) {
@@ -134,6 +132,10 @@ export default {
       font-weight: 400;
       color: #555;
       text-align: center;
+
+      a {
+        color: #777;
+      }
     }
 
     .article-body {

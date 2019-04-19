@@ -74,7 +74,7 @@ export default {
     let data = this.article
     // 导航树
     if (!data.tree) {
-      let h2 = data.content.match(/<(h2|blockquote)[^>]*>.*?<\/(h2|blockquote)>/ig)
+      let h2 = data.content.match(/<(h2|blockquote|li)[^>]*>.*?<\/(h2|blockquote|li)>/ig)
       if (h2) {
         let tree = []
         // 建立树 添加导航点
@@ -110,11 +110,16 @@ export default {
       }
     }
     // 滚动监听
-    // this.tree.length && window.addEventListener('scroll', this.scroll)
+    this.tree.length && window.addEventListener('scroll', this.scroll)
     this.$nextTick(() => {
       navTreeTop = this.$refs.navTree.offsetTop
     })
   },
+
+  beforeDestroy () {
+    this.tree.length && window.removeEventListener('scroll', this.scroll)
+  },
+
   methods: {
     /* 搜索关键词 */
     searchKeyWord (keyword) {
@@ -192,6 +197,7 @@ export default {
           parent: item.className.split('-')[1]
         })
       }
+        console.log(treeList)
       this.treeList = treeList
     }
   },
