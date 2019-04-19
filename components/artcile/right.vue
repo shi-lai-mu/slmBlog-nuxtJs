@@ -123,11 +123,10 @@ export default {
   methods: {
     /* 搜索关键词 */
     searchKeyWord (keyword) {
-      this.$router.push({
-        name: 'home'
-      })
-      this.$connecter.$emit('searchKeyWord', keyword)
       this.$store.state.articleModel.keyword = keyword
+      this.$router.push({
+        path: '/'
+      })
     },
 
     /* 滚动监测 */
@@ -197,7 +196,6 @@ export default {
           parent: item.className.split('-')[1]
         })
       }
-        console.log(treeList)
       this.treeList = treeList
     }
   },

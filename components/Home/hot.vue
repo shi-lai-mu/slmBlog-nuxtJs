@@ -56,6 +56,8 @@ export default {
   },
   mounted () {
     this.observer.on('searchKeyWord', this.loadMaster)
+    const keyword = this.$store.state.articleModel.keyword
+    keyword && this.loadMaster(keyword)
   },
   methods: {
     /* 点击标签事件 */
