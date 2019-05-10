@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import NuxtLoading from './components/nuxt-loading.vue'
 
-import '..\\static\\css\\public.less'
-
 import '..\\static\\css\\icon.css'
 
 import _42d6b8de from '..\\layouts\\components\\background.vue'

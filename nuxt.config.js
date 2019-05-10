@@ -44,7 +44,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    { src: 'static/css/public.less' },
+    // { src: 'static/css/public.less' },
     { src: 'static/css/icon.css' }
   ],
 
@@ -81,7 +81,10 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    extractCSS: true
+    extractCSS: true,
+    styleResources:{
+      less:'assets/style/public.less'
+    }
   },
 
   performance: {

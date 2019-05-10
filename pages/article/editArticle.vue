@@ -238,7 +238,7 @@ export default {
     border-radius: 10px;
     min-height: 20vw;
     margin: 20px 10%;
-    background: #ccc var(--img-bg);
+    background: #ccc @line-bg;
 
     .look,
     .look-info {

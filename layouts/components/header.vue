@@ -445,8 +445,8 @@ export default {
     overflow-y: scroll;
     background-color: #fff;
     opacity: 0;
-    -webkit-box-shadow: var(--box-shadow);
-            box-shadow: var(--box-shadow);
+    -webkit-box-shadow: @box-shadow;
+            box-shadow: @box-shadow;
     -webkit-transform: translateY(60px) translateX(-100%);
             transform: translateY(60px) translateX(-100%);
 

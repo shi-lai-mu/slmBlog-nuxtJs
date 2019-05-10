@@ -85,8 +85,7 @@ export default {
 }
 .test-enter, .test-leave-active {
   opacity: 0;
-  -webkit-transform: translate(-50px, 0);
-          transform: translate(-50px, 0);
+  transform: translate(-50px, 0);
 }
 .boss {
   transition: 1s;

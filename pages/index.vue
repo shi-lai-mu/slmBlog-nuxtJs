@@ -31,8 +31,6 @@ export default {
 </script>
 
 <style lang="less">
-  @ip: '/img';
-
   .home {
     margin-bottom: 40px;
 

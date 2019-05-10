@@ -112,6 +112,9 @@ export function resolveRouteComponents(route) {
 }
 
 export async function getRouteData(route) {
+  if (!route) {
+    return
+  }
   // Make sure the components are resolved (code-splitting)
   await resolveRouteComponents(route)
   // Send back a copy of route with meta based on Component definition
@@ -138,8 +141,15 @@ export async function setContext(app, context) {
       env: {}
     }
     // Only set once
-    if (context.req) app.context.req = context.req
-    if (context.res) app.context.res = context.res
+    if (context.req) {
+      app.context.req = context.req
+    }
+    if (context.res) {
+      app.context.res = context.res
+    }
+    if (context.ssrContext) {
+      app.context.ssrContext = context.ssrContext
+    }
     app.context.redirect = (status, path, query) => {
       if (!status) {
         return
@@ -154,7 +164,7 @@ export async function setContext(app, context) {
         status = 302
       }
       if (pathType === 'object') {
-        path = app.router.resolve(path).href
+        path = app.router.resolve(path).route.fullPath
       }
       // "/absolute/route", "./relative/route" or "../relative/route"
       if (/(^[.]{1,2}\/)|(^\/(?!\/))/.test(path)) {
@@ -187,19 +197,27 @@ export async function setContext(app, context) {
       app.context.nuxtState = window.__NUXT__
     }
   }
+
   // Dynamic keys
+  const [currentRouteData, fromRouteData] = await Promise.all([
+    getRouteData(context.route),
+    getRouteData(context.from)
+  ])
+
+  if (context.route) {
+    app.context.route = currentRouteData
+  }
+
+  if (context.from) {
+    app.context.from = fromRouteData
+  }
+
   app.context.next = context.next
   app.context._redirected = false
   app.context._errored = false
   app.context.isHMR = !!context.isHMR
-  if (context.route) {
-    app.context.route = await getRouteData(context.route)
-  }
   app.context.params = app.context.route.params || {}
   app.context.query = app.context.route.query || {}
-  if (context.from) {
-    app.context.from = await getRouteData(context.from)
-  }
 }
 
 export function middlewareSeries(promises, appContext) {
@@ -239,14 +257,14 @@ export function promisify(fn, context) {
 
 // Imported from vue-router
 export function getLocation(base, mode) {
-  let path = window.location.pathname
+  let path = decodeURI(window.location.pathname)
   if (mode === 'hash') {
     return window.location.hash.replace(/^#\//, '')
   }
   if (base && path.indexOf(base) === 0) {
     path = path.slice(base.length)
   }
-  return decodeURI(path || '/') + window.location.search + window.location.hash
+  return (path || '/') + window.location.search + window.location.hash
 }
 
 export function urlJoin() {

@@ -43,11 +43,7 @@ export default {
       ]
     }
   },
-  components: {
-    right,
-    message,
-    atrcileHeader
-  },
+
   async asyncData ({ $axios, route }) {
     // 请求文章内容
     let id = route.params.id
@@ -66,6 +62,7 @@ export default {
       .cache()
     return { article }
   },
+  
   mounted () {
     this.$nextTick(() => {
       const that = this
@@ -84,6 +81,11 @@ export default {
   },
   methods: {
     unTime: time => form('yyyy-MM-dd HH:mm:ss', time * 1000)
+  },
+  components: {
+    right,
+    message,
+    atrcileHeader
   }
 }
 </script>

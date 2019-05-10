@@ -10,6 +10,13 @@
 @color-blur: #ccc;
 
 
+/* 按钮颜色 */
+@button-lv0: #a2dfec;
+@button-green: #1bb556;
+@button-red: #ff4f0f;
+@button-blue: #01BCFF;
+
+
 /* 文字基本颜色 */
 @text-color:#333;                   //基本色
 @text-color-inverse:#fff;           //反色
@@ -36,16 +43,10 @@ img[lazy=loading] {
 /* 公共 */
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
   word-spacing: 1px;
-  --img-bg: url('@{ip}/line-pattern-light-bg.png');
-  font-size: 18px;
-  --box-shadow: @box-shadow;
-  --box-click-shadow: @click-shadow;
   font-size: .9em;
 }
-ul,
-li {
+ul, li {
   margin: 0;
   padding: 0;
   list-style-type: none;
@@ -57,6 +58,7 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
 .clearfix::after {
   content: '';
   display: block;
@@ -115,10 +117,10 @@ input, button {
             transform: translateY(-2px);
   }
 }
-.button-lv0   { background-color: #a2dfec; }
-.button-green { background-color: #1bb556; }
-.button-red   { background-color: #ff4f0f; }
-.button-blue  { background-color: #01BCFF; }
+.button-lv0   { background-color: @button-lv0; }
+.button-green { background-color: @button-green; }
+.button-red   { background-color: @button-red; }
+.button-blue  { background-color: @button-blue; }
 
 .ellipsis {
   display: block;
@@ -127,6 +129,7 @@ input, button {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .content-box {
   display: inline-block;
   width: 70%;
@@ -141,15 +144,18 @@ input, button {
   -webkit-box-shadow: @box-shadow;
           box-shadow: @box-shadow;
 }
+
 .single .content-box {
   float: none;
   width: 100%;
 }
+
 .max-a {
   display: inline-block;
   width: 100%;
   height: 100%;
 }
+
 // 用户头像
 .user-icon {
   height: 40px;
@@ -157,6 +163,7 @@ input, button {
   border-radius: 50%;
   vertical-align: middle;
 }
+
 // 取消蓝色选框
 body,
 a:focus,
@@ -229,15 +236,16 @@ div:focus { -webkit-tap-highlight-color: transparent; }
   }
 }
 ::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, .5);
-    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .3) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .3) 50%, rgba(255, 255, 255, .3) 75%, transparent 75%, transparent);
-    border-radius: 5px;
-    &:hover {
-      background-color: #F90;
-    }
-    &:active {
-      background-color: #de4f3a;
-    }
+  @color: rgba(255, 255, 255, .3);
+  background-color: rgba(0, 0, 0, .5);
+  background-image: -webkit-linear-gradient(45deg, @color 25%, transparent 25%, transparent 50%, @color 50%, @color 75%, transparent 75%, transparent);
+  border-radius: 5px;
+  &:hover {
+    background-color: #F90;
+  }
+  &:active {
+    background-color: #de4f3a;
+  }
 }
 
 // transition动画

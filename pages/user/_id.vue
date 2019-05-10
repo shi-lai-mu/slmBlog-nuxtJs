@@ -1,10 +1,12 @@
 <template>
   <section class="conter single user-center">
-
     <!-- 顶部信息 -->
-    <div class="content-box user-info" :style="`background-image: url(${user.bg || '/img/user-bg.webp'})`">
+    <div
+      class="content-box user-info"
+      :style="`background-image: url(${user.bg || '/img/user-bg.webp'})`"
+    >
       <div class="user-info-img">
-        <img :src="user.img || '/img/user-default.jpg'" alt="">
+        <img :src="user.img || '/img/user-default.jpg'" alt>
       </div>
       <div class="user-info-rmation">
         <div class="info-rmation-name">
@@ -22,8 +24,7 @@
 
     <div class="conter clearfix" v-if="user.user != 'undefined'">
       <aside class="user-left-box">
-        <ul class="content-box">
-        </ul>
+        <ul class="content-box"></ul>
       </aside>
       <div class="content-box user-right-box">
         <ul class="clearfix user-right-nav">
@@ -45,47 +46,49 @@
         </div>
       </div>
     </div>
-
   </section>
 </template>
 
 <script>
-let vue
+let vue;
 export default {
   metaInfo: {
     titleTemplate: title => {
-      return vue.user.username + title
+      return vue.user.username + title;
     },
     title: `的个人中心`
   },
-  data () {
+
+  data() {
     return {
       user: {},
       componentId: 0,
       // 组件列表
       componentList: [
-        ['最新', resolve => require(['./ment/new'], resolve)],
-        ['热门', resolve => require(['./ment/hot'], resolve)]
+        ["最新", resolve => require(["./ment/new"], resolve)],
+        ["热门", resolve => require(["./ment/hot"], resolve)]
       ]
-    }
+    };
   },
-  async asyncData ({ $axios, route }) {
-    const id = route.params.id
-    const user = await $axios.api({
-      key: 'USER_INFO',
-      data: { id }
-    }).cache()
-    return { user }
+
+  async asyncData({ $axios, route }) {
+    const id = route.params.id;
+    const user = await $axios
+      .api({
+        key: "USER_INFO",
+        data: { id }
+      })
+      .cache();
+    return { user };
   },
+
   methods: {
-    componentSelect (e) {
-      const id = e.target.dataset.id
-      if (id) {
-        this.componentId = id
-      }
+    componentSelect(e) {
+      const id = e.target.dataset.id;
+      id && (this.componentId = id);
     }
   }
-}
+};
 </script>
 
 <style lang="less">
@@ -157,7 +160,6 @@ export default {
     float: right;
     width: calc(100% - 310px);
 
-    
     .not-data {
       line-height: 30vh;
       font-size: 1.5em;
@@ -169,9 +171,9 @@ export default {
       margin-bottom: 10px;
       border-bottom: 1px solid #eee;
       -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-              user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
       li {
         float: left;
         margin: 0 5px;
@@ -194,7 +196,8 @@ export default {
     width: 300px;
   }
 
-  .fade-enter, .fade-leave-to {
+  .fade-enter,
+  .fade-leave-to {
     position: absolute;
   }
 }

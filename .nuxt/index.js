@@ -11,7 +11,7 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
-import nuxt_plugin_axios_7e957c76 from 'nuxt_plugin_axios_7e957c76' // Source: ./axios.js (mode: 'all')
+import nuxt_plugin_axios_7e957c76 from 'nuxt_plugin_axios_7e957c76' // Source: .\\axios.js (mode: 'all')
 import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ..\\plugins\\axios (mode: 'all')
 import nuxt_plugin_API_00ed39c5 from 'nuxt_plugin_API_00ed39c5' // Source: ..\\store\\API (mode: 'client')
 import nuxt_plugin_observer_07de984c from 'nuxt_plugin_observer_07de984c' // Source: ..\\plugins\\observer (mode: 'client')
@@ -116,7 +116,8 @@ async function createApp(ssrContext) {
     payload: ssrContext ? ssrContext.payload : undefined,
     req: ssrContext ? ssrContext.req : undefined,
     res: ssrContext ? ssrContext.res : undefined,
-    beforeRenderFns: ssrContext ? ssrContext.beforeRenderFns : undefined
+    beforeRenderFns: ssrContext ? ssrContext.beforeRenderFns : undefined,
+    ssrContext
   })
 
   const inject = function (key, value) {
@@ -154,13 +155,24 @@ async function createApp(ssrContext) {
 
   // Plugin execution
 
-  if (typeof nuxt_plugin_axios_7e957c76 === 'function') await nuxt_plugin_axios_7e957c76(app.context, inject)
-  if (typeof nuxt_plugin_axios_3566aa80 === 'function') await nuxt_plugin_axios_3566aa80(app.context, inject)
-  if (typeof nuxt_plugin_route_338f5eda === 'function') await nuxt_plugin_route_338f5eda(app.context, inject)
+  if (typeof nuxt_plugin_axios_7e957c76 === 'function') {
+    await nuxt_plugin_axios_7e957c76(app.context, inject)
+  }
 
-  if (process.client) {
-    if (typeof nuxt_plugin_API_00ed39c5 === 'function') await nuxt_plugin_API_00ed39c5(app.context, inject)
-    if (typeof nuxt_plugin_observer_07de984c === 'function') await nuxt_plugin_observer_07de984c(app.context, inject)
+  if (typeof nuxt_plugin_axios_3566aa80 === 'function') {
+    await nuxt_plugin_axios_3566aa80(app.context, inject)
+  }
+
+  if (process.client && typeof nuxt_plugin_API_00ed39c5 === 'function') {
+    await nuxt_plugin_API_00ed39c5(app.context, inject)
+  }
+
+  if (process.client && typeof nuxt_plugin_observer_07de984c === 'function') {
+    await nuxt_plugin_observer_07de984c(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_route_338f5eda === 'function') {
+    await nuxt_plugin_route_338f5eda(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first
