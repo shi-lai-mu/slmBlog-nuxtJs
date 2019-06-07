@@ -81,6 +81,7 @@ export default {
 }
 .nuxt-enter, .nuxt-leave-active {
   opacity: 0;
+  transition-timing-function: ease-out; 
   transform: scale(.9);
 }
 .boss {

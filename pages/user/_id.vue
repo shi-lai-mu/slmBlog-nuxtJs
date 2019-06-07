@@ -235,7 +235,7 @@ export default {
     }
 
     .user-left-box,
-    .user-right-box {
+    div.user-right-box {
       width: 100%;
       margin: 5px 0;
     }
