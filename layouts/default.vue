@@ -60,18 +60,18 @@ export default {
       })
     })
 
-    console.log(`%c${ config.__NAME__ }%c version ${ config.__VERSION__ }`, 'font-size: 40px;color: #fe4181;font-weight: bold;', 'font-size: 20px;color: #fe4181')
+    console.log(`%c${ config.__NAME__.toUpperCase() }%c version ${ config.__VERSION__ }`, 'font-size: 40px;color: #fe4181;font-weight: bold;', 'font-size: 20px;color: #fe4181')
     console.log(`\t%c${ config.__DESCRIPTION__ }`, 'font-size: 20px;color: #fe4181;')
   },
-  methods: {
-    // 百度推送
-    baiduPush () {
-      const bp = document.createElement('script')
-      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
-      let s = document.getElementsByTagName('script')[0]
-      s.parentNode.insertBefore(bp, s)
-    }
-  }
+  // methods: {
+  //   // 百度推送
+  //   baiduPush () {
+  //     const bp = document.createElement('script')
+  //     bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+  //     let s = document.getElementsByTagName('script')[0]
+  //     s.parentNode.insertBefore(bp, s)
+  //   }
+  // }
 }
 </script>
 
