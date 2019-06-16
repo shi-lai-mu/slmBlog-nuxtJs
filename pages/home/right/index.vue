@@ -5,6 +5,7 @@
     <notice :notice="right.notice" />
     <new-article :news="right.new"/>
     <friendship :ship="right.ship" />
+    <leaveMessage :message="right.leaveMessage" />
   </aside>
 </template>
 
@@ -15,7 +16,8 @@ export default {
     blogger: () => import('./blogger'),
     notice: () => import('./notice'),
     friendship: () => import('./friendship'),
-    newArticle: () => import('./newArticle')
+    newArticle: () => import('./newArticle'),
+    leaveMessage: () => import('./leaveMessage')
   }
 }
 </script>

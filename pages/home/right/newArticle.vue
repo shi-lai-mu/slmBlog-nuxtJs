@@ -1,4 +1,4 @@
-// 友情链接 模块
+// 最新文章 模块
 <template>
   <aside class="content-box">
     <span class="content-tag">
