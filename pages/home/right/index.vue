@@ -16,7 +16,7 @@ export default {
     notice: () => import('./notice'),
     friendship: () => import('./friendship'),
     newArticle: () => import('./newArticle')
-  },
+  }
 }
 </script>
 

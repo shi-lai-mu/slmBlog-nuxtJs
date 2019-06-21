@@ -1,6 +1,6 @@
 <template>
-  <div class="content-box blogger">
-    <img :src="user.img" :alt="user.username">
+  <div class="content-box blogger" v-show="updateTime">
+    <img :src="user.img + '?v=' + updateTime" :alt="user.username">
     <p class="name" v-text="user.username"></p>
     <div class="select">
       <span v-if="isNaN(user.id)">
@@ -15,11 +15,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
+  data: () => ({
+    updateTime: 0
+  }),
+  mounted() {
+    // 解决异步加载导致头像未更新
+    this.updateTime = Date.now()
+  },
   computed: {
-    user () {
-      return this.$store.state.user
-    }
+    ...mapState(['user'])
   }
 }
 </script>
