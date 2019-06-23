@@ -21,6 +21,7 @@
           </div>
           <div class="article-right ellipsis">
             <h3 class="ellipsis">{{ hot.title }}</h3>
+            <a :href="'/article/' + hot.Id" title="hot.title"></a>
             <p class="article-description ellipsis">{{ hot.description }}</p>
             <ul class="article-tag">
               <li v-for="(type, i) in hot.type" :key="i" :title="'查找 \'' + type + '\' 文章'" :data-tag="type">
@@ -73,7 +74,7 @@ export default {
 
       // 打开文章
       if (dataset.article) {
-        this.$router.push('article/' + dataset.article)
+        this.$router.push('/article/' + dataset.article)
       }
     },
 

@@ -85,10 +85,9 @@ export default {
         })
         .then(res => {
           // 留言成功
-          that.article.msg.all++
           that.article.msg.list.unshift({
             ...res,
-            level: that.article.msg.all
+            level: that.article.msg.all++
           })
           that.observer.emit('toast', {
             icon: 'success',
