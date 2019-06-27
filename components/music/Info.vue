@@ -1,10 +1,14 @@
 <template>
-  <div class="music-info" v-if="Music.info.singername">
-    <img :src="`//y.gtimg.cn/music/photo_new/T002R300x300M000${Music.info.mid}.jpg`" alt="音乐图片" class="music-icon">
-    <h2 class="music-name">{{ Music.info.name }}</h2>
+  <div class="music-info" v-if="Music.info.singer">
+    <img :src="Music.info.url['专辑封面']" alt="音乐图片" class="music-icon">
+    <h2 class="music-name">{{ Music.info.album }}</h2>
     <h3>
       <i class="iconfont icon-geshou"> 歌手：</i>
-      {{ Music.info.singername || '未知' }}
+      {{ Music.info.singer || '未知' }}
+    </h3>
+    <h3>
+      <i class="iconfont icon-geshou"> 时长：</i>
+      {{ Music.info.interval || '未知' }}
     </h3>
     <h3>
       <i class="iconfont icon-zhuanji"> 专辑：</i>
@@ -31,36 +35,36 @@
 
     <!-- note -->
     <div class="music-note">
-      <div v-if="note.id">
+      <div v-if="Music.info.url">
         <h3>
           <span>时长：</span>
-          <span class="right">{{ note.interval || '00:00' }}</span>
+          <span class="right">{{ Music.info.interval || '00:00' }}</span>
         </h3>
-        <h3 v-if="note['MV']">
+        <h3 v-if="Music.info.url['MV']">
           <span class="half">MV：</span>
           <span class="right right-dw">[下载]</span>
         </h3>
-        <h3 v-if="note['24AAC']">
+        <h3 v-if="Music.info.url['96AAC']">
           <span class="half">流畅音质[M4A]：</span>
           无法计算!
           <span class="right right-dw">[下载]</span>
         </h3>
-        <h3 v-if="note['128MP3']">
+        <h3 v-if="Music.info.url['128MP3']">
           <span class="half">标准音质[MP3-128]：</span>
           {{ fileSize(info['size128']) }}
           <span class="right right-dw">[下载]</span>
         </h3>
-        <h3 v-if="note['320MP3']">
+        <h3 v-if="Music.info.url['320MP3']">
           <span class="half">高清音质[MP3-320]：</span>
           {{ fileSize(info['size320']) }}
           <span class="right right-dw">[下载]</span>
         </h3>
-        <h3 v-if="note['APE']">
+        <h3 v-if="Music.info.url['APE']">
           <span class="half">无损音质[APE]：</span>
           {{ fileSize(info['sizeape']) }}
           <span class="right right-dw">[下载]</span>
         </h3>
-        <h3 v-if="note['FLAC']">
+        <h3 v-if="Music.info.url['FLAC']">
           <span class="half">无损音质[FLAC]：</span>
           {{ fileSize(info['sizeflac']) }}
           <span class="right right-dw">[下载]</span>
@@ -102,17 +106,17 @@ export default {
           this.note.id = false
           request = !0
           // 获取额外信息
-          this.$http
-            .get('/api/Music', {
-              fun: 'download',
-              type: 'ALL',
-              code: this.Music.info.song.songmid
-            })
-            .then(res => {
-              request = !1
-              this.note = res.data
-              this.info = Music
-            })
+          // this.$http
+          //   .get('/api/Music', {
+          //     fun: 'download',
+          //     type: 'ALL',
+          //     code: this.Music.info.song.songmid
+          //   })
+          //   .then(res => {
+          //     request = !1
+          //     this.note = res.data
+          //     this.info = Music
+          //   })
         }
       }
     }, 1000)
