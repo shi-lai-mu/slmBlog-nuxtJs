@@ -216,7 +216,7 @@ export default function () {
         .then(res => {
           if (res.url) {
             cb(res)
-          } else throw Error(`请求[ ${songmid} ]下载数据错误!`)
+          } else throw Error(`请求[ ${url} ]下载数据错误!`)
         })
         .catch(e => {
           throw Error(`破解请求过于频繁,请稍后再试!` + e)
@@ -271,16 +271,16 @@ export default function () {
         let percent = (e.loaded / e.total * 100).toFixed(2)
         data.state = percent
       }
-      xhr.onload = function (e) {
+      xhr.onload = function () {
         var blob = new Blob([this.response])
         a.href = URL.createObjectURL(blob)
-        a.download = `${data.name}.${data.ext}`
+        a.download = `${data.name}.${data.suffix}`
         document.body.appendChild(a)
         a.click()
         cb && cb()
       }
       xhr.onerror = console.error
-      data.src = data.src.replace('http://streamoc.music.tc.qq.com/', 'https://slmblog.com/download/music/')
+      data.src = data.src
       if (data.src) {
         xhr.open('get', data.src, true)
         xhr.send()

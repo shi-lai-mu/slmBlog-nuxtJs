@@ -35,16 +35,16 @@
 
     <!-- note -->
     <div class="music-note">
-      <div v-if="Music.info.url">
+      <div v-if="Music.info.url" @click="urlDownload">
         <h3>
           <span>时长：</span>
           <span class="right">{{ Music.info.interval || '00:00' }}</span>
         </h3>
-        <h3 v-if="Music.info.url['MV']">
-          <span class="half">MV：</span>
-          <span class="right right-dw">[下载]</span>
+        <h3 v-for="(item, index) in Music.info.url" :key="index">
+          <span class="half">{{ index }}：</span>
+          <span class="right right-dw" :data-url="item">[下载]</span>
         </h3>
-        <h3 v-if="Music.info.url['96AAC']">
+        <!-- <h3 v-if="Music.info.url['96AAC']">
           <span class="half">流畅音质[M4A]：</span>
           无法计算!
           <span class="right right-dw">[下载]</span>
@@ -68,7 +68,7 @@
           <span class="half">无损音质[FLAC]：</span>
           {{ fileSize(info['sizeflac']) }}
           <span class="right right-dw">[下载]</span>
-        </h3>
+        </h3> -->
       </div>
       <div class="loading" v-else>
         <i class="iconfont icon-slm icon-slm-loading "></i>更多信息 加载中...
@@ -122,9 +122,21 @@ export default {
     }, 1000)
   },
   methods: {
+    urlDownload (e) {
+      const Music = this.$store.state.Music
+      Music.getDownload(e.target.dataset.url, data => {
+        data.src = data.url
+        data.name = Music.info.album
+        data.state = 0
+      console.log(data)
+        Music.downloadMusic(data)
+      })
+    }
+  },
+  filters: {
     fileSize (size) {
       return size ? ((size / 1024) / 1024).toFixed(2) + 'MB' : '无法计算!'
-    }
+    },
   }
 }
 </script>
@@ -152,6 +164,7 @@ export default {
     }
     .right-dw {
       color: rgba(255, 255, 255, .4);
+      cursor: pointer;
     }
 
     .music-icon {
