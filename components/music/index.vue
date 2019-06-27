@@ -68,10 +68,10 @@ export default {
       pages: {
         'icon-sou-suo': 'Search',
         'icon-yinle': 'Info',
-        'icon-yinleliebiaoxian': 'List',
-        'icon-shoucang': 'collect',
-        'icon-xiazai': 'download',
-        'icon-shezhi': 'Setting'
+        // 'icon-yinleliebiaoxian': 'List',
+        // 'icon-shoucang': 'collect',
+        // 'icon-xiazai': 'download',
+        // 'icon-shezhi': 'Setting'
       },
       // 工具栏内容 对应执行函数名
       tools: {

@@ -195,7 +195,6 @@ export default {
         alert('抱歉您的浏览器不支持最新的属性,请尝试选择谷歌浏览器最新版!')
         return
       }
-      console.log(song)
       this.$axios
         .get(`api/Music?fun=download&code=${song.songmid}&type=${dataset.qu}`)
         .then(res => {
@@ -473,12 +472,16 @@ export default {
     }
     sup,
     .sup {
+      display: inline-block;
       margin-left: 5px;
       padding: 0px 3px;
+      max-width: 10em;
       border: 1px solid currentColor;
       border-radius: 5px;
       color: #FFA500;
       font-size: 10px;
+      overflow: hidden;
+      text-overflow: hidden;
     }
     .HQ {
       color: #13CE66;
