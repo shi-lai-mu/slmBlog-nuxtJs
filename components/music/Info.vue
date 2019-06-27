@@ -42,7 +42,7 @@
         </h3>
         <h3 v-for="(item, index) in Music.info.url" :key="index">
           <span class="half">{{ index }}：</span>
-          <span class="right right-dw" :data-url="item">[下载]</span>
+          <span class="right right-dw" :data-url="item" :data-by="index">{{ target === index ? state + '%' : '下载' }}</span>
         </h3>
         <!-- <h3 v-if="Music.info.url['96AAC']">
           <span class="half">流畅音质[M4A]：</span>
@@ -91,7 +91,8 @@ export default {
     return {
       Music: {},
       note: {},
-      info: {}
+      target: '',
+      state: 0
     }
   },
   created () {
@@ -100,36 +101,45 @@ export default {
     let Music = this.Music.info.song
 
     // 加载额外信息要求： 本页被打开过，未在请求中，id不存在，id不同
-    setInterval(() => {
-      if ((!this.note.id || this.note.id !== this.Music.info.song.songid) && !request) {
-        if (Music) {
-          this.note.id = false
-          request = !0
-          // 获取额外信息
-          // this.$http
-          //   .get('/api/Music', {
-          //     fun: 'download',
-          //     type: 'ALL',
-          //     code: this.Music.info.song.songmid
-          //   })
-          //   .then(res => {
-          //     request = !1
-          //     this.note = res.data
-          //     this.info = Music
-          //   })
-        }
-      }
-    }, 1000)
+    // setInterval(() => {
+    //   if ((!this.note.id || this.note.id !== this.Music.info.song.songid) && !request) {
+    //     if (Music) {
+    //       this.note.id = false
+    //       request = !0
+    //       // 获取额外信息
+    //       // this.$http
+    //       //   .get('/api/Music', {
+    //       //     fun: 'download',
+    //       //     type: 'ALL',
+    //       //     code: this.Music.info.song.songmid
+    //       //   })
+    //       //   .then(res => {
+    //       //     request = !1
+    //       //     this.note = res.data
+    //       //     this.info = Music
+    //       //   })
+    //     }
+    //   }
+    // }, 1000)
   },
   methods: {
     urlDownload (e) {
       const Music = this.$store.state.Music
-      Music.getDownload(e.target.dataset.url, data => {
+      const dataset = e.target.dataset
+      if (this.target) return
+
+      Music.getDownload(dataset.url, data => {
         data.src = data.url
         data.name = Music.info.album
         data.state = 0
-      console.log(data)
-        Music.downloadMusic(data)
+        this.target = dataset.by
+
+        Music.downloadMusic(data, () => {
+          this.target = ''
+          this.state = 0
+        }, gress => {
+          this.state = gress
+        })
       })
     }
   },

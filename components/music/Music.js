@@ -263,13 +263,14 @@ export default function () {
      * @param {object} data 音乐数据
      * @param {functin} cb 下载完成后的回调
      */
-    downloadMusic (data, cb) {
+    downloadMusic (data, cb, gress) {
       let xhr = new XMLHttpRequest()
       xhr.responseType = 'blob'
       let a = document.createElement('a')
       xhr.onprogress = function (e) {
         let percent = (e.loaded / e.total * 100).toFixed(2)
         data.state = percent
+        gress && gress(percent)
       }
       xhr.onload = function () {
         var blob = new Blob([this.response])
