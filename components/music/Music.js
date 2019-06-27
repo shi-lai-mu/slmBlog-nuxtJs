@@ -105,48 +105,48 @@ export default function () {
           }
         })
         .then(res => {
-          if (res.data) {
-            self.info = res.data
+          if (res.url) {
+            self.info = res
             // 选中songmid的ID
-            for (let song of self.info.list) {
-              if (song.albummid === albummid) {
-                self.info.song = song
-                break
-              }
-            }
+            // for (let song of self.info.list) {
+            //   if (song.albummid === albummid) {
+            //     self.info.song = song
+            //     break
+            //   }
+            // }
             self.writeView()
             self.store.conEl.toggle.className = 'iconfont icon-caidan'
             // 获取歌曲播放位置
-            if (self.info.song) {
-              self.getDownload(self.info.song.songmid, '48AAC', data => {
+            if (self.info.url) {
+              self.getDownload(res.url['96AAC'], data => {
                 vue.info.src = data.url
                 play && (self.$el.autoplay = true)
                 self.store.conEl.toggle.className = 'iconfont icon-zanting'
                 self.store.state = !0
               })
             }
-          }
+          } else throw Error('请求失败')
         })
         .catch((e) => {
-          throw Error(albummid + `音乐 获取失败, 请及时进行维护!!!\nError:` + e)
+          throw Error(albummid + `音乐 获取失败, 请及时进行维护!!!\n` + e)
         })
     }
 
     /* 音乐数据写入视图 */
     writeView () {
-      if (!this.info.mid) return
+      if (!this.info.interval) return
       try {
         // 默认播放 m4a 格式音乐
         // 数据顺序 对象, 封面图片, 播放路径, 歌名, 歌手, 歌简介, 歌上传时间, 相似歌曲
         let info = this.info
         vue.info = {
-          img: `http://y.gtimg.cn/music/photo_new/T002R300x300M000${info.mid}.jpg`,
+          img: info.url['专辑封面'],
           src: info.src || '',
-          tag: info.name,
-          singername: info.singername,
-          description: info.desc,
-          upload: info.aDate,
-          list: info.list
+          tag: info.song,
+          singername: info.album,
+          // description: info.desc,
+          // upload: info.aDate,
+          list: info.url
         }
         loadImg(vue.info.img, rgb => {
           vue.iconColor = rgb
@@ -209,9 +209,9 @@ export default function () {
      * @param {string} qu 音乐品质[24AAC, 128MP3, 320MP3, APE, FLAC]
      * @param {function} cb 回调
      */
-    getDownload (songmid, qu, cb) {
+    getDownload (url, cb) {
       vue.$axios
-        .get(`api/Music?fun=download&code=${songmid}&type=${qu}`)
+        .get(`api/Music?fun=download&url=${ encodeURIComponent(url) }`)
         .then(res => {
           if (res.url) {
             cb(res)

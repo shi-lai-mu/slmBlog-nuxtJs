@@ -6,7 +6,7 @@
     <ul class="song-list">
       <!-- 搜索到的音乐 -->
       <li class="clearfix" v-for="(song, i) in songList" :key="i" :data-i="i" @click="playSong">
-        <span class="song-name" v-html="song.songnames"></span>
+        <span class="song-name" v-html="song.songname"></span>
         <span class="song-singer">{{ song.singers }}</span>
         <span class="song-lyric">{{ song.albumname }}</span>
         <i class="iconfont icon-caidan" @click="toggleList" :data-i="i"></i>
@@ -105,7 +105,7 @@ export default {
           })
           .then(res => {
             this.state = false
-            let song = res.data.song.list
+            let song = res.song_list
             this.$el.scrollTo(0, 0)
             for (let i = 0, l = song.length; i < l; i++) {
               let val = song[i]
@@ -132,7 +132,7 @@ export default {
                 }
               }
               // 播放时间
-              val.interval = utfc(val.interval)
+              // val.interval = utfc(val.interval)
               if (val.interval === '00:00') val.interval = '-- : --'
               !val.songnames && (val.songnames = val.songname)
             }
@@ -195,6 +195,7 @@ export default {
         alert('抱歉您的浏览器不支持最新的属性,请尝试选择谷歌浏览器最新版!')
         return
       }
+      console.log(song)
       this.$axios
         .get(`api/Music?fun=download&code=${song.songmid}&type=${dataset.qu}`)
         .then(res => {

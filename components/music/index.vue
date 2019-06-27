@@ -94,7 +94,7 @@ export default {
     })
     // 监听音乐信息
     this.observer.on('music', data => {
-      this.Music.loadMusic(data.albummid, !!data.autoPlay)
+      this.Music.loadMusic(data.songmid, !!data.autoPlay)
     })
 
     window.addEventListener('resize', resize)
