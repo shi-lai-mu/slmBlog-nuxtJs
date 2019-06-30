@@ -6,8 +6,9 @@
       <blockquote>欢迎来到史莱姆的博客，尽情的留下你的脚印吧！</blockquote>
     </div>
     <div class="content-box">
-      <div>留言共计 () 条</div>
-      <editor />
+      <div class="mark">共计 () 条不明脚印</div>
+      <editor model="message" />
+      <button class="button-lv0 send" @click="send">踩下脚印</button>
     </div>
   </section>
 </template>
@@ -52,6 +53,20 @@ export default {
     background-color: #eee;
     border-left: 8px solid #ccc;
     border-radius: 0 5px 5px 0;
+  }
+
+  .mark {
+    width: 90%;
+    padding: 5px 0;
+    margin: 20px auto;
+    text-align: center;
+    background-color: #eee;
+    border-radius: 5px;
+  }
+
+  .send {
+    float: right;
+    margin: 20px 5% 0 0;
   }
 }
 </style>

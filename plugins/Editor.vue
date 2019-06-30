@@ -28,10 +28,22 @@ export default {
         'backColor',
         'link',
         'quote',
-        'image',
         'emoticon',
         'image',
         'table',
+        'undo',
+        'redo'
+      ]
+    } else if (this.model === 'message') {
+      editor.customConfig.menus = [
+        'italic',
+        'underline',
+        'strikeThrough',
+        'foreColor',
+        'backColor',
+        'link',
+        'quote',
+        'emoticon',
         'undo',
         'redo'
       ]
