@@ -5,20 +5,16 @@
     <transition name="test">
       <nuxt />
     </transition>
-    <main-footer />
     <music />
+    <main-footer />
     <Toast />
   </div>
 </template>
 
 <script>
 import mainHeader from './components/header'
-import mainFooter from './components/footer'
-import mainBackground from './components/background'
-import music from '~/components/music/index'
-import Toast from './components/Toast'
 import config from '~/config/default'
-
+    
 export default {
   scrollToTop: true,
   head: {
@@ -26,10 +22,10 @@ export default {
   },
   components: {
     mainHeader,
-    mainFooter,
-    mainBackground,
-    music,
-    Toast
+    mainBackground: () => import('./components/background'),
+    mainFooter: () => import('./components/footer'),
+    Toast: () => import('~/components/music/index'),
+    music: () => import('./components/Toast')
   },
   watch: {
     '$route' (to, from) {
@@ -38,29 +34,29 @@ export default {
     }
   },
   mounted () {
-    const slef = this
-    // slef.baiduPush()
-
+    const that = this
+    // that.baiduPush()
+    console.log(132456)
     let user = localStorage.getItem('userInfo')
-    slef.$nuxt.$store.dispatch('USER', user || 'default')
-    user = slef.$store.state.user
+    that.$nuxt.$store.dispatch('USER', user || 'default')
+    user = that.$store.state.user
 
     // 缩放窗口时 响应式处理
     window.addEventListener('resize', resize)
     function resize (e) {
       document.body.className = window.innerWidth > 840 ? 'max' : 'centre'
-      slef.$store.dispatch('IS_MOBILE', window.innerWidth)
+      that.$store.dispatch('IS_MOBILE', window.innerWidth)
     }
     resize()
 
     // refs.body 订阅
-    slef.observer.on('body', option => {
-      slef.$refs.body.className = option.value ? option.value : 'boss'
+    that.observer.on('body', option => {
+      that.$refs.body.className = option.value ? option.value : 'boss'
     })
 
-    slef.$nextTick(() => {
+    that.$nextTick(() => {
       // PC版 问候
-      !slef.$store.state.mobile && slef.observer.emit('toast', {
+      !that.$store.state.mobile && that.observer.emit('toast', {
         text: isNaN(user.id) ? '欢迎访问, 史莱姆的博客!' : `欢迎回来 ${user.username}`
       })
     })
