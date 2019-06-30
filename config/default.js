@@ -48,6 +48,9 @@ config.API = {
   ARTICLE_UNEDITOR:    'article/unEditor',
   ARTICLE_ADD_MESSAGE: 'article/addMessage',
 
+  // 留言板接口
+  MESSAGE_LIST:        'message/list',
+
   /* IP 接口 */
   IP:                   config.server
 }

@@ -2,7 +2,7 @@
   <section class="conter single clearfix leaves article-body">
     <div class="content-box">
       <h2 class="title">留言板</h2>
-      <img class="cover" src="/img/messgae-nav.jpg" alt="史莱姆的博客-留言板-封面">
+      <img class="cover" src="/img/messgae-nav.jpg" alt="史莱姆的博客-留言板-封面" />
       <blockquote>欢迎来到史莱姆的博客，尽情的留下你的脚印吧！</blockquote>
     </div>
     <div class="content-box">
@@ -14,17 +14,29 @@
 </template>
 
 <script>
-import Editor from '~/plugins/Editor'
+import Editor from "~/plugins/Editor";
 
 export default {
+  data: () => ({
+    page: 1,
+    messageList: []
+  }),
+  async asyncData({ $axios, route }) {
+    const user = await $axios
+      .api({
+        key: "MESSAGE_LIST"
+      })
+      .cache();
+    return { messageList };
+  },
   created() {
-    console.log(12345674897)
+    console.log(12345674897);
   },
 
   components: {
     Editor
   }
-}
+};
 </script>
 
 <style lang="less">
