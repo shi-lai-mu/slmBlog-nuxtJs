@@ -181,7 +181,6 @@ export default {
       } else this.menuState = !this.menuState
 
       if (this.$store.state.mobile) {
-        console.log(this.observer.is('body'))
         this.observer.emit('body', {
           key: 'className',
           value: this.menuState ? 'min-screen-left' : ''
