@@ -52,7 +52,6 @@
 
 <script>
 import Music from './Music'
-console.log(2)
 // 底部音乐插件
 export default {
   data () {
@@ -90,7 +89,6 @@ export default {
     }
   },
   mounted () {
-console.log(4)
     this.$nextTick(() => {
       this.Music = this.$store.state.Music = new (new Music)(this)
     })

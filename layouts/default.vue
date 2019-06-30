@@ -2,7 +2,7 @@
   <div class="boss" ref="body">
     <main-background />
     <main-Header />
-    <transition name="test">
+    <transition name="nuxt">
       <nuxt />
     </transition>
     <music />
@@ -36,7 +36,6 @@ export default {
   mounted () {
     const that = this
     // that.baiduPush()
-    console.log(132456)
     let user = localStorage.getItem('userInfo')
     that.$nuxt.$store.dispatch('USER', user || 'default')
     user = that.$store.state.user
@@ -77,12 +76,12 @@ export default {
 </script>
 
 <style lang="less">
-.test-enter-active, .test-leave-active {
+.nuxt-enter-active, .nuxt-leave-active {
   transition: 1s;
 }
-.test-enter, .test-leave-active {
+.nuxt-enter, .nuxt-leave-active {
   opacity: 0;
-  transform: translate(-50px, 0);
+  transform: scale(.8);
 }
 .boss {
   transition: 1s;
