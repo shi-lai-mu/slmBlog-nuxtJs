@@ -17,6 +17,7 @@ import mainFooter from './components/footer'
 import mainBackground from './components/background'
 import music from '~/components/music/index'
 import Toast from './components/Toast'
+import config from '~/config/default'
 
 export default {
   scrollToTop: true,
@@ -64,8 +65,8 @@ export default {
       })
     })
 
-    console.log('%cSLM BLOG%c version 1.5.1', 'font-size: 40px;color: rgb(254,65,129);font-weight: bold;', 'font-size: 20px;color: rgb(254,65,129)')
-    console.log('      %c欢迎访问 史莱姆的博客!', 'font-size: 20px;color: rgb(254,65,129)')
+    console.log(`%c${ config.__NAME__ }%c version ${ config.__VERSION__ }`, 'font-size: 40px;color: #fe4181;font-weight: bold;', 'font-size: 20px;color: #fe4181')
+    console.log(`\t%c${ config.__DESCRIPTION__ }`, 'font-size: 20px;color: #fe4181;')
   },
   methods: {
     // 百度推送

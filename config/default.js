@@ -1,4 +1,11 @@
 // 前端配置
+import packageJson from '~/package.json'
+
+// 无法更改的默认配置
+const __VERSION__ = packageJson.version
+const __NAME__ = packageJson.name
+const __DESCRIPTION__ = packageJson.description
+const __AUTHOR__ = packageJson.author
 
 const config = {
   // 服务器域名
@@ -22,6 +29,7 @@ config.API = {
   HOME_RIGHT:         'blog/right',
   HOME_NOTICE:        'blog/special/1?tag=公告',
   HOME_TOP:           'blog/special/1?tag=置顶',
+
   // 友情链接
   FIRENDSHIP:         'blog/friendship',
   
@@ -46,5 +54,9 @@ config.API = {
 
 
 export default {
+  __NAME__,
+  __AUTHOR__,
+  __VERSION__,
+  __DESCRIPTION__,
   ...config
 }

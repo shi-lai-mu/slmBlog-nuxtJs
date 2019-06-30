@@ -96,11 +96,10 @@ export default {
         // 加入历史搜索
         this.history(search)
         this.$axios
-          .get('api/Music', {
+          .get('https://slmblog.com/music/search', {
             data: {
-              fun: 'search',
-              key: search,
-              page: this.page.num
+              w: search,
+              p: this.page.num
             }
           })
           .then(res => {

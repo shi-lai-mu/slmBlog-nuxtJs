@@ -1,4 +1,5 @@
 import { loadImg } from '~/plugins/tool'
+import config from '~/config/default'
 /**
  * 音乐函数
  * @param {object} self vue Object
@@ -98,9 +99,8 @@ export default function () {
       let self = this
       // 获取音乐信息
       vue.$axios
-        .get('/api/Music', {
+        .get('https://slmblog.com/music/getMusicInfo', {
           data: {
-            fun: 'getMusicInfo',
             code: albummid
           }
         })
@@ -212,7 +212,7 @@ export default function () {
      */
     getDownload (url, cb) {
       vue.$axios
-        .get(`api/Music?fun=download&url=${ encodeURIComponent(url) }`)
+        .get(`https://slmblog.com/music/download?url=${ encodeURIComponent(url) }`)
         .then(res => {
           if (res.url) {
             cb(res)
@@ -243,16 +243,17 @@ export default function () {
      * @param {boolean} start 是否为开始下载状态
      */
     allDownloadStart (start) {
-      if (start) this.downloadState = !0
+      const that = this
+      if (start) that.downloadState = !0
       // 更改为开始下载的状态
-      if (!this.downloadState) return
+      if (!that.downloadState) return
 
-      let task = this.download.list[0]
+      let task = that.download.list[0]
       if (task && task.name) {
-        this.downloadMusic(task, () => {
-          this.download.list.shift()
-          if (this.downloadState) {
-            this.allDownloadStart()
+        that.downloadMusic(task, () => {
+          that.download.list.shift()
+          if (that.downloadState) {
+            that.allDownloadStart()
           }
         })
       }
@@ -281,7 +282,7 @@ export default function () {
         cb && cb()
       }
       xhr.onerror = console.error
-      data.src = data.src
+      data.src = 'https://slmblog.com/music/download/file?url=' + encodeURIComponent(data.src)
       if (data.src) {
         xhr.open('get', data.src, true)
         xhr.send()

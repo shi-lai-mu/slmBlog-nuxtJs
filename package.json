@@ -1,8 +1,8 @@
 {
   "name": "slmblog",
-  "version": "1.0.0",
-  "description": "slm as blog",
-  "author": "shi_lai_mu",
+  "version": "1.6.0",
+  "description": "欢迎访问 史莱姆的博客!",
+  "author": "ShiLaiMu[QQ: 47889187/WX: slm15558931101]",
   "private": true,
   "scripts": {
     "dev": "nuxt",

@@ -156,7 +156,7 @@ export default {
     }
   }
 
-  .user-right-box {
+  div.user-right-box {
     float: right;
     width: calc(100% - 310px);
 
