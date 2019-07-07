@@ -1,6 +1,6 @@
 <div align=center><img width="100"src="https://slmblog.com/LOGO.png" alt="SLM-BLOG LOGO"/></div>
 
-## [SLM BLOG](http://mczyzy.cn)
+## [SLM BLOG](https://slmblog.com)
 
 > - 站点名字: 史莱姆的博客
 > - 站点编写: 史莱姆[前端]
