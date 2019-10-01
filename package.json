@@ -23,6 +23,8 @@
     "typescript": "^3.6.3"
   },
   "devDependencies": {
+    "@types/node": "^12.7.8",
+    "@types/react": "^16.9.4",
     "@zeit/next-typescript": "^1.1.1",
     "express": "^4.17.1",
     "typescript": "^3.6.3"
