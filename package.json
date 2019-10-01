@@ -1,43 +1,45 @@
 {
   "name": "slmblog",
-  "version": "1.0.0",
-  "description": "slm as blog",
-  "author": "shi_lai_mu",
-  "private": true,
+  "version": "1.7.0",
+  "description": "shilaimu personal blog",
+  "main": "index.js",
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "starts": "NODE_ENV=production node server.js",
+    "export": "npm run build && next export"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "@nuxtjs/axios": "^5.3.6",
-    "cross-env": "^5.2.0",
-    "echarts": "^4.2.1",
-    "jsrsasign": "^8.0.12",
-    "nuxt": "^2.4.5",
-    "wangeditor": "^3.1.1"
+    "@zeit/next-typescript": "^1.1.1",
+    "express": "^4.17.1",
+    "next": "^9.0.7",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
+    "react-scripts": "3.1.2",
+    "typescript": "^3.6.3"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.15.1",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-html": "^5.0.3",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-node": "^8.0.1",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "less": "^3.9.0",
-    "less-loader": "^4.1.0",
-    "nodemon": "^1.18.9",
-    "sass-resources-loader": "^2.0.0",
-    "style-resources-loader": "^1.2.1"
+    "@zeit/next-typescript": "^1.1.1",
+    "express": "^4.17.1",
+    "typescript": "^3.6.3"
   },
-  "config": {
-    "nuxt": {
-      "host": "0.0.0.0",
-      "port": "8888"
-    }
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
