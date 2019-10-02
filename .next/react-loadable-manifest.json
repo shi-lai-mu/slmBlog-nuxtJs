@@ -1,8 +1,8 @@
 {
   "./dev/noop": [
     {
-      "id": "./node_modules/_next@9.0.7@next/dist/client/dev/noop.js",
-      "name": "./node_modules/_next@9.0.7@next/dist/client/dev/noop.js",
+      "id": "./node_modules/next/dist/client/dev/noop.js",
+      "name": "./node_modules/next/dist/client/dev/noop.js",
       "file": "static/chunks/0.js",
       "publicPath": "static/chunks/0.js"
     }

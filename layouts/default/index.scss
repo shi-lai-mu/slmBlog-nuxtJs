@@ -1,0 +1,101 @@
+.header {
+  width: 100%;
+  border-bottom: 1px solid #eee;
+  padding: 0 70px;
+  box-sizing: border-box
+}
+.header .header-inner {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+.logo {
+  font-size: 32;
+}
+.nav-bar {
+  display: flex;
+  aligin-items: center
+}
+.nav-bar .bar {
+  padding: 0 10px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 13px;
+  color: #555555;
+  cursor: pointer
+}
+.nav-bar .bar:hover {
+  color: #0099cc
+}
+
+
+// 底部样式
+.body-footer {
+  margin-top: 20px;
+  padding-bottom: 20px;
+  color: #b6c3db;
+  background-color: rgba(255, 255, 255, .8);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  .copyright {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    min-width: var(--min-width);
+    margin: 15px 0;
+    padding: 20px 10px 0;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .copyright-left {
+    width: 100%;
+    text-align: center;
+  }
+  .copyright-right {
+    display: flex;
+    margin-top: 5px;
+    li:not(:last-child) {
+      &::after {
+        content: "|";
+        margin: 0 7px;
+      }
+    }
+  }
+  // 备案
+  .beian {
+    width: 100%;
+    min-width: var(--min-width);
+    margin: 0 auto;
+    .beian-a {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      line-height: 20px;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+    }
+    .beian-img {
+      display: inline-block;
+      height: 20px;
+    }
+    .beian-p {
+      margin: 0 5px;
+      line-height: 20px;
+      color: #939393;
+    }
+  }
+}
