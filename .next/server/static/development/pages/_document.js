@@ -2459,28 +2459,162 @@ class MysDocument extends next_document__WEBPACK_IMPORTED_MODULE_2___default.a {
         lineNumber: 12
       },
       __self: this
-    }, __jsx("style", {
+    }, __jsx("meta", {
+      charset: "utf-8",
       __source: {
         fileName: _jsxFileName,
         lineNumber: 13
       },
       __self: this
-    }, `body { margin: 0 } `)), __jsx("body", {
+    }), __jsx("meta", {
+      name: "viewport",
+      content: "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 14
+      },
+      __self: this
+    }), __jsx("meta", {
+      "data-hid": "description",
+      name: "description",
+      itemprop: "description",
+      content: "\u6B22\u8FCE\u6D4F\u89C8\u53F2\u83B1\u59C6\u7684\u535A\u5BA2\u0669( \xB0\u0F25\xB0 )\u0648\uFF0C\u8BA9\u6211\u4EEC\u4E00\u8D77\u4EA4\u6D41\u6280\u672F\u4E00\u8D77\u55E8\u76AE\u5206\u4EAB\uFF01\u53F2\u83B1\u59C6\u7684\u535A\u5BA2\u4E3A\u4E2A\u4EBA\u7AD9\u70B9\uFF0C\u6CE8\u91CD\u524D\u7AEF\u5F00\u53D1\u3002",
       __source: {
         fileName: _jsxFileName,
         lineNumber: 15
       },
       __self: this
-    }, __jsx(next_document__WEBPACK_IMPORTED_MODULE_2__["Main"], {
+    }), __jsx("meta", {
+      name: "keywords",
+      content: "\u53F2\u83B1\u59C6\u7684\u535A\u5BA2,html5,css3,es6,\u5FAE\u4FE1\u5C0F\u7A0B\u5E8F,\u7F51\u7AD9\u5F00\u53D1,\u6280\u672F\u4EA4\u6D41,\u6E90\u7801\u5206\u4EAB,php,nodejs",
       __source: {
         fileName: _jsxFileName,
         lineNumber: 16
       },
       __self: this
-    }), __jsx(next_document__WEBPACK_IMPORTED_MODULE_2__["NextScript"], {
+    }), __jsx("meta", {
+      name: "referrer",
+      content: "origin",
       __source: {
         fileName: _jsxFileName,
         lineNumber: 17
+      },
+      __self: this
+    }), __jsx("meta", {
+      name: "renderer",
+      content: "webkit",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 18
+      },
+      __self: this
+    }), __jsx("meta", {
+      "http-equiv": "X-UA-Compatible",
+      content: "IE=edge",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 19
+      },
+      __self: this
+    }), __jsx("meta", {
+      itemprop: "author",
+      content: "\u53F2\u83B1\u59C6[qq: 478889187]",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 20
+      },
+      __self: this
+    }), __jsx("meta", {
+      itemprop: "image",
+      "data-hid": "qqlogo",
+      content: "https://img.slmblog.com/QQLOGO.jpg",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 21
+      },
+      __self: this
+    }), __jsx("meta", {
+      itemprop: "name",
+      "data-hid": "qqname",
+      content: "\u53F2\u83B1\u59C6\u7684\u535A\u5BA2",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 22
+      },
+      __self: this
+    }), __jsx("meta", {
+      name: "format-detection",
+      content: "telephone=no",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 23
+      },
+      __self: this
+    }), __jsx("meta", {
+      name: "robots",
+      content: "all",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 24
+      },
+      __self: this
+    }), __jsx("meta", {
+      name: "Copyright",
+      content: "slmblog.com",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 25
+      },
+      __self: this
+    }), __jsx("meta", {
+      name: "theme-color",
+      content: "#fff",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 26
+      },
+      __self: this
+    }), __jsx("meta", {
+      name: "baidu-site-verification",
+      content: "y5VuyW34xO",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 27
+      },
+      __self: this
+    }), __jsx("meta", {
+      name: "google-site-verification",
+      content: "LsmBI4ZEP2h0Ni17kTFRG7A_kKO7zONt51w_GYjM2Gs",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 28
+      },
+      __self: this
+    }), __jsx("link", {
+      rel: "icon",
+      type: "image/x-icon",
+      href: "https://slmblog.com/favicon.ico",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 29
+      },
+      __self: this
+    })), __jsx("body", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 31
+      },
+      __self: this
+    }, __jsx(next_document__WEBPACK_IMPORTED_MODULE_2__["Main"], {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 32
+      },
+      __self: this
+    }), __jsx(next_document__WEBPACK_IMPORTED_MODULE_2__["NextScript"], {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 33
       },
       __self: this
     })));

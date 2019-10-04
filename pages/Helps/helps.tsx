@@ -1,5 +1,4 @@
 import React from 'react'
-import HeaderFooter from '../../layouts/HeaderFooter'
 import Link from 'next/link'
 
 export default class Helps extends React.Component {
@@ -33,19 +32,17 @@ export default class Helps extends React.Component {
   render () {
     const props: any = this.props;
     return (
-      <HeaderFooter active="helps">
-        <div id="helpspage">
-          <ul>
-          {
-            props.hlist.map((help) => {
-              return <li key={help.id}>
-                <Link as={`/helps/${help.id}`} href={`/Help/help?id=${help.id}&title=${help.title}`}>
-                  <a>{help.title}</a>
-                </Link>
-              </li>
-            })}
-          </ul>
-        </div>
+      <div id="helpspage">
+        <ul>
+        {
+          props.hlist.map((help) => {
+            return <li key={help.id}>
+              <Link as={`/helps/${help.id}`} href={`/Help/help?id=${help.id}&title=${help.title}`}>
+                <a>{help.title}</a>
+              </Link>
+            </li>
+          })}
+        </ul>
         <style>{`
           #helpspage {
             display: flex;
@@ -55,7 +52,7 @@ export default class Helps extends React.Component {
             width: 100%
           }
         `}</style>
-      </HeaderFooter>
+      </div>
     )
   }
 }

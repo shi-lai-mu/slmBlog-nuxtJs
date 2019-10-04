@@ -1,12 +1,9 @@
-import HeaderFooter from '../../layouts/HeaderFooter'
 // import Router from 'next/router'
 const Help =  (props) => {
   return (
-    <HeaderFooter active="helps">
-      <div id="helppage">
-        id：{props.id}<br/>
-        title：{props.title}
-      </div>
+    <div id="helppage">
+      id：{props.id}<br/>
+      title：{props.title}
       <style>{`
         #helppage {
           display: flex;
@@ -16,7 +13,7 @@ const Help =  (props) => {
           width: 100%
         }
       `}</style>
-    </HeaderFooter>
+    </div>
   )
 }
 Help.getInitialProps = async function ({query}) {
