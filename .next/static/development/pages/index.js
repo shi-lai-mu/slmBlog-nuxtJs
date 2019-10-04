@@ -120,6 +120,37 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 /***/ }),
 
+/***/ "./layouts/default/body.tsx":
+/*!**********************************!*\
+  !*** ./layouts/default/body.tsx ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return BodyLayouts; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _jsxFileName = "/Users/slm/Desktop/slmblog/frontend/layouts/default/body.tsx";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0__["createElement"];
+
+class BodyLayouts extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
+  render() {
+    return __jsx("div", {
+      className: "default-layouts-body",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 6
+      },
+      __self: this
+    }, this.props.children);
+  }
+
+}
+
+/***/ }),
+
 /***/ "./layouts/default/footer.tsx":
 /*!************************************!*\
   !*** ./layouts/default/footer.tsx ***!
@@ -385,32 +416,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DefauleLayouts; });
 /* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./header */ "./layouts/default/header.tsx");
 /* harmony import */ var _footer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./footer */ "./layouts/default/footer.tsx");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./index.scss */ "./layouts/default/index.scss");
-/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_index_scss__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _body__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./body */ "./layouts/default/body.tsx");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./index.scss */ "./layouts/default/index.scss");
+/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_index_scss__WEBPACK_IMPORTED_MODULE_4__);
 var _jsxFileName = "/Users/slm/Desktop/slmblog/frontend/layouts/default/index.tsx";
-var __jsx = react__WEBPACK_IMPORTED_MODULE_2__["createElement"];
+var __jsx = react__WEBPACK_IMPORTED_MODULE_3__["createElement"];
 
 
 
 
-class DefauleLayouts extends react__WEBPACK_IMPORTED_MODULE_2__["Component"] {
-  constructor(props) {
-    super(props);
-  }
 
+class DefauleLayouts extends react__WEBPACK_IMPORTED_MODULE_3__["Component"] {
   render() {
-    return __jsx(react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, __jsx(_header__WEBPACK_IMPORTED_MODULE_0__["default"], {
+    return __jsx(react__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, __jsx(_header__WEBPACK_IMPORTED_MODULE_0__["default"], {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 11
+      },
+      __self: this
+    }), __jsx(_body__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 12
+      },
+      __self: this
+    }, this.props.children), __jsx(_footer__WEBPACK_IMPORTED_MODULE_1__["default"], {
       __source: {
         fileName: _jsxFileName,
         lineNumber: 15
-      },
-      __self: this
-    }), this.props.children, __jsx(_footer__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 17
       },
       __self: this
     }));
@@ -8476,33 +8511,20 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
       lineNumber: 7
     },
     __self: undefined
-  }, __jsx("div", {
-    id: "homepage",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 8
-    },
-    __self: undefined
   }, __jsx("h1", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 9
+      lineNumber: 8
     },
     __self: undefined
   }, "Home"), __jsx(_components_logo__WEBPACK_IMPORTED_MODULE_2__["default"], {
     size: 50,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 10
+      lineNumber: 9
     },
     __self: undefined
-  }), __jsx("style", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 11
-    },
-    __self: undefined
-  }, "\n          #homepage {\n            width: 100%;\n            height:600px;\n            background-color: #f7f7f7;\n            display: flex;\n            justify-content: center;\n            align-items: center\n          }\n        ")));
+  }));
 });
 
 /***/ }),
