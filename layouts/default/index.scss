@@ -1,37 +1,99 @@
-.header {
-  width: 100%;
-  border-bottom: 1px solid #eee;
-  padding: 0 70px;
-  box-sizing: border-box
+/* 大小 */
+$max-width: 1300px;
+$min-width: 200px;
+
+/* 行为相关颜色 */
+$color-primary: #007aff;
+$color-success: #4cd964;
+$color-warning: #f0ad4e;
+$color-error: #c0a6a5;
+$color-blur: #ccc;
+
+
+/* 按钮颜色 */
+$button-lv0: #a2dfec;
+$button-green: #1bb556;
+$button-red: #ff4f0f;
+$button-blue: #01BCFF;
+
+
+/* 文字基本颜色 */
+$text-color:#333;                   //基本色
+$text-color-inverse:#fff;           //反色
+$text-color-grey:#999;              //辅助灰色，如加载更多的提示信息
+$text-color-placeholder: #808080;
+$text-color-disable:#c0c0c0;
+
+/* 行为相关颜色 */
+$ip: 'https://img.slmblog.com/img/';
+$box-shadow: 0 2px 5px rgba(0, 0, 0, .15);
+$click-shadow: 1px 7px 14px -5px rgba(0, 0, 0, .3);
+
+/*=========**/
+
+// 清除默认样式
+ul {
+  list-style: none;
 }
-.header .header-inner {
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 50px;
+a {
+  color: currentColor;
+  text-decoration: none;
 }
-.logo {
-  font-size: 32;
-}
-.nav-bar {
-  display: flex;
-  aligin-items: center
-}
-.nav-bar .bar {
-  padding: 0 10px;
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-  font-size: 13px;
-  color: #555555;
-  cursor: pointer
-}
-.nav-bar .bar:hover {
-  color: #0099cc
+a, button, textarea, input {
+  outline: none;
 }
 
+// 头部样式
+.header {
+  position: absolute;
+  width: 100%;
+  padding: 0 70px;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+  box-sizing: border-box;
+
+  .header-inner {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+  }
+
+  .logo {
+    font-size: 32;
+  }
+
+  .nav-bar {
+    display: flex;
+    align-items: center
+  }
+  
+  .bar {
+    padding: 0 10px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 13px;
+    color: #555555;
+    cursor: pointer;
+
+    &:hover {
+      color: #0099cc
+    }
+  }
+}
+
+// 内容样式
+.default-layouts-body {
+  width: 100%;
+  height:600px;
+  background-color: #f7f7f7;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
 
 // 底部样式
 .body-footer {
@@ -39,26 +101,16 @@
   padding-bottom: 20px;
   color: #b6c3db;
   background-color: rgba(255, 255, 255, .8);
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  user-select: none;
+
   .copyright {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     min-width: var(--min-width);
-    margin: 15px 0;
     padding: 20px 10px 0;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    margin: 15px 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   .copyright-left {
     width: 100%;
@@ -80,13 +132,9 @@
     min-width: var(--min-width);
     margin: 0 auto;
     .beian-a {
-      display: -webkit-box;
-      display: -ms-flexbox;
       display: flex;
       line-height: 20px;
-      -webkit-box-pack: center;
-          -ms-flex-pack: center;
-              justify-content: center;
+      justify-content: center;
     }
     .beian-img {
       display: inline-block;
