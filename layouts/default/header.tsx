@@ -20,9 +20,9 @@ export default class LayoutsDefauleHeader extends React.Component<DefauleLayouts
             {
               menuConfig.menu.map((item: any, index: number) => (
                 <Link href={{ pathname: item.path }} key={index}>
-                  <div className="bar" style={props.active === item.name ? { color: '#09c' } : {}}>
+                  <a className="bar" style={props.active === item.name ? { color: '#09c' } : {}}>
                     { item.nickName }
-                  </div>
+                  </a>
                 </Link>
               ))
             }

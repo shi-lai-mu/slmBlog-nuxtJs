@@ -5,23 +5,20 @@ export default () => {
   return (
     <div className="default-layouts-footer">
       <div className="copyright clearfix">
-        <span className="copyright-left">© CopyRight 2018-2019, <a href="//mczyzy.cn">SLMBLOG.COM</a>, Inc.All Rights Reserved.</span>
-        <ul className="copyright-right">
+        <div className="copyright-left">© CopyRight 2018-2019, <a href="//slmblog.com">SLMBLOG.COM</a>, Inc.All Rights Reserved.</div>
+        <div className="copyright-right">
           <Link href={{ pathname: "/other/terms" }}>
-            <li>条款和免责</li>
+            <a>条款和免责</a>
           </Link>
           <Link href={{ pathname: "/other/thisSite"}}>
-            <li>关于本站</li>
+            <a>关于本站</a>
           </Link>
-        </ul>
+        </div>
       </div>
       <div className="beian clearfix">
         <span className="beian-a">
-          <img className="beian-img" src="/static/images/police_badge.png"/>
-          <p className="beian-p">
-            <a target="_blank" href="//www.miitbeian.gov.cn">浙ICP备18049156号-2</a>
-            <a target="_blank" href="//www.beian.gov.cn">(浙公网安备 33038102331168号)</a>
-          </p>
+          <a target="_blank" className="beian-sn" href="//www.miitbeian.gov.cn">浙ICP备18049156号-2</a>
+          <a target="_blank" href="//www.beian.gov.cn">(浙公网安备 33038102331168号)</a>
         </span>
       </div>
     </div>
