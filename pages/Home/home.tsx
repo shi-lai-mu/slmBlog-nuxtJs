@@ -1,11 +1,11 @@
 // import dynamic from 'next/dynamic'
-import BlogLogo from '../../components/logo';
+// import BlogLogo from '../../components/logo';
 
 export default () => {
   return (
     <>
-      <h1>Home</h1>
-      <BlogLogo size={50} />
+      <h2>Home</h2>
+      {/* <BlogLogo size={50} /> */}
     </>
   )
 }

@@ -20,7 +20,7 @@ export default class MyApp extends App {
     const {Component, pageProps} = this.props
     return (
       <Provider {...store}>
-        <DefaultLayouts>
+        <DefaultLayouts active={this.props.router.route.split('/')[1]}>
           <Component {...pageProps} />
         </DefaultLayouts>
       </Provider>
