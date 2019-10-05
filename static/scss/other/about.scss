@@ -1,0 +1,134 @@
+.thisSite {
+  color: #353535;
+  .logo {
+    display: block;
+    width: 13vw;
+    min-width: 100px;
+    max-width: 130px;
+    margin: 20px auto;
+    border-radius: 50%;
+  }
+  h2 {
+    margin-top: 50px;
+    font-size: 2rem;
+    text-align: center;
+  }
+  hr {
+    margin: 20px 0;
+    border: 1px #eee solid;
+  }
+  .icon-renzheng,
+  .icon-renzheng1 {
+    font-size: 20px;
+    color: #0bc568;
+    text-shadow: 1px 1px 2px #ccc;
+  }
+  a {
+    color: #0bc568;
+  }
+  .web-master,
+  .web-technology,
+  .web-details  {
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+
+    li {
+      margin: 10px 0;
+    }
+    span {
+      float: left;
+      text-align: left;
+      width: 10rem;
+      color: #3d3d3d;
+      font-weight: bold;
+    }
+    p {
+      display: inline-block;
+      min-width: 200px;
+      text-indent: 2rem;
+      color: #666;
+      white-space: nowrap;
+    }
+    .sub {
+      display: block;
+      text-indent: 3rem;
+      color: #888;
+
+      &:nth-last-child(1) {
+        margin-bottom: 20px;
+      }
+    }
+    em {
+      margin-right: 8px;
+      font-weight: bold;
+      text-indent: 2rem;
+      color: #3d3d3d;
+    }
+  }
+
+  .web-master {
+    p {
+      color: #6d6d6d;
+      text-indent: 1rem;
+    }
+  }
+  .web-technology {
+    img {
+      height: 50px;
+      margin: 0 5px;
+      vertical-align: middle;
+    }
+    li {
+      width: 350px;
+      margin: 5px auto;
+    }
+    span {
+      float: initial;
+    }
+  }
+  .web-details {
+    width: 90%;
+    max-width: 600px;
+    span {
+      display: block;
+      width: 100%;
+      padding: 5px;
+      background-color: #eee;
+      border-radius: 5px;
+    }
+    p {
+      padding: 10px 0;
+      vertical-align: top;
+      list-style: initial;
+      white-space: initial;
+      &:not(:last-child) {
+        border-bottom: 1px solid #ddd;
+      }
+    }
+    .img {
+      color: #ccc;
+      cursor: pointer;
+
+      &:hover img {
+        opacity: 1;
+        visibility: inherit;
+        transform: translateY(1.25rem);
+      }
+
+      img {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+        max-width: 80vw;
+        opacity: 0;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, .3);
+        visibility: hidden;
+        transition: .5s;
+        transform: translateY(20%);
+      }
+    }
+  }
+}

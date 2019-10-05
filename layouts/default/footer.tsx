@@ -10,7 +10,7 @@ export default () => {
           <Link href={{ pathname: "/other/terms" }}>
             <a>条款和免责</a>
           </Link>
-          <Link href={{ pathname: "/other/thisSite"}}>
+          <Link href={{ pathname: "/other/about"}}>
             <a>关于本站</a>
           </Link>
         </div>
