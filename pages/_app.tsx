@@ -5,6 +5,7 @@ import store from '../store'
 import DefaultLayouts from '../layouts/default'
 // import { Head } from 'next/document'
 // import ReactComment from './components/annotation'
+import axios from '../utils/axios'
 
 export default class MyApp extends App {
   static async getInitialProps ({ Component, ctx }) {
@@ -13,7 +14,13 @@ export default class MyApp extends App {
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
     }
+    axios.api('test').get().then(console.log)
     return {pageProps}
+  }
+
+  componentDidMount() {
+
+    axios.api('test').then(console.log)
   }
 
   render () {
