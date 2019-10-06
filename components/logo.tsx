@@ -9,7 +9,7 @@ export default (props: LogoProps) => {
   const { size, logoName } = props;
   return (
     <Link href={{ pathname: "/" }}>
-      <h1>
+      <h1 data-tag="page-toggle">
         <svg version="1.1" id="logo_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
           viewBox="0 0 600.4 600" xmlSpace="preserve" style={{ width: (size || 40) + 'px'}}>
         <style>

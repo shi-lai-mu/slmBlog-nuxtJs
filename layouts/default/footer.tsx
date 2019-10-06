@@ -8,10 +8,10 @@ export default () => {
         <div className="copyright-left">© CopyRight 2018-2019, <a href="//slmblog.com">SLMBLOG.COM</a>, Inc.All Rights Reserved.</div>
         <div className="copyright-right">
           <Link href={{ pathname: "/other/terms" }}>
-            <a>条款和免责</a>
+            <a data-tag="page-toggle">条款和免责</a>
           </Link>
           <Link href={{ pathname: "/other/about"}}>
-            <a>关于本站</a>
+            <a data-tag="page-toggle">关于本站</a>
           </Link>
         </div>
       </div>

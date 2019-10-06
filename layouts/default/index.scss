@@ -36,6 +36,11 @@ body, ul, li {
   padding: 0;
   margin: 0;
 }
+@import url('https://fonts.googleapis.com/css?family=Dosis:300,400,500');
+body {
+  overflow-x: hidden;
+  font-family: 'Dosis', sans-serif;
+}
 ul {
   list-style: none;
 }
@@ -57,6 +62,7 @@ h1 {
 
   span, svg {
     margin-right: 10px;
+    pointer-events: none;
   }
 }
 
@@ -66,8 +72,8 @@ h1 {
   z-index: 10;
   width: 100%;
   padding: 0 70px;
-  border-bottom: 1px solid #eee;
   background-color: #fff;
+  border-bottom: 1px solid #eee;
   box-sizing: border-box;
   .header-inner {
     display: flex;
@@ -98,7 +104,7 @@ h1 {
 // 内容样式
 .default-layouts-body {
   display: flex;
-  width: 100%;
+  width: 100vw;
   min-height: 100vh;
   padding-top: 51px;
   background-color: #f7f7f7;

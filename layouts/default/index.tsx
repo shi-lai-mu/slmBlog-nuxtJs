@@ -19,7 +19,10 @@ export default class DefauleLayouts extends React.Component<DefauleLayoutsProps>
   /**
    * 处理跳转事件
    */
-  private transitionEvent() {
+  private transitionEvent(e) {
+    const tag: string = e.target.dataset.tag
+    if (!tag || tag !== 'page-toggle') return
+
     this.setState({
       transitionIn: !this.state.transitionIn,
     })
@@ -32,10 +35,10 @@ export default class DefauleLayouts extends React.Component<DefauleLayoutsProps>
 
   render() {
     return (
-      <>
-        <Head active={ this.props.active } onRouterEvent={ this.transitionEvent.bind(this) } />
+      <div onClick={ this.transitionEvent.bind(this) }>
+        <Head active={ this.props.active } />
         <CSSTransition
-          timeout={300}
+          timeout={3300}
           classNames='show'
           appear={true}
           in={ this.state.transitionIn }
@@ -45,7 +48,7 @@ export default class DefauleLayouts extends React.Component<DefauleLayoutsProps>
           </Body>
         </CSSTransition>
         <Footer/>
-      </>
+      </div>
     )
   }
 }
