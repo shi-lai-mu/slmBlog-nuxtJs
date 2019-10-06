@@ -34,7 +34,7 @@ export default class _Error extends React.Component<ErrorPageProps> {
             { errorMessage }
           </div>
           <Link href={{ pathname: '/' }}>
-            <a className="btn-go-home">GO BACK HOME</a>
+            <a className="btn-go-home" data-tag="page-toggle">GO BACK HOME</a>
           </Link>
         </div>
         <div className="objects">

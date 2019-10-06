@@ -161,12 +161,41 @@
     z-index: 90;
     top: 20%;
     left: 15%;
+    animation: earth-deg 30s linear infinite;
+  }
+  @keyframes earth-deg {
+    100% {
+      transform: rotate(360deg);
+    }
   }
   
   .object_moon {
     position: absolute;
     top: 12%;
     left: 25%;
+    animation: moon-deg 5s ease-in-out infinite;
+  }
+  @keyframes moon-deg {
+    25% {
+      opacity: 1;
+      z-index: 91;
+      transform: scale(1.6) rotate(90deg);
+    }
+    50% {
+      opacity: .6;
+      z-index: 80;
+      top: 30%;
+      left: 6%;
+      transform: scale(.8) rotate(180deg);
+    }
+    75% {
+      transform: scale(.4) rotate(270deg);
+    }
+    100% {
+      opacity: 1;
+      z-index: 80;
+      transform: rotate(360deg);
+    }
   }
   
   .object_astronaut {
