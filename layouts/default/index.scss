@@ -121,26 +121,21 @@ h1 {
   color: #b6c3db;
   background-color: rgba(255, 255, 255, .8);
   user-select: none;
-  .copyright {
-    display: flex;
-    min-width: var(--min-width);
-    padding: 20px 10px 0;
+  text-align: center;
+  .web-info {
+    padding: 0 10px;
     margin: 15px 0;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-  }
-  .copyright-left {
-    width: 100%;
-    text-align: center;
-  }
-  .copyright-right {
-    display: flex;
-    margin-top: 5px;
-    a:not(:last-child) {
-      &::after {
-        content: "|";
-        margin: 0 7px;
+    > div {
+      margin-top: 5px;
+      a:not(:last-child),
+      span:not(:last-child) {
+        &::after {
+          content: "|";
+          margin: 0 7px;
+        }
       }
     }
   }
