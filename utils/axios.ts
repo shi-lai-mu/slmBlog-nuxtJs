@@ -3,7 +3,7 @@
  */
 
 // import vue from 'vue'
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 // get数据
 import axiosQs from 'qs'
 // api调用
@@ -37,10 +37,8 @@ $axios.interceptors.request.use(
     const data = value.data
 
     if (!token && !isServer) {
-      const storage = JSON.parse(localStorage.getItem('user') || '{}')
-      token = storage.token
-    }
-    if (token) {
+      token = JSON.parse(localStorage.getItem('user') || '{}').token
+    } else {
       value.headers.token = encodeURIComponent(token)
     }
 
@@ -89,12 +87,10 @@ $axios.interceptors.request.use(
 declare module 'axios/index' {
   interface AxiosInstance {
     api: (api: (string | { data: any; key: string; })) => {
-      get: (res?: any) => Promise<any>;
-      post: (res: any) => Promise<any>;
-      delete: (res: any) => Promise<any>;
-      put: (res: any) => Promise<any>;
-      file: (form: any, headers: any) => Promise<any>;
-      cache?: (res: any) => Promise<any>;
+      get: (res?: ResData | AxiosRequestConfig) => Promise<any>;
+      post: (res: ResData | AxiosRequestConfig) => Promise<any>;
+      delete: (res: ResData | AxiosRequestConfig) => Promise<any>;
+      put: (res: ResData | AxiosRequestConfig) => Promise<any>;
       then: (res: any) => Promise<any>;
     };
   }
@@ -105,7 +101,8 @@ declare module 'axios/index' {
 }
 
 interface ResData {
-  [key: string]: any
+  data?: { [key: string]: string; };
+  params?: { [key: string]: string; };
 }
 
 /**
@@ -114,30 +111,24 @@ interface ResData {
  * @return 链式操作请求方式，内部传入与axios相同，排除第一个URL
  */
 $axios.api = (api: (string | { data: any; key: string; })) => {
-  let URL: string = typeof api === 'string'
-    ? API[api]
-    : api.key
+  let URL: string = API[typeof api === 'string' ? api : api.key]
 
   // 动态API
   if (typeof api === 'object' && URL) {
-    URL = API[api.key]
     for (const key in api.data) {
       if (api.data[key]) {
-        const data = api.data[key]
-        URL = URL.replace(`:${key}`, data)
+        URL = URL.replace(`:${key}`, api.data[key])
       }
     }
     api = api.key
   }
 
   return {
-    get: (res: (ResData | any) = {}) => $axios.get(URL, { api, ...res }),
-    delete: (res: (ResData | any) = {}) => $axios.delete(URL, { api, ...res }),
-    post: (res: ResData) => $axios.post(URL, { api, ...res }),
-    put: (res: ResData) => $axios.put(URL, { api, ...res }),
-    file: (form, headers) => $axios.post(URL, { api, ...form }, headers),
-    then: async (res: any)  => await $axios.get(URL, { api }).then(res)
-    // cache: res => $axios.cache(URL, { api, ...res })
+    get: (res = {}) => $axios.get(URL, { api, ...res }),
+    post: (res: AxiosRequestConfig) => $axios.post(URL, { api, ...res }),
+    put: (res: AxiosRequestConfig = {}) => $axios.put(URL, { api, ...res }),
+    delete: (res) => $axios.delete(URL, { api, ...res }),
+    then: async (res)  => await $axios.get(URL, { api }).then(res)
   }
 }
 
