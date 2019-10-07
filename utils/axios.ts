@@ -2,20 +2,20 @@
  * Axios 请求二次封装 ts版本[未启用加密版]
  */
 
-// import vue from 'vue'
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosRequestConfig, AxiosInstance } from 'axios'
 // get数据
 import axiosQs from 'qs'
 // api调用
 import API from '../config/axios.api.config'
 // 配置文件
 import config from '../config/default.config'
-
+// token存储
 let token = false
+// 判断是否为服务端的请求
 const isServer = process.title === 'node'
 
 // 创建axios实例
-const $axios = axios.create({
+const $axios: AxiosInstance = axios.create({
   baseURL: config.server.apiHost,
   timeout: 15000,
   // withCredentials: true
@@ -33,7 +33,7 @@ $axios.interceptors.response.use(
 )
 
 $axios.interceptors.request.use(
-  (value) => {
+  (value: AxiosRequestConfig) => {
     const data = value.data
 
     if (!token && !isServer) {
@@ -84,27 +84,6 @@ $axios.interceptors.request.use(
   },
 )
 
-declare module 'axios/index' {
-  interface AxiosInstance {
-    api: (api: (string | { data: any; key: string; })) => {
-      get: (res?: ResData | AxiosRequestConfig) => Promise<any>;
-      post: (res: ResData | AxiosRequestConfig) => Promise<any>;
-      delete: (res: ResData | AxiosRequestConfig) => Promise<any>;
-      put: (res: ResData | AxiosRequestConfig) => Promise<any>;
-      then: (res: any) => Promise<any>;
-    };
-  }
-
-  interface AxiosRequestConfig {
-    api?: string | { data: any; key: string; };
-  }
-}
-
-interface ResData {
-  data?: { [key: string]: string; };
-  params?: { [key: string]: string; };
-}
-
 /**
  * axios API request
  * @param {string/object} api API库内的键
@@ -133,3 +112,19 @@ $axios.api = (api: (string | { data: any; key: string; })) => {
 }
 
 export default $axios
+
+declare module 'axios/index' {
+  interface AxiosInstance {
+    api: (api: (string | { data: any; key: string; })) => {
+      get: (res?: AxiosRequestConfig) => Promise<any>;
+      post: (res: AxiosRequestConfig) => Promise<any>;
+      delete: (res: AxiosRequestConfig) => Promise<any>;
+      put: (res: AxiosRequestConfig) => Promise<any>;
+      then: (res: any) => Promise<any>;
+    };
+  }
+
+  interface AxiosRequestConfig {
+    api?: string | { data: any; key: string; };
+  }
+}
