@@ -19,4 +19,13 @@ export interface DefaultConfig {
      */
     apiHost: string;
   };
+  /**
+   * 网站相关
+   */
+  web: {
+    /**
+     * 运行时间
+     */
+    runDate: number;
+  }
 }

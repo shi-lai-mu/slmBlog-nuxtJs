@@ -1,12 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
 import { unForm } from '../../utils/date'
+import config from '../../config/default.config'
 
 export default class LayoutsDefauleFooter extends React.Component {
 
   state = {
     loadTime: 0,
-    currentTime: Date.now(),
+    currentTime: '-年-月-日-时-分-秒',
   }
 
   componentDidMount() {
@@ -17,9 +18,10 @@ export default class LayoutsDefauleFooter extends React.Component {
       })
     })
     // 站点运行时间计算
+    const webRunDate: number = config.web.runDate
     setInterval(() => {
       this.setState({
-        currentTime: unForm(1535150280000),
+        currentTime: unForm(webRunDate),
       })
     }, 1000)
   }
@@ -31,17 +33,17 @@ export default class LayoutsDefauleFooter extends React.Component {
       <div className="default-layouts-footer">
         <div className="web-info">
           <div>© CopyRight 2018-2019, <a href="//slmblog.com">SLMBLOG.COM</a>, Inc.All Rights Reserved.</div>
-          <div className="copyright-right">
+          <div className="web-param">
+            <span>渲染{ loadTime }ms</span>
+            <span>站点已运行 { currentTime }</span>
+          </div>
+          <div>
             <Link href={{ pathname: "/other/terms" }}>
               <a data-tag="page-toggle">条款和免责</a>
             </Link>
             <Link href={{ pathname: "/other/about"}}>
               <a data-tag="page-toggle">关于本站</a>
             </Link>
-          </div>
-          <div className="web-param">
-            <span>渲染{ loadTime }ms</span>
-            <span>站点已运行 { currentTime }</span>
           </div>
         </div>
         <div className="beian">

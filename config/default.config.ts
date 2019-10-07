@@ -9,7 +9,10 @@ const config: DefaultConfig = {
     host: 'http://localhost',
     port: 3000,
     apiHost: 'http://localhost:7001',
-  }
+  },
+  web: {
+    runDate: 1535150280000,
+  },
 }
 
 export default {
