@@ -85,13 +85,15 @@ export default {
         })
         .then(res => {
           // 留言成功
+          const data = res.data
+          that.article.msg.all++
           that.article.msg.list.unshift({
-            ...res,
-            level: that.article.msg.all++
+            ...data,
+            level: that.article.msg.all
           })
           that.observer.emit('toast', {
             icon: 'success',
-            text: '感谢留言,这会让作者更加有动力哦!'
+            text: '留言成功,感谢留言会让作者更加有动力哦!'
           })
           localStorage.setItem('message-username', that.username)
           that.$refs.editor.Stores.clear()

@@ -5,8 +5,7 @@ export default {
   },
 
   async IS_MOBILE ({ commit }, width) {
-    console.log(window.navigator)
-    commit('MOBILE', width < 840 || /Android|webOS|iPhone|iPod|BlackBerry/i.test(window.navigator.userAgent))
+    commit('MOBILE', width < 840)
   },
 
   async USER ({ commit }, user) {

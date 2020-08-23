@@ -28,22 +28,10 @@ export default {
         'backColor',
         'link',
         'quote',
+        'image',
         'emoticon',
         'image',
         'table',
-        'undo',
-        'redo'
-      ]
-    } else if (this.model === 'message') {
-      editor.customConfig.menus = [
-        'italic',
-        'underline',
-        'strikeThrough',
-        'foreColor',
-        'backColor',
-        'link',
-        'quote',
-        'emoticon',
         'undo',
         'redo'
       ]
@@ -92,7 +80,7 @@ export default {
     }
 
     let imgRoot = '/img/emoji/'
-    editor.customConfig.uploadImgServer = this.$store.state.user ? 'https://api.slmblog.com/file/i.php?token=' + this.$store.state.user.token : false
+    editor.customConfig.uploadImgServer = this.$store.state.user ? 'http://res.mczyzy.cn/file/i.php?token=' + this.$store.state.user.token : false
     editor.customConfig.imgIp = '/img/upload/'
     // 表情配置
     let lyList = []

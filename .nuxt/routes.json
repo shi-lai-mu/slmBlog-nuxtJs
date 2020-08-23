@@ -1,0 +1,93 @@
+[
+  {
+    "name": "article",
+    "path": "/article",
+    "component": "/Users/slm/Documents/GitHub/slmBlog-nuxtJs/pages/article/index.vue",
+    "chunkName": "pages/article/index",
+    "_name": "_7663dc74"
+  },
+  {
+    "name": "article-editArticle",
+    "path": "/article/editArticle",
+    "component": "/Users/slm/Documents/GitHub/slmBlog-nuxtJs/pages/article/editArticle.vue",
+    "chunkName": "pages/article/editArticle",
+    "_name": "_6ea0e2a4"
+  },
+  {
+    "name": "other-friendship",
+    "path": "/other/friendship",
+    "component": "/Users/slm/Documents/GitHub/slmBlog-nuxtJs/pages/other/friendship.vue",
+    "chunkName": "pages/other/friendship",
+    "_name": "_9e52ece4"
+  },
+  {
+    "name": "other-me",
+    "path": "/other/me",
+    "component": "/Users/slm/Documents/GitHub/slmBlog-nuxtJs/pages/other/me.vue",
+    "chunkName": "pages/other/me",
+    "_name": "_6d960368"
+  },
+  {
+    "name": "other-terms",
+    "path": "/other/terms",
+    "component": "/Users/slm/Documents/GitHub/slmBlog-nuxtJs/pages/other/terms.vue",
+    "chunkName": "pages/other/terms",
+    "_name": "_8d46ddfa"
+  },
+  {
+    "name": "other-thisSite",
+    "path": "/other/thisSite",
+    "component": "/Users/slm/Documents/GitHub/slmBlog-nuxtJs/pages/other/thisSite.vue",
+    "chunkName": "pages/other/thisSite",
+    "_name": "_e56adf8e"
+  },
+  {
+    "name": "user-admin-login",
+    "path": "/user/admin/login",
+    "component": "/Users/slm/Documents/GitHub/slmBlog-nuxtJs/pages/user/admin/login.vue",
+    "chunkName": "pages/user/admin/login",
+    "_name": "_1ed895ba"
+  },
+  {
+    "name": "user-admin-register",
+    "path": "/user/admin/register",
+    "component": "/Users/slm/Documents/GitHub/slmBlog-nuxtJs/pages/user/admin/register.vue",
+    "chunkName": "pages/user/admin/register",
+    "_name": "_5488f0e2"
+  },
+  {
+    "name": "user-ment-hot",
+    "path": "/user/ment/hot",
+    "component": "/Users/slm/Documents/GitHub/slmBlog-nuxtJs/pages/user/ment/hot.vue",
+    "chunkName": "pages/user/ment/hot",
+    "_name": "_8f6a4f4a"
+  },
+  {
+    "name": "user-ment-new",
+    "path": "/user/ment/new",
+    "component": "/Users/slm/Documents/GitHub/slmBlog-nuxtJs/pages/user/ment/new.vue",
+    "chunkName": "pages/user/ment/new",
+    "_name": "_366be7a4"
+  },
+  {
+    "name": "article-id",
+    "path": "/article/:id",
+    "component": "/Users/slm/Documents/GitHub/slmBlog-nuxtJs/pages/article/_id.vue",
+    "chunkName": "pages/article/_id",
+    "_name": "_46666bdc"
+  },
+  {
+    "name": "user-id",
+    "path": "/user/:id?",
+    "component": "/Users/slm/Documents/GitHub/slmBlog-nuxtJs/pages/user/_id.vue",
+    "chunkName": "pages/user/_id",
+    "_name": "_7d1b416a"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/Users/slm/Documents/GitHub/slmBlog-nuxtJs/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_3d02194d"
+  }
+]

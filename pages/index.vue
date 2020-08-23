@@ -1,7 +1,7 @@
 <template>
   <section class="conter content-row clearfix home">
     <div class="article-list">
-      <home-top :top="top" />
+      <home-top :top="top"></home-top>
       <home-hot :hot="hot" />
     </div>
     <home-right :right="right"/>
@@ -9,27 +9,30 @@
 </template>
 
 <script>
-import homeHot from './home/hot'
-import homeTop from './home/top'
+import homeRight from '~/components/Home/right'
+import homeHot from '~/components/Home/hot'
+import homeTop from '~/components/Home/top'
 
 export default {
   async asyncData ({ $axios }) {
     let data = {
       hot: await $axios.api('HOME_HOT').cache(),
-      top: await $axios.api('HOME_TOP').cache(),
-      right: await $axios.api('HOME_RIGHT').cache()
+      right: await $axios.api('HOME_RIGHT').cache(),
+      top: await $axios.api('HOME_TOP').cache()
     }
     return data
   },
   components: {
     homeHot,
-    homeTop,
-    homeRight: () => import('./home/right')
+    homeRight,
+    homeTop
   }
 }
 </script>
 
 <style lang="less">
+  @ip: '/img';
+
   .home {
     margin-bottom: 40px;
 

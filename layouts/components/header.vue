@@ -16,22 +16,22 @@
             {{ user.username || '点击登录' }}
           </p>
         </span>
-        
         <ul class="header-menu-list">
+
           <li @click="minMenu" v-for="(menu, i) of menu" :key="i">
-            <nuxt-link class="max-a" tag="span" :to="menu.to" v-if="!menu.sub">{{ menu.tag }}</nuxt-link>
+            <router-link class="max-a" tag="span" :to="menu.to" v-if="!menu.sub">{{ menu.tag }}</router-link>
             <span v-else>{{ menu.tag }}</span>
             <i class="iconfont icon-fangxiangxia" v-if="menu.sub"></i>
             <!-- 子导航 -->
             <ul v-if="menu.sub">
               <li v-for="(sub, n) in menu.sub" :key="n">
-                <nuxt-link class="max-a" v-if="sub[1] == '#' || sub.indexOf('/') > -1 || typeof sub[1] === 'object'" :to="sub[1]" tag="span">{{ sub[0] }}</nuxt-link>
+                <router-link class="max-a" v-if="sub[1] == '#' || sub.indexOf('/') > -1 || typeof sub[1] === 'object'" :to="sub[1]" tag="span">{{ sub[0] }}</router-link>
                 <span class="max-a" @click="runCommand(sub[1])" v-else>{{ sub[0] }}</span>
               </li>
             </ul>
           </li>
-        </ul>
 
+        </ul>
       </nav>
       <!-- 右侧内容 -->
       <span class="header-right">
@@ -116,43 +116,39 @@ export default {
     updateRouter () {
       // 对权限进行判断
       this.menu = [
-        // {
-        //   tag: '文章',
-        //   sub: [
-        //     ['首页', '/'],
-        //     ['置顶', '#'],
-        //     ['最新', '#'],
-        //     ['最热', '#'],
-        //     ['精品', '#'],
-        //     ['讨论', '#']
-        //   ]
-        // },
-        // {
-        //   tag: '技术',
-        //   sub: [
-        //     ['JavaScript', '#'],
-        //     ['PHP', '#'],
-        //     ['CSS', '#'],
-        //     ['HTML', '#']
-        //   ]
-        // },
-        // {
-        //   tag: '资源',
-        //   sub: [
-        //     ['Windows', '#'],
-        //     ['Andorid', '#'],
-        //     ['Web', '#'],
-        //     ['other', '#']
-        //   ]
-        // },
         {
-          tag: '留言板',
-          to: { name: 'leaves-message' }
+          tag: '文章',
+          sub: [
+            ['首页', '/'],
+            ['置顶', '#'],
+            ['最新', '#'],
+            ['最热', '#'],
+            ['精品', '#'],
+            ['讨论', '#']
+          ]
+        },
+        {
+          tag: '技术',
+          sub: [
+            ['JavaScript', '#'],
+            ['PHP', '#'],
+            ['CSS', '#'],
+            ['HTML', '#']
+          ]
+        },
+        {
+          tag: '资源',
+          sub: [
+            ['Windows', '#'],
+            ['Andorid', '#'],
+            ['Web', '#'],
+            ['other', '#']
+          ]
         },
         {
           tag: '账号',
           sub: [
-            ['登录', { name: 'user-admin-login' },    'register'],
+            ['登录', { name: 'user-admin-login' }, 'register'],
             ['注册', { name: 'user-admin-register' }, 'register'],
             ['发帖', { name: 'article-editArticle' }, 'admin'],
             ['安全退出', 'outLogin', 'login']
@@ -185,6 +181,7 @@ export default {
       } else this.menuState = !this.menuState
 
       if (this.$store.state.mobile) {
+        console.log(this.observer.is('body'))
         this.observer.emit('body', {
           key: 'className',
           value: this.menuState ? 'min-screen-left' : ''
@@ -448,8 +445,8 @@ export default {
     overflow-y: scroll;
     background-color: #fff;
     opacity: 0;
-    -webkit-box-shadow: @box-shadow;
-            box-shadow: @box-shadow;
+    -webkit-box-shadow: var(--box-shadow);
+            box-shadow: var(--box-shadow);
     -webkit-transform: translateY(60px) translateX(-100%);
             transform: translateY(60px) translateX(-100%);
 

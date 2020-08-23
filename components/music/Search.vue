@@ -6,7 +6,7 @@
     <ul class="song-list">
       <!-- 搜索到的音乐 -->
       <li class="clearfix" v-for="(song, i) in songList" :key="i" :data-i="i" @click="playSong">
-        <span class="song-name" v-html="song.songname"></span>
+        <span class="song-name" v-html="song.songnames"></span>
         <span class="song-singer">{{ song.singers }}</span>
         <span class="song-lyric">{{ song.albumname }}</span>
         <i class="iconfont icon-caidan" @click="toggleList" :data-i="i"></i>
@@ -96,15 +96,16 @@ export default {
         // 加入历史搜索
         this.history(search)
         this.$axios
-          .get('https://slmblog.com/music/search', {
+          .get('api/Music', {
             data: {
-              w: search,
-              p: this.page.num
+              fun: 'search',
+              key: search,
+              page: this.page.num
             }
           })
           .then(res => {
             this.state = false
-            let song = res.song_list
+            let song = res.data.song.list
             this.$el.scrollTo(0, 0)
             for (let i = 0, l = song.length; i < l; i++) {
               let val = song[i]
@@ -131,7 +132,7 @@ export default {
                 }
               }
               // 播放时间
-              // val.interval = utfc(val.interval)
+              val.interval = utfc(val.interval)
               if (val.interval === '00:00') val.interval = '-- : --'
               !val.songnames && (val.songnames = val.songname)
             }
@@ -471,16 +472,12 @@ export default {
     }
     sup,
     .sup {
-      display: inline-block;
       margin-left: 5px;
       padding: 0px 3px;
-      max-width: 10em;
       border: 1px solid currentColor;
       border-radius: 5px;
       color: #FFA500;
       font-size: 10px;
-      overflow: hidden;
-      text-overflow: hidden;
     }
     .HQ {
       color: #13CE66;

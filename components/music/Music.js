@@ -1,5 +1,4 @@
 import { loadImg } from '~/plugins/tool'
-import config from '~/config/default'
 /**
  * 音乐函数
  * @param {object} self vue Object
@@ -99,55 +98,55 @@ export default function () {
       let self = this
       // 获取音乐信息
       vue.$axios
-        .get('https://slmblog.com/music/getMusicInfo', {
+        .get('/api/Music', {
           data: {
+            fun: 'getMusicInfo',
             code: albummid
           }
         })
         .then(res => {
-          if (res.url) {
-            self.info = res
+          if (res.data) {
+            self.info = res.data
             // 选中songmid的ID
-            // for (let song of self.info.list) {
-            //   if (song.albummid === albummid) {
-            //     self.info.song = song
-            //     break
-            //   }
-            // }
+            for (let song of self.info.list) {
+              if (song.albummid === albummid) {
+                self.info.song = song
+                break
+              }
+            }
             self.writeView()
             self.store.conEl.toggle.className = 'iconfont icon-caidan'
             // 获取歌曲播放位置
-            if (self.info.url) {
-              self.getDownload(res.url['96AAC'], data => {
+            if (self.info.song) {
+              self.getDownload(self.info.song.songmid, '48AAC', data => {
                 vue.info.src = data.url
                 play && (self.$el.autoplay = true)
                 self.store.conEl.toggle.className = 'iconfont icon-zanting'
                 self.store.state = !0
               })
             }
-          } else throw Error('请求失败')
+          }
         })
         .catch((e) => {
-          throw Error(albummid + `音乐 获取失败, 请及时进行维护!!!\n` + e)
+          throw Error(albummid + `音乐 获取失败, 请及时进行维护!!!\nError:` + e)
         })
     }
 
     /* 音乐数据写入视图 */
     writeView () {
-      if (!this.info.interval) return
+      if (!this.info.mid) return
       try {
         // 默认播放 m4a 格式音乐
         // 数据顺序 对象, 封面图片, 播放路径, 歌名, 歌手, 歌简介, 歌上传时间, 相似歌曲
         let info = this.info
-        console.log(info)
         vue.info = {
-          img: info.url['专辑封面'],
+          img: `http://y.gtimg.cn/music/photo_new/T002R300x300M000${info.mid}.jpg`,
           src: info.src || '',
-          tag: info.song,
-          singername: info.album,
-          // description: info.desc,
-          // upload: info.aDate,
-          list: info.url
+          tag: info.name,
+          singername: info.singername,
+          description: info.desc,
+          upload: info.aDate,
+          list: info.list
         }
         loadImg(vue.info.img, rgb => {
           vue.iconColor = rgb
@@ -210,13 +209,13 @@ export default function () {
      * @param {string} qu 音乐品质[24AAC, 128MP3, 320MP3, APE, FLAC]
      * @param {function} cb 回调
      */
-    getDownload (url, cb) {
+    getDownload (songmid, qu, cb) {
       vue.$axios
-        .get(`https://slmblog.com/music/download?url=${ encodeURIComponent(url) }`)
+        .get(`api/Music?fun=download&code=${songmid}&type=${qu}`)
         .then(res => {
           if (res.url) {
             cb(res)
-          } else throw Error(`请求[ ${url} ]下载数据错误!`)
+          } else throw Error(`请求[ ${songmid} ]下载数据错误!`)
         })
         .catch(e => {
           throw Error(`破解请求过于频繁,请稍后再试!` + e)
@@ -243,17 +242,16 @@ export default function () {
      * @param {boolean} start 是否为开始下载状态
      */
     allDownloadStart (start) {
-      const that = this
-      if (start) that.downloadState = !0
+      if (start) this.downloadState = !0
       // 更改为开始下载的状态
-      if (!that.downloadState) return
+      if (!this.downloadState) return
 
-      let task = that.download.list[0]
+      let task = this.download.list[0]
       if (task && task.name) {
-        that.downloadMusic(task, () => {
-          that.download.list.shift()
-          if (that.downloadState) {
-            that.allDownloadStart()
+        this.downloadMusic(task, () => {
+          this.download.list.shift()
+          if (this.downloadState) {
+            this.allDownloadStart()
           }
         })
       }
@@ -264,25 +262,24 @@ export default function () {
      * @param {object} data 音乐数据
      * @param {functin} cb 下载完成后的回调
      */
-    downloadMusic (data, cb, gress) {
+    downloadMusic (data, cb) {
       let xhr = new XMLHttpRequest()
       xhr.responseType = 'blob'
       let a = document.createElement('a')
       xhr.onprogress = function (e) {
         let percent = (e.loaded / e.total * 100).toFixed(2)
         data.state = percent
-        gress && gress(percent)
       }
-      xhr.onload = function () {
+      xhr.onload = function (e) {
         var blob = new Blob([this.response])
         a.href = URL.createObjectURL(blob)
-        a.download = `${data.name}.${data.suffix}`
+        a.download = `${data.name}.${data.ext}`
         document.body.appendChild(a)
         a.click()
         cb && cb()
       }
       xhr.onerror = console.error
-      data.src = 'https://slmblog.com/music/download/file?url=' + encodeURIComponent(data.src)
+      data.src = data.src.replace('http://streamoc.music.tc.qq.com/', 'https://slmblog.com/download/music/')
       if (data.src) {
         xhr.open('get', data.src, true)
         xhr.send()

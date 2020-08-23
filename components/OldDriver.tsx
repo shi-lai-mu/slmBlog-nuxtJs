@@ -1,1 +1,0 @@
-export default () => (<img src="/static/images/yq.png"></img>)

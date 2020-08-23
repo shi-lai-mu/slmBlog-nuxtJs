@@ -2,19 +2,22 @@
   <div class="boss" ref="body">
     <main-background />
     <main-Header />
-    <transition name="nuxt">
+    <transition name="test">
       <nuxt />
     </transition>
-    <music />
     <main-footer />
+    <music />
     <Toast />
   </div>
 </template>
 
 <script>
 import mainHeader from './components/header'
-import config from '~/config/default'
-    
+import mainFooter from './components/footer'
+import mainBackground from './components/background'
+import music from '~/components/music/index'
+import Toast from './components/Toast'
+
 export default {
   scrollToTop: true,
   head: {
@@ -22,10 +25,10 @@ export default {
   },
   components: {
     mainHeader,
-    mainBackground: () => import('./components/background'),
-    mainFooter: () => import('./components/footer'),
-    Toast: () => import('~/components/music/index'),
-    music: () => import('./components/Toast')
+    mainFooter,
+    mainBackground,
+    music,
+    Toast
   },
   watch: {
     '$route' (to, from) {
@@ -34,55 +37,56 @@ export default {
     }
   },
   mounted () {
-    const that = this
-    // that.baiduPush()
+    const slef = this
+    // slef.baiduPush()
+
     let user = localStorage.getItem('userInfo')
-    that.$nuxt.$store.dispatch('USER', user || 'default')
-    user = that.$store.state.user
+    slef.$nuxt.$store.dispatch('USER', user || 'default')
+    user = slef.$store.state.user
 
     // 缩放窗口时 响应式处理
     window.addEventListener('resize', resize)
     function resize (e) {
       document.body.className = window.innerWidth > 840 ? 'max' : 'centre'
-      that.$store.dispatch('IS_MOBILE', window.innerWidth)
+      slef.$store.dispatch('IS_MOBILE', window.innerWidth)
     }
     resize()
 
     // refs.body 订阅
-    that.observer.on('body', option => {
-      that.$refs.body.className = option.value ? option.value : 'boss'
+    slef.observer.on('body', option => {
+      slef.$refs.body.className = option.value ? option.value : 'boss'
     })
 
-    that.$nextTick(() => {
+    slef.$nextTick(() => {
       // PC版 问候
-      !that.$store.state.mobile && that.observer.emit('toast', {
+      !slef.$store.state.mobile && slef.observer.emit('toast', {
         text: isNaN(user.id) ? '欢迎访问, 史莱姆的博客!' : `欢迎回来 ${user.username}`
       })
     })
 
-    console.log(`%c${ config.__NAME__.toUpperCase() }%c version ${ config.__VERSION__ }`, 'font-size: 40px;color: #fe4181;font-weight: bold;', 'font-size: 20px;color: #fe4181')
-    console.log(`\t%c${ config.__DESCRIPTION__ }`, 'font-size: 20px;color: #fe4181;')
+    console.log('%cSLM BLOG%c version 1.5.0', 'font-size: 40px;color: rgb(254,65,129);font-weight: bold;', 'font-size: 20px;color: rgb(254,65,129)')
+    console.log('      %c欢迎访问 史莱姆的博客!', 'font-size: 20px;color: rgb(254,65,129)')
   },
-  // methods: {
-  //   // 百度推送
-  //   baiduPush () {
-  //     const bp = document.createElement('script')
-  //     bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
-  //     let s = document.getElementsByTagName('script')[0]
-  //     s.parentNode.insertBefore(bp, s)
-  //   }
-  // }
+  methods: {
+    // 百度推送
+    baiduPush () {
+      const bp = document.createElement('script')
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+      let s = document.getElementsByTagName('script')[0]
+      s.parentNode.insertBefore(bp, s)
+    }
+  }
 }
 </script>
 
 <style lang="less">
-.nuxt-enter-active, .nuxt-leave-active {
+.test-enter-active, .test-leave-active {
   transition: 1s;
 }
-.nuxt-enter, .nuxt-leave-active {
+.test-enter, .test-leave-active {
   opacity: 0;
-  transition-timing-function: ease-out; 
-  transform: scale(.9);
+  -webkit-transform: translate(-50px, 0);
+          transform: translate(-50px, 0);
 }
 .boss {
   transition: 1s;
