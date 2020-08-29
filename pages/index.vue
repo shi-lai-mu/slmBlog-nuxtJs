@@ -1,19 +1,27 @@
 <template>
   <section class="conter content-row clearfix home">
     <div class="article-list">
-      <home-top :top="top"></home-top>
+      <home-top :top="top" />
       <home-hot :hot="hot" />
     </div>
     <home-right :right="right"/>
   </section>
 </template>
 
-<script>
-import homeRight from '~/components/Home/right'
-import homeHot from '~/components/Home/hot'
-import homeTop from '~/components/Home/top'
+<script lang="ts">
+import { Vue, Component } from 'nuxt-property-decorator'
+import homeRight from '~/components/Home/right';
+import homeHot from '~/components/Home/hot';
+import homeTop from '~/components/Home/top';
 
-export default {
+@Component({
+  components: {
+    homeHot,
+    homeRight,
+    homeTop
+  }
+})
+export default class PageApp extends Vue {
   async asyncData ({ $axios }) {
     let data = {
       hot: await $axios.api('HOME_HOT').cache(),
@@ -21,18 +29,11 @@ export default {
       top: await $axios.api('HOME_TOP').cache()
     }
     return data
-  },
-  components: {
-    homeHot,
-    homeRight,
-    homeTop
   }
 }
 </script>
 
-<style lang="less">
-  @ip: '/img';
-
+<style lang="scss">
   .home {
     margin-bottom: 40px;
 
@@ -145,7 +146,6 @@ export default {
           background-color: #fff;
           border: 1px solid #e8e8e8;
           border-radius: 3px;
-          -webkit-transition: .3s;
           transition: .3s;
           pointer-events: initial;
 

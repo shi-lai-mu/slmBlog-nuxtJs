@@ -86,5 +86,7 @@ module.exports = {
 
   performance: {
     prefetch: false
-  }
+  },
+
+  buildModules: ['@nuxt/typescript-build'],
 }

@@ -4,14 +4,16 @@
 /node_modules
 /.pnp
 .pnp.js
+package-lock.json
 
 # testing
 /coverage
 
 # production
 /build
-.next
-/.next
+.nuxt
+dist
+/.nuxt
 
 # misc
 .DS_Store

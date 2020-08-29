@@ -44,79 +44,79 @@
   </section>
 </template>
 
-<script>
-export default {
-  props: ['hot'],
-  data () {
-    return {
-      hotList: [],
-      searchArticle: '',
-      searchState: false,
-      page: {
-        all: 0,
-        count: 0,
-        num: 1
-      }
-    }
-  },
+<script lang="ts">
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
+
+@Component
+export default class HomeHot extends Vue {
+  @Prop() hot: any;
+
+  hotList = [];
+  searchArticle ='';
+  searchState = false;
+  page = {
+    all: 0,
+    count: 0,
+    num: 1
+  };
+
   mounted () {
-    this.observer.on('searchKeyWord', this.loadMaster)
-  },
-  methods: {
-    /* 点击标签事件 */
-    tagClick (e) {
-      let dataset = e.target.dataset
+    this.observer.on('searchKeyWord', this.loadMaster) 
+  }
 
-      // 关键词搜索
-      if (dataset.tag) {
-        this.loadMaster(dataset.tag)
-        window.scrollTo(0, 0)
-        return
-      }
+  /* 点击标签事件 */
+  tagClick (e) {
+    let dataset = e.target.dataset
 
-      // 打开文章
-      if (dataset.article) {
-        this.$router.push('article/' + dataset.article)
-      }
-    },
-
-    /* 搜索文章 */
-    loadMaster (keyword, page = 1) {
-      let key = {}
-      const slef = this
-      if (keyword) {
-        slef.searchArticle = `正在显示标签包含 '${keyword}' 的文章...`
-        key = { page, keyword }
-      }
-      slef.$store.dispatch('ARTICLE_MODEL', key)
-      slef.$axios
-        .api('HOME_HOT')
-        .get({ data: key })
-        .then(data => {
-          slef.hotList = data
-        })
-    },
-
-    /* 文章跳转 */
-    pageSearch (i) {
-      if (i >= this.page.count) {
-        this.page.num = this.page.count
-        return
-      }
-      let page = this.page.num
-      if (!isNaN(page) && page > 0) {
-        this.loadMaster(page)
-      } else this.page.num = 1
-    },
-
-    /* 清空文章模式 */
-    clearModel () {
-      const slef = this
-      slef.$store.commit('CLEAR_ARTICLE_MODEL')
-      slef.searchArticle = null
-      slef.searchState = !1
-      slef.hotList = []
+    // 关键词搜索
+    if (dataset.tag) {
+      this.loadMaster(dataset.tag)
+      window.scrollTo(0, 0)
+      return
     }
+
+    // 打开文章
+    if (dataset.article) {
+      this.$router.push('article/' + dataset.article)
+    }
+  }
+
+  /* 搜索文章 */
+  loadMaster (keyword, page = 1) {
+    let key = {}
+    const slef = this
+    if (keyword) {
+      slef.searchArticle = `正在显示标签包含 '${keyword}' 的文章...`
+      key = { page, keyword }
+    }
+    slef.$store.dispatch('ARTICLE_MODEL', key)
+    slef.$axios
+      .api('HOME_HOT')
+      .get({ data: key })
+      .then(data => {
+        slef.hotList = data
+      })
+  }
+
+  /* 文章跳转 */
+  pageSearch (i) {
+    if (i >= this.page.count) {
+      this.page.num = this.page.count
+      return
+    }
+    let page = this.page.num
+    if (!isNaN(page) && page > 0) {
+      this.loadMaster(page)
+    } else this.page.num = 1
+  }
+
+  /* 清空文章模式 */
+  clearModel () {
+    const slef = this
+    slef.$store.commit('CLEAR_ARTICLE_MODEL')
+    slef.searchArticle = null
+    slef.searchState = !1
+    slef.hotList = []
   }
 }
 </script>
