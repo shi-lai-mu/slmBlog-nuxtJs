@@ -21,8 +21,10 @@
         "object-literal-sort-keys": false,
         "ordered-imports": false,
         "no-console": false,
+        "no-namespace": false,
         "no-empty": [true, "allow-empty-functions"],
         "curly": [true, "ignore-same-line"],
+        "no-consecutive-blank-lines": false,
         "no-bitwise": false
     },
     "linterOptions": {

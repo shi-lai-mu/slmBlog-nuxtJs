@@ -1,5 +1,6 @@
 <template>
   <div ref="layoutDefault" :class="[ 'layout', 'layout-default', theme ]">
+    <LayoutHeader />
     <transition name="transition">
       <nuxt class="layout-page" />
     </transition>
@@ -9,7 +10,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import LayoutFooter from './default/footer.vue';
+import { LayoutDefault } from '../interface/layout';
+import LayoutFooter from './Footer.vue';
+import LayoutHeader from './Header.vue';
 import '../assets/scss/layout.default.scss';
 
 @Component({
@@ -20,46 +23,45 @@ import '../assets/scss/layout.default.scss';
   watch: {
     // $route(to, from) {
     //   window.scrollTo(0, 0)
-    //   // this.baiduPush()
+    //   this.baiduPush()
     // }
   },
   components: {
     LayoutFooter,
+    LayoutHeader,
   },
 })
 export default class DefaultLayout extends Vue {
   /**
    * 主题方案
    */
-  theme: string = 'theme-dark'; // theme-default | theme-dark
+  theme: LayoutDefault.Data['themes'] = 'theme-dark';
 
   mounted() {
-    const slef = this;
     // slef.baiduPush()
-
-    let user = localStorage.getItem('userInfo');
-    slef.$nuxt.$store.dispatch('USER', user || 'default');
-    user = slef.$store.state.user;
+    // let user = localStorage.getItem('userInfo');
+    // slef.$nuxt.$store.dispatch('USER', user || 'default');
+    // user = slef.$store.state.user;
 
     // 缩放窗口时 响应式处理
-    window.addEventListener('resize', resize);
-    function resize() {
-      document.body.className = window.innerWidth > 840 ? 'max' : 'centre';
-      slef.$store.dispatch('IS_MOBILE', window.innerWidth);
-    }
-    resize();
+    // window.addEventListener('resize', resize);
+    // function resize() {
+    //   document.body.className = window.innerWidth > 840 ? 'max' : 'centre';
+    //   // slef.$store.dispatch('IS_MOBILE', window.innerWidth);
+    // }
+    // resize();
 
     // refs.body 订阅
     // slef.observer.on('body', option => {
     //   slef.$refs.body.className = option.value ? option.value : 'boss';
     // });
 
-    slef.$nextTick(() => {
+    // slef.$nextTick(() => {
       // PC版 问候
       // !slef.$store.state.mobile && slef.observer.emit('toast', {
       //   text: isNaN(user.id) ? '欢迎访问, 史莱姆的博客!' : `欢迎回来 ${user.username}`,
       // });
-    });
+    // });
 
     console.log(
       '%cSLM BLOG%c version 1.8.0',

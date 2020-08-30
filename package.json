@@ -1,48 +1,49 @@
 {
-    "name": "slmblog",
-    "version": "1.8.0",
-    "description": "Nuxt Typescript SlmBlog",
-    "author": "ShiLaiMu <qq: 47889187/wechat: slm15558931101>",
-    "private": false,
-    "scripts": {
-        "dev": "nuxt-ts",
-        "build": "nuxt-ts build",
-        "heroku-postbuild": "nuxt-ts build",
-        "test": "jest",
-        "lint": "tslint . --ext .vue,.ts,.js",
-        "start": "nuxt-ts start",
-        "generate": "nuxt-ts generate"
-    },
-    "dependencies": {
-        "@nuxt/typescript-runtime": "^0.4.10",
-        "@nuxtjs/style-resources": "^0.1.2",
-        "cross-env": "^5.2.1",
-        "nuxt": "^2.14.4",
-        "nuxt-property-decorator": "^2.7.2",
-        "sass-loader": "^7.3.1"
-    },
-    "devDependencies": {
-        "@nuxt/typescript-build": "^0.6.7",
-        "@types/jest": "^24.9.1",
-        "@types/lodash": "^4.14.161",
-        "@vue/test-utils": "^1.0.4",
-        "babel-core": "^7.0.0-bridge.0",
-        "jest": "^24.9.0",
-        "node-sass": "^4.14.1",
-        "nodemon": "^1.19.4",
-        "postcss-loader": "^3.0.0",
-        "prettier": "^1.19.1",
-        "surge": "^0.20.5",
-        "ts-jest": "^24.3.0",
-        "tslint": "^5.16.0",
-        "tslint-config-prettier": "^1.17.0",
-        "tslint-plugin-prettier": "^2.0.1",
-        "vue-jest": "^3.0.6"
-    },
-    "config": {
-        "nuxt": {
-            "host": "0.0.0.0",
-            "port": "8888"
-        }
+  "name": "slmblog",
+  "version": "1.8.0",
+  "description": "Nuxt Typescript SlmBlog",
+  "author": "ShiLaiMu <qq: 47889187/wechat: slm15558931101>",
+  "private": false,
+  "scripts": {
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "heroku-postbuild": "nuxt-ts build",
+    "test": "jest",
+    "lint": "tslint . --ext .vue,.ts,.js",
+    "start": "nuxt-ts start",
+    "generate": "nuxt-ts generate"
+  },
+  "dependencies": {
+    "@nuxt/typescript-runtime": "^0.4.10",
+    "@nuxtjs/style-resources": "^0.1.2",
+    "cross-env": "^5.2.1",
+    "nuxt": "^2.14.4",
+    "nuxt-property-decorator": "^2.7.2",
+    "sass-loader": "^7.3.1"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "^0.6.7",
+    "@types/jest": "^24.9.1",
+    "@types/lodash": "^4.14.161",
+    "@vue/test-utils": "^1.0.4",
+    "babel-core": "^7.0.0-bridge.0",
+    "jest": "^24.9.0",
+    "node-sass": "^4.14.1",
+    "nodemon": "^1.19.4",
+    "postcss-loader": "^3.0.0",
+    "prettier": "^1.19.1",
+    "surge": "^0.20.5",
+    "ts-jest": "^24.3.0",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^4.0.2",
+    "vue-jest": "^3.0.6"
+  },
+  "config": {
+    "nuxt": {
+      "host": "0.0.0.0",
+      "port": "8888"
     }
+  }
 }

@@ -10,7 +10,7 @@
         <router-link class="navigation-li" to="/other/thisSite">关于本站</router-link>
       </div>
     </div>
-    <div class="serve-record">
+    <div>
       <span class="nowrap">
         <img class="serve-record-icon" src="/tripartite/police_badge.png"/>
         <a target="_blank" href="//www.miitbeian.gov.cn">浙ICP备18049156号-2</a>
@@ -42,26 +42,19 @@
     .copyright-navigation {
       margin-top: 5px;
 
-      .navigation-li {
-        display: inline-block;
-
-        &:not(:last-child) {
-          &::after {
-            content: "|";
-            margin: 0 7px;
-          }
+      .navigation-li:not(:last-child) {
+        &::after {
+          content: "|";
+          margin: 0 7px;
         }
       }
     }
   }
 
   // 备案
-  .serve-record {
-
-    .serve-record-icon {
-      height: 20px;
-      vertical-align: middle;
-    }
+  .serve-record-icon {
+    height: 20px;
+    vertical-align: middle;
   }
 }
 </style>

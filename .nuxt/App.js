@@ -6,9 +6,10 @@ import NuxtLoading from './components/nuxt-loading.vue'
 import NuxtBuildIndicator from './components/nuxt-build-indicator'
 
 import _6f6c098b from '..\\layouts\\default.vue'
-import _5b8eca9f from '..\\layouts\\default\\footer.vue'
+import _3c52dd31 from '..\\layouts\\Footer.vue'
+import _3f290a23 from '..\\layouts\\Header.vue'
 
-const layouts = { "_default": sanitizeComponent(_6f6c098b),"_default/footer": sanitizeComponent(_5b8eca9f) }
+const layouts = { "_default": sanitizeComponent(_6f6c098b),"_Footer": sanitizeComponent(_3c52dd31),"_Header": sanitizeComponent(_3f290a23) }
 
 export default {
   render (h, props) {
