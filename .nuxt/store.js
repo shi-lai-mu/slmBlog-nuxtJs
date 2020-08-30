@@ -17,28 +17,18 @@ let store = {};
   // Enforce store modules
   store.modules = store.modules || {}
 
-  resolveStoreModules(require('..\\store\\types.ts'), 'types.ts')
-  resolveStoreModules(require('..\\store\\polls\\actions.ts'), 'polls/actions.ts')
-  resolveStoreModules(require('..\\store\\polls\\const.ts'), 'polls/const.ts')
-  resolveStoreModules(require('..\\store\\polls\\getters.ts'), 'polls/getters.ts')
-  resolveStoreModules(require('..\\store\\polls\\mutations.ts'), 'polls/mutations.ts')
-  resolveStoreModules(require('..\\store\\polls\\state.ts'), 'polls/state.ts')
-  resolveStoreModules(require('..\\store\\polls\\types.ts'), 'polls/types.ts')
-  resolveStoreModules(require('..\\store\\polls\\__mocks__\\state.mock.ts'), 'polls/__mocks__/state.mock.ts')
+  resolveStoreModules(require('..\\store\\actions.ts'), 'actions.ts')
+  resolveStoreModules(require('..\\store\\mutations.ts'), 'mutations.ts')
+  resolveStoreModules(require('..\\store\\state.ts'), 'state.ts')
 
   // If the environment supports hot reloading...
 
   if (process.client && module.hot) {
     // Whenever any Vuex module is updated...
     module.hot.accept([
-      '..\\store\\types.ts',
-      '..\\store\\polls\\actions.ts',
-      '..\\store\\polls\\const.ts',
-      '..\\store\\polls\\getters.ts',
-      '..\\store\\polls\\mutations.ts',
-      '..\\store\\polls\\state.ts',
-      '..\\store\\polls\\types.ts',
-      '..\\store\\polls\\__mocks__\\state.mock.ts',
+      '..\\store\\actions.ts',
+      '..\\store\\mutations.ts',
+      '..\\store\\state.ts',
     ], () => {
       // Update `root.modules` with the latest definitions.
       updateModules()

@@ -11,8 +11,8 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import { LayoutDefault } from '../interface/layout';
-import LayoutFooter from './Footer.vue';
-import LayoutHeader from './Header.vue';
+import LayoutFooter from './default/component/Footer.vue';
+import LayoutHeader from './default/component/Header.vue';
 import '../assets/scss/layout.default.scss';
 
 @Component({
