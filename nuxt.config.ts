@@ -1,13 +1,12 @@
-const pkg = require('./package')
-
-module.exports = {
+export default {
   mode: 'universal',
 
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
-    title: pkg.name,
+    titleTemplate: '%s - ' + (process.env.npm_config_name || '史莱姆的博客'),
+    title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' },
@@ -24,16 +23,14 @@ module.exports = {
       { name: 'Copyright', content: 'slmblog.com' },
       { name: 'theme-color', content: '#fff' },
       { name: 'baidu-site-verification', content: 'y5VuyW34xO' },
-      { name: 'google-site-verification', content: 'LsmBI4ZEP2h0Ni17kTFRG7A_kKO7zONt51w_GYjM2Gs' }
+      { name: 'google-site-verification', content: 'LsmBI4ZEP2h0Ni17kTFRG7A_kKO7zONt51w_GYjM2Gs' },
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: 'https://img.slmblog.com/favicon.ico' }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: 'https://slmblog.com/LOGO.png' }],
   },
 
   /*
-  ** Customize the progress-bar color
-  */
+   ** Customize the progress-bar color
+   */
   loading: {
     color: 'rgba(1, 188, 255, .7)',
     height: '3px',
@@ -41,52 +38,42 @@ module.exports = {
   },
 
   /*
-  ** Global CSS
-  */
-  css: [
-    { src: 'static/css/public.less' },
-    { src: 'static/css/icon.css' }
+   ** Global CSS
+   */
+  css: [],
+
+  /*
+   ** Plugins to load before mounting the App
+   */
+  plugins: [],
+  /*
+   ** Nuxt.js dev-modules
+   */
+  buildModules: [
+    // Doc: https://github.com/nuxt-community/eslint-module
+    // '@nuxtjs/eslint-module',
+    '@nuxt/typescript-build'
   ],
+  /*
+   ** Nuxt.js modules
+   */
+  modules: ['@nuxtjs/style-resources'],
 
   /*
-  ** Plugins to load before mounting the App
-  */
-  plugins: [
-    { src: '~/plugins/axios' },
-    { src: '~/store/API', ssr: false },
-    { src: '~/plugins/observer', ssr: false },
-    { src: '~/plugins/route' }
-  ],
-
-  /*
-  ** Nuxt.js modules
-  */
-  modules: [
-    '@nuxtjs/axios'
-  ],
-
-  /*
-  ** Axios module configuration
-  */
-  axios: {
-    baseURL: 'https://api.slmblog.com/',
-    timeout: 15000,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-    },
-    rejectUnauthorized: false
-  },
-
-  /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
   build: {
-    extractCSS: true
+    //   /*
+    //   ** You can extend webpack config here
+    //   */
+    //   extend(config, ctx) {
+    //   }
   },
 
-  performance: {
-    prefetch: false
+  /**
+   * Style resources module configuration
+   */
+  styleResources: {
+    scss: ['./assets/scss/_variables.scss', './assets/scss/_mixins.scss']
   },
-
-  buildModules: ['@nuxt/typescript-build'],
-}
+};

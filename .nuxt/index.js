@@ -13,12 +13,6 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
-import nuxt_plugin_axios_4e43e69e from 'nuxt_plugin_axios_4e43e69e' // Source: ./axios.js (mode: 'all')
-import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ../plugins/axios (mode: 'all')
-import nuxt_plugin_API_00ed39c5 from 'nuxt_plugin_API_00ed39c5' // Source: ../store/API (mode: 'client')
-import nuxt_plugin_observer_07de984c from 'nuxt_plugin_observer_07de984c' // Source: ../plugins/observer (mode: 'client')
-import nuxt_plugin_route_338f5eda from 'nuxt_plugin_route_338f5eda' // Source: ../plugins/route (mode: 'all')
-
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
 
@@ -70,7 +64,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"title":"slmblog","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"},{"hid":"description","name":"description","itemprop":"description","content":"欢迎浏览史莱姆的博客٩( °༥° )و，让我们一起交流技术一起嗨皮分享！史莱姆的博客为个人站点，注重前端开发。"},{"name":"keywords","content":"史莱姆的博客,html5,css3,es6,微信小程序,网站开发,技术交流,源码分享,php,nodejs"},{"name":"referrer","content":"origin"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge"},{"itemprop":"author","content":"史莱姆[qq: 478889187]"},{"itemprop":"image","hid":"qqlogo","content":"https:\u002F\u002Fimg.slmblog.com\u002FQQLOGO.jpg"},{"itemprop":"name","hid":"qqname","content":"史莱姆的博客"},{"name":"format-detection","content":"telephone=no"},{"name":"robots","content":"all"},{"name":"Copyright","content":"slmblog.com"},{"name":"theme-color","content":"#fff"},{"name":"baidu-site-verification","content":"y5VuyW34xO"},{"name":"google-site-verification","content":"LsmBI4ZEP2h0Ni17kTFRG7A_kKO7zONt51w_GYjM2Gs"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"https:\u002F\u002Fimg.slmblog.com\u002Ffavicon.ico"}],"style":[],"script":[]},
+    head: {"titleTemplate":"%s - 史莱姆的博客","title":"nuxt-ts","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"},{"hid":"description","name":"description","itemprop":"description","content":"欢迎浏览史莱姆的博客٩( °༥° )و，让我们一起交流技术一起嗨皮分享！史莱姆的博客为个人站点，注重前端开发。"},{"name":"keywords","content":"史莱姆的博客,html5,css3,es6,微信小程序,网站开发,技术交流,源码分享,php,nodejs"},{"name":"referrer","content":"origin"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge"},{"itemprop":"author","content":"史莱姆[qq: 478889187]"},{"itemprop":"image","hid":"qqlogo","content":"https:\u002F\u002Fimg.slmblog.com\u002FQQLOGO.jpg"},{"itemprop":"name","hid":"qqname","content":"史莱姆的博客"},{"name":"format-detection","content":"telephone=no"},{"name":"robots","content":"all"},{"name":"Copyright","content":"slmblog.com"},{"name":"theme-color","content":"#fff"},{"name":"baidu-site-verification","content":"y5VuyW34xO"},{"name":"google-site-verification","content":"LsmBI4ZEP2h0Ni17kTFRG7A_kKO7zONt51w_GYjM2Gs"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"https:\u002F\u002Fslmblog.com\u002FLOGO.png"}],"style":[],"script":[]},
 
     store,
     router,
@@ -198,26 +192,6 @@ async function createApp(ssrContext, config = {}) {
     }
   }
   // Plugin execution
-
-  if (typeof nuxt_plugin_axios_4e43e69e === 'function') {
-    await nuxt_plugin_axios_4e43e69e(app.context, inject)
-  }
-
-  if (typeof nuxt_plugin_axios_3566aa80 === 'function') {
-    await nuxt_plugin_axios_3566aa80(app.context, inject)
-  }
-
-  if (process.client && typeof nuxt_plugin_API_00ed39c5 === 'function') {
-    await nuxt_plugin_API_00ed39c5(app.context, inject)
-  }
-
-  if (process.client && typeof nuxt_plugin_observer_07de984c === 'function') {
-    await nuxt_plugin_observer_07de984c(app.context, inject)
-  }
-
-  if (typeof nuxt_plugin_route_338f5eda === 'function') {
-    await nuxt_plugin_route_338f5eda(app.context, inject)
-  }
 
   // Lock enablePreview in context
   if (process.static && process.client) {

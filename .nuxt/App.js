@@ -5,17 +5,10 @@ import { getMatchedComponentsInstances, getChildrenComponentInstancesUsingFetch,
 import NuxtLoading from './components/nuxt-loading.vue'
 import NuxtBuildIndicator from './components/nuxt-build-indicator'
 
-import '../static/css/public.less'
+import _6f6c098b from '..\\layouts\\default.vue'
+import _5b8eca9f from '..\\layouts\\default\\footer.vue'
 
-import '../static/css/icon.css'
-
-import _42d6b8de from '../layouts/components/background.vue'
-import _252fad7e from '../layouts/components/footer.vue'
-import _2805da70 from '../layouts/components/header.vue'
-import _943ab478 from '../layouts/components/Toast.vue'
-import _6f6c098b from '../layouts/default.vue'
-
-const layouts = { "_components/background": sanitizeComponent(_42d6b8de),"_components/footer": sanitizeComponent(_252fad7e),"_components/header": sanitizeComponent(_2805da70),"_components/Toast": sanitizeComponent(_943ab478),"_default": sanitizeComponent(_6f6c098b) }
+const layouts = { "_default": sanitizeComponent(_6f6c098b),"_default/footer": sanitizeComponent(_5b8eca9f) }
 
 export default {
   render (h, props) {

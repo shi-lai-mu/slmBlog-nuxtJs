@@ -8,8 +8,6 @@ const VUEX_PROPERTIES = ['state', 'getters', 'actions', 'mutations']
 let store = {};
 
 (function updateModules () {
-  store = normalizeRoot(require('../store/index.js'), 'store/index.js')
-
   // If store is an exported method = classic mode (deprecated)
 
   if (typeof store === 'function') {
@@ -19,21 +17,28 @@ let store = {};
   // Enforce store modules
   store.modules = store.modules || {}
 
-  resolveStoreModules(require('../store/actions.js'), 'actions.js')
-  resolveStoreModules(require('../store/API.js'), 'API.js')
-  resolveStoreModules(require('../store/dataParse.js'), 'dataParse.js')
-  resolveStoreModules(require('../store/mutations.js'), 'mutations.js')
+  resolveStoreModules(require('..\\store\\types.ts'), 'types.ts')
+  resolveStoreModules(require('..\\store\\polls\\actions.ts'), 'polls/actions.ts')
+  resolveStoreModules(require('..\\store\\polls\\const.ts'), 'polls/const.ts')
+  resolveStoreModules(require('..\\store\\polls\\getters.ts'), 'polls/getters.ts')
+  resolveStoreModules(require('..\\store\\polls\\mutations.ts'), 'polls/mutations.ts')
+  resolveStoreModules(require('..\\store\\polls\\state.ts'), 'polls/state.ts')
+  resolveStoreModules(require('..\\store\\polls\\types.ts'), 'polls/types.ts')
+  resolveStoreModules(require('..\\store\\polls\\__mocks__\\state.mock.ts'), 'polls/__mocks__/state.mock.ts')
 
   // If the environment supports hot reloading...
 
   if (process.client && module.hot) {
     // Whenever any Vuex module is updated...
     module.hot.accept([
-      '../store/actions.js',
-      '../store/API.js',
-      '../store/dataParse.js',
-      '../store/index.js',
-      '../store/mutations.js',
+      '..\\store\\types.ts',
+      '..\\store\\polls\\actions.ts',
+      '..\\store\\polls\\const.ts',
+      '..\\store\\polls\\getters.ts',
+      '..\\store\\polls\\mutations.ts',
+      '..\\store\\polls\\state.ts',
+      '..\\store\\polls\\types.ts',
+      '..\\store\\polls\\__mocks__\\state.mock.ts',
     ], () => {
       // Update `root.modules` with the latest definitions.
       updateModules()
@@ -90,10 +95,10 @@ function resolveStoreModules (moduleData, filename) {
   // If src is a known Vuex property
   if (VUEX_PROPERTIES.includes(moduleName)) {
     const property = moduleName
-    const storeModule = getStoreModule(store, namespaces, { isProperty: true })
+    const propertyStoreModule = getStoreModule(store, namespaces, { isProperty: true })
 
     // Replace state since it's a function
-    mergeProperty(storeModule, moduleData, property)
+    mergeProperty(propertyStoreModule, moduleData, property)
     return
   }
 

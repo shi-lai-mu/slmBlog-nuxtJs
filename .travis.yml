@@ -1,0 +1,74 @@
+language: node_js
+node_js:
+  - '11.10.1' # Developping under this version
+  - 'node' # latest stable Node.js release
+cache:
+  directories:
+    - 'node_modules'
+
+env:
+  global:
+    # $GITHUB_TOKEN
+    - secure: 'Ch/ME8IZrX4k9y+sYQtsVNc/bQFyBdwJqH1LqLX2HcVYuxIDDEXaYUaef0wI28mhILe8SnAHit0kSTpO8NXirrlgwhwRr/3IwUDVZOutc9hNYheQgu1f6rx46iFC72/rRFpjA4lbgTcNKNdMZbo6ueboFgxY+rx4SXGylvqPiNO1+1kBjUYhRE1H2K9CrlFkgoNHkLjtANtPsWbKBUroJCdNowG2vgGvMgJGLe1i5kH8ibQTQ7XNotL58H/d37MswNV77Rv9lLYfumBbApgQ0MMOpS/WNpw+thS2pGROK0Y5Qq6Xn4nt+XARpEdsM533TsYzpdyzajakPPwy7L2IQV6F2x6kjGUEt1ZE840xtdVleXGJk+M0bl80iQ9JUazYapSdCbINzDdRElKfsb+DkCMIcMn5wYGyWJtsIcEplWaNyc68q3QdVHSqqR6GQuZwsS78E/q0AVsecPURNPJBCOjAAByPMJZogZ7ZD6SaYwfDotO9kBbz53yJpRh97x3lXWU3a9zH2S5kmZKlu0sd54tgwFejjtz5lm4x8kz011oGk9ByZ1U4WPnbHMhkP8tLcMcgUKxBU1616mrYHxVyZY479erBtk3LAqqhQ/0zzOk4peHUCZhd2uBByAkmDyhmSKtBihq6LS8pG2onPx5X4G2O+0an4UFfS+4Qdr/zwCo='
+    # SURGE_LOGIN
+    - secure: 'mqI2HZQFmym2VUOGn0F1BNYVdQdrSRzNR7z+q34kcXnzjAw1YUaMXOFUJV1/EiNJwOkh4sV/mY8x1MUQF6d2jLZNauzZA7xHfowHLKtvmH5OvJ28tioNiMX7xDD7fPSK5LCN9YYGRFMFSFuPOOLrW4DiqXq6OG2fAscqyps2xkA841nacrr7YOg6MBsvwwZBYnCzdr5pl4X7mOZDinMFcgad/W1ObKsVh9Z/VtRMkTp89m6eh2wUGzZOD6rMNRFNKW0cE5mi2+tvrusi4oI1ssWXg8wAA3eiFvHgiUA+uyRWySGekonY3yRqvjLyJrebZF/lgJ97zU3RknHKMu7a6w6fiNwqnusfXhN8tXevt/OtzikxzLOBLM8mOlyLYxCbYyDn6AqtO4mQXJKsQ7nF/EubB+rKQtLcxu+8JaqUvvh4alUoLjWTeg6RWT84/czTW4jO2GgHin3IzDg9kyzABHgDq04fMwD6RhFE1zS8rQJeb+aW8leSckLNXOOdh4I4FVEhGz0aK2eAuJ25HHQsDp0iuolOudIirVTjkDARBjTlOYmA4C6tK88PfqCxIP0xQmSd6jpH3V417hRYQ2qyJn03GFPB72sKMsH/+MHgBLRhHadi+CYoi32zg2mHg/16k6/Rej6B9kZpq845DurvYRVmghqCCeTnjDzHfncQOVo='
+    # SURGE_TOKEN
+    - secure: 'n5m9MHVKkTURwGnAZGvZ4sZLtENVHbNmLMbKlb7jQW2Ml8eJHHkoH7tVaeGzghYa0oQWU/wQfQnPtPXYp2Y1PmUHteT4EhndKaNHPvR88FhhCy3a/gbCEwX58zmLBxwMv3pOTstcGOBplpQr20aNhZH++hdlKWTZgLFZO09LooC8xLknVXrU/77vC9L44wfGq7mINCRwm5TSB1UOW82e38JKAvm+bZOv0KBZ7veu8eF/PtgPrlLEEdqYLdztAaevAqMTNrQ03V053PhYBO067soktrnO07te8KYtBwq6atnPUfB3fQVy5w/9qtWWXSda3D/xYaXkb02XzX/7aQA3oQ6+9AN+V7KCdMfWdi5EZYyU0L0MqBedSHBt+ixytBR+gcA7lTUUSihH10gZ/mii7SjRYDFTKpVQ5SOpcoB3lSrMLYc6St7EPdQX9KvhXbCeqKzF317ZN8bkNHHAD4RdkkSLT1SYlKibRhLWBLr8cKNsTh6Jb3iwT84JbAWWeK4zu/+Fz4Ge7zx1+76H9bEtKS/2RjX0lURGKka3in/ixItNlAyzrMDRiGaCvutpsuPvsmNgS/AMNNkofSRAldVKoWUntswM3Khc2TowBzqEh2uQLuYrE2h0Qrj8fkJwdZWj6Fk0xovr/Uu7te8eK/F5DKkgkPP8Mnr/deLWei1MZgs='
+    # CC_TEST_REPORTER_ID
+    - secure: 'f1SLhfyKPj9b03EMuw+t0GFAbLEKjyegcijbb9FkCVwIAAhAbKVU5Y2HgwPr8iKcAzwnO4sMmwZeUOvsA6v551cgKYI6aki6uq9yBNvudwxeMLj5va2KK/o67ibGhiOgCo5gOJ51VYHyJHDp+9COC07a9HXlvpWXs91DWraABW1kF4peCTGHWLzYx/d+uJ2G8wu9SVm0ZeP7kkBQPCVGuAC0G0qY5ojHoHSqFxG/1lZ+a1mjiY0Iox3HXRQYivydN+0fYD7FAVOwfmn3yQjTU4m4r5XRIw5Zjp7MwsqtBUpn+FHIw+cpz4yCHphgSH7jFMxyb11Fdbho5uLydOElrkioHBq5gRjT6UElJ2uI3SYgeUEhRpCmqUfAIynzvhZ3ebq0Cf6jtV0F9s3wxxCYGdPyCwvR8P0fMa1uykQUzVKwKqYnzaWCHpjHomkcFuZcFsnWKaSM5+g/LftkBFKWtX8IpnS9JkPffc0Y+1ZnULX5W0Nkgnhsngpv5qmNC49W88Hgvpv/WdcC6YgwowwjVJuKQhQWZNMjWKKQOETGlr8WRar/jmamHorlzed0n/FPiMKuAk/kfhCbKBUMxxWaGawbMFLCPja/wL7c6rgpZdthsK8B7mP+2dVdmI9GhYHtm5Uku07LVaa+dAd+vUAxrotYD0ax/OhZ+kxNwOu5P0Y='
+
+install:
+  # Code Climate: initialization
+  # note: simplecov and simplecov-console gems required
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+  # Dependencies
+  - npm ci
+
+script:
+  - npm run test -- --coverage --silent
+
+after_script:
+  # Code Climate: sending report
+  - './cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT'
+
+before_deploy:
+  # build static site
+  - npm run generate
+
+deploy:
+  # Surge configuration
+  - provider: surge
+    project: ./dist
+    domain: nuxt-ts.surge.sh
+    # Travis configuration
+    skip-cleanup: true
+    on:
+      branch: master
+      node_js: node
+  # AWS S3
+  - provider: s3
+    access_key_id:
+      secure: 'LTqnV85UF0/p8pPZm+6bRjGxpsiRFmSYuF0d0lF1DKMOiGfdiOUfZosAXHkaRilfASxRdlI4QF12BL7iq5h17zbgrlMVHF7VzmCHWGwf7tsuS0G7puV0npBSajD/7c2dQ2oOVp1GlI4zB9SUQco+CLk0TZdPrAxqpoJLs0ln+ti1PFxBBiB4pU/WP2vFob3JehZtN4hBhoHpjWDTqiyjRiF0B+f8jLUHPxvnjRoQfi/sdQs3No4Xx5tJ2IH34x6JSqJ3BidVcITaqLNCUNg6jm4aTZf/FTOIgCNO+hAfNr7GHXYilAFn6932GvrE0LIWo3DVrAX39T2ufyZIg7O79nimlusiV4Ss0y1qitbqRM2/hrYJ6hiA1wbEkjaA2Qc09cNNj7UsRtPvV029BTQQqfb7WFQZDtlRPfrd5urBalpu2rN34/gvDBu5ZNaIHDQbHRMt8jZZUZI78sIskJbBclydWKm53KX+6naRfI20HbMrI2akELo/vHx78evT1Nys6630aXwVKrTCcTjfm1dTVR65VFm8KlrD7l5KrJR/cPhdoT+buO3hiSQG6wCNqgr5ggCz6kjxyt78n/7vMXT6M52taD1Tp2e59onS2bwPt6FjOMSVUWGfuC4IhhmlpdjAQ+aSgz/sJdblHEGHLgmaMhiw78h0tTIydv2JwDOY7xU='
+    secret_access_key:
+      secure: 'gRsIII8gAfZBijpJ395pms7FEV9L5bnhoyZnEkfO2tWmJpFaUfl4ejBIeWDh8xZ9CN0I2VzFVsdCJQD9aGOG0B1ST4l2yDmpwTbuh35hdLSXz4X8v3CcmkRnHDjbIDpud07KYcZbsAo1hPlVkbEj8k3Eqa66/FechVcyavrsPF3eqIWOJkeAbTlGoeM2L64BqizUQQ6G5YpHyb4WsMwHzcv8Aidsf3SyV2LlpOax0DEDFtT0UlEquG9noGD03kAX79xBvhWq0EpNw8uXV/1Rc7ORdh+eOJikwyqyOEks3S/xugCvwX2WnxBFGTSesJD6BPg47bCJ8ckkVhYxCMXD2cCjNhYbepsPlFMuwOBpQtFTgTX8UAyL8ZKfdG9P8ql0ECmAK18OxGRskiXGytTfz0zF75Ab/UAhz/paQo+KdwTR85TPDX2BE53K2nTA6JKywIY0QFieHhUzEIDsHli9tN0eENqURsaC2NnfmbjdrysNY2ttbC8UZEs6ZXAuaKg0HrTWD8ofZWYFB5ZQDfwKID1FlCYUJqOSfEWoUTmxU7NWTCZ+ogJR8kBw4lhTp/o6m6tlzzpUJol/sNsOXVEkiLaZ8syWP+KsHM2of30fq1aXD8UwwWXZYwxdlD0c7w6Y48as3r7m4SmUz+n8a7LVRgsw9VEQxIhKDRLBnTITi0w='
+    bucket: nuxt-ts
+    region: eu-west-3
+    skip-cleanup: true
+    local_dir: dist
+    on:
+      branch: master
+      node_js: node
+  # HEROKU
+  # https://devcenter.heroku.com/changelog-items/1557
+  - provider: heroku
+    api_key:
+      secure: 'Kj3AzLHK0jBp7vK2vpF79tBKv4/4LsMsmxZVsKkjC5OleeNurYlj8r7eHtjE9/VDSk2iP6o1fUo6M/9xAFXckZ7pbZG/HyMyWvsvMClC4cnaLee+y9QhO0nYPuxVIWNCRy98f2zPVMBEx2j5/ZpOyfw+CZEjWslpZLCFecs96H/PCdxp6i+14H/E5HYFhEo6G5NkcN5xez21n91iSX2ypFddPfTC2N99exN58O5HjUAYbywWHNl7y/Qde3TCUJJJg08GrUZKudO8fsMSGss4p2PSIlCzctXrOEvcIUCKxzOxkl3YlLQQPOgLsb+rCtZ3e7rikJMkmBCSwDYMXytNF7McD8h7zK5JGpdzGiYNl+W3jpkEMN7tKk4RPrscZeSGrJ0ImqLMAzZnKHue0FKLPrHPAIcyYqnqhDLASwXFPmtB9MRknq/tOOFydOtoaBCAIj5t7lgqG+uk7lu9rhaKqqWgbrA27fBjqOSrX6Y/SbqB4FiRM/RyQPozxQTOcbsIf4YwDV3AukZxBoRhcLz6Euo51N+drGWruLOU+TG/uHM5j+It/KGC3LPYKaTbkqtWVvP2jwiCYBWb/cTgPl/jd7eQutZ2c/DYNrrit6f4Y9wLBMll6RvTaVf2OHzK/zcmfIJ0Ka4UwkgahrWHW/nh67RBVUeYUWvQDD1D6zNJpZE='
+    app: nuxt-ts
+    on:
+      branch: master
+      node_js: node
+
+notifications:
+  email: false

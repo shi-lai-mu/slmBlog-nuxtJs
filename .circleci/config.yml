@@ -1,0 +1,153 @@
+# Global CircleCI used version
+version: 2.1
+
+# ------------------------------------------------------------------------------
+# Workflows
+# version is set at 2
+# ------------------------------------------------------------------------------
+workflows:
+  version: 2
+  full-flow:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - pre-deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
+      - deploy-surge:
+          requires:
+            - pre-deploy
+            - test
+      - deploy-s3:
+          requires:
+            - pre-deploy
+            - test
+      - deploy-heroku:
+          requires:
+            - pre-deploy # not required actually
+            - test
+
+# ------------------------------------------------------------------------------
+# Executors: list of executing environments (requires version: 2.1)
+# https://circleci.com/docs/2.0/configuration-reference/#executors-requires-version-21
+# ------------------------------------------------------------------------------
+executors:
+  app-builder:
+    docker:
+      - image: circleci/node:11-browsers-legacy
+    working_directory: ~/repo
+
+# ------------------------------------------------------------------------------
+# Commands: list of re-usable commands (requires version: 2.1)
+# https://circleci.com/docs/2.0/configuration-reference/#commands-requires-version-21
+# ------------------------------------------------------------------------------
+commands:
+  load-repo:
+    description: 'Checkout repository and load dependencies'
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore dependencies
+          keys:
+            - nuxt-ts-dependencies-{{ checksum "package-lock.json" }}
+
+# ------------------------------------------------------------------------------
+# Orbs: pre-configuration (requires version: 2.1)
+# https://circleci.com/docs/2.0/using-orbs/
+# ------------------------------------------------------------------------------
+orbs:
+  # https://circleci.com/orbs/registry/orb/circleci/aws-s3
+  # Config via environment variables:
+  # https://circleci.com/orbs/registry/orb/circleci/aws-cli
+  aws-s3: circleci/aws-s3@1.0.4
+
+# ------------------------------------------------------------------------------
+# Jobs: list of workflow jobs
+# ------------------------------------------------------------------------------
+# Jobs
+jobs:
+  # ---------- Building job
+  build:
+    executor: app-builder
+    steps:
+      - load-repo
+      - run:
+          # https://docs.npmjs.com/cli/ci
+          name: Install Dependencies
+          command: npm ci
+      - save_cache:
+          name: Save dependencies
+          key: nuxt-ts-dependencies-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/repo/node_modules
+
+  # ---------- Testing job
+  test:
+    executor: app-builder
+    steps:
+      - load-repo
+      # Code Climate setup & initialise
+      - run:
+          name: Code Climate test-reporter setup
+          command: |
+            # download test reporter as a static binary
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+            ./cc-test-reporter before-build
+      # Testing configuration must be configured in package.json
+      - run:
+          name: Testing
+          command: npm run test -- --coverage --silent
+      # Code Climate sending report
+      - run:
+          name: Code Climate report
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              ./cc-test-reporter after-build --exit-code $?
+            fi
+
+  # ---------- Pre-deploy: generate
+  pre-deploy:
+    executor: app-builder
+    steps:
+      - load-repo
+      - run: npm run generate
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - dist
+
+  # ---------- Deploy: Surge
+  deploy-surge:
+    executor: app-builder
+    steps:
+      - load-repo
+      - attach_workspace:
+          at: ~/repo/
+      - run: ./node_modules/.bin/surge --project ~/repo/dist --domain nuxt-ts.surge.sh
+
+  # ---------- Deploy: Surge
+  deploy-s3:
+    docker:
+      - image: circleci/python:2.7
+    steps:
+      - attach_workspace:
+          at: ~/repo/
+      - aws-s3/copy:
+          from: ~/repo/dist
+          to: 's3://nuxt-ts'
+          arguments: '--recursive'
+
+  # ---------- Deploy: Heroku
+  deploy-heroku:
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      - checkout
+      - run: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
