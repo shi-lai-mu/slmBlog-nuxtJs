@@ -87,3 +87,6 @@ sw.*
 
 # VS Code config
 .vscode/
+
+# MacOs .DS_Store
+.DS_Store
