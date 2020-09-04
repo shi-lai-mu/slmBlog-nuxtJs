@@ -21,7 +21,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' },
       { name: 'robots', content: 'all' },
       { name: 'Copyright', content: 'slmblog.com' },
-      { name: 'theme-color', content: '#fff' },
+      { name: 'theme-color', content: '#000' },
       { name: 'baidu-site-verification', content: 'y5VuyW34xO' },
       { name: 'google-site-verification', content: 'LsmBI4ZEP2h0Ni17kTFRG7A_kKO7zONt51w_GYjM2Gs' },
     ],
