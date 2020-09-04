@@ -5,8 +5,8 @@ export default {
    ** Headers of the page
    */
   head: {
-    titleTemplate: '%s - ' + (process.env.npm_config_name || '史莱姆的博客'),
-    title: process.env.npm_package_name || '',
+    title: '史莱姆的博客',
+    titleTemplate: '%s' + ( process.env.npm_config_name ? ' - ' + process.env.npm_config_name : ''),
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' },
@@ -16,7 +16,7 @@ export default {
       { name: 'renderer', content: 'webkit' },
       { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
       { itemprop: 'author', content: '史莱姆[qq: 478889187]' },
-      { itemprop: 'image', hid: 'qqlogo', content: 'https://img.slmblog.com/QQLOGO.jpg' },
+      { itemprop: 'image', hid: 'qqlogo', content: '/logo/qq.jpg' },
       { itemprop: 'name', hid: 'qqname', content: '史莱姆的博客' },
       { name: 'format-detection', content: 'telephone=no' },
       { name: 'robots', content: 'all' },
@@ -25,7 +25,7 @@ export default {
       { name: 'baidu-site-verification', content: 'y5VuyW34xO' },
       { name: 'google-site-verification', content: 'LsmBI4ZEP2h0Ni17kTFRG7A_kKO7zONt51w_GYjM2Gs' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: 'https://slmblog.com/LOGO.png' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/logo/logo.png' }],
   },
 
   /*
@@ -45,7 +45,9 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    '~/plugins/config.ts'
+  ],
   /*
    ** Nuxt.js dev-modules
    */

@@ -1,7 +1,7 @@
 <template>
   <footer class="body-footer">
     <div class="copyright">
-      <div class="copyright-register">
+      <div class="copyright-register" v-html="copyright()">
         <span>© CopyRight 2018-2019, <a href="//slmblog.cn">SLMBLOG.COM</a>, </span>
         <span class="nowrap">Rights Reserved.</span>
       </div>
@@ -13,12 +13,27 @@
     <div>
       <span class="nowrap">
         <img class="serve-record-icon" src="/tripartite/police_badge.png"/>
-        <a target="_blank" href="//www.miitbeian.gov.cn">浙ICP备18049156号-2</a>
+        <a target="_blank" href="//www.miitbeian.gov.cn" v-text="$config.icp"></a>
       </span>
-      <a class="nowrap" target="_blank" href="//www.beian.gov.cn">(浙公网安备 33038102331168号)</a>
+      <a class="nowrap" target="_blank" :href="$config.keepOnRecordLink " v-text="`(${ $config.keepOnRecord })`"></a>
     </div>
   </footer>
 </template>
+
+<script lang="ts">
+import { Vue, Component } from 'nuxt-property-decorator';
+
+@Component
+export default class LayoutDefaultFooter extends Vue {
+  /**
+   * 生成版权
+   */
+  copyright() {
+    const { $config } = this;
+    return $config.copyRight?.replace('{{ domain }}', `<a href="${ $config.domain }">${ $config.domain?.replace('https://', '').toUpperCase() }</a>`);
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 // 底部样式

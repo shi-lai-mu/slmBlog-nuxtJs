@@ -19,9 +19,17 @@ export interface DefaultConfig {
    */
   icp?: string;
   /**
+   * ICP号 点击链接
+   */
+  icpLink?: string;
+  /**
    * 备案号
    */
   keepOnRecord?: string;
+  /**
+   * 备案号 点击链接
+   */
+  keepOnRecordLink?: string;
   /**
    * 版权声明
    */

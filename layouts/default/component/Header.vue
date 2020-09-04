@@ -35,6 +35,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
+import { Navigator } from '../../../interface/router';
 
 @Component
 export default class LayoutDefaultHeader extends Vue {
@@ -44,6 +45,8 @@ export default class LayoutDefaultHeader extends Vue {
   mobilStyle = null;
   account = !0;
   headerHide = false;
+
+  navigations = [];
 
   mounted() {
     console.log(this.$store.state);

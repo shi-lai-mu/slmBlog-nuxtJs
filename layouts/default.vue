@@ -17,7 +17,6 @@ import '../assets/scss/layout.default.scss';
 
 @Component({
   head: {
-    title: '首页'
   },
   scrollToTop: true,
   watch: {
