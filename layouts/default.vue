@@ -34,6 +34,11 @@ export default class DefaultLayout extends Vue {
    */
   theme: LayoutDefault.Data['themes'] = 'theme-dark';
 
+  created() {
+    const { $config, $route, $router } = this;
+    $config.Navigation.init($router, $route);
+  }
+
   mounted() {
     // slef.baiduPush()
     // let user = localStorage.getItem('userInfo');

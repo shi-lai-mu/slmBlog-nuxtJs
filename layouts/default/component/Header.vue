@@ -56,9 +56,8 @@ export default class LayoutDefaultHeader extends Vue {
   navigator = navigator;
 
   mounted() {
-    console.log(this.$route);
-    
-    this.jumpNav(0, false);
+    const navConfig = this.$config.Navigation.config;
+    this.jumpNav(navConfig.focus, false);
   }
 
   /**

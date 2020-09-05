@@ -1,10 +1,12 @@
-export default [
+import { Navigator } from '../interface/router';
+
+const navConfig: Navigator.Config[] = [
   {
     name: '首页',
     to: '/',
   }, {
     name: '前端',
-    to: '/',
+    to: '/1',
     children: [{
         name: 'Vue',
         to: '/',
@@ -33,12 +35,13 @@ export default [
     to: '/s',
   }, {
     name: '案例',
-    to: '/',
+    to: '/2',
   }, {
     name: '资源',
-    to: '/',
+    to: '/3',
   }, {
     name: '博主',
-    to: '/',
+    to: '/4',
   },
 ];
+export default navConfig;

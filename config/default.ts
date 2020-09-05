@@ -1,4 +1,5 @@
 import { DefaultConfig } from '../interface/config';
+import { Navigation } from '../plugins/config';
 
 const defaultConfig: DefaultConfig = {
   name: '史莱姆的博客',
@@ -8,7 +9,7 @@ const defaultConfig: DefaultConfig = {
   icpLink: 'http://www.miitbeian.gov.cn',
   keepOnRecord: '浙公网安备 33038102331168号',
   keepOnRecordLink: 'http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33038102331168',
-  copyRight: `© CopyRight 2018-${ new Date().getFullYear() } {{ domain }} Rights Reserved.`
+  copyRight: `© CopyRight 2018-${ new Date().getFullYear() } {{ domain }} Rights Reserved.`,
 };
 
 export default defaultConfig;

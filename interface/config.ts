@@ -1,3 +1,4 @@
+import { Navigation } from '../plugins/config';
 /**
  * 默认配置文件
  */
