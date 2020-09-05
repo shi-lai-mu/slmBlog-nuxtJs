@@ -16,8 +16,6 @@ import LayoutHeader from './default/component/Header.vue';
 import '../assets/scss/layout.default.scss';
 
 @Component({
-  head: {
-  },
   scrollToTop: true,
   watch: {
     // $route(to, from) {
@@ -80,19 +78,25 @@ export default class DefaultLayout extends Vue {
 .transition-leave-active {
   transition: 1s;
 }
+
 .transition-enter,
 .transition-leave-active {
   opacity: 0;
   transform: translate(-50px, 0);
 }
+
 .layout-default {
   min-height: 100vh;
   transition: 1s;
 }
+
 .layout-page {
   width: 100%;
+  padding-top: 60px;
   min-height: calc(100vh - 120px);
+  box-sizing: border-box;
 }
+
 .min-screen-left > .conter {
   transform: translateX(50vw);
   opacity: .7;
@@ -103,7 +107,7 @@ export default class DefaultLayout extends Vue {
 @include themify($themes, 0) {
   &.layout-default {
     color: themed('font-color');
-    background-color: themed('bg-dp3-color');
+    background-color: themed('bg-dp11-color');
   }
 }
 </style>

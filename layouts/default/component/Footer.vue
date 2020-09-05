@@ -1,16 +1,13 @@
 <template>
   <footer class="body-footer">
     <div class="copyright">
-      <div class="copyright-register" v-html="copyright()">
-        <span>© CopyRight 2018-2019, <a href="//slmblog.cn">SLMBLOG.COM</a>, </span>
-        <span class="nowrap">Rights Reserved.</span>
-      </div>
+      <div class="copyright-register" v-html="copyright()"></div>
       <div class="copyright-navigation">
         <router-link class="navigation-li" to="/other/terms">条款和免责</router-link>
         <router-link class="navigation-li" to="/other/thisSite">关于本站</router-link>
       </div>
     </div>
-    <div>
+    <div class="keep-on-record">
       <span class="nowrap">
         <img class="serve-record-icon" src="/tripartite/police_badge.png"/>
         <a target="_blank" href="//www.miitbeian.gov.cn" v-text="$config.icp"></a>
@@ -70,6 +67,12 @@ export default class LayoutDefaultFooter extends Vue {
   .serve-record-icon {
     height: 20px;
     vertical-align: middle;
+  }
+
+  .keep-on-record a {
+    @include themify($themes) {
+      color: themed('font-lv1-color');
+    }
   }
 }
 </style>

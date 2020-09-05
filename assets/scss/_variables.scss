@@ -20,9 +20,12 @@ $themes: (
 dark: (
     font-color: #FFF,              // 文字 默认  颜色
     font-lv0-color: #b6c3db,       // 文字 等级0 颜色 [ 标注、声明 ]
-
+    font-lv0-color-hover: #e5ecfa, // 文字 等级0 hover颜色 [ 标注、声明 ]
+    font-lv1-color: #9b9dad,       // 文字 等级1 颜色 [ 友链 ]
+    
     bg-dp0-color: #121212,         // 背景 海拔dp0  色
     bg-dp1-color: #1E1E1E,         // 背景 海拔dp1  色
+    bg-dp1-color-f: #1e2026,       // 背景 海拔dp1  混色
     bg-dp2-color: #222,            // 背景 海拔dp2  色
     bg-dp3-color: #212121,         // 背景 海拔dp3  色
     bg-dp4-color: #252525,         // 背景 海拔dp4  色
@@ -32,6 +35,7 @@ dark: (
     bg-dp8-color: #333,            // 背景 海拔dp8  色
     bg-dp9-color: #343434,         // 背景 海拔dp9  色
     bg-dp10-color: #383838,        // 背景 海拔dp10 色
+    bg-dp11-color: #131417,        // 背景 主色
 
     a-color: #b6c3db,              // 链接默认颜色
     a-hover-color: #c5cfe2,        // 链接hover颜色
