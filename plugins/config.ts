@@ -41,6 +41,18 @@ export class Navigation {
           navigatorConfig.focus = index;
         };
       }
+      
+      // 子路由匹配
+      route.children?.map((childItem, childIndex) => {
+        const isChildFocus = childItem.to === path;
+        const currentItem = childItem as NavigatorInterface.State;
+        currentItem.focus = isChildFocus;
+        if (isChildFocus) {
+          onlyFocus = true;
+          navigatorConfig.focus = index;
+          navigatorConfig.focusChild = childIndex;
+        }
+      });
       return route;
     });
 

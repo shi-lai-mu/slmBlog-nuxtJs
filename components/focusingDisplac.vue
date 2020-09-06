@@ -60,7 +60,7 @@ export default class FocusingDisplac extends Vue {
     const { styles, offsetLeft, clock } = this;
 
     // 动画中则跳出
-    if (clock[0] || clock[1]) return false;
+    if (clock[0] || clock[1] || !element) return false;
     
     // 位置计算
     let { x, y, width, height } = element.getBoundingClientRect();

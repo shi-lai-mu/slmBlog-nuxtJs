@@ -9,26 +9,26 @@ const navConfig: Navigator.Config[] = [
     to: '/1',
     children: [{
         name: 'Vue',
-        to: '/',
+        to: '/q',
       }, {
         name: 'React',
-        to: '/',
-      }, {
-        name: 'UniApp',
-        to: '/',
-      }, {
-        name: 'NuxtJs',
-        to: '/',
-      }, {
-        name: 'NextJs',
-        to: '/',
-      }, {
-        name: '微信小程序',
-        to: '/',
+        to: '/w',
       }, {
         name: 'cocos',
-        to: '/',
-      }
+        to: '/e',
+      }, {
+        name: 'UniApp',
+        to: '/r',
+      }, {
+        name: 'NuxtJs',
+        to: '/t',
+      }, {
+        name: 'NextJs',
+        to: '/y',
+      }, {
+        name: '微信小程序',
+        to: '/u',
+      }, 
     ],
   }, {
     name: '后端',

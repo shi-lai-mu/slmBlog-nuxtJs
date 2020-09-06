@@ -25,8 +25,14 @@
           {{ item.name }}
           <!-- <span v-else>{{ item.name }}</span> -->
           <!-- <i class="iconfont icon-fangxiangxia" v-if="menu.sub"></i> -->
-          <ul class="navigation-children" v-for="(childItem, childIndex) in item.children" :key="childIndex">
-            <router-link tag="li" :to="childItem.to">{{ childItem.name }}</router-link>
+          <ul class="navigation-children" v-if="item.children && item.children.length">
+            <router-link
+              tag="li"
+              class="navigation-children-item"
+              v-for="(childItem, childIndex) in item.children"
+              :key="childIndex"
+              :to="childItem.to"
+              v-text="childItem.name"></router-link>
             <!-- <li v-for="(sub, n) in menu.sub" :key="n">
               <router-link class="max-a" v-if="sub[1] == '#' || sub.indexOf('/') > -1 || typeof sub[1] === 'object'" :to="sub[1]" tag="span">{{ sub[0] }}</router-link>
               <span class="max-a" @click="runCommand(sub[1])" v-else>{{ sub[0] }}</span>
@@ -54,6 +60,10 @@ export default class LayoutDefaultHeader extends Vue {
    * 导航栏
    */
   navigator = navigator;
+  /**
+   * 导航聚焦的下标
+   */
+  navFocusIndex: number = 0;
 
   mounted() {
     const navConfig = this.$config.Navigation.config;
@@ -115,6 +125,7 @@ $headerHeight: 60px;
       height: 100%;
 
       .navigation-item {
+        position: relative;
         padding: 0 30px;
         line-height: $headerHeight;
         cursor: pointer;
@@ -123,11 +134,36 @@ $headerHeight: 60px;
           @include themify($themes) {
             color: themed('font-lv0-color-hover');
           }
+
+          .navigation-children {
+            position: absolute;
+            overflow: hidden;
+            display: block;
+            left: 0;
+            min-width: 100%;
+            line-height: $headerHeight / 1.5;
+            white-space: nowrap;
+            // padding: 0 10px;
+            @include themify($themes) {
+              background-color: themed('bg-dp1-color-f');
+            }
+            border-radius: 0 0 20px 20px;
+          }
         }
       }
 
       .navigation-children {
         display: none;
+
+        .navigation-children-item {
+          padding: 0 20px;
+
+          &:hover {
+            @include themify($themes) {
+              background-color: themed('bg-dp1-color-hover');
+            }
+          }
+        }
       }
     }
   }
