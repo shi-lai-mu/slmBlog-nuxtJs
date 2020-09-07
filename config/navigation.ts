@@ -6,7 +6,7 @@ const navConfig: Navigator.Config[] = [
     to: '/',
   }, {
     name: '前端',
-    to: '/1',
+    to: '',
     children: [{
         name: 'Vue',
         to: '/q',
@@ -21,7 +21,7 @@ const navConfig: Navigator.Config[] = [
         to: '/r',
       }, {
         name: 'NuxtJs',
-        to: '/t',
+        to: '/a',
       }, {
         name: 'NextJs',
         to: '/y',

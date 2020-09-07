@@ -36,7 +36,7 @@ export default class DefaultLayout extends Vue {
 
   created() {
     const { $config, $route, $router } = this;
-    $config.Navigation.init($router, $route);
+    $config.Navigation.init(this);
   }
 
   mounted() {
@@ -65,14 +65,15 @@ export default class DefaultLayout extends Vue {
       // });
     // });
 
-    console.log(
-      '%cSLM BLOG%c version 1.8.0',
-      'font-size: 40px;color: rgb(254,65,129);font-weight: bold;',
-      'font-size: 20px;color: rgb(254,65,129)'
-    );
-    console.log(
-      '      %c欢迎访问 史莱姆的博客!',
-      'font-size: 20px;color: rgb(254,65,129)'
+    console.log(`
+    %cSLM BLOG%c v1.8.0
+     %c欢迎访问 史莱姆的博客!
+     %c(重构版 UPDATE 2020-09-07)
+    `,
+      'font-size: 40px; font-weight: bold; color: rgb(254, 65, 129);',
+      'font-size: 20px; color: rgb(254, 65, 129);',
+      'font-size: 20px; color: rgb(254, 65, 129);',
+      'font-size: 14px; color: #8624b1;',
     );
   }
 }

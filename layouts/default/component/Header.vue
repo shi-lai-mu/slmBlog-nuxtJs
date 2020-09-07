@@ -1,6 +1,6 @@
 <template>
   <header :class="['layout-header']">
-    <nuxt-link
+    <router-link
       tag="h1"
       class="logo"
       :to="{ name: 'index' }"
@@ -21,17 +21,22 @@
         </p>
       </span> -->
       <ul class="header-navigation" ref="Navigation">
-        <router-link class="navigation-item" tag="li" :to="item.to" v-for="(item, index) in navigator" :key="index" @click.native="jumpNav(index)">
+        <router-link class="navigation-item" tag="li" :to="item.to || $route.path" v-for="(item, index) in navigator" :key="index" @click.native="jumpNav(index)">
           {{ item.name }}
           <!-- <span v-else>{{ item.name }}</span> -->
           <!-- <i class="iconfont icon-fangxiangxia" v-if="menu.sub"></i> -->
           <ul class="navigation-children" v-if="item.children && item.children.length">
             <router-link
               tag="li"
-              class="navigation-children-item"
               v-for="(childItem, childIndex) in item.children"
               :key="childIndex"
               :to="childItem.to"
+              :class="[
+                'navigation-children-item',
+                {
+                  'navigation-children-focus': navConfig && index === navConfig.focus && childIndex === navConfig.focusChild,
+                }
+              ]"
               v-text="childItem.name"></router-link>
             <!-- <li v-for="(sub, n) in menu.sub" :key="n">
               <router-link class="max-a" v-if="sub[1] == '#' || sub.indexOf('/') > -1 || typeof sub[1] === 'object'" :to="sub[1]" tag="span">{{ sub[0] }}</router-link>
@@ -47,6 +52,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
+import { Navigator } from '../../../interface/router';
 import FocusingDisplac from '../../../components/focusingDisplac.vue';
 import navigator from '../../../config/navigation';
 
@@ -64,11 +70,17 @@ export default class LayoutDefaultHeader extends Vue {
    * 导航聚焦的下标
    */
   navFocusIndex: number = 0;
+  /**
+   * 导航配置
+   */
+  navConfig = {};
 
   mounted() {
     const navConfig = this.$config.Navigation.config;
     this.jumpNav(navConfig.focus, false);
+    this.navConfig = navConfig;
   }
+
 
   /**
    * 导航跳转事件
@@ -79,6 +91,7 @@ export default class LayoutDefaultHeader extends Vue {
    */
   jumpNav(index: number, animation: boolean = true) {
     const { $refs } = this;
+    this.navConfig = this.$config.Navigation.config;
     const Navigation = $refs.Navigation as Element;
     const FocusingDisplac = $refs.FocusingDisplac as FocusingDisplac;
     FocusingDisplac.focus(Navigation.children[index], Navigation, animation, { y: -15 });
@@ -137,7 +150,6 @@ $headerHeight: 60px;
 
           .navigation-children {
             position: absolute;
-            overflow: hidden;
             display: block;
             left: 0;
             min-width: 100%;
@@ -147,7 +159,6 @@ $headerHeight: 60px;
             @include themify($themes) {
               background-color: themed('bg-dp1-color-f');
             }
-            border-radius: 0 0 20px 20px;
           }
         }
       }
@@ -155,13 +166,20 @@ $headerHeight: 60px;
       .navigation-children {
         display: none;
 
+
+          &:last-child {
+            border-radius: 0 0 20px 20px;
+          }
         .navigation-children-item {
           padding: 0 20px;
 
-          &:hover {
+          &:hover,
+          &.navigation-children-focus {
             @include themify($themes) {
               background-color: themed('bg-dp1-color-hover');
             }
+            transition: .5s;
+            transform: scale(1.1);
           }
         }
       }
