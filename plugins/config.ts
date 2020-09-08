@@ -85,5 +85,19 @@ declare module 'vue/types/vue' {
      * 默认配置文件
      */
     $config: Config;
+    /**
+     * 跳转到错误页
+     * @param error 错误数据
+     */
+    error(error: {
+      /**
+       * 错误代码
+       */
+      statusCode: number;
+      /**
+       * 错误内容
+       */
+      message: string;
+    }): void;
   }
 }

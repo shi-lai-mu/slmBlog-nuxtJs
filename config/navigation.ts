@@ -12,49 +12,49 @@ const navConfig: Navigator.Config[] = [
     children: [{
         name: 'Vue',
         icon: 'vue',
-        to: '/q',
+        to: '/vue',
       }, {
         name: 'React',
         icon: 'react',
-        to: '/w',
+        to: '/react',
       }, {
         name: 'cocos',
         icon: 'CocosD-x',
-        to: '/e',
+        to: '/cocos',
       }, {
         name: 'UniApp',
         icon: 'uni-app',
-        to: '/r',
+        to: '/uniapp',
       }, {
         name: 'NuxtJs',
         icon: 'cib-nuxt-js',
-        to: '/a',
+        to: '/nuxtjs',
       }, {
         name: 'NextJs',
         icon: 'cib-next-js',
-        to: '/y',
+        to: '/nextjs',
       }, {
         name: '微信小程序',
         icon: 'wxapp',
-        to: '/u',
+        to: '/wxapp',
       }, 
     ],
   }, {
     name: '后端',
     icon: 'backend',
-    to: '/s',
+    to: '/backend',
   }, {
     name: '案例',
     icon: 'anli',
-    to: '/2',
+    to: '/case',
   }, {
     name: '资源',
     icon: 'ziyuan',
-    to: '/3',
+    to: '/resources',
   }, {
     name: '博主',
     icon: 'master',
-    to: '/4',
+    to: '/blogger',
   },
 ];
 export default navConfig;

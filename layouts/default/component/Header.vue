@@ -21,7 +21,13 @@
         </p>
       </span> -->
       <ul class="header-navigation" ref="Navigation">
-        <router-link class="navigation-item" tag="li" :to="item.to || $route.path" v-for="(item, index) in navigator" :key="index" @click.native="jumpNav(index)">
+        <router-link
+          class="navigation-item"
+          tag="li"
+          v-for="(item, index) in navigator"
+          :to="item.to || $route.path"
+          :key="index"
+          @click.native="jumpNav(index)">
           <i :class="['slm', 'blog-' + item.icon]"></i>
           {{ item.name }}
           <!-- <span v-else>{{ item.name }}</span> -->
