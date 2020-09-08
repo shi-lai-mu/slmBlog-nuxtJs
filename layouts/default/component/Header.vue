@@ -22,6 +22,7 @@
       </span> -->
       <ul class="header-navigation" ref="Navigation">
         <router-link class="navigation-item" tag="li" :to="item.to || $route.path" v-for="(item, index) in navigator" :key="index" @click.native="jumpNav(index)">
+          <i :class="['slm', 'blog-' + item.icon]"></i>
           {{ item.name }}
           <!-- <span v-else>{{ item.name }}</span> -->
           <!-- <i class="iconfont icon-fangxiangxia" v-if="menu.sub"></i> -->
@@ -34,10 +35,12 @@
               :class="[
                 'navigation-children-item',
                 {
-                  'navigation-children-focus': navConfig && index === navConfig.focus && childIndex === navConfig.focusChild,
+                  'navigation-children-focus': index === $config.Navigation.config.focus && childIndex === $config.Navigation.config.focusChild,
                 }
-              ]"
-              v-text="childItem.name"></router-link>
+              ]">
+                <i :class="['slm', 'blog-' + childItem.icon]"></i>
+                {{ childItem.name }}
+              </router-link>
             <!-- <li v-for="(sub, n) in menu.sub" :key="n">
               <router-link class="max-a" v-if="sub[1] == '#' || sub.indexOf('/') > -1 || typeof sub[1] === 'object'" :to="sub[1]" tag="span">{{ sub[0] }}</router-link>
               <span class="max-a" @click="runCommand(sub[1])" v-else>{{ sub[0] }}</span>
@@ -70,15 +73,10 @@ export default class LayoutDefaultHeader extends Vue {
    * 导航聚焦的下标
    */
   navFocusIndex: number = 0;
-  /**
-   * 导航配置
-   */
-  navConfig = {};
 
   mounted() {
     const navConfig = this.$config.Navigation.config;
     this.jumpNav(navConfig.focus, false);
-    this.navConfig = navConfig;
   }
 
 
@@ -91,7 +89,6 @@ export default class LayoutDefaultHeader extends Vue {
    */
   jumpNav(index: number, animation: boolean = true) {
     const { $refs } = this;
-    this.navConfig = this.$config.Navigation.config;
     const Navigation = $refs.Navigation as Element;
     const FocusingDisplac = $refs.FocusingDisplac as FocusingDisplac;
     FocusingDisplac.focus(Navigation.children[index], Navigation, animation, { y: -15 });
@@ -166,10 +163,10 @@ $headerHeight: 60px;
       .navigation-children {
         display: none;
 
+        &:last-child {
+          border-radius: 0 0 20px 20px;
+        }
 
-          &:last-child {
-            border-radius: 0 0 20px 20px;
-          }
         .navigation-children-item {
           padding: 0 20px;
 

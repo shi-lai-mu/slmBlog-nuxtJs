@@ -45,6 +45,10 @@ export namespace Navigator {
      */
     name: string;
     /**
+     * 图标
+     */
+    icon: string;
+    /**
      * 跳转路径
      */
     to: string;

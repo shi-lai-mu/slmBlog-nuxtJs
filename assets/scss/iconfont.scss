@@ -1,0 +1,74 @@
+@font-face {
+  font-family: 'slm';  /* project id 1445911 */
+  src: url('//at.alicdn.com/t/font_1445911_yw5tv0pw9y.eot');
+  src: url('//at.alicdn.com/t/font_1445911_yw5tv0pw9y.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1445911_yw5tv0pw9y.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1445911_yw5tv0pw9y.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1445911_yw5tv0pw9y.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1445911_yw5tv0pw9y.svg#slm') format('svg');
+}
+
+.slm {
+  font-family: "slm" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.blog-vue:before {
+  content: "\e670";
+}
+
+.blog-uni-app:before {
+  content: "\e61e";
+}
+
+.blog-CocosD-x:before {
+  content: "\f4cb";
+}
+
+.blog-wxapp:before {
+  content: "\e6f0";
+}
+
+.blog-react:before {
+  content: "\e6ea";
+}
+
+.blog-cib-nuxt-js:before {
+  content: "\e733";
+}
+
+.blog-cib-next-js:before {
+  content: "\e734";
+}
+
+.blog-anli:before {
+  content: "\e695";
+}
+
+.blog-frontend:before {
+  content: "\e608";
+}
+
+.blog-ziyuan:before {
+  content: "\e610";
+}
+
+.blog-home:before {
+  content: "\e600";
+}
+
+.blog-master:before {
+  content: "\e6e7";
+}
+
+.blog-backend:before {
+  content: "\e602";
+}
+
+.blog-logo:before {
+  content: "\e601";
+}
+

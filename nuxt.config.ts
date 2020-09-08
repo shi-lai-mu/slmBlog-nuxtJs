@@ -77,6 +77,10 @@ export default {
    * Style resources module configuration
    */
   styleResources: {
-    scss: ['./assets/scss/_variables.scss', './assets/scss/_mixins.scss']
+    scss: [
+      './assets/scss/_variables.scss',
+      './assets/scss/_mixins.scss',
+      './assets/scss/iconfont.scss',
+    ]
   },
 };
