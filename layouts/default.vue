@@ -13,6 +13,7 @@ import { Component, Vue } from 'nuxt-property-decorator';
 import { LayoutDefault } from '../interface/layout';
 import LayoutFooter from './default/component/Footer.vue';
 import LayoutHeader from './default/component/Header.vue';
+import { deDeveloperTools, isOpenDevTool } from '../utils/deDeveloperTools';
 import '../assets/scss/layout.default.scss';
 
 @Component({
@@ -40,6 +41,18 @@ export default class DefaultLayout extends Vue {
   }
 
   mounted() {
+    // 非开发模式注入
+    if (this.$nuxt.context.isDev) {
+      isOpenDevTool(false, (e) => {
+        if (e === 'on') {
+          this.loggerBlog();
+          this.$router.push({
+            path: '/developmentLogin',
+          });
+        }
+        // document.write('检测到正在使用开发者工具调试,请关闭开发者工具后刷新重试!');
+      });
+    }
     // slef.baiduPush()
     // let user = localStorage.getItem('userInfo');
     // slef.$nuxt.$store.dispatch('USER', user || 'default');
@@ -64,7 +77,14 @@ export default class DefaultLayout extends Vue {
       //   text: isNaN(user.id) ? '欢迎访问, 史莱姆的博客!' : `欢迎回来 ${user.username}`,
       // });
     // });
+    this.loggerBlog();
+  }
 
+
+  /**
+   * 打印日志
+   */
+  loggerBlog() {
     console.log(`
     %cSLM BLOG%c v1.8.0
      %c欢迎访问 史莱姆的博客!
@@ -99,7 +119,7 @@ export default class DefaultLayout extends Vue {
 .layout-page {
   width: 100%;
   padding-top: 60px;
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 121px);
   box-sizing: border-box;
 }
 

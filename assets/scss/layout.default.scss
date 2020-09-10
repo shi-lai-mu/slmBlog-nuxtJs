@@ -39,6 +39,14 @@ li {
     white-space: nowrap;
 }
 
+.top-banner {
+    width: 100%;
+    height: 500px;
+    background: no-repeat center center;
+    background-size: 100%;
+    overflow: hidden;
+}
+
 ::selection {
     color: #FFF;
     background: #2C2C2C;

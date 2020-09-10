@@ -112,11 +112,13 @@ $headerHeight: 60px;
   margin: 0 5%;
   @include themify($themes) {
     color: themed('font-lv0-color');
-    background-color: themed('bg-dp1-color-f');
+    // background-color: themed('bg-dp1-color-f');
+    background-color: rgba($color: themed('bg-dp1-color-f'), $alpha: .8);
   }
   border-radius: 0 0 20px 20px;
   transition: 1s;
   user-select: none;
+  backdrop-filter: saturate(180%) blur(20px);
 
   .logo {
     display: inline-block;
@@ -160,8 +162,10 @@ $headerHeight: 60px;
             white-space: nowrap;
             // padding: 0 10px;
             @include themify($themes) {
-              background-color: themed('bg-dp1-color-f');
+              // background-color: themed('bg-dp1-color-f');
+              background-color: rgba($color: themed('bg-dp1-color-f'), $alpha: .8);
             }
+            // backdrop-filter: saturate(180%) blur(20px);
           }
         }
       }
@@ -180,6 +184,7 @@ $headerHeight: 60px;
           &.navigation-children-focus {
             @include themify($themes) {
               background-color: themed('bg-dp1-color-hover');
+              // background-color: rgba($color: themed('bg-dp1-color-f'), $alpha: .9);
             }
             transition: .5s;
             transform: scale(1.1);

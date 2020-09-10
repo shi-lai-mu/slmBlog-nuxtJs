@@ -72,6 +72,11 @@ export default {
     //   extend(config, ctx) {
     //   }
   },
+  
+  env: {
+    PATH_TYPE: process.env.PATH_TYPE,
+    baseUrl: process.env.baseUrl,
+  },
 
   /**
    * Style resources module configuration
