@@ -8,18 +8,9 @@
         background: `url(${ $config.logo }) no-repeat center`,
         backgroundSize: '100%',
       }" />
-    <!-- 移动端按钮 -->
-    <!-- <span class="menu-touch" @click="toggleMneu">
-      <i :class="['menu-list', {close: menuState}]"></i>
-    </span> -->
     <!-- 响应型导航栏 -->
     <nav class="layout-top-nav">
-      <!-- <span class="login-after" v-if="$store.state.mobile">
-        <img class="user-icon" :src="user.img" :alt="user.username + '的头像'">
-        <p class="user-name">
-          {{ user.username || '点击登录' }}
-        </p>
-      </span> -->
+      <!-- 左侧 -->
       <ul class="header-navigation" ref="Navigation">
         <router-link
           class="navigation-item"
@@ -30,8 +21,6 @@
           @click.native="jumpNav(index)">
           <i :class="['slm', 'blog-' + item.icon]"></i>
           {{ item.name }}
-          <!-- <span v-else>{{ item.name }}</span> -->
-          <!-- <i class="iconfont icon-fangxiangxia" v-if="menu.sub"></i> -->
           <ul class="navigation-children" v-if="item.children && item.children.length">
             <router-link
               tag="li"
@@ -47,13 +36,15 @@
                 <i :class="['slm', 'blog-' + childItem.icon]"></i>
                 {{ childItem.name }}
               </router-link>
-            <!-- <li v-for="(sub, n) in menu.sub" :key="n">
-              <router-link class="max-a" v-if="sub[1] == '#' || sub.indexOf('/') > -1 || typeof sub[1] === 'object'" :to="sub[1]" tag="span">{{ sub[0] }}</router-link>
-              <span class="max-a" @click="runCommand(sub[1])" v-else>{{ sub[0] }}</span>
-            </li> -->
           </ul>
         </router-link>
         <FocusingDisplac ref="FocusingDisplac"/>
+      </ul>
+      <!-- 右侧 -->
+      <ul class="header-navigation-right">
+        <HeaderSearch />
+        <li class="slm blog-account"></li>
+        <li class="slm blog-themes"></li>
       </ul>
     </nav>
   </header>
@@ -62,12 +53,14 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import { Navigator } from '../../../interface/router';
-import FocusingDisplac from '../../../components/focusingDisplac.vue';
 import navigator from '../../../config/navigation';
+import FocusingDisplac from '../../../components/focusingDisplac.vue';
+import HeaderSearch from './Header/search.vue';
 
 @Component({
   components: {
     FocusingDisplac,
+    HeaderSearch,
   },
 })
 export default class LayoutDefaultHeader extends Vue {
@@ -94,9 +87,12 @@ export default class LayoutDefaultHeader extends Vue {
    * @param animation 是否展示动画
    */
   jumpNav(index: number, animation: boolean = true) {
+    // const { config } = this.$config.Navigation.config;
+    // if (!config[index].to) return false;
     const { $refs } = this;
     const Navigation = $refs.Navigation as Element;
     const FocusingDisplac = $refs.FocusingDisplac as FocusingDisplac;
+    
     FocusingDisplac.focus(Navigation.children[index], Navigation, animation, { y: -15 });
   }
 }
@@ -131,9 +127,13 @@ $headerHeight: 60px;
   }
 
   .layout-top-nav {
-    display: inline-block;
+    display: inline-flex;
+    width: 100%;
     height: 100%;
+    padding-right: 20px;
     font-size: 16px;
+    justify-content: space-between;
+    align-items: center;
 
     .header-navigation {
       position: relative;
@@ -183,6 +183,28 @@ $headerHeight: 60px;
             }
             transition: .5s;
             transform: scale(1.1);
+          }
+        }
+      }
+    }
+
+    .header-navigation-right {
+      display: flex;
+
+      li {
+        width: 40px;
+        text-align: center;
+        line-height: 40px;
+        margin: 0 10px;
+        border-radius: 50%;
+        @include themify($themes) {
+          background-color: themed('bg-dp4-color');
+        }
+        cursor: pointer;
+
+        &:hover {
+          @include themify($themes) {
+            background-color: themed('bg-dp4-color-hover');
           }
         }
       }

@@ -30,6 +30,7 @@ dark: (
     bg-dp2-color: #222,              // 背景 海拔dp2  色
     bg-dp3-color: #212121,           // 背景 海拔dp3  色
     bg-dp4-color: #252525,           // 背景 海拔dp4  色
+    bg-dp4-color-hover: #3f3e3e,           // 背景 海拔dp4  色
     bg-dp5-color: #272727,           // 背景 海拔dp5  色
     bg-dp6-color: #2C2C2C,           // 背景 海拔dp6  色
     bg-dp7-color: #2E2E2E,           // 背景 海拔dp7  色
@@ -44,7 +45,9 @@ dark: (
 
     selection-bg-color: #2C2C2C,     // 选中背景颜色
     selection-font-color: #FFF,      // 选中文字颜色
+
     wave-color: rgba(39, 39, 39, .6), // 水颜色
+    panel-floating-color: #2c303a,    // 浮层颜色
     test: red
 ),
 /**********\
