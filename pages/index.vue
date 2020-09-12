@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-page">
     <div class="top-banner banner-home"></div>
     <div class="tst"></div>
   </div>
@@ -15,19 +15,25 @@ export default class HomePage extends Vue {
 </script>
 
 <style lang="scss">
-.banner-home {
+.home-page {
   position: relative;
-  margin-top: -60px;
-  background-image: url('/banner/home_2.jpg');
+  padding-top: 500px !important;
 
-  &::after {
+  .banner-home {
     position: absolute;
-    content: '';
-    width: 100%;
-    height: 100%;
-    background-color: rgba($color: #000, $alpha: .4);
-    @include themify($themes, 1) {
-      box-shadow: inset 0 -30px 20px themed('bg-dp11-color');
+    z-index: -1;
+    top: 0;
+    background-image: url('/banner/home_2.jpg');
+
+    &::after {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 100%;
+      background-color: rgba($color: #000, $alpha: .4);
+      @include themify($themes, 1) {
+        box-shadow: inset 0 -30px 20px themed('bg-dp11-color');
+      }
     }
   }
 }
@@ -35,5 +41,6 @@ export default class HomePage extends Vue {
   height: 100vh;
   width: 100px;
   background-color: red;
+  
 }
 </style>

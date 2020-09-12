@@ -1,11 +1,13 @@
 <template>
-  <GeminiScrollbar ref="layoutDefault" :class="[ 'layout', 'layout-default', theme ]">
-    <LayoutHeader />
-    <transition name="transition">
-      <nuxt class="layout-page" />
-    </transition>
-    <LayoutFooter />
-  </GeminiScrollbar>
+  <div ref="layoutDefault" :class="[ 'layout', 'layout-default', theme ]">
+    <LayoutHeader class="header" />
+    <GeminiScrollbar>
+      <transition name="transition">
+        <nuxt class="layout-page" />
+      </transition>
+      <LayoutFooter />
+    </GeminiScrollbar>
+  </div>
 </template>
 
 <script lang="ts">
@@ -37,6 +39,13 @@ export default class DefaultLayout extends Vue {
 
   created() {
     const { $config, $route, $router } = this;
+    if (!this.$nuxt.$isServer) {
+
+      /**
+       * 初始化必要数据
+       */
+      $config.isMobile = !!(window && navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i));
+    }
     $config.Navigation.init(this);
   }
 
@@ -114,6 +123,10 @@ export default class DefaultLayout extends Vue {
   // min-height: 100vh;
   height: 100vh;
   transition: 1s;
+}
+
+.header {
+  position: fixed;
 }
 
 .layout-page {

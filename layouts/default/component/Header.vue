@@ -76,6 +76,7 @@ export default class LayoutDefaultHeader extends Vue {
   mounted() {
     const navConfig = this.$config.Navigation.config;
     this.jumpNav(navConfig.focus, false);
+    
   }
 
 
@@ -146,6 +147,7 @@ $headerHeight: 60px;
         position: relative;
         padding: 0 30px;
         line-height: $headerHeight;
+        white-space: nowrap;
         cursor: pointer;
 
         &:hover {

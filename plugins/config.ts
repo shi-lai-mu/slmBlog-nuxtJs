@@ -1,5 +1,4 @@
 import defaultConfig from '../config/default';
-import VueRouter, { Route } from 'vue-router';
 import navigationConfig from '../config/navigation';
 import { DefaultConfig } from '../interface/config';
 import { Navigator as NavigatorInterface } from '../interface/router';
@@ -29,6 +28,7 @@ export class Navigation {
       focusChild: -1,
       config,
     };
+
     navigatorConfig.config = config.map((route, index) => {
       const isFocus = route.to === path;
       route.focus = isFocus;
@@ -77,6 +77,10 @@ interface Config extends DefaultConfig {
    * 导航类
    */
   Navigation: Navigation;
+  /**
+   * 是否为移动端
+   */
+  isMobile: boolean;
 }
 
 declare module 'vue/types/vue' {

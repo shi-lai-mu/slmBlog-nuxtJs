@@ -8,10 +8,14 @@
           <li><i class="slm blog-leaving-message"></i>留言</li>
           <li><i class="slm blog-muisc"></i>音乐</li>
         </ul>
-        <h4>热门搜索</h4>
-        <GeminiScrollbar @ready="panelScrollbar" class="panel-tag">
-          <li v-for="index of 20" :key="index">文章{{ index }}</li>
-        </GeminiScrollbar>
+        <template>
+          <div v-show="hotTag.length">
+            <h4>热门搜索</h4>
+            <GeminiScrollbar @ready="panelScrollbar" class="panel-tag" v-show="inputFocus">
+              <li v-for="index of hotTag" :key="index">文章{{ index }}</li>
+            </GeminiScrollbar>
+          </div>
+        </template>
         <!-- <h4>探索主题</h4>
         <ul class="panel-tag">
           <li v-for="index of 20" :key="index">文章{{ index }}</li>
@@ -35,6 +39,10 @@ export default class HeaderSearch extends Vue {
    * GeminiScrollbar 实例
    */
   panelScrollbarObj: any;
+  /**
+   * 热门搜索标签
+   */
+  hotTag = [];
 
   panelScrollbar(cb) {
     this.panelScrollbarObj = cb;
