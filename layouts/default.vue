@@ -1,11 +1,11 @@
 <template>
-  <div ref="layoutDefault" :class="[ 'layout', 'layout-default', theme ]">
+  <GeminiScrollbar ref="layoutDefault" :class="[ 'layout', 'layout-default', theme ]">
     <LayoutHeader />
     <transition name="transition">
       <nuxt class="layout-page" />
     </transition>
     <LayoutFooter />
-  </div>
+  </GeminiScrollbar>
 </template>
 
 <script lang="ts">
@@ -42,7 +42,7 @@ export default class DefaultLayout extends Vue {
 
   mounted() {
     // 非开发模式注入
-    if (this.$nuxt.context.isDev) {
+    if (!this.$nuxt.context.isDev) {
       isOpenDevTool(false, (e) => {
         if (e === 'on') {
           this.loggerBlog();
@@ -104,7 +104,6 @@ export default class DefaultLayout extends Vue {
 .transition-leave-active {
   transition: 1s;
 }
-
 .transition-enter,
 .transition-leave-active {
   opacity: 0;
@@ -112,7 +111,8 @@ export default class DefaultLayout extends Vue {
 }
 
 .layout-default {
-  min-height: 100vh;
+  // min-height: 100vh;
+  height: 100vh;
   transition: 1s;
 }
 

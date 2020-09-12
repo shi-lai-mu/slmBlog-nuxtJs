@@ -9,9 +9,9 @@
           <li><i class="slm blog-muisc"></i>音乐</li>
         </ul>
         <h4>热门搜索</h4>
-        <ul class="panel-tag">
+        <GeminiScrollbar @ready="panelScrollbar" class="panel-tag">
           <li v-for="index of 20" :key="index">文章{{ index }}</li>
-        </ul>
+        </GeminiScrollbar>
         <!-- <h4>探索主题</h4>
         <ul class="panel-tag">
           <li v-for="index of 20" :key="index">文章{{ index }}</li>
@@ -31,6 +31,14 @@ export default class HeaderSearch extends Vue {
    * input 聚焦状态
    */
   inputFocus: boolean = false;
+  /**
+   * GeminiScrollbar 实例
+   */
+  panelScrollbarObj: any;
+
+  panelScrollbar(cb) {
+    this.panelScrollbarObj = cb;
+  }
 }
 </script>
 
@@ -84,6 +92,9 @@ export default class HeaderSearch extends Vue {
         .panel-tag {
           padding: 0 10px 5px;
           text-align: left;
+          height: 3rem;
+          width: calc(100% - 20px);
+          white-space: nowrap;
 
           li {
             display: inline-block;
