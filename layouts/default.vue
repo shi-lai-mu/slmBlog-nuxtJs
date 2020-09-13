@@ -7,10 +7,10 @@
       { 'layout-default-mobile': $store.state.isMobile },
       { 'mobile-header-open': mobileHeaderOpen }
     ]">
-    <LayoutHeader class="header" @set-open-state="setHeaderOpenState"/>
+    <LayoutHeader class="header" @set-open-state="setHeaderOpenState" :mobileHeaderOpen="mobileHeaderOpen" />
     <GeminiScrollbar>
       <transition name="transition">
-        <nuxt class="layout-page" />
+        <nuxt class="layout-page"  @click.native="mobileHeaderOpen = false"/>
       </transition>
       <LayoutFooter />
     </GeminiScrollbar>
@@ -55,7 +55,6 @@ export default class DefaultLayout extends Vue {
       /**
        * 初始化必要数据
        */
-      console.log($config.isMobile);
       console.log(this.$store.state);
       // $config.isMobile = !!(window && navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i));
     }

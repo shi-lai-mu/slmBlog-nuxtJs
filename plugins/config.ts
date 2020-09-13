@@ -77,10 +77,6 @@ interface Config extends DefaultConfig {
    * 导航类
    */
   Navigation: Navigation;
-  /**
-   * 是否为移动端
-   */
-  isMobile: boolean;
 }
 
 declare module 'vue/types/vue' {

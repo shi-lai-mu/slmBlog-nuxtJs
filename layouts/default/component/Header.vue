@@ -46,12 +46,12 @@
         <li class="slm blog-themes"></li>
       </ul>
     </nav>
-    <i class="slm blog-menu" v-show="$store.state.isMobile" @click="$emit('set-open-state', mobileHeaderOpen = !mobileHeaderOpen)"></i>
+    <i class="slm blog-menu" v-show="$store.state.isMobile" @click="$emit('set-open-state', !mobileHeaderOpen)"></i>
   </header>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import { Navigator } from '../../../interface/router';
 import navigator from '../../../config/navigation';
 import FocusingDisplac from '../../../components/focusingDisplac.vue';
@@ -75,7 +75,7 @@ export default class LayoutDefaultHeader extends Vue {
   /**
    * 移动端Header展开状态
    */
-  mobileHeaderOpen: boolean = false;
+  @Prop(Boolean) mobileHeaderOpen;
 
   mounted() {
     const navConfig = this.$config.Navigation.config;
@@ -255,21 +255,26 @@ $headerHeight: 60px;
   }
 
   .layout-top-nav {
+    position: absolute;
     display: block;
+    top: 0;
     width: 260px;
-    height: auto;
+    height: 100vh;
+    padding-right: 0;
     backdrop-filter: saturate(180%) blur(20px);
     background-color: rgba(30, 32, 38, .8);
     transform: translateX(-100%);
 
     .header-navigation {
       display: block;
-      height: auto;
+      height: calc(100vh - 120px);
 
       .navigation-item {
         width: auto;
-        border-bottom: 1px solid rgba($color: #b6c3db, $alpha: .6);
         margin: 0 20px;
+        padding: 0 10px;
+        line-height: 40px;
+        border-bottom: 1px solid rgba($color: #b6c3db, $alpha: .6);
       }
     }
 

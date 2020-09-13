@@ -1,5 +1,8 @@
 export default (win: Window, vue: Vue) => {
-  win.addEventListener('resize', () => {
-    console.log(vue);
-  });
+  const resizeEvent = () => {
+    // 宽度小于800 判为移动否则判为pc
+    vue.$store.commit('setClientUA', window.innerWidth <= 800);
+  };
+  win.addEventListener('resize', resizeEvent);
+  resizeEvent();
 };
