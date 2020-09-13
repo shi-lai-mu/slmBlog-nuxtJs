@@ -5,8 +5,7 @@
       class="logo"
       :to="{ name: 'index' }"
       :style="{
-        background: `url(${ $config.logo }) no-repeat center`,
-        backgroundSize: '100%',
+        background: `url(${ $config.logo }) center / 100% 100% no-repeat`,
       }" />
     <!-- 响应型导航栏 -->
     <nav class="layout-top-nav">
@@ -38,7 +37,7 @@
               </router-link>
           </ul>
         </router-link>
-        <FocusingDisplac ref="FocusingDisplac"/>
+        <FocusingDisplac  v-if="!$store.state.isMobile" ref="FocusingDisplac"/>
       </ul>
       <!-- 右侧 -->
       <ul class="header-navigation-right">
@@ -47,6 +46,7 @@
         <li class="slm blog-themes"></li>
       </ul>
     </nav>
+    <i class="slm blog-menu" v-show="$store.state.isMobile" @click="$emit('set-open-state', mobileHeaderOpen = !mobileHeaderOpen)"></i>
   </header>
 </template>
 
@@ -67,16 +67,20 @@ export default class LayoutDefaultHeader extends Vue {
   /**
    * 导航栏
    */
-  navigator = navigator;
+  navigator: Navigator.Config[] = [];
   /**
    * 导航聚焦的下标
    */
   navFocusIndex: number = 0;
+  /**
+   * 移动端Header展开状态
+   */
+  mobileHeaderOpen: boolean = false;
 
   mounted() {
     const navConfig = this.$config.Navigation.config;
     this.jumpNav(navConfig.focus, false);
-    
+    this.navigator = navigator;
   }
 
 
@@ -90,6 +94,7 @@ export default class LayoutDefaultHeader extends Vue {
   jumpNav(index: number, animation: boolean = true) {
     // const { config } = this.$config.Navigation.config;
     // if (!config[index].to) return false;
+    if (this.$store.state.isMobile) return false;
     const { $refs } = this;
     const Navigation = $refs.Navigation as Element;
     const FocusingDisplac = $refs.FocusingDisplac as FocusingDisplac;
@@ -101,6 +106,7 @@ export default class LayoutDefaultHeader extends Vue {
 
 <style lang="scss" scoped>
 $headerHeight: 60px;
+
 // 公共
 .layout-header {
   position: fixed;
@@ -109,7 +115,7 @@ $headerHeight: 60px;
   left: 0;
   z-index: 30;
   width: 90%;
-  height: $headerHeight;
+  line-height: $headerHeight;
   margin: 0 5%;
   @include themify($themes) {
     color: themed('font-lv0-color');
@@ -123,10 +129,24 @@ $headerHeight: 60px;
 
   .logo {
     display: inline-block;
-    width: 42px;
-    height: 100%;
-    margin: 0 30px;
-    vertical-align: middle;
+    min-width: 42px;
+    height: 42px;
+    margin: ($headerHeight - 42px)/2 30px;
+  }
+
+  .blog-menu {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    opacity: .4;
+    font-size: 27px;
+    line-height: 50px;
+
+    &:active {
+      @include themify($themes) {
+        color: themed('font-lv0-color-hover');
+      }
+    }
   }
 
   .layout-top-nav {
@@ -215,6 +235,46 @@ $headerHeight: 60px;
           }
         }
       }
+    }
+  }
+}
+
+// 移动端
+.layout-default-mobile .layout-header {
+  $headerHeight: 50px;
+  display: block;
+  width: 100%;
+  height: $headerHeight;
+  margin: 0;
+  border-radius: 0;
+  
+  .logo {
+    height: 80%;
+    margin: $headerHeight*.2/2 50vw;
+    transform: translateX(-50%);
+  }
+
+  .layout-top-nav {
+    display: block;
+    width: 260px;
+    height: auto;
+    backdrop-filter: saturate(180%) blur(20px);
+    background-color: rgba(30, 32, 38, .8);
+    transform: translateX(-100%);
+
+    .header-navigation {
+      display: block;
+      height: auto;
+
+      .navigation-item {
+        width: auto;
+        border-bottom: 1px solid rgba($color: #b6c3db, $alpha: .6);
+        margin: 0 20px;
+      }
+    }
+
+    .navigation-item  {
+      width: 100%;
     }
   }
 }

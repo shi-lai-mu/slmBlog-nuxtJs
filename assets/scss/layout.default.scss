@@ -78,6 +78,9 @@ li {
 
 .gm-scrollbar div.thumb:hover {
   @include themify($themes) {
-    background-color: rgba($color: themed('a-hover-color'), $alpha: .7        );
+    background-color: rgba($color: themed('a-hover-color'), $alpha: .7);
   }
 }
+
+// 移动端布局兼容
+// .layout-default-mobile {}

@@ -1,6 +1,13 @@
 <template>
-  <div ref="layoutDefault" :class="[ 'layout', 'layout-default', theme ]">
-    <LayoutHeader class="header" />
+  <div
+    :class="[
+      'layout',
+      'layout-default',
+      theme,
+      { 'layout-default-mobile': $store.state.isMobile },
+      { 'mobile-header-open': mobileHeaderOpen }
+    ]">
+    <LayoutHeader class="header" @set-open-state="setHeaderOpenState"/>
     <GeminiScrollbar>
       <transition name="transition">
         <nuxt class="layout-page" />
@@ -15,6 +22,7 @@ import { Component, Vue } from 'nuxt-property-decorator';
 import { LayoutDefault } from '../interface/layout';
 import LayoutFooter from './default/component/Footer.vue';
 import LayoutHeader from './default/component/Header.vue';
+import resizeEvent from '../utils/Event/resize';
 import { deDeveloperTools, isOpenDevTool } from '../utils/deDeveloperTools';
 import '../assets/scss/layout.default.scss';
 
@@ -36,15 +44,20 @@ export default class DefaultLayout extends Vue {
    * 主题方案
    */
   theme: LayoutDefault.Data['themes'] = 'theme-dark';
+  /**
+   * 移动端Header展开状态
+   */
+  mobileHeaderOpen: boolean = false;
 
   created() {
     const { $config, $route, $router } = this;
     if (!this.$nuxt.$isServer) {
-
       /**
        * 初始化必要数据
        */
-      $config.isMobile = !!(window && navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i));
+      console.log($config.isMobile);
+      console.log(this.$store.state);
+      // $config.isMobile = !!(window && navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i));
     }
     $config.Navigation.init(this);
   }
@@ -62,6 +75,9 @@ export default class DefaultLayout extends Vue {
         // document.write('检测到正在使用开发者工具调试,请关闭开发者工具后刷新重试!');
       });
     }
+    // 事件添加
+    resizeEvent(window, this);
+
     // slef.baiduPush()
     // let user = localStorage.getItem('userInfo');
     // slef.$nuxt.$store.dispatch('USER', user || 'default');
@@ -87,6 +103,15 @@ export default class DefaultLayout extends Vue {
       // });
     // });
     this.loggerBlog();
+  }
+
+  
+  /**
+   * 设置移动端打开状态
+   */
+  setHeaderOpenState(state: boolean) {
+    console.log(state);
+    this.mobileHeaderOpen = state;
   }
 
 
@@ -148,5 +173,9 @@ export default class DefaultLayout extends Vue {
     color: themed('font-color');
     background-color: themed('bg-dp11-color');
   }
+}
+
+.mobile-header-open {
+  transform: translateX(260px);
 }
 </style>

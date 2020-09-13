@@ -61,7 +61,9 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/style-resources'],
+  modules: [
+    '@nuxtjs/style-resources',
+  ],
 
   /*
    ** Build configuration
@@ -72,6 +74,10 @@ export default {
     //   */
     //   extend(config, ctx) {
     //   }
+  },
+
+  router: {
+    middleware: ["routerBefore"],
   },
   
   env: {

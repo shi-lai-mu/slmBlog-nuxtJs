@@ -4,9 +4,9 @@
       <div class="blur" @mouseout="inputFocus = false"></div>
       <div class="panel">
         <ul class="panel-tag">
-          <li><i class="slm blog-article"></i>文章</li>
-          <li><i class="slm blog-leaving-message"></i>留言</li>
-          <li><i class="slm blog-muisc"></i>音乐</li>
+          <li v-for="(item, index) in panelTag" :key="index">
+            <i :class="'slm blog-' + item.icon"></i>{{ item.name }}
+          </li>
         </ul>
         <template>
           <div v-show="hotTag.length">
@@ -43,7 +43,23 @@ export default class HeaderSearch extends Vue {
    * 热门搜索标签
    */
   hotTag = [];
+  /**
+   * 置顶标签
+   */
+  panelTag: Array<{ name: string; icon: string; }> = [];
 
+  mounted() {
+    this.panelTag = [{
+      icon: 'article',
+      name: '文章',
+    }, {
+      icon: 'leaving-message',
+      name: '留言',
+    }, {
+      icon: 'muisc',
+      name: '音乐',
+    }];
+  }
   panelScrollbar(cb) {
     this.panelScrollbarObj = cb;
   }
