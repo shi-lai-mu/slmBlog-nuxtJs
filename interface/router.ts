@@ -2,7 +2,23 @@
  * 路由
  */
 export namespace Router {
-
+  /**
+   * 路由参数配置
+   */
+  export interface Config {
+    /**
+     * 路由名称
+     */
+    name: string;
+    /**
+     * 跳转路径
+     */
+    to: string;
+    /**
+     * 图标
+     */
+    icon?: string;
+  }
 };
 
 
@@ -39,19 +55,7 @@ export namespace Navigator {
   /**
    * 配置项
    */
-  export interface Config {
-    /**
-     * 路由名
-     */
-    name: string;
-    /**
-     * 图标
-     */
-    icon: string;
-    /**
-     * 跳转路径
-     */
-    to: string;
+  export interface Config extends Router.Config {
     /**
      * 子导航
      */

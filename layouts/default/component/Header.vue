@@ -20,6 +20,7 @@
           @click.native="jumpNav(index)">
           <i :class="['slm', 'blog-' + item.icon]"></i>
           {{ item.name }}
+          <i class="slm blog-zhankai" v-if="item.children && item.children.length"></i>
           <ul class="navigation-children" v-if="item.children && item.children.length">
             <router-link
               tag="li"
@@ -37,16 +38,16 @@
               </router-link>
           </ul>
         </router-link>
-        <FocusingDisplac  v-if="!$store.state.isMobile" ref="FocusingDisplac"/>
+        <FocusingDisplac v-if="!isMobile" ref="FocusingDisplac"/>
       </ul>
       <!-- 右侧 -->
       <ul class="header-navigation-right">
         <HeaderSearch />
-        <li class="slm blog-account"></li>
+        <HeaderAccount />
         <li class="slm blog-themes"></li>
       </ul>
     </nav>
-    <i class="slm blog-menu" v-show="$store.state.isMobile" @click="$emit('set-open-state', !mobileHeaderOpen)"></i>
+    <i class="slm blog-menu" v-show="isMobile" @click="$emit('set-open-state', !mobileHeaderOpen)"></i>
   </header>
 </template>
 
@@ -55,13 +56,20 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import { Navigator } from '../../../interface/router';
 import navigator from '../../../config/navigation';
 import FocusingDisplac from '../../../components/focusingDisplac.vue';
-import HeaderSearch from './Header/search.vue';
+import HeaderSearch from './Header/Search.vue';
+import HeaderAccount from './Header/Account.vue';
 
 @Component({
   components: {
     FocusingDisplac,
     HeaderSearch,
+    HeaderAccount,
   },
+  computed: {
+    isMobile() {
+      return this.$store.state.isMobile;
+    }
+  }
 })
 export default class LayoutDefaultHeader extends Vue {
   /**
@@ -165,8 +173,10 @@ $headerHeight: 60px;
 
       .navigation-item {
         position: relative;
-        padding: 0 30px;
+        width: 90px;
+        padding: 0 10px;
         line-height: $headerHeight;
+        text-align: center;
         white-space: nowrap;
         cursor: pointer;
 
@@ -179,7 +189,7 @@ $headerHeight: 60px;
             position: absolute;
             display: block;
             left: 0;
-            min-width: 100%;
+            text-align: left;
             line-height: $headerHeight / 1.5;
             white-space: nowrap;
             // padding: 0 10px;
@@ -187,8 +197,20 @@ $headerHeight: 60px;
               // background-color: themed('bg-dp1-color-f');
               background-color: rgba($color: themed('bg-dp1-color-f'), $alpha: .8);
             }
+            transform: translateX(-15px);
             // backdrop-filter: saturate(180%) blur(20px);
           }
+
+          .blog-zhankai {
+            transform: rotate(-180deg);
+          }
+        }
+
+        .blog-zhankai {
+          display: inline-block;
+          margin-left: 5px;
+          font-size: .7em;
+          transition: .5s;
         }
       }
 
@@ -260,21 +282,29 @@ $headerHeight: 60px;
     top: 0;
     width: 260px;
     height: 100vh;
+    padding-top: 180px;
     padding-right: 0;
-    backdrop-filter: saturate(180%) blur(20px);
+    box-sizing: border-box;
     background-color: rgba(30, 32, 38, .8);
     transform: translateX(-100%);
+    backdrop-filter: saturate(180%) blur(20px);
 
     .header-navigation {
       display: block;
-      height: calc(100vh - 120px);
+      height: calc(100vh - 300px);
 
       .navigation-item {
         width: auto;
-        margin: 0 20px;
-        padding: 0 10px;
-        line-height: 40px;
-        border-bottom: 1px solid rgba($color: #b6c3db, $alpha: .6);
+        margin: 0;
+        padding: 0;
+        line-height: 60px;
+        // border-bottom: 1px solid rgba($color: #b6c3db, $alpha: .1);
+      }
+
+      .blog-zhankai {
+        // position: absolute;
+        // right: 0;
+        display: none;
       }
     }
 
