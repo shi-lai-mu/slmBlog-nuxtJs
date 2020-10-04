@@ -49,17 +49,17 @@ export default class DefaultLayout extends Vue {
    */
   mobileHeaderOpen: boolean = false;
 
-  created() {
-    const { $config, $route, $router } = this;
-    if (!this.$nuxt.$isServer) {
-      /**
-       * 初始化必要数据
-       */
-      console.log(this.$store.state);
-      // $config.isMobile = !!(window && navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i));
-    }
-    $config.Navigation.init(this);
-  }
+  // created() {
+  //   const { $config, $route, $router } = this;
+  //   if (!this.$nuxt.$isServer) {
+  //     /**
+  //      * 初始化必要数据
+  //      */
+  //     console.log(this.$store.state);
+  //     // $config.isMobile = !!(window && navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i));
+  //   }
+  //   $config.Navigation.init(this);
+  // }
 
   mounted() {
     // 非开发模式注入
@@ -102,7 +102,10 @@ export default class DefaultLayout extends Vue {
       // });
     // });
     this.loggerBlog();
-    // document.getElementsByTagName('html')[0].style = 'font-size: 30px';
+    
+    // 根字体大小设置
+    const root: any = document.getElementsByTagName('html')[0];
+    root.style = 'font-size: 16px';
   }
 
   

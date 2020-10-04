@@ -36,12 +36,14 @@ export default class LayoutDefaultFooter extends Vue {
 // 底部样式
 .body-footer {
   width: 100%;
-  padding: 20px 0;
+  padding: 20px 10px;
+  font-size: .9rem;
   text-align: center;
   @include themify($themes) {
     color: themed('font-lv0-color');
     background-color: themed('bg-dp1-color');
   }
+  box-sizing: border-box;
 
   .copyright {
     margin-bottom: 15px;

@@ -4,6 +4,7 @@ body {
   padding: 0;
   // font-size: 14px;
   font-family: josefin sans, sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
 
 a {
@@ -23,10 +24,15 @@ a {
   }
 }
 
-a,
-input,
-button {
+a:focus,
+input:focus,
+li:focus,
+p:focus,
+div:focus,
+button:focus {
   outline: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-modify: read-write-plaintext-only;
 }
 
 ul,

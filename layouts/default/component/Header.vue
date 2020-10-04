@@ -43,8 +43,8 @@
       <!-- 右侧 -->
       <ul class="header-navigation-right">
         <HeaderSearch />
-        <HeaderAccount />
         <HeaderThemes  @click.native.self="isMobile ? $emit('set-open-state', !mobileHeaderOpen) : null"/>
+        <HeaderAccount />
       </ul>
     </nav>
     <!-- 移动端操作按钮 -->
@@ -121,10 +121,10 @@ $headerHeight: 60px;
 // 公共
 .layout-header {
   position: fixed;
+  z-index: 30;
   display: flex;
   top: 0;
   left: 0;
-  z-index: 30;
   width: 90%;
   line-height: $headerHeight;
   margin: 0 5%;
@@ -285,7 +285,7 @@ $headerHeight: 60px;
     top: 0;
     width: $mobileAsideWidth;
     height: 100vh;
-    padding-top: $mobileAsideWidth / 2;
+    padding-top: $mobileAsideWidth / 2 + 50px;
     padding-right: 0;
     box-sizing: border-box;
     background-color: rgba(30, 32, 38, .8);
@@ -293,6 +293,8 @@ $headerHeight: 60px;
     backdrop-filter: saturate(180%) blur(20px);
 
     .header-navigation {
+      overflow-y: scroll;
+      overflow-x: hidden;
       display: block;
       height: calc(100vh - 300px);
 
@@ -302,6 +304,18 @@ $headerHeight: 60px;
         padding: 0;
         line-height: 60px;
         // border-bottom: 1px solid rgba($color: #b6c3db, $alpha: .1);
+
+
+        &:hover {
+          
+          .navigation-children {
+            position: relative;
+            background-color: rgba($color: #000, $alpha: .2);
+            border-bottom: 1px rgba($color: #000, $alpha: .2) solid;
+            border-radius: 0 0 10px 10px;
+            transform: translateX(0);
+          }
+        }
       }
 
       .blog-zhankai {
