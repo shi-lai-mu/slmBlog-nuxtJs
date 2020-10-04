@@ -1,5 +1,5 @@
 <template>
-  <li :class="[ 'slm', 'blog-account', { 'avatar-box': avatarUrl } ]">
+  <li :class="[ 'slm', 'blog-account', { 'avatar-box': avatarUrl }, $store.state.themes.mainBColor ]">
     <div class="avatar" v-if="avatarUrl" :style="`background-image: url(${ avatarUrl });`"></div>
     <ul class="account-munt">
       <router-link

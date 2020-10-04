@@ -48,6 +48,22 @@ li {
   overflow: hidden;
 }
 
+.button {
+  margin: 10px 0;
+  padding: 10px 15px;
+  background-color: rgba($color: #000, $alpha: .2);
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba($color: #000, $alpha: .3);
+  }
+
+  &:active {
+    background-color: rgba($color: #000, $alpha: .4);
+  }
+}
+
 ::selection {
   color: #fff;
   background: #2c2c2c;

@@ -20,10 +20,10 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import { LayoutDefault } from '../interface/layout';
+import { deDeveloperTools, isOpenDevTool } from '../utils/deDeveloperTools';
 import LayoutFooter from './default/component/Footer.vue';
 import LayoutHeader from './default/component/Header.vue';
 import resizeEvent from '../utils/Event/resize';
-import { deDeveloperTools, isOpenDevTool } from '../utils/deDeveloperTools';
 import '../assets/scss/layout.default.scss';
 
 @Component({

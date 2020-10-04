@@ -44,10 +44,11 @@
       <ul class="header-navigation-right">
         <HeaderSearch />
         <HeaderAccount />
-        <HeaderThemes />
+        <HeaderThemes  @click.native.self="isMobile ? $emit('set-open-state', !mobileHeaderOpen) : null"/>
       </ul>
     </nav>
-    <i class="slm blog-menu" v-show="isMobile" @click="$emit('set-open-state', !mobileHeaderOpen)"></i>
+    <!-- 移动端操作按钮 -->
+    <i :class="[ 'slm', 'blog-menu', $store.state.themes.mainFColor ]" v-show="isMobile" @click="$emit('set-open-state', !mobileHeaderOpen)"></i>
   </header>
 </template>
 
@@ -145,12 +146,13 @@ $headerHeight: 60px;
   }
 
   .blog-menu {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 10px;
-    opacity: .4;
+    // opacity: .4;
     // font-size: 27px;
     line-height: 50px;
+    z-index: 99999;
 
     &:active {
       @include themify($themes) {

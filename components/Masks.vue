@@ -9,9 +9,9 @@
   ]"
   :style="styleList"
   @click.self="close">
+    <i :class="[ 'slm', 'blog-back', $store.state.themes.mainFColor ]" @click="close"></i>
     <div class="mask-box">
       <slot></slot>
-      <aside></aside>
     </div>
   </div>
 </template>
@@ -54,12 +54,14 @@ export default class Masks extends Vue {
   close() {
     this.disable = true;
     this.$emit('close');
+    this.$store.commit('maskUpdate', false);
   }
 
 
   @Watch('show')
   showChang(val: boolean) {
     this.disable = val;
+    this.$store.commit('maskUpdate', !val);
   }
 }
 </script>
@@ -67,7 +69,7 @@ export default class Masks extends Vue {
 <style scoped lang="scss">
 .masks {
   position: fixed;
-  z-index: 99999;
+  z-index: 99998;
   display: flex;
   top: 0;
   left: 0;
@@ -101,6 +103,32 @@ export default class Masks extends Vue {
     @include themify($themes) {
       color: themed('font-lv0-color');
       background-color: themed('main-bg-color');
+    }
+  }
+
+  .blog-back {
+    display: none;
+  }
+}
+
+// 小于500px的屏幕切换为全屏弹窗并显示返回按钮
+@media screen and (max-width: 500px) {
+  .masks {
+    .mask-box {
+      padding-top: 100px;
+      width: 100vw;
+      height: 100vh;
+
+      &>div {
+        width: 100% !important;
+      }
+    }
+
+    .blog-back {
+      position: absolute;
+      display: block;
+      top: 5px;
+      right: 20px;
     }
   }
 }
