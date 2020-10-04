@@ -38,13 +38,13 @@
               </router-link>
           </ul>
         </router-link>
-        <FocusingDisplac v-if="!isMobile" ref="FocusingDisplac"/>
+        <FocusingDisplac v-if="!isMobile" ref="FocusingDisplac"/>                
       </ul>
       <!-- 右侧 -->
       <ul class="header-navigation-right">
         <HeaderSearch />
         <HeaderAccount />
-        <li class="slm blog-themes"></li>
+        <HeaderThemes />
       </ul>
     </nav>
     <i class="slm blog-menu" v-show="isMobile" @click="$emit('set-open-state', !mobileHeaderOpen)"></i>
@@ -55,15 +55,17 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import { Navigator } from '../../../interface/router';
 import navigator from '../../../config/navigation';
-import FocusingDisplac from '../../../components/focusingDisplac.vue';
+import FocusingDisplac from '../../../components/FocusingDisplac.vue';
 import HeaderSearch from './Header/Search.vue';
 import HeaderAccount from './Header/Account.vue';
+import HeaderThemes from './Header/Themes.vue';
 
 @Component({
   components: {
     FocusingDisplac,
     HeaderSearch,
     HeaderAccount,
+    HeaderThemes,
   },
   computed: {
     isMobile() {
@@ -81,7 +83,7 @@ export default class LayoutDefaultHeader extends Vue {
    */
   navFocusIndex: number = 0;
   /**
-   * 移动端Header展开状态
+   * 移动端Header展开状态 
    */
   @Prop(Boolean) mobileHeaderOpen;
 
@@ -104,10 +106,10 @@ export default class LayoutDefaultHeader extends Vue {
     // if (!config[index].to) return false;
     if (this.$store.state.isMobile) return false;
     const { $refs } = this;
-    const Navigation = $refs.Navigation as Element;
-    const FocusingDisplac = $refs.FocusingDisplac as FocusingDisplac;
+    const navigation = $refs.Navigation as Element;
+    const focusingDisplac = $refs.FocusingDisplac as FocusingDisplac;
     
-    FocusingDisplac.focus(Navigation.children[index], Navigation, animation, { y: -15 });
+    focusingDisplac.focus(navigation.children[index], navigation, animation, { y: -15 });
   }
 }
 </script>
@@ -147,7 +149,7 @@ $headerHeight: 60px;
     top: 0;
     left: 10px;
     opacity: .4;
-    font-size: 27px;
+    // font-size: 27px;
     line-height: 50px;
 
     &:active {
@@ -162,7 +164,6 @@ $headerHeight: 60px;
     width: 100%;
     height: 100%;
     padding-right: 20px;
-    font-size: 16px;
     justify-content: space-between;
     align-items: center;
 
@@ -280,9 +281,9 @@ $headerHeight: 60px;
     position: absolute;
     display: block;
     top: 0;
-    width: 260px;
+    width: $mobileAsideWidth;
     height: 100vh;
-    padding-top: 180px;
+    padding-top: $mobileAsideWidth / 2;
     padding-right: 0;
     box-sizing: border-box;
     background-color: rgba(30, 32, 38, .8);

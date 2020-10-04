@@ -102,6 +102,7 @@ export default class DefaultLayout extends Vue {
       // });
     // });
     this.loggerBlog();
+    // document.getElementsByTagName('html')[0].style = 'font-size: 30px';
   }
 
   
@@ -109,7 +110,7 @@ export default class DefaultLayout extends Vue {
    * 设置移动端打开状态
    */
   setHeaderOpenState(state: boolean) {
-    console.log(state);
+    // console.log(state);
     this.mobileHeaderOpen = state;
   }
 
@@ -170,7 +171,7 @@ export default class DefaultLayout extends Vue {
 @include themify($themes, 0) {
   &.layout-default {
     color: themed('font-color');
-    background-color: themed('bg-dp11-color');
+    background-color: themed('main-bg-color');
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <li :class="[ 'slm', 'blog-search', 'search-box', { 'input-focus': inputFocus }]">
+  <li :class="[ 'slm', 'blog-search', 'search-box', { 'input-focus': inputFocus }, 'm-c-blue']">
     <div class="search-input">
       <div class="blur" @mouseout="inputFocus = false"></div>
       <div class="panel">

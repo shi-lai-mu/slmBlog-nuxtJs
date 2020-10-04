@@ -1,7 +1,6 @@
 <template>
   <div class="home-page">
     <div class="top-banner banner-home"></div>
-    <div class="tst"></div>
   </div>
 </template>
 
@@ -32,15 +31,9 @@ export default class HomePage extends Vue {
       height: 100%;
       background-color: rgba($color: #000, $alpha: .4);
       @include themify($themes, 1) {
-        box-shadow: inset 0 -30px 20px themed('bg-dp11-color');
+        box-shadow: inset 0 -30px 20px themed('main-bg-color');
       }
     }
   }
-}
-.tst {
-  height: 100vh;
-  width: 100px;
-  background-color: red;
-  
 }
 </style>
