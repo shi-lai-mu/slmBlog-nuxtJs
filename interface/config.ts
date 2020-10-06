@@ -1,4 +1,4 @@
-import { Navigation } from '../plugins/config';
+import Navigation from '~/plugins/config/Navigation';
 /**
  * 默认配置文件
  */

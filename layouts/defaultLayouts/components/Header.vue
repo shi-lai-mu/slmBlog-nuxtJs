@@ -60,6 +60,7 @@ import FocusingDisplac from '../../../components/FocusingDisplac.vue';
 import HeaderSearch from './Header/Search.vue';
 import HeaderAccount from './Header/Account.vue';
 import HeaderThemes from './Header/Themes.vue';
+import { PageHeader } from 'ant-design-vue';
 
 @Component({
   components: {
@@ -90,8 +91,12 @@ export default class LayoutDefaultHeader extends Vue {
 
   mounted() {
     const navConfig = this.$config.Navigation.config;
-    this.jumpNav(navConfig.focus, false);
     this.navigator = navigator;
+    // this.$nextTick(() => {
+    // });
+    // setTimeout(() => {
+      this.jumpNav(navConfig.focus, false);
+    // }, 100);
   }
 
 
@@ -173,6 +178,7 @@ $headerHeight: 60px;
       position: relative;
       display: flex;
       height: 100%;
+      margin-bottom: 0;
 
       .navigation-item {
         position: relative;
@@ -242,6 +248,7 @@ $headerHeight: 60px;
 
     .header-navigation-right {
       display: flex;
+      margin-bottom: 0;
 
       li {
         width: 40px;

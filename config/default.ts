@@ -1,5 +1,5 @@
-import { DefaultConfig } from '../interface/config';
-import { Navigation } from '../plugins/config';
+import { DefaultConfig } from '@/interface/config';
+import Navigation from '~/plugins/config/Navigation';
 
 const defaultConfig: DefaultConfig = {
   name: '史莱姆的博客',

@@ -20,7 +20,7 @@ const options = {
   outputFilePath: path.join(__dirname, '../static/style/antd.less'),
 }
 generateTheme(options)
-  .then(() => {
+  .then(() => { 
     console.log('主题编译成功!');
   })
   .catch(error => {

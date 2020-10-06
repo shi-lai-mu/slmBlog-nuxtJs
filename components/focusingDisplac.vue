@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <span
-    v-show="styles.left !== '0'"
-    :class="['focusing', { rotate } ]"
-    :style="{
-      left: styles.left,
-      top: styles.top,
-      width: styles.width,
-      height: styles.height,
-    }"></span>
-  </div>
+  <span
+  v-show="styles.left !== '0'"
+  :class="['focusing', { rotate } ]"
+  :style="{
+    left: styles.left,
+    top: styles.top,
+    width: styles.width,
+    height: styles.height,
+  }"></span>
 </template>
 
 <script lang="ts">
@@ -100,7 +98,9 @@ export default class FocusingDisplac extends Vue {
     // 记录偏移
     this.offsetLeft = x;
     styles.top = `${ height + (offset?.y || 0) }px`;
-    this.$forceUpdate();
+    console.log(styles);
+    
+    // this.$forceUpdate();
   }
 
 
