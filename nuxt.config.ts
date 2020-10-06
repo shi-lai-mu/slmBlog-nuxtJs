@@ -1,5 +1,6 @@
+import * as path from 'path';
+
 export default {
-  mode: 'universal',
 
   /*
    ** Headers of the page
@@ -26,12 +27,19 @@ export default {
       { name: 'baidu-site-verification', content: 'y5VuyW34xO' },
       { name: 'google-site-verification', content: 'LsmBI4ZEP2h0Ni17kTFRG7A_kKO7zONt51w_GYjM2Gs' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/logo/logo.png' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/logo/logo.png' },
+      // { rel: 'stylesheet/less', type: 'text/css', href: '/style/antd.less' },
+    ],
+    script: [
+      // { type: 'text/javascript', src: '/script/index.js' },
+      // { type: 'text/javascript', src: 'https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js' },
+    ],
   },
 
   /*
-   ** Customize the progress-bar color
-   */
+  ** Customize the progress-bar color
+  */
   loading: {
     color: 'rgba(1, 188, 255, .7)',
     height: '3px',
@@ -39,17 +47,21 @@ export default {
   },
 
   /*
-   ** Global CSS
-   */
-  css: [],
+  ** Global CSS
+  */
+  css: [
+    // 'ant-design-vue/dist/antd.css'
+  ],
 
   /*
-   ** Plugins to load before mounting the App
-   */
+  ** Plugins to load before mounting the App
+  */
   plugins: [
-    '~/plugins/config.ts',
-    { src: '~/plugins/overallComponents.ts', ssr: false },
+    '@/plugins/config.ts',
+    '@/plugins/antd-ui',
+    { src: '@/plugins/overallComponents.ts', ssr: false },
   ],
+
   /*
    ** Nuxt.js dev-modules
    */
@@ -58,6 +70,7 @@ export default {
     // '@nuxtjs/eslint-module',
     '@nuxt/typescript-build'
   ],
+
   /*
    ** Nuxt.js modules
    */
@@ -66,24 +79,48 @@ export default {
   ],
 
   /*
-   ** Build configuration
-   */
+  ** Build configuration
+  */
   build: {
-    //   /*
-    //   ** You can extend webpack config here
-    //   */
-    //   extend(config, ctx) {
-    //   }
-  },
-
-  router: {
-    middleware: ["routerBefore"],
+    /*
+    ** You can extend webpack config here
+    */
+    extend(config) {
+      config.resolve.alias['@ant-design/icons/lib/dist$'] = path.resolve(__dirname, './plugins/antd-icons.js') // 引入需要的
+    },
+    transpile: ["ant-design-vue"],
+    babel: {
+      plugins: [
+        [
+          "import",
+          {
+            libraryName: "ant-design-vue",
+            libraryDirectory: "es",
+            style: true
+          },
+          "ant-design-vue"
+        ]
+      ]
+    },
+    loaders: {
+      less: {
+        lessOptions: {
+          javascriptEnabled: true,
+          // modifyVars 可用来自定义主题
+          // modifyVars: {
+          //   "primary-color": "#41b883",
+          //   "layout-body-background": "#fff"
+          // }
+        }
+      }
+    },
+    // 打包分析
+    // analyze: true, 	
+    // assetFilter: (assetFilename) => {	    		
+    //   return assetFilename.endsWith('.js');	    	
+    // },
   },
   
-  env: {
-    PATH_TYPE: process.env.PATH_TYPE,
-    baseUrl: process.env.baseUrl,
-  },
 
   /**
    * Style resources module configuration
@@ -95,4 +132,4 @@ export default {
       './assets/scss/iconfont.scss',
     ]
   },
-};
+}

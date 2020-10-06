@@ -1,7 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Node template
 # Logs
-logs
+/logs
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -18,8 +18,6 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
-# for Travis
-cc-test-reporter
 
 # nyc test coverage
 .nyc_output
@@ -79,14 +77,14 @@ dist
 # Serverless directories
 .serverless
 
-# IDE
+# IDE / Editor
 .idea
 
 # Service worker
 sw.*
 
-# VS Code config
-.vscode/
-
-# MacOs .DS_Store
+# Mac OSX
 .DS_Store
+
+# Vim swap files
+*.swp

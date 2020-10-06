@@ -9,7 +9,9 @@
         <div class="popup-content">
           <div class="row-box">
             <span>字体大小</span>
-            <div class="row-content">x</div>
+            <div class="row-content">
+              <ASlider />
+            </div>
           </div>
           <div class="row-box">
             <span>颜色</span>

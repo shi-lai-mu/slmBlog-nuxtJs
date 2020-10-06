@@ -7,13 +7,15 @@
       { 'layout-default-mobile': $store.state.isMobile },
       { 'mobile-header-open': mobileHeaderOpen }
     ]">
-    <LayoutHeader class="header" @set-open-state="setHeaderOpenState" :mobileHeaderOpen="mobileHeaderOpen" />
+    <LayoutHeader />
     <GeminiScrollbar>
-      <transition name="transition">
-        <nuxt class="layout-page"  @click.native="mobileHeaderOpen = false"/>
-      </transition>
-      <LayoutFooter />
+      <ASlider :marks="{
+          0: '0°C',
+          26: '26°C',
+          37: '37°C'
+        }" />
     </GeminiScrollbar>
+    <LayoutFooter />
   </div>
 </template>
 
@@ -21,13 +23,13 @@
 import { Component, Vue } from 'nuxt-property-decorator';
 import { LayoutDefault } from '../interface/layout';
 import { deDeveloperTools, isOpenDevTool } from '../utils/deDeveloperTools';
-import LayoutFooter from './default/component/Footer.vue';
-import LayoutHeader from './default/component/Header.vue';
+import LayoutFooter from './defaultLayouts/components/Footer.vue';
+import LayoutHeader from './defaultLayouts/components/Header.vue';
 import resizeEvent from '../utils/Event/resize';
 import '../assets/scss/layout.default.scss';
 
 @Component({
-  scrollToTop: true,
+  // scrollToTop: true,
   watch: {
     // $route(to, from) {
     //   window.scrollTo(0, 0)
@@ -110,7 +112,7 @@ export default class DefaultLayout extends Vue {
 
   
   /**
-   * 设置移动端打开状态
+   * 设置z移动端打开状态
    */
   setHeaderOpenState(state: boolean) {
     // console.log(state);
@@ -148,6 +150,7 @@ export default class DefaultLayout extends Vue {
 }
 
 .layout-default {
+  padding-top: 50px;
   // min-height: 100vh;
   height: 100vh;
   transition: 1s;

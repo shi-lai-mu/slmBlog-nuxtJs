@@ -5,8 +5,8 @@
   "author": "ShiLaiMu <qq: 47889187/wechat: slm15558931101>",
   "private": false,
   "scripts": {
-    "dev": "nuxt-ts",
-    "build": "nuxt-ts build",
+    "dev": "node plugins/themes && nuxt-ts",
+    "build": "node plugins/themes && nuxt-ts build",
     "heroku-postbuild": "nuxt-ts build",
     "test": "jest",
     "lint": "tslint . --ext .vue,.ts,.js",
@@ -16,10 +16,16 @@
   "dependencies": {
     "@nuxt/typescript-runtime": "^0.4.10",
     "@nuxtjs/style-resources": "^0.1.2",
+    "ant-design-vue": "^1.6.5",
+    "antd-theme-generator": "^1.2.4",
     "cross-env": "^5.2.1",
+    "less": "^3.12.2",
+    "less-loader": "^7.0.1",
     "nuxt": "^2.14.4",
     "nuxt-property-decorator": "^2.7.2",
     "sass-loader": "^7.3.1",
+    "scss": "^0.2.4",
+    "scss-loader": "^0.0.1",
     "vue-gemini-scrollbar": "^2.0.1"
   },
   "devDependencies": {
@@ -28,6 +34,7 @@
     "@types/lodash": "^4.14.161",
     "@vue/test-utils": "^1.0.4",
     "babel-core": "^7.0.0-bridge.0",
+    "babel-plugin-import": "^1.13.0",
     "jest": "^24.9.0",
     "node-sass": "^4.14.1",
     "nodemon": "^1.19.4",
