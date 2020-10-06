@@ -1,4 +1,5 @@
 import * as path from 'path';
+import webpack from 'webpack';
 
 export default {
 
@@ -87,6 +88,12 @@ export default {
     */
     extend(config) {
       config.resolve.alias['@ant-design/icons/lib/dist$'] = path.resolve(__dirname, './plugins/antd-icons.js') // 引入需要的
+      config.plugins.push(
+        // 提取 monent 有效部分，减小体积 en-gb 英国 en-us 美国(默认值) vi 越南 zh-cn 中国
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /^\.\/(zh-cn)$/i),
+        // 使用 IgnorePlugin 在打包时忽略本地化内容
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+      )
     },
     transpile: ["ant-design-vue"],
     babel: {
@@ -115,10 +122,10 @@ export default {
       }
     },
     // 打包分析
-    // analyze: true, 	
-    // assetFilter: (assetFilename) => {	    		
-    //   return assetFilename.endsWith('.js');	    	
-    // },
+    analyze: true, 	
+    assetFilter: (assetFilename) => {	    		
+      return assetFilename.endsWith('.js');	    	
+    },
   },
   
 
