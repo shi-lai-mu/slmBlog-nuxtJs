@@ -1,5 +1,5 @@
 <template>
-  <header :class="['layout-header']">
+  <header :class="['layout-header', $store.state.themes.mainBColor + '-20' ]">
     <router-link
       tag="h1"
       class="logo"
@@ -21,7 +21,7 @@
           <i :class="['slm', 'blog-' + item.icon]"></i>
           {{ item.name }}
           <i class="slm blog-zhankai" v-if="item.children && item.children.length"></i>
-          <ul class="navigation-children" v-if="item.children && item.children.length">
+          <ul :class="['navigation-children', $store.state.themes.mainBColor + '-20']" v-if="item.children && item.children.length">
             <router-link
               tag="li"
               v-for="(childItem, childIndex) in item.children"
@@ -56,7 +56,7 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import { Navigator } from '../../../interface/router';
 import navigator from '../../../config/navigation';
-import FocusingDisplac from '../../../components/FocusingDisplac.vue';
+import FocusingDisplac from '@/components/FocusingDisplac.vue';
 import HeaderSearch from './Header/Search.vue';
 import HeaderAccount from './Header/Account.vue';
 import HeaderThemes from './Header/Themes.vue';
@@ -92,11 +92,9 @@ export default class LayoutDefaultHeader extends Vue {
   mounted() {
     const navConfig = this.$config.Navigation.config;
     this.navigator = navigator;
-    // this.$nextTick(() => {
-    // });
-    // setTimeout(() => {
+    this.$nextTick(() => {
       this.jumpNav(navConfig.focus, false);
-    // }, 100);
+    });
   }
 
 
@@ -207,7 +205,7 @@ $headerHeight: 60px;
               background-color: rgba($color: themed('bg-dp1-color-f'), $alpha: .8);
             }
             transform: translateX(-15px);
-            // backdrop-filter: saturate(180%) blur(20px);
+            backdrop-filter: saturate(180%) blur(20px);
           }
 
           .blog-zhankai {

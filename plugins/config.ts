@@ -1,12 +1,13 @@
-import defaultConfig from '../config/default';
-import * as themesConfig from '../config/themes';
-import { DefaultConfig } from '../interface/config';
+import defaultConfig from '@/config/default';
+import { DefaultConfig } from '@/interface/config';
 import Navigation from './config/Navigation';
+import Themes from './config/Themes';
 
 export default (_context, inject) => {
   const $config = defaultConfig as Config;
   $config.Navigation = Navigation;
-  $config.themes = themesConfig;
+  $config.themes = Themes.config;
+  console.log($config);
   inject('config', $config);
 }
 
@@ -20,7 +21,7 @@ interface Config extends DefaultConfig {
   /**
    * 网站主题配置文件
    */
-  themes: typeof themesConfig;
+  themes: typeof Themes.config;
 }
 
 declare module 'vue/types/vue' {

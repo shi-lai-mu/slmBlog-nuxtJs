@@ -2,7 +2,7 @@
   <li :class="[ 'slm', 'blog-search', 'search-box', { 'input-focus': inputFocus }, $store.state.themes.mainBColor ]">
     <div class="search-input">
       <div class="blur" @mouseout="inputFocus = false"></div>
-      <div class="panel">
+      <div :class="[ 'panel', $store.state.themes.mainBColor ]">
         <ul class="panel-tag">
           <li v-for="(item, index) in panelTag" :key="index">
             <i :class="'slm blog-' + item.icon"></i>{{ item.name }}
@@ -90,12 +90,16 @@ export default class HeaderSearch extends Vue {
       input {
         width: 100%;
         line-height: 100%;
-        font-size: 1em;
+        font-size: 1rem;
+        color: #FFF;
         background-color: inherit;
-        @include themify($themes) {
-          color: themed('font-lv0-color');
-        }
+        // @include themify($themes) {
+        //   color: themed('font-lv0-color');
+        // }
         border: 0;
+        &::placeholder {
+          color: #FFF;
+        }
       }
 
       .panel {
@@ -107,9 +111,9 @@ export default class HeaderSearch extends Vue {
         width: 100%;
         padding: 20px 10px 10px;
         text-align: left;
-        @include themify($themes) {
-          background-color: themed('panel-floating-color');
-        }
+        // @include themify($themes) {
+        //   background-color: themed('panel-floating-color');
+        // }
         border-radius: 0 0 20px 20px;
         transform: translateY(-20px);
 
@@ -120,15 +124,15 @@ export default class HeaderSearch extends Vue {
           width: calc(100% - 20px);
           white-space: nowrap;
 
-          li {
+          li { 
             display: inline-block;
             margin-right: 5px;
             padding: 0 10px;
             font-size: .8em;
             line-height: 2.3em;
             @include themify($themes) {
-              color: themed('a-active-color');
-              background-color: themed('bg-dp1-color');
+              // color: themed('a-active-color');
+              background-color: rgba($color: #000, $alpha: .2);
             }
             border-radius: 5px;
             cursor: pointer;
@@ -168,9 +172,9 @@ export default class HeaderSearch extends Vue {
     }
 
     &.input-focus {
-      @include themify($themes) {
-        background-color: themed('panel-floating-color') !important;
-      }
+      // @include themify($themes) {
+      //   background-color: themed('panel-floating-color') !important;
+      // }
 
       .search-input {
         overflow: initial;

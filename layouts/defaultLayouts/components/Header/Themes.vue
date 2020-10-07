@@ -13,10 +13,10 @@
               <i class="slm blog-Aa"></i>
               <a-slider
                 class="font-size-slider"
-                :marks="{ 12: '', 13: '', 14: '', 15: '', 16: '', 17: '', 18: '', 19: '', 20: '' }"
-                :min="12"
-                :max="20"
-                :defaultValue="16"
+                :marks="ThemesConfig.fontSize.marks"
+                :min="ThemesConfig.fontSize.min"
+                :max="ThemesConfig.fontSize.max"
+                :defaultValue="ThemesConfig.fontSize.current"
                 @change="fontSizeChang"/>
               <i class="slm blog-Aa big-Aa"></i>
             </div>
@@ -24,24 +24,38 @@
           <div class="row-box">
             <span>颜色</span>
             <div class="row-content">
-              <a-radio-group default-value="a" size="large" class="themes-color-group">
+              <a-radio-group :default-value="ThemesConfig.color.current" size="large" class="themes-color-group">
                 <a-radio-button
                   class="themes-color-item"
-                  v-for="(item, index) in $config.themes.themesColor"
+                  v-for="(item, index) in ThemesConfig.color.list"
                   :key="index"
                   :value="index"
                   @click="toggleMainColor(index, item.color)">
                   <div class="color-round" :style="`background-color: ${item.color}`">
-                    <i class="slm blog-xuanzhong"></i>
+                    <i class="slm blog-xuanzhong" v-show="ThemesConfig.color.current === index"></i>
                   </div>
-                  <i :class="`slm blog-${item.icon}`"></i>
+                  <i :class="`slm blog-${item.icon}`" :style="`color: ${item.color}`"></i>
                 </a-radio-button>
               </a-radio-group>
             </div>
           </div>
           <div class="row-box">
             <span>背景</span>
-            <div class="row-content">x</div>
+            <div class="row-content">
+              <a-radio-group default-value="a" size="large" class="themes-bgcolor-group">
+                <a-radio-button
+                  class="themes-bgcolor-item"
+                  v-for="(item, index) in ThemesConfig.backgroundColor.list"
+                  :key="index"
+                  :value="index"
+                  @click="toggleMainColor(index, item.color)">
+                  <div class="color-round" :style="`background-color: ${item.color}`">
+                    <i class="slm blog-xuanzhong"></i>
+                  </div>
+                  <i :class="`slm blog-${item.icon}`" :style="`color: ${item.color}`"></i>
+                </a-radio-button>
+              </a-radio-group>
+            </div>
           </div>
         </div>
         <div :class="[ 'button', 'submit-btn', $store.state.themes.mainBColor ]">确定</div>
@@ -64,12 +78,13 @@ export default class HeaderThemes extends Vue {
   /**
    * 是否显示弹窗
    */
-  showPopup: boolean = true;
+  showPopup: boolean = false;
 
-  @Watch('$store.state.isMobile')
-  isMobileUpdate(val) {
-    this.styleList.marginLeft = val ? '0' : '-5vw';
-    this.$forceUpdate();
+  /**
+   * 皮肤配置
+   */
+  get ThemesConfig() {
+    return this.$config.themes;
   }
 
 
@@ -78,13 +93,35 @@ export default class HeaderThemes extends Vue {
     this.styleList.marginLeft = isMobile ? '0' : '-5vw';
   }
 
+  mounted() {
+    // 初始化本地配置信息
+    const { ThemesConfig } = this;
+    if (ThemesConfig.isLocalUpdate) {
+      const callFn = {
+        fontSize: {
+          fn: 'fontSizeChang',
+        },
+        color: {
+          fn: 'toggleMainColor',
+          cb: (val, arr) => [ val, arr.list[val].color ],
+        },
+      };
+      Object.keys(ThemesConfig).forEach(key => {
+        const targetFn = callFn[key];
+        if (targetFn) {
+          const currentConifg = ThemesConfig[key];
+          const params = targetFn.cb ? targetFn.cb(currentConifg.current, currentConifg) : [ currentConifg.current ];
+          this[targetFn.fn].apply(this, [...params, false]);
+        }
+      });
+    }
+  }
 
-  /**
-   * slider修改文字大小时
-   */
-  fontSizeChang(fontsize: number) {
-    const root: any = document.getElementsByTagName('html')[0];
-    root.style = `font-size: ${fontsize}px`;
+
+  @Watch('$store.state.isMobile')
+  isMobileUpdate(val) {
+    this.styleList.marginLeft = val ? '0' : '-5vw';
+    this.$forceUpdate();
   }
 
 
@@ -111,16 +148,38 @@ export default class HeaderThemes extends Vue {
 
 
   /**
+   * slider修改文字大小时
+   */
+  fontSizeChang(fontsize: number, storage: boolean = true) {
+    const root: any = document.getElementsByTagName('html')[0];
+    root.style = `font-size: ${fontsize}px`;
+    if (storage) this.$config.themes.fontSize.current = fontsize;
+  }
+
+
+  /**
    * 切换主题色
    */
-  toggleMainColor(colorName: string, color16: string) {
-    this.toggleAntdThemes(color16);
+  toggleMainColor(colorName: string, color16: string, storage: boolean = true) {
     this.$store.commit('setThemesMainColor', colorName);
+    if (storage) {
+      this.toggleAntdThemes(color16);
+      this.$config.themes.color.current = colorName;
+    } else {
+      const { less }: any = window;
+      // 对应 index.js 等待 less.min.js 加载完成执行cb传入params
+      if (less.modifyVars) {
+        this.toggleAntdThemes(color16);
+      } else {
+        less.cb = this.toggleAntdThemes.bind(this);
+        less.params = color16;
+      }
+    }
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .popup-box {
   width: 50vw;
   padding: 0 10px;
@@ -228,12 +287,22 @@ export default class HeaderThemes extends Vue {
         border-radius: 50%;
         align-items: center;
         justify-content: center;
+
+        & + .slm {
+          display: inline-block;
+          transform: translateY(5px);
+        }
+      }
+
+      .slm {
+        font-size: 1.5rem;
       }
     }
   }
+}
   
-  .ant-radio-button-wrapper {
-    color: #8899a6;
-  }
+/deep/ .ant-radio-button-wrapper,
+/deep/ .ant-slider-mark-text-active {
+  color: #8899a6;
 }
 </style>

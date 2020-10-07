@@ -1,14 +1,14 @@
 <template>
   <div
-  v-if="!disable"
-  :class="[
-    'masks',
-    { 'mask-style': !disableMask },
-    { 'mobile-offset': $store.state.isMobile },
-    maskBackageMode,
-  ]"
-  :style="styleList"
-  @click.self="close">
+    v-if="!disable"
+    :class="[
+      'masks',
+      { 'mask-style': !disableMask },
+      { 'mobile-offset': $store.state.isMobile },
+      maskBackageMode,
+    ]"
+    :style="styleList"
+    @click.self="close">
     <i :class="[ 'slm', 'blog-back', $store.state.themes.mainFColor ]" @click="close"></i>
     <div class="mask-box">
       <slot></slot>

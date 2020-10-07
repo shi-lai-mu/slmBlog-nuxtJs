@@ -98,8 +98,6 @@ export default class FocusingDisplac extends Vue {
     // 记录偏移
     this.offsetLeft = x;
     styles.top = `${ height + (offset?.y || 0) }px`;
-    console.log(styles);
-    
     // this.$forceUpdate();
   }
 

@@ -1,5 +1,7 @@
 import { Navigator } from '../interface/router';
-
+/**
+ * 顶部导航
+ */
 const navConfig: Navigator.Config[] = [
   {
     name: '首页',

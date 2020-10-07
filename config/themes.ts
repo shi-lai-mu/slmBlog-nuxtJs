@@ -1,5 +1,7 @@
 /**
+ * ===============
  * 站点主题配置文件
+ * ===============
  */
 
 
@@ -7,7 +9,7 @@
 /**
  * 文字大小
  */
-const fontSize = {
+export const fontSize = {
   /**
    * 最小
    */
@@ -19,42 +21,77 @@ const fontSize = {
   /**
    * 大小标志[同断点]
    */
-  marks: { 12: '', 13: '', 14: '', 15: '', 16: '', 17: '', 18: '', 19: '', 20: '' },
+  marks: { 12: '', 13: '1', 14: '', 15: '', 16: '', 17: '', 18: '', 19: '', 20: '' },
+  /**
+   * 当前大小
+   */
+  current: 16,
 };
 
 
 /**
  * 主题皮肤色
  */
-const themesColor = {
-  blue: {
-    color: '#1DA1F2',
-    icon: 'fenzu',
-  },
-  yellow: {
-    color: '#FFAD1F',
-    icon: 'xingxing',
-  },
-  powder: {
-    color: '#E0245E',
-    icon: 'taohua1',
-  },
-  purple: {
-    color: '#794BC4',
-    icon: 'youyeyoujingdeputao',
-  },
-  orange: {
-    color: '#F45D22',
-    icon: 'icon-test',
-  },
-  green: {
-    color: '#17BF63',
-    icon: 'niuyouguo',
+export const color = {
+  /**
+   * 当前选中的色
+   */
+  current: 'blue',
+  /**
+   * 可选列表
+   */
+  list: {
+    blue: {
+      color: '#1DA1F2',
+      icon: 'fenzu',
+    },
+    yellow: {
+      color: '#FFAD1F',
+      icon: 'xingxing',
+    },
+    powder: {
+      color: '#E0245E',
+      icon: 'taohua1',
+    },
+    purple: {
+      color: '#794BC4',
+      icon: 'youyeyoujingdeputao',
+    },
+    orange: {
+      color: '#F45D22',
+      icon: 'icon-test',
+    },
+    green: {
+      color: '#17BF63',
+      icon: 'niuyouguo',
+    },
   },
 };
 
 
-export {
-  fontSize,
-  themesColor,
-};
+/**
+ * 主题背景色
+ */
+export const backgroundColor = {
+  /**
+   * 当前选中的色
+   */
+  current: 'blue',
+  /**
+   * 可选列表
+   */
+  list: {
+    default: {
+      name: '默认',
+      disable: true,
+    },
+    dim: {
+      name: '暗淡',
+      disable: false,
+    },
+    dark: {
+      name: '黑暗',
+      disable: true,
+    },
+  },
+}

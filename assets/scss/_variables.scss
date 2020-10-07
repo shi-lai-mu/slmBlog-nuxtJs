@@ -129,6 +129,10 @@ $mainColor:  (
         background-color: map-get($map, 'color') !important;
         transition: .5s;
     }
+    .m-b-#{$main-name}-20 {
+        background-color: rgba($color: map-get($map, 'color'), $alpha: .20) !important;
+        transition: .5s;
+    }
     .m-c-#{$main-name} {
         color: map-get($map, 'color') !important;
         transition: .5s;
