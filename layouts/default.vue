@@ -9,9 +9,7 @@
     ]">
     <LayoutHeader class="header" @set-open-state="setHeaderOpenState" :mobileHeaderOpen="mobileHeaderOpen" />
     <GeminiScrollbar>
-      <transition name="transition">
         <nuxt class="layout-page"  @click.native="mobileHeaderOpen = false"/>
-      </transition>
       <LayoutFooter />
     </GeminiScrollbar>
   </div>

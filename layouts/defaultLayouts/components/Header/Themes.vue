@@ -24,15 +24,17 @@
           <div class="row-box">
             <span>颜色</span>
             <div class="row-content">
-              <div @click="toggleAntdThemes('#1DA1F2') && $store.commit('setThemesMainColor', 'blue')">b</div>
-              <div @click="toggleAntdThemes('#FFAD1F') && $store.commit('setThemesMainColor', 'yellow')">c</div>
-              <div @click="toggleAntdThemes('#E0245E') && $store.commit('setThemesMainColor', 'powder')">d</div>
               <a-radio-group default-value="a" size="large" class="themes-color-group">
-                <a-radio-button value="a" class="themes-color-item">
-                  1
-                </a-radio-button>
-                <a-radio-button value="b" class="themes-color-item">
-                  Hangzhou
+                <a-radio-button
+                  class="themes-color-item"
+                  v-for="(item, index) in $config.themes.themesColor"
+                  :key="index"
+                  :value="index"
+                  @click="toggleMainColor(index, item.color)">
+                  <div class="color-round" :style="`background-color: ${item.color}`">
+                    <i class="slm blog-xuanzhong"></i>
+                  </div>
+                  <i :class="`slm blog-${item.icon}`"></i>
                 </a-radio-button>
               </a-radio-group>
             </div>
@@ -62,7 +64,7 @@ export default class HeaderThemes extends Vue {
   /**
    * 是否显示弹窗
    */
-  showPopup: boolean = false;
+  showPopup: boolean = true;
 
   @Watch('$store.state.isMobile')
   isMobileUpdate(val) {
@@ -74,8 +76,6 @@ export default class HeaderThemes extends Vue {
   created() {
     const { isMobile } = this.$store.state;
     this.styleList.marginLeft = isMobile ? '0' : '-5vw';
-    // console.log(this.$config);
-    
   }
 
 
@@ -91,7 +91,7 @@ export default class HeaderThemes extends Vue {
   /**
    * 切换UI主题色
    */
-  toggleAntdThemes(color) {
+  toggleAntdThemes(color: string) {
     window.less
       .modifyVars({
         '@primary-color': color,
@@ -108,10 +108,19 @@ export default class HeaderThemes extends Vue {
     ;
     return true;
   }
+
+
+  /**
+   * 切换主题色
+   */
+  toggleMainColor(colorName: string, color16: string) {
+    this.toggleAntdThemes(color16);
+    this.$store.commit('setThemesMainColor', colorName);
+  }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .popup-box {
   width: 50vw;
   padding: 0 10px;
@@ -190,7 +199,9 @@ export default class HeaderThemes extends Vue {
     justify-content: space-between;
 
     .themes-color-item {
+      height: auto;
       width: 100%;
+      text-align: center;
       background-color: transparent;
       border: 0;
       box-shadow: none;
@@ -199,10 +210,30 @@ export default class HeaderThemes extends Vue {
         display: none;
       }
 
+      &:hover {
+        border: 0 !important;
+        box-shadow: none;
+      }
+
       &:focus-within {
         outline: none;
       }
+      
+      .color-round {
+        display: flex;
+        width: 50px;
+        height: 50px;
+        margin: 0 auto;
+        color: #FFF;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+      }
     }
+  }
+  
+  .ant-radio-button-wrapper {
+    color: #8899a6;
   }
 }
 </style>

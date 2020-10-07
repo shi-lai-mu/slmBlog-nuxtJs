@@ -27,7 +27,30 @@ const fontSize = {
  * 主题皮肤色
  */
 const themesColor = {
-
+  blue: {
+    color: '#1DA1F2',
+    icon: 'fenzu',
+  },
+  yellow: {
+    color: '#FFAD1F',
+    icon: 'xingxing',
+  },
+  powder: {
+    color: '#E0245E',
+    icon: 'taohua1',
+  },
+  purple: {
+    color: '#794BC4',
+    icon: 'youyeyoujingdeputao',
+  },
+  orange: {
+    color: '#F45D22',
+    icon: 'icon-test',
+  },
+  green: {
+    color: '#17BF63',
+    icon: 'niuyouguo',
+  },
 };
 
 
