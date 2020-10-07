@@ -21,7 +21,7 @@ export const fontSize = {
   /**
    * 大小标志[同断点]
    */
-  marks: { 12: '', 13: '1', 14: '', 15: '', 16: '', 17: '', 18: '', 19: '', 20: '' },
+  marks: { 12: '', 13: '', 14: '', 15: '', 16: '', 17: '', 18: '', 19: '', 20: '' },
   /**
    * 当前大小
    */
@@ -76,21 +76,27 @@ export const backgroundColor = {
   /**
    * 当前选中的色
    */
-  current: 'blue',
+  current: 'dim',
   /**
    * 可选列表
    */
   list: {
     default: {
       name: '默认',
+      color: '#FFF',
+      fontColor: '#000',
       disable: true,
     },
     dim: {
       name: '暗淡',
+      color: '#15202B',
+      fontColor: '#FFF',
       disable: false,
     },
     dark: {
       name: '黑暗',
+      color: '#121212',
+      fontColor: '#FFF',
       disable: true,
     },
   },

@@ -41,18 +41,16 @@
           </div>
           <div class="row-box">
             <span>背景</span>
-            <div class="row-content">
-              <a-radio-group default-value="a" size="large" class="themes-bgcolor-group">
+            <div class="row-content"> 
+              <a-radio-group :default-value="ThemesConfig.backgroundColor.current" size="large" class="themes-bgcolor-group">
                 <a-radio-button
                   class="themes-bgcolor-item"
                   v-for="(item, index) in ThemesConfig.backgroundColor.list"
                   :key="index"
-                  :value="index"
-                  @click="toggleMainColor(index, item.color)">
-                  <div class="color-round" :style="`background-color: ${item.color}`">
-                    <i class="slm blog-xuanzhong"></i>
+                  :value="index">
+                  <div class="color-round" :style="`background-color: ${item.color}; color: ${item.fontColor}`">
+                    {{ item.name }}<i class="slm blog-xuanzhong"></i>
                   </div>
-                  <i :class="`slm blog-${item.icon}`" :style="`color: ${item.color}`"></i>
                 </a-radio-button>
               </a-radio-group>
             </div>
@@ -62,7 +60,7 @@
       </div>
     </Masks>
   </li>
-</template>
+</template>  
 
 <script lang="ts">
 import { Vue, Component, Watch } from 'nuxt-property-decorator';
@@ -78,7 +76,7 @@ export default class HeaderThemes extends Vue {
   /**
    * 是否显示弹窗
    */
-  showPopup: boolean = false;
+  showPopup: boolean = true;
 
   /**
    * 皮肤配置
@@ -253,11 +251,13 @@ export default class HeaderThemes extends Vue {
   }
 
   // 主题颜色选择器
-  .themes-color-group {
+  .themes-color-group,
+  .themes-bgcolor-group {
     display: flex;
     justify-content: space-between;
 
-    .themes-color-item {
+    .themes-color-item,
+    .themes-bgcolor-item {
       height: auto;
       width: 100%;
       text-align: center;
@@ -296,6 +296,39 @@ export default class HeaderThemes extends Vue {
 
       .slm {
         font-size: 1.5rem;
+      }
+    }
+
+    .themes-bgcolor-item {
+      .color-round {
+        width: 100%;
+        height: 70px;
+        border: 1px solid;
+        border-radius: 10px;
+
+        &:hover {
+          border-color: #FFAD1F;
+        }
+      }
+      
+      .slm {
+        display: flex;
+        width: 1.1rem;
+        height: 1.1rem;
+        margin-left: 10px;
+        font-size: .6rem;
+        border: 1px solid;
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+
+        &::before {
+          display: none;
+        }
+      }
+
+      &.ant-radio-button-wrapper-checked .slm::before {
+        display: block;
       }
     }
   }
