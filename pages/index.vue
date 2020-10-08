@@ -22,7 +22,7 @@ export default class HomePage extends Vue {
     position: absolute;
     z-index: -1;
     top: 0;
-    background-image: url('/banner/home_2.jpg');
+    // background-image: url('/banner/home_2.jpg');
 
     &::after {
       position: absolute;

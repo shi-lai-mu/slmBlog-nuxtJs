@@ -27,7 +27,7 @@ export default class HeaderAccount extends Vue {
   /**
    * 头像链接
    */
-  avatarUrl: string = '/banner/home_1.jpg';
+  avatarUrl: string = '';
 
   mounted() {
     this.accountEntrance = [{

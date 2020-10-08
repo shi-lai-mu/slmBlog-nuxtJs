@@ -295,7 +295,21 @@ $headerHeight: 60px;
     box-sizing: border-box;
     background-color: rgba(30, 32, 38, .8);
     transform: translateX(-100%);
-    backdrop-filter: saturate(180%) blur(20px);
+    z-index: 2;
+    // backdrop-filter: saturate(180%) blur(20px);
+
+    &::before {
+      position: absolute;
+      opacity: 0;
+      z-index: -1;
+      top: 0;
+      left: $mobileAsideWidth;
+      content: '';
+      width: calc(100vw - #{$mobileAsideWidth});
+      height: 100vh;
+      background-color: rgba($color: #000, $alpha: .5);
+      transition: 0s;
+    }
 
     .header-navigation {
       overflow-y: scroll;
@@ -334,5 +348,9 @@ $headerHeight: 60px;
       width: 100%;
     }
   }
+}
+.layout-default-mobile.mobile-header-open  .layout-top-nav::before {
+  opacity: 1;
+  transition: .5s .8s;
 }
 </style>

@@ -139,4 +139,9 @@ export default {
       './assets/scss/iconfont.scss',
     ]
   },
+
+  
+  router: {
+    middleware: ["routerBefore"],
+  },
 }

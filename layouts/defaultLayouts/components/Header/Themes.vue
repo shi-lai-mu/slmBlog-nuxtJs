@@ -56,7 +56,7 @@
             </div>
           </div>
         </div>
-        <div :class="[ 'button', 'submit-btn', $store.state.themes.mainBColor ]">确定</div>
+        <div :class="[ 'button', 'submit-btn', $store.state.themes.mainBColor ]" @click="() => showPopup = false">确定</div>
       </div>
     </Masks>
   </li>
@@ -76,7 +76,7 @@ export default class HeaderThemes extends Vue {
   /**
    * 是否显示弹窗
    */
-  showPopup: boolean = true;
+  showPopup: boolean = false;
 
   /**
    * 皮肤配置
@@ -182,7 +182,7 @@ export default class HeaderThemes extends Vue {
   width: 50vw;
   padding: 0 10px;
   max-width: 600px;
-  min-width: 450px;
+  min-width: 350px;
   font-size: .8rem;
   text-align: center;
   @include themify($themes) {
@@ -330,6 +330,17 @@ export default class HeaderThemes extends Vue {
       &.ant-radio-button-wrapper-checked .slm::before {
         display: block;
       }
+    }
+  }
+}
+
+.layout-default-mobile {
+  .themes-color-group {
+    flex-wrap: wrap;
+
+    .themes-color-item {
+      width: 33.33%;
+      margin-bottom: 20px;
     }
   }
 }

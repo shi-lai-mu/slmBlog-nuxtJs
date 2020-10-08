@@ -45,6 +45,8 @@ export default class DefaultLayout extends Vue {
    * 移动端Header展开状态
    */
   mobileHeaderOpen: boolean = false;
+
+
   created() {
     const { $config, $route, $router } = this;
     if (!this.$nuxt.$isServer) {
@@ -56,6 +58,8 @@ export default class DefaultLayout extends Vue {
     }
     $config.Navigation.init(this);
   }
+
+
   mounted() {
     // 非开发模式注入
     if (!this.$nuxt.context.isDev) {
@@ -93,16 +97,17 @@ export default class DefaultLayout extends Vue {
       // });
     // });
     this.loggerBlog();
-    // document.getElementsByTagName('html')[0].style = 'font-size: 30px';
   }
   
+
   /**
    * 设置移动端打开状态
    */
   setHeaderOpenState(state: boolean) {
-    // console.log(state);
     this.mobileHeaderOpen = state;
   }
+
+
   /**
    * 打印日志
    */
