@@ -3,6 +3,7 @@
     :class="[
       'layout',
       'layout-default',
+      'content-1300', // test
       theme,
       { 'layout-default-mobile': $store.state.isMobile },
       { 'mobile-header-open': mobileHeaderOpen }
@@ -146,10 +147,17 @@ export default class DefaultLayout extends Vue {
 }
 .layout-page {
   width: 100%;
-  padding-top: 60px;
+  padding-top: 65px;
   min-height: calc(100vh - 121px);
   box-sizing: border-box;
 }
+
+@each $size-name, $value in (1300: 1300px, 1240: 1240px, 90: 90vh) {
+  .content-#{$size-name} /deep/ .max-content {
+    max-width: $value;
+  }
+}
+
 .min-screen-left > .conter {
   transform: translateX(50vw);
   opacity: .7;
@@ -164,5 +172,37 @@ export default class DefaultLayout extends Vue {
 }
 .mobile-header-open {
   transform: translateX(260px);
+}
+
+/deep/ .row-box {
+  padding: 20px;
+  @include themify($themes) {
+    background-color: themed('bg-dp4-color'); 
+    color: themed('font-color');
+  }
+  border-radius: 10px;
+
+  .row-title {
+    color: currentColor;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 0;
+    padding-bottom: 5px;
+    @include themify($themes) {
+      border-bottom: 1px solid themed('border-bottom-color');
+    }
+
+    .slm {
+      font-size: 1rem;
+      margin-right: 10px;
+    }
+  }
+
+  .row-content {
+    margin-top: 10px;
+    @include themify($themes) {
+      color: themed('font-lv0-color');
+    }
+  }
 }
 </style>

@@ -1,54 +1,54 @@
 <template>
   <header :class="['layout-header', $store.state.themes.mainBColor + '-20' ]">
-    <router-link
-      tag="h1"
-      class="logo"
-      :to="{ name: 'index' }"
-      :style="{
-        background: `url(${ $config.logo }) center / 100% 100% no-repeat`,
-      }" />
-    <!-- 响应型导航栏 -->
-    <nav class="layout-top-nav">
-      <!-- 左侧 -->
-      <ul class="header-navigation" ref="Navigation">
-        <router-link
-          class="navigation-item"
-          tag="li"
-          v-for="(item, index) in navigator"
-          :to="item.to || $route.path"
-          :key="index"
-          @click.native="jumpNav(index)">
-          <i :class="['slm', 'blog-' + item.icon]"></i>
-          {{ item.name }}
-          <i class="slm blog-zhankai" v-if="item.children && item.children.length"></i>
-          <ul :class="['navigation-children', $store.state.themes.mainBColor + '-20']" v-if="item.children && item.children.length">
-            <router-link
-              tag="li"
-              v-for="(childItem, childIndex) in item.children"
-              :key="childIndex"
-              :to="childItem.to"
-              :class="[
-                'navigation-children-item',
-                {
-                  'navigation-children-focus': index === $config.Navigation.config.focus && childIndex === $config.Navigation.config.focusChild,
-                }
-              ]">
-                <i :class="['slm', 'blog-' + childItem.icon]"></i>
-                {{ childItem.name }}
-              </router-link>
-          </ul>
-        </router-link>
-        <FocusingDisplac v-if="!isMobile" ref="FocusingDisplac"/>                
-      </ul>
-      <!-- 右侧 -->
-      <ul class="header-navigation-right">
-        <HeaderSearch />
-        <HeaderThemes  @click.native.self="isMobile ? $emit('set-open-state', !mobileHeaderOpen) : null"/>
-        <HeaderAccount />
-      </ul>
-    </nav>
-    <!-- 移动端操作按钮 -->
-    <i :class="[ 'slm', 'blog-menu', $store.state.themes.mainFColor ]" v-show="isMobile" @click="$emit('set-open-state', !mobileHeaderOpen)"></i>
+    <div class="response-content max-content">
+      <router-link
+        tag="h1"
+        class="slm blog-logo"
+        :to="{ name: 'index' }"
+      />
+      <!-- 响应型导航栏 -->
+      <nav class="layout-top-nav">
+        <!-- 左侧 -->
+        <ul class="header-navigation" ref="Navigation">
+          <router-link
+            class="navigation-item"
+            tag="li"
+            v-for="(item, index) in navigator"
+            :to="item.to || $route.path"
+            :key="index"
+            @click.native="jumpNav(index)">
+            <i :class="['slm', 'blog-' + item.icon]"></i>
+            {{ item.name }}
+            <i class="slm blog-zhankai" v-if="item.children && item.children.length"></i>
+            <ul :class="['navigation-children', $store.state.themes.mainBColor + '-20']" v-if="item.children && item.children.length">
+              <router-link
+                tag="li"
+                v-for="(childItem, childIndex) in item.children"
+                :key="childIndex"
+                :to="childItem.to"
+                :class="[
+                  'navigation-children-item',
+                  {
+                    'navigation-children-focus': index === $config.Navigation.config.focus && childIndex === $config.Navigation.config.focusChild,
+                  }
+                ]">
+                  <i :class="['slm', 'blog-' + childItem.icon]"></i>
+                  {{ childItem.name }}
+                </router-link>
+            </ul>
+          </router-link>
+          <FocusingDisplac v-if="!isMobile" ref="FocusingDisplac"/>                
+        </ul>
+        <!-- 右侧 -->
+        <ul class="header-navigation-right">
+          <HeaderSearch />
+          <HeaderThemes @click.native.self="isMobile ? $emit('set-open-state', !mobileHeaderOpen) : null"/>
+          <HeaderAccount />
+        </ul>
+      </nav>
+      <!-- 移动端操作按钮 -->
+      <i :class="[ 'slm', 'blog-menu', $store.state.themes.mainFColor ]" v-show="isMobile" @click="$emit('set-open-state', !mobileHeaderOpen)"></i>
+    </div>
   </header>
 </template>
 
@@ -128,24 +128,33 @@ $headerHeight: 60px;
   display: flex;
   top: 0;
   left: 0;
-  width: 90%;
+  right: 0;
+  width: 100%;
   line-height: $headerHeight;
-  margin: 0 5%;
+  margin: auto;
   @include themify($themes) {
     color: themed('font-lv0-color');
     // background-color: themed('bg-dp1-color-f');
     background-color: rgba($color: themed('bg-dp1-color-f'), $alpha: .8);
   }
-  border-radius: 0 0 20px 20px;
+  // border-radius: 0 0 20px 20px;
   transition: 1s;
   user-select: none;
   backdrop-filter: saturate(180%) blur(20px);
+  
+  .blog-logo {
+    float: right;
+    font-size: 50px;
+    margin: 0 20px 0 0;
+    @include themify($themes) {
+      color: themed('font-lv0-color');
+    }
+  }
 
-  .logo {
-    display: inline-block;
-    min-width: 42px;
-    height: 42px;
-    margin: ($headerHeight - 42px)/2 30px;
+  .response-content {
+    display: flex;
+    width: 100%;
+    margin: auto;
   }
 
   .blog-menu {
@@ -168,6 +177,7 @@ $headerHeight: 60px;
     display: inline-flex;
     width: 100%;
     height: 100%;
+    margin: auto;
     padding-right: 20px;
     justify-content: space-between;
     align-items: center;
@@ -278,9 +288,10 @@ $headerHeight: 60px;
   margin: 0;
   border-radius: 0;
   
-  .logo {
+  .blog-logo {
     height: 80%;
-    margin: $headerHeight*.2/2 50vw;
+    margin: -5px 50vw 0;
+    font-size: $headerHeight - 10px;
     transform: translateX(-50%);
   }
 
@@ -309,6 +320,7 @@ $headerHeight: 60px;
       height: 100vh;
       background-color: rgba($color: #000, $alpha: .5);
       transition: 0s;
+      pointer-events: none;
     }
 
     .header-navigation {
@@ -352,5 +364,6 @@ $headerHeight: 60px;
 .layout-default-mobile.mobile-header-open  .layout-top-nav::before {
   opacity: 1;
   transition: .5s .8s;
+  pointer-events: initial;
 }
 </style>
