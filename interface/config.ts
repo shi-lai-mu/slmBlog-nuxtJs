@@ -16,6 +16,32 @@ export interface DefaultConfig {
    */
   logo?: string;
   /**
+   * 站长邮箱
+   */
+  email: string;
+  /**
+   * GIT
+   */
+  git: {
+    /**
+     * Git平台
+     */
+    [key in string]: {
+      /**
+       * 平台名
+       */
+      name: string;
+      /**
+       * 平台图标
+       */
+      icon: string;
+      /**
+       * 站长账号在平台下的链接
+       */
+      link: string;
+    };
+  };
+  /**
    * ICP号
    */
   icp?: string;
@@ -35,4 +61,12 @@ export interface DefaultConfig {
    * 版权声明
    */
   copyRight?: string;
+  /**
+   * OSS存储对象地址
+   */
+  ossLink: string;
+  /**
+   * SEO备用本站存储地址
+   */
+  imgLink: string;
 }
