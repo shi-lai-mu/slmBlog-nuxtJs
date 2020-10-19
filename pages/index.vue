@@ -21,14 +21,8 @@
         :lg="{ span: 8 }"
         :xxl="{ span: 8 }"
       >
-        <div class="row-box">
-          <h4 class="row-title">
-            <i class="slm blog-lujing"></i>标题
-          </h4>
-          <div class="row-content">
-            欢迎访问史莱姆的博客，本博客已重构为NUXTJS【最近因为工作繁忙，博客从五月起停止文章更新及站点更新，有空后会继续补坑】博客系统出现问题欢迎邮件至  admin@slmblog.com
-          </div>
-        </div>
+        <Notice />
+        <UserCard />
       </a-col>
     </a-row>
     <i class="slm blog-arrow-left"></i>
@@ -39,9 +33,14 @@
 import { Component, Vue } from 'nuxt-property-decorator';
 import { Carousel } from 'ant-design-vue';
 
+import Notice from '@/components/public/Notice.vue';
+import UserCard from '@/components/public/UserCard.vue';
+
 @Component({
   components: {
     Carousel,
+    Notice,
+    UserCard,
   },
 })
 export default class HomePage extends Vue {
@@ -98,6 +97,10 @@ export default class HomePage extends Vue {
 
   .home-carousel {
     border-radius: 0;
+  }
+
+  .sideber {
+    padding: 20px;
   }
 }
 </style>

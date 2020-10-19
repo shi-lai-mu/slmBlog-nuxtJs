@@ -69,4 +69,36 @@ export interface DefaultConfig {
    * SEO备用本站存储地址
    */
   imgLink: string;
+  /**
+   * Axios 请求的服务器
+   */
+  apiServer: {
+    /**
+     * 正式环境
+     */
+    host: string;
+    /**
+     * 开发环境
+     */
+    devHost: string;
+    /**
+     * 请求超时时间
+     */
+    timeout?: number;
+    /**
+     * 子服务器
+     */
+    children?: {
+      [key in string]: {
+        /**
+         * 正式环境
+         */
+        host: string;
+        /**
+         * 开发环境
+         */
+        devHost: string;
+      };
+    };
+  },
 }

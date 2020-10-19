@@ -62,8 +62,18 @@ export default class DefaultLayout extends Vue {
 
 
   mounted() {
+    const { $http } = this;
+    
+    // 初始化权限组
+    $http.auth = {
+      user: () => !!this.$store.state.user.id,
+    };
+
+    $http.send($http.mock_2).then(res => {
+      console.log(res);
+    })
     // 非开发模式注入
-    if (!this.$nuxt.context.isDev) {
+    if (!this.$nuxt.context.isDev && !/192.168.\d+.\d+/.test(window.location.host)) {
       isOpenDevTool(false, (e) => {
         if (e === 'on') {
           this.loggerBlog();
@@ -175,6 +185,7 @@ export default class DefaultLayout extends Vue {
 }
 
 /deep/ .row-box {
+  margin-bottom: 15px;
   padding: 20px;
   @include themify($themes) {
     background-color: themed('bg-dp4-color'); 

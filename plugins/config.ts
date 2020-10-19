@@ -1,14 +1,16 @@
-import defaultConfig from '@/config/default';
 import { DefaultConfig } from '@/interface/config';
+import defaultConfig from '@/config/default';
+import Http from '@/utils/axios';
 import Navigation from './config/Navigation';
 import Themes from './config/Themes';
+import * as Axios from '@nuxtjs/axios';
 
 export default (_context, inject) => {
   const $config = defaultConfig as Config;
   $config.Navigation = Navigation;
   $config.themes = Themes.config;
-  console.log($config);
   inject('config', $config);
+  inject('http', Http);
 }
 
 

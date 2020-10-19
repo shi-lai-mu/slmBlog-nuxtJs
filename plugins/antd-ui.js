@@ -5,7 +5,6 @@ import {
   message,
   Row,
   Col,
-  Icon,
 } from 'ant-design-vue'
 
 Vue.config.productionTip = false;
@@ -16,5 +15,4 @@ Vue
   .use(Radio)
   .use(Row)
   .use(Col)
-  .use(Icon)
 ;
