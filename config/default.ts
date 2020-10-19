@@ -62,13 +62,32 @@ const defaultConfig: DefaultConfig = {
    */
   ossLink: !isDev
     ? 'https://oss.slmblog.com/blog'
-    : 'blog',
+    : 'blog'
+  ,
   /**
    * SEO备用本站存储地址
    */
   imgLink: !isDev
     ? 'https://img.slmblog.com/blog'
     : 'blog'
+  ,
+  /**
+   * Axios 请求的服务器
+   */
+  apiServer: {
+    host: 'https://api.slmblog.com',
+    devHost: '',
+    children: {
+      oss: {
+        host: 'https://oss.slmblog.com/blog',
+        devHost: '/blog'
+      },
+      img: {
+        host: 'https://img.slmblog.com',
+        devHost: ''
+      },
+    },
+  },
 };
 
 export default defaultConfig;
