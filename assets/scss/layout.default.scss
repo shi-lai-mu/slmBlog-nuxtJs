@@ -31,7 +31,7 @@ p:focus,
 button:focus {
   outline: none;
   -webkit-tap-highlight-color: transparent;
-  -webkit-user-modify: read-write-plaintext-only;
+  // -webkit-user-modify: read-write-plaintext-only;
 }
 
 ul,
