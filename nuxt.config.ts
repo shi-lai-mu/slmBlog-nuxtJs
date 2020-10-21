@@ -96,6 +96,15 @@ const config = {
         // 使用 IgnorePlugin 在打包时忽略本地化内容
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
       );
+
+      if (!isDev) {
+        /**
+         * mockjs
+         * 开发环境: 模拟请求数据、初始数据、TS接口校验数据
+         * 生产环境: 初始数据
+         */
+        config.resolve.alias.mockjs = path.resolve(__dirname, './mock/build.ts');
+      }
     },
     transpile: ["ant-design-vue"],
     babel: {
@@ -144,7 +153,7 @@ const config = {
   },
 
   axios: {
-    proxy: true,
+    proxy: false,
     credentials: false
   },
   
