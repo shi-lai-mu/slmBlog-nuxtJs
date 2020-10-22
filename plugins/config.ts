@@ -1,6 +1,6 @@
 import { DefaultConfig } from '@/interface/config';
 import defaultConfig from '@/config/default';
-import Http from '@/utils/axios';
+import Http from '~/utils/axios';
 import Navigation from './config/Navigation';
 import Themes from './config/Themes';
 import * as Axios from '@nuxtjs/axios';
