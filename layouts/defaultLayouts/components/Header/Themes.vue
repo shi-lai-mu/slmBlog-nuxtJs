@@ -88,7 +88,7 @@ export default class HeaderThemes extends Vue {
 
   created() {
     const { isMobile } = this.$store.state;
-    this.styleList.marginLeft = isMobile ? '0' : '-5vw';
+    // this.styleList.marginLeft = isMobile ? '0' : '-5vw';
   }
 
   mounted() {
@@ -118,7 +118,7 @@ export default class HeaderThemes extends Vue {
 
   @Watch('$store.state.isMobile')
   isMobileUpdate(val) {
-    this.styleList.marginLeft = val ? '0' : '-5vw';
+    // this.styleList.marginLeft = val ? '0' : '-5vw';
     this.$forceUpdate();
   }
 
@@ -182,7 +182,7 @@ export default class HeaderThemes extends Vue {
   width: 50vw;
   padding: 0 10px;
   max-width: 600px;
-  min-width: 350px;
+  min-width: 480px;
   font-size: .8rem;
   text-align: center;
   @include themify($themes) {
@@ -206,8 +206,9 @@ export default class HeaderThemes extends Vue {
     }
   }
   
-  .row-box {
+  div.row-box {
     margin-bottom: 10px;
+    background-color: transparent;
 
     .row-content {
       margin-top: .5rem;

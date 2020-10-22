@@ -22,7 +22,7 @@
         :xxl="{ span: 8 }"
       >
         <Notice />
-        <UserCard />
+        <UserCard :userId="1" />
       </a-col>
     </a-row>
     <i class="slm blog-arrow-left"></i>
@@ -44,8 +44,6 @@ import UserCard from '@/components/public/UserCard.vue';
   },
 })
 export default class HomePage extends Vue {
-
-  // code...
 }
 </script>
 
