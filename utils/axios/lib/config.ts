@@ -23,10 +23,42 @@ const isServer = process && process.server;
 const isMockData = (res: AxiosResponse): boolean => res.request.__proto__.constructor.name === 'MockXMLHttpRequest';
 
 /**
+ * 观察者
+ */
+const observer: any = {
+  /**
+   * 响应
+   */
+  response: {
+    /**
+     * 更新token时
+     */
+    updateToken: [],
+    /**
+     * 响应错误时
+     */
+    error: [],
+    /**
+     * 默认
+     */
+    default: [],
+  },
+};
+
+/**
+ * 存储token字段名
+ */
+const tokenKeyStorage = 'token';
+
+/**
  * 提示信息
  */
 const tips = {
-
+  child_server_no_config:    '%s 子服务器未在配置内!',
+  frequent_req_interception: '频繁请求拦截!',
+  no_group_permission:       '当前用户不在[%s]权限组内!',
+  appoint_init_permission:   '[%s] 权限组未进行初始化!',
+  gloabl_init_permission:    '请在全局初始化权限组',
 };
 
 export {
@@ -34,5 +66,7 @@ export {
   isDev,
   isServer,
   tips,
+  observer,
+  tokenKeyStorage,
   isMockData,
 };

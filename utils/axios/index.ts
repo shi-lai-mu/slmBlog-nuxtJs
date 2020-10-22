@@ -71,36 +71,18 @@ import {
   isDev,
   isServer,
   isMockData,
+  tokenKeyStorage,
+  observer,
 } from './lib/config';
+import { message } from './lib/log';
 // token存储
 let token = false;
 // 服务器配置
 const serverConfig = config.apiServer;
 // 频繁请求处理
 const requestClock: any = {};
-// 观察者
-const observer: any = {
-  /**
-   * 响应
-   */
-  response: {
-    /**
-     * 更新token时
-     */
-    updateToken: [],
-    /**
-     * 响应错误时
-     */
-    error: [],
-    /**
-     * 默认
-     */
-    default: [],
-  },
-};
 // 当前域
 const locaHostName = !isServer ? window.location.hostname : '127.0.0.1';
-
 
 // 创建axios实例
 let $axios: AxiosInstance = axios.create({
@@ -120,8 +102,6 @@ let $axios: AxiosInstance = axios.create({
 $axios.interceptors.response.use(
   (res: AxiosResponse) => {
     let { data } = res;
-    console.log(res);
-    
     // token 自动化更新
     const headersToken = res.headers.token;
     if (headersToken) {
@@ -140,7 +120,7 @@ $axios.interceptors.response.use(
 
     return data || res;
   },
-  (err: any) => {
+  err => {
     observer.response.error.forEach((cb: any) => cb(err.response));
     return err;
   },
@@ -154,8 +134,8 @@ $axios.interceptors.request.use(
   (value: AxiosRequestConfig) => {
     const data = value.data;
 
-    if (!token) {
-      token = JSON.parse(localStorage.getItem('telecomUserInfo') || '{}').token;
+    if (!token && !isServer) {
+      token = JSON.parse(localStorage.getItem(tokenKeyStorage) || '{}').token;
       if (token) {
         value.headers.token = encodeURIComponent(token);
       }
@@ -191,26 +171,33 @@ $axios.interceptors.request.use(
 
     // 统一处理路由
     if (value.url) {
-      const targetServer = (value.url.match(/(\w+)(?=\:)/) || [])[0];
+      const targetServer = (value.url.match(/(\w+)(?=\:(?!\/\/))/) || [])[0];
       if (targetServer && serverConfig.children) {
         const targetChild = serverConfig.children[targetServer];
         if (targetChild) {
           value.url = value.url.replace(/(\w+)\:/, '');
           value.baseURL = !isDev ? targetChild.host : targetChild.devHost;
-        } else throw Error(`${targetServer} 子服务器未在配置内!`);
+        } else throw Error(message('child_server_no_config', [ targetServer ]));
       }
       value.url = value.url.replace(/^(post|get|put|delete)\./i, '');
     }
 
     // 频繁请求拦截
-    const requestKey = (value.method || 'get') + value.url;
+    const requestKey = (value.method || 'get') + value.url + `@${isServer ? 'server' : 'client'}`;
     if (requestKey) {
       const targetClock = requestClock[requestKey];
+      console.log(requestKey, targetClock);
       if (targetClock && targetClock > Date.now()) {
-        return Promise.reject({ error: '频繁请求拦截！' });
+        return Promise.reject({ error: message('frequent_req_interception') });
       }
-      requestClock[requestKey] = Date.now() + 400;
+      requestClock[requestKey] = Date.now() + 100;
     }
+
+    if (value.baseURL) {
+      value.url = value.baseURL + value.url;
+      value.baseURL = ''
+    }
+
     return value;
   },
 );
@@ -236,10 +223,9 @@ $axios.send = (URL: string, axiosRequest: AxiosRequestConfig = {}) => {
     URL = URL.replace(/\[\w+\]/g, '');
     if (Object.keys($axios.auth).length) {
       if ($axios.auth[authGroupName]) {
-        const isAuth = $axios.auth[authGroupName]();
-        if (!isAuth) return Promise.reject({ error: `当前用户不在【${authGroupName}】权限组内!` });;
-      } else throw Error(`【${authGroupName}】 权限组未进行初始化!`);
-    } else throw Error(`请在全局初始化权限组!`);
+        if (!$axios.auth[authGroupName]()) return Promise.reject({ error: message('no_group_permission', [ authGroupName ]) });;
+      } else throw Error(message('appoint_init_permission', [ authGroupName ]));
+    } else throw Error(message('gloabl_init_permission'));
   }
 
   // TODO: error 返回
