@@ -5,13 +5,14 @@
   "author": "ShiLaiMu <qq: 47889187/wechat: slm15558931101>",
   "private": false,
   "scripts": {
-    "dev": "node plugins/themes && nuxt-ts",
-    "build": "node plugins/themes && nuxt-ts build",
+    "dev": "node plugins/themes.js && nuxt-ts",
+    "build": "node plugins/themes.js && nuxt-ts build",
     "mock": "npm run dev --mock",
     "heroku-postbuild": "nuxt-ts build",
     "test": "jest",
     "lint": "tslint . --ext .vue,.ts,.js",
     "start": "nuxt-ts start",
+    "themes": "node plugins/themes.js",
     "generate": "nuxt-ts generate"
   },
   "dependencies": {
