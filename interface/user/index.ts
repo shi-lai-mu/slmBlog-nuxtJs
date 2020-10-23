@@ -74,5 +74,18 @@ export namespace User {
        */
       github: string;
     }
+    /**
+     * 徽章
+     */
+    badge: Array<{
+      /**
+       * 图标
+       */
+      i: string;
+      /**
+       * 徽章名
+       */
+      name: string;
+    }>
   }
 }

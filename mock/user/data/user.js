@@ -73,5 +73,12 @@ export const userData = {
      * GitHub链接
      */
     github: Random.url(),
-  }
+  },
+  /**
+   * 徽章
+   */
+  badge: [{
+    i: 'main',
+    name: '博主'
+  }]
 }
