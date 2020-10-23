@@ -69,7 +69,7 @@ export default class DefaultLayout extends Vue {
       user: () => !!this.$store.state.user.id,
     };
     // 非开发模式注入
-    if (!this.$nuxt.context.isDev && !/192.168.\d+.\d+/.test(window.location.host)) {
+    if (!this.$nuxt.context.isDev && !/(192|127)\.\d+\.\d+\.\d+/.test(window.location.host)) {
       isOpenDevTool(false, (e) => {
         if (e === 'on') {
           this.loggerBlog();

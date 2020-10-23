@@ -5,7 +5,10 @@
       <img class="user-avatar" :src="userData.avatarUrl" :alt="userData.nickname" :title="userData.nickname">
     </div>
     <div class="row-content">
-      <div class="user-nickname">{{ userData.nickname }}</div>
+      <div class="user-nickname">
+        {{ userData.nickname }}
+        <i :class="['slm', 'blog-' + item.i]" :title="item.name" v-for="(item, key) in userData.badge" :key="key"></i>
+      </div>
       <div class="user-introduction">{{ userData.introduction }}</div>
       <div class="user-state-row">
         <span class="stete-item" v-for="(item, index) in showState" :key="index">
@@ -17,6 +20,7 @@
         <a
           target="_blank"
           v-for="(item, index) in showIcon"
+          v-show="item.link()"
           :key="index"
           :class="[ 'slm', item.icon ]"
           :href="item.link()"
@@ -91,7 +95,6 @@ export default class UserCard extends Vue {
   @Watch('userId')
   userIdUpate(userId: number) {
     const { $http } = this;
-        console.log('send');
     $http
       .send($http.user.data, {
         params: {
@@ -99,11 +102,8 @@ export default class UserCard extends Vue {
         },
       })
       .then(data => {
-        console.log(data);
-        
         if (data.result) {
           this.userData = data.result;
-          this.$message.error(data.message);
         }
       })
     ;

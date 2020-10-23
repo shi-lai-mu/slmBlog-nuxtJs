@@ -9,9 +9,9 @@
       >
         <Carousel effect="fade" class="home-carousel" arrows>
           <img :src="`${$config.ossLink}/carousel/carousel_1.png`" alt="">
-          <div><h3>23</h3></div>
-          <div><h3>354</h3></div>
-          <div><h3>45</h3></div>
+          <img :src="`${$config.ossLink}/carousel/carousel_1.png`" alt="">
+          <img :src="`${$config.ossLink}/carousel/carousel_1.png`" alt="">
+          <img :src="`${$config.ossLink}/carousel/carousel_1.png`" alt="">
           <i class="slm blog-arrow-left" slot="prevArrow" style="left: 10px;zIndex: 1"></i>
           <i class="slm blog-arrow-right" slot="nextArrow" style="right: 10px;zIndex: 1"></i>
         </Carousel>
@@ -75,15 +75,19 @@ export default class HomePage extends Vue {
     margin: 20px auto;
 
     .home-carousel {
-      overflow: hidden;
-      max-width: 800px;
-      border-radius: 10px;
+      max-width: 900px;
       margin: auto;
+      padding-right: 20px;
 
       .slm {
         @include themify($themes) {
           color: themed('font-color');
         }
+      }
+
+      /deep/ .slick-slide {
+        border-radius: 10px;
+        overflow: hidden;
       }
     }
   }
@@ -94,7 +98,11 @@ export default class HomePage extends Vue {
   padding-top: 30px;
 
   .home-carousel {
-    border-radius: 0;
+    padding-right: 0;
+
+    /deep/ .slick-slide {
+      border-radius: 0;
+    }
   }
 
   .sideber {

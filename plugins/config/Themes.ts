@@ -3,6 +3,7 @@ import {
   color,
   backgroundColor,
 } from '@/config/themes';
+import { isServer } from '@/config/system';
 
 
 /**
@@ -26,11 +27,6 @@ export default new class Themes {
   };
 
   /**
-   * 本地是否存在配置且和默认配置不同
-   */
-  private isLocalUpdate: boolean = false;
-
-  /**
    * 配置文件
    */
   get config() {
@@ -48,7 +44,7 @@ export default new class Themes {
    */
   init() {
     // 防止服务端执行
-    if (typeof localStorage === 'undefined') return false;
+    if (isServer) return false;
     
     // TODO: 后期需加入合并新的配置信息兼容老配置
     const { _config } = this;
