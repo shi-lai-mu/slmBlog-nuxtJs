@@ -60,7 +60,7 @@ const config = {
   */
   plugins: [
     '@/plugins/config.ts',
-    '@/plugins/antd-ui',
+    '@/plugins/antd-ui.ts',
     { src: '@/plugins/overallComponents.ts', ssr: false },
   ],
 
@@ -89,7 +89,7 @@ const config = {
     ** You can extend webpack config here
     */
     extend(config) {
-      config.resolve.alias['@ant-design/icons/lib/dist$'] = path.resolve(__dirname, './plugins/antd-icons.js'); // 引入需要的
+      config.resolve.alias['@ant-design/icons/lib/dist$'] = path.resolve(__dirname, './plugins/antd-icons.ts'); // 引入需要的
       config.plugins.push(
         // 提取 monent 有效部分，减小体积 en-gb 英国 en-us 美国(默认值) vi 越南 zh-cn 中国
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /^\.\/(zh-cn)$/i),
