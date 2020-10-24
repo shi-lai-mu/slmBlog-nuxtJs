@@ -186,7 +186,6 @@ $axios.interceptors.request.use(
     const requestKey = (value.method || 'get') + value.url + `@${isServer ? 'server' : 'client'}`;
     if (requestKey) {
       const targetClock = requestClock[requestKey];
-      console.log(requestKey, targetClock);
       if (targetClock && targetClock > Date.now()) {
         return Promise.reject({ error: message('frequent_req_interception') });
       }
@@ -227,8 +226,6 @@ $axios.send = (URL: string, axiosRequest: AxiosRequestConfig = {}) => {
       } else throw Error(message('appoint_init_permission', [ authGroupName ]));
     } else throw Error(message('gloabl_init_permission'));
   }
-
-  // TODO: error 返回
 
   const methods: any = {
     get:        (res: AxiosRequestConfig = {}) => $axios.get(URL,    { api, ...res }),

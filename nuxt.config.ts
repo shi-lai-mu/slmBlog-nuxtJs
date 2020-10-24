@@ -2,7 +2,7 @@ import * as path from 'path';
 import webpack from 'webpack';
 import { isDev, isMock } from './config/system';
 
-const config = {
+const globalConfig = {
 
   /*
    ** Headers of the page
@@ -88,7 +88,7 @@ const config = {
     /*
     ** You can extend webpack config here
     */
-    extend(config) {
+    extend(config: { resolve: { alias: { [x: string]: string; mockjs: string; }; }; plugins: webpack.ContextReplacementPlugin[]; }) {
       config.resolve.alias['@ant-design/icons/lib/dist$'] = path.resolve(__dirname, './plugins/antd-icons.ts'); // 引入需要的
       config.plugins.push(
         // 提取 monent 有效部分，减小体积 en-gb 英国 en-us 美国(默认值) vi 越南 zh-cn 中国
@@ -166,17 +166,17 @@ const config = {
 /**
  * 开发模式
  */
-if (isDev) {
-}
+// if (isDev) {
+// }
 
 /**
  * Mock模式
  */
 if (isMock) {
-  config.plugins.push(...[
+  globalConfig.plugins.push(...[
     '@/plugins/mock',
   ]);
 }
 
 
-export default config;
+export default globalConfig;
