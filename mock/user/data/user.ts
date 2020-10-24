@@ -77,8 +77,5 @@ export const userData = {
   /**
    * 徽章
    */
-  badge: [{
-    i: 'main',
-    name: '博主'
-  }]
+  badge: [],
 }

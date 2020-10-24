@@ -9,11 +9,9 @@
 // import MockJs from 'mockjs';
 // import axios from '~/utils/axios';
 
-import './test/index';
-import './user/index';
-
-console.log('mock loading...');
-
+import './test'; // 测试总接口
+import './user'; // 用户总接口
+import './article'; // 文章总接口
 
 // Mock.mock( url, post/get , 返回的数据)；
 // Mock.mock('/news/index', 'post', produceNewsData);

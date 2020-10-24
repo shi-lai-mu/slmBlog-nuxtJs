@@ -1,7 +1,7 @@
 /**
  * 用户信息mock
  */
-import MockJs, { mock } from 'mockjs';
+import { mock } from 'mockjs';
 
 // Data Template
 import { baseRes } from '../response'
