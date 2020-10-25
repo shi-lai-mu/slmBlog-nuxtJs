@@ -2,17 +2,17 @@
   "name": "slmblog",
   "version": "1.8.0",
   "description": "Nuxt Typescript SlmBlog",
-  "author": "ShiLaiMu <qq: 47889187/wechat: slm15558931101>",
+  "author": "ShiLaiMu <qq: 47889187/wechat: shi_lai_mu>",
   "private": false,
   "scripts": {
-    "dev": "node plugins/themes.js && nuxt-ts",
+    "dev": "node plugins/themes.js && nuxt-ts --port=8888",
     "build": "node plugins/themes.js && nuxt-ts build",
-    "mock": "npm run dev --mock",
+    "mock": "npm run build:yapi && npm run dev --mock --port=8888",
     "build:yapi": "tsc mock/YAPI/index.ts && node mock/YAPI/index.js",
-    "heroku-postbuild": "nuxt-ts build",
     "test": "jest",
     "lint": "tslint . --ext .vue,.ts,.js",
-    "start": "nuxt-ts start",
+    "start": "nuxt-ts start --port=8888",
+    "staging": "nuxt-ts start --port=4000 --name='预发'",
     "themes": "node plugins/themes.js",
     "generate": "nuxt-ts generate"
   },
@@ -53,13 +53,12 @@
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.17.0",
     "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^4.0.2",
+    "typescript": "^4.0.3",
     "vue-jest": "^3.0.6"
   },
   "config": {
     "nuxt": {
-      "host": "0.0.0.0",
-      "port": "8888"
+      "host": "0.0.0.0"
     }
   }
 }
