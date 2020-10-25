@@ -16,8 +16,8 @@ const responseCode = null;
 export const baseRes = data => {
   return {
     success: responseSuccess,
-    result: responseSuccess ? data : null,
     code: responseCode,
     message: responseError,
+    result: responseSuccess ? data : null,
   };
 }

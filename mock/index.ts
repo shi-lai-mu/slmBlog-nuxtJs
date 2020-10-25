@@ -6,9 +6,6 @@
  * 根据"@/config/api"自动化引入data文件内的json数据
  */
 
-// import MockJs from 'mockjs';
-// import axios from '~/utils/axios';
-
 import './test'; // 测试总接口
 import './user'; // 用户总接口
 import './article'; // 文章总接口

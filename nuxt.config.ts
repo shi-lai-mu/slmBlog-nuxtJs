@@ -1,6 +1,6 @@
 import * as path from 'path';
 import webpack from 'webpack';
-import { isDev, isMock } from './config/system';
+import { isDev, isMock, isServer } from './config/system';
 
 const globalConfig = {
 
@@ -97,7 +97,7 @@ const globalConfig = {
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
       );
 
-      if (!isDev) {
+      if (!isMock) {
         /**
          * mockjs
          * 开发环境: 模拟请求数据、初始数据、TS接口校验数据

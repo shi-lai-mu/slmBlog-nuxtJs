@@ -54,8 +54,8 @@ export default new class YApiTranslateMock {
   contentHandle(content: string) {
     content = content
       .replace(/\/\*\*\r\s+\*\s([a-zA-Z0-9\s,.()\[\]'"@:\u4e00-\u9fa5]+)\r\s+\*\/\r\s+(\w+)\:\s\{/g, '"$2": { // $1')
-      .replace(/[\s+|\s?]\/\*\*\r\s+\*\s([a-zA-Z0-9\s,.()\[\]:\u4e00-\u9fa5]+)\r\s+\*\/\r\s+([a-zA-Z0-9\s,.()\[\]'"@:\u4e00-\u9fa5]+)\:\s([a-zA-Z0-9\s,.()\[\]'"@:\u4e00-\u9fa5]+),/g, '"$2": "$3", // $1')
-      .replace(/Random\.(\w+)\(([a-zA-Z0-9\s,.()\[\]:\u4e00-\u9fa5]+|)\)/g, '@$1')
+      .replace(/[\s+|\s?]\/\*\*\r\s+\*\s([a-zA-Z0-9\s,.()\[\]'"@:\u4e00-\u9fa5]+)\r\s+\*\/\r\s+([a-zA-Z0-9\s,.()\[\]'"@:\u4e00-\u9fa5]+)\:\s([a-zA-Z0-9\s,.()\[\]'"@:\u4e00-\u9fa5]+),/g, '"$2": "$3", // $1')
+      .replace(/Random\.(\w+)\(([a-zA-Z0-9\s,.()\[\]'"@:\u4e00-\u9fa5]+|)\)/g, '@$1')
     console.log(content);
     return content;
   }
