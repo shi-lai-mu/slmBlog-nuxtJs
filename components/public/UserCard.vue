@@ -34,7 +34,8 @@
 <script lang="ts">
 import { Component, Vue, Prop, Watch }   from 'nuxt-property-decorator';
 import { User } from '@/interface/user/index';
-import { userData } from '@/mock/user/data/user';
+import { userData } from '@/mock/user/data/user.ts';
+import { getUserBaseData } from '@/service/data/user.ts';
 
 @Component
 export default class UserCard extends Vue {
@@ -94,13 +95,7 @@ export default class UserCard extends Vue {
    */
   @Watch('userId')
   userIdUpate(userId: number) {
-    const { $http } = this;
-    $http
-      .send($http.user.data, {
-        params: {
-          id: userId,
-        },
-      })
+    getUserBaseData(userId)
       .then(data => {
         if (data.result) {
           this.userData = data.result;
