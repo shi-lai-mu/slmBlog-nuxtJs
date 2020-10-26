@@ -75,6 +75,7 @@ import {
   observer,
 } from './lib/config';
 import { message } from './lib/log';
+import AxiosMock from './lib/mock';
 // token存储
 let token = false;
 // 服务器配置
@@ -95,6 +96,7 @@ let $axios: AxiosInstance = axios.create({
   // withCredentials: true
 });
 
+const mock = new AxiosMock($axios);
 
 /**
  * 响应拦截
@@ -113,7 +115,7 @@ $axios.interceptors.response.use(
     data = Object.defineProperty(data, '_res', {
       enumerable: false,
       get: () => res,
-    })
+    });
 
     // mock 数据判断
     res.isMockData = isMockData(res);
@@ -171,7 +173,7 @@ $axios.interceptors.request.use(
 
     // 统一处理路由
     if (value.url) {
-      const targetServer = (value.url.match(/(\w+)(?=\:(?!\/\/))/) || [])[0];
+      const targetServer = (value.url.match(/(\w+)(?=\:(?!\/\/))/) || [])[0] || serverConfig.defaultHost;
       if (targetServer && serverConfig.children) {
         const targetChild = serverConfig.children[targetServer];
         if (targetChild) {
@@ -234,15 +236,25 @@ $axios.send = (URL: string, axiosRequest: AxiosRequestConfig = {}) => {
     delete:     (res: AxiosRequestConfig)      => $axios.delete(URL, { api, ...res }),
   };
 
+  const regExp = /((\w+)(?=\:))?(post|get|put|delete)(?=\.)/ig;
+  const method: any = (URL.match(regExp) || [])[0] || 'get';
+  const mockData = $axios.mock.has(`${method}.${URL.replace(/:\w+/g, ':params')}`);
+  if (isServer && mockData) {
+    return Promise.resolve(mockData.template);
+  }
+
   return {
     ...methods,
     then: async (res) => {
-      const regExp = /((\w+)(?=\:))?(post|get|put|delete)(?=\.)/ig;
-      const method: any = (URL.match(regExp) || [])[0];
-      return await methods[ method || 'get' ](axiosRequest).then(res);
+      return await methods[ method ](axiosRequest).then(res);
     },
   };
 };
+
+/**
+ * axios mock
+ */
+$axios.mock = mock;
 
 $axios.config = {
   api: API,
@@ -268,7 +280,8 @@ const observerKey: ('response' | 'response.error' | 'response.updateToken') = 'r
 $axios.observer = {
   emit: (
     key: typeof observerKey,
-    cb: (param: AxiosResponse) => void,) => {
+    cb: (param: AxiosResponse) => void
+  ) => {
     const split = key.split('.');
     const parent = split[0];
     const child = split[1] || 'default';
@@ -277,7 +290,8 @@ $axios.observer = {
   },
   off: (
     key: typeof observerKey,
-    cb: (param: AxiosResponse) => void,) => {
+    cb: (param: AxiosResponse) => void
+  ) => {
     const split = key.split('.');
     const parent = split[0];
     const child = split[1] || 'default';
@@ -319,11 +333,11 @@ declare module 'axios/index' {
        */
       axiosRequest?: AxiosRequestConfig
     ) => {
-      get:    (res: AxiosRequestConfig)  => Promise<any>;
-      post:   (res: AxiosRequestConfig)  => Promise<any>;
-      delete: (res: AxiosRequestConfig)  => Promise<any>;
-      put:    (res: AxiosRequestConfig)  => Promise<any>;
-      then:   (res: any)                 => Promise<any>;
+      get:    (res?: AxiosRequestConfig)  => Promise<any>;
+      post:   (res?: AxiosRequestConfig)  => Promise<any>;
+      delete: (res?: AxiosRequestConfig)  => Promise<any>;
+      put:    (res?: AxiosRequestConfig)  => Promise<any>;
+      then:   (res?: any)                 => Promise<any>;
     };
 
     /**
@@ -378,6 +392,11 @@ declare module 'axios/index' {
         cb: (param: AxiosResponse) => void
       ): AxiosInstance,
     };
+
+    /**
+     * mock接口
+     */
+    mock: AxiosMock;
   }
 
   interface AxiosResponse {
