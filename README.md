@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="100"src="https://img.slmblog.com/slmblog_logo.png" alt="SLM-BLOG LOGO"/>
+  <img width="200"src="https://img.slmblog.com/slmblog_logo.png" alt="SLM-BLOG LOGO"/>
 
   <p align="center">
     <a href="https://github.com/vuejs/vue">
@@ -20,7 +20,7 @@ SLMBLOG 是使用 NuxtJs + MidwayJs + MySql 等技术开发的个人博客系统
 
 ---
 ## 开发流程
-线上分为预发环境staging和真线环境，主开发流程：[开发环境](#开发环境) > [mock本地化测试](#mock本地化测试) > [YApi测试](#YApi测试) > [冒烟测试](#冒烟测试) > [预发环境](#预发环境) > 真线环境
+线上分为预发环境staging和真线环境，主开发流程：[开发环境](#开发环境) > [mock本地化测试](#mock本地化测试) > [YApi测试](#YApi测试) > [冒烟测试](#冒烟测试) > [预发环境](#预发环境) > [真线环境](#预发环境)
 - 后面还会加入jest测试单元，尽量的去完善完整的流程。
 
 ### 开发环境
@@ -47,6 +47,7 @@ mockjs去模拟 请求响应的(异常值、空值、延迟、错误、文字溢
 
 
 Flutter 移动端: (待开发...)
+
 Midway 后端工程: (待开发...)
 
 
