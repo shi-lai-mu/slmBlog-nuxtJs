@@ -86,6 +86,10 @@ export interface DefaultConfig {
      */
     timeout?: number;
     /**
+     * 默认请求Host
+     */
+    defaultHost?: string;
+    /**
      * 子服务器
      */
     children?: {
