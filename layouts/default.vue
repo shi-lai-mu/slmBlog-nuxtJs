@@ -65,6 +65,7 @@ export default class DefaultLayout extends Vue {
     const { $http } = this;
     
     // 初始化权限组
+    $http.$vue = this;
     $http.auth = {
       user: () => !!this.$store.state.user.id,
     };

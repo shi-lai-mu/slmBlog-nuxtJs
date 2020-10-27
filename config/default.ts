@@ -77,6 +77,8 @@ const defaultConfig: DefaultConfig = {
   apiServer: {
     host: 'https://api.slmblog.com',
     devHost: '',
+    defaultHost: '',
+    // defaultHost: 'yapi',
     children: {
       oss: {
         host: 'https://oss.slmblog.com/blog',
@@ -86,6 +88,10 @@ const defaultConfig: DefaultConfig = {
         host: 'https://img.slmblog.com',
         devHost: ''
       },
+      yapi: {
+        host: 'https://yapi.slmblog.com/mock/11',
+        devHost: 'https://yapi.slmblog.com/mock/11',
+      }
     },
   },
 };

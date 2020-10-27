@@ -22,7 +22,7 @@
         :xxl="{ span: 8 }"
       >
         <Notice />
-        <UserCard :userId="1" />
+        <UserCard :data="userData" />
       </a-col>
     </a-row>
     <i class="slm blog-arrow-left"></i>
@@ -32,6 +32,9 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import { Carousel } from 'ant-design-vue';
+
+import { getUserBaseData } from '@/service/data/user';
+import { getLatestArticle } from '@/service/data/article';
 
 import Notice from '@/components/public/Notice.vue';
 import UserCard from '@/components/public/UserCard.vue';
@@ -44,6 +47,11 @@ import UserCard from '@/components/public/UserCard.vue';
   },
 })
 export default class HomePage extends Vue {
+  async asyncData({ $http, $axios}) {
+    return {
+      userData: (await getUserBaseData(1)).result || {}, // 获取用户信息
+    };
+  }
 }
 </script>
 

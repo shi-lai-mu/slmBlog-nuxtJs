@@ -56,7 +56,7 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import { Navigator } from '../../../interface/router';
 import navigator from '../../../config/navigation';
-import FocusingDisplac from '@/components/FocusingDisplac.vue';
+import FocusingDisplac from '@/components/FocusingDisplacs.vue';
 import HeaderSearch from './Header/Search.vue';
 import HeaderAccount from './Header/Account.vue';
 import HeaderThemes from './Header/Themes.vue';
@@ -149,6 +149,7 @@ $headerHeight: 60px;
     @include themify($themes) {
       color: themed('font-lv0-color');
     }
+    cursor: pointer;
   }
 
   .response-content {
