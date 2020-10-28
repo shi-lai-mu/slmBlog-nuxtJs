@@ -7,4 +7,4 @@ import { User } from '@/interface/user';
  */
 export const getUserBaseData = (userId: User.Base['id']) => axios.send(axios.user.data, {
   params: { userId },
-}).then();
+}).then(res => res);

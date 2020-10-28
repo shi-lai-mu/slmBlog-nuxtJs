@@ -136,6 +136,11 @@ $axios.interceptors.request.use(
   (value: AxiosRequestConfig) => {
     const data = value.data;
 
+    const mockData = $axios.mock.has(`${value.method}.${value.api?.replace(/:\w+/g, ':params')}`);
+    if (mockData) {
+      return Promise.reject(mockData.template);
+    }
+
     if (!token && !isServer) {
       token = JSON.parse(localStorage.getItem(tokenKeyStorage) || '{}').token;
       if (token) {
@@ -229,19 +234,15 @@ $axios.send = (URL: string, axiosRequest: AxiosRequestConfig = {}) => {
     } else throw Error(message('gloabl_init_permission'));
   }
 
+  const regExp = /((\w+)(?=\:))?(post|get|put|delete)(?=\.)/ig;
+  const method: any = (URL.match(regExp) || [])[0] || 'get';
+
   const methods: any = {
     get:        (res: AxiosRequestConfig = {}) => $axios.get(URL,    { api, ...res }),
     put:        (res: AxiosRequestConfig = {}) => $axios.put(URL,    { api, ...res }),
     post:       (res: AxiosRequestConfig)      => $axios.post(URL,   { api, ...res }),
     delete:     (res: AxiosRequestConfig)      => $axios.delete(URL, { api, ...res }),
   };
-
-  const regExp = /((\w+)(?=\:))?(post|get|put|delete)(?=\.)/ig;
-  const method: any = (URL.match(regExp) || [])[0] || 'get';
-  const mockData = $axios.mock.has(`${method}.${URL.replace(/:\w+/g, ':params')}`);
-  if (isServer && mockData) {
-    return Promise.resolve(mockData.template);
-  }
 
   return {
     ...methods,
@@ -338,6 +339,7 @@ declare module 'axios/index' {
       delete: (res?: AxiosRequestConfig)  => Promise<any>;
       put:    (res?: AxiosRequestConfig)  => Promise<any>;
       then:   (res?: any)                 => Promise<any>;
+      async:  (res?: any)                 => Promise<any>;
     };
 
     /**
