@@ -69,6 +69,48 @@ li {
   }
 }
 
+.skeleton li,
+.skeleton span {
+  background: linear-gradient(90deg,rgba(242, 242, 242, .5) 25%,rgba(230, 230, 230, .6) 37%,rgba(242, 242, 242, .5) 63%);
+  background-size: 400% 100%;
+  border-radius: 5px;
+  animation: skeleton-loading 1.4s ease infinite;
+  opacity: .2;
+}
+.skeleton-content {
+  display: block;
+  height: 1em;
+}
+.skeleton-title {
+  @extend .skeleton-content;
+  width: 50%;
+}
+.skeleton-desc {
+  @extend .skeleton-content;
+  width: 70%;
+}
+.skeleton-tag {
+  @extend .skeleton-content;
+  margin-top: .1em !important;
+  width: 30%;
+}
+.skeleton-icon {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+}
+.skeleton-center {
+  margin: 0 auto;
+}
+@keyframes skeleton-loading{
+  0% {
+    background-position: 100% 50%
+  }
+  to {
+    background-position: 0 50%
+  }
+}
+
 ::selection {
   color: #fff;
   background: #2c2c2c;
@@ -105,6 +147,12 @@ li {
   @include themify($themes) {
     background-color: rgba($color: themed('a-hover-color'), $alpha: .7);
   }
+}
+
+// 20.10.28后vue-gemini-scrollbar在
+.layout > .gm-scrollbar-container > .-horizontal {
+  width: 0 !important;
+  .thumb { width: 0 !important; }
 }
 
 // 移动端布局兼容

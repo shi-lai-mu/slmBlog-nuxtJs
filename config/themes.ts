@@ -41,6 +41,11 @@ export const color = {
    * 可选列表
    */
   list: {
+    dark: {
+      color: '#212C3D',
+      icon: 'dark',
+      iconColor: '#B6C3DB',
+    },
     blue: {
       color: '#1DA1F2',
       icon: 'fenzu',
