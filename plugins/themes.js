@@ -61,7 +61,9 @@ generateTheme(options)
         .replace(/(:|,|})\s/g, '$1')
         .replace(/\s({)/g, '$1')
       ;
-    }).join(' ')
+    }).join(' ');
+
+    outFile = outFile.replace('body{color:@text-color;background-color:#fff;}', '');
 
     // 输出
     fs.writeFileSync(outMinFilePath, outFile);
