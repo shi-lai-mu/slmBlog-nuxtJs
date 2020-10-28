@@ -77,8 +77,8 @@ const defaultConfig: DefaultConfig = {
   apiServer: {
     host: 'https://api.slmblog.com',
     devHost: '',
-    defaultHost: '',
-    // defaultHost: 'yapi',
+    // defaultHost: '',
+    defaultHost: isDev ? 'yapi' : '',
     children: {
       oss: {
         host: 'https://oss.slmblog.com/blog',
