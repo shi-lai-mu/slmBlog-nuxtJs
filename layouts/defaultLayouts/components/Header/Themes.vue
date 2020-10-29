@@ -34,7 +34,7 @@
                   <div class="color-round" :style="`background-color: ${item.color}`">
                     <i class="slm blog-xuanzhong" v-show="ThemesConfig.color.current === index"></i>
                   </div>
-                  <i :class="`slm blog-${item.icon}`" :style="`color: ${item.color}`"></i>
+                  <i :class="`slm blog-${item.icon}`" :style="`color: ${item.iconColor || item.color}`"></i>
                 </a-radio-button>
               </a-radio-group>
             </div>
@@ -255,12 +255,15 @@ export default class HeaderThemes extends Vue {
   .themes-color-group,
   .themes-bgcolor-group {
     display: flex;
+    margin-bottom: -20px;
+    flex-wrap: wrap;
     justify-content: space-between;
 
     .themes-color-item,
     .themes-bgcolor-item {
       height: auto;
-      width: 100%;
+      margin-bottom: 20px;
+      // width: 100%;
       text-align: center;
       background-color: transparent;
       border: 0;
@@ -301,6 +304,7 @@ export default class HeaderThemes extends Vue {
     }
 
     .themes-bgcolor-item {
+      width: 100%;
       .color-round {
         width: 100%;
         height: 70px;
@@ -308,7 +312,8 @@ export default class HeaderThemes extends Vue {
         border-radius: 10px;
 
         &:hover {
-          border-color: #FFAD1F;
+          color: #FFAD1F !important;
+          border-color: currentColor;
         }
       }
       
@@ -332,6 +337,15 @@ export default class HeaderThemes extends Vue {
         display: block;
       }
     }
+
+    .ant-radio-button-wrapper-checked .color-round {
+      color: #FFAD1F !important;
+      border-color: currentColor;
+    }
+  }
+
+  .themes-bgcolor-group {
+    flex-wrap: initial;
   }
 }
 
