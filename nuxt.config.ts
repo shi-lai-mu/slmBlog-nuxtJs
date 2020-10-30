@@ -1,6 +1,9 @@
 import * as path from 'path';
 import webpack from 'webpack';
 import { isDev, isMock, isServer } from './config/system';
+import CompressionPlugin from 'compression-webpack-plugin';
+
+let isClient = true;
 
 const globalConfig = {
 
@@ -88,14 +91,38 @@ const globalConfig = {
     /*
     ** You can extend webpack config here
     */
-    extend(config: { resolve: { alias: { [x: string]: string; mockjs: string; }; }; plugins: webpack.ContextReplacementPlugin[]; }) {
+    extend(config) {
       config.resolve.alias['@ant-design/icons/lib/dist$'] = path.resolve(__dirname, './plugins/antd-icons.ts'); // 引入需要的
+      config.resolve.alias.moment = path.resolve(__dirname, './plugins/antd-icons.ts');; // 引入需要的
       config.plugins.push(
         // 提取 monent 有效部分，减小体积 en-gb 英国 en-us 美国(默认值) vi 越南 zh-cn 中国
-        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /^\.\/(zh-cn)$/i),
+        // new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /^\.\/(zh-cn)$/i),
         // 使用 IgnorePlugin 在打包时忽略本地化内容
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+        // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        // new AntdDayjsWebpackPlugin({
+        //   preset: 'antdv3'
+        // }),
+        // new CompressionPlugin({
+        //   test: /\.js|\.html|\.css/,
+        //   // threshold: 10240,
+        //   deleteOriginalAssets: false,
+        // }),
       );
+
+      if (isClient) {
+        config.externals = {
+          'vue': 'Vue',
+          'vue-router': 'VueRouter',
+          'vue-meta': 'VueMeta',
+          'vuex': 'Vuex',
+          'tinycolor2': 'tinycolor',
+          'axios': 'axios',
+          'qs': 'Qs',
+          'vue-gemini-scrollbar': '{}',
+          'dayjs': 'dayjs',
+        }
+        isClient = !isClient;
+      }
 
       if (!isMock) {
         /**
@@ -133,11 +160,23 @@ const globalConfig = {
       }
     },
     // 打包分析
-    analyze: !isDev, 	
-    assetFilter: (assetFilename) => {	    		
-      return assetFilename.endsWith('.js');	    	
-    },
-    vendor: ['axios'],
+    // analyze: !isDev, 	
+    // assetFilter: (assetFilename) => {	    		
+    //   return assetFilename.endsWith('.js');	    	
+    // },
+    extractCSS: true,
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.(css|vue|scss|less)$/,
+            chunks: 'all',
+            enforce: true
+          }
+        }
+      }
+    }
   },
   
 
