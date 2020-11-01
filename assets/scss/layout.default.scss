@@ -1,3 +1,7 @@
+:root {
+  // font-size: calc(.5vw + .5vh + .5vmin);
+}
+
 body {
   overflow: hidden;
   margin: 0;
@@ -67,6 +71,20 @@ li {
   &:active {
     background-color: rgba($color: #000, $alpha: .4);
   }
+}
+
+.line-ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.double-line-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal;
 }
 
 .skeleton li,
