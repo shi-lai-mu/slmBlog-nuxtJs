@@ -7,7 +7,7 @@ export const userData = {
   /**
    * 用户ID
    */
-  id: Random.integer(),
+  id: Random.integer(1, 10000),
   /**
    * 昵称
    */
@@ -47,15 +47,15 @@ export const userData = {
     /**
      * 文章总数
      */
-    articleNumber: Random.natural(0, 10000),
+    articleNumber: Random.integer(0, 10000),
     /**
      * 标签总数
      */
-    tagsNumber: Random.natural(0, 10000),
+    tagsNumber: Random.integer(0, 10000),
     /**
      * 评论总数
      */
-    commitNumber: Random.natural(0, 10000),
+    commitNumber: Random.integer(0, 10000),
   },
   /**
    * 个人链接
