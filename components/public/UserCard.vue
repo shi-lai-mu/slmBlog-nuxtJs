@@ -1,31 +1,31 @@
 <template>
   <!-- 用户信息展示卡片 -->
   <div class="row-box user-card">
-    <template v-if="userData.id">
+    <template v-if="_userData && _userData.id">
       <div class="user-cover" :style="`background-image: url(${$config.ossLink}/user/card-bg-cover.jpg);`">
-        <img class="user-avatar" :src="userData.avatarUrl" :alt="userData.nickname" :title="userData.nickname">
+        <img class="user-avatar" :src="_userData.avatarUrl" :alt="_userData.nickname" :title="_userData.nickname">
       </div>
       <div class="row-content">
         <div class="user-nickname">
-          {{ userData.nickname }}
-          <i :class="['slm', 'blog-' + item.i]" :title="item.name" v-for="(item, key) in userData.badge" :key="key"></i>
+          {{ _userData.nickname }}
+          <i :class="['slm', 'blog-' + item.i]" :title="item.name" v-for="(item, key) in _userData.badge" :key="key"></i>
         </div>
-        <div class="user-introduction">{{ userData.introduction }}</div>
+        <div class="user-introduction">{{ _userData.introduction }}</div>
         <div class="user-state-row">
           <span class="stete-item" v-for="(item, index) in showState" :key="index">
             <div class="state-item-tag">{{ item }}</div>
-            <div>{{ userData.state[index] }}</div>
+            <div>{{ _userData.state[index] }}</div>
           </span>
         </div>
         <div class="user-icon">
           <a
             target="_blank"
             v-for="(item, index) in showIcon"
-            v-show="item.link(userData)"
+            v-show="item.link(_userData)"
             :key="index"
             :class="[ 'slm', item.icon ]"
-            :href="item.link(userData)"
-            :title="`访问 ${userData.nickname} 的 ${item.title}`"
+            :href="item.link(_userData)"
+            :title="`访问 ${_userData.nickname} 的 ${item.title}`"
           ></a>
         </div>
       </div>
@@ -36,11 +36,17 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch }   from 'nuxt-property-decorator';
-import { User } from '@/interface/user/index';
-import { userData } from '@/mock/user/data/user.ts';
-import { getUserBaseData } from '@/service/data/user.ts';
-import UserCardSkeleton from '../skeleton/pubCom/userCardSkeleton.vue';
 
+import { getUserBaseData } from '@/service/data/user.ts';
+import { User } from '@/interface/request/user';
+import { userData } from '@/mock/user/data/user.ts';
+
+import UserCardSkeleton from '@/components/skeleton/pubCom/userCardSkeleton.vue';
+
+/**
+ * 用户信息展示卡片
+ * - 用于展示用户的基本信息
+ */
 @Component({
   components: {
     UserCardSkeleton,
@@ -53,14 +59,14 @@ export default class UserCard extends Vue {
   @Prop(Number) userId?: number;
 
   /**
-   * 父级传入的用户数据
+   * 父级传入的用户数据 SSR
    */
-  @Prop(Object) data?: User.Base;
+  @Prop(Object) ssr?: User.Base;
 
   /**
    * 用户数据
    */
-  userData: User.Base = userData;
+  private _userData: User.Base = userData;
 
   /**
    * 展示的用户状态
@@ -105,23 +111,22 @@ export default class UserCard extends Vue {
   userIdUpate(userId: number) {
     getUserBaseData(userId)
       .then(data => {
-        if (data.result) this.userData = data.result;
+        if (data.result) this._userData = data.result;
       })
     ;
   }
 
   /**
-   * data的更新触发
-   * - userData将被覆盖
+   * data的更新触发 [userData将被覆盖]
    */
-  @Watch('data')
-  dataUpdate(data: User.Base) {
-    this.userData = data;
+  @Watch('ssr')
+  ssrUpdate(data: User.Base) {
+    this._userData = data;
   }
 
 
   created() {
-    if (this.data) this.dataUpdate(this.data);
+    this.ssrUpdate(this.ssr || userData);
     if (this.userId) this.userIdUpate(this.userId);
   }
 }
