@@ -63,7 +63,10 @@ generateTheme(options)
       ;
     }).join(' ');
 
-    outFile = outFile.replace('body{color:@text-color;background-color:#fff;}', '');
+    outFile = outFile
+      .replace('body{color:@text-color;background-color:#fff;}', '')
+      .replace('  h1, h2, h3, h4, h5, h6{color:@heading-color;}', '')
+    ;
 
     // 输出
     fs.writeFileSync(outMinFilePath, outFile);
