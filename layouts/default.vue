@@ -78,7 +78,6 @@ export default class DefaultLayout extends Vue {
             path: '/developmentLogin',
           });
         }
-        // document.write('检测到正在使用开发者工具调试,请关闭开发者工具后刷新重试!');
       });
     }
     // 事件添加

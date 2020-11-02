@@ -207,6 +207,7 @@ export default class HeaderThemes extends Vue {
   }
   
   div.row-box {
+    padding-bottom: 0;
     margin-bottom: 10px;
     background-color: transparent;
 

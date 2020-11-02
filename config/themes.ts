@@ -46,6 +46,11 @@ export const color = {
       icon: 'dark',
       iconColor: '#B6C3DB',
     },
+    bright: {
+      color: '#CCC',
+      icon: 'bright_mode',
+      iconColor: '#707885',
+    },
     blue: {
       color: '#1DA1F2',
       icon: 'fenzu',
