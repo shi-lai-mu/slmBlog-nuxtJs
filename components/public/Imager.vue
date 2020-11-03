@@ -1,5 +1,4 @@
 <template>
-  <!-- 图片组件 -->
   <div class="slm-image">
     <img :class="'img image-' + (mode || 'cover')" v-if="src" :src="src" :alt="alt" :title="title">
   </div>
@@ -33,12 +32,12 @@ export default class Imager extends Vue {
   justify-content: center;
 
   .img {
-    z-index: -1;
     object-fit: cover;
   }
 
-  // .image-cover {
-  // }
+  .image-cover {
+    min-width: 100%;
+  }
 
   .image-widthFix {
     width: 100%;
