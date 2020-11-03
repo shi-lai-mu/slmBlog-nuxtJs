@@ -1,7 +1,7 @@
 <template>
   <li :class="[ 'slm', 'blog-themes', $store.state.themes.mainBColor ]" @click.self="showPopup = !showPopup">
     <Masks :styleList="styleList" :show="!showPopup" @close="() => showPopup = false">
-      <div class="popup-box">
+      <GeminiScrollbar class="popup-box" @ready="GeminiScrollbarInit">
         <h4 class="popup-title">
           自定义主题皮肤
         </h4>
@@ -57,7 +57,7 @@
           </div>
         </div>
         <div :class="[ 'button', 'submit-btn', $store.state.themes.mainBColor ]" @click="() => showPopup = false">确定</div>
-      </div>
+      </GeminiScrollbar>
     </Masks>
   </li>
 </template>  
@@ -174,15 +174,21 @@ export default class HeaderThemes extends Vue {
       }
     }
   }
+
+
+  GeminiScrollbarInit(e) {
+    e.update();
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .popup-box {
   width: 50vw;
-  padding: 0 10px;
+  max-height: 65vh;
   max-width: 600px;
-  min-width: 480px;
+  min-width: 200px;
+  padding: 0 10px;
   font-size: .8rem;
   text-align: center;
   @include themify($themes) {
@@ -224,7 +230,7 @@ export default class HeaderThemes extends Vue {
   .submit-btn {
     display: inline-block;
     width: 5rem;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     @include themify($themes) {
       color: themed('font-color');
     }
@@ -351,12 +357,24 @@ export default class HeaderThemes extends Vue {
 }
 
 .layout-default-mobile {
+  .popup-box {
+    max-height: 100vh;
+  }
+
   .themes-color-group {
     flex-wrap: wrap;
 
     .themes-color-item {
       width: 33.33%;
       margin-bottom: 20px;
+    }
+  }
+
+  .themes-bgcolor-group {
+    flex-wrap: wrap;
+
+    .themes-color-item {
+      width: 100%;
     }
   }
 }

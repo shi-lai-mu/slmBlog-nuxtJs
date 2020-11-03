@@ -12,4 +12,12 @@ export default {
   maskUpdate(state, data) {
     state.isMask = data;
   },
+
+  /**
+   * 初始化滚动条
+   */
+  initGeminiScrollbar(state, data) {
+    state.body.GeminiScrollbar = data;
+    console.log(data);
+  }
 }

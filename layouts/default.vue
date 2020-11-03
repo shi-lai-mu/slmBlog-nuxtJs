@@ -9,7 +9,7 @@
       { 'mobile-header-open': mobileHeaderOpen }
     ]">
     <LayoutHeader class="header" @set-open-state="setHeaderOpenState" :mobileHeaderOpen="mobileHeaderOpen" />
-    <GeminiScrollbar>
+    <GeminiScrollbar @ready="GeminiScrollbarInit">
         <nuxt class="layout-page"  @click.native="mobileHeaderOpen = false"/>
       <LayoutFooter />
     </GeminiScrollbar>
@@ -20,18 +20,16 @@
 import { Component, Vue } from 'nuxt-property-decorator';
 import { LayoutDefault } from '../interface/layout';
 import { deDeveloperTools, isOpenDevTool } from '../utils/deDeveloperTools';
+
 import LayoutFooter from './defaultLayouts/components/Footer.vue';
 import LayoutHeader from './defaultLayouts/components/Header.vue';
 import resizeEvent from '../utils/Event/resize';
+import ObServer from '@/utils/obServer';
+
 import '../assets/scss/layout.default.scss';
+
 @Component({
   scrollToTop: true,
-  watch: {
-    // $route(to, from) {
-    //   window.scrollTo(0, 0)
-    //   this.baiduPush()s
-    // }
-  },
   components: {
     LayoutFooter,
     LayoutHeader,
@@ -112,6 +110,17 @@ export default class DefaultLayout extends Vue {
    */
   setHeaderOpenState(state: boolean) {
     this.mobileHeaderOpen = state;
+  }
+
+  
+  /**
+   * body初始化完成时
+   */
+  GeminiScrollbarInit(e) {
+    e.observer = new ObServer('GeminiScrollbar Observer');
+    e._viewElement.addEventListener('scroll', v => e.observer.emit('scroll', v));
+    this.$config.GeminiScrollbar = e;
+    setTimeout(() => e.update(), 1000)
   }
 
 

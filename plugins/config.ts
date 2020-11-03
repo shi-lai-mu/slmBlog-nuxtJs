@@ -4,6 +4,7 @@ import Http from '~/utils/axios';
 import Navigation from './config/Navigation';
 import Themes from './config/Themes';
 import * as Axios from '@nuxtjs/axios';
+import GeminiScrollbar from 'vue-gemini-scrollbar';
 
 export default (_context, inject) => {
   const $config = defaultConfig as Config;
@@ -24,6 +25,10 @@ interface Config extends DefaultConfig {
    * 网站主题配置文件
    */
   themes: typeof Themes.config;
+  /**
+   * body滚动条
+   */
+  GeminiScrollbar?: GeminiScrollbar;
 }
 
 declare module 'vue/types/vue' {
