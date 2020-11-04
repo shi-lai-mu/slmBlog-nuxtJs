@@ -14,5 +14,9 @@ const state = {
     },
     // 是否正在显示遮罩层
     isMask: false,
+    // boay
+    body: {
+        GeminiScrollbar: null,
+    },
 }
 export default () => state;
