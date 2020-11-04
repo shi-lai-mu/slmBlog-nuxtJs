@@ -53,7 +53,7 @@ export default class HomePage extends Vue {
   async asyncData({ $http, $axios}) {
     return {
       userData: (await getUserBaseData(1)).result || {}, // 获取用户信息
-      articleLatest: (await getLatestArticle()).result || {}, // 获取最新文章
+      articleLatest: (await getLatestArticle()).result || [], // 获取最新文章
     };
   }
 }

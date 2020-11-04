@@ -104,5 +104,5 @@ export interface DefaultConfig {
         devHost: string;
       };
     };
-  },
+  };
 }

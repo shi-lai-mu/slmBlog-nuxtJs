@@ -1,19 +1,8 @@
 <template>
   <div class="article-list-box">
-    <article :class="[ 'article-list-item', layout.name ]" v-for="(item, index) in _listData" :key="index">
-      <Imager class="figure-cover" :src="item.banner" :alt="item.subject" :title="item.subject" />
-      <div class="atricle-content">
-        <h3 class="figure-subject line-ellipsis" v-text="item.subject"></h3>
-        <p class="line-ellipsis double-line-ellipsis article-description" v-text="item.description"></p>
-      </div>
-      <div class="article-bottom">
-        <div>
-          <i class="slm blog-pinglun" v-text="formatPeople(item.stat.reply_num)"></i>
-          <i class="slm blog-yueduliang" v-text="formatPeople(item.stat.view_num)"></i>
-        </div>
-        <span v-text="item.release_time"></span>
-      </div>
-    </article>
+    <div :class="[ 'article-list-item', layout.name, { 'is-open': viewId === item.id } ]" v-for="(item, index) in _listData" :key="index">
+      <ArticleView @open="openArticleEvent" @close="closeArticleEvent" :article="item" :key="index" />
+    </div>
     <aside class="layout-aside" v-if="!$store.state.isMobile">
       <div class="aside-child-box" v-for="(item, index) of getListAsideConfig.list" :key="index">
         <tooltip placement="left" v-for="(chiItem, chiIndex) of item" :key="chiIndex">
@@ -22,7 +11,6 @@
         </tooltip>
       </div>
     </aside>
-    <Content />
   </div>
 </template>
 
@@ -33,11 +21,9 @@ import { Tooltip } from 'ant-design-vue';
 import { _ARTICLE_LIST_LAYOUT_ } from '@/config/storage';
 import { isBrowser } from '@/config/system';
 import { Article as IntefArticle } from '@/interface/request/article';
-import { formatPeople } from '@/utils/atricle';
 
 import listAsideConfig from './ListAside.config';
-import Imager from '@/components/public/Imager.vue';
-import Content from './Content.vue';
+import ArticleView from './View.vue';
 
 /**
  * 文章列表
@@ -45,9 +31,8 @@ import Content from './Content.vue';
  */
 @Component({
   components: {
-    Imager,
     Tooltip,
-    Content,
+    ArticleView,
   },
   computed: {
     getListAsideConfig() {
@@ -70,6 +55,11 @@ export default class Article extends Vue {
   private _listData: IntefArticle.Base[] = [];
 
   /**
+   * 正在观看是文章ID
+   */
+  viewId: IntefArticle.Base['id'] = -1;
+
+  /**
    * 当前布局
    */
   layout = {
@@ -87,7 +77,7 @@ export default class Article extends Vue {
     this._listData = data;
   }
 
-  created(...par) {
+  created() {
     if (this.ssr) this.ssrUpdate(this.ssr);
     if (isBrowser) {
       const listCon = window.localStorage.getItem(_ARTICLE_LIST_LAYOUT_);
@@ -95,7 +85,9 @@ export default class Article extends Vue {
     }
   }
 
-
+  /**
+   * 布局值发生改变时
+   */
   @Watch('layout')
   changLayout(value) {
     window.localStorage.setItem(_ARTICLE_LIST_LAYOUT_, JSON.stringify(value));
@@ -103,10 +95,20 @@ export default class Article extends Vue {
 
 
   /**
-   * 格式化人数
+   * 打开文章事件
+   * @param articleId 文章ID
    */
-  formatPeople(v) {
-    return formatPeople(v);
+  openArticleEvent(articleId: IntefArticle.Base['id']) {
+    this.viewId = articleId;
+  }
+
+
+  /**
+   * 关闭文章事件
+   * @param articleId 文章ID
+   */
+  closeArticleEvent() {
+    this.viewId = -1;
   }
 }
 </script>
@@ -188,10 +190,7 @@ export default class Article extends Vue {
       }
     }
 
-    .article-list-item {
-      position: relative;
-      z-index: 2;
-      overflow: hidden;
+    /deep/ .article-list-item {
       display: inline-block;
       width: calc(50% - 5px);
       padding: 10px;
@@ -199,6 +198,7 @@ export default class Article extends Vue {
       margin-left: 0;
       font-size: .85rem;
       border-radius: 10px;
+      vertical-align: middle;
       @include themify($themes) {
         background-color: themed('bg-dp4-color'); 
       }
@@ -233,59 +233,91 @@ export default class Article extends Vue {
       }
     }
 
-    .line-layout,
-    .line-layout-noimg {
-      display: flex;
-      width: 100%;
-
-      .figure-cover {
-        width: 150px;
-        height: 150px;
-        margin-bottom: 0;
-        margin-right: 20px;
-        flex: 1 0 auto;
-      }
-
-      .article-content {
-        width: calc(100% - 170px);
-        margin-right: 40px;
-      }
-
-      .article-bottom {
-        position: absolute;
-        right: 10px;
-        bottom: 10px;
-      }
-    }
-
-    .line-layout-noimg {
+    /deep/ .line-layout-noimg {
       .figure-cover {
         width: 0;
+        max-width: 0;
         height: 0;
       }
 
       .article-description {
-        margin-bottom: 1.5rem;
+        margin-bottom: 2.5rem;
       }
     }
 
-    .article-bottom {
+    /deep/ .article-bottom {
       display: flex;
       font-weight: 200;
       justify-content: space-between;
       align-items: center;
+      white-space: nowrap;
       @include themify($themes) {
         color: themed('font-lv2-color');
       }
 
       .slm {
+        overflow: hidden;
+        display: inline-block;
+        max-width: 7em;
         margin-right: 10px;
         font-size: inherit;
+        vertical-align: middle;
+        text-overflow: ellipsis;
 
         &::before {
           margin-right: 5px;
         }
       }
+    }
+  }
+
+  .layout-default-mobile .article-list-item,
+  /deep/ .line-layout,
+  /deep/ .line-layout-noimg {
+    display: flex;
+    width: 100%;
+
+    /deep/ .figure-cover {
+      width: 15vh;
+      height: 15vh;
+      max-width: 150px;
+      max-height: 150px;
+      margin-bottom: 0;
+      margin-right: 20px;
+      flex: 1 0 auto;
+    }
+
+    /deep/ .article-content {
+      width: calc(100% - 170px);
+      margin-right: 40px;
+    }
+
+    /deep/ .article-box {
+      position: relative;
+      display: flex;
+      width: 100%;
+    }
+
+    /deep/ .article-bottom {
+      position: absolute;
+      right: 10px;
+      bottom: 0;
+    }
+  }
+
+  .layout-default-mobile .article-list-box {
+
+    .article-list-item {
+      margin: 0;
+      border-radius: 0;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid rgba($color: #000, $alpha: .1);
+      }
+    }
+
+    /deep/ .release-time {
+      display: none;
     }
   }
 </style>

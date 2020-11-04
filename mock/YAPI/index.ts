@@ -65,9 +65,9 @@ export default new class YApiTranslateMock {
     const _SPACE_TAG_ = '_SPACE_';
 
     content = content
-      .replace(/\/\*\*\r\s+\*\s([a-zA-Z0-9\s,.()\[\]'"@:\u4e00-\u9fa5]+)\r\s+\*\/\r\s+(\w+)\:\s\{/g, `"$2": { ${_SPACE_TAG_} // $1`)
-      .replace(/[\s+|\s?]\/\*\*\r\s+\*\s([a-zA-Z0-9\s,.()\[\_\]'"@:\u4e00-\u9fa5]+)\r\s+\*\/\r\s+([a-zA-Z0-9\s,.()\[\_\]'"\u4e00-\u9fa5]+)\:\s([a-zA-Z0-9\s,.()\[\_\]=>'"@\u4e00-\u9fa5]+),/g, ` "$2": "$3", ${_SPACE_TAG_} // $1`)
-      .replace(/Random\.(\w+)\(([a-zA-Z0-9\s,.()\[\]'"@:\u4e00-\u9fa5]+|)\)/g, '@$1')
+      .replace(/\/\*\*[\r\n]\s+\*\s([a-zA-Z0-9\s,.()\[\]'"@:\u4e00-\u9fa5]+)[\r\n]\s+\*\/[\r\n]\s+(\w+)\:\s\{/g, `"$2": { ${_SPACE_TAG_} // $1`)
+      .replace(/[\s+|\s?]\/\*\*[\r\n]\s+\*\s([a-zA-Z0-9\s,.()\[\_\]'"@:\u4e00-\u9fa5]+)[\r\n]\s+\*\/[\r\n]\s+([a-zA-Z0-9\s,.()\[\_\]'"\u4e00-\u9fa5]+)\:\s([a-zA-Z0-9\s,.()\*\[\_\]=>'"@\u4e00-\u9fa5]+),/g, ` "$2": "$3", ${_SPACE_TAG_} // $1`)
+      .replace(/Random\.(\w+)\(([a-zA-Z0-9\s,.()*\[\]'"@:\u4e00-\u9fa5]+|)\)/g, '@$1')
     ;
 
     // 后置注释对齐
@@ -92,7 +92,7 @@ export default new class YApiTranslateMock {
     // 顶部注释
     content = content
       .replace(
-        /\/\*\*\r\s+\*\s([a-zA-Z0-9\s,.()\[\]'"@:\u4e00-\u9fa5]+)\r\s+\*\/\r(\s)?export const (\w+) \= /g,
+        /\/\*\*[\r\n]\s+\*\s([a-zA-Z0-9\s,.()\[\]'"@:\u4e00-\u9fa5]+)[\r\n]\s+\*\/[\r\n](\s)?export const (\w+) \= /g,
 `/**
   * $1
   * @file      ${filePath}
@@ -102,6 +102,7 @@ export default new class YApiTranslateMock {
   **/
 `
       )
+      .replace(/};/g, '}')
     return content;
   }
 
