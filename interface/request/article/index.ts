@@ -1,4 +1,5 @@
-import { User } from '@/interface/request/user'
+import { User } from '@/interface/request/user';
+import { UploadImagerBase } from '@/interface/request/public';
 
 export namespace Article {
   export interface Base {
@@ -34,7 +35,7 @@ export namespace Article {
     /**
      * 预览图
      */
-    image_list: string[];
+    image_list: UploadImagerBase[];
     /**
      * 统计
      */

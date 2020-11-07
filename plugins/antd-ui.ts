@@ -5,6 +5,7 @@ import {
   message,
   Row,
   Col,
+  Button,
 } from 'ant-design-vue'
 import { isServer } from '../config/system';
 
@@ -25,4 +26,5 @@ Vue
   .use(Radio)
   .use(Row)
   .use(Col)
+  .use(Button)
 ;

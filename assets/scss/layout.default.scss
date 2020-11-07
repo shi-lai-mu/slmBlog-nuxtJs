@@ -89,10 +89,10 @@ li {
 
 .skeleton li,
 .skeleton span {
-  background: linear-gradient(90deg,rgba(242, 242, 242, .5) 25%,rgba(230, 230, 230, .6) 37%,rgba(242, 242, 242, .5) 63%);
+  background: linear-gradient(90deg,rgba(242, 242, 242, .5) 25%,rgba(230, 230, 230, .6) 37%,rgba(242, 242, 242, .5) 83%);
   background-size: 400% 100%;
   border-radius: 5px;
-  animation: skeleton-loading 1.4s ease infinite;
+  animation: skeleton-loading 2s ease infinite;
   opacity: .2;
 }
 .skeleton-content {
@@ -120,12 +120,20 @@ li {
 .skeleton-center {
   margin: 0 auto;
 }
-@keyframes skeleton-loading{
+@keyframes skeleton-loading {
   0% {
     background-position: 100% 50%
   }
   to {
     background-position: 0 50%
+  }
+}
+
+.icon-hover:hover {
+  @include themify($themes) {
+    background-color: rgba($color: themed('font-lv0-color-hover'), $alpha: .1);
+    color: themed('font-lv0-color-hover') !important;
+    text-shadow: 0 0 6px themed('font-lv0-color-hover');
   }
 }
 

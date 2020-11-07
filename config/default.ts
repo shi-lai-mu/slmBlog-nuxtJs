@@ -62,7 +62,7 @@ const defaultConfig: DefaultConfig = {
    */
   ossLink: !isDev
     ? 'https://oss.slmblog.com/blog'
-    : 'blog'
+    : '/blog'
   ,
   /**
    * SEO备用本站存储地址
