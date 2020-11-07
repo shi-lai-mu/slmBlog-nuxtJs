@@ -3,6 +3,7 @@ import defaultConfig from '@/config/default';
 import Http from '~/utils/axios';
 import Navigation from './config/Navigation';
 import Themes from './config/Themes';
+import ObServer from '@/utils/obServer';
 import * as Axios from '@nuxtjs/axios';
 import GeminiScrollbar from 'vue-gemini-scrollbar';
 
@@ -12,8 +13,8 @@ export default (_context, inject) => {
   $config.themes = Themes.config;
   inject('config', $config);
   inject('http', Http);
+  inject('observer', new ObServer());
 }
-
 
 
 interface Config extends DefaultConfig {
@@ -37,6 +38,10 @@ declare module 'vue/types/vue' {
      * 默认配置文件
      */
     $config: Config;
+    /**
+     * 全局观察者
+     */
+    $observer: ObServer;
     /**
      * 跳转到错误页
      * @param error 错误数据

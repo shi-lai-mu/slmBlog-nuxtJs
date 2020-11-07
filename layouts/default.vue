@@ -78,6 +78,12 @@ export default class DefaultLayout extends Vue {
         }
       });
     }
+
+    // 监听popstate变化
+    window.addEventListener('popstate', (e) => {
+      this.$observer.emit('popstate', e);
+    });
+
     // 事件添加
     resizeEvent(window, this);
     // slef.baiduPush()
