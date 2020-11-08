@@ -8,11 +8,15 @@ export const random: any = {
   integer: () => '',
   name: () => '',
   image: () => '',
+  cname: () => '',
   cparagraph: () => '',
   datetime: () => '',
   word: () => '',
   url: () => '',
   natural: () => '',
+  boolean: () => '',
+  title: () => '',
+  ctitle: () => '',
 };
 
 // 绕过ts判断，实际上给出默认值都为空字符串

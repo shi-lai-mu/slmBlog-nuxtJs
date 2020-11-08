@@ -14,7 +14,7 @@ export const topics = {
   /**
    * 话题id
    */
-  id: Random.id(),
+  id: Random.integer(0, 1000),
   /**
    * 话题名称
    */
@@ -41,11 +41,11 @@ export const articleBase = {
   /**
    * 标题
    */
-  subject: Random.cparagraph(2),
+  subject: Random.ctitle(),
   /**
    * 内容
    */
-  content: Random.cparagraph(10),
+  content: Random.cparagraph(20, 40),
   /**
    * 我的操作
    */
@@ -58,7 +58,7 @@ export const articleBase = {
   /**
    * 预览图
    */
-  image_list: randomArray(2, () => uploadImagerBase),
+  image_list: randomArray(2, uploadImagerBase),
   /**
    * 统计
    */
