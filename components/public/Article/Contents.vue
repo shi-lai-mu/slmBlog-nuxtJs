@@ -1,28 +1,62 @@
 <template>
-  <article class="article-box" @click="openContent(article.id)" :style="style">
-    <Imager class="figure-cover" :src="article.banner" :alt="article.subject" :title="article.subject" />
-    <div class="article-content">
-      <h3 class="figure-subject line-ellipsis" v-text="article.subject"></h3>
-      <p class="line-ellipsis double-line-ellipsis article-description" v-text="article.description"></p>
-    </div>
-    <div class="article-bottom">
-      <div>
-        <i class="slm blog-pinglun" v-text="formatPeople(article.stat.reply_num)"></i>
-        <i class="slm blog-yueduliang" v-text="formatPeople(article.stat.view_num)"></i>
-      </div>
-      <span v-text="article.release_time"></span>
-    </div>
+  <article :class="['article-content-box', { 'toggle-transition': toggleTransition }]">
+    <GeminiScrollbar>
+      <ArticleViewSkeleton />
+      <a-row class="article-layout max-content">
+        <a-col
+          class="article-page__container max-content"
+          :lg="{ span: 16 }"
+          :xxl="{ span: 16 }"
+        >
+          <aside class="article-action"></aside>
+          <div class="article-content__container row-box">
+            <div class="article-content__header">
+              <h2 class="title" v-text="_articleData.subject"></h2>
+              <div class="article-content__info">
+                <div class="release-time">
+                  发布于 {{ _articleData.release_time }}
+                </div>
+                <div class="icon-box">
+                  <i class="slm blog-pinglun" v-text="_articleData.stat.reply_num"></i>
+                  <i class="slm blog-yueduliang" v-text="_articleData.stat.view_num"></i>
+                </div>
+                <ul class="tag-list">
+                  <li class="tag-item" v-for="(item, key) in 3" :key="key">xxxxx</li>
+                </ul>
+              </div>
+            </div>
+            <div class="article-content__body" v-html="_articleData.content">
+            </div>
+            <div class="article-content__footer"></div>
+          </div>
+          <div class="article-reply__container">
+
+          </div>
+        </a-col>
+        <a-col
+          class="article-page__sideber"
+          :lg="{ span: 8 }"
+          :xxl="{ span: 8 }"
+        >
+          <UserCard :userId="1" userEntrance />
+        </a-col>
+      </a-row>
+    </GeminiScrollbar>
   </article>
 </template>
 
 <script lang='ts'>
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 
-import { Article as IntefArticle } from '@/interface/request/article';
+import { Article, Article as IntefArticle } from '@/interface/request/article';
 import { formatPeople } from '@/utils/atricle';
+import { articleBase } from '@/mock/article/data/index';
 
-import Imager from '@/components/public/Imager.vue';
 import { getRelativeBrowserPos } from '@/utils/element';
+import UserCard from '@/components/public/UserCard.vue';
+import Imager from '@/components/public/Imager.vue';
+import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleton.vue';
+
 
 /**
  * 文章内容组件
@@ -30,74 +64,70 @@ import { getRelativeBrowserPos } from '@/utils/element';
 @Component({
   components: {
     Imager,
+    ArticleViewSkeleton,
+    UserCard,
   }
 })
 export default class ArticleContents extends Vue {
-  /**
-   * 布局信息
-   */
-  @Prop(Object) layout?: any;
 
   /**
-   * 文章基础信息
+   * 传入的列表数据 SSR
    */
-  @Prop(Object) article?: IntefArticle.Base;
+  @Prop(Object) ssr?: IntefArticle.Base;
 
   /**
-   * 是否为打开状态
+   * 文章ID
    */
-  isOpen: boolean = false;
-
-  style: any = {};
+  @Prop(Number) articleId?: number;
 
   /**
-   * 加载文章
+   * 初始化骨架屏
    */
-  openContent(articleId: number) {
-    this.isOpen = true;
-    const el = this.$el.parentElement as Element;
-    const { width, height, top, left } = el.getBoundingClientRect();
-    const parentEl: any = el.children[0].parentElement;
-    const parentPos = parentEl.getBoundingClientRect();
-    const $config = this.$config;
+  @Prop(Boolean) initSkeleton?: boolean;
 
-    parentEl.style.height = `${parentPos.height}px`;
-    $config.GeminiScrollbar.update();
-    const scrollTop = $config.GeminiScrollbar._viewElement.scrollTop;
+  /**
+   * 文章数据
+   */
+  private _articleData?: IntefArticle.Base = articleBase;
+
+  /**
+   * 是否禁用骨架屏
+   */
+  // private disableSkeleton = false;
+
+  /**
+   * 骨架于内容切换过渡
+   */
+  private toggleTransition = false;
+
+
+  created() {
+    this.ssrUpdate(this.ssr || articleBase);
+    if (this.ssr) this._articleData = this.ssr;
+    if (this.articleId) this.changArticleId(this.articleId);
+  }
+
+  /**
+   * 文章ID更新
+   */
+  @Watch('articleId')
+  changArticleId(articleId: IntefArticle.Base['id']) {
     
-    this.$emit('open', articleId);
+  }
 
-    this.style = {
-      position: 'fixed',
-      zIndex: '999',
-      top: `${top + scrollTop}px`,
-      left: `${left}px`,
-      width: `${window.innerWidth / 2}px`,
-      height: `${height}px`,
-      padding: '10px',
-      borderRadius: '5px',
-      transition: '1s ',
-    }
 
-    setTimeout(() => {
-      this.style = {
-        position: 'fixed',
-        zIndex: '29',
-        top: `${scrollTop}px`,
-        left: `0`,
-        width: `100vw`,
-        height: `100vh`,
-        borderRadius: '5px',
-        transition: '1s ',
-      }
-      // TODO: 此处写法为临时解决方案，修改容器为无法滚动状态，修改动画过渡时间0后top移动到0
-      setTimeout(() => {
-        $config.GeminiScrollbar._viewElement.style.overflow = 'initial';
-        $config.GeminiScrollbar.destroy();
-        this.style.top = '0';
-        this.style.transition = '0s';
-      }, 1000);
-    });
+  /**
+   * data的更新触发 [userData将被覆盖]
+   */
+  @Watch('ssr')
+  ssrUpdate(data: Article.Base) {
+    console.log('this.disableSkeleton = false', this.initSkeleton);
+    
+    // 如果对骨架屏进行了初始化则先显示骨架屏进行交互
+    if (this.initSkeleton) {
+      setTimeout(() => this.toggleTransition = true, 700);
+    } else this.toggleTransition = true;
+    this._articleData = data;
   }
 
 
@@ -111,30 +141,105 @@ export default class ArticleContents extends Vue {
 </script>
 
 <style scoped lang="scss">
-  .article-box {
-    background-color: inherit;
+.article-content-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 100px;
+  // padding-top: 100px;
+  @include themify($themes) {
+    color: themed('font-color');
+    background-color: themed('main-bg-color');
   }
 
-  .article-frame {
-    height: 0;
-
-    .frame-content {
-      height: 110vh;
+  &.toggle-transition {
+    /deep/ .skeleton {
+      opacity: 0;
+      transition: 1s;
+      visibility: hidden;
+    }
+    .article-layout {
+      opacity: 1;
+      transition: 1s;
     }
   }
 
-  .is-open {
-    .article-box {
-      padding-top: 70px;
-    }
+  .row-box {
+    border-radius: 5px;
+  }
 
-    .article-frame {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+  /deep/ .article-layout {
+    margin: 0 auto;
+    opacity: 0;
+
+    .title {
+      text-indent: 5px;
+      font-weight: bold;
+      font-size: 1.5rem;
+      @include themify($themes) {
+        color: themed('font-color');
+      }
     }
   }
 
+  /deep/ .article-page__container {
+ 
+    .article-content__container {
+      min-height: calc(100vh - 130px);
+      padding: 40px;
+    }
+
+    .article-content__info {
+      display: flex;
+      margin: 20px 0;
+      padding: 10px 20px;
+      font-size: 1rem;
+      @include themify($themes) {
+        color: themed('font-lv3-color');
+        background-color: themed('bg-dp3-color');
+      }
+      border-radius: 10px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      .slm {
+        margin-left: 20px;
+        font-size: inherit;
+      }
+
+      .tag-list {
+        width: 100%;
+        margin-bottom: 0;
+
+        .tag-item {
+          display: inline-block;
+          margin-top: 10px;
+          margin-right: 10px;
+          padding: 0 10px;
+          @include themify($themes) {
+            background-color: themed('bg-dp6-color');
+          }
+          border-radius: 5px;
+          cursor: pointer;
+
+          &:hover {
+            @include themify($themes) {
+              background-color: themed('bg-dp9-color');
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /deep/ .article-page__sideber {
+    padding-left: 15px;
+  }
+
+  /deep/ .-horizontal {
+    display: none;
+  }
+}
 </style>

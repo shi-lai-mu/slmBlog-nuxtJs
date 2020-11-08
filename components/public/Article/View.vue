@@ -13,6 +13,7 @@
       </div>
       <span class="release-time" v-text="article.release_time"></span>
     </div>
+    <ArticleContent :ssr="article" v-if="isOpen" initSkeleton />
   </article>
 </template>
 
@@ -22,8 +23,9 @@ import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 import { Article as IntefArticle } from '@/interface/request/article';
 import { formatPeople } from '@/utils/atricle';
 
-import Imager from '@/components/public/Imager.vue';
 import { getRelativeBrowserPos } from '@/utils/element';
+import Imager from '@/components/public/Imager.vue';
+import ArticleContent from '@/components/public/Article/Contents.vue';
 
 /**
  * 文章内容组件
@@ -31,6 +33,7 @@ import { getRelativeBrowserPos } from '@/utils/element';
 @Component({
   components: {
     Imager,
+    ArticleContent,
   }
 })
 export default class ArticleView extends Vue {
@@ -45,6 +48,11 @@ export default class ArticleView extends Vue {
   @Prop(Object) article?: IntefArticle.Base;
 
   /**
+   * 当前打开的文章ID
+   */
+  @Prop(Number) viewId?: number;
+
+  /**
    * 是否为打开状态
    */
   isOpen: boolean = false;
@@ -54,16 +62,31 @@ export default class ArticleView extends Vue {
    */
   style: any = {};
 
+  /**
+   * 任务列队
+   */
   task: Array<NodeJS.Timeout | number> = [];
+
+  @Watch('viewId')
+  changViewId(viewId: number) {
+    if (viewId === -1 && this.isOpen) {
+      this.isOpen = false;
+      this.closeView();
+    }
+  }
+
 
   /**
    * 加载文章
    */
   openView(articleId: number) {
-    const { $config, task, $el } = this;
+    const { $config, task, $el, isOpen } = this;
 
     // 正在执行列队则跳出
-    if (task.length) return false;
+    if (task.length || isOpen) return false;
+
+    // 路由定义
+    window.history.pushState({ articleId }, '', `/article/${articleId}`);
     
     this.$emit('open', articleId);
     this.isOpen = true;
@@ -75,7 +98,6 @@ export default class ArticleView extends Vue {
     parentEl.style.height = `${parentPos.height}px`;
     $config.GeminiScrollbar.update();
     const scrollTop = $config.GeminiScrollbar._viewElement.scrollTop;
-    
 
     this.style = {
       position: 'fixed',
@@ -113,11 +135,12 @@ export default class ArticleView extends Vue {
 
 
   closeView() {
-    const { $config, task } = this;
+    const { $config, task, isOpen} = this;
     // 正在执行列队则跳出
-    if (task.length) return false;
+    // if (task.length) return false;
+    if (task.length) task.forEach((v: any) => clearTimeout(v));
 
-    this.$emit('close');
+    if (isOpen) this.$emit('close');
     const el = this.$el.parentElement as Element;
     this.isOpen = false;
     $config.GeminiScrollbar._viewElement.style.overflow = 'scroll';
@@ -138,7 +161,7 @@ export default class ArticleView extends Vue {
       task.push(setTimeout(() => {
         this.style = '';
         this.task = [];
-        (<any>el.children[0].parentElement).style = '';
+        (el.children[0].parentElement as any).style = '';
       }, 1000));
     }, 10));
   }
@@ -179,5 +202,4 @@ export default class ArticleView extends Vue {
       height: 100vh;
     }
   }
-
 </style>

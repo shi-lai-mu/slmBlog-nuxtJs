@@ -1,13 +1,13 @@
 <template>
   <div class="article-list-box">
     <div :class="[ 'article-list-item', layout.name, { 'is-open': viewId === item.id } ]" v-for="(item, index) in _listData" :key="index">
-      <ArticleView @open="openArticleEvent" @close="closeArticleEvent" :article="item" :key="index" />
+      <ArticleView @open="openArticleEvent" @close="closeArticleEvent" :article="item" :viewId="viewId" :key="index" />
     </div>
     <aside class="layout-aside" v-if="!$store.state.isMobile">
       <div class="aside-child-box" v-for="(item, index) of getListAsideConfig.list" :key="index">
         <tooltip placement="left" v-for="(chiItem, chiIndex) of item" :key="chiIndex">
           <span slot="title" v-text="chiItem.title"></span>
-          <i :class="[ 'slm', 'blog-' + chiItem.icon ]" @click="chiItem.event(getListAsideConfig.bind)"></i>
+          <i :class="[ 'slm', 'icon-hover', 'blog-' + chiItem.icon ]" @click="chiItem.event(getListAsideConfig.bind)"></i>
         </tooltip>
       </div>
     </aside>
@@ -57,12 +57,12 @@ export default class Article extends Vue {
   /**
    * 正在观看是文章ID
    */
-  viewId: IntefArticle.Base['id'] = -1;
+  private viewId: IntefArticle.Base['id'] = -1;
 
   /**
    * 当前布局
    */
-  layout = {
+  private layout = {
     name: '',
     sort: '',
     setting: {},
@@ -73,7 +73,6 @@ export default class Article extends Vue {
    */
   @Watch('ssr')
   ssrUpdate(data: IntefArticle.Base[]) {
-    console.log(data);
     this._listData = data;
   }
 
@@ -83,6 +82,16 @@ export default class Article extends Vue {
       const listCon = window.localStorage.getItem(_ARTICLE_LIST_LAYOUT_);
       if (listCon) this.layout = JSON.parse(listCon);
     }
+  }
+
+
+  mounted() {
+    this.$observer.on('popstate', this.popstateEvent.bind(this));
+  }
+
+
+  destroyed() {
+    this.$observer.off('popstate', this.popstateEvent.bind(this));
   }
 
   /**
@@ -110,6 +119,16 @@ export default class Article extends Vue {
   closeArticleEvent() {
     this.viewId = -1;
   }
+
+
+  /**
+   * popstate 事件
+   */
+  popstateEvent() {
+    if (window.location.pathname === '/') {
+      this.closeArticleEvent();
+    }
+  }
 }
 </script>
 
@@ -136,8 +155,8 @@ export default class Article extends Vue {
     }
 
     .layout-aside {
-      opacity: 0;
       position: absolute;
+      opacity: 0;
       z-index: 0;
       display: flex;
       top: 5px;
@@ -170,14 +189,6 @@ export default class Article extends Vue {
         border-radius: 3px;
         cursor: pointer;
         transition: .2s;
-
-        &:hover {
-          @include themify($themes) {
-            background-color: rgba($color: themed('font-lv0-color-hover'), $alpha: .1);
-            color: themed('font-lv0-color-hover');
-            text-shadow: 0 0 6px themed('font-lv0-color-hover');
-          }
-        }
 
         &:active,
         &.check {
@@ -233,18 +244,6 @@ export default class Article extends Vue {
       }
     }
 
-    /deep/ .line-layout-noimg {
-      .figure-cover {
-        width: 0;
-        max-width: 0;
-        height: 0;
-      }
-
-      .article-description {
-        margin-bottom: 2.5rem;
-      }
-    }
-
     /deep/ .article-bottom {
       display: flex;
       font-weight: 200;
@@ -272,8 +271,8 @@ export default class Article extends Vue {
   }
 
   .layout-default-mobile .article-list-item,
-  /deep/ .line-layout,
-  /deep/ .line-layout-noimg {
+  .article-list-box div.line-layout,
+  .article-list-box div.line-layout-noimg {
     display: flex;
     width: 100%;
 
@@ -302,6 +301,18 @@ export default class Article extends Vue {
       position: absolute;
       right: 10px;
       bottom: 0;
+    }
+  }
+
+  .article-list-box div.line-layout-noimg {
+    /deep/ .figure-cover {
+      width: 0;
+      height: 0;
+      max-width: 0;
+    }
+
+    /deep/ .article-description {
+      margin-bottom: 2.5rem;
     }
   }
 

@@ -3,22 +3,28 @@
   <div class="row-box user-card">
     <template v-if="_userData && _userData.id">
       <div class="user-cover" :style="`background-image: url(${$config.ossLink}/user/card-bg-cover.jpg);`">
-        <img class="user-avatar" :src="_userData.avatarUrl" :alt="_userData.nickname" :title="_userData.nickname">
+        <!-- <img class="user-avatar" :src="_userData.avatarUrl" :alt="_userData.nickname" :title="_userData.nickname"> -->
+        <Imager class="user-avatar" :src="_userData.avatarUrl" :alt="_userData.nickname" :title="_userData.nickname" />
       </div>
       <div class="row-content">
         <div class="user-nickname">
           {{ _userData.nickname }}
           <i :class="['slm', 'blog-' + item.i]" :title="item.name" v-for="(item, key) in _userData.badge" :key="key"></i>
         </div>
-        <div class="user-introduction">{{ _userData.introduction }}</div>
+        <div class="user-introduction line-ellipsis double-line-ellipsis">{{ _userData.introduction }}</div>
         <div class="user-state-row">
           <span class="stete-item" v-for="(item, index) in showState" :key="index">
             <div class="state-item-tag">{{ item }}</div>
             <div>{{ _userData.state[index] }}</div>
           </span>
         </div>
+        <div class="user-entrance-row" v-if="userEntrance">
+          <a-button type='primary' class="btn">关注</a-button>
+          <a-button type='primary' class="btn">主页</a-button>
+        </div>
         <div class="user-icon">
           <a
+            class="icon-hover"
             target="_blank"
             v-for="(item, index) in showIcon"
             v-show="item.link(_userData)"
@@ -42,6 +48,7 @@ import { User } from '@/interface/request/user';
 import { userData } from '@/mock/user/data/user.ts';
 
 import UserCardSkeleton from '@/components/skeleton/pubCom/userCardSkeleton.vue';
+import Imager from '@/components/public/Imager.vue';
 
 /**
  * 用户信息展示卡片
@@ -50,6 +57,7 @@ import UserCardSkeleton from '@/components/skeleton/pubCom/userCardSkeleton.vue'
 @Component({
   components: {
     UserCardSkeleton,
+    Imager,
   },
 })
 export default class UserCard extends Vue {
@@ -64,9 +72,9 @@ export default class UserCard extends Vue {
   @Prop(Object) ssr?: User.Base;
 
   /**
-   * 用户数据
+   * 是否显示入户入口
    */
-  private _userData: User.Base = userData;
+  @Prop(Boolean) userEntrance?: boolean;
 
   /**
    * 展示的用户状态
@@ -104,6 +112,11 @@ export default class UserCard extends Vue {
   }
 
   /**
+   * 用户数据
+   */
+  private _userData: User.Base = userData;
+
+  /**
    * userId的更新触发
    * - userData将在请求后被覆盖
    */
@@ -112,6 +125,7 @@ export default class UserCard extends Vue {
     getUserBaseData(userId)
       .then(data => {
         if (data.result) this._userData = data.result;
+        this.$forceUpdate();
       })
     ;
   }
@@ -152,6 +166,14 @@ export default class UserCard extends Vue {
       margin-top: 10px;
     }
 
+    .user-entrance-row {
+      margin-top: 15px;
+
+      .ant-btn {
+        margin: 0 10px;
+      }
+    }
+
     .user-state-row {
       display: flex;
       margin-top: 20px;
@@ -174,9 +196,14 @@ export default class UserCard extends Vue {
       justify-content: center;
 
       .slm {
-        display: block;
+        display: flex;
+        width: 2rem;
+        height: 2rem;
         margin: 0 10px;
         text-decoration: none;
+        border-radius: 5px;
+        justify-content: center;
+        align-items: center;
       }
     }
   }
