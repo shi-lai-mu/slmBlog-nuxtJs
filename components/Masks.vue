@@ -10,7 +10,7 @@
     :style="styleList"
     @click.self="close">
     <i :class="[ 'slm', 'blog-back', $store.state.themes.mainFColor ]" @click="close"></i>
-    <div class="mask-box">
+    <div :class="['mask-box', { 'show-popup': showAni }]" :style="maskBoxStyle || {}">
       <slot></slot>
     </div>
   </div>
@@ -22,7 +22,7 @@ import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator';
 @Component
 export default class Masks extends Vue {
   /**
-   * 背景模式
+   * 背景模式 [blur-mask: 模糊]
    */
   @Prop(String) maskBackageMode?: string;
   /**
@@ -36,15 +36,23 @@ export default class Masks extends Vue {
   /**
    * 是否显示
    */
-  @Prop(Boolean) show;
+  @Prop(Boolean) hide;
+  /**
+   * maskBox style
+   */
+  @Prop(Object) maskBoxStyle;
   /**
    * 是否禁用
    */
   disable: boolean = false;
+  /**
+   * 出现动画
+   */
+  showAni: boolean = false;
 
 
   created() {
-    this.disable = this.show || false;
+    this.disable = this.hide || false;
   }
 
 
@@ -58,8 +66,12 @@ export default class Masks extends Vue {
   }
 
 
-  @Watch('show')
+  @Watch('hide')
   showChang(val: boolean) {
+    if (!val) {
+      setTimeout(() => this.showAni = true);
+      setTimeout(() => this.showAni = false, 350);
+    }
     this.disable = val;
     this.$store.commit('maskUpdate', !val);
   }
@@ -67,9 +79,14 @@ export default class Masks extends Vue {
 </script>
 
 <style scoped lang="scss">
+
+// 移动端侧栏位移
+.layout-header .masks.mask-style.mobile-offset {
+  margin-left: $mobileAsideWidth !important;
+}
 .masks {
   position: fixed;
-  z-index: 99998;
+  z-index: 1000;
   display: flex;
   top: 0;
   left: 0;
@@ -87,13 +104,10 @@ export default class Masks extends Vue {
   }
 
   &.blur-mask {
-    backdrop-filter: saturate(200%) blur(20px);
+    backdrop-filter: saturate(200%) blur(9px);
     transition: 1s 1s backdrop-filter;
-  }
-
-  // 移动端侧栏位移
-  &.mobile-offset {
-    margin-left: $mobileAsideWidth !important;
+    perspective: 1000px;
+    transition: .5s;
   }
 
   .mask-box {
@@ -109,6 +123,16 @@ export default class Masks extends Vue {
   .blog-back {
     display: none;
   }
+}
+
+.show-popup {
+  animation: showPopup .35s ease forwards;
+}
+
+@keyframes showPopup {
+  0% { transform: rotate3d(1, 1, 0, 90deg); }
+  50% { transform: rotate3d(1, 1, 0, -10deg); }
+  100% { transform: rotate3d(0, 0, 0, 0deg); }
 }
 
 // 小于500px的屏幕切换为全屏弹窗并显示返回按钮
