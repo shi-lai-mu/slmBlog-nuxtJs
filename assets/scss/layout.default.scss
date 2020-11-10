@@ -142,6 +142,16 @@ li {
   background: #2c2c2c;
 }
 
+// antd
+.ant-btn-primary-disabled, .ant-btn-primary.disabled, .ant-btn-primary[disabled], .ant-btn-primary-disabled:hover, .ant-btn-primary.disabled:hover, .ant-btn-primary[disabled]:hover, .ant-btn-primary-disabled:focus, .ant-btn-primary.disabled:focus, .ant-btn-primary[disabled]:focus, .ant-btn-primary-disabled:active, .ant-btn-primary.disabled:active, .ant-btn-primary[disabled]:active, .ant-btn-primary-disabled.active, .ant-btn-primary.disabled.active, .ant-btn-primary[disabled].active {
+  @include themify($themes) {
+    background-color: themed('btn-disable');
+    color: themed('btn-disable-color');
+    border-color: currentColor;
+  }
+}
+
+
 // scrollbar
 
 .gm-scrollbar.-vertical:hover {
