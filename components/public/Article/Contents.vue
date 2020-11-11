@@ -51,6 +51,7 @@ import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 import { Article, Article as IntefArticle } from '@/interface/request/article';
 import { formatPeople } from '@/utils/atricle';
 import { articleBase } from '@/mock/article/data/index';
+import { getLatestArticle } from '@/service/data/article';
 
 import { getRelativeBrowserPos } from '@/utils/element';
 import UserCard from '@/components/public/UserCard.vue';
@@ -112,7 +113,12 @@ export default class ArticleContents extends Vue {
    */
   @Watch('articleId')
   changArticleId(articleId: IntefArticle.Base['id']) {
-    
+    getLatestArticle()
+      .then(data => {
+        if (data.result) this._articleData = data.result[0];
+        this.$forceUpdate();
+      })
+    ;
   }
 
 
@@ -121,11 +127,9 @@ export default class ArticleContents extends Vue {
    */
   @Watch('ssr')
   ssrUpdate(data: Article.Base) {
-    console.log('this.disableSkeleton = false', this.initSkeleton);
-    
     // 如果对骨架屏进行了初始化则先显示骨架屏进行交互
     if (this.initSkeleton) {
-      setTimeout(() => this.toggleTransition = true, 700);
+      setTimeout(() => this.toggleTransition = true, 500);
     } else this.toggleTransition = true;
     this._articleData = data;
   }
@@ -141,17 +145,27 @@ export default class ArticleContents extends Vue {
 </script>
 
 <style scoped lang="scss">
+.layout-default-mobile .article-layout,
+.layout-default-mobile /deep/ .skeleton {
+  padding-top: 60px !important;
+}
 .article-content-box {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  padding-top: 100px;
+  padding-top: 0;
+  // padding-top: 65px;
   // padding-top: 100px;
   @include themify($themes) {
     color: themed('font-color');
     background-color: themed('main-bg-color');
+  }
+
+  .article-layout,
+  /deep/ .skeleton {
+    padding-top: 80px;
   }
 
   &.toggle-transition {
@@ -162,7 +176,7 @@ export default class ArticleContents extends Vue {
     }
     .article-layout {
       opacity: 1;
-      transition: 1s;
+      transition: .5s;
     }
   }
 

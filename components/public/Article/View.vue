@@ -108,7 +108,7 @@ export default class ArticleView extends Vue {
       height: `${height}px`,
       padding: '10px',
       borderRadius: '5px',
-      transition: '1s ',
+      transition: '.5s',
     }
 
     task.push(setTimeout(() => {
@@ -120,7 +120,7 @@ export default class ArticleView extends Vue {
         width: `100vw`,
         height: `100vh`,
         borderRadius: '5px',
-        transition: '1s ',
+        transition: '.5s ',
       }
       // TODO: 此处写法为临时解决方案，修改容器为无法滚动状态，修改动画过渡时间0后top移动到0
       task.push(setTimeout(() => {
@@ -129,7 +129,7 @@ export default class ArticleView extends Vue {
         this.style.top = '0';
         this.style.transition = '0s';
         this.task = [];
-      }, 1000));
+      }, 500));
     }));
   }
 
@@ -156,13 +156,13 @@ export default class ArticleView extends Vue {
         width: `${width}px`,
         height: `${height}px`,
         borderRadius: '5px',
-        transition: '1s',
+        transition: '.5s',
       }
       task.push(setTimeout(() => {
         this.style = '';
         this.task = [];
         (el.children[0].parentElement as any).style = '';
-      }, 1000));
+      }, 500));
     }, 10));
   }
 
