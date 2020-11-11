@@ -1,5 +1,5 @@
 <template>
-  <header :class="['layout-header', $store.state.themes.mainBColor + '-20' ]">
+  <header :class="['layout-header', $store.state.themes.mainBColor + '-80' ]">
     <div class="response-content max-content">
       <router-link
         tag="h1"
@@ -20,7 +20,7 @@
             <i :class="['slm', 'blog-' + item.icon]"></i>
             {{ item.name }}
             <i class="slm blog-zhankai" v-if="item.children && item.children.length"></i>
-            <ul :class="['navigation-children', $store.state.themes.mainBColor + '-20']" v-if="item.children && item.children.length">
+            <ul :class="['navigation-children', $store.state.themes.mainBColor + '-80']" v-if="item.children && item.children.length">
               <router-link
                 tag="li"
                 v-for="(childItem, childIndex) in item.children"
@@ -42,8 +42,8 @@
         <!-- 右侧 -->
         <ul class="header-navigation-right">
           <HeaderSearch />
-          <HeaderThemes @click.native.self="isMobile ? $emit('set-open-state', !mobileHeaderOpen) : null"/>
-          <HeaderAccount />
+          <HeaderThemes @click.native.self="isMobile ? $emit('set-open-state', !mobileHeaderOpen) : null" />
+          <HeaderAccount @click.native.self="isMobile ? $emit('set-open-state', !mobileHeaderOpen) : null" />
         </ul>
       </nav>
       <!-- 移动端操作按钮 -->
@@ -76,14 +76,17 @@ import { PageHeader } from 'ant-design-vue';
   }
 })
 export default class LayoutDefaultHeader extends Vue {
+
   /**
    * 导航栏
    */
   navigator: Navigator.Config[] = [];
+
   /**
    * 导航聚焦的下标
    */
   navFocusIndex: number = 0;
+
   /**
    * 移动端Header展开状态 
    */
@@ -100,8 +103,8 @@ export default class LayoutDefaultHeader extends Vue {
 
   /**
    * 导航跳转事件
-   * @method router-link
    * 处理底部聚焦组件移动
+   * @method router-link
    * @param index     Navigation子元素下标
    * @param animation 是否展示动画
    */
@@ -165,7 +168,7 @@ $headerHeight: 60px;
     // opacity: .4;
     // font-size: 27px;
     line-height: 50px;
-    z-index: 99999;
+    z-index: 9999;
 
     &:active {
       @include themify($themes) {
