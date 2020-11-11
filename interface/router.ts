@@ -13,11 +13,15 @@ export namespace Router {
     /**
      * 跳转路径
      */
-    to: string;
+    to?: string;
     /**
      * 图标
      */
     icon?: string;
+    /**
+     * 回调
+     */
+    cb?: () => any;
   }
 };
 

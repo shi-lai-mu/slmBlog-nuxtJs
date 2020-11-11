@@ -13,26 +13,30 @@
         <nuxt class="layout-page"  @click.native="mobileHeaderOpen = false"/>
       <LayoutFooter />
     </GeminiScrollbar>
+    <LoginPopup v-if="loginPopup" ref="LoginPopup" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import { LayoutDefault } from '../interface/layout';
-import { deDeveloperTools, isOpenDevTool } from '../utils/deDeveloperTools';
+import { LayoutDefault } from '@/interface/layout';
+import { deDeveloperTools, isOpenDevTool } from '@/utils/deDeveloperTools';
 
-import LayoutFooter from './defaultLayouts/components/Footer.vue';
-import LayoutHeader from './defaultLayouts/components/Header.vue';
-import resizeEvent from '../utils/Event/resize';
+import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
+import LayoutHeader from '@/layouts/defaultLayouts/components/Header.vue';
+import LoginPopup from '@/components/Login.vue'
+
+import resizeEvent from '@/utils/Event/resize';
 import ObServer from '@/utils/obServer';
 
-import '../assets/scss/layout.default.scss';
+import '@/assets/scss/layout.default.scss';
 
 @Component({
   scrollToTop: true,
   components: {
     LayoutFooter,
     LayoutHeader,
+    LoginPopup,
   },
 })
 export default class DefaultLayout extends Vue {
@@ -44,17 +48,11 @@ export default class DefaultLayout extends Vue {
    * 移动端Header展开状态
    */
   mobileHeaderOpen: boolean = false;
+  loginPopup: boolean = false;
 
 
   created() {
     const { $config, $route, $router } = this;
-    if (!this.$nuxt.$isServer) {
-      /**
-       * 初始化必要数据
-       */
-      console.log(this.$store.state);
-      // $config.isMobile = !!(window && navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i));
-    }
     $config.Navigation.init(this);
   }
 
@@ -82,6 +80,16 @@ export default class DefaultLayout extends Vue {
     // 监听popstate变化
     window.addEventListener('popstate', (e) => {
       this.$observer.emit('popstate', e);
+    });
+
+    // 登录弹窗观察者绑定
+    this.$observer.on('login', () => {
+      if (!this.loginPopup) {
+        this.loginPopup = true;
+        this.$nextTick(() => (this.$refs.LoginPopup as LoginPopup).showMask());
+      } else {
+        (this.$refs.LoginPopup as LoginPopup).showMask()
+      }
     });
 
     // 事件添加
