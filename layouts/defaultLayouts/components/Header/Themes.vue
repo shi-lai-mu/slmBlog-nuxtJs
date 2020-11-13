@@ -1,6 +1,6 @@
 <template>
   <li :class="[ 'slm', 'blog-themes', $store.state.themes.mainBColor ]" @click.self="showPopup = !showPopup">
-    <Masks :styleList="styleList" :show="!showPopup" @close="() => showPopup = false">
+    <Masks :styleList="styleList" :hide="!showPopup" @close="() => showPopup = false">
       <GeminiScrollbar class="popup-box" @ready="GeminiScrollbarInit">
         <h4 class="popup-title">
           自定义主题皮肤
@@ -177,15 +177,15 @@ export default class HeaderThemes extends Vue {
 
 
   GeminiScrollbarInit(e) {
-    e.update();
+    setTimeout(() =>e.update());
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .popup-box {
-  width: 50vw;
-  max-height: 65vh;
+  width: 80vw;
+  max-height: 90vh;
   max-width: 600px;
   min-width: 200px;
   padding: 0 10px;

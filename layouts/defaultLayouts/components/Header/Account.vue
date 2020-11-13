@@ -1,15 +1,14 @@
 <template>
-  <li :class="[ 'slm', 'blog-account', { 'avatar-box': avatarUrl }, $store.state.themes.mainBColor ]">
+  <li :class="[ 'slm', 'blog-account', { 'avatar-box': avatarUrl }, $store.state.themes.mainBColor ]" @click="accountEntrance[0].cb">
     <div class="avatar" v-if="avatarUrl" :style="`background-image: url(${ avatarUrl });`"></div>
-    <ul class="account-munt">
-      <router-link
+    <ul class="account-munt" v-if="!this.$store.state.isMobile">
+      <li
         class="account-munt-item"
-        tag="li"
         v-for="(item, index) in accountEntrance"
-        :key="index"
-        :to="item.to">
+        @click="item.cb"
+        :key="index">
         {{ item.name }}
-      </router-link>
+      </li>
     </ul>
   </li>
 </template>
@@ -29,11 +28,13 @@ export default class HeaderAccount extends Vue {
    */
   avatarUrl: string = '';
 
-  mounted() {
+  created() {
     this.accountEntrance = [{
-      name: '登录', to: '/login',
+      name: '登录',
+      cb: () => this.$observer.emit('login'),
     }, {
-      name: '注册', to: '/register',
+      name: '注册',
+      cb: () => {},
     }];
   }
 }

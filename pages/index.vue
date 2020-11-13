@@ -25,6 +25,7 @@
       >
         <Notice v-if="!$store.state.isMobile"/>
         <UserCard :ssr="userData" />
+        <FocalPointPlate />
       </a-col>
     </a-row>
   </div>
@@ -40,13 +41,16 @@ import { getLatestArticle } from '@/service/data/article';
 import Notice from '@/components/public/Notice.vue';
 import UserCard from '@/components/public/UserCard.vue';
 import ArticleList from '@/components/public/Article/List.vue';
+import FocalPointPlate from '@/components/pages/home/FocalPointPlate.vue';
 
 @Component({
+  name: 'HomePage',
   components: {
     Carousel,
     Notice,
     UserCard,
     ArticleList,
+    FocalPointPlate,
   },
 })
 export default class HomePage extends Vue {
