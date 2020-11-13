@@ -44,9 +44,6 @@ import ArticleView from './View.vue';
   }
 })
 export default class Article extends Vue {
-  /**
-   * 传入的列表数据 SSR
-   */
   @Prop(Array) ssr?: IntefArticle.Base[];
 
   /**

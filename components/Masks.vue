@@ -70,7 +70,7 @@ export default class Masks extends Vue {
   showChang(val: boolean) {
     if (!val) {
       setTimeout(() => this.showAni = true);
-      setTimeout(() => this.showAni = false, 350);
+      setTimeout(() => this.showAni = false, 450);
     }
     this.disable = val;
     this.$store.commit('maskUpdate', !val);
@@ -126,7 +126,7 @@ export default class Masks extends Vue {
 }
 
 .show-popup {
-  animation: showPopup .35s ease forwards;
+  animation: showPopup .45s ease forwards;
 }
 
 @keyframes showPopup {

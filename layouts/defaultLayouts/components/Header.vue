@@ -123,7 +123,10 @@ export default class LayoutDefaultHeader extends Vue {
 
 <style lang="scss" scoped>
 $headerHeight: 60px;
-
+// TODO: 加载时的logo状态
+#__nuxt .nuxt-progress + #__layout .layout-header .blog-logo {
+  background-color: red !important;
+}
 // 公共
 .layout-header {
   position: fixed;

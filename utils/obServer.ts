@@ -20,7 +20,7 @@ export default class Observer {
     _Subjects[subjectName].add(event);
   }
 
-  emit(subjectName: string, data) {
+  emit(subjectName: string, data?: any) {
     this._Subjects[subjectName]?.notifyObserver(data);
   }
 
