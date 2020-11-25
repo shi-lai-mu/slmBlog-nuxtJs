@@ -21,10 +21,23 @@
 \* ====================================================================================================== */
 -->
 <html {{ HTML_ATTRS }}>
-  <head {{ HEAD_ATTRS }}>
+
+<head {{ HEAD_ATTRS }}>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuex@3.5.1/dist/vuex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-router@3.4.8/dist/vue-router.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-meta@2.4.0/dist/vue-meta.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.21.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qs@6.9.4/dist/qs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-gemini-scrollbar@2.0.1/dist/vue-gemini-scrollbar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tinycolor2@1.4.2/dist/tinycolor-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.9.4/dayjs.min.js"></script>
     {{ HEAD }}
-  </head>
-  <body {{ BODY_ATTRS }}>
+</head>
+
+<body {{ BODY_ATTRS }} style="background-color: #15202b;">
+    <link rel="stylesheet/less" type="text/css" href="/style/antd-min.less" />
+    <script src="/script/index.js"></script>
     {{ APP }}
-  </body>
+</body>
 </html>

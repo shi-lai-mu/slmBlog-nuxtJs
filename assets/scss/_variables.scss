@@ -1,0 +1,148 @@
+$mainBackgrounColor: red;
+
+// 移动端左侧栏目宽度
+$mobileAsideWidth: 260px;
+
+/* * * * * * * * * *\
+ *                 *
+ *      THEMES     *
+ *                 *
+\* * * * * * * * * */
+
+$themes: (
+/**********\
+   默认皮肤
+\**********/
+
+// theme-default: ( font-color: #333, // 默认文字颜色
+// ),
+/**********\
+   暗色皮肤
+\**********/
+
+dark: (
+    main-bg-color: #15202B,          // 主皮肤背景色
+    main-bg-f1-color: #192734,       // 主皮肤突出1色
+
+    font-color: #FFF,                // 文字 默认  颜色
+    font-lv0-color: #b6c3db,         // 文字 等级0 颜色 [ 标注、声明 ]
+    font-lv0-color-hover: #e5ecfa,   // 文字 等级0 hover颜色 [ 标注、声明 ]
+    font-lv1-color: #8899a6,         // 文字 等级1 颜色 [ 友链 ]
+    font-lv2-color: #697680,         // 文字 等级2 颜色
+    font-lv3-color: #4e5961,         // 文字 等级3 颜色
+
+    bg-dp0-color: #121212,           // 背景 海拔dp0  色
+    bg-dp1-color: #1E1E1E,           // 背景 海拔dp1  色
+    bg-dp1-color-hover: #373c45,     // 背景 海拔dp1  色
+    bg-dp1-color-f: #1e2026,         // 背景 海拔dp1  混色
+    bg-dp2-color: #222,              // 背景 海拔dp2  色
+    bg-dp3-color: #212121,           // 背景 海拔dp3  色
+    bg-dp4-color: #252525,           // 背景 海拔dp4  色
+    bg-dp4-color-hover: #3f3e3e,     // 背景 海拔dp4  色
+    bg-dp5-color: #272727,           // 背景 海拔dp5  色
+    bg-dp6-color: #2C2C2C,           // 背景 海拔dp6  色
+    bg-dp7-color: #2E2E2E,           // 背景 海拔dp7  色
+    bg-dp8-color: #333,              // 背景 海拔dp8  色
+    bg-dp9-color: #343434,           // 背景 海拔dp9  色
+    bg-dp10-color: #383838,          // 背景 海拔dp10 色
+    bg-dp11-color: #131417,          // 背景 主色
+
+    a-color: #b6c3db,                // 链接默认颜色
+    a-hover-color: #c5cfe2,          // 链接hover颜色
+    a-active-color: #98a2b6,         // 链接被点击颜色
+
+    selection-bg-color: #2C2C2C,     // 选中背景颜色
+    selection-font-color: #FFF,      // 选中文字颜色
+
+    wave-color: rgba(39, 39, 39, .6), // 水颜色
+    panel-floating-color: #2c303a,    // 浮层颜色
+
+    border-bottom-color: #38444d,     // 底部边框颜色
+    mask-bg-color: #050505,           // 遮罩背景色
+
+    btn-disable: #1C283B,             // 禁用按钮色
+    btn-disable-color: #313e50,       // 禁用按钮的文本颜色
+    test: red
+),
+/**********\
+   混色皮肤
+\**********/
+
+// theme-mixing: () // test...
+);
+@mixin themify($themes: $themes, $isParent: 1) {
+    @each $theme-name,
+    $map in $themes {
+        @if $isParent == 1 {
+            .theme-#{$theme-name} & {
+                $theme-map: () !global;
+                @each $key,
+                $value in $map {
+                    $theme-map: map-merge($theme-map, ($key: $value)) !global;
+                }
+                @content;
+                $theme-map: null !global;
+            }
+        } @else {
+            .theme-#{$theme-name} {
+                $theme-map: () !global;
+                @each $key,
+                $value in $map {
+                    $theme-map: map-merge($theme-map, ($key: $value)) !global;
+                }
+                @content;
+                $theme-map: null !global;
+            }
+        }
+    }
+}
+
+@function themed($key, $themeMap: $theme-map) {
+    @return map-get($themeMap, $key);
+}
+
+
+/* * * * * * * * * *\
+ *                 *
+ *     主 题 色    *
+ *                 *
+\* * * * * * * * * */
+
+
+$mainColor:  (
+    dark: (
+        color: #212C3D,
+    ),
+    blue: (
+        color: #1DA1F2,
+    ),
+    yellow: (
+        color: #FFAD1F,
+    ),
+    powder: (
+        color: #E0245E,
+    ),
+    purple: (
+        color: #794BC4,
+    ),
+    orange: (
+        color: #F45D22,
+    ),
+    green: (
+        color: #17BF63,
+    )
+);
+@each $main-name,$map in $mainColor {
+    .m-b-#{$main-name} {
+        background-color: map-get($map, 'color') !important;
+        transition: .5s;
+    }
+    .m-b-#{$main-name}-20 {
+        background-color: rgba($color: map-get($map, 'color'), $alpha: .40) !important;
+        transition: .5s;
+    }
+    .m-c-#{$main-name} {
+        color: map-get($map, 'color') !important;
+        transition: .5s;
+    }
+}

@@ -1,100 +1,238 @@
 <template>
-  <div class="boss" ref="body">
-    <main-background />
-    <main-Header />
-    <transition name="test">
-      <nuxt />
-    </transition>
-    <main-footer />
-    <music />
-    <Toast />
+  <div
+    :class="[
+      'layout',
+      'layout-default',
+      'content-1300', // test
+      theme,
+      { 'layout-default-mobile': $store.state.isMobile },
+      { 'mobile-header-open': mobileHeaderOpen }
+    ]">
+    <LayoutHeader class="header" @set-open-state="setHeaderOpenState" :mobileHeaderOpen="mobileHeaderOpen" />
+    <GeminiScrollbar @ready="GeminiScrollbarInit">
+        <nuxt class="layout-page"  @click.native="mobileHeaderOpen = false"/>
+      <LayoutFooter />
+    </GeminiScrollbar>
+    <LoginPopup v-if="loginPopup" ref="LoginPopup" />
   </div>
 </template>
 
-<script>
-import mainHeader from './components/header'
-import mainFooter from './components/footer'
-import mainBackground from './components/background'
-import music from '~/components/music/index'
-import Toast from './components/Toast'
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator';
+import { LayoutDefault } from '@/interface/layout';
+import { deDeveloperTools, isOpenDevTool } from '@/utils/deDeveloperTools';
 
-export default {
+import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
+import LayoutHeader from '@/layouts/defaultLayouts/components/Header.vue';
+import LoginPopup from '@/components/Login.vue'
+
+import resizeEvent from '@/utils/Event/resize';
+import ObServer from '@/utils/obServer';
+
+import '@/assets/scss/layout.default.scss';
+
+@Component({
   scrollToTop: true,
-  head: {
-    title: '史莱姆的博客'
-  },
   components: {
-    mainHeader,
-    mainFooter,
-    mainBackground,
-    music,
-    Toast
+    LayoutFooter,
+    LayoutHeader,
+    LoginPopup,
   },
-  watch: {
-    '$route' (to, from) {
-      window.scrollTo(0, 0)
-      // this.baiduPush()
+})
+export default class DefaultLayout extends Vue {
+  /**
+   * 主题方案
+   */
+  theme: LayoutDefault.Data['themes'] = 'theme-dark';
+  /**
+   * 移动端Header展开状态
+   */
+  mobileHeaderOpen: boolean = false;
+  loginPopup: boolean = false;
+
+
+  created() {
+    const { $config, $route, $router } = this;
+    $config.Navigation.init(this);
+  }
+
+
+  mounted() {
+    const { $http } = this;
+    
+    // 初始化权限组
+    $http.$vue = this;
+    $http.auth = {
+      user: () => !!this.$store.state.user.id,
+    };
+    // 非开发模式注入
+    if (!this.$nuxt.context.isDev && !/(192|127)\.\d+\.\d+\.\d+/.test(window.location.host)) {
+      isOpenDevTool(false, (e) => {
+        if (e === 'on') {
+          this.loggerBlog();
+          this.$router.push({
+            path: '/developmentLogin',
+          });
+        }
+      });
     }
-  },
-  mounted () {
-    const slef = this
+
+    // 监听popstate变化
+    window.addEventListener('popstate', (e) => {
+      this.$observer.emit('popstate', e);
+    });
+
+    // 登录弹窗观察者绑定
+    this.$observer.on('login', () => {
+      if (!this.loginPopup) {
+        this.loginPopup = true;
+        this.$nextTick(() => (this.$refs.LoginPopup as LoginPopup).showMask());
+      } else {
+        (this.$refs.LoginPopup as LoginPopup).showMask()
+      }
+    });
+
+    // 事件添加
+    resizeEvent(window, this);
     // slef.baiduPush()
-
-    let user = localStorage.getItem('userInfo')
-    slef.$nuxt.$store.dispatch('USER', user || 'default')
-    user = slef.$store.state.user
-
+    // let user = localStorage.getItem('userInfo');
+    // slef.$nuxt.$store.dispatch('USER', user || 'default');
+    // user = slef.$store.state.user;
     // 缩放窗口时 响应式处理
-    window.addEventListener('resize', resize)
-    function resize (e) {
-      document.body.className = window.innerWidth > 840 ? 'max' : 'centre'
-      slef.$store.dispatch('IS_MOBILE', window.innerWidth)
-    }
-    resize()
-
+    // window.addEventListener('resize', resize);
+    // function resize() {
+    //   document.body.className = window.innerWidth > 840 ? 'max' : 'centre';
+    //   // slef.$store.dispatch('IS_MOBILE', window.innerWidth);
+    // }
+    // resize();
     // refs.body 订阅
-    slef.observer.on('body', option => {
-      slef.$refs.body.className = option.value ? option.value : 'boss'
-    })
-
-    slef.$nextTick(() => {
+    // slef.observer.on('body', option => {
+    //   slef.$refs.body.className = option.value ? option.value : 'boss';
+    // });
+    // slef.$nextTick(() => {
       // PC版 问候
-      !slef.$store.state.mobile && slef.observer.emit('toast', {
-        text: isNaN(user.id) ? '欢迎访问, 史莱姆的博客!' : `欢迎回来 ${user.username}`
-      })
-    })
+      // !slef.$store.state.mobile && slef.observer.emit('toast', {
+      //   text: isNaN(user.id) ? '欢迎访问, 史莱姆的博客!' : `欢迎回来 ${user.username}`,
+      // });
+    // });
+    this.loggerBlog();
+  }
+  
 
-    console.log('%cSLM BLOG%c version 1.5.0', 'font-size: 40px;color: rgb(254,65,129);font-weight: bold;', 'font-size: 20px;color: rgb(254,65,129)')
-    console.log('      %c欢迎访问 史莱姆的博客!', 'font-size: 20px;color: rgb(254,65,129)')
-  },
-  methods: {
-    // 百度推送
-    baiduPush () {
-      const bp = document.createElement('script')
-      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
-      let s = document.getElementsByTagName('script')[0]
-      s.parentNode.insertBefore(bp, s)
-    }
+  /**
+   * 设置移动端打开状态
+   */
+  setHeaderOpenState(state: boolean) {
+    this.mobileHeaderOpen = state;
+  }
+
+  
+  /**
+   * body初始化完成时
+   */
+  GeminiScrollbarInit(e) {
+    e.observer = new ObServer('GeminiScrollbar Observer');
+    e._viewElement.addEventListener('scroll', v => e.observer.emit('scroll', v));
+    this.$config.GeminiScrollbar = e;
+    setTimeout(() => e.update(), 1000)
+  }
+
+
+  /**
+   * 打印日志
+   */
+  loggerBlog() {
+    console.log(`
+    %cSLM BLOG%c v1.8.0
+     %c欢迎访问 史莱姆的博客!
+     %c(重构版 UPDATE 2020-09-07)
+    `,
+      'font-size: 40px; font-weight: bold; color: rgb(254, 65, 129);',
+      'font-size: 20px; color: rgb(254, 65, 129);',
+      'font-size: 20px; color: rgb(254, 65, 129);',
+      'font-size: 14px; color: #8624b1;',
+    );
   }
 }
 </script>
 
-<style lang="less">
-.test-enter-active, .test-leave-active {
+<style lang="scss" scoped>
+.transition-enter-active,
+.transition-leave-active {
   transition: 1s;
 }
-.test-enter, .test-leave-active {
+.transition-enter,
+.transition-leave-active {
   opacity: 0;
-  -webkit-transform: translate(-50px, 0);
-          transform: translate(-50px, 0);
+  transform: translate(-50px, 0);
 }
-.boss {
+.layout-default {
+  // min-height: 100vh;
+  height: 100vh;
   transition: 1s;
 }
+.header {
+  position: fixed;
+}
+.layout-page {
+  width: 100%;
+  padding-top: 65px;
+  min-height: calc(100vh - 121px);
+  box-sizing: border-box;
+}
+
+@each $size-name, $value in (1300: 1300px, 1240: 1240px, 90: 90vh) {
+  .content-#{$size-name} /deep/ .max-content {
+    max-width: $value;
+  }
+}
+
 .min-screen-left > .conter {
   transform: translateX(50vw);
   opacity: .7;
   filter: blur(1px);
   transition: .5s;
+}
+@include themify($themes, 0) {
+  &.layout-default {
+    color: themed('font-color');
+    background-color: themed('main-bg-color');
+  }
+}
+.mobile-header-open {
+  transform: translateX(260px);
+}
+
+/deep/ .row-box {
+  margin-bottom: 15px;
+  padding: 20px;
+  @include themify($themes) {
+    background-color: themed('bg-dp4-color'); 
+    color: themed('font-color');
+  }
+  border-radius: 10px;
+
+  .row-title {
+    color: currentColor;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 0;
+    padding-bottom: 5px;
+    @include themify($themes) {
+      border-bottom: 1px solid themed('border-bottom-color');
+    }
+
+    .slm {
+      font-size: 1rem;
+      margin-right: 10px;
+    }
+  }
+
+  .row-content {
+    margin-top: 10px;
+    @include themify($themes) {
+      color: themed('font-lv0-color');
+    }
+  }
 }
 </style>

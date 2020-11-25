@@ -1,0 +1,19 @@
+{
+	"apps" : [
+    {
+      "name"              : "slmBlog",
+      "script"            : "./node_modules/nuxt/bin/nuxt.js",
+      "args"              : "start --port=8888",
+      "log_date_format"   : "YYYY-MM-DD HH:mm Z",
+      "out_file"          : "./logs/pm2-out.log",
+      "error_file"        : "./logs/pm2-err.log",
+      "pid_file"          : "./logs/slmblog-nuxtJS.pid",
+      "ignoreWatch"       : ["[\\/\\\\]\\./", "node_modules"],
+      "watch"             : false,
+      "autorestart"       : true,  
+      "env": {
+        "NODE_ENV"        : "production"
+      }
+    }
+  ]
+}

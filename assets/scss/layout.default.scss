@@ -1,0 +1,195 @@
+:root {
+  // font-size: calc(.5vw + .5vh + .5vmin);
+}
+
+body {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  // font-size: 14px;
+  font-family: josefin sans, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  @include themify($themes) {
+    color: themed('a-color');
+
+    &:hover {
+      text-decoration: underline;
+      color: themed('a-hover-color');
+    }
+
+    &:active {
+      color: themed('a-active-color');
+    }
+  }
+}
+
+a:focus,
+input:focus,
+li:focus,
+p:focus,
+button:focus {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  // -webkit-user-modify: read-write-plaintext-only;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.top-banner {
+  width: 100%;
+  height: 500px;
+  background: no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.button {
+  margin: 10px 0;
+  padding: 10px 15px;
+  background-color: rgba($color: #000, $alpha: .2);
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba($color: #000, $alpha: .3);
+  }
+
+  &:active {
+    background-color: rgba($color: #000, $alpha: .4);
+  }
+}
+
+.line-ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.double-line-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal;
+}
+
+.skeleton li,
+.skeleton span {
+  background: linear-gradient(90deg,rgba(242, 242, 242, .5) 25%,rgba(230, 230, 230, .6) 37%,rgba(242, 242, 242, .5) 83%);
+  background-size: 400% 100%;
+  border-radius: 5px;
+  animation: skeleton-loading 2s ease infinite;
+  opacity: .2;
+}
+.skeleton-content {
+  display: block;
+  height: 1em;
+}
+.skeleton-title {
+  @extend .skeleton-content;
+  width: 50%;
+}
+.skeleton-desc {
+  @extend .skeleton-content;
+  width: 70%;
+}
+.skeleton-tag {
+  @extend .skeleton-content;
+  margin-top: .1em !important;
+  width: 30%;
+}
+.skeleton-icon {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+}
+.skeleton-center {
+  margin: 0 auto;
+}
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%
+  }
+  to {
+    background-position: 0 50%
+  }
+}
+
+.icon-hover:hover {
+  @include themify($themes) {
+    background-color: rgba($color: themed('font-lv0-color-hover'), $alpha: .1);
+    color: themed('font-lv0-color-hover') !important;
+    text-shadow: 0 0 6px themed('font-lv0-color-hover');
+  }
+}
+
+::selection {
+  color: #fff;
+  background: #2c2c2c;
+}
+
+// antd
+.ant-btn-primary-disabled, .ant-btn-primary.disabled, .ant-btn-primary[disabled], .ant-btn-primary-disabled:hover, .ant-btn-primary.disabled:hover, .ant-btn-primary[disabled]:hover, .ant-btn-primary-disabled:focus, .ant-btn-primary.disabled:focus, .ant-btn-primary[disabled]:focus, .ant-btn-primary-disabled:active, .ant-btn-primary.disabled:active, .ant-btn-primary[disabled]:active, .ant-btn-primary-disabled.active, .ant-btn-primary.disabled.active, .ant-btn-primary[disabled].active {
+  @include themify($themes) {
+    background-color: themed('btn-disable');
+    color: themed('btn-disable-color');
+    border-color: currentColor;
+  }
+}
+
+
+// scrollbar
+
+.gm-scrollbar.-vertical:hover {
+//   @include themify($themes) {
+//     background-color: rgba($color: themed('bg-dp1-color-f'), $alpha: 0.4);
+//   }
+  background-color: transparent;
+}
+
+// .gm-scroll-view {
+//   overflow: hidden;
+// }
+
+.gm-scrollbar.-horizontal {
+  background-color: transparent;
+}
+
+.gm-scrollbar div.thumb {
+  @include themify($themes) {
+    background-color: rgba($color: themed('a-color'), $alpha: 0.4);
+  }
+}
+
+.gm-scrollbar-disable-selection .gm-scrollbar div.thumb {
+    background-color: #c5cfe2;
+}
+
+.gm-scrollbar div.thumb:hover {
+  @include themify($themes) {
+    background-color: rgba($color: themed('a-hover-color'), $alpha: .7);
+  }
+}
+
+// 20.10.28后vue-gemini-scrollbar在
+.layout > .gm-scrollbar-container > .-horizontal {
+  width: 0 !important;
+  .thumb { width: 0 !important; }
+}
+
+// 移动端布局兼容
+// .layout-default-mobile {}

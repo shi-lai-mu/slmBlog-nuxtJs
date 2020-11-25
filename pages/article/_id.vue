@@ -1,91 +1,24 @@
 <template>
-  <section class="conter article-box">
-    <article class="content-box article-index">
-
-      <!-- 头部信息 -->
-      <atrcile-header :article="article" :unTime="unTime" :editor="editor"></atrcile-header>
-
-      <!-- 内容 -->
-      <div class="article-body">
-        <img class="article-img" :alt="article.title + '文章封面'" :src="article.img" v-if="article.img">
-        <div v-html="article.content" ref="content"></div>
-      </div>
-
-      <!-- 尾部 -->
-      <message :article="article" :unTime="unTime"></message>
-
-    </article>
-    <right :article="article" ref="artRight"></right>
-  </section>
+  <ArticleContent :ssr="articleData[0]"/>
 </template>
 
-<script>
-import Code from '~/plugins/code'
-import { form } from '~/plugins/tool'
-import right from '~/components/artcile/right'
-import message from '~/components/artcile/message'
-import atrcileHeader from '~/components/artcile/header'
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator';
 
-export default {
-  data () {
-    return {
-      editor: false
-    }
-  },
-  head () {
-    const art = this.article
-    return {
-      title: art.title + '-史莱姆的博客',
-      meta: [
-        { name: 'description', hid: 'description', itemprop: 'description', content: art.description },
-        { itemprop: 'name', hid: 'qqname', content: '史莱姆的博客-' + art.title },
-        { itemprop: 'image', hid: 'qqlogo', content: art.img ? art.img : 'https://img.slmblog.com/QQLOGO.jpg' }
-      ]
-    }
-  },
+import { getLatestArticle } from '@/service/data/article';
+
+import ArticleContent from '@/components/public/Article/Contents.vue';
+
+@Component({
   components: {
-    right,
-    message,
-    atrcileHeader
+    ArticleContent,
   },
-  async asyncData ({ $axios, route }) {
-    // 请求文章内容
-    let id = route.params.id
-    if (!/^\d+$/.test(id)) {
-      return {
-        article: {
-          author: {}
-        }
-      }
-    }
-    const article = await $axios
-      .api({
-        key: 'ARTCILE_CONTENT',
-        data: { id }
-      })
-      .cache()
-      // .catch(() => {
-      //   this.$router.go(-1)
-      // })
-    return { article }
-  },
-  mounted () {
-    this.$nextTick(() => {
-      const that = this
-      Code.parse(that.$refs.content)
-      const user = that.$store.state.user
-      const data = that.article
-
-      // 是否有编辑权限
-      if (user) {
-        if (data.author.uid === user.id || user.groupid >= 9999) {
-          that.editor = !0
-        }
-      }
-    })
-  },
-  methods: {
-    unTime: time => form('yyyy-MM-dd HH:mm:ss', time * 1000)
+})
+export default class HomePage extends Vue {
+  async asyncData({ $http, $axios}) {
+    return {
+      articleData: (await getLatestArticle()).result || [], // 获取最新文章
+    };
   }
 }
 </script>
