@@ -31,7 +31,7 @@
           <div v-if="filePath || webPath" class="img-look-box">
             <span class="look">预览区域</span>
             <span class="look-info"  v-if="!uploadPath && !webPath">等待 确认上传 ...</span>
-            <img :src="webPath || ('//res.mczyzy.cn/img/upload/' + uploadPath)" v-else>
+            <img :src="webPath || ('//slmblog.com/img/upload/' + uploadPath)" v-else>
           </div>
 
         </li>

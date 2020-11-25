@@ -4,7 +4,7 @@
     <!-- 顶部信息 -->
     <div class="content-box user-info" :style="`background-image: url(${user.bg || '/img/user-bg.webp'})`">
       <div class="user-info-img">
-        <img :src="user.img || '/img/user-default.jpg'" alt="">
+        <img :src="user.img || require('~/static/img/user-default.jpg')" alt="">
       </div>
       <div class="user-info-rmation">
         <div class="info-rmation-name">

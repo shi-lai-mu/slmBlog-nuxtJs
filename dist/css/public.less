@@ -2,7 +2,7 @@
 @max-width: 1300px;
 @min-width: 200px;
 
-@ip: '//slmblog.com/img';
+@ip: 'https://img.slmblog.com/img/';
 @shadow: 0 2px 5px rgba(0,0,0, .15);
 @click-shadow: 1px 7px 14px -5px rgba(0, 0, 0, .3);
 
@@ -13,11 +13,13 @@ img[lazy=loading] {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#EDEDED), to(#dddddd)) !important;
   background-image: linear-gradient(180deg, #EDEDED, #dddddd) !important;
 }
-
 /* 公共 */
 html {
   --max-width: @max-width;
   --min-width: @min-width;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  word-spacing: 1px;
   --font-out: #14181E;
   --font-out-shadow: 1px 1px .5px #535d6e;
   --img-bg: url('@{ip}/line-pattern-light-bg.png');
@@ -46,16 +48,19 @@ a {
   height: 100%;
   clear: both;
 }
-tbody {
-  display: block;
-}
 .conter {
   max-width: @max-width;
   min-width: @min-width;
   margin: 0 auto;
 }
-tbody.conter {
+section.conter,
+article.conter,
+div.conter {
+  min-height: calc(100vh - 220px);
   margin: 80px auto 0;
+}
+div.conter {
+  margin: 0 auto;
 }
 .none {
   display: none;
@@ -119,8 +124,6 @@ input, button {
           box-sizing: border-box;
   -webkit-box-shadow: @shadow;
           box-shadow: @shadow;
-  -webkit-transition: .5s;
-          transition: .5s;
 }
 .single .content-box {
   float: none;
@@ -223,10 +226,11 @@ div:focus { -webkit-tap-highlight-color: transparent; }
 
 // transition动画
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+  transition: .5s;
 }
 
 .fade-enter, .fade-leave-to {
   width: 100%;
   opacity: 0;
+  transform: translateX(50vw);
 }

@@ -3,19 +3,19 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _7663dc74 = () => interopDefault(import('../pages/article/index.vue' /* webpackChunkName: "pages/article/index" */))
-const _6ea0e2a4 = () => interopDefault(import('../pages/article/editArticle.vue' /* webpackChunkName: "pages/article/editArticle" */))
-const _9e52ece4 = () => interopDefault(import('../pages/other/friendship.vue' /* webpackChunkName: "pages/other/friendship" */))
-const _6d960368 = () => interopDefault(import('../pages/other/me.vue' /* webpackChunkName: "pages/other/me" */))
-const _8d46ddfa = () => interopDefault(import('../pages/other/terms.vue' /* webpackChunkName: "pages/other/terms" */))
-const _e56adf8e = () => interopDefault(import('../pages/other/thisSite.vue' /* webpackChunkName: "pages/other/thisSite" */))
-const _1ed895ba = () => interopDefault(import('../pages/user/admin/login.vue' /* webpackChunkName: "pages/user/admin/login" */))
-const _5488f0e2 = () => interopDefault(import('../pages/user/admin/register.vue' /* webpackChunkName: "pages/user/admin/register" */))
-const _8f6a4f4a = () => interopDefault(import('../pages/user/ment/hot.vue' /* webpackChunkName: "pages/user/ment/hot" */))
-const _366be7a4 = () => interopDefault(import('../pages/user/ment/new.vue' /* webpackChunkName: "pages/user/ment/new" */))
-const _46666bdc = () => interopDefault(import('../pages/article/_id.vue' /* webpackChunkName: "pages/article/_id" */))
-const _7d1b416a = () => interopDefault(import('../pages/user/_id.vue' /* webpackChunkName: "pages/user/_id" */))
-const _3d02194d = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _c31c4c3e = () => interopDefault(import('../pages/article/index.vue' /* webpackChunkName: "pages/article/index" */))
+const _0193065b = () => interopDefault(import('../pages/article/editArticle.vue' /* webpackChunkName: "pages/article/editArticle" */))
+const _36460dfe = () => interopDefault(import('../pages/other/friendship.vue' /* webpackChunkName: "pages/other/friendship" */))
+const _15a0de82 = () => interopDefault(import('../pages/other/me.vue' /* webpackChunkName: "pages/other/me" */))
+const _d495f4a0 = () => interopDefault(import('../pages/other/terms.vue' /* webpackChunkName: "pages/other/terms" */))
+const _66fc406c = () => interopDefault(import('../pages/other/thisSite.vue' /* webpackChunkName: "pages/other/thisSite" */))
+const _52df052d = () => interopDefault(import('../pages/user/admin/login.vue' /* webpackChunkName: "pages/user/admin/login" */))
+const _e5272ee2 = () => interopDefault(import('../pages/user/admin/register.vue' /* webpackChunkName: "pages/user/admin/register" */))
+const _3f4e5470 = () => interopDefault(import('../pages/user/ment/hot.vue' /* webpackChunkName: "pages/user/ment/hot" */))
+const _0cd8099b = () => interopDefault(import('../pages/user/ment/new.vue' /* webpackChunkName: "pages/user/ment/new" */))
+const _22bee089 = () => interopDefault(import('../pages/article/_id.vue' /* webpackChunkName: "pages/article/_id" */))
+const _25261c84 = () => interopDefault(import('../pages/user/_id.vue' /* webpackChunkName: "pages/user/_id" */))
+const _0f46d3ba = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 // TODO: remove in Nuxt 3
 const emptyFn = () => {}
@@ -27,63 +27,63 @@ Router.prototype.push = function push (location, onComplete = emptyFn, onAbort) 
 Vue.use(Router)
 
 export const routerOptions = {
-  mode: 'history',
-  base: decodeURI('/'),
+  mode: 'hash',
+  base: decodeURI('./'),
   linkActiveClass: 'nuxt-link-active',
   linkExactActiveClass: 'nuxt-link-exact-active',
   scrollBehavior,
 
   routes: [{
     path: "/article",
-    component: _7663dc74,
+    component: _c31c4c3e,
     name: "article"
   }, {
     path: "/article/editArticle",
-    component: _6ea0e2a4,
+    component: _0193065b,
     name: "article-editArticle"
   }, {
     path: "/other/friendship",
-    component: _9e52ece4,
+    component: _36460dfe,
     name: "other-friendship"
   }, {
     path: "/other/me",
-    component: _6d960368,
+    component: _15a0de82,
     name: "other-me"
   }, {
     path: "/other/terms",
-    component: _8d46ddfa,
+    component: _d495f4a0,
     name: "other-terms"
   }, {
     path: "/other/thisSite",
-    component: _e56adf8e,
+    component: _66fc406c,
     name: "other-thisSite"
   }, {
     path: "/user/admin/login",
-    component: _1ed895ba,
+    component: _52df052d,
     name: "user-admin-login"
   }, {
     path: "/user/admin/register",
-    component: _5488f0e2,
+    component: _e5272ee2,
     name: "user-admin-register"
   }, {
     path: "/user/ment/hot",
-    component: _8f6a4f4a,
+    component: _3f4e5470,
     name: "user-ment-hot"
   }, {
     path: "/user/ment/new",
-    component: _366be7a4,
+    component: _0cd8099b,
     name: "user-ment-new"
   }, {
     path: "/article/:id",
-    component: _46666bdc,
+    component: _22bee089,
     name: "article-id"
   }, {
     path: "/user/:id?",
-    component: _7d1b416a,
+    component: _25261c84,
     name: "user-id"
   }, {
     path: "/",
-    component: _3d02194d,
+    component: _0f46d3ba,
     name: "index"
   }],
 

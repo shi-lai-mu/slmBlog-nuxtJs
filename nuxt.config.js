@@ -81,10 +81,23 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    base: './',
+    publicPath: './',
     extractCSS: true
   },
 
   performance: {
     prefetch: false
-  }
+  },
+  generate: {
+    subFolders: false,
+    routes: [
+      '/help',
+      '/help/detail'
+    ]
+  },
+  router: {
+    mode: 'hash',
+    base: './'
+	}   
 }

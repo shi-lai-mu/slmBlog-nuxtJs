@@ -1,0 +1,39 @@
+{
+  "entry": "server.js",
+  "files": {
+    "14.js": "14.js",
+    "15.js": "15.js",
+    "pages/article/_id.js": "pages/article/_id.js",
+    "pages/article/editArticle.js": "pages/article/editArticle.js",
+    "pages/article/index.js": "pages/article/index.js",
+    "pages/index.js": "pages/index.js",
+    "pages/other/friendship.js": "pages/other/friendship.js",
+    "pages/other/me.js": "pages/other/me.js",
+    "pages/other/terms.js": "pages/other/terms.js",
+    "pages/other/thisSite.js": "pages/other/thisSite.js",
+    "pages/user/_id.js": "pages/user/_id.js",
+    "pages/user/admin/login.js": "pages/user/admin/login.js",
+    "pages/user/admin/register.js": "pages/user/admin/register.js",
+    "pages/user/ment/hot.js": "pages/user/ment/hot.js",
+    "pages/user/ment/new.js": "pages/user/ment/new.js",
+    "server.js": "server.js"
+  },
+  "maps": {
+    "14.js": "14.js.map",
+    "15.js": "15.js.map",
+    "pages/article/_id.js": "pages/article/_id.js.map",
+    "pages/article/editArticle.js": "pages/article/editArticle.js.map",
+    "pages/article/index.js": "pages/article/index.js.map",
+    "pages/index.js": "pages/index.js.map",
+    "pages/other/friendship.js": "pages/other/friendship.js.map",
+    "pages/other/me.js": "pages/other/me.js.map",
+    "pages/other/terms.js": "pages/other/terms.js.map",
+    "pages/other/thisSite.js": "pages/other/thisSite.js.map",
+    "pages/user/_id.js": "pages/user/_id.js.map",
+    "pages/user/admin/login.js": "pages/user/admin/login.js.map",
+    "pages/user/admin/register.js": "pages/user/admin/register.js.map",
+    "pages/user/ment/hot.js": "pages/user/ment/hot.js.map",
+    "pages/user/ment/new.js": "pages/user/ment/new.js.map",
+    "server.js": "server.js.map"
+  }
+}

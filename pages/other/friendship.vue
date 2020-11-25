@@ -1,7 +1,7 @@
 <template>
   <article class="conter single clearfix">
     <div class="content-box friendship">
-      <img src="/LOGO.png" alt="slm-logo" class="logo">
+      <img :src="require('~/static/LOGO.png')" alt="slm-logo" class="logo">
       <h2>史莱姆的个人博客</h2>
       <h3 class="friendship-desc">本博客涉及范围html5,css3,es6,微信小程序,网站开发,技术交流,源码分享,php,nodejs</h3>
       <a class="button-lv1" href="#no1">申请友链</a>

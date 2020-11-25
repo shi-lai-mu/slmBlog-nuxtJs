@@ -1,7 +1,7 @@
 <template>
   <section class="conter">
     <div class="account clearfix">
-      <img src="/img/account-bg3.jpg" alt="图1" class="border-line">
+      <img :src="require('~/static/img/account-bg3.jpg')" alt="图1" class="border-line">
       <form>
         <label>昵称</label>
         <input type="text" v-model="register.username" @change="regUsername">

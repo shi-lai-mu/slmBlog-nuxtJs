@@ -1,7 +1,7 @@
 <template>
   <section class="conter single clearfix">
     <article class="content-box thisSite">
-      <img src="/LOGO.png" alt="slm-logo" class="logo">
+      <img :src="require('~/static/LOGO.png')" alt="slm-logo" class="logo">
       <h2>史莱姆的个人博客</h2>
       <ul class="web-master">
         <li>
@@ -33,15 +33,15 @@
       <h2>站点框架</h2>
       <ul class="web-technology clearfix">
         <li>
-          <img src="/img/vue-logo.png" alt="vue logo">
+          <img :src="require('~/static/img/vue-logo.png')" alt="vue logo">
           <span>VUE 全家桶</span>
         </li>
         <li>
-          <img src="/img/nuxtjs-logo.png" alt="nuxtjs logo">
+          <img :src="require('~/static/img/nuxtjs-logo.png')" alt="nuxtjs logo">
           <span>NUXTJS</span>
         </li>
         <li>
-          <img src="/img/tp-logo.png" alt="thinkphp logo">
+          <img :src="require('~/static/img/tp-logo.png')" alt="thinkphp logo">
           <span>ThinkPHP 5.1</span>
         </li>
       </ul>
