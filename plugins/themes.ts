@@ -1,6 +1,8 @@
+/*  tslint:disable */
 const path = require('path');
 const fs = require('fs');
 const { generateTheme } = require('antd-theme-generator');
+const mkdirp = require('mkdirp');
 
 // 输出路径
 const outputFilePath = path.join(__dirname, '../static/style/antd.less');
@@ -8,6 +10,7 @@ const outputFilePath = path.join(__dirname, '../static/style/antd.less');
 const outMinFilePath = path.join(__dirname, '../static/style/antd-min.less');
 // 导出类名
 
+mkdirp.sync(path.join(outputFilePath, '../'));
 fs.writeFileSync(outputFilePath, antdConstants());
 
 const options = {
