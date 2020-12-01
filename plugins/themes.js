@@ -4,7 +4,7 @@ const { generateTheme } = require('antd-theme-generator');
 
 // 输出路径
 const outputFilePath = path.join(__dirname, '../static/style/antd.less');
-const antdFnFilePath = path.join(__dirname, '../static/style/antd-fn.less');
+// const antdFnFilePath = path.join(__dirname, '../static/style/antd-fn.less');
 const outMinFilePath = path.join(__dirname, '../static/style/antd-min.less');
 // 导出类名
 
@@ -32,7 +32,7 @@ generateTheme(options)
 
     // 获取文件并压缩抽取处理
     let outFile = fs.readFileSync(outputFilePath).toString();
-    let antdFnFile = fs.readFileSync(antdFnFilePath).toString();
+    // let antdFnFile = fs.readFileSync(antdFnFilePath).toString();
     
     // 压缩
     const excludeClass = [
