@@ -5,8 +5,8 @@
   "author": "ShiLaiMu <qq: 47889187/wechat: shi_lai_mu>",
   "private": false,
   "scripts": {
-    "dev": "node plugins/themes.js && nuxt-ts --port=8888",
-    "build": "node plugins/themes.js && nuxt-ts build --analyze",
+    "dev": "node plugins/themes.ts && nuxt-ts --port=8888",
+    "build": "node plugins/themes.ts && nuxt-ts build --analyze",
     "mock": "npm run build:yapi && npm run dev --mock --port=8888",
     "build:yapi": "tsc mock/YAPI/index.ts && node mock/YAPI/index.js",
     "test": "jest",

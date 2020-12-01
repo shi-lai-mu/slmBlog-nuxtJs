@@ -1,3 +1,4 @@
+
 @primary-color: @blue-6;
 @text-color: fade(@black, 65%);
 @text-color-secondary: fade(@black, 45%);
@@ -1603,8 +1604,8 @@ li.ant-select-tree-treenode-disabled > .ant-select-tree-node-content-wrapper:hov
 .bezierEasingMixin();
 .tinyColorMixin() {
 @functions: ~`(function() {
-var trimLeft = /^\s+/,
-    trimRight = /\s+$/,
+var trimLeft = /^s+/,
+    trimRight = /s+$/,
     tinyCounter = 0,
     mathRound = Math.round,
     mathMin = Math.min,
@@ -1974,7 +1975,7 @@ function convertToPercentage(n) {if (n <= 1) {n = (n * 100) + "%";}
     return n;}
 function convertDecimalToHex(d) {return Math.round(parseFloat(d) * 255).toString(16);}
 function convertHexToDecimal(h) {return (parseIntFromHex(h) / 255);}
-var matchers = (function() {var CSS_INTEGER = "[-\\+]?\\d+%?";var CSS_NUMBER = "[-\\+]?\\d*\\.\\d+%?";var CSS_UNIT = "(?:" + CSS_NUMBER + ")|(?:" + CSS_INTEGER + ")";var PERMISSIVE_MATCH3 = "[\\s|\\(]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")\\s*\\)?";var PERMISSIVE_MATCH4 = "[\\s|\\(]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")\\s*\\)?";return {CSS_UNIT: new RegExp(CSS_UNIT),
+var matchers = (function() {var CSS_INTEGER = "[-\+]?\d+%?";var CSS_NUMBER = "[-\+]?\d*\.\d+%?";var CSS_UNIT = "(?:" + CSS_NUMBER + ")|(?:" + CSS_INTEGER + ")";var PERMISSIVE_MATCH3 = "[\s|\(]+(" + CSS_UNIT + ")[,|\s]+(" + CSS_UNIT + ")[,|\s]+(" + CSS_UNIT + ")\s*\)?";var PERMISSIVE_MATCH4 = "[\s|\(]+(" + CSS_UNIT + ")[,|\s]+(" + CSS_UNIT + ")[,|\s]+(" + CSS_UNIT + ")[,|\s]+(" + CSS_UNIT + ")\s*\)?";return {CSS_UNIT: new RegExp(CSS_UNIT),
         rgb: new RegExp("rgb" + PERMISSIVE_MATCH3),
         rgba: new RegExp("rgba" + PERMISSIVE_MATCH4),
         hsl: new RegExp("hsl" + PERMISSIVE_MATCH3),
