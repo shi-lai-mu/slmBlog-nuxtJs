@@ -9,3 +9,4 @@ import { User } from '@/interface/request/user';
 export const getUserBaseData = (userId: User.Base['id']): Promise<Request.Result<User.Base>> => axios.send(axios.user.data, {
     params: { id: userId },
   }).then(res => res);
+ 

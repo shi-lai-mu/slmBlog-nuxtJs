@@ -61,15 +61,16 @@ export default class DefaultLayout extends Vue {
 
 
   mounted() {
-    const { $http } = this;
+    const { $http, $refs, $nuxt, $store, $observer } = this;
     
     // 初始化权限组
     $http.$vue = this;
     $http.auth = {
       user: () => !!this.$store.state.user.id,
     };
-    // 非开发模式注入
-    if (!this.$nuxt.context.isDev && !/(192|127)\.\d+\.\d+\.\d+/.test(window.location.host)) {
+
+    // 非开发环境注入 打开控制台监听
+    if (!$nuxt.context.isDev && !/(192|127)\.\d+\.\d+\.\d+/.test(window.location.host)) {
       isOpenDevTool(false, (e) => {
         if (e === 'on') {
           this.loggerBlog();
@@ -80,18 +81,26 @@ export default class DefaultLayout extends Vue {
       });
     }
 
+    // 移动端在本地开发环境 下加载vConsole
+    if ($nuxt.context.isDev
+      && /(192|127)\.\d+\.\d+\.\d+/.test(window.location.host)
+      && $store.state.isMobile  
+    ) {
+      const vConsole = new (require('vconsole'));
+    }
+
     // 监听popstate变化
     window.addEventListener('popstate', (e) => {
-      this.$observer.emit('popstate', e);
+      $observer.emit('popstate', e);
     });
 
     // 登录弹窗观察者绑定
-    this.$observer.on('login', () => {
+    $observer.on('login', () => {
       if (!this.loginPopup) {
         this.loginPopup = true;
-        this.$nextTick(() => (this.$refs.LoginPopup as LoginPopup).showMask());
+        this.$nextTick(() => ($refs.LoginPopup as LoginPopup).showMask());
       } else {
-        (this.$refs.LoginPopup as LoginPopup).showMask()
+        ($refs.LoginPopup as LoginPopup).showMask()
       }
     });
 
