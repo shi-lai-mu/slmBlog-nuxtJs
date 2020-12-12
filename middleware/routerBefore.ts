@@ -1,4 +1,6 @@
 export default context => {
+  if (process.env.NODE_ENV === 'production') return;
+  
   context.userAgent = process.server
     ? context.req.headers["user-agent"]
     : navigator.userAgent;

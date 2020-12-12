@@ -14,6 +14,7 @@
       <LayoutFooter />
     </GeminiScrollbar>
     <LoginPopup v-if="loginPopup" ref="LoginPopup" />
+    <Live2D />
   </div>
 </template>
 
@@ -25,6 +26,7 @@ import { deDeveloperTools, isOpenDevTool } from '@/utils/deDeveloperTools';
 import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
 import LayoutHeader from '@/layouts/defaultLayouts/components/Header.vue';
 import LoginPopup from '@/components/Login.vue'
+import Live2D from '@/components/public/Live2D.vue';
 
 import resizeEvent from '@/utils/Event/resize';
 import ObServer from '@/utils/obServer';
@@ -37,6 +39,7 @@ import '@/assets/scss/layout.default.scss';
     LayoutFooter,
     LayoutHeader,
     LoginPopup,
+    Live2D,
   },
 })
 export default class DefaultLayout extends Vue {

@@ -124,6 +124,9 @@ export default class UserCard extends Vue {
   userIdUpate(userId: number) {
     getUserBaseData(userId)
       .then(data => {
+        if (Object.keys(data.result).length === 0) {
+          return this._userData = this.errorData();
+        }
         if (data.result) this._userData = data.result;
         this.$forceUpdate();
       })
@@ -135,13 +138,27 @@ export default class UserCard extends Vue {
    */
   @Watch('ssr')
   ssrUpdate(data: User.Base) {
-    this._userData = data;
+    if (Object.keys(data).length === 0) {
+      return this._userData = this.errorData();
+    }
+    this._userData = Object.assign(userData, data);
   }
 
 
   created() {
     this.ssrUpdate(this.ssr || userData);
     if (this.userId) this.userIdUpate(this.userId);
+  }
+
+
+  /**
+   * 用户信息获取失败时返回的信息
+   */
+  errorData() {
+    return Object.assign(userData, {
+      id: -1,
+      nickname: '用户信息获取失败',
+    });
   }
 }
 </script>

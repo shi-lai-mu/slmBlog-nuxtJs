@@ -3,8 +3,8 @@
     <div class="copyright">
       <div class="copyright-register" v-html="copyright()"></div>
       <div class="copyright-navigation">
-        <router-link class="navigation-li" to="/other/terms">条款和免责</router-link>
-        <router-link class="navigation-li" to="/other/thisSite">关于本站</router-link>
+        <a class="navigation-li" >条款和免责</a>
+        <a class="navigation-li" >关于本站</a>
       </div>
     </div>
     <div class="keep-on-record">
@@ -44,7 +44,6 @@ export default class LayoutDefaultFooter extends Vue {
     background-color: themed('bg-dp1-color');
   }
   box-sizing: border-box;
-
   .copyright {
     margin-bottom: 15px;
 

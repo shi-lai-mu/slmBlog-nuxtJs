@@ -137,8 +137,7 @@ export default class HeaderThemes extends Vue {
         console.log('成功')
       })
       .catch(error => {
-        alert('失败')
-        console.log(error)
+        console.error('皮肤主题编译失败: ' + error)
       })
     ;
     return true;

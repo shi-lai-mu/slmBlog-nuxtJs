@@ -48,7 +48,6 @@ export default new class YApiTranslateMock {
       this.writeFile(filePath.replace('.ts', '') + '.json5', this.contentHandle(content, filePath));
       return true;
     });
-
     fs.unlinkSync(path.resolve(_COMPILE_PATH_, 'YAPI', 'index.js'));
     console.log(`> json5 编译成功! 共计「${this.compileFiles.length}」个文件被编译到 ${_OUT_DIST_PATH_}`);
     
