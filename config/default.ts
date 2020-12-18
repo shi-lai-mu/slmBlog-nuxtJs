@@ -77,6 +77,7 @@ const defaultConfig: DefaultConfig = {
   apiServer: {
     host: 'https://api.slmblog.com',
     devHost: 'http://127.0.0.1:3000',
+    apiVersion: '/api/v1',
     // defaultHost: '',
     // defaultHost: isDev ? 'yapi' : '',
     children: {

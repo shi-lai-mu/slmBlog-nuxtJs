@@ -19,5 +19,19 @@ export default {
   initGeminiScrollbar(state, data) {
     state.body.GeminiScrollbar = data;
     console.log(data);
+  },
+
+  /**
+   * 初始化用户数据
+   */
+  initUser(state, data) {
+    state.user = data;
+  },
+
+  /**
+   * 设定JWT
+   */
+  setJWT(state, data) {
+    state.jwt = data;
   }
 }

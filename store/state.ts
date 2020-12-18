@@ -1,6 +1,8 @@
 const state = {
     // 用户数据
     user: {},
+    // JWT
+    jwt: '',
     // 是否为移动端
     isMobile: false,
     // 主题

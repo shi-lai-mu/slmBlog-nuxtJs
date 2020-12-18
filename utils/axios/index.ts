@@ -105,11 +105,11 @@ $axios.interceptors.response.use(
   (res: AxiosResponse) => {
     let { data } = res;
     // token 自动化更新
-    const headersToken = res.headers.token;
-    if (headersToken) {
-      token = headersToken;
-      observer.response.updateToken.forEach((cb: any) => cb(token));
-    }
+    // const headersToken = res.headers.token;
+    // if (headersToken) {
+    //   token = headersToken;
+    //   observer.response.updateToken.forEach((cb: any) => cb(token));
+    // }
     observer.response.default.forEach((cb: any) => cb(res));
     
     data = Object.defineProperty(data, '_res', {
@@ -141,12 +141,12 @@ $axios.interceptors.request.use(
       return Promise.reject(mockData.template);
     }
 
-    if (!token && !isServer) {
-      token = JSON.parse(localStorage.getItem(tokenKeyStorage) || '{}').token;
-      if (token) {
-        value.headers.token = encodeURIComponent(token);
-      }
-    } else value.headers.token = encodeURIComponent(token);
+    // if (!token && !isServer) {
+    //   token = JSON.parse(localStorage.getItem(tokenKeyStorage) || '{}').token;
+    //   if (token) {
+    //     value.headers.token = encodeURIComponent(token);
+    //   }
+    // } else value.headers.token = encodeURIComponent(token);
 
     // GET 数据处理
     if (data && value.method === 'get') {
@@ -200,8 +200,13 @@ $axios.interceptors.request.use(
     }
 
     if (value.baseURL) {
-      value.url = value.baseURL + value.url;
-      value.baseURL = ''
+      value.url = value.baseURL + serverConfig.apiVersion + value.url;
+      value.baseURL = '';
+    }
+
+    const vue = $axios.$vue;
+    if (vue && vue.$store.state && vue.$store.state && vue.$store.state.jwt) {
+      value.headers.Authorization = `Bearer ${vue.$store.state.jwt}`;
     }
 
     return value;

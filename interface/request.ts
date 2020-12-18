@@ -23,5 +23,9 @@ export namespace Request {
      * 响应内容
      */
     result: T;
+    /**
+     * 响应主体
+     */
+    readonly _res: Response;
   }
 }

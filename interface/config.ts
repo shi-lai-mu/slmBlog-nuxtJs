@@ -82,6 +82,10 @@ export interface DefaultConfig {
      */
     devHost: string;
     /**
+     * API版本
+     */
+    apiVersion: string;
+    /**
      * 请求超时时间
      */
     timeout?: number;
