@@ -5,7 +5,7 @@
       <li
         class="account-munt-item"
         v-for="(item, index) in accountEntrance"
-        @click="item.cb"
+        @click.stop="item.cb"
         :key="index">
         {{ item.name }}
       </li>
@@ -34,7 +34,7 @@ export default class HeaderAccount extends Vue {
       cb: () => this.$observer.emit('login'),
     }, {
       name: '注册',
-      cb: () => {},
+      cb: () => this.$observer.emit('login', 'register'),
     }];
   }
 }

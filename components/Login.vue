@@ -6,9 +6,27 @@
           <i class="slm blog-cuowu" @click="closeMask" @mouseenter="maskBoxStyle = { transform: 'rotate3d(1, 1, 0, 5deg)' }" @mouseout="maskBoxStyle = null"></i>
           <div class="title">登录</div>
           <div class="description">注册账号密码可同步收藏信息或发布文章</div>
-          <Input class="input" placeholder="账号" v-model="formData.account" />
-          <Input class="input" placeholder="密码" v-model="formData.password" type="password" />
-          <a-button size="large" class="btn" type="primary" :disabled="!formData.account || !formData.password">登录</a-button>
+          <Input
+            class="input"
+            placeholder="账号"
+            v-model="formData.account"
+            @keydown.enter="formData.account && formData.password && login()"
+          />
+          <Input
+            class="input"
+            placeholder="密码"
+            v-model="formData.password"
+            type="password"
+            @keydown.enter="formData.account && formData.password && login()"
+          />
+          <a-button
+            size="large"
+            class="btn"
+            type="primary"
+            :disabled="!formData.account || !formData.password"
+            :loading="loggingIn"
+            @click="login"
+          >登录</a-button>
           <span class="bottom-tips active-span" @click="model =  model === 'register' ? '' : 'unsetPwd'">{{ model === 'register' ? '使用账号登录' : '找回密码' }}</span>
         </div>
         <div class="account-in-box unset-pwd-box">
@@ -36,6 +54,7 @@
 <script lang="ts">
 import { Component, Prop, Watch, Vue } from 'nuxt-property-decorator';
 import { Input } from 'ant-design-vue';
+import { loginAccount } from '~/service/data/user';
 
 import Masks from '@/components/Masks.vue';
 
@@ -80,7 +99,6 @@ export default class LoginPopup extends Vue {
     register: 'register toggle-card',
   };
 
-
   /**
    * 表单数据
    */
@@ -89,6 +107,11 @@ export default class LoginPopup extends Vue {
     password: '',   // 密码
     email: '',      // 邮箱
   };
+
+  /**
+   * 是否正在登录
+   */
+  loggingIn: boolean = false;
 
 
   /**
@@ -103,8 +126,9 @@ export default class LoginPopup extends Vue {
   /**
    * 显示弹窗层
    */
-  showMask() {
+  showMask(loginType?: '' | 'register' | 'unsetPwd') {
     this.hide = false;
+    this.model = loginType || '';
   }
 
 
@@ -118,6 +142,26 @@ export default class LoginPopup extends Vue {
       this.hide = true;
       this.hideAni = '';
     }, 300);
+  }
+
+
+  /**
+   * 登录账号
+   */
+  async login() {
+    const { account, password } = this.formData;
+    const ing = setTimeout(() => this.loggingIn = true, 100);
+    const loginRes = await loginAccount(account, password);
+    clearTimeout(ing);
+    this.loggingIn = false;
+    if (loginRes.code === 0) {
+      const { result } = loginRes;
+      this.$store.commit('initUser', result);
+      const token = (loginRes._res.headers as any).token;
+      if (token) {
+        this.$store.commit('setJWT', token);
+      }
+    } else this.$message.error(loginRes.message);
   }
 }
 </script>

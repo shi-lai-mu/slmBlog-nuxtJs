@@ -9,7 +9,7 @@ const api = {
   get_mock:        '/mock/test',                                            // mock测试
   user: {
     // 登录
-    login:         'post./user',                                      // 用户登录
+    login:         'post./user/signin',                                      // 用户登录
     data:          '/user/:id',                                       // 获取用户信息
   },
   article: {

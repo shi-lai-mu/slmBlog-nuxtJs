@@ -94,12 +94,14 @@ export default class DefaultLayout extends Vue {
     });
 
     // 登录弹窗观察者绑定
-    $observer.on('login', () => {
+    $observer.on('login', loginType => {
+      console.log(loginType);
+      
       if (!this.loginPopup) {
         this.loginPopup = true;
-        this.$nextTick(() => ($refs.LoginPopup as LoginPopup).showMask());
+        this.$nextTick(() => ($refs.LoginPopup as LoginPopup).showMask(loginType));
       } else {
-        ($refs.LoginPopup as LoginPopup).showMask()
+        ($refs.LoginPopup as LoginPopup).showMask(loginType);
       }
     });
 
