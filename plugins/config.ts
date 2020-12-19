@@ -1,4 +1,4 @@
-import { DefaultConfig } from '@/interface/config';
+import { WebConfig } from '@/interface/config';
 import defaultConfig from '@/config/default';
 import Http from '~/utils/axios';
 import Navigation from './config/Navigation';
@@ -17,7 +17,7 @@ export default (_context, inject) => {
 }
 
 
-interface Config extends DefaultConfig {
+interface Config extends WebConfig.Default {
   /**
    * 导航类
    */

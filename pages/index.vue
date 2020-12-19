@@ -24,7 +24,7 @@
         :xxl="{ span: 8 }"
       >
         <Notice v-if="!$store.state.isMobile"/>
-        <UserCard :ssr="userData" />
+        <UserCard :ssr="userData" userSelf/>
         <FocalPointPlate />
       </a-col>
     </a-row>
@@ -56,7 +56,7 @@ import FocalPointPlate from '@/components/pages/home/FocalPointPlate.vue';
 export default class HomePage extends Vue {
   async asyncData({ $http, $axios}) {
     return {
-      userData: (await getUserBaseData(1)).result || {}, // 获取用户信息
+      userData: (await getUserBaseData(1)).result || {},      // 获取用户信息
       articleLatest: (await getLatestArticle()).result || [], // 获取最新文章
     };
   }

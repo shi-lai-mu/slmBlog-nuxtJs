@@ -1,27 +1,40 @@
 <template>
-  <!-- 用户信息展示卡片 -->
+  <!-- 用户信息展示卡片 [带骨架] -->
   <div class="row-box user-card">
     <template v-if="_userData && _userData.id">
+      <!-- 背景图 -->
       <div class="user-cover" :style="`background-image: url(${$config.ossLink}/user/card-bg-cover.jpg);`">
-        <!-- <img class="user-avatar" :src="_userData.avatarUrl" :alt="_userData.nickname" :title="_userData.nickname"> -->
         <Imager class="user-avatar" :src="_userData.avatarUrl" :alt="_userData.nickname" :title="_userData.nickname" />
       </div>
+
+      <!-- 内容部分 -->
       <div class="row-content">
+        <!-- 头像 -->
         <div class="user-nickname">
           {{ _userData.nickname }}
           <i :class="['slm', 'blog-' + item.i]" :title="item.name" v-for="(item, key) in _userData.badge" :key="key"></i>
         </div>
-        <div class="user-introduction line-ellipsis double-line-ellipsis">{{ _userData.introduction }}</div>
+        <!-- 简介 -->
+        <div class="user-introduction line-ellipsis double-line-ellipsis">{{ _userData.introduction || $config.user.card.defaultIntroduction }}</div>
+        <!-- 人物状态 -->
         <div class="user-state-row">
           <span class="stete-item" v-for="(item, index) in showState" :key="index">
             <div class="state-item-tag">{{ item }}</div>
-            <div>{{ _userData.state[index] }}</div>
+            <div>{{ _userData.state[index] || 0 }}</div>
           </span>
         </div>
+        <!-- 用户管理入口 -->
+        <div class="user-entrance-row user-self" v-if="userSelf && $store.state.user.id === _userData.id">
+          <a-button type='primary' class="btn">管理</a-button>
+          <a-button type='primary' class="btn">发文章</a-button>
+          <a-button type='primary' class="btn">消息</a-button>
+        </div>
+        <!-- 关注入口 -->
         <div class="user-entrance-row" v-if="userEntrance">
           <a-button type='primary' class="btn">关注</a-button>
           <a-button type='primary' class="btn">主页</a-button>
         </div>
+        <!-- 图标入口 -->
         <div class="user-icon">
           <a
             class="icon-hover"
@@ -72,9 +85,14 @@ export default class UserCard extends Vue {
   @Prop(Object) ssr?: User.Base;
 
   /**
-   * 是否显示入户入口
+   * 是否显示 入户入口
    */
   @Prop(Boolean) userEntrance?: boolean;
+
+  /**
+   * 是否显示 管理入口
+   */
+  @Prop(Boolean) userSelf?: boolean;
 
   /**
    * 展示的用户状态
@@ -117,37 +135,35 @@ export default class UserCard extends Vue {
   private _userData: User.Base = userData;
 
   /**
-   * userId的更新触发
+   * data的更新触发 [userData将被覆盖] | userId的更新触发
    * - userData将在请求后被覆盖
    */
-  @Watch('userId')
-  userIdUpate(userId: number) {
-    getUserBaseData(userId)
-      .then(data => {
-        if (Object.keys(data.result).length === 0) {
-          return this._userData = this.errorData();
-        }
-        if (data.result) this._userData = data.result;
-        this.$forceUpdate();
-      })
-    ;
-  }
-
-  /**
-   * data的更新触发 [userData将被覆盖]
-   */
   @Watch('ssr')
-  ssrUpdate(data: User.Base) {
-    if (Object.keys(data).length === 0) {
-      return this._userData = this.errorData();
-    }
-    this._userData = Object.assign(userData, data);
+  @Watch('userId')
+  ssrUpdate(data: User.Base | number) {
+    typeof data === 'number' 
+    ? getUserBaseData(data).then(res => this.setRenderData(res.result))
+    : this.setRenderData(data);
   }
 
 
   created() {
-    this.ssrUpdate(this.ssr || userData);
-    if (this.userId) this.userIdUpate(this.userId);
+    if (this.userId) {
+      this.ssrUpdate(this.userId);
+    } else {
+      this.ssrUpdate(this.ssr || userData);
+    }
+  }
+
+
+  /**
+   * 设置渲染属性
+   */
+  setRenderData(data) {
+    if (Object.keys(data).length === 0) {
+      return this._userData = this.errorData();
+    }
+    this._userData = Object.assign(userData, data);
   }
 
 

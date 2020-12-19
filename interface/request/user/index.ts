@@ -86,5 +86,20 @@ export namespace User {
        */
       name: string;
     }>
+  };
+
+
+  /**
+   * 登录账号
+   */
+  export interface LoginDto {
+    /**
+     * 账号
+     */
+    account: string;
+    /**
+     * 密码
+     */
+    password: string;
   }
 }

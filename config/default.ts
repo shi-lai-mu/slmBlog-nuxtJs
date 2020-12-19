@@ -1,11 +1,12 @@
-import { DefaultConfig } from '@/interface/config';
+import { WebConfig } from '@/interface/config';
+import user from './noteConfig/user';
 
 const isDev = process.env.NODE_ENV === 'development';
 
 /**
  * 默认配置
  */
-const defaultConfig: DefaultConfig = {
+const defaultConfig: WebConfig.Default = {
   /**
    * 网站名
    */
@@ -95,6 +96,7 @@ const defaultConfig: DefaultConfig = {
       }
     },
   },
+  user,
 };
 
 export default defaultConfig;

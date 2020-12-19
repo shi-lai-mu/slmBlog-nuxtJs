@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Vue, Watch } from 'nuxt-property-decorator';
 import { LayoutDefault } from '@/interface/layout';
 import { deDeveloperTools, isOpenDevTool } from '@/utils/deDeveloperTools';
 
@@ -52,7 +52,6 @@ export default class DefaultLayout extends Vue {
    */
   mobileHeaderOpen: boolean = false;
   loginPopup: boolean = false;
-
 
   created() {
     const { $config, $route, $router } = this;
@@ -221,6 +220,7 @@ export default class DefaultLayout extends Vue {
   @include themify($themes) {
     background-color: themed('bg-dp4-color'); 
     color: themed('font-color');
+      box-shadow: 0 2px 5px themed('bg-dp1-color-f');
   }
   border-radius: 10px;
 
