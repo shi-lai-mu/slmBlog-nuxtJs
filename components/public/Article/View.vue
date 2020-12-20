@@ -1,15 +1,15 @@
 <template>
   <article class="article-box" @click="openView(article.id)" :style="style">
     <i v-show="isOpen" class="slm blog-cuowu" @click.stop="closeView"></i>
-    <Imager class="figure-cover" :src="article.banner" :alt="article.subject" :title="article.subject" />
+    <Imager class="figure-cover" :src="article.firstPicture" :alt="article.subject" :title="article.subject" />
     <div class="article-content">
-      <h3 class="figure-subject line-ellipsis" v-text="article.subject"></h3>
+      <h3 class="figure-subject line-ellipsis" v-text="article.title"></h3>
       <p class="line-ellipsis double-line-ellipsis article-description" v-text="article.description"></p>
     </div>
     <div class="article-bottom">
       <div>
-        <i class="slm blog-pinglun" v-text="formatPeople(article.stat.reply_num)"></i>
-        <i class="slm blog-yueduliang" v-text="formatPeople(article.stat.view_num)"></i>
+        <i class="slm blog-pinglun" v-text="formatPeople(article.replyCount)"></i>
+        <i class="slm blog-yueduliang" v-text="formatPeople(article.viewCount)"></i>
       </div>
       <span class="release-time" v-text="article.release_time"></span>
     </div>
@@ -22,8 +22,10 @@ import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 
 import { Article as IntefArticle } from '@/interface/request/article';
 import { formatPeople } from '@/utils/atricle';
+import { articleBase } from '@/mock/article/data/index';
 
 import { getRelativeBrowserPos } from '@/utils/element';
+import { getArticleData } from '~/service/data/article';
 import Imager from '@/components/public/Imager.vue';
 import ArticleContent from '@/components/public/Article/Contents.vue';
 
@@ -45,7 +47,7 @@ export default class ArticleView extends Vue {
   /**
    * 文章基础信息
    */
-  @Prop(Object) article?: IntefArticle.Base;
+  @Prop(Object) ssr?: IntefArticle.Base;
 
   /**
    * 当前打开的文章ID
@@ -67,12 +69,57 @@ export default class ArticleView extends Vue {
    */
   task: Array<NodeJS.Timeout | number> = [];
 
+  /**
+   * 文章内容
+   */
+  article?: IntefArticle.Base = articleBase;
+
   @Watch('viewId')
   changViewId(viewId: number) {
     if (viewId === -1 && this.isOpen) {
       this.isOpen = false;
       this.closeView();
     }
+  }
+
+  @Watch('ssr')
+  ssrUpdate(data: IntefArticle.Base | number) {
+    console.log({data});
+    typeof data === 'number' && data !== -1
+    ? getArticleData(data).then(res => this.setRenderData(res.result))
+    : this.setRenderData(data);
+  }
+
+  created() {
+    if (this.viewId && this.viewId !== -1) {
+      this.ssrUpdate(this.viewId);
+    } else {
+      this.ssrUpdate(this.ssr || articleBase);
+    }
+  }
+
+
+  /**
+   * 设置渲染属性
+   */
+  setRenderData(data) {
+    if (Object.keys(data).length === 0) {
+      return this.article = this.errorData();
+    }
+    this.article = Object.assign(articleBase, data);
+    console.log(this.article);
+    
+  }
+
+
+  /**
+   * 用户信息获取失败时返回的信息
+   */
+  errorData() {
+    return Object.assign(articleBase, {
+      id: -1,
+      title: '文章信息获取失败',
+    });
   }
 
 

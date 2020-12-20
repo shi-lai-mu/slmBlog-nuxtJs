@@ -2,6 +2,19 @@ import { User } from '@/interface/request/user';
 import { UploadImagerBase } from '@/interface/request/public';
 
 export namespace Article {
+
+  /**
+   * 文章状态
+   */
+  export enum StateEnum {
+    Failed   = -2, // 审核未通过
+    IsDelete = -1, // 已删除
+    Examine  = 0,  // 审核中
+    Routine  = 1,  // 常规
+    Topping  = 2,  // 置顶文章
+    Boutique = 3,  // 精品文章
+  }
+
   export interface Base {
     /**
      * 文章ID

@@ -36,7 +36,7 @@ import { Component, Vue } from 'nuxt-property-decorator';
 import { Carousel } from 'ant-design-vue';
 
 import { getUserBaseData } from '@/service/data/user';
-import { getLatestArticle } from '@/service/data/article';
+import { getArticleList } from '@/service/data/article';
 
 import Notice from '@/components/public/Notice.vue';
 import UserCard from '@/components/public/UserCard.vue';
@@ -54,10 +54,13 @@ import FocalPointPlate from '@/components/pages/home/FocalPointPlate.vue';
   },
 })
 export default class HomePage extends Vue {
+  // 文章页数
+  private articlePage = 1;
+
   async asyncData({ $http, $axios}) {
     return {
-      userData: (await getUserBaseData(1)).result || {},      // 获取用户信息
-      articleLatest: (await getLatestArticle()).result || [], // 获取最新文章
+      userData: (await getUserBaseData(1)).result || {},         // 获取用户信息
+      articleLatest: (await getArticleList()).result.list || [], // 获取最新文章
     };
   }
 }

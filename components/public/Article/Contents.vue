@@ -17,8 +17,8 @@
                   发布于 {{ _articleData.release_time }}
                 </div>
                 <div class="icon-box">
-                  <i class="slm blog-pinglun" v-text="_articleData.stat.reply_num"></i>
-                  <i class="slm blog-yueduliang" v-text="_articleData.stat.view_num"></i>
+                  <i class="slm blog-pinglun" v-text="_articleData.reply_num"></i>
+                  <i class="slm blog-yueduliang" v-text="_articleData.viewCount"></i>
                 </div>
                 <ul class="tag-list">
                   <li class="tag-item" v-for="(item, key) in 3" :key="key">xxxxx</li>
@@ -51,7 +51,7 @@ import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 import { Article, Article as IntefArticle } from '@/interface/request/article';
 import { formatPeople } from '@/utils/atricle';
 import { articleBase } from '@/mock/article/data/index';
-import { getLatestArticle } from '@/service/data/article';
+import { getArticleData } from '@/service/data/article';
 
 import { getRelativeBrowserPos } from '@/utils/element';
 import UserCard from '@/components/public/UserCard.vue';
@@ -113,7 +113,7 @@ export default class ArticleContents extends Vue {
    */
   @Watch('articleId')
   changArticleId(articleId: IntefArticle.Base['id']) {
-    getLatestArticle()
+    getArticleData(articleId)
       .then(data => {
         if (data.result) this._articleData = data.result[0];
         this.$forceUpdate();

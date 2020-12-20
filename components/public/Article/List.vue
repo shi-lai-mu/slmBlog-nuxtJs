@@ -1,7 +1,7 @@
 <template>
   <div class="article-list-box">
-    <div :class="[ 'article-list-item', layout.name, { 'is-open': viewId === item.id } ]" v-for="(item, index) in _listData" :key="index">
-      <ArticleView @open="openArticleEvent" @close="closeArticleEvent" :article="item" :viewId="viewId" :key="index" />
+    <div :class="[ 'article-list-item', layout.name, { 'is-open': viewId === item.id } ]" v-for="(item, index) in listData" :key="index">
+      <ArticleView @open="openArticleEvent" @close="closeArticleEvent" :ssr="item" :viewId="viewId" :key="index" />
     </div>
     <aside class="layout-aside" v-if="!$store.state.isMobile">
       <div class="aside-child-box" v-for="(item, index) of getListAsideConfig.list" :key="index">
@@ -49,7 +49,7 @@ export default class Article extends Vue {
   /**
    * 列表数据
    */
-  private _listData: IntefArticle.Base[] = [];
+  private listData: IntefArticle.Base[] = [];
 
   /**
    * 正在观看是文章ID
@@ -70,7 +70,7 @@ export default class Article extends Vue {
    */
   @Watch('ssr')
   ssrUpdate(data: IntefArticle.Base[]) {
-    this._listData = data;
+    this.listData = data;
   }
 
   created() {
