@@ -1,17 +1,17 @@
 <template>
   <article class="article-box" @click="openView(article.id)" :style="style">
     <i v-show="isOpen" class="slm blog-cuowu" @click.stop="closeView"></i>
-    <Imager class="figure-cover" :src="article.firstPicture" :alt="article.subject" :title="article.subject" />
+    <Imager class="figure-cover" :src="article.banner" :alt="article.subject" :title="article.subject" />
     <div class="article-content">
-      <h3 class="figure-subject line-ellipsis" v-text="article.title"></h3>
+      <h3 class="figure-subject line-ellipsis" v-text="article.subject"></h3>
       <p class="line-ellipsis double-line-ellipsis article-description" v-text="article.description"></p>
     </div>
     <div class="article-bottom">
       <div>
-        <i class="slm blog-pinglun" v-text="formatPeople(article.replyCount)"></i>
-        <i class="slm blog-yueduliang" v-text="formatPeople(article.viewCount)"></i>
+        <i class="slm blog-pinglun" v-text="$tool.format.people(article.stat.bookmark_num)"></i>
+        <i class="slm blog-yueduliang" v-text="$tool.format.people(article.stat.view_num)"></i>
       </div>
-      <span class="release-time" v-text="article.release_time"></span>
+      <span class="release-time" v-text="$tool.format.isoToDateTime(article.createTime)"></span>
     </div>
     <ArticleContent :ssr="article" v-if="isOpen" initSkeleton />
   </article>
@@ -84,7 +84,6 @@ export default class ArticleView extends Vue {
 
   @Watch('ssr')
   ssrUpdate(data: IntefArticle.Base | number) {
-    console.log({data});
     typeof data === 'number' && data !== -1
     ? getArticleData(data).then(res => this.setRenderData(res.result))
     : this.setRenderData(data);
@@ -107,8 +106,6 @@ export default class ArticleView extends Vue {
       return this.article = this.errorData();
     }
     this.article = Object.assign(articleBase, data);
-    console.log(this.article);
-    
   }
 
 
@@ -211,14 +208,6 @@ export default class ArticleView extends Vue {
         (el.children[0].parentElement as any).style = '';
       }, 500));
     }, 10));
-  }
-
-
-  /**
-   * 格式化人数
-   */
-  formatPeople(v) {
-    return formatPeople(v);
   }
 }
 </script>
