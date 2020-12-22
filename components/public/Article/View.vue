@@ -25,7 +25,7 @@ import { formatPeople } from '@/utils/atricle';
 import { articleBase } from '@/mock/article/data/index';
 
 import { getRelativeBrowserPos } from '@/utils/element';
-import { getArticleData } from '@/service/data/article';
+import { getPostsData } from '@/service/data/article';
 import Imager from '@/components/public/Imager.vue';
 import ArticleContent from '@/components/public/Article/Contents.vue';
 
@@ -85,7 +85,7 @@ export default class ArticleView extends Vue {
   @Watch('ssr')
   ssrUpdate(data: IntefArticle.Base | number) {
     typeof data === 'number' && data !== -1
-    ? getArticleData(data).then(res => this.setRenderData(res.result))
+    ? getPostsData(data).then(res => this.setRenderData(res.result))
     : this.setRenderData(data);
   }
 

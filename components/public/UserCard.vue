@@ -151,6 +151,11 @@ export default class UserCard extends Vue {
     if (this.userId) {
       this.ssrUpdate(this.userId);
     } else {
+      console.log({
+        ssr: this.ssr,
+         userData
+      });
+      
       this.ssrUpdate(this.ssr || userData);
     }
   }

@@ -102,6 +102,14 @@ export namespace Article {
     release_time: string;
   };
 
+  /**
+   * 文章主题
+   */
+  export interface Posts {
+    article: Base;
+    commit: [];
+  }
+
 
   /**
    * 话题

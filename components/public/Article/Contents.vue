@@ -1,5 +1,5 @@
 <template>
-  <article :class="['article-content-box', { 'toggle-transition': toggleTransition }]">
+  <article :class="['article-content-box', { 'toggle-transition': toggleTransition }, 'bg-texture']">
     <ArticleViewSkeleton />
     <a-row class="article-layout max-content">
       <a-col
@@ -37,9 +37,10 @@
         :lg="{ span: 8 }"
         :xxl="{ span: 8 }"
       >
-        <UserCard :userId="1" userEntrance />
+        <UserCard :ssr="articleData.author" userEntrance />
       </a-col>
     </a-row>
+    <LayoutFooter />
   </article>
 </template>
 
@@ -49,10 +50,11 @@ import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 import { Article, Article as IntefArticle } from '@/interface/request/article';
 import { formatPeople } from '@/utils/atricle';
 import { articleBase } from '@/mock/article/data/index';
-import { getArticleData } from '@/service/data/article';
+import { getPostsData } from '@/service/data/article';
 
 import { getRelativeBrowserPos } from '@/utils/element';
 import UserCard from '@/components/public/UserCard.vue';
+import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
 import Imager from '@/components/public/Imager.vue';
 import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleton.vue';
 
@@ -65,6 +67,7 @@ import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleto
     Imager,
     ArticleViewSkeleton,
     UserCard,
+    LayoutFooter,
   }
 })
 export default class ArticleContents extends Vue {
@@ -101,8 +104,6 @@ export default class ArticleContents extends Vue {
 
 
   created() {
-    console.log('created');
-    
     this.ssrUpdate(this.articleId || this.ssr || articleBase);
   }
 
@@ -111,7 +112,7 @@ export default class ArticleContents extends Vue {
    */
   @Watch('articleId')
   changArticleId(articleId: IntefArticle.Base['id']) {
-    getArticleData(articleId)
+    getPostsData(articleId)
       .then(data => {
         if (data.result) this.articleData = this.setRenderData(data.result[0]);
         this.$forceUpdate();
@@ -120,17 +121,15 @@ export default class ArticleContents extends Vue {
   }
 
 
-  // @Watch('ssr')
+  @Watch('ssr')
   ssrUpdate(data: IntefArticle.Base | number) {
     // 如果对骨架屏进行了初始化则先显示骨架屏进行交互
     if (this.initSkeleton) {
       setTimeout(() => this.toggleTransition = true, 500);
     } else this.toggleTransition = true;
     
-    console.log({data});
-    
     if (typeof data === 'number' && data !== -1) {
-      getArticleData(data).then(res => this.setRenderData(res.result))
+      getPostsData(data).then(res => this.setRenderData(res.result))
     } else {
       this.setRenderData(data);
     }
@@ -148,10 +147,6 @@ export default class ArticleContents extends Vue {
       });
     }
     this.articleData = Object.assign(articleBase, data);
-    console.log({
-      x: 123,
-      articleData: this.articleData
-    });
   }
 
 
@@ -166,12 +161,12 @@ export default class ArticleContents extends Vue {
 
 <style scoped lang="scss">
 .layout-default-mobile .article-layout,
-.layout-default-mobile /deep/ .skeleton {
+.layout-default-mobile /deep/ .article-skeleton {
   padding-top: 60px !important;
 }
 .article-content-box {
   position: absolute;
-  overflow: hidden;
+  overflow-y: scroll;
   top: 0;
   left: 0;
   width: 100%;
@@ -185,12 +180,12 @@ export default class ArticleContents extends Vue {
   }
 
   .article-layout,
-  /deep/ .skeleton {
+  /deep/ .article-skeleton {
     padding-top: 80px;
   }
 
   &.toggle-transition {
-    /deep/ .skeleton {
+    /deep/ .article-skeleton {
       opacity: 0;
       transition: 1s;
       visibility: hidden;
@@ -206,8 +201,8 @@ export default class ArticleContents extends Vue {
   }
 
   /deep/ .article-layout {
-    margin: 0 auto;
     opacity: 0;
+    margin: 0 auto;
 
     .title {
       text-indent: 5px;
