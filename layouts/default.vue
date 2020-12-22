@@ -3,6 +3,7 @@
     :class="[
       'layout',
       'layout-default',
+      'bg-texture',
       'content-1300', // test
       theme,
       { 'layout-default-mobile': $store.state.isMobile },
@@ -179,7 +180,7 @@ export default class DefaultLayout extends Vue {
 }
 .layout-default {
   // min-height: 100vh;
-  height: 100vh;
+  height: 100%;
   transition: 1s;
 }
 .header {
@@ -187,6 +188,7 @@ export default class DefaultLayout extends Vue {
 }
 .layout-page {
   width: 100%;
+  height: 100%;
   padding-top: 65px;
   min-height: calc(100vh - 121px);
   box-sizing: border-box;
