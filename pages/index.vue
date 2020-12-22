@@ -32,8 +32,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
 import { Carousel } from 'ant-design-vue';
+import { Component, Vue } from 'nuxt-property-decorator';
 
 import { getUserBaseData } from '@/service/data/user';
 import { getArticleList } from '@/service/data/article';
@@ -62,6 +62,10 @@ export default class HomePage extends Vue {
       userData: (await getUserBaseData(1)).result || {},         // 获取用户信息
       articleLatest: (await getArticleList()).result.list || [], // 获取最新文章
     };
+  }
+
+  created() {
+    console.log('created');
   }
 }
 </script>

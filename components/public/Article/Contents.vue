@@ -11,21 +11,21 @@
           <aside class="article-action"></aside>
           <div class="article-content__container row-box">
             <div class="article-content__header">
-              <h2 class="title" v-text="_articleData.subject"></h2>
+              <h2 class="title" v-text="articleData.subject"></h2>
               <div class="article-content__info">
                 <div class="release-time">
-                  发布于 {{ _articleData.release_time }}
+                  发布于 {{ $tool.format.isoToDateTime(articleData.createTime) }}
                 </div>
                 <div class="icon-box">
-                  <i class="slm blog-pinglun" v-text="_articleData.reply_num"></i>
-                  <i class="slm blog-yueduliang" v-text="_articleData.viewCount"></i>
+                  <i class="slm blog-pinglun" v-text="$tool.format.people(articleData.stat.bookmark_num)"></i>
+                  <i class="slm blog-yueduliang" v-text="$tool.format.people(articleData.stat.view_num)"></i>
                 </div>
                 <ul class="tag-list">
                   <li class="tag-item" v-for="(item, key) in 3" :key="key">xxxxx</li>
                 </ul>
               </div>
             </div>
-            <div class="article-content__body" v-html="_articleData.content">
+            <div class="article-content__body" v-html="articleData.content">
             </div>
             <div class="article-content__footer"></div>
           </div>
@@ -89,7 +89,7 @@ export default class ArticleContents extends Vue {
   /**
    * 文章数据
    */
-  private _articleData?: IntefArticle.Base = articleBase;
+  private articleData?: IntefArticle.Base = articleBase;
 
   /**
    * 是否禁用骨架屏
@@ -103,9 +103,9 @@ export default class ArticleContents extends Vue {
 
 
   created() {
-    this.ssrUpdate(this.ssr || articleBase);
-    if (this.ssr) this._articleData = this.ssr;
-    if (this.articleId) this.changArticleId(this.articleId);
+    console.log('xxxxx');
+    
+    this.ssrUpdate(this.articleId || this.ssr || articleBase);
   }
 
   /**
@@ -115,23 +115,45 @@ export default class ArticleContents extends Vue {
   changArticleId(articleId: IntefArticle.Base['id']) {
     getArticleData(articleId)
       .then(data => {
-        if (data.result) this._articleData = data.result[0];
+        if (data.result) this.articleData = this.setRenderData(data.result[0]);
         this.$forceUpdate();
       })
     ;
   }
 
 
-  /**
-   * data的更新触发 [userData将被覆盖]
-   */
-  @Watch('ssr')
-  ssrUpdate(data: Article.Base) {
+  // @Watch('ssr')
+  ssrUpdate(data: IntefArticle.Base | number) {
     // 如果对骨架屏进行了初始化则先显示骨架屏进行交互
     if (this.initSkeleton) {
       setTimeout(() => this.toggleTransition = true, 500);
     } else this.toggleTransition = true;
-    this._articleData = data;
+    
+    console.log({data});
+    
+    if (typeof data === 'number' && data !== -1) {
+      getArticleData(data).then(res => this.setRenderData(res.result))
+    } else {
+      this.setRenderData(data);
+    }
+  }
+
+
+  /**
+   * 设置渲染属性
+   */
+  setRenderData(data) {
+    if (Object.keys(data).length === 0) {
+      return this.articleData = this.$tool.format.asignError(articleBase, {
+        id: -1,
+        content: '文章内容获取失败',
+      });
+    }
+    this.articleData = Object.assign(articleBase, data);
+    console.log({
+      x: 123,
+      articleData: this.articleData
+    });
   }
 
 

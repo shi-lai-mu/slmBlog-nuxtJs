@@ -9,7 +9,7 @@
       { 'mobile-header-open': mobileHeaderOpen }
     ]">
     <LayoutHeader class="header" @set-open-state="setHeaderOpenState" :mobileHeaderOpen="mobileHeaderOpen" />
-    <GeminiScrollbar @ready="GeminiScrollbarInit">
+    <GeminiScrollbar @ready="GeminiScrollbarInit" v-show="s">
         <nuxt class="layout-page"  @click.native="mobileHeaderOpen = false"/>
       <LayoutFooter />
     </GeminiScrollbar>
@@ -47,6 +47,7 @@ export default class DefaultLayout extends Vue {
    * 主题方案
    */
   theme: LayoutDefault.Data['themes'] = 'theme-dark';
+  s = false
   /**
    * 移动端Header展开状态
    */

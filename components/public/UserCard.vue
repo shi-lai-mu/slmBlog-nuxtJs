@@ -1,30 +1,30 @@
 <template>
   <!-- 用户信息展示卡片 [带骨架] -->
   <div class="row-box user-card">
-    <template v-if="_userData && _userData.id">
+    <template v-if="userData && userData.id">
       <!-- 背景图 -->
       <div class="user-cover" :style="`background-image: url(${$config.ossLink}/user/card-bg-cover.jpg);`">
-        <Imager class="user-avatar" :src="_userData.avatarUrl" :alt="_userData.nickname" :title="_userData.nickname" />
+        <Imager class="user-avatar" :src="userData.avatarUrl" :alt="userData.nickname" :title="userData.nickname" />
       </div>
 
       <!-- 内容部分 -->
       <div class="row-content">
         <!-- 头像 -->
         <div class="user-nickname">
-          {{ _userData.nickname }}
-          <i :class="['slm', 'blog-' + item.i]" :title="item.name" v-for="(item, key) in _userData.badge" :key="key"></i>
+          {{ userData.nickname }}
+          <i :class="['slm', 'blog-' + item.i]" :title="item.name" v-for="(item, key) in userData.badge" :key="key"></i>
         </div>
         <!-- 简介 -->
-        <div class="user-introduction line-ellipsis double-line-ellipsis">{{ _userData.introduction || $config.user.card.defaultIntroduction }}</div>
+        <div class="user-introduction line-ellipsis double-line-ellipsis">{{ userData.introduction || $config.user.card.defaultIntroduction }}</div>
         <!-- 人物状态 -->
         <div class="user-state-row">
           <span class="stete-item" v-for="(item, index) in showState" :key="index">
             <div class="state-item-tag">{{ item }}</div>
-            <div>{{ _userData.state[index] || 0 }}</div>
+            <div>{{ userData.state[index] || 0 }}</div>
           </span>
         </div>
         <!-- 用户管理入口 -->
-        <div class="user-entrance-row user-self" v-if="userSelf && $store.state.user.id === _userData.id">
+        <div class="user-entrance-row user-self" v-if="userSelf && $store.state.user.id === userData.id">
           <a-button type='primary' class="btn">管理</a-button>
           <a-button type='primary' class="btn">发文章</a-button>
           <a-button type='primary' class="btn">消息</a-button>
@@ -40,11 +40,11 @@
             class="icon-hover"
             target="_blank"
             v-for="(item, index) in showIcon"
-            v-show="item.link(_userData)"
+            v-show="item.link(userData)"
             :key="index"
             :class="[ 'slm', item.icon ]"
-            :href="item.link(_userData)"
-            :title="`访问 ${_userData.nickname} 的 ${item.title}`"
+            :href="item.link(userData)"
+            :title="`访问 ${userData.nickname} 的 ${item.title}`"
           ></a>
         </div>
       </div>
@@ -132,7 +132,7 @@ export default class UserCard extends Vue {
   /**
    * 用户数据
    */
-  private _userData: User.Base = userData;
+  private userData: User.Base = userData;
 
   /**
    * data的更新触发 [userData将被覆盖] | userId的更新触发
@@ -161,9 +161,9 @@ export default class UserCard extends Vue {
    */
   setRenderData(data) {
     if (Object.keys(data).length === 0) {
-      return this._userData = this.errorData();
+      return this.userData = this.errorData();
     }
-    this._userData = Object.assign(userData, data);
+    this.userData = Object.assign(userData, data);
   }
 
 

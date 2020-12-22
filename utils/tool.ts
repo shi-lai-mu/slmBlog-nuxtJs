@@ -63,6 +63,16 @@ export class GlobalTool {
      */
     isoToDateTime(isoString: string, fmt: string = 'yyyy-MM-dd HH:mm:ss') {
       return GlobalTool.format.date(fmt, new Date(isoString).getTime());
+    },
+
+    
+    /**
+     * 重定义错误数据源
+     * @param source 源
+     * @param value  重定义内容
+     */
+    asignError<T>(source: T, value: any): T {
+      return Object.assign(source, value);
     }
   };
 }

@@ -11,14 +11,15 @@ declare global {
 
 
 @Component
-export default class Imager extends Vue {
+export default class Live2D extends Vue {
   mounted() {
     const l2DScript = document.createElement('script');
-    l2DScript.src = 'blog/L2D/lib/L2Dwidget.min.js';
+    const host = this.$config.ossLink;
+    l2DScript.src = host + '/L2D/lib/L2Dwidget.min.js';
     document.head.appendChild(l2DScript);
     
     const l2DScript2 = document.createElement('script');
-    l2DScript2.src = 'blog/L2D/lib/L2Dwidget.0.min.js';
+    l2DScript2.src = host + '/L2D/lib/L2Dwidget.0.min.js';
     document.head.appendChild(l2DScript2);
     
     setTimeout(() => {
@@ -26,7 +27,7 @@ export default class Imager extends Vue {
       try {
         l2Dwidget.init({
           model: {
-            jsonPath: 'blog/L2D/hijiki.model.json',
+            jsonPath: host + '/L2D/hijiki.model.json',
             scale: 1
           },
           display: {

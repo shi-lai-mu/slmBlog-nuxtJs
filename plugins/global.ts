@@ -4,14 +4,14 @@ import Http from '@/utils/axios';
 import Navigation from './config/Navigation';
 import Themes from './config/Themes';
 import ObServer from '@/utils/obServer';
-import { GlobalTool as tool } from '@/utils/tool';
+import { GlobalTool } from '@/utils/tool';
 import GeminiScrollbar from 'vue-gemini-scrollbar';
 
 export default (_context, inject) => {
   const $config = defaultConfig as Config;
   $config.Navigation = Navigation;
   $config.themes = Themes.config;
-  inject('tool', tool);
+  inject('tool', GlobalTool);
   inject('config', $config);
   inject('http', Http);
   inject('observer', new ObServer());
@@ -46,7 +46,7 @@ declare module 'vue/types/vue' {
     /**
      * 全局工具类
      */
-    $tool: tool;
+    $tool: typeof GlobalTool;
     /**
      * 跳转到错误页
      * @param error 错误数据

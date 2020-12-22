@@ -14,7 +14,7 @@ import ArticleContent from '@/components/public/Article/Contents.vue';
     ArticleContent,
   },
 })
-export default class HomePage extends Vue {
+export default class ArticlePostsContentPage extends Vue {
   async asyncData({ params }) {
     return {
       articleData: (await getArticleData(params.id)).result || [], // 获取最新文章
@@ -22,6 +22,3 @@ export default class HomePage extends Vue {
   }
 }
 </script>
-
-<style scoped lang="scss">
-</style>

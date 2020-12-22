@@ -119,7 +119,7 @@ $axios.interceptors.response.use(
 
     // mock 数据判断
     res.isMockData = isMockData(res);
-    if (isDev) console.log(`[${res.config.method?.toLocaleUpperCase()}: ${res.status}] ${res.config.url}`, res.data);
+    // if (isDev) console.log(`[${res.config.method?.toLocaleUpperCase()}: ${res.status}] ${res.config.url}`, res.data);
     return data || res;
   },
   err => {
