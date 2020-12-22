@@ -25,7 +25,7 @@ import { formatPeople } from '@/utils/atricle';
 import { articleBase } from '@/mock/article/data/index';
 
 import { getRelativeBrowserPos } from '@/utils/element';
-import { getArticleData } from '~/service/data/article';
+import { getArticleData } from '@/service/data/article';
 import Imager from '@/components/public/Imager.vue';
 import ArticleContent from '@/components/public/Article/Contents.vue';
 
@@ -140,8 +140,9 @@ export default class ArticleView extends Vue {
     const parentPos = parentEl.getBoundingClientRect();
 
     parentEl.style.height = `${parentPos.height}px`;
-    $config.GeminiScrollbar.update();
-    const scrollTop = $config.GeminiScrollbar._viewElement.scrollTop;
+    // $config.GeminiScrollbar.update();
+    // const scrollTop = $config.GeminiScrollbar._viewElement.scrollTop;
+    const scrollTop = 0;
 
     this.style = {
       position: 'fixed',
@@ -168,8 +169,8 @@ export default class ArticleView extends Vue {
       }
       // TODO: 此处写法为临时解决方案，修改容器为无法滚动状态，修改动画过渡时间0后top移动到0
       task.push(setTimeout(() => {
-        $config.GeminiScrollbar._viewElement.style.overflow = 'initial';
-        $config.GeminiScrollbar.destroy();
+        // $config.GeminiScrollbar._viewElement.style.overflow = 'initial';
+        // $config.GeminiScrollbar.destroy();
         this.style.top = '0';
         this.style.transition = '0s';
         this.task = [];
@@ -187,15 +188,16 @@ export default class ArticleView extends Vue {
     if (isOpen) this.$emit('close');
     const el = this.$el.parentElement as Element;
     this.isOpen = false;
-    $config.GeminiScrollbar._viewElement.style.overflow = 'scroll';
-    $config.GeminiScrollbar.create();
-    this.style.top = `${$config.GeminiScrollbar._viewElement.scrollTop}px`;
+    // $config.GeminiScrollbar._viewElement.style.overflow = 'scroll';
+    // $config.GeminiScrollbar.create();
+    const scrollTop = 0;
+    this.style.top = `${scrollTop}px`;
     task.push(setTimeout(() => {
       const { width, height, top, left } = el.getBoundingClientRect();
       this.style = {
         position: 'fixed',
         zIndex: '29',
-        top: `${top + $config.GeminiScrollbar._viewElement.scrollTop}px`,
+        top: `${top + scrollTop}px`,
         left: `${left}px`,
         width: `${width}px`,
         height: `${height}px`,

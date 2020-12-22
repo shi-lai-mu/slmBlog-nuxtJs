@@ -1,10 +1,8 @@
 <template>
   <li :class="[ 'slm', 'blog-themes', $store.state.themes.mainBColor ]" @click.self="showPopup = !showPopup">
     <Masks :styleList="styleList" :hide="!showPopup" @close="() => showPopup = false">
-      <GeminiScrollbar class="popup-box" @ready="GeminiScrollbarInit">
-        <h4 class="popup-title">
-          自定义主题皮肤
-        </h4>
+      <div class="popup-box">
+        <h4 class="popup-title">自定义主题皮肤</h4>
         <div class="popup-tips">管理字体大小、颜色和背景。这些设置会影响此浏览器上，如果登录账号将同步到云端。</div>
         <div class="popup-content">
           <div class="row-box">
@@ -57,7 +55,7 @@
           </div>
         </div>
         <div :class="[ 'button', 'submit-btn', $store.state.themes.mainBColor ]" @click="() => showPopup = false">确定</div>
-      </GeminiScrollbar>
+      </div>
     </Masks>
   </li>
 </template>  
@@ -175,9 +173,9 @@ export default class HeaderThemes extends Vue {
   }
 
 
-  GeminiScrollbarInit(e) {
-    setTimeout(() =>e.update());
-  }
+  // GeminiScrollbarInit(e) {
+  //   setTimeout(() =>e.update());
+  // }
 }
 </script>
 

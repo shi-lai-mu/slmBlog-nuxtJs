@@ -9,10 +9,8 @@
       { 'mobile-header-open': mobileHeaderOpen }
     ]">
     <LayoutHeader class="header" @set-open-state="setHeaderOpenState" :mobileHeaderOpen="mobileHeaderOpen" />
-    <GeminiScrollbar @ready="GeminiScrollbarInit" v-show="s">
-        <nuxt class="layout-page"  @click.native="mobileHeaderOpen = false"/>
-      <LayoutFooter />
-    </GeminiScrollbar>
+    <nuxt class="layout-page"  @click.native="mobileHeaderOpen = false"/>
+    <LayoutFooter />
     <LoginPopup v-if="loginPopup" ref="LoginPopup" />
     <Live2D />
   </div>
@@ -47,7 +45,6 @@ export default class DefaultLayout extends Vue {
    * 主题方案
    */
   theme: LayoutDefault.Data['themes'] = 'theme-dark';
-  s = false
   /**
    * 移动端Header展开状态
    */
@@ -144,12 +141,12 @@ export default class DefaultLayout extends Vue {
   /**
    * body初始化完成时
    */
-  GeminiScrollbarInit(e) {
-    e.observer = new ObServer('GeminiScrollbar Observer');
-    e._viewElement.addEventListener('scroll', v => e.observer.emit('scroll', v));
-    this.$config.GeminiScrollbar = e;
-    setTimeout(() => e.update(), 1000)
-  }
+  // GeminiScrollbarInit(e) {
+  //   e.observer = new ObServer('GeminiScrollbar Observer');
+  //   e._viewElement.addEventListener('scroll', v => e.observer.emit('scroll', v));
+  //   this.$config.GeminiScrollbar = e;
+  //   setTimeout(() => e.update(), 1000)
+  // }
 
 
   /**

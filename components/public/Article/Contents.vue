@@ -1,47 +1,45 @@
 <template>
   <article :class="['article-content-box', { 'toggle-transition': toggleTransition }]">
-    <GeminiScrollbar>
-      <ArticleViewSkeleton />
-      <a-row class="article-layout max-content">
-        <a-col
-          class="article-page__container max-content"
-          :lg="{ span: 16 }"
-          :xxl="{ span: 16 }"
-        >
-          <aside class="article-action"></aside>
-          <div class="article-content__container row-box">
-            <div class="article-content__header">
-              <h2 class="title" v-text="articleData.subject"></h2>
-              <div class="article-content__info">
-                <div class="release-time">
-                  发布于 {{ $tool.format.isoToDateTime(articleData.createTime) }}
-                </div>
-                <div class="icon-box">
-                  <i class="slm blog-pinglun" v-text="$tool.format.people(articleData.stat.bookmark_num)"></i>
-                  <i class="slm blog-yueduliang" v-text="$tool.format.people(articleData.stat.view_num)"></i>
-                </div>
-                <ul class="tag-list">
-                  <li class="tag-item" v-for="(item, key) in 3" :key="key">xxxxx</li>
-                </ul>
+    <ArticleViewSkeleton />
+    <a-row class="article-layout max-content">
+      <a-col
+        class="article-page__container max-content"
+        :lg="{ span: 16 }"
+        :xxl="{ span: 16 }"
+      >
+        <aside class="article-action"></aside>
+        <div class="article-content__container row-box">
+          <div class="article-content__header">
+            <h2 class="title" v-text="articleData.subject"></h2>
+            <div class="article-content__info">
+              <div class="release-time">
+                发布于 {{ $tool.format.isoToDateTime(articleData.createTime) }}
               </div>
+              <div class="icon-box">
+                <i class="slm blog-pinglun" v-text="$tool.format.people(articleData.stat.bookmark_num)"></i>
+                <i class="slm blog-yueduliang" v-text="$tool.format.people(articleData.stat.view_num)"></i>
+              </div>
+              <ul class="tag-list">
+                <li class="tag-item" v-for="(item, key) in 3" :key="key">xxxxx</li>
+              </ul>
             </div>
-            <div class="article-content__body" v-html="articleData.content">
-            </div>
-            <div class="article-content__footer"></div>
           </div>
-          <div class="article-reply__container">
+          <div class="article-content__body" v-html="articleData.content">
+          </div>
+          <div class="article-content__footer"></div>
+        </div>
+        <div class="article-reply__container">
 
-          </div>
-        </a-col>
-        <a-col
-          class="article-page__sideber"
-          :lg="{ span: 8 }"
-          :xxl="{ span: 8 }"
-        >
-          <UserCard :userId="1" userEntrance />
-        </a-col>
-      </a-row>
-    </GeminiScrollbar>
+        </div>
+      </a-col>
+      <a-col
+        class="article-page__sideber"
+        :lg="{ span: 8 }"
+        :xxl="{ span: 8 }"
+      >
+        <UserCard :userId="1" userEntrance />
+      </a-col>
+    </a-row>
   </article>
 </template>
 
@@ -103,7 +101,7 @@ export default class ArticleContents extends Vue {
 
 
   created() {
-    console.log('xxxxx');
+    console.log('created');
     
     this.ssrUpdate(this.articleId || this.ssr || articleBase);
   }
@@ -173,6 +171,7 @@ export default class ArticleContents extends Vue {
 }
 .article-content-box {
   position: absolute;
+  overflow: hidden;
   top: 0;
   left: 0;
   width: 100%;

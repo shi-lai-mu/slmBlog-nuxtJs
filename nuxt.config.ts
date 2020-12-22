@@ -119,7 +119,7 @@ const globalConfig = {
           'tinycolor2': 'tinycolor',
           'axios': 'axios',
           'qs': 'Qs',
-          'vue-gemini-scrollbar': '{}',
+          // 'vue-gemini-scrollbar': '{}',
           'dayjs': 'dayjs',
         }
         isClient = !isClient;
