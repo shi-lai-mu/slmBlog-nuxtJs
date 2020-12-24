@@ -9,6 +9,7 @@
       { 'layout-default-mobile': $store.state.isMobile },
       { 'mobile-header-open': mobileHeaderOpen }
     ]">
+    <Background />
     <LayoutHeader class="header" @set-open-state="setHeaderOpenState" :mobileHeaderOpen="mobileHeaderOpen" />
     <nuxt class="layout-page"  @click.native="mobileHeaderOpen = false"/>
     <LayoutFooter />
@@ -26,6 +27,7 @@ import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
 import LayoutHeader from '@/layouts/defaultLayouts/components/Header.vue';
 import LoginPopup from '@/components/Login.vue'
 import Live2D from '@/components/public/Live2D.vue';
+import Background from '@/components/public/Background.vue';
 
 import resizeEvent from '@/utils/Event/resize';
 import ObServer from '@/utils/obServer';
@@ -39,6 +41,7 @@ import '@/assets/scss/layout.default.scss';
     LayoutHeader,
     LoginPopup,
     Live2D,
+    Background,
   },
 })
 export default class DefaultLayout extends Vue {
