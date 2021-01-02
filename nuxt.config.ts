@@ -64,6 +64,7 @@ const globalConfig = {
   plugins: [
     '@/plugins/global.ts',
     '@/plugins/antd-ui.ts',
+    { src: '@/plugins/app.ts', ssr: false },
     { src: '@/plugins/overallComponents.ts', ssr: false },
   ],
 
