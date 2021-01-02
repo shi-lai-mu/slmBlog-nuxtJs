@@ -1,33 +1,39 @@
 <template>
-  <article class="article-box" @click="openView(article.id)" :style="style">
-    <i v-show="isOpen" class="slm blog-cuowu" @click.stop="closeView"></i>
-    <Imager class="figure-cover" :src="article.banner" :alt="article.subject" :title="article.subject" />
-    <div class="article-content">
-      <h3 class="figure-subject line-ellipsis" v-text="article.subject"></h3>
-      <p class="line-ellipsis double-line-ellipsis article-description" v-text="article.description"></p>
-    </div>
-    <div class="article-bottom">
-      <div>
-        <i class="slm blog-pinglun" v-text="$tool.format.people(article.stat.bookmark_num)"></i>
-        <i class="slm blog-yueduliang" v-text="$tool.format.people(article.stat.view_num)"></i>
+  <div class="article-card">
+    <article v-if="article.id" class="article-box" @click="openView(article.id)" :style="style">
+      <i v-show="isOpen" class="slm blog-cuowu" @click.stop="closeView"></i>
+      <Imager class="figure-cover" v-if="article.banner" :src="article.banner" :alt="article.subject" :title="article.subject" />
+      <i class="slm blog-img-err figure-cover" v-else></i>
+      <div class="article-content">
+        <h3 class="figure-subject line-ellipsis" v-text="article.subject"></h3>
+        <p class="line-ellipsis double-line-ellipsis article-description" v-text="article.description"></p>
       </div>
-      <span class="release-time" v-text="$tool.format.isoToDateTime(article.createTime)"></span>
-    </div>
-    <ArticleContent :ssr="article" v-if="isOpen" initSkeleton />
-  </article>
+      <div class="article-bottom">
+        <div>
+          <i class="slm blog-pinglun" v-text="$tool.format.people(article.stat.bookmark_num)"></i>
+          <i class="slm blog-yueduliang" v-text="$tool.format.people(article.stat.view_num)"></i>
+        </div>
+        <span class="release-time" v-text="$tool.format.isoToDateTime(article.createTime)"></span>
+      </div>
+      <ArticleContent :ssr="article" v-if="isOpen" initSkeleton />
+    </article>
+    <ArticleCardSkeleton v-else/>
+  </div>
 </template>
 
 <script lang='ts'>
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 
 import { Article as IntefArticle } from '@/interface/request/article';
-import { formatPeople } from '@/utils/atricle';
 import { articleBase } from '@/mock/article/data/index';
+import { formatPeople } from '@/utils/atricle';
 
 import { getRelativeBrowserPos } from '@/utils/element';
 import { getPostsData } from '@/service/data/article';
+
 import Imager from '@/components/public/Imager.vue';
 import ArticleContent from '@/components/public/Article/Contents.vue';
+import ArticleCardSkeleton from '@/components/skeleton/article/cardSkeleton.vue';
 
 /**
  * 文章内容组件
@@ -36,6 +42,7 @@ import ArticleContent from '@/components/public/Article/Contents.vue';
   components: {
     Imager,
     ArticleContent,
+    ArticleCardSkeleton,
   }
 })
 export default class ArticleView extends Vue {
@@ -84,7 +91,7 @@ export default class ArticleView extends Vue {
 
   @Watch('ssr')
   ssrUpdate(data: IntefArticle.Base | number) {
-    typeof data === 'number' && data !== -1
+    typeof data == 'number' && data !== -1
     ? getPostsData(data).then(res => this.setRenderData(res.result))
     : this.setRenderData(data);
   }
@@ -105,7 +112,7 @@ export default class ArticleView extends Vue {
     if (Object.keys(data).length === 0) {
       return this.article = this.errorData();
     }
-    this.article = Object.assign(articleBase, data);
+    this.article = Object.assign({}, articleBase, data);
   }
 
 
@@ -215,6 +222,9 @@ export default class ArticleView extends Vue {
 </script>
 
 <style scoped lang="scss">
+  .article-card {
+    width: 100%;
+  }
   .article-box {
     background-color: inherit;
   }
@@ -224,6 +234,23 @@ export default class ArticleView extends Vue {
 
     .frame-content {
       height: 110vh;
+    }
+  }
+
+  /deep/ .line-layout .figure-cover.slm {
+    line-height: 10vh;
+  }
+
+  /deep/ .figure-cover.slm {
+    display: inline-block;
+    width: 100%;
+    line-height: 200px;
+    font-size: 5vh;
+    text-align: center;
+    background-color: rgba($color: #FFF, $alpha: .1);
+
+    &::before {
+      opacity: .2;
     }
   }
 

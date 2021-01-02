@@ -25,7 +25,7 @@
       >
         <Notice class="noise-texture" v-if="!$store.state.isMobile"/>
         <UserCard class="noise-texture" :ssr="userData" userSelf/>
-        <FocalPointPlate class="noise-texture" />
+        <FocalPointPlate :ssr="articleLatest" class="noise-texture" />
       </a-col>
     </a-row>
   </div>
@@ -60,7 +60,7 @@ export default class HomePage extends Vue {
   async asyncData({ $http, $axios}) {
     return {
       userData: (await getUserBaseData(1)).result || {},         // 获取用户信息
-      articleLatest: (await getArticleList()).result.list || [], // 获取最新文章
+      articleLatest: (await getArticleList()).result?.list || [], // 获取最新文章
     };
   }
 
