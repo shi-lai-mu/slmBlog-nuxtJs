@@ -176,7 +176,7 @@ export default class ArticleContents extends Vue {
   // padding-top: 100px;
   @include themify($themes) {
     color: themed('font-color');
-    background-color: themed('main-bg-color');
+    // background-color: themed('main-bg-color');
   }
 
   .article-layout,

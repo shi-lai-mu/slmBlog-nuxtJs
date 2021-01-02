@@ -1,21 +1,22 @@
 <template>
   <div class="article-card">
-    <article v-if="article.id" class="article-box" @click="openView(article.id)" :style="style">
-      <i v-show="isOpen" class="slm blog-cuowu" @click.stop="closeView"></i>
-      <Imager class="figure-cover" v-if="article.banner" :src="article.banner" :alt="article.subject" :title="article.subject" />
-      <i class="slm blog-img-err figure-cover" v-else></i>
-      <div class="article-content">
-        <h3 class="figure-subject line-ellipsis" v-text="article.subject"></h3>
-        <p class="line-ellipsis double-line-ellipsis article-description" v-text="article.description"></p>
-      </div>
-      <div class="article-bottom">
-        <div>
-          <i class="slm blog-pinglun" v-text="$tool.format.people(article.stat.bookmark_num)"></i>
-          <i class="slm blog-yueduliang" v-text="$tool.format.people(article.stat.view_num)"></i>
+    <article v-if="article.id" :class="['article-box', { 'bg-texture': isOpen || (!isOpen && task.length)}] " @click="openView(article.id)" :style="style">
+      <template v-if="!isOpen">
+        <Imager class="figure-cover" v-if="article.banner" :src="article.banner" :alt="article.subject" :title="article.subject" />
+        <i class="slm blog-img-err figure-cover" v-else></i>
+        <div class="article-content">
+          <h3 class="figure-subject line-ellipsis" v-text="article.subject"></h3>
+          <p class="line-ellipsis double-line-ellipsis article-description" v-text="article.description"></p>
         </div>
-        <span class="release-time" v-text="$tool.format.isoToDateTime(article.createTime)"></span>
-      </div>
-      <ArticleContent :ssr="article" v-if="isOpen" initSkeleton />
+        <div class="article-bottom">
+          <div>
+            <i class="slm blog-pinglun" v-text="$tool.format.people(article.stat.bookmark_num)"></i>
+            <i class="slm blog-yueduliang" v-text="$tool.format.people(article.stat.view_num)"></i>
+          </div>
+          <span class="release-time" v-text="$tool.format.isoToDateTime(article.createTime)"></span>
+        </div>
+      </template>
+      <ArticleContent v-if="isOpen" :ssr="article" initSkeleton />
     </article>
     <ArticleCardSkeleton v-else/>
   </div>
@@ -24,12 +25,12 @@
 <script lang='ts'>
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 
-import { Article as IntefArticle } from '@/interface/request/article';
-import { articleBase } from '@/mock/article/data/index';
 import { formatPeople } from '@/utils/atricle';
+import { articleBase } from '@/mock/article/data/index';
+import { Article as IntefArticle } from '@/interface/request/article';
 
-import { getRelativeBrowserPos } from '@/utils/element';
 import { getPostsData } from '@/service/data/article';
+import { getRelativeBrowserPos } from '@/utils/element';
 
 import Imager from '@/components/public/Imager.vue';
 import ArticleContent from '@/components/public/Article/Contents.vue';
@@ -91,7 +92,7 @@ export default class ArticleView extends Vue {
 
   @Watch('ssr')
   ssrUpdate(data: IntefArticle.Base | number) {
-    typeof data == 'number' && data !== -1
+    typeof data === 'number' && data !== -1
     ? getPostsData(data).then(res => this.setRenderData(res.result))
     : this.setRenderData(data);
   }
@@ -153,14 +154,14 @@ export default class ArticleView extends Vue {
 
     this.style = {
       position: 'fixed',
-      zIndex: '999',
+      zIndex: '29',
       top: `${top + scrollTop}px`,
       left: `${left}px`,
       width: `${width}px`,
       height: `${height}px`,
       padding: '10px',
       borderRadius: '5px',
-      transition: '.5s',
+      transition: '0s',
     }
 
     task.push(setTimeout(() => {
@@ -198,25 +199,35 @@ export default class ArticleView extends Vue {
     // $config.GeminiScrollbar._viewElement.style.overflow = 'scroll';
     // $config.GeminiScrollbar.create();
     const scrollTop = 0;
+    const padding = 10;
     this.style.top = `${scrollTop}px`;
+    console.log(this.task.length);
+    
     task.push(setTimeout(() => {
       const { width, height, top, left } = el.getBoundingClientRect();
       this.style = {
         position: 'fixed',
         zIndex: '29',
-        top: `${top + scrollTop}px`,
-        left: `${left}px`,
-        width: `${width}px`,
-        height: `${height}px`,
+        top: `${top + scrollTop + padding}px`,
+        left: `${left + padding}px`,
+        width: `${width - (padding * 2)}px`,
+        height: `${height - (padding * 2)}px`,
         borderRadius: '5px',
         transition: '.5s',
       }
+      // 透明背景
+      task.push(setTimeout(() => {
+        this.style = {
+          ...this.style,
+          opacity: '.3',
+        }
+      }, 350));
       task.push(setTimeout(() => {
         this.style = '';
         this.task = [];
         (el.children[0].parentElement as any).style = '';
-      }, 500));
-    }, 10));
+      }, 600));
+    }));
   }
 }
 </script>
@@ -252,6 +263,11 @@ export default class ArticleView extends Vue {
     &::before {
       opacity: .2;
     }
+  }
+
+  .article-description {
+    display: block;
+    height: 3em;
   }
 
   .is-open {

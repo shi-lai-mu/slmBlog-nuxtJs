@@ -1,6 +1,5 @@
 <template>
   <div class="home-page">
-    <!-- <div class="top-banner banner-home"></div> -->
     <a-row class="home-content max-content">
       <a-col
         class="tbody"
@@ -16,15 +15,15 @@
           <i class="slm blog-arrow-right" slot="nextArrow" style="right: 10px;zIndex: 1"></i>
         </Carousel>
         <Notice v-if="$store.state.isMobile" class="mobile-notice"/>
-        <!-- <ArticleList class="home-main-article-list" :ssr="articleLatest" /> -->
+        <ArticleList class="home-main-article-list" :ssr="articleLatest" />
       </a-col>
       <a-col
         class="sideber"
         :lg="{ span: 8 }"
         :xxl="{ span: 8 }"
       >
+        <UserCard class="noise-texture" :ssr="userData" userSelf userState/>
         <Notice class="noise-texture" v-if="!$store.state.isMobile"/>
-        <UserCard class="noise-texture" :ssr="userData" userSelf/>
         <FocalPointPlate :ssr="articleLatest" class="noise-texture" />
       </a-col>
     </a-row>
@@ -78,25 +77,6 @@ $blockSpacingY: 15px; // 版块间距 纵轴
   position: relative;
   // padding-top: 500px !important;
 
-  // .banner-home {
-  //   opacity: .7;
-  //   position: absolute;
-  //   z-index: -1;
-  //   top: 0;
-  //   background-image: url('/banner/home_2.jpg');
-
-  //   &::after {
-  //     position: absolute;
-  //     content: '';
-  //     width: 100%;
-  //     height: 100%;
-  //     background-color: rgba($color: #000, $alpha: .4);
-  //     @include themify($themes, 1) {
-  //       box-shadow: inset 0 -30px 20px themed('main-bg-color');
-  //     }
-  //   }
-  // }
-
   .home-content {
     margin: 20px auto;
 
@@ -106,13 +86,17 @@ $blockSpacingY: 15px; // 版块间距 纵轴
       padding-right: $blockSpacingX;
 
       .slm {
+        margin-top: 0;
         @include themify($themes) {
           color: themed('font-color');
         }
       }
 
       /deep/ .slick-slide {
+        display: flex;
+        align-items: center;
         border-radius: 10px;
+        height: 15vmax;
         overflow: hidden;
       }
     }

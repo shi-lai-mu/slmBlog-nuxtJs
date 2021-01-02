@@ -18,7 +18,7 @@
         <!-- 简介 -->
         <div class="user-introduction line-ellipsis double-line-ellipsis">{{ userData.introduction || $config.user.card.defaultIntroduction }}</div>
         <!-- 人物状态 -->
-        <div class="user-state-row">
+        <div class="user-state-row" v-if="userState">
           <span class="stete-item" v-for="(item, index) in showState" :key="index">
             <div class="state-item-tag">{{ item }}</div>
             <div>{{ userData.state[index] || '--' }}</div>
@@ -95,6 +95,11 @@ export default class UserCard extends Vue {
    * 是否显示 管理入口
    */
   @Prop(Boolean) userSelf?: boolean;
+
+  /**
+   * 是否显示 用户状态
+   */
+  @Prop(Boolean) userState?: boolean;
 
   /**
    * 展示的用户状态

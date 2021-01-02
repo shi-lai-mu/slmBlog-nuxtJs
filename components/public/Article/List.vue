@@ -1,8 +1,5 @@
 <template>
   <div class="article-list-box">
-    <div :class="[ 'article-list-item', layout.name, { 'is-open': viewId === item.id } ]" v-for="(item, index) in listData" :key="index">
-      <ArticleView @open="openArticleEvent" @close="closeArticleEvent" :ssr="item" :viewId="viewId" :key="index" />
-    </div>
     <aside class="layout-aside" v-if="!$store.state.isMobile">
       <div class="aside-child-box" v-for="(item, index) of getListAsideConfig.list" :key="index">
         <tooltip placement="left" v-for="(chiItem, chiIndex) of item" :key="chiIndex">
@@ -11,6 +8,9 @@
         </tooltip>
       </div>
     </aside>
+    <div :class="[ 'article-list-item', layout.name, { 'is-open': viewId === item.id } ]" v-for="(item, index) in listData" :key="index">
+      <ArticleView @open="openArticleEvent" @close="closeArticleEvent" :ssr="item" :viewId="viewId" :key="index" />
+    </div>
   </div>
 </template>
 
@@ -61,7 +61,7 @@ export default class Article extends Vue {
    * 当前布局
    */
   private layout = {
-    name: '',
+    name: 'line-layout',
     sort: '',
     setting: {},
   };
@@ -142,13 +142,13 @@ export default class Article extends Vue {
       border-radius: 5px;
       transition: $layoutTransition;
       .image-cover {
-        transition: .5s ease-in-out;
+        transition: $layoutTransition;
       }
     }
 
     &:hover .layout-aside {
       opacity: 1;
-      transition: .5s;
+      transition: $layoutTransition;
       transform: translateX(-100%);
     }
 
@@ -167,7 +167,7 @@ export default class Article extends Vue {
       border-radius: 5px;
       justify-content: center;
       flex-wrap: wrap;
-      transition: 1s .5s;
+      transition: $layoutTransition .5s;
 
       .aside-child-box:not(:last-child) {
         padding-bottom: 10px;
@@ -224,7 +224,7 @@ export default class Article extends Vue {
         }
       }
 
-      &:nth-child(2n) {
+      &:nth-child(2n + 1) {
         margin-right: 0;
       }
 
