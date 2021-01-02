@@ -53,25 +53,25 @@ generateTheme(options)
       'comment', // 评论
     ]
     const excludeReg = new RegExp(`\\\\.(\\\\w)+(-(${ excludeClass.join('|') })-)(\\\\S|\\\\s)+`, 'g')
-    // outFile = outFile
-    //   .replace(excludeReg, '')
-    //   .replace(/\n/g, '')
-    // ;
+    outFile = outFile
+      .replace(excludeReg, '')
+      .replace(/\n/g, '')
+    ;
     // outFile += antdFnFile;
-    // outFile = outFile.split(/\n/g).map(item => {
-    //   return item
-    //     .replace(excludeReg, '')
-    //     .replace(/\s+/g, ' ')
-    //     .replace(/\s(>|\+)\s/g, '$1')
-    //     .replace(/(:|,|})\s/g, '$1')
-    //     .replace(/\s({)/g, '$1')
-    //   ;
-    // }).join(' ');
+    outFile = outFile.split(/\n/g).map(item => {
+      return item
+        .replace(excludeReg, '')
+        .replace(/\s+/g, ' ')
+        .replace(/\s(>|\+)\s/g, '$1')
+        .replace(/(:|,|})\s/g, '$1')
+        .replace(/\s({)/g, '$1')
+      ;
+    }).join(' ');
 
-    // outFile = outFile
-    //   .replace('body{color:@text-color;background-color:#fff;}', '')
-    //   .replace('  h1, h2, h3, h4, h5, h6{color:@heading-color;}', '')
-    // ;
+    outFile = outFile
+      .replace('body{color:@text-color;background-color:#fff;}', '')
+    //   .replace('h1,h2,h3,h4,h5,h6{color:@heading-color;}', '')
+    ;
 
     // 输出
     fs.writeFileSync(outMinFilePath, outFile);
