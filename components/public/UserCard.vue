@@ -4,7 +4,8 @@
     <template v-if="userData && userData.id">
       <!-- 背景图 -->
       <div class="user-cover" :style="`background-image: url(${$config.ossLink}/user/card-bg-cover.jpg);`">
-        <Imager class="user-avatar" :src="userData.avatarUrl" :alt="userData.nickname" :title="userData.nickname" />
+        <Imager class="user-avatar" v-if="userData.avatarUrl" :src="userData.avatarUrl" :alt="userData.nickname" :title="userData.nickname" />
+        <i class="slm blog-img-err user-avatar" v-else></i>
       </div>
 
       <!-- 内容部分 -->
@@ -20,7 +21,7 @@
         <div class="user-state-row">
           <span class="stete-item" v-for="(item, index) in showState" :key="index">
             <div class="state-item-tag">{{ item }}</div>
-            <div>{{ userData.state[index] || 0 }}</div>
+            <div>{{ userData.state[index] || '--' }}</div>
           </span>
         </div>
         <!-- 用户管理入口 -->
@@ -142,22 +143,13 @@ export default class UserCard extends Vue {
   @Watch('userId')
   ssrUpdate(data: User.Base | number) {
     typeof data === 'number' 
-    ? getUserBaseData(data).then(res => this.setRenderData(res.result))
-    : this.setRenderData(data);
+      ? getUserBaseData(data).then(res => this.setRenderData(res.result))
+      : this.setRenderData(data);
   }
 
 
   created() {
-    if (this.userId) {
-      this.ssrUpdate(this.userId);
-    } else {
-      console.log({
-        ssr: this.ssr,
-         userData
-      });
-      
-      this.ssrUpdate(this.ssr || userData);
-    }
+    this.ssrUpdate(this.userId || this.ssr || userData);
   }
 
 
@@ -178,7 +170,8 @@ export default class UserCard extends Vue {
   errorData() {
     return Object.assign(userData, {
       id: -1,
-      nickname: '用户信息获取失败',
+      nickname: '未知用户',
+      introduction: '用户信息获取失败...'
     });
   }
 }
@@ -259,10 +252,21 @@ export default class UserCard extends Vue {
       bottom: 0;
       width: 80px;
       height: 80px;
+      line-height: 80px;
       margin: auto;
       border-radius: 50%;
       transform: translateY(40%);
       background-color: rgba($color: #000, $alpha: .2);
+
+      &.slm {
+        text-align: center;
+        font-size: 40px;
+        background-color: rgba($color: #000, $alpha: .5);
+
+        &::before {
+          opacity: .5;
+        }
+      }
     }
   }
 </style>

@@ -21,6 +21,7 @@ import { Tooltip } from 'ant-design-vue';
 import { _ARTICLE_LIST_LAYOUT_ } from '@/config/storage';
 import { isBrowser } from '@/config/system';
 import { Article as IntefArticle } from '@/interface/request/article';
+import { articleBase } from '@/mock/article/data/index';
 
 import listAsideConfig from './ListAside.config';
 import ArticleView from './View.vue';
@@ -49,7 +50,7 @@ export default class Article extends Vue {
   /**
    * 列表数据
    */
-  private listData: IntefArticle.Base[] = [];
+  private listData: IntefArticle.Base[] = new Array(4).fill(articleBase);
 
   /**
    * 正在观看是文章ID
@@ -70,7 +71,7 @@ export default class Article extends Vue {
    */
   @Watch('ssr')
   ssrUpdate(data: IntefArticle.Base[]) {
-    this.listData = data;
+    if (data.length) this.listData = data;
   }
 
   created() {
@@ -276,6 +277,7 @@ export default class Article extends Vue {
     /deep/ .figure-cover {
       width: 15vh;
       height: 15vh;
+      line-height: 15vh;
       max-width: 150px;
       max-height: 150px;
       margin-bottom: 0;
@@ -303,6 +305,7 @@ export default class Article extends Vue {
 
   .article-list-box div.line-layout-noimg {
     /deep/ .figure-cover {
+      overflow: hidden;
       width: 0;
       height: 0;
       max-width: 0;

@@ -1,23 +1,40 @@
 <template>
   <FunctionalPlate title="焦点推荐">
-    <div class="plate-first-place__row">
-      <Imager class="plate-first-place__img" :src="'http://dummyimage.com/336x280'"/>
-      <p class="plate-first-place__title line-ellipsis">这是一个首板块标题块标题块标题块</p>
-    </div>
-    <div class="plate-list-place">
-      <nuxt-link :to="'#'" class="plate-list-opt__link" v-for="k in 4" :key="k">
-        <label class="opt-link__label">活动</label>
-        <p class="opt-link__title line-ellipsis">这是一个链接 哈哈哈哈哈哈哈哈哈哈或或或或或或或或或或或或或或或或或或或</p>
-      </nuxt-link>
-    </div>
+
+    <template v-if="renderList.top">
+      <!-- <div class="plate-first-place__row">
+        <Imager class="plate-first-place__img" :src="list.top.banner"/>
+        <p class="plate-first-place__title line-ellipsis">{{ list.top.subject }}</p>
+      </div> -->
+      <div class="plate-list-place">
+        <nuxt-link :to="'/article/' + item.id" class="plate-list-opt__link" v-for="(item, k) in ssr" :key="k">
+          <label class="opt-link__label">活动</label>
+          <p class="opt-link__title line-ellipsis">{{ item.subject }}</p>
+        </nuxt-link>
+      </div>
+    </template>
+
+    <template v-else>
+      <div class="skeleton">
+        <div class="plate-list-place">
+          <a class="plate-list-opt__link" v-for="(item, k) in Array(5)" :key="k">
+            <span class="opt-link__label skeleton-tag"></span>
+            <span :class="['opt-link__title', 'line-ellipsis', k % 2 ? 'skeleton-title' : 'skeleton-desc']"></span>
+          </a>
+        </div>
+      </div>
+    </template>
+
   </FunctionalPlate>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'nuxt-property-decorator';
+import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator';
 
 import Imager from '@/components/public/Imager.vue';
 import FunctionalPlate from '@/components/public/FunctionalPlate.vue';
+
+import { Article } from '@/interface/request/article';
 
 /**
  * 焦点板块 组件
@@ -30,8 +47,28 @@ import FunctionalPlate from '@/components/public/FunctionalPlate.vue';
   },
 })
 export default class FocalPointPlate extends Vue {
-  @Prop(String) ssr;
-  
+  @Prop(Array) ssr?: Article.Base[];
+
+  renderList: any = {};
+
+  created() {
+    this.ssr && this.setRenderData(this.ssr);
+  }
+
+
+  /**
+   * 设置渲染属性
+   */
+  @Watch('ssr')
+  setRenderData(articleList: Article.Base[]) {
+    if (!articleList.length) return false;
+    console.log(articleList.length);
+    
+    this.renderList = {
+      top: articleList.shift(),
+      children: articleList,
+    };
+  }
 }
 </script>
 
@@ -76,7 +113,7 @@ export default class FocalPointPlate extends Vue {
       margin-right: 20px;
       font-size: 12px;
       color: #FFF;
-      background-color: #C3CCD9;
+      background-color: #75a5e9;
       border-radius: 3px;
       text-align: center;
       flex-shrink: 0;
