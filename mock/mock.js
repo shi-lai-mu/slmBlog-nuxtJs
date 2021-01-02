@@ -7,7 +7,8 @@ import { isProd } from '@/config/system';
 import axios from '@/utils/axios';
 
 // 启动模式 default：默认  skeleton: 骨架[空值]
-let model = 'default';
+let model = 'skeleton';
+// let model = 'default';
 
 // 生产环境导出模拟mockjs，其他模式下如果启用mock将调用真实mockjs
 const MockJS = !isProd && model === 'default' ? require('mockjs') : require('@/mock/build');

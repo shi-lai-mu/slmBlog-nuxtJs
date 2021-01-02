@@ -1,6 +1,6 @@
 <template>
   <div class="home-page">
-    <div class="top-banner banner-home"></div>
+    <!-- <div class="top-banner banner-home"></div> -->
     <a-row class="home-content max-content">
       <a-col
         class="tbody"
@@ -23,17 +23,17 @@
         :lg="{ span: 8 }"
         :xxl="{ span: 8 }"
       >
-        <Notice v-if="!$store.state.isMobile"/>
-        <!-- <UserCard :ssr="userData" userSelf/> -->
-        <FocalPointPlate />
+        <Notice class="noise-texture" v-if="!$store.state.isMobile"/>
+        <UserCard class="noise-texture" :ssr="userData" userSelf/>
+        <FocalPointPlate :ssr="articleLatest" class="noise-texture" />
       </a-col>
     </a-row>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
 import { Carousel } from 'ant-design-vue';
+import { Component, Vue } from 'nuxt-property-decorator';
 
 import { getUserBaseData } from '@/service/data/user';
 import { getArticleList } from '@/service/data/article';
@@ -63,6 +63,10 @@ export default class HomePage extends Vue {
       articleLatest: (await getArticleList()).result?.list || [], // 获取最新文章
     };
   }
+
+  created() {
+    console.log('created');
+  }
 }
 </script>
 
@@ -74,24 +78,24 @@ $blockSpacingY: 15px; // 版块间距 纵轴
   position: relative;
   // padding-top: 500px !important;
 
-  .banner-home {
-    opacity: .7;
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    background-image: url('/banner/home_2.jpg');
+  // .banner-home {
+  //   opacity: .7;
+  //   position: absolute;
+  //   z-index: -1;
+  //   top: 0;
+  //   background-image: url('/banner/home_2.jpg');
 
-    &::after {
-      position: absolute;
-      content: '';
-      width: 100%;
-      height: 100%;
-      background-color: rgba($color: #000, $alpha: .4);
-      @include themify($themes, 1) {
-        box-shadow: inset 0 -30px 20px themed('main-bg-color');
-      }
-    }
-  }
+  //   &::after {
+  //     position: absolute;
+  //     content: '';
+  //     width: 100%;
+  //     height: 100%;
+  //     background-color: rgba($color: #000, $alpha: .4);
+  //     @include themify($themes, 1) {
+  //       box-shadow: inset 0 -30px 20px themed('main-bg-color');
+  //     }
+  //   }
+  // }
 
   .home-content {
     margin: 20px auto;

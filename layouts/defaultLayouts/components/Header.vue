@@ -42,6 +42,7 @@
         <!-- 右侧 -->
         <ul class="header-navigation-right">
           <HeaderSearch />
+          <HeaderWebSetting @click.native.self="isMobile ? $emit('set-open-state', !mobileHeaderOpen) : null" />
           <HeaderThemes @click.native.self="isMobile ? $emit('set-open-state', !mobileHeaderOpen) : null" />
           <HeaderAccount @click.native.self="isMobile ? $emit('set-open-state', !mobileHeaderOpen) : null" />
         </ul>
@@ -55,12 +56,13 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import { Navigator } from '../../../interface/router';
+import { PageHeader } from 'ant-design-vue';
 import navigator from '../../../config/navigation';
 import FocusingDisplac from '@/components/FocusingDisplacs.vue';
 import HeaderSearch from './Header/Search.vue';
 import HeaderAccount from './Header/Account.vue';
 import HeaderThemes from './Header/Themes.vue';
-import { PageHeader } from 'ant-design-vue';
+import HeaderWebSetting from './Header/WebSetting.vue';
 
 @Component({
   components: {
@@ -68,6 +70,7 @@ import { PageHeader } from 'ant-design-vue';
     HeaderSearch,
     HeaderAccount,
     HeaderThemes,
+    HeaderWebSetting,
   },
   computed: {
     isMobile() {
@@ -125,8 +128,14 @@ export default class LayoutDefaultHeader extends Vue {
 $headerHeight: 60px;
 // TODO: 加载时的logo状态
 #__nuxt .nuxt-progress + #__layout .layout-header .blog-logo {
-  background-color: red !important;
+  animation: 2s logo-loading ease-in-out infinite;
 }
+@keyframes logo-loading {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 // 公共
 .layout-header {
   position: fixed;

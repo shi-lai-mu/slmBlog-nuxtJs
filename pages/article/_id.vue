@@ -1,11 +1,11 @@
 <template>
-  <ArticleContent v-if="articleData" :ssr="articleData[0]"/>
+  <ArticleContent v-if="posts" :ssr="posts"/>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 
-import { getArticleData } from '@/service/data/article';
+import { getPostsData } from '@/service/data/article';
 
 import ArticleContent from '@/components/public/Article/Contents.vue';
 
@@ -14,14 +14,12 @@ import ArticleContent from '@/components/public/Article/Contents.vue';
     ArticleContent,
   },
 })
-export default class HomePage extends Vue {
+export default class ArticlePostsContentPage extends Vue {
   async asyncData({ params }) {
+    const posts = (await getPostsData(params.id)).result;
     return {
-      articleData: (await getArticleData(params.id)).result || [], // 获取最新文章
+      posts: posts.article, // 获取最新文章
     };
   }
 }
 </script>
-
-<style scoped lang="scss">
-</style>

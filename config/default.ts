@@ -2,6 +2,7 @@ import { WebConfig } from '@/interface/config';
 import user from './noteConfig/user';
 
 const isDev = process.env.NODE_ENV === 'development';
+const domain = !isDev ? 'https://slmblog.com' : `http://127.0.0.1:8888`;
 
 /**
  * 默认配置
@@ -14,7 +15,7 @@ const defaultConfig: WebConfig.Default = {
   /**
    * 域名
    */
-  domain: 'https://slmblog.com',
+  domain,
   /**
    * LOGO相对路径
    */
@@ -63,14 +64,14 @@ const defaultConfig: WebConfig.Default = {
    */
   ossLink: !isDev
     ? 'https://oss.slmblog.com/blog'
-    : '/blog'
+    : domain + '/blog'
   ,
   /**
    * SEO备用本站存储地址
    */
   imgLink: !isDev
     ? 'https://img.slmblog.com/blog'
-    : 'blog'
+    : domain + 'blog'
   ,
   /**
    * Axios 请求的服务器

@@ -22,7 +22,7 @@ export const getArticleList = (
 /**
  * 获取文章内容
  */
-export const getArticleData = (articleId: Article.Base['id']): Promise<Request.Result<Article.Base[]>> => axios.send(axios.article.data, {
+export const getPostsData = (articleId: Article.Base['id']): Promise<Request.Result<Article.Posts>> => axios.send(axios.article.data, {
   params: {
     articleId,
   }

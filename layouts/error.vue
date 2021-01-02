@@ -88,6 +88,7 @@ export default class ErrorPage extends Vue  {
     // transform: translateX(-100px);
     animation: fillUpSvg 10s ease-in-out infinite alternate;
     box-shadow: inset 10px 10px 50px rgba($color: #000, $alpha: .4);
+    pointer-events: none;
   }
   .wave-svg-shape .wave-svg {
     position: absolute;

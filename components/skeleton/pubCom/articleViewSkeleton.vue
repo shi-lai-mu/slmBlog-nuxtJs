@@ -1,5 +1,5 @@
 <template>
-  <div class="skeleton">
+  <div class="article-skeleton skeleton">
     <a-row class="article-layout max-content">
       <a-col
         class="article-page__container max-content"

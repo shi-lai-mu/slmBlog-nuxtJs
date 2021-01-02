@@ -1,12 +1,13 @@
 @font-face {
   font-family: 'slm';  /* project id 1445911 */
-  src: url('//at.alicdn.com/t/font_1445911_nll6y01efue.eot');
-  src: url('//at.alicdn.com/t/font_1445911_nll6y01efue.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1445911_nll6y01efue.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1445911_nll6y01efue.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1445911_nll6y01efue.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1445911_nll6y01efue.svg#slm') format('svg');
+  src: url('//at.alicdn.com/t/font_1445911_t5c40iudkwi.eot');
+  src: url('//at.alicdn.com/t/font_1445911_t5c40iudkwi.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1445911_t5c40iudkwi.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1445911_t5c40iudkwi.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1445911_t5c40iudkwi.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1445911_t5c40iudkwi.svg#slm') format('svg');
 }
+
 
 .slm {
   font-family: "slm" !important;
@@ -16,6 +17,19 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+/**
+ * 样式定义
+ **/
+.blog-loading:before {
+  display: inline-block;
+  content: '\e738';
+  animation: loadingMove 1s linear infinite;
+}
+@keyframes loadingMove {
+  to { transform: rotate(360deg); }
+}
+
+
 
 /**
  * 徽章颜色
@@ -245,3 +259,6 @@
   content: "\e601";
 }
 
+.blog-img-err:before {
+  content: "\ee40";
+}

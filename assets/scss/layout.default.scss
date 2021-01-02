@@ -2,6 +2,15 @@
   // font-size: calc(.5vw + .5vh + .5vmin);
 }
 
+.theme-dark .bg-texture,
+.theme-dark.bg-texture {
+  background-image: url('/texture/dark_mosaic.png');
+}
+
+.noise-texture {
+  background-image: url('/texture/broken_noise.png');
+}
+
 body {
   overflow: hidden;
   margin: 0;
@@ -89,7 +98,7 @@ li {
 
 .skeleton li,
 .skeleton span {
-  background: linear-gradient(90deg,rgba(242, 242, 242, .5) 25%,rgba(230, 230, 230, .6) 37%,rgba(242, 242, 242, .5) 83%);
+  background: linear-gradient(90deg,rgba(242, 242, 242, .5) 25%,rgba(230, 230, 230, .9) 37%,rgba(242, 242, 242, .5) 83%);
   background-size: 400% 100%;
   border-radius: 5px;
   animation: skeleton-loading 2s ease infinite;
@@ -140,6 +149,26 @@ li {
 ::selection {
   color: #fff;
   background: #2c2c2c;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 5px;
+  &:hover {
+    background-color: rgba(255, 255, 255, .1);
+  }
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .5);
+    // background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .3) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .3) 50%, rgba(255, 255, 255, .3) 75%, transparent 75%, transparent);
+    border-radius: 5px;
+    &:hover {
+      background-color: #F90;
+    }
+    &:active {
+      background-color: #de4f3a;
+    }
 }
 
 // antd

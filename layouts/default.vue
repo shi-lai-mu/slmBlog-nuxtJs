@@ -3,16 +3,16 @@
     :class="[
       'layout',
       'layout-default',
+      'bg-texture',
       'content-1300', // test
       theme,
       { 'layout-default-mobile': $store.state.isMobile },
       { 'mobile-header-open': mobileHeaderOpen }
     ]">
+    <Background />
     <LayoutHeader class="header" @set-open-state="setHeaderOpenState" :mobileHeaderOpen="mobileHeaderOpen" />
-    <GeminiScrollbar @ready="GeminiScrollbarInit">
-        <nuxt class="layout-page"  @click.native="mobileHeaderOpen = false"/>
-      <LayoutFooter />
-    </GeminiScrollbar>
+    <nuxt class="layout-page"  @click.native="mobileHeaderOpen = false"/>
+    <LayoutFooter />
     <LoginPopup v-if="loginPopup" ref="LoginPopup" />
     <Live2D />
   </div>
@@ -27,6 +27,7 @@ import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
 import LayoutHeader from '@/layouts/defaultLayouts/components/Header.vue';
 import LoginPopup from '@/components/Login.vue'
 import Live2D from '@/components/public/Live2D.vue';
+import Background from '@/components/public/Background.vue';
 
 import resizeEvent from '@/utils/Event/resize';
 import ObServer from '@/utils/obServer';
@@ -40,6 +41,7 @@ import '@/assets/scss/layout.default.scss';
     LayoutHeader,
     LoginPopup,
     Live2D,
+    Background,
   },
 })
 export default class DefaultLayout extends Vue {
@@ -143,12 +145,12 @@ export default class DefaultLayout extends Vue {
   /**
    * body初始化完成时
    */
-  GeminiScrollbarInit(e) {
-    e.observer = new ObServer('GeminiScrollbar Observer');
-    e._viewElement.addEventListener('scroll', v => e.observer.emit('scroll', v));
-    this.$config.GeminiScrollbar = e;
-    setTimeout(() => e.update(), 1000)
-  }
+  // GeminiScrollbarInit(e) {
+  //   e.observer = new ObServer('GeminiScrollbar Observer');
+  //   e._viewElement.addEventListener('scroll', v => e.observer.emit('scroll', v));
+  //   this.$config.GeminiScrollbar = e;
+  //   setTimeout(() => e.update(), 1000)
+  // }
 
 
   /**
@@ -181,7 +183,7 @@ export default class DefaultLayout extends Vue {
 }
 .layout-default {
   // min-height: 100vh;
-  height: 100vh;
+  height: 100%;
   transition: 1s;
 }
 .header {
@@ -189,6 +191,7 @@ export default class DefaultLayout extends Vue {
 }
 .layout-page {
   width: 100%;
+  height: 100%;
   padding-top: 65px;
   min-height: calc(100vh - 121px);
   box-sizing: border-box;

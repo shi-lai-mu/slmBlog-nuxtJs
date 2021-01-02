@@ -1,5 +1,5 @@
 <template>
-  <li :class="[ 'slm', 'blog-themes', $store.state.themes.mainBColor ]" @click.self="showPopup = !showPopup">
+  <li :class="[ 'slm', 'blog-shezhi', $store.state.themes.mainBColor ]" @click.self="showPopup = !showPopup">
     <Masks :styleList="styleList" :hide="!showPopup" @close="() => showPopup = false">
       <div class="popup-box">
         <h4 class="popup-title">自定义主题皮肤</h4>

@@ -62,7 +62,7 @@ const globalConfig = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/config.ts',
+    '@/plugins/global.ts',
     '@/plugins/antd-ui.ts',
     { src: '@/plugins/overallComponents.ts', ssr: false },
   ],
@@ -119,7 +119,7 @@ const globalConfig = {
           'tinycolor2': 'tinycolor',
           'axios': 'axios',
           'qs': 'Qs',
-          'vue-gemini-scrollbar': '{}',
+          // 'vue-gemini-scrollbar': '{}',
           'dayjs': 'dayjs',
         }
         isClient = !isClient;

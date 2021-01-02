@@ -1,47 +1,46 @@
 <template>
-  <article :class="['article-content-box', { 'toggle-transition': toggleTransition }]">
-    <GeminiScrollbar>
-      <ArticleViewSkeleton />
-      <a-row class="article-layout max-content">
-        <a-col
-          class="article-page__container max-content"
-          :lg="{ span: 16 }"
-          :xxl="{ span: 16 }"
-        >
-          <aside class="article-action"></aside>
-          <div class="article-content__container row-box">
-            <div class="article-content__header">
-              <h2 class="title" v-text="_articleData.subject"></h2>
-              <div class="article-content__info">
-                <div class="release-time">
-                  发布于 {{ _articleData.release_time }}
-                </div>
-                <div class="icon-box">
-                  <i class="slm blog-pinglun" v-text="_articleData.reply_num"></i>
-                  <i class="slm blog-yueduliang" v-text="_articleData.viewCount"></i>
-                </div>
-                <ul class="tag-list">
-                  <li class="tag-item" v-for="(item, key) in 3" :key="key">xxxxx</li>
-                </ul>
+  <article :class="['article-content-box', { 'toggle-transition': toggleTransition }, 'bg-texture']">
+    <ArticleViewSkeleton />
+    <a-row class="article-layout max-content">
+      <a-col
+        class="article-page__container max-content"
+        :lg="{ span: 16 }"
+        :xxl="{ span: 16 }"
+      >
+        <aside class="article-action"></aside>
+        <div class="article-content__container row-box">
+          <div class="article-content__header">
+            <h2 class="title" v-text="articleData.subject"></h2>
+            <div class="article-content__info">
+              <div class="release-time">
+                发布于 {{ $tool.format.isoToDateTime(articleData.createTime) }}
               </div>
+              <div class="icon-box">
+                <i class="slm blog-pinglun" v-text="$tool.format.people(articleData.stat.bookmark_num)"></i>
+                <i class="slm blog-yueduliang" v-text="$tool.format.people(articleData.stat.view_num)"></i>
+              </div>
+              <ul class="tag-list">
+                <li class="tag-item" v-for="(item, key) in 3" :key="key">xxxxx</li>
+              </ul>
             </div>
-            <div class="article-content__body" v-html="_articleData.content">
-            </div>
-            <div class="article-content__footer"></div>
           </div>
-          <div class="article-reply__container">
+          <div class="article-content__body" v-html="articleData.content">
+          </div>
+          <div class="article-content__footer"></div>
+        </div>
+        <div class="article-reply__container">
 
-          </div>
-        </a-col>
-        <a-col
-          class="article-page__sideber"
-          :lg="{ span: 8 }"
-          :xxl="{ span: 8 }"
-        >
-          <UserCard :userId="1" userEntrance />
-        </a-col>
-      </a-row>
-    </GeminiScrollbar>
+        </div>
+      </a-col>
+      <a-col
+        class="article-page__sideber"
+        :lg="{ span: 8 }"
+        :xxl="{ span: 8 }"
+      >
+        <UserCard :ssr="articleData.author" userEntrance />
+      </a-col>
+    </a-row>
+    <LayoutFooter />
   </article>
 </template>
 
@@ -51,10 +50,11 @@ import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 import { Article, Article as IntefArticle } from '@/interface/request/article';
 import { formatPeople } from '@/utils/atricle';
 import { articleBase } from '@/mock/article/data/index';
-import { getArticleData } from '@/service/data/article';
+import { getPostsData } from '@/service/data/article';
 
 import { getRelativeBrowserPos } from '@/utils/element';
 import UserCard from '@/components/public/UserCard.vue';
+import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
 import Imager from '@/components/public/Imager.vue';
 import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleton.vue';
 
@@ -67,6 +67,7 @@ import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleto
     Imager,
     ArticleViewSkeleton,
     UserCard,
+    LayoutFooter,
   }
 })
 export default class ArticleContents extends Vue {
@@ -89,7 +90,7 @@ export default class ArticleContents extends Vue {
   /**
    * 文章数据
    */
-  private _articleData?: IntefArticle.Base = articleBase;
+  private articleData?: IntefArticle.Base = articleBase;
 
   /**
    * 是否禁用骨架屏
@@ -103,9 +104,7 @@ export default class ArticleContents extends Vue {
 
 
   created() {
-    this.ssrUpdate(this.ssr || articleBase);
-    if (this.ssr) this._articleData = this.ssr;
-    if (this.articleId) this.changArticleId(this.articleId);
+    this.ssrUpdate(this.articleId || this.ssr || articleBase);
   }
 
   /**
@@ -113,25 +112,41 @@ export default class ArticleContents extends Vue {
    */
   @Watch('articleId')
   changArticleId(articleId: IntefArticle.Base['id']) {
-    getArticleData(articleId)
+    getPostsData(articleId)
       .then(data => {
-        if (data.result) this._articleData = data.result[0];
+        if (data.result) this.articleData = this.setRenderData(data.result[0]);
         this.$forceUpdate();
       })
     ;
   }
 
 
-  /**
-   * data的更新触发 [userData将被覆盖]
-   */
   @Watch('ssr')
-  ssrUpdate(data: Article.Base) {
+  ssrUpdate(data: IntefArticle.Base | number) {
     // 如果对骨架屏进行了初始化则先显示骨架屏进行交互
     if (this.initSkeleton) {
       setTimeout(() => this.toggleTransition = true, 500);
     } else this.toggleTransition = true;
-    this._articleData = data;
+    
+    if (typeof data === 'number' && data !== -1) {
+      getPostsData(data).then(res => this.setRenderData(res.result))
+    } else {
+      this.setRenderData(data);
+    }
+  }
+
+
+  /**
+   * 设置渲染属性
+   */
+  setRenderData(data) {
+    if (Object.keys(data).length === 0) {
+      return this.articleData = this.$tool.format.asignError(articleBase, {
+        id: -1,
+        content: '文章内容获取失败',
+      });
+    }
+    this.articleData = Object.assign(articleBase, data);
   }
 
 
@@ -146,11 +161,12 @@ export default class ArticleContents extends Vue {
 
 <style scoped lang="scss">
 .layout-default-mobile .article-layout,
-.layout-default-mobile /deep/ .skeleton {
+.layout-default-mobile /deep/ .article-skeleton {
   padding-top: 60px !important;
 }
 .article-content-box {
   position: absolute;
+  overflow-y: scroll;
   top: 0;
   left: 0;
   width: 100%;
@@ -164,12 +180,12 @@ export default class ArticleContents extends Vue {
   }
 
   .article-layout,
-  /deep/ .skeleton {
+  /deep/ .article-skeleton {
     padding-top: 80px;
   }
 
   &.toggle-transition {
-    /deep/ .skeleton {
+    /deep/ .article-skeleton {
       opacity: 0;
       transition: 1s;
       visibility: hidden;
@@ -185,8 +201,8 @@ export default class ArticleContents extends Vue {
   }
 
   /deep/ .article-layout {
-    margin: 0 auto;
     opacity: 0;
+    margin: 0 auto;
 
     .title {
       text-indent: 5px;
