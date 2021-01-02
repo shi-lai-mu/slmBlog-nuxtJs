@@ -64,7 +64,7 @@ import API from '@/config/api';
 // 配置文件
 import config from '@/config/default';
 import Axios from 'axios';
-import { Vue } from 'nuxt-property-decorator';
+import { namespace, Vue } from 'nuxt-property-decorator';
 // 内部配置
 import {
   localRegExp,
@@ -76,8 +76,6 @@ import {
 } from './lib/config';
 import { message } from './lib/log';
 import AxiosMock from './lib/mock';
-// token存储
-let token = false;
 // 服务器配置
 const serverConfig = config.apiServer;
 // 频繁请求处理
@@ -221,7 +219,7 @@ $axios.interceptors.request.use(
  *        - 仅 send(*, *).then() 时生效
  * @return 链式操作请求方式，内部传入与axios相同，排除第一个URL
  */
-$axios.send = (URL: string, axiosRequest: AxiosRequestConfig = {}) => {
+($axios as any).send = (URL: string, axiosRequest: AxiosRequestConfig = {}) => {
   const api = URL;
   
   // 未知API
@@ -250,9 +248,8 @@ $axios.send = (URL: string, axiosRequest: AxiosRequestConfig = {}) => {
   };
 
   return {
-    ...methods,
-    then: async () => {
-      return (await methods[ method ](axiosRequest));
+    then: async (res) => {
+      return methods[ method ](axiosRequest).then(res);
     },
   };
 };
@@ -327,7 +324,7 @@ declare module 'axios/index' {
      *        - 请求数据配置
      *        - 仅 send(*, *).then() 时生效
      */
-    send: (
+    send: <T>(
       /**
        * API库内的键
        * - @/config/api.config.ts
@@ -338,14 +335,7 @@ declare module 'axios/index' {
        * - 仅 send(*, *).then() 时生效
        */
       axiosRequest?: AxiosRequestConfig
-    ) => {
-      get:    (res?: AxiosRequestConfig)  => Promise<any>;
-      post:   (res?: AxiosRequestConfig)  => Promise<any>;
-      delete: (res?: AxiosRequestConfig)  => Promise<any>;
-      put:    (res?: AxiosRequestConfig)  => Promise<any>;
-      then:   (res?: any)                 => Promise<any>;
-      async:  (res?: any)                 => Promise<any>;
-    };
+    ) => Promise<T>;
 
     /**
      * 配置信息
@@ -429,3 +419,16 @@ declare module 'vue/types/vue' {
     $http: AxiosInstance;
   }
 }
+
+interface AxiosService {
+  send: (api: string, axiosRequest?: AxiosRequestConfig | undefined) => {
+    get:    (res?: AxiosRequestConfig)  => Promise<any>;
+    post:   (res?: AxiosRequestConfig)  => Promise<any>;
+    delete: (res?: AxiosRequestConfig)  => Promise<any>;
+    put:    (res?: AxiosRequestConfig)  => Promise<any>;
+    then:   (res?: any)                 => Promise<any>;
+    async:  (res?: any)                 => Promise<any>;
+  }
+}
+
+export type AxiosSend<T> = AxiosService['send'];

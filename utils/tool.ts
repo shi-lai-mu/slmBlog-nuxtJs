@@ -18,10 +18,10 @@ export class GlobalTool {
 
 
     /**
-    *  格式化日期
-    *  @param fmt 日期格式 如：yyyy-MM-dd HH:mm:ss
-    *  @param form 指定时间 不传参 默认目前时间
-    */
+     * 格式化日期
+     * @param fmt 日期格式 如：yyyy-MM-dd HH:mm:ss
+     * @param form 指定时间 不传参 默认目前时间
+     */
     date(fmt: string = 'yyyy-MM-dd HH:mm:ss', form?: number) {
       const date: any = form ? new Date(form) : new Date();
       const o: any = {
@@ -59,7 +59,7 @@ export class GlobalTool {
     /**
      * ISO转正常时间
      * @param isoString ISO格式时间戳
-    *  @param fmt 日期格式 如：yyyy-MM-dd HH:mm:ss
+     * @param fmt 日期格式 如：yyyy-MM-dd HH:mm:ss
      */
     isoToDateTime(isoString: string, fmt: string = 'yyyy-MM-dd HH:mm:ss') {
       return GlobalTool.format.date(fmt, new Date(isoString).getTime());

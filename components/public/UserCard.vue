@@ -69,6 +69,7 @@ import Imager from '@/components/public/Imager.vue';
  * - 用于展示用户的基本信息
  */
 @Component({
+  name: 'UserCard',
   components: {
     UserCardSkeleton,
     Imager,

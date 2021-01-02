@@ -59,13 +59,13 @@ export default class HomePage extends Vue {
 
   async asyncData({ $http, $axios}) {
     return {
-      userData: (await getUserBaseData(1)).result || {},         // 获取用户信息
+      userData: (await getUserBaseData(1)).result || {},          // 获取用户信息
       articleLatest: (await getArticleList()).result?.list || [], // 获取最新文章
     };
   }
 
   created() {
-    console.log('created');
+    // console.log('created');
   }
 }
 </script>

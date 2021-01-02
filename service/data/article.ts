@@ -1,4 +1,5 @@
 import axios from '@/utils/axios';
+
 import { Request } from '@/interface/request';
 import { Article } from '@/interface/request/article'
 
@@ -10,20 +11,20 @@ export const getArticleList = (
   filterMode: keyof typeof Article.StateEnum = 'Routine',
   page: number = 1,
   count: number = 10,
-): Promise<Request.ResultList<Article.Base>> => axios.send(axios.article.list, {
+) => axios.send(axios.article.list, {
   params: {
     filterMode,
     page,
     count,
   }
-}).then(v => v);
+}) as Promise<Request.ResultList<Article.Base>>;
 
 
 /**
  * 获取文章内容
  */
-export const getPostsData = (articleId: Article.Base['id']): Promise<Request.Result<Article.Posts>> => axios.send(axios.article.data, {
+export const getPostsData = (articleId: Article.Base['id']) => axios.send(axios.article.data, {
   params: {
     articleId,
   }
-}).then(v => v);
+}) as Promise<Request.Result<Article.Posts>>;

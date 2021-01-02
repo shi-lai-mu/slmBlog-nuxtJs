@@ -47,15 +47,15 @@
 <script lang='ts'>
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 
-import { Article, Article as IntefArticle } from '@/interface/request/article';
 import { formatPeople } from '@/utils/atricle';
-import { articleBase } from '@/mock/article/data/index';
 import { getPostsData } from '@/service/data/article';
-
+import { articleBase } from '@/mock/article/data/index';
 import { getRelativeBrowserPos } from '@/utils/element';
+import { Article, Article as IntefArticle } from '@/interface/request/article';
+
+import Imager from '@/components/public/Imager.vue';
 import UserCard from '@/components/public/UserCard.vue';
 import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
-import Imager from '@/components/public/Imager.vue';
 import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleton.vue';
 
 
@@ -65,22 +65,22 @@ import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleto
 @Component({
   components: {
     Imager,
-    ArticleViewSkeleton,
     UserCard,
     LayoutFooter,
+    ArticleViewSkeleton,
   }
 })
 export default class ArticleContents extends Vue {
 
   /**
-   * 传入的列表数据 SSR
-   */
-  @Prop(Object) ssr?: IntefArticle.Base;
-
-  /**
    * 文章ID
    */
   @Prop(Number) articleId?: number;
+
+  /**
+   * 传入的列表数据 SSR
+   */
+  @Prop(Object) ssr?: IntefArticle.Base;
 
   /**
    * 初始化骨架屏

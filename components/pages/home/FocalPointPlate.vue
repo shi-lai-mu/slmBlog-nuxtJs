@@ -1,13 +1,12 @@
 <template>
   <FunctionalPlate title="焦点推荐">
-
-    <template v-if="renderList.top">
-      <!-- <div class="plate-first-place__row">
-        <Imager class="plate-first-place__img" :src="list.top.banner"/>
-        <p class="plate-first-place__title line-ellipsis">{{ list.top.subject }}</p>
-      </div> -->
+    <template v-if="renderList.top || renderList.children">
+      <router-link class="plate-first-place__row" :to="$config.router.to('article', { id: renderList.top.id })" v-if="renderList.top">
+        <Imager class="plate-first-place__img" :src="renderList.top.banner"/>
+        <p class="plate-first-place__title line-ellipsis">{{ renderList.top.subject }}</p>
+      </router-link>
       <div class="plate-list-place">
-        <nuxt-link :to="'/article/' + item.id" class="plate-list-opt__link" v-for="(item, k) in ssr" :key="k">
+        <nuxt-link class="plate-list-opt__link" :to="$config.router.to('article', { id: item.id })" v-for="(item, k) in renderList.children" :key="k">
           <label class="opt-link__label">活动</label>
           <p class="opt-link__title line-ellipsis">{{ item.subject }}</p>
         </nuxt-link>
@@ -31,10 +30,10 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator';
 
+import { Article } from '@/interface/request/article';
+
 import Imager from '@/components/public/Imager.vue';
 import FunctionalPlate from '@/components/public/FunctionalPlate.vue';
-
-import { Article } from '@/interface/request/article';
 
 /**
  * 焦点板块 组件
@@ -52,7 +51,7 @@ export default class FocalPointPlate extends Vue {
   renderList: any = {};
 
   created() {
-    this.ssr && this.setRenderData(this.ssr);
+    if (this.ssr) this.setRenderData(this.ssr);
   }
 
 
@@ -62,8 +61,7 @@ export default class FocalPointPlate extends Vue {
   @Watch('ssr')
   setRenderData(articleList: Article.Base[]) {
     if (!articleList.length) return false;
-    console.log(articleList.length);
-    
+    articleList = Object.assign([], articleList);
     this.renderList = {
       top: articleList.shift(),
       children: articleList,
@@ -76,6 +74,7 @@ export default class FocalPointPlate extends Vue {
 .plate-first-place__row {
   overflow: hidden;
   position: relative;
+  display: block;
   border-radius: 10px;
   cursor: pointer;
 

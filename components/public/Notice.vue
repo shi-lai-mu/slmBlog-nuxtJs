@@ -14,6 +14,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
 
+import { getNotic } from '@/service/data/notify';
+
 @Component
 export default class Notice extends Vue {
   @Prop(String) ssr?: string;
@@ -22,7 +24,12 @@ export default class Notice extends Vue {
 
   created() {
     if (!this.ssr) {
-      // axios code...
+      // 非SSR状态异步获取公告内容
+      getNotic().then(res => {
+        if (res.success) {
+          this.notice = res.result.message;
+        }
+      });
     }
   }
 }

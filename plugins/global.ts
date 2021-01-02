@@ -1,16 +1,20 @@
 import { WebConfig } from '@/interface/config';
 import defaultConfig from '@/config/default';
-import Http from '@/utils/axios';
 import Navigation from './config/Navigation';
 import Themes from './config/Themes';
+import Router from './config/router';
+
+import Http from '@/utils/axios';
 import ObServer from '@/utils/obServer';
-import { GlobalTool } from '@/utils/tool';
 import GeminiScrollbar from 'vue-gemini-scrollbar';
+
+import { GlobalTool } from '@/utils/tool';
 
 export default (_context, inject) => {
   const $config = defaultConfig as Config;
   $config.Navigation = Navigation;
   $config.themes = Themes.config;
+  $config.router = Router;
   inject('tool', GlobalTool);
   inject('config', $config);
   inject('http', Http);
@@ -27,6 +31,10 @@ interface Config extends WebConfig.Default {
    * 网站主题配置文件
    */
   themes: typeof Themes.config;
+  /**
+   * 路由配置
+   */
+  router: typeof Router;
   /**
    * body滚动条
    */
