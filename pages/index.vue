@@ -16,7 +16,7 @@
           <i class="slm blog-arrow-right" slot="nextArrow" style="right: 10px;zIndex: 1"></i>
         </Carousel>
         <Notice v-if="$store.state.isMobile" class="mobile-notice"/>
-        <ArticleList class="home-main-article-list" :ssr="articleLatest" />
+        <!-- <ArticleList class="home-main-article-list" :ssr="articleLatest" /> -->
       </a-col>
       <a-col
         class="sideber"
@@ -24,7 +24,7 @@
         :xxl="{ span: 8 }"
       >
         <Notice v-if="!$store.state.isMobile"/>
-        <UserCard :ssr="userData" userSelf/>
+        <!-- <UserCard :ssr="userData" userSelf/> -->
         <FocalPointPlate />
       </a-col>
     </a-row>
@@ -60,7 +60,7 @@ export default class HomePage extends Vue {
   async asyncData({ $http, $axios}) {
     return {
       userData: (await getUserBaseData(1)).result || {},         // 获取用户信息
-      articleLatest: (await getArticleList()).result.list || [], // 获取最新文章
+      articleLatest: (await getArticleList()).result?.list || [], // 获取最新文章
     };
   }
 }

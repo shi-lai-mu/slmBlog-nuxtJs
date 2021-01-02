@@ -112,7 +112,7 @@ $axios.interceptors.response.use(
     // }
     observer.response.default.forEach((cb: any) => cb(res));
     
-    data = Object.defineProperty(data, '_res', {
+    data = Object.defineProperty(data || {}, '_res', {
       enumerable: false,
       get: () => res,
     });
@@ -251,8 +251,8 @@ $axios.send = (URL: string, axiosRequest: AxiosRequestConfig = {}) => {
 
   return {
     ...methods,
-    then: async (res) => {
-      return await methods[ method ](axiosRequest).then(res);
+    then: async () => {
+      return (await methods[ method ](axiosRequest));
     },
   };
 };
