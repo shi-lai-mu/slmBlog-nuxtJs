@@ -201,7 +201,6 @@ export default class ArticleView extends Vue {
     const scrollTop = 0;
     const padding = 10;
     this.style.top = `${scrollTop}px`;
-    console.log(this.task.length);
     
     task.push(setTimeout(() => {
       const { width, height, top, left } = el.getBoundingClientRect();

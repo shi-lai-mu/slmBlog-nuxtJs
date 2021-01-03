@@ -131,12 +131,13 @@ export default class HeaderThemes extends Vue {
         '@link-color': color,
         '@btn-primary-bg': color,
         '@heading-color': '#fff',
+        '@text-color-inverse': color,
       })
       .then(() => {
-        console.log('成功')
+        console.log('成功');
       })
       .catch(error => {
-        console.error('皮肤主题编译失败: ' + error)
+        console.error('皮肤主题编译失败: ' + error);
       })
     ;
     return true;
@@ -157,10 +158,12 @@ export default class HeaderThemes extends Vue {
    * 切换主题色
    */
   toggleMainColor(colorName: string, color16: string, storage: boolean = true) {
+    this.$config.themes.color.current = colorName;
     this.$store.commit('setThemesMainColor', colorName);
+    this.$store.commit('setWebSetting', this.$config);
+    
     if (storage) {
       this.toggleAntdThemes(color16);
-      this.$config.themes.color.current = colorName;
     } else {
       const { less }: any = window;
       // 对应 index.js 等待 less.min.js 加载完成执行cb传入params

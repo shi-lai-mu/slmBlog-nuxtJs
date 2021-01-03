@@ -6,6 +6,7 @@
       'bg-texture',
       'content-1300', // test
       theme,
+      'theme-color-' + $store.state.setting.themes.color.current,
       { 'layout-default-mobile': $store.state.isMobile },
       { 'mobile-header-open': mobileHeaderOpen }
     ]">
@@ -49,6 +50,10 @@ export default class DefaultLayout extends Vue {
    * 主题方案
    */
   theme: LayoutDefault.Data['themes'] = 'theme-dark';
+  /**
+   * 主题色
+   */
+  themeColor: LayoutDefault.Data['themeColor'] = 'dark';
   /**
    * 移动端Header展开状态
    */
@@ -97,14 +102,18 @@ export default class DefaultLayout extends Vue {
 
     // 登录弹窗观察者绑定
     $observer.on('login', loginType => {
-      console.log(loginType);
-      
       if (!this.loginPopup) {
         this.loginPopup = true;
         this.$nextTick(() => ($refs.LoginPopup as LoginPopup).showMask(loginType));
       } else {
         ($refs.LoginPopup as LoginPopup).showMask(loginType);
       }
+    });
+
+    // 网站设置
+    $observer.on('webSetting', setting => {
+      if (setting.theme) this.theme = setting.theme;
+      if (setting.themeColor) this.themeColor = setting.themeColor;
     });
 
     // 事件添加

@@ -117,6 +117,7 @@ $blockSpacingY: 15px; // 版块间距 纵轴
     padding-right: 0;
 
     /deep/ .slick-slide {
+      height: auto;
       border-radius: 0;
     }
   }

@@ -120,7 +120,52 @@ button::-moz-focus-inner,
 fieldset {border: 0;}
 legend {color: inherit;}
 mark {background-color: #feffe6;}
-::selection {color: #fff;background: @primary-color;}
+::selection {
+    color: inherit;
+    background-color: fadeout(@text-color-inverse, 80%);
+    text-shadow:
+    0 0 0 darken(@text-color-inverse, 20%),
+    0.0025em 0.0025em 0 darken(@text-color-inverse, 20%),
+    0.005em 0.005em 0 darken(@text-color-inverse, 20%),
+    0.0075em 0.0075em 0 darken(@text-color-inverse, 20%),
+    0.01em 0.01em 0 darken(@text-color-inverse, 20%),
+    0.0125em 0.0125em 0 darken(@text-color-inverse, 20%),
+    0.015em 0.015em 0 darken(@text-color-inverse, 20%),
+    0.0175em 0.0175em 0 darken(@text-color-inverse, 20%),
+    0.02em 0.02em 0 darken(@text-color-inverse, 20%),
+    0.0225em 0.0225em 0 darken(@text-color-inverse, 20%),
+    0.025em 0.025em 0 darken(@text-color-inverse, 20%),
+    0.0275em 0.0275em 0 darken(@text-color-inverse, 20%),
+    0.03em 0.03em 0 darken(@text-color-inverse, 20%),
+    0.0325em 0.0325em 0 darken(@text-color-inverse, 20%),
+    0.035em 0.035em 0 darken(@text-color-inverse, 20%),
+    0.0375em 0.0375em 0 darken(@text-color-inverse, 20%),
+    0.04em 0.04em 0 darken(@text-color-inverse, 20%),
+    0.0425em 0.0425em 0 darken(@text-color-inverse, 20%),
+    0.045em 0.045em 0 darken(@text-color-inverse, 20%),
+    0.0475em 0.0475em 0 darken(@text-color-inverse, 20%),
+    0.05em 0.05em 0 darken(@text-color-inverse, 20%),
+    0.0525em 0.0525em 0 darken(@text-color-inverse, 20%),
+    0.055em 0.055em 0 darken(@text-color-inverse, 20%),
+    0.0575em 0.0575em 0 darken(@text-color-inverse, 20%),
+    0.06em 0.06em 0 darken(@text-color-inverse, 20%),
+    0.0625em 0.0625em 0 darken(@text-color-inverse, 20%),
+    0.065em 0.065em 0 darken(@text-color-inverse, 20%),
+    0.0675em 0.0675em 0 darken(@text-color-inverse, 20%),
+    0.07em 0.07em 0 darken(@text-color-inverse, 20%),
+    0.0725em 0.0725em 0 darken(@text-color-inverse, 20%),
+    0.075em 0.075em 0 darken(@text-color-inverse, 20%),
+    0.0775em 0.0775em 0 darken(@text-color-inverse, 20%),
+    0.08em 0.08em 0 darken(@text-color-inverse, 20%),
+    0.0825em 0.0825em 0 darken(@text-color-inverse, 20%),
+    0.085em 0.085em 0 darken(@text-color-inverse, 20%),
+    0.0875em 0.0875em 0 darken(@text-color-inverse, 20%),
+    0.09em 0.09em 0 darken(@text-color-inverse, 20%),
+    0.0925em 0.0925em 0 darken(@text-color-inverse, 20%),
+    0.095em 0.095em 0 darken(@text-color-inverse, 20%),
+    0.0975em 0.0975em 0 darken(@text-color-inverse, 20%),
+    0.1em 0.1em 0 darken(@text-color-inverse, 20%);
+}
 .anticon {color: inherit;}
 html {--antd-wave-shadow-color: @primary-color;}
 [ant-click-animating-without-extra-node='true']::after, .ant-click-animating-node {border-radius: inherit;box-shadow: 0 0 0 0 @primary-color;box-shadow: 0 0 0 0 var(--antd-wave-shadow-color);}

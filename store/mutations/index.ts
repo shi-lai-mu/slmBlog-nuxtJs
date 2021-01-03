@@ -33,5 +33,19 @@ export default {
    */
   setJWT(state, data) {
     state.jwt = data;
-  }
+  },
+
+  /**
+   * 设置站点配置
+   */
+  setWebSetting(state, data) {
+    const { themes, apiServer, git, router, user } = data;
+    state.setting = {
+      git,
+      user,
+      themes,
+      router,
+      apiServer,
+    };
+  },
 }

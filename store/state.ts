@@ -5,6 +5,17 @@ const state = {
     jwt: '',
     // 是否为移动端
     isMobile: false,
+    // 网站位置
+    setting: {
+        // 主题
+        themes: {
+            // 主题色
+            color: {
+                // 目标
+                current: 'dark',
+            }
+        }
+    },
     // 主题
     themes: {
         // 文字主色
