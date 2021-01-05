@@ -1,3 +1,6 @@
+import { saveUserConfig } from '@/service/data/user';
+import $cookie from 'js-cookie';
+
 export default {
   /**
    * 设置客户端标识
@@ -39,13 +42,24 @@ export default {
    * 设置站点配置
    */
   setWebSetting(state, data) {
-    const { themes, apiServer, git, router, user } = data;
+    const { web, apiServer, git, router, user } = data;
     state.setting = {
       git,
       user,
-      themes,
+      web,
       router,
       apiServer,
     };
+  },
+
+  /**
+   * 设置站点参数
+   */
+  async setWebOptions(state, data) {
+    state.setting = {
+      web: Object.assign({}, state.setting.web, data),
+    };
+    $cookie.set('web', JSON.stringify(state.setting.web), { expires: 365 });
+    await saveUserConfig(state.setting.web);
   },
 }

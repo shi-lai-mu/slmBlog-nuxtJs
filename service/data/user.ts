@@ -1,7 +1,22 @@
 import axios from '@/utils/axios';
+import { AxiosRequestConfig } from 'axios/index';
 
 import { Request } from '@/interface/request';
 import { User } from '@/interface/request/user';
+import { defaultConfig } from '@/config/themes';
+
+
+/**
+ * 获取用户配置信息
+ */
+export const getUserConfig = (axiosConfig?: AxiosRequestConfig) => (axios.send(axios.user.config, axiosConfig) || defaultConfig) as Promise<Request.Result<User.Config>>;
+
+
+/**
+ * 保存用户配置信息
+ */
+export const saveUserConfig = (config: User.Config) => axios.send(axios.user.saveConfig, { data: { json: JSON.stringify(config) } }) as Promise<Request.Result<User.Config>>;
+
 
 /**
  * 获取用户基础信息

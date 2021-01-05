@@ -63,7 +63,7 @@
 
 <script lang="ts">
 import { Vue, Component, Watch } from 'nuxt-property-decorator';
-import Masks from '~/components/Masks.vue';
+import Masks from '@/components/Masks.vue';
 
 @Component({
   components: {
@@ -111,7 +111,7 @@ export default class HeaderThemes extends Vue {
           this[targetFn.fn].apply(this, [...params, false]);
         }
       });
-      this.$store.commit('setWebSetting', this.$config);
+      // this.$store.commit('setWebSetting', this.$config);
     }
   }
 
@@ -162,7 +162,7 @@ export default class HeaderThemes extends Vue {
   toggleMainColor(colorName: string, color16: string, storage: boolean = true) {
     this.$config.themes.color.current = colorName;
     this.$store.commit('setThemesMainColor', colorName);
-    this.$store.commit('setWebSetting', this.$config);
+    // this.$store.commit('setWebSetting', this.$config);
     
     if (storage) {
       this.toggleAntdThemes(color16);
@@ -182,11 +182,10 @@ export default class HeaderThemes extends Vue {
    * 切换背景色
    */
   toggleBGColor(colorName: string, color16: string, storage: boolean = true)  {
-    console.log({
-      colorName,
-      color16,
-    });
     this.$config.themes.backgroundColor.current = colorName;
+    this.$store.commit('setWebOptions', {
+      backgroundColor: colorName,
+    });
   }
 
 

@@ -4,6 +4,8 @@
  * ===============
  */
 
+import { User } from "~/interface/request/user";
+
 
 
 /**
@@ -111,3 +113,14 @@ export const backgroundColor = {
     },
   },
 }
+
+
+/**
+ * 获取主题默认配置
+ */
+export const defaultConfig: User.Config = {
+  color: color.current                     as User.Config['color'],
+  backgroundColor: backgroundColor.current as User.Config['backgroundColor'],
+  fontSize: fontSize.current               as User.Config['fontSize'],
+  last_update: Date.now(),
+};

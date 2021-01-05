@@ -91,7 +91,7 @@ let $axios: AxiosInstance = axios.create({
       ? serverConfig.devHost.replace(localRegExp, locaHostName)
       : serverConfig.devHost,
   timeout: serverConfig.timeout || 15000,
-  // withCredentials: true
+  withCredentials: true
 });
 
 const mock = new AxiosMock($axios);

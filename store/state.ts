@@ -1,4 +1,4 @@
-import Themes from '@/plugins/config/Themes';
+import { defaultConfig } from '@/config/themes';
 
 const state = {
     // 用户数据
@@ -9,8 +9,7 @@ const state = {
     isMobile: false,
     // 网站位置
     setting: {
-        // 主题
-        themes: Themes.config,
+        web: defaultConfig,
     },
     // 主题
     themes: {

@@ -1,3 +1,8 @@
+import {
+  color as ThemesConfigColor,
+  backgroundColor as ThemesBackgroundColor,
+  fontSize as ThemesFontSize,
+} from '@/config/themes';
 
 /**
  * 用户
@@ -101,5 +106,28 @@ export namespace User {
      * 密码
      */
     password: string;
+  }
+
+
+  /**
+   * 用户配置
+   */
+  export interface Config {
+    /**
+     * 背景色
+     */
+    backgroundColor: keyof typeof ThemesBackgroundColor.list;
+    /**
+     * 主题色
+     */
+    color: keyof typeof ThemesConfigColor.list;
+    /**
+     * 字体大小
+     */
+    fontSize: keyof typeof ThemesFontSize.marks;
+    /**
+     * 最后更新时间
+     */
+    last_update: number;
   }
 }

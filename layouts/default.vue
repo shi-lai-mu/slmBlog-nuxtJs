@@ -5,8 +5,8 @@
       'layout-default',
       'bg-texture',
       'content-1300', // test
-      'theme-' + ($store.state.setting.themes.backgroundColor.current || 'dark'),
-      'theme-color-' + $store.state.setting.themes.color.current,
+      'theme-' + ($store.state.setting.web.backgroundColor || 'dark'),
+      'theme-color-' + $store.state.setting.web.color,
       { 'layout-default-mobile': $store.state.isMobile },
       { 'mobile-header-open': mobileHeaderOpen }
     ]">
@@ -34,6 +34,7 @@ import resizeEvent from '@/utils/Event/resize';
 import ObServer from '@/utils/obServer';
 
 import '@/assets/scss/layout.default.scss';
+import { getUserConfig } from '~/service/data/user';
 
 @Component({
   scrollToTop: true,
@@ -51,6 +52,7 @@ export default class DefaultLayout extends Vue {
    */
   mobileHeaderOpen: boolean = false;
   loginPopup: boolean = false;
+
 
   created() {
     const { $config, $route, $router } = this;
