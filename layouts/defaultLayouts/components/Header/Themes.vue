@@ -45,7 +45,8 @@
                   class="themes-bgcolor-item"
                   v-for="(item, index) in ThemesConfig.backgroundColor.list"
                   :key="index"
-                  :value="index">
+                  :value="index"
+                  @click="toggleBGColor(index, item)">
                   <div class="color-round" :style="`background-color: ${item.color}; color: ${item.fontColor}`">
                     {{ item.name }}<i class="slm blog-xuanzhong"></i>
                   </div>
@@ -110,15 +111,16 @@ export default class HeaderThemes extends Vue {
           this[targetFn.fn].apply(this, [...params, false]);
         }
       });
+      this.$store.commit('setWebSetting', this.$config);
     }
   }
 
 
-  @Watch('$store.state.isMobile')
-  isMobileUpdate(val) {
-    // this.styleList.marginLeft = val ? '0' : '-5vw';
-    this.$forceUpdate();
-  }
+  // @Watch('$store.state.isMobile')
+  // isMobileUpdate(val) {
+  //   // this.styleList.marginLeft = val ? '0' : '-5vw';
+  //   this.$forceUpdate();
+  // }
 
 
   /**
@@ -176,6 +178,17 @@ export default class HeaderThemes extends Vue {
     }
   }
 
+  /**
+   * 切换背景色
+   */
+  toggleBGColor(colorName: string, color16: string, storage: boolean = true)  {
+    console.log({
+      colorName,
+      color16,
+    });
+    this.$config.themes.backgroundColor.current = colorName;
+  }
+
 
   // GeminiScrollbarInit(e) {
   //   setTimeout(() =>e.update());
@@ -216,7 +229,7 @@ export default class HeaderThemes extends Vue {
   div.row-box {
     padding-bottom: 0;
     margin-bottom: 10px;
-    background-color: transparent;
+    // background-color: transparent;
 
     .row-content {
       margin-top: .5rem;

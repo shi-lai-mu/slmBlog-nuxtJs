@@ -86,24 +86,24 @@ export const backgroundColor = {
   /**
    * 当前选中的色
    */
-  current: 'dim',
+  current: 'dark',
   /**
    * 可选列表
    */
   list: {
-    default: {
-      name: '默认',
+    bright: {
+      name: '亮色',
       color: '#FFF',
       fontColor: '#000',
       disable: true,
     },
-    dim: {
-      name: '暗淡',
+    dark: {
+      name: '默认',
       color: '#15202B',
       fontColor: '#FFF',
       disable: false,
     },
-    dark: {
+    dim: {
       name: '黑暗',
       color: '#121212',
       fontColor: '#FFF',

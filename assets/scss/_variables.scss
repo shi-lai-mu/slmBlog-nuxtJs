@@ -13,6 +13,53 @@ $themes: (
 /**********\
    默认皮肤
 \**********/
+bright: (
+    main-bg-color: #FFF,          // 主皮肤背景色
+    main-bg-f1-color: #EEE,       // 主皮肤突出1色
+
+    font-color: #333,                // 文字 默认  颜色
+    font-lv0-color: #434343,         // 文字 等级0 颜色 [ 标注、声明 ]
+    font-lv0-color-hover: #444,      // 文字 等级0 hover颜色 [ 标注、声明 ]
+    font-lv1-color: #454545,         // 文字 等级1 颜色 [ 友链 ]
+    font-lv2-color: #464646,         // 文字 等级2 颜色
+    font-lv3-color: #474747,         // 文字 等级3 颜色
+
+    bg-dp0-color: #EEE,           // 背景 海拔dp0  色
+    bg-dp1-color: #DDD,           // 背景 海拔dp1  色
+    bg-dp1-color-hover: #DDD,     // 背景 海拔dp1  色
+    bg-dp1-color-f: #DDD,         // 背景 海拔dp1  混色
+    bg-dp2-color: #DDD,              // 背景 海拔dp2  色
+    bg-dp3-color: #DDD,           // 背景 海拔dp3  色
+    bg-dp4-color: #EEE,           // 背景 海拔dp4  色
+    bg-dp4-color-hover: #EEE,     // 背景 海拔dp4  色
+    bg-dp5-color: #EEE,           // 背景 海拔dp5  色
+    bg-dp6-color: #EEE,           // 背景 海拔dp6  色
+    bg-dp7-color: #EEE,           // 背景 海拔dp7  色
+    bg-dp8-color: #EEE,              // 背景 海拔dp8  色
+    bg-dp9-color: #EEE,           // 背景 海拔dp9  色
+    bg-dp10-color: #EEE,          // 背景 海拔dp10 色
+    bg-dp11-color: #EEE,          // 背景 主色
+
+    a-color: #5D696D,                // 链接默认颜色
+    a-hover-color: #333,          // 链接hover颜色
+    a-active-color: #222,         // 链接被点击颜色
+
+    selection-bg-color: #2C2C2C,     // 选中背景颜色
+    selection-font-color: #FFF,      // 选中文字颜色
+
+    wave-color: #DDD, // 水颜色
+    panel-floating-color: #CCC,    // 浮层颜色
+
+    border-bottom-color: #38444d,     // 底部边框颜色
+    mask-bg-color: #050505,           // 遮罩背景色
+
+    btn-disable: #1C283B,             // 禁用按钮色
+    btn-disable-color: #313e50,       // 禁用按钮的文本颜色
+    test: red,
+    
+    bg-img: '/texture/so-white.png',
+    noise-img: '/texture/stripes-light.png',
+),
 
 // theme-default: ( font-color: #333, // 默认文字颜色
 // ),
@@ -62,7 +109,10 @@ dark: (
 
     btn-disable: #1C283B,             // 禁用按钮色
     btn-disable-color: #313e50,       // 禁用按钮的文本颜色
-    test: red
+    test: red,
+
+    bg-img: '/texture/dark_mosaic.png',
+    noise-img: '/texture/broken_noise.png',
 ),
 /**********\
    混色皮肤

@@ -5,7 +5,7 @@
       'layout-default',
       'bg-texture',
       'content-1300', // test
-      theme,
+      'theme-' + ($store.state.setting.themes.backgroundColor.current || 'dark'),
       'theme-color-' + $store.state.setting.themes.color.current,
       { 'layout-default-mobile': $store.state.isMobile },
       { 'mobile-header-open': mobileHeaderOpen }
@@ -41,19 +41,11 @@ import '@/assets/scss/layout.default.scss';
     LayoutFooter,
     LayoutHeader,
     LoginPopup,
-    Live2D,
     Background,
+    Live2D,
   },
 })
 export default class DefaultLayout extends Vue {
-  /**
-   * 主题方案
-   */
-  theme: LayoutDefault.Data['themes'] = 'theme-dark';
-  /**
-   * 主题色
-   */
-  themeColor: LayoutDefault.Data['themeColor'] = 'dark';
   /**
    * 移动端Header展开状态
    */
@@ -112,8 +104,7 @@ export default class DefaultLayout extends Vue {
 
     // 网站设置
     $observer.on('webSetting', setting => {
-      if (setting.theme) this.theme = setting.theme;
-      if (setting.themeColor) this.themeColor = setting.themeColor;
+      // if (setting.theme) this.theme = setting.theme;
     });
 
     // 事件添加
@@ -256,6 +247,7 @@ export default class DefaultLayout extends Vue {
 
   .row-content {
     margin-top: 10px;
+    font-size: .9rem;
     @include themify($themes) {
       color: themed('font-lv0-color');
     }

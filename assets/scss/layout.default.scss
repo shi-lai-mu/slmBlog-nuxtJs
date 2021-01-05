@@ -1,14 +1,21 @@
-:root {
+// :root {
   // font-size: calc(.5vw + .5vh + .5vmin);
-}
+// }
 
-.theme-dark .bg-texture,
-.theme-dark.bg-texture {
-  background-image: url('/texture/dark_mosaic.png');
-}
 
-.noise-texture {
-  background-image: url('/texture/broken_noise.png');
+@include themify($themes, true) {
+  .noise-texture {
+    background-image: url(themed('noise-img'));
+  }
+  
+  .bg-texture,
+  &.bg-texture {
+    background-image: url(themed('bg-img'));
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: themed('font-color');
+  }
 }
 
 body {

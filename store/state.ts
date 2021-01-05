@@ -1,3 +1,5 @@
+import Themes from '@/plugins/config/Themes';
+
 const state = {
     // 用户数据
     user: {},
@@ -8,13 +10,7 @@ const state = {
     // 网站位置
     setting: {
         // 主题
-        themes: {
-            // 主题色
-            color: {
-                // 目标
-                current: 'dark',
-            }
-        }
+        themes: Themes.config,
     },
     // 主题
     themes: {
