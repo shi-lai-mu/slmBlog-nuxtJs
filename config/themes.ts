@@ -50,7 +50,7 @@ export const color = {
     },
     bright: {
       color: '#CCC',
-      icon: 'bright_mode',
+      icon: 'taiyang_sun61',
       iconColor: '#707885',
     },
     blue: {
@@ -59,11 +59,11 @@ export const color = {
     },
     yellow: {
       color: '#FFAD1F',
-      icon: 'xingxing',
+      icon: 'mangguo',
     },
     powder: {
       color: '#E0245E',
-      icon: 'taohua1',
+      icon: 'caomei',
     },
     purple: {
       color: '#794BC4',
@@ -97,7 +97,7 @@ export const backgroundColor = {
       name: '亮色',
       color: '#FFF',
       fontColor: '#000',
-      disable: true,
+      disable: false,
     },
     dark: {
       name: '默认',

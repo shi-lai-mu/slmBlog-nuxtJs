@@ -29,7 +29,7 @@
                   :key="index"
                   :value="index"
                   @click="toggleMainColor(index, item.color)">
-                  <div class="color-round" :style="`background-color: ${item.color}`">
+                  <div class="color-round" :style="{ backgroundColor: item.color, color: item.color}">
                     <i class="slm blog-xuanzhong" v-show="ThemesConfig.color.current === index"></i>
                   </div>
                   <i :class="`slm blog-${item.icon}`" :style="`color: ${item.iconColor || item.color}`"></i>
@@ -46,9 +46,10 @@
                   v-for="(item, index) in ThemesConfig.backgroundColor.list"
                   :key="index"
                   :value="index"
+                  :disabled="item.disable"
                   @click="toggleBGColor(index, item)">
-                  <div class="color-round" :style="`background-color: ${item.color}; color: ${item.fontColor}`">
-                    {{ item.name }}<i class="slm blog-xuanzhong"></i>
+                  <div class="color-round" :style="{ backgroundColor: item.color, color: item.fontColor }">
+                    {{ item.name }}<i class="slm blog-xuanzhong" :style="{ color: 'currentColor' }"></i>
                   </div>
                 </a-radio-button>
               </a-radio-group>
@@ -242,8 +243,9 @@ export default class HeaderThemes extends Vue {
 
   .submit-btn {
     display: inline-block;
-    width: 5rem;
+    width: 9rem;
     margin-bottom: 40px;
+    font-size: 1rem;
     @include themify($themes) {
       color: themed('font-color');
     }
@@ -311,6 +313,7 @@ export default class HeaderThemes extends Vue {
         border-radius: 50%;
         align-items: center;
         justify-content: center;
+        transition: .5s;
 
         & + .slm {
           display: inline-block;
@@ -358,16 +361,49 @@ export default class HeaderThemes extends Vue {
       }
     }
 
-    .ant-radio-button-wrapper-checked .color-round {
-      color: #FFAD1F !important;
+    .ant-radio-button-wrapper-checked .slm {
+      color: #EEE;
       border-color: currentColor;
+      text-shadow: 2px 1px 2px;
+      transition: .5s;
+
+      &.blog-xuanzhong {
+        text-shadow: none;
+      }
     }
+
+    // .ant-radio-button-wrapper-checked .color-round {
+    //   // position: relative;
+    //   // z-index: 9;
+    //   // box-shadow: 2px 1px 5px currentColor;
+    //   // box-shadow: 0 0 20px 0px currentColor;
+    //   animation: bigTransition .7s ease-out;
+    // }
   }
 
   .themes-bgcolor-group {
     flex-wrap: initial;
   }
 }
+
+// @keyframes bigTransition {
+//   0% {
+//     box-shadow: 0 0 0 50vw transparent;
+//     border: 0;
+//   }
+//   50% {
+//     content: '';
+//     transform: scale(15);
+//     box-shadow: 0 0 0 0 transparent;
+//     // background-color: transparent;
+//     opacity: 1;
+//   }
+//   100% {
+//     opacity: 0;
+//     transform: scale(20);
+//     border: 0;
+//   }
+// }
 
 .layout-default-mobile {
   .popup-box {

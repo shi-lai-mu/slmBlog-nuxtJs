@@ -253,7 +253,7 @@ export default class LoginPopup extends Vue {
 
         &:hover,
         &:focus {
-          background-color: rgba($color: themed('bg-dp10-color'), $alpha: .8);
+          background-color: rgba($color: themed('bg-dp10-color'), $alpha: .6);
           color: themed('font-lv0-color');
           border-color: themed('border-bottom-color');
         }
