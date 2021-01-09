@@ -56,7 +56,7 @@
             </div>
           </div>
         </div>
-        <div :class="[ 'button', 'submit-btn', $store.state.themes.mainBColor ]" @click="() => showPopup = false">确定</div>
+        <div :class="[ 'button', 'submit-btn', $store.state.themes.mainBColor ]" @click="() => showPopup = false">关闭</div>
       </div>
     </Masks>
   </li>
@@ -112,7 +112,6 @@ export default class HeaderThemes extends Vue {
           this[targetFn.fn].apply(this, [...params, false]);
         }
       });
-      // this.$store.commit('setWebSetting', this.$config);
     }
   }
 
@@ -163,7 +162,6 @@ export default class HeaderThemes extends Vue {
   toggleMainColor(colorName: string, color16: string, storage: boolean = true) {
     this.$config.themes.color.current = colorName;
     this.$store.commit('setThemesMainColor', colorName);
-    // this.$store.commit('setWebSetting', this.$config);
     
     if (storage) {
       this.toggleAntdThemes(color16);
@@ -185,7 +183,9 @@ export default class HeaderThemes extends Vue {
   toggleBGColor(colorName: string, color16: string, storage: boolean = true)  {
     this.$config.themes.backgroundColor.current = colorName;
     this.$store.commit('setWebOptions', {
-      backgroundColor: colorName,
+      theme: {
+        backgroundColor: colorName,
+      }
     });
   }
 
@@ -198,6 +198,7 @@ export default class HeaderThemes extends Vue {
 
 <style lang="scss" scoped>
 .popup-box {
+  overflow-y: scroll;
   width: 80vw;
   max-height: 90vh;
   max-width: 600px;
@@ -219,8 +220,11 @@ export default class HeaderThemes extends Vue {
   }
 
   .popup-content {
+    overflow-y: scroll;
+    max-height: 70vh;
     text-align: left;
     padding: 15px 10px 10px;
+    margin: 20px 0;
     @include themify($themes) {
       color: themed('font-lv1-color');
     }

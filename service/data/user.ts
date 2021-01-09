@@ -3,13 +3,13 @@ import { AxiosRequestConfig } from 'axios/index';
 
 import { Request } from '@/interface/request';
 import { User } from '@/interface/request/user';
-import { defaultConfig } from '@/config/themes';
+import { themesdefaultConfig } from '@/config/themes';
 
 
 /**
  * 获取用户配置信息
  */
-export const getUserConfig = (axiosConfig?: AxiosRequestConfig) => (axios.send(axios.user.config, axiosConfig) || defaultConfig) as Promise<Request.Result<User.Config>>;
+export const getUserConfig = (axiosConfig?: AxiosRequestConfig) => (axios.send(axios.user.config, axiosConfig) || themesdefaultConfig) as Promise<Request.Result<User.Config>>;
 
 
 /**

@@ -2,57 +2,21 @@
   <li :class="[ 'slm', 'blog-shezhi', $store.state.themes.mainBColor ]" @click.self="showPopup = !showPopup">
     <Masks :styleList="styleList" :hide="!showPopup" @close="() => showPopup = false">
       <div class="popup-box">
-        <h4 class="popup-title">自定义主题皮肤</h4>
-        <div class="popup-tips">管理字体大小、颜色和背景。这些设置会影响此浏览器上，如果登录账号将同步到云端。</div>
+        <h4 class="popup-title">网站设置</h4>
+        <div class="popup-tips"></div>
         <div class="popup-content">
+
           <div class="row-box">
-            <span>字体大小</span>
-            <div class="row-content slider-box">
-              <i class="slm blog-Aa"></i>
-              <a-slider
-                class="font-size-slider"
-                :marks="ThemesConfig.fontSize.marks"
-                :min="ThemesConfig.fontSize.min"
-                :max="ThemesConfig.fontSize.max"
-                :defaultValue="ThemesConfig.fontSize.current"
-                @change="fontSizeChang"/>
-              <i class="slm blog-Aa big-Aa"></i>
-            </div>
-          </div>
-          <div class="row-box">
-            <span>颜色</span>
-            <div class="row-content">
-              <a-radio-group :default-value="ThemesConfig.color.current" size="large" class="themes-color-group">
-                <a-radio-button
-                  class="themes-color-item"
-                  v-for="(item, index) in ThemesConfig.color.list"
-                  :key="index"
-                  :value="index"
-                  @click="toggleMainColor(index, item.color)">
-                  <div class="color-round" :style="`background-color: ${item.color}`">
-                    <i class="slm blog-xuanzhong" v-show="ThemesConfig.color.current === index"></i>
-                  </div>
-                  <i :class="`slm blog-${item.icon}`" :style="`color: ${item.iconColor || item.color}`"></i>
-                </a-radio-button>
-              </a-radio-group>
-            </div>
-          </div>
-          <div class="row-box">
-            <span>背景</span>
+            <span class="row-title">背景</span>
             <div class="row-content"> 
-              <a-radio-group :default-value="ThemesConfig.backgroundColor.current" size="large" class="themes-bgcolor-group">
-                <a-radio-button
-                  class="themes-bgcolor-item"
-                  v-for="(item, index) in ThemesConfig.backgroundColor.list"
-                  :key="index"
-                  :value="index">
-                  <div class="color-round" :style="`background-color: ${item.color}; color: ${item.fontColor}`">
-                    {{ item.name }}<i class="slm blog-xuanzhong"></i>
-                  </div>
-                </a-radio-button>
-              </a-radio-group>
+              <ul>
+                <li>
+                   <!-- <a-switch default-checked @change="onChange" /> -->
+                </li>
+              </ul>
             </div>
           </div>
+
         </div>
         <div :class="[ 'button', 'submit-btn', $store.state.themes.mainBColor ]" @click="() => showPopup = false">确定</div>
       </div>
@@ -62,11 +26,14 @@
 
 <script lang="ts">
 import { Vue, Component, Watch } from 'nuxt-property-decorator';
+import { Switch as ASwitch } from 'ant-design-vue';
+
 import Masks from '~/components/Masks.vue';
 
 @Component({
   components: {
     Masks,
+    ASwitch,
   },
 })
 export default class HeaderThemes extends Vue {
@@ -76,41 +43,35 @@ export default class HeaderThemes extends Vue {
    */
   showPopup: boolean = false;
 
-  /**
-   * 皮肤配置
-   */
-  get ThemesConfig() {
-    return this.$config.themes;
-  }
-
-
   created() {
-    const { isMobile } = this.$store.state;
+    const { isMobile, setting } = this.$$store.state;
+    console.log(setting.theme);
+    
     // this.styleList.marginLeft = isMobile ? '0' : '-5vw';
   }
 
   mounted() {
     // 初始化本地配置信息
-    const { ThemesConfig } = this;
-    if (ThemesConfig.isLocalUpdate) {
-      const callFn = {
-        fontSize: {
-          fn: 'fontSizeChang',
-        },
-        color: {
-          fn: 'toggleMainColor',
-          cb: (val, arr) => [ val, arr.list[val].color ],
-        },
-      };
-      Object.keys(ThemesConfig).forEach(key => {
-        const targetFn = callFn[key];
-        if (targetFn) {
-          const currentConifg = ThemesConfig[key];
-          const params = targetFn.cb ? targetFn.cb(currentConifg.current, currentConifg) : [ currentConifg.current ];
-          this[targetFn.fn].apply(this, [...params, false]);
-        }
-      });
-    }
+    // const { ThemesConfig } = this;
+    // if (ThemesConfig.isLocalUpdate) {
+    //   const callFn = {
+    //     fontSize: {
+    //       fn: 'fontSizeChang',
+    //     },
+    //     color: {
+    //       fn: 'toggleMainColor',
+    //       cb: (val, arr) => [ val, arr.list[val].color ],
+    //     },
+    //   };
+    //   Object.keys(ThemesConfig).forEach(key => {
+    //     const targetFn = callFn[key];
+    //     if (targetFn) {
+    //       const currentConifg = ThemesConfig[key];
+    //       const params = targetFn.cb ? targetFn.cb(currentConifg.current, currentConifg) : [ currentConifg.current ];
+    //       this[targetFn.fn].apply(this, [...params, false]);
+    //     }
+    //   });
+    // }
   }
 
 
@@ -215,6 +176,12 @@ export default class HeaderThemes extends Vue {
     margin-bottom: 10px;
     background-color: transparent;
 
+    .row-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-bottom: 0;
+    }
+
     .row-content {
       margin-top: .5rem;
       padding: 10px;
@@ -223,134 +190,6 @@ export default class HeaderThemes extends Vue {
       }
       border-radius: 15px;
     }
-  }
-
-  .submit-btn {
-    display: inline-block;
-    width: 5rem;
-    margin-bottom: 40px;
-    @include themify($themes) {
-      color: themed('font-color');
-    }
-  }
-
-  // 文字大小拖动选择器
-  .slider-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .blog-Aa {
-      font-size: 1rem;
-      margin: 0 10px;
-    }
-
-    .big-Aa {
-      font-size: 2rem;
-      vertical-align: text-bottom;
-    }
-
-    .font-size-slider {
-      width: 100%;
-      margin-bottom: 14px;
-    }
-  }
-
-  // 主题颜色选择器
-  .themes-color-group,
-  .themes-bgcolor-group {
-    display: flex;
-    margin-bottom: -20px;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
-    .themes-color-item,
-    .themes-bgcolor-item {
-      height: auto;
-      margin-bottom: 20px;
-      // width: 100%;
-      text-align: center;
-      background-color: transparent;
-      border: 0;
-      box-shadow: none;
-
-      &::before {
-        display: none;
-      }
-
-      &:hover {
-        border: 0 !important;
-        box-shadow: none;
-      }
-
-      &:focus-within {
-        outline: none;
-      }
-      
-      .color-round {
-        display: flex;
-        width: 50px;
-        height: 50px;
-        margin: 0 auto;
-        color: #FFF;
-        border-radius: 50%;
-        align-items: center;
-        justify-content: center;
-
-        & + .slm {
-          display: inline-block;
-          transform: translateY(5px);
-        }
-      }
-
-      .slm {
-        font-size: 1.5rem;
-      }
-    }
-
-    .themes-bgcolor-item {
-      width: 100%;
-      .color-round {
-        width: 100%;
-        height: 70px;
-        border: 1px solid;
-        border-radius: 10px;
-
-        &:hover {
-          color: #FFAD1F !important;
-          border-color: currentColor;
-        }
-      }
-      
-      .slm {
-        display: flex;
-        width: 1.1rem;
-        height: 1.1rem;
-        margin-left: 10px;
-        font-size: .6rem;
-        border: 1px solid;
-        border-radius: 50%;
-        justify-content: center;
-        align-items: center;
-
-        &::before {
-          display: none;
-        }
-      }
-
-      &.ant-radio-button-wrapper-checked .slm::before {
-        display: block;
-      }
-    }
-
-    .ant-radio-button-wrapper-checked .color-round {
-      color: #FFAD1F !important;
-      border-color: currentColor;
-    }
-  }
-
-  .themes-bgcolor-group {
-    flex-wrap: initial;
   }
 }
 

@@ -1,6 +1,3 @@
-import { namespace } from 'nuxt-property-decorator';
-import Navigation from '~/plugins/config/Navigation';
-
 
 /**
  * 站点配置
@@ -135,5 +132,12 @@ export namespace WebConfig {
        */
       defaultIntroduction?: string;
     }
+  }
+
+  /**
+   * 设置项
+   */
+  export interface Setting {
+    
   }
 }

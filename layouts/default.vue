@@ -2,11 +2,11 @@
   <div
     :class="[
       'layout',
-      'layout-default',
       'bg-texture',
       'content-1300', // test
-      'theme-' + ($store.state.setting.web.backgroundColor || 'dark'),
-      'theme-color-' + $store.state.setting.web.color,
+      'layout-default',
+      'theme-color-' + $store.state.setting.theme.color,
+      'theme-' + ($store.state.setting.theme.backgroundColor || 'dark'),
       { 'layout-default-mobile': $store.state.isMobile },
       { 'mobile-header-open': mobileHeaderOpen }
     ]">
@@ -192,8 +192,9 @@ export default class DefaultLayout extends Vue {
   position: fixed;
 }
 .layout-page {
-  width: 100%;
-  height: 100%;
+  overflow-y: scroll;
+  width: 100vw;
+  height: 100vh;
   padding-top: 65px;
   min-height: calc(100vh - 121px);
   box-sizing: border-box;

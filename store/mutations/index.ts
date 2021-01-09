@@ -1,5 +1,7 @@
-import { saveUserConfig } from '@/service/data/user';
 import $cookie from 'js-cookie';
+
+import { saveUserConfig } from '@/service/data/user';
+import { GlobalTool } from '~/utils/tool';
 
 export default {
   /**
@@ -39,27 +41,11 @@ export default {
   },
 
   /**
-   * 设置站点配置
-   */
-  setWebSetting(state, data) {
-    const { web, apiServer, git, router, user } = data;
-    state.setting = {
-      git,
-      user,
-      web,
-      router,
-      apiServer,
-    };
-  },
-
-  /**
    * 设置站点参数
    */
   async setWebOptions(state, data) {
-    state.setting = {
-      web: Object.assign({}, state.setting.web, data),
-    };
-    $cookie.set('web', JSON.stringify(state.setting.web), { expires: 365 });
-    await saveUserConfig(state.setting.web);
+    state.setting = Object.assign({}, state.setting, data);
+    $cookie.set('web', JSON.stringify(GlobalTool.excludeKey(state.setting, 'title')), { expires: 365 });
+    await saveUserConfig(state.setting);
   },
 }

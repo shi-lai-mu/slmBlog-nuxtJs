@@ -11,10 +11,12 @@ import GeminiScrollbar from 'vue-gemini-scrollbar';
 import { GlobalTool } from '@/utils/tool';
 
 export default (_context, inject) => {
+  
   const $config = defaultConfig as Config;
   $config.Navigation = Navigation;
   $config.themes = Themes.config;
   $config.router = Router;
+  inject('$store', _context.store);
   inject('tool', GlobalTool);
   inject('config', $config);
   inject('http', Http);

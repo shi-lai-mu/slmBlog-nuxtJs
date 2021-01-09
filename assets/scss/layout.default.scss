@@ -164,8 +164,14 @@ li {
 //   background: #2c2c2c;
 // }
 
+// .mobile {
+//   ::-webkit-scrollbar {
+//     width: 0;
+//   }
+// }
+
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
   height: 5px;
   &:hover {
     background-color: rgba(255, 255, 255, .1);
@@ -182,6 +188,11 @@ li {
     &:active {
       background-color: #de4f3a;
     }
+}
+
+#__nuxt {
+  overflow: hidden;
+  height: 100vh;
 }
 
 // antd

@@ -15,7 +15,6 @@ export default async context => {
     const token = cookies.token;
     let config: any = false;
 
-    
     // 从cookie中读取web设置
     if (cookies.web) {
       config = JSON.parse(cookies.web);

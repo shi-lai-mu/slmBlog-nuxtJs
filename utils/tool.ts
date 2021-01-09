@@ -65,7 +65,7 @@ export class GlobalTool {
       return GlobalTool.format.date(fmt, new Date(isoString).getTime());
     },
 
-    
+
     /**
      * 重定义错误数据源
      * @param source 源
@@ -75,4 +75,18 @@ export class GlobalTool {
       return Object.assign(source, value);
     }
   };
+
+  /**
+   * 排除对象下的键
+   * @param object  对象
+   * @param keyName 键名
+   */
+  static excludeKey = (object: any, keyName: string) => {
+    Object.keys(object).forEach(key => {
+      if (typeof object[key] !== 'object') {
+        if (key === keyName) delete object[key];
+      } else object[key] = GlobalTool.excludeKey(object[key], keyName);
+    });
+    return object;
+  }
 }
