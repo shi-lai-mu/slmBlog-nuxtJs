@@ -81,10 +81,10 @@ export class GlobalTool {
    * @param object  对象
    * @param keyName 键名
    */
-  static excludeKey = (object: any, keyName: string) => {
+  static excludeKey = (object: any, keyName: string | string[]) => {
     Object.keys(object).forEach(key => {
       if (typeof object[key] !== 'object') {
-        if (key === keyName) delete object[key];
+        if ((typeof keyName === 'string' && key === keyName) || keyName.includes(key)) delete object[key];
       } else object[key] = GlobalTool.excludeKey(object[key], keyName);
     });
     return object;

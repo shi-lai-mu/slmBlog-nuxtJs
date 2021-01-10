@@ -30,6 +30,7 @@
     "less": "^3.12.2",
     "less-loader": "^7.0.1",
     "live2d-widget": "^3.1.4",
+    "lodash": "^4.17.20",
     "nuxt": "^2.14.4",
     "nuxt-property-decorator": "^2.7.2",
     "sass-loader": "^7.3.1",

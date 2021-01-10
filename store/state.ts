@@ -1,8 +1,7 @@
 import { themesdefaultConfig } from '@/config/themes';
-import { webSetting } from '@/config/websetting';
-import { Store } from 'vuex'
+import { webSetting, _WEB_CONFIG_VERSION_ } from '@/config/websetting';
 
-const state = {
+export const state = {
     // 用户数据
     user: {},
     // JWT
@@ -11,6 +10,7 @@ const state = {
     isMobile: false,
     // 网站位置
     setting: {
+        version: _WEB_CONFIG_VERSION_,
         // 主题设置
         theme: themesdefaultConfig,
         // 网站设置
@@ -33,13 +33,3 @@ const state = {
     },
 }
 export default () => state;
-
-
-declare module 'vue/types/vue' {
-    interface Vue {
-      /**
-       * Store
-       */
-      $$store: Store<typeof state>;
-    }
-}

@@ -62,7 +62,7 @@ export default class Masks extends Vue {
   close() {
     this.disable = true;
     this.$emit('close');
-    this.$store.commit('maskUpdate', false);
+    this.$$store.commit('maskUpdate', false);
   }
 
 
@@ -73,7 +73,7 @@ export default class Masks extends Vue {
       setTimeout(() => this.showAni = false, 450);
     }
     this.disable = val;
-    this.$store.commit('maskUpdate', !val);
+    this.$$store.commit('maskUpdate', !val);
   }
 }
 </script>

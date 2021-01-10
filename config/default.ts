@@ -2,7 +2,7 @@ import { WebConfig } from '@/interface/config';
 import user from './noteConfig/user';
 
 const isDev = process.env.NODE_ENV === 'development';
-const domain = !isDev ? 'https://slmblog.com' : `http://127.0.0.1:8888`;
+const domain = !isDev ? 'https://slmblog.com' : `http://dev.slmblog.com:8888`;
 
 /**
  * 默认配置
