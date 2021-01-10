@@ -1,5 +1,5 @@
 import $cookie from 'js-cookie';
-import _ from 'lodash';
+import defaultsDeep from 'lodash/defaultsDeep';
 
 // import { saveUserConfig } from '@/service/data/user';
 import { GlobalTool } from '@/utils/tool';
@@ -51,9 +51,10 @@ const mutations = {
       data = state.setting;
     }
     state.setting = WebSettingService.deepExtends(data, state.setting);
+    
     $cookie.set(
       'web',
-      JSON.stringify(GlobalTool.excludeKey(_.defaultsDeep({}, state.setting), ['title', 'description'])),
+      JSON.stringify(GlobalTool.excludeKey(defaultsDeep({}, state.setting), ['title', 'description', 'type'])),
       { expires: 365 },
     );
   },
