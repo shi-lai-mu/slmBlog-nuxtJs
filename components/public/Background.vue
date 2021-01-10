@@ -2,17 +2,24 @@
   <canvas class="canvas-bg" width="1920" height="1080" ref="canvas"></canvas>
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import Background from '@/utils/background';
 
 /* 背景组件 */
-@Component()
+@Component
 export default class VueBackground extends Vue {
-  mounted () {
+
+  bg!: Background;
+
+  mounted() {
     this.$nextTick(() => {
-      new Background(this.$refs.canvas);
+      this.bg = new Background(this.$refs.canvas as HTMLCanvasElement);
     });
+  }
+
+  destroyed() {
+    this.bg.isStop = true;
   }
 }
 </script>

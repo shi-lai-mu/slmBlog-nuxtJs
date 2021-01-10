@@ -2,19 +2,23 @@
   <li :class="[ 'slm', 'blog-shezhi', $store.state.themes.mainBColor ]" @click.self="showPopup = !showPopup">
     <Masks :styleList="styleList" :hide="!showPopup" @close="() => showPopup = false">
       <div class="popup-box">
-        <h4 class="popup-title">网站设置</h4>
+        <h4 class="popup-title">网站设置<label class="web-setting__version">{{ $$store.state.setting.version }}</label></h4>
         <div class="popup-tips"></div>
         <div class="popup-content">
 
-          <div class="row-box">
-            <span class="row-title">背景</span>
-            <div class="row-content"> 
-              <ul>
-                <li>
-                   <!-- <a-switch default-checked @change="onChange" /> -->
-                </li>
-              </ul>
-            </div>
+          <div class="row-box popup-item" v-for="(item, key) of $$store.getters.webSetting" :key="key">
+            <span class="row-title" v-text="item.title || `配置项${key}`"></span>
+            <ul class="row-content">
+              <a-row class="item-row" v-for="(value, index) in item" :key="index" v-show="typeof value !== 'string'">
+                <a-col :lg="{ span: 18 }">
+                  <span class="item-row__title" v-text="value.title"></span>
+                  <span class="item-row__desc" v-if="value.description" v-text="value.description"></span>
+                </a-col>
+                <a-col :lg="{ span: 6 }">
+                  <a-switch v-if="value.enable !== undefined" :default-checked="value.enable" v-model="value.enable" @change="e => switchChange(e, value)"/>
+                </a-col>
+              </a-row>
+            </ul>
           </div>
 
         </div>
@@ -28,15 +32,16 @@
 import { Vue, Component, Watch } from 'nuxt-property-decorator';
 import { Switch as ASwitch } from 'ant-design-vue';
 
-import Masks from '~/components/Masks.vue';
+import Masks from '@/components/Masks.vue';
 
 @Component({
+  name: 'WebSetting',
   components: {
     Masks,
     ASwitch,
-  },
+  }
 })
-export default class HeaderThemes extends Vue {
+export default class WebSetting extends Vue {
   styleList: any = {};
   /**
    * 是否显示弹窗
@@ -45,100 +50,21 @@ export default class HeaderThemes extends Vue {
 
   created() {
     const { isMobile, setting } = this.$$store.state;
-    console.log(setting.theme);
-    
     // this.styleList.marginLeft = isMobile ? '0' : '-5vw';
-  }
-
-  mounted() {
-    // 初始化本地配置信息
-    // const { ThemesConfig } = this;
-    // if (ThemesConfig.isLocalUpdate) {
-    //   const callFn = {
-    //     fontSize: {
-    //       fn: 'fontSizeChang',
-    //     },
-    //     color: {
-    //       fn: 'toggleMainColor',
-    //       cb: (val, arr) => [ val, arr.list[val].color ],
-    //     },
-    //   };
-    //   Object.keys(ThemesConfig).forEach(key => {
-    //     const targetFn = callFn[key];
-    //     if (targetFn) {
-    //       const currentConifg = ThemesConfig[key];
-    //       const params = targetFn.cb ? targetFn.cb(currentConifg.current, currentConifg) : [ currentConifg.current ];
-    //       this[targetFn.fn].apply(this, [...params, false]);
-    //     }
-    //   });
-    // }
-  }
-
-
-  @Watch('$store.state.isMobile')
-  isMobileUpdate(val) {
-    // this.styleList.marginLeft = val ? '0' : '-5vw';
-    this.$forceUpdate();
+    console.log(this.$$store.state.setting);
+    
   }
 
 
   /**
-   * 切换UI主题色
+   * 开关滑块变动时
    */
-  toggleAntdThemes(color: string) {
-    window.less
-      .modifyVars({
-        '@primary-color': color,
-        '@link-color': color,
-        '@btn-primary-bg': color,
-        '@heading-color': '#fff',
-      })
-      .then(() => {
-        console.log('成功')
-      })
-      .catch(error => {
-        console.error('皮肤主题编译失败: ' + error)
-      })
-    ;
-    return true;
+  switchChange(e, v) {
+    v.enable = e;
+    this.$$store.commit('setWebOptions', this.$$store.state.setting);
   }
-
-
-  /**
-   * slider修改文字大小时
-   */
-  fontSizeChang(fontsize: number, storage: boolean = true) {
-    const root: any = document.getElementsByTagName('html')[0];
-    root.style = `font-size: ${fontsize}px`;
-    if (storage) this.$config.themes.fontSize.current = fontsize;
-  }
-
-
-  /**
-   * 切换主题色
-   */
-  toggleMainColor(colorName: string, color16: string, storage: boolean = true) {
-    this.$store.commit('setThemesMainColor', colorName);
-    if (storage) {
-      this.toggleAntdThemes(color16);
-      this.$config.themes.color.current = colorName;
-    } else {
-      const { less }: any = window;
-      // 对应 index.js 等待 less.min.js 加载完成执行cb传入params
-      if (less.modifyVars) {
-        this.toggleAntdThemes(color16);
-      } else {
-        less.cb = this.toggleAntdThemes.bind(this);
-        less.params = color16;
-      }
-    }
-  }
-
-
-  // GeminiScrollbarInit(e) {
-  //   setTimeout(() =>e.update());
-  // }
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -155,6 +81,18 @@ export default class HeaderThemes extends Vue {
   }
   box-sizing: border-box;
 
+  .popup-item .row-content {
+    margin-bottom: 10px;
+  }
+
+  .web-setting__version {
+    margin-left: 1em;
+    font-size: .7em;
+    @include themify($themes) {
+      color: themed('font-lv3-color');
+    }
+  }
+
   .popup-title {
     margin: 1rem 0 .3rem;
     font-size: 1.3rem;
@@ -164,17 +102,35 @@ export default class HeaderThemes extends Vue {
   }
 
   .popup-content {
+    overflow-y: scroll;
+    max-height: 70vh;
     text-align: left;
     padding: 15px 10px 10px;
     @include themify($themes) {
       color: themed('font-lv1-color');
     }
   }
-  
+
+  .item-row {
+    padding: 5px 0;
+
+    .ant-col-lg-6 {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .item-row__desc {
+      display: block;
+      font-size: .8em;
+      @include themify($themes) {
+        color: themed('font-lv3-color');
+      }
+    }
+  }
   div.row-box {
-    padding-bottom: 0;
-    margin-bottom: 10px;
-    background-color: transparent;
+    padding-bottom: 2.5px;
+    margin-bottom: 15px;
+    // background-color: transparent;
 
     .row-title {
       font-size: 1.1rem;
@@ -186,7 +142,7 @@ export default class HeaderThemes extends Vue {
       margin-top: .5rem;
       padding: 10px;
       @include themify($themes) {
-        background-color: themed('main-bg-f1-color');
+        background-color: themed('main-bg-f2-color');
       }
       border-radius: 15px;
     }

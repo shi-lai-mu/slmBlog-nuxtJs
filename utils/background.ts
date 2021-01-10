@@ -1,5 +1,4 @@
-import { namespace } from "nuxt-property-decorator";
-
+let initClass;
 /**
  * 背景canvas动画类
  */
@@ -18,12 +17,12 @@ export default class Background {
   /**
    * 当前配置
    */
-  options: BackgroundSpace.Options;
+  options!: BackgroundSpace.Options;
 
   /**
    * CanvasRenderingContext2D
    */
-  ctx: CanvasRenderingContext2D;
+  ctx!: CanvasRenderingContext2D;
 
   /**
    * 动画对象
@@ -35,7 +34,7 @@ export default class Background {
   /**
    * Canvas
    */
-  canvas: HTMLCanvasElement;
+  canvas!: HTMLCanvasElement;
 
   /**
    * 命令列表
@@ -52,12 +51,17 @@ export default class Background {
   };
 
   /**
-   * 
+   * 屏幕参数
    */
   screen = {
     width: 0,
     height: 0,
   };
+
+  /**
+   * 停止状态
+   */
+  isStop = false;
 
   /**
    * 背景canvas动画类
@@ -69,6 +73,15 @@ export default class Background {
     const ctx = canvas.getContext('2d');
     if (!ctx) throw Error('CanvasRenderingContext2D is NULL!');
 
+    // 单例模式 重置类基本设置
+    if (initClass) {
+      initClass.ctx = ctx;
+      initClass.canvas = canvas;
+      initClass.isStop = false;
+      initClass.animation();
+      return initClass;
+    }
+
     this.ctx = ctx;
     this.canvas = canvas;
     this.options = options ? Object.assign({}, Background.defaultOptions, options) : Background.defaultOptions;
@@ -76,8 +89,9 @@ export default class Background {
       width: document.body.offsetWidth,
       height: document.documentElement.clientHeight,
     };
-
+    
     if (auto) this.init();
+    initClass = this;
   }
 
   
@@ -120,10 +134,12 @@ export default class Background {
    * 动画
    */
   private animation() {
+    // 停止状态跳出动画帧
+    if (this.isStop) return false;
+
     const { canvas, screen } = this;
     canvas.width = screen.width;
     canvas.height = screen.height;
-
     this.draw();
     window.requestAnimationFrame(this.animation.bind(this));
   }
@@ -133,7 +149,7 @@ export default class Background {
    * 绘制方法
    */
   private draw() {
-    const { canvas, ctx } = this;
+    const { canvas } = this;
     const { width, height } = canvas;
 
     this.anObject.grains.forEach((grain, i) => {

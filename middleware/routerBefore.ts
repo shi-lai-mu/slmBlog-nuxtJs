@@ -5,12 +5,12 @@ export default async context => {
   if (process.env.NODE_ENV === 'production') return;
   
   context.userAgent = process.server
-    ? context.req.headers["user-agent"]
+    ? context.req?.headers["user-agent"]
     : navigator.userAgent;
 
 
   // 解析cookie
-  if (context.req.headers.cookie) {
+  if (context.req?.headers.cookie) {
     const cookies = nodeCookie.parse(context.req.headers.cookie);
     const token = cookies.token;
     let config: any = false;

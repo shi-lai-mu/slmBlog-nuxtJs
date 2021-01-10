@@ -10,12 +10,12 @@
       { 'layout-default-mobile': $store.state.isMobile },
       { 'mobile-header-open': mobileHeaderOpen }
     ]">
-    <Background />
+    <Background v-if="$$store.getters.webSetting.background.canvas.enable"/>
     <LayoutHeader class="header" @set-open-state="setHeaderOpenState" :mobileHeaderOpen="mobileHeaderOpen" />
     <nuxt class="layout-page"  @click.native="mobileHeaderOpen = false"/>
     <LayoutFooter />
     <LoginPopup v-if="loginPopup" ref="LoginPopup" />
-    <Live2D />
+    <Live2D :enable="$$store.getters.webSetting.pendant.cat.enable"/>
   </div>
 </template>
 
@@ -105,9 +105,9 @@ export default class DefaultLayout extends Vue {
     });
 
     // 网站设置
-    $observer.on('webSetting', setting => {
-      // if (setting.theme) this.theme = setting.theme;
-    });
+    // $observer.on('webSetting', setting => {
+    //   // if (setting.theme) this.theme = setting.theme;
+    // });
 
     // 事件添加
     resizeEvent(window, this);

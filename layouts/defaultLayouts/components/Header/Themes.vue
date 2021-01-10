@@ -85,14 +85,12 @@ export default class HeaderThemes extends Vue {
     return this.$config.themes;
   }
 
+  initState = false;
+
+  messageKey = 'HeaderThemesMessageKey';
 
   created() {
     const { isMobile } = this.$store.state;
-    // this.styleList.marginLeft = isMobile ? '0' : '-5vw';
-  }
-
-  mounted() {
-    // 初始化本地配置信息
     const { ThemesConfig } = this;
     if (ThemesConfig.isLocalUpdate) {
       const callFn = {
@@ -113,20 +111,17 @@ export default class HeaderThemes extends Vue {
         }
       });
     }
+
   }
-
-
-  // @Watch('$store.state.isMobile')
-  // isMobileUpdate(val) {
-  //   // this.styleList.marginLeft = val ? '0' : '-5vw';
-  //   this.$forceUpdate();
-  // }
 
 
   /**
    * 切换UI主题色
    */
   toggleAntdThemes(color: string) {
+    const { messageKey, initState } = this;
+
+    if (initState) this.$message.loading({ content: '正在切换全站主题色...', key: messageKey });
     window.less
       .modifyVars({
         '@primary-color': color,
@@ -135,13 +130,14 @@ export default class HeaderThemes extends Vue {
         '@heading-color': '#fff',
         '@text-color-inverse': color,
       })
-      .then(() => {
-        console.log('成功');
-      })
+      .then(() => initState && this.$message.success({ content: '切换成功!', key: messageKey }))
       .catch(error => {
+        if (initState) this.$message.error({ content: '切换失败, 请稍后再试!', key: messageKey });
         console.error('皮肤主题编译失败: ' + error);
       })
     ;
+
+    this.initState = true;
     return true;
   }
 
@@ -162,6 +158,7 @@ export default class HeaderThemes extends Vue {
   toggleMainColor(colorName: string, color16: string, storage: boolean = true) {
     this.$config.themes.color.current = colorName;
     this.$store.commit('setThemesMainColor', colorName);
+    // this.$store.commit('setWebSetting', this.$config);
     
     if (storage) {
       this.toggleAntdThemes(color16);
@@ -182,7 +179,7 @@ export default class HeaderThemes extends Vue {
    */
   toggleBGColor(colorName: string, color16: string, storage: boolean = true)  {
     this.$config.themes.backgroundColor.current = colorName;
-    this.$store.commit('setWebOptions', {
+    this.$$store.commit('setWebOptions', {
       theme: {
         backgroundColor: colorName,
       }
