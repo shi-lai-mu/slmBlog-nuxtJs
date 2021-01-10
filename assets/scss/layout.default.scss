@@ -200,7 +200,41 @@ li {
   @include themify($themes) {
     background-color: themed('btn-disable');
     color: themed('btn-disable-color');
-    border-color: currentColor;
+  }
+  border-color: currentColor;
+}
+i.ant-time-picker-icon, i.ant-time-picker-clear {
+  color: var(--antd-wave-shadow-color);
+  background-color: transparent;
+}
+
+// 时间控件 time-picker
+.ant-time-picker-input,
+.ant-time-picker-panel-input,
+.ant-time-picker-panel-inner {
+  @include themify($themes) {
+    color: themed('font-lv1-color');
+    background-color: themed('main-bg-f1-color');
+    border-color: themed('main-bg-color');
+  }
+}
+
+.ant-time-picker-panel-input-wrap,
+.ant-time-picker-panel-select {
+  @include themify($themes) {
+    border-color: themed('main-bg-color');
+  }
+}
+
+li.ant-time-picker-panel-select-option-selected {
+  @include themify($themes) {
+    color: themed('font-lv0-color-hover');
+    background-color: themed('main-bg-f2-color');
+  }
+}
+.ant-time-picker-panel-select li:hover {
+  @include themify($themes) {
+    background-color: themed('font-lv2-color');
   }
 }
 

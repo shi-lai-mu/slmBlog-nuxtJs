@@ -1,3 +1,5 @@
+import dayJs from 'dayjs';
+
 /**
  * ===============
  * 站点设置配置文件
@@ -9,6 +11,7 @@ export const webSetting = {
     canvas: {
       title: '启用背景动画',
       description: '立即生效; 显示背景动画，可能会提高性能损耗、发热和耗电；',
+      type: 'switch',
       enable: true,
     }
   },
@@ -16,19 +19,27 @@ export const webSetting = {
     title: '悬浮物',
     cat: {
       title: '启用小猫 (heimi)',
-      enable: true,
       description: '立即生效; 右下角开启博主家的猫猫，可能会提高性能损耗、发热和耗电；',
+      type: 'switch',
+      enable: true,
     },
   },
   themes: {
     title: '主题',
     autoToggle: {
       title: '自动切换深色主题',
+      type: 'switch',
       enable: false,
     },
     autoToggleTime: {
-      title: '自动启用深色主题的时段',
-      value: [18, 6],
+      title: '自动切换深色主题的时段',
+      description: '在此时间段内站点会自动切换为深色模式',
+      disable: false,
+      type: 'timePicker',
+      array: [
+        ['18:00:00', '开始'],
+        ['6:00:00', '结束'],
+      ],
     }
   },
 };

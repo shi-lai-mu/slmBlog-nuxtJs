@@ -77,7 +77,7 @@ const defaultConfig: WebConfig.Default = {
    * Axios 请求的服务器
    */
   apiServer: {
-    host: 'https://api.slmblog.com',
+    host: 'http://127.0.0.1:3000',
     devHost: 'http://127.0.0.1:3000',
     apiVersion: '/api/v1',
     // defaultHost: '',

@@ -1569,7 +1569,6 @@ li.ant-time-picker-panel-select-option-disabled:focus {color: rgba(0, 0, 0, 0.25
 .ant-time-picker-input[disabled]:hover {border-color: #d9d9d9;border-right-width: 1px !important;}
 .ant-time-picker-icon, .ant-time-picker-clear {color: rgba(0, 0, 0, 0.25);}
 .ant-time-picker-icon .ant-time-picker-clock-icon, .ant-time-picker-clear .ant-time-picker-clock-icon {color: rgba(0, 0, 0, 0.25);}
-.ant-time-picker-clear {background: #fff;}
 .ant-time-picker-clear:hover {color: @text-color-secondary;}
 .ant-timeline {color: @text-color;}
 .ant-timeline-item-tail {border-left: 2px solid #e8e8e8;}

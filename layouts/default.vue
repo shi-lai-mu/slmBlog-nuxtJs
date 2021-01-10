@@ -132,7 +132,15 @@ export default class DefaultLayout extends Vue {
       //   text: isNaN(user.id) ? '欢迎访问, 史莱姆的博客!' : `欢迎回来 ${user.username}`,
       // });
     // });
+
+    this.backgroundColorChang();
     this.loggerBlog();
+  }
+
+  @Watch('$store.state.setting.theme.backgroundColor')
+  backgroundColorChang() {
+    const root: any = document.getElementsByTagName('html')[0];
+    root.className = (root.className.replace(/(\s)?theme-(bright|dark)(\s)?/, '')) + ` theme-${this.$$store.state.setting.theme.backgroundColor || 'dark'}`;
   }
   
 

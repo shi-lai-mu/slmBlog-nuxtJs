@@ -8,9 +8,14 @@ const { env } = process;
 const { NODE_ENV } = env;
 
 /**
+ * 为调试模式
+ */
+export const isDeBug = process && process.env.npm_lifecycle_script?.indexOf('debug') !== -1;
+
+/**
  * 为开发环境
  */
-export const isDev = NODE_ENV === 'development';
+export const isDev = NODE_ENV === 'development' || isDeBug;
 
 /**
  * 为生产环境

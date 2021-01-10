@@ -2,7 +2,7 @@ import { getUserConfig } from "~/service/data/user";
 import nodeCookie from 'cookie';
 
 export default async context => {
-  if (process.env.NODE_ENV === 'production') return;
+  // if (process.env.NODE_ENV === 'production') return;
   
   context.userAgent = process.server
     ? context.req?.headers["user-agent"]
@@ -28,7 +28,6 @@ export default async context => {
         config = res.result;
       }
     }
-
     context.store.commit('setWebOptions', config);
   }
 

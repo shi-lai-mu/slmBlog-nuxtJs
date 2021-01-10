@@ -9,14 +9,34 @@
           <div class="row-box popup-item" v-for="(item, key) of $$store.getters.webSetting" :key="key">
             <span class="row-title" v-text="item.title || `配置项${key}`"></span>
             <ul class="row-content">
-              <a-row class="item-row" v-for="(value, index) in item" :key="index" v-show="typeof value !== 'string'">
+              <a-row
+                v-for="(value, index) in item"
+                v-show="typeof value !== 'string'"
+                :class="['item-row', { 'item-row-disable': value.disable === true }]"
+                :key="index">
+
                 <a-col :lg="{ span: 18 }">
                   <span class="item-row__title" v-text="value.title"></span>
                   <span class="item-row__desc" v-if="value.description" v-text="value.description"></span>
                 </a-col>
                 <a-col :lg="{ span: 6 }">
-                  <a-switch v-if="value.enable !== undefined" :default-checked="value.enable" v-model="value.enable" @change="e => switchChange(e, value)"/>
+                  <a-switch v-if="value.type == 'switch'" :default-checked="value.enable" v-model="value.enable" @change="e => switchChange(e, value, index)"/>
+                  <template v-else-if="value.type == 'timePicker'">
+                    <div v-if="value.array">
+                      <div v-for="(valueItem, valueIndex) in value.array" :key="valueIndex" :class="`time-picker-box__${index}`">
+                        <a-time-picker
+                          size="small"
+                          v-model="input[`time-picker__${index}${valueIndex}`]"
+                          @change="e => timePickerChang(e, valueItem, index, `time-picker__${index}${valueIndex}`)"
+                          :format="'HH:mm:ss ' + valueItem[1]"
+                          :class="`time-picker__${index}`"
+                          :defaultValue="valueItem[0] ? moment(valueItem[0], 'HH:mm:ss') : null"
+                          :placeholder="valueItem[1] + '时间'"/>
+                      </div>
+                    </div>
+                  </template>
                 </a-col>
+
               </a-row>
             </ul>
           </div>
@@ -30,15 +50,23 @@
 
 <script lang="ts">
 import { Vue, Component, Watch } from 'nuxt-property-decorator';
-import { Switch as ASwitch } from 'ant-design-vue';
+import {
+  Switch as ASwitch,
+  TimePicker as ATimePicker
+} from 'ant-design-vue';
 
 import Masks from '@/components/Masks.vue';
+import moment from 'moment';
 
 @Component({
   name: 'WebSetting',
   components: {
     Masks,
     ASwitch,
+    ATimePicker,
+  },
+  methods: {
+    moment,
   }
 })
 export default class WebSetting extends Vue {
@@ -47,20 +75,66 @@ export default class WebSetting extends Vue {
    * 是否显示弹窗
    */
   showPopup: boolean = false;
+  /**
+   * 临时输入存储入口
+   */
+  input = {};
 
   created() {
     const { isMobile, setting } = this.$$store.state;
-    // this.styleList.marginLeft = isMobile ? '0' : '-5vw';
-    console.log(this.$$store.state.setting);
-    
   }
 
 
   /**
    * 开关滑块变动时
    */
-  switchChange(e, v) {
+  switchChange(e, v, key) {
+    const setting = this.$$store.getters.webSetting;
     v.enable = e;
+
+    switch(key) {
+      case 'autoToggle':
+        setting.themes.autoToggleTime.disable = !e;
+        // 如果切换为开启状态则检测时间是否为空，为空则填入默认时间
+        if (e) {
+          const arr = setting.themes.autoToggleTime.array;
+          if (!arr[0][0]) arr[0][0] = '18:00:00';
+          if (!arr[1][0]) arr[1][0] = '6:00:00';
+          this.input['time-picker__autoToggleTime0'] = moment(arr[0][0], 'HH:mm:ss');
+          this.input['time-picker__autoToggleTime1'] = moment(arr[1][0], 'HH:mm:ss');
+        }
+        break;
+    }
+
+    this.updateSetting();
+  }
+
+
+  /**
+   * 时间组件变动事件
+   */
+  timePickerChang(e, v, key, inputKey) {
+    const setting = this.$$store.getters.webSetting;
+    if (e) {
+      const { $H, $m, $s } = e;
+      v[0] = `${$H}:${$m}:${$s}`;
+    } else {
+      v[0] = '';
+    }
+    this.updateSetting();
+
+    switch(key) {
+      case 'autoToggleTime':
+        this.switchChange(!!e, setting.themes.autoToggle, 'autoToggle');
+        break;
+    }
+  }
+
+
+  /**
+   * 触发更新
+   */
+  updateSetting() {
     this.$$store.commit('setWebOptions', this.$$store.state.setting);
   }
 }
@@ -114,6 +188,12 @@ export default class WebSetting extends Vue {
   .item-row {
     padding: 5px 0;
 
+    &.item-row-disable {
+      opacity: .3;
+      transition: .5s ease-in-out;
+      pointer-events: none;
+    }
+
     .ant-col-lg-6 {
       display: flex;
       justify-content: flex-end;
@@ -123,7 +203,7 @@ export default class WebSetting extends Vue {
       display: block;
       font-size: .8em;
       @include themify($themes) {
-        color: themed('font-lv3-color');
+        color: themed('font-lv2-color');
       }
     }
   }
@@ -146,6 +226,20 @@ export default class WebSetting extends Vue {
       }
       border-radius: 15px;
     }
+  }
+
+  .submit-btn {
+    width: 30%;
+    margin: 0 auto 20px;
+  }
+}
+
+.time-picker-box__autoToggleTime {
+  display: flex;
+  justify-content: space-between;
+
+  &:not(:last-child) {
+    margin-bottom: 2px;
   }
 }
 
