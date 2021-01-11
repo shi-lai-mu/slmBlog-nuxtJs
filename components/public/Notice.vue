@@ -20,6 +20,9 @@ import { getNotic } from '@/service/data/notify';
 export default class Notice extends Vue {
   @Prop(String) ssr?: string;
 
+  /**
+   * 公告
+   */
   notice?: string = '';
 
   created() {

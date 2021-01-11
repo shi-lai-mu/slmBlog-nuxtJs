@@ -1,5 +1,6 @@
-import { getUserConfig } from "~/service/data/user";
 import nodeCookie from 'cookie';
+
+import { getUserConfig } from "@/service/data/user";
 
 export default async context => {
   // if (process.env.NODE_ENV === 'production') return;

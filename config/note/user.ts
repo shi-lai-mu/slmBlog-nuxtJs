@@ -1,4 +1,4 @@
-import { WebConfig } from "~/interface/config";
+import { WebConfig } from "@/interface/config";
 
 const user: WebConfig.User = {
   // 人物卡配置

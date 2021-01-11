@@ -4,7 +4,7 @@ import defaultsDeep from 'lodash/defaultsDeep';
 // import { saveUserConfig } from '@/service/data/user';
 import { GlobalTool } from '@/utils/tool';
 import { State } from '@/interface/state';
-import { WebSettingService, _WEB_CONFIG_VERSION_ } from '~/config/websetting';
+import { WebSettingService, _WEB_CONFIG_VERSION_ } from '@/config/websetting';
 
 
 const mutations = {

@@ -4,7 +4,7 @@
  * ===============
  */
 
-import { User } from "~/interface/request/user";
+import { User } from "@/interface/request/user";
 
 
 

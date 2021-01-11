@@ -66,6 +66,9 @@
 import { Vue, Component, Watch } from 'nuxt-property-decorator';
 import Masks from '@/components/Masks.vue';
 
+/**
+ * 头部皮肤组件
+ */
 @Component({
   components: {
     Masks,

@@ -20,21 +20,22 @@
 </template>
 
 <script lang="ts">
+import '@/assets/scss/layout.default.scss';
+
 import { Component, Vue, Watch } from 'nuxt-property-decorator';
 import { LayoutDefault } from '@/interface/layout';
 import { deDeveloperTools, isOpenDevTool } from '@/utils/deDeveloperTools';
 
 import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
 import LayoutHeader from '@/layouts/defaultLayouts/components/Header.vue';
-import LoginPopup from '@/components/Login.vue'
-import Live2D from '@/components/public/Live2D.vue';
 import Background from '@/components/public/Background.vue';
+import Live2D from '@/components/public/Live2D.vue';
+import LoginPopup from '@/components/Login.vue';
 
 import resizeEvent from '@/utils/Event/resize';
 import ObServer from '@/utils/obServer';
 
-import '@/assets/scss/layout.default.scss';
-import { getUserConfig } from '~/service/data/user';
+import { getUserConfig } from '@/service/data/user';
 
 @Component({
   scrollToTop: true,
@@ -51,6 +52,9 @@ export default class DefaultLayout extends Vue {
    * 移动端Header展开状态
    */
   mobileHeaderOpen: boolean = false;
+  /**
+   * 登录弹窗
+   */
   loginPopup: boolean = false;
 
 

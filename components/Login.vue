@@ -47,16 +47,24 @@
           <a-button size="large" class="btn" type="primary" :disabled="!formData.email || !formData.password">注册</a-button>
         <span v-if="model !== 'register'" class="bottom-tips">没有账号？<span class="active-span" @click="model = 'register'">注册</span></span>
       </div>
+      <div class="tripartite-acccount">
+        <a-tooltip v-for="(item, key) in tripartite" :key="key" placement="right">
+          <template slot="title">{{item.name}}</template>
+          <i :class="['slm', 'blog-' + item.icon]"></i>
+        </a-tooltip>
+      </div>
     </div>
   </Masks>
 </template>
 
 <script lang="ts">
+import { Input, Tooltip as ATooltip } from 'ant-design-vue';
 import { Component, Prop, Watch, Vue } from 'nuxt-property-decorator';
-import { Input } from 'ant-design-vue';
-import { loginAccount } from '~/service/data/user';
+
+import { loginAccount } from '@/service/data/user';
 
 import Masks from '@/components/Masks.vue';
+import tripartite from '@/config/note/tripartite';
 
 /**
  * 登录弹窗组件
@@ -65,6 +73,7 @@ import Masks from '@/components/Masks.vue';
   components: {
     Masks,
     Input,
+    ATooltip,
   },
 })
 export default class LoginPopup extends Vue {
@@ -72,25 +81,24 @@ export default class LoginPopup extends Vue {
    * 是否显示登录弹窗
    */
   @Prop(Boolean) show;
-
   /**
    * 是否隐藏
    */
   hide: boolean = true;
+  /**
+   * 隐藏动画
+   */
   hideAni: string = '';
-
   /**
    * MaskBoxStyle
    */
   maskBoxStyle: any = {};
-
   /**
    * 当前模式
    * unsetPwd: 找回密码
    * register: 注册账号
    */
   model: 'unsetPwd' | 'register' | '' = '';
-
   /**
    * 模式对应类名
    */
@@ -98,7 +106,6 @@ export default class LoginPopup extends Vue {
     unsetPwd: 'unset-pwd',
     register: 'register toggle-card',
   };
-
   /**
    * 表单数据
    */
@@ -107,11 +114,14 @@ export default class LoginPopup extends Vue {
     password: '',   // 密码
     email: '',      // 邮箱
   };
-
   /**
    * 是否正在登录
    */
   loggingIn: boolean = false;
+  /**
+   * 三方平台登录配置
+   */
+  tripartite = tripartite;
 
 
   /**
@@ -187,6 +197,48 @@ export default class LoginPopup extends Vue {
 
   .transition-box {
     transition: .5s ease;
+  }
+
+  .layout-default-mobile .tripartite-acccount {
+    position: absolute;
+    display: flex;
+    bottom: 0;
+    right: 50%;
+    left: 50%;
+    width: 150px;
+    height: 50px;
+    justify-content: space-between;
+    transform: translateX(-50%) translateY(110px);
+  }
+
+  .tripartite-acccount {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50px;
+    height: 150px;
+    transform: translateX(120%);
+
+    .slm {
+      display: block;
+      width: 25px;
+      margin: 10px 0;
+      font-size: 25px;
+      cursor: pointer;
+      transform-origin: 25% 50%;
+
+      &:hover {
+        @include themify($themes) {
+          color: themed('font-lv0-color-hover');
+        }
+        transition: .5s;
+        transform: scale(1.2);
+      }
+
+      &:active {
+        transform: scale(1.1);
+      }
+    }
   }
 
   .account-in-box {
@@ -360,7 +412,7 @@ export default class LoginPopup extends Vue {
     position: absolute;
     z-index: 9;
     top: 0;
-    transform: scale(.9) translateY(18%);
+    transform: scale(.9) translateY(85px);
     animation: registerDown .5s ease;
   }
 

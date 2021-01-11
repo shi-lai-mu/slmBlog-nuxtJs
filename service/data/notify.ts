@@ -1,6 +1,6 @@
-import axios, { AxiosSend } from "@/utils/axios";
-import { Request } from "~/interface/request";
-import { Notify } from "~/interface/request/notify";
+import axios from '@/utils/axios';
+import { Request } from '@/interface/request';
+import { Notify } from '@/interface/request/notify';
 
 /**
  * 获取公告

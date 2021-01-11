@@ -49,6 +49,7 @@
 </template>  
 
 <script lang="ts">
+import moment from 'moment';
 import { Vue, Component, Watch } from 'nuxt-property-decorator';
 import {
   Switch as ASwitch,
@@ -56,8 +57,10 @@ import {
 } from 'ant-design-vue';
 
 import Masks from '@/components/Masks.vue';
-import moment from 'moment';
 
+/**
+ * 网站设置类
+ */
 @Component({
   name: 'WebSetting',
   components: {
@@ -92,6 +95,7 @@ export default class WebSetting extends Vue {
     const setting = this.$$store.getters.webSetting;
     v.enable = e;
 
+    // 联动选项
     switch(key) {
       case 'autoToggle':
         setting.themes.autoToggleTime.disable = !e;
@@ -123,6 +127,7 @@ export default class WebSetting extends Vue {
     }
     this.updateSetting();
 
+    // 联动选项
     switch(key) {
       case 'autoToggleTime':
         this.switchChange(!!e, setting.themes.autoToggle, 'autoToggle');

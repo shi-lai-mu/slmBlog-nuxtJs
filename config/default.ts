@@ -1,5 +1,5 @@
 import { WebConfig } from '@/interface/config';
-import user from './noteConfig/user';
+import user from './note/user';
 
 const isDev = process.env.NODE_ENV === 'development';
 const domain = !isDev ? 'https://slmblog.com' : `http://dev.slmblog.com:8888`;
