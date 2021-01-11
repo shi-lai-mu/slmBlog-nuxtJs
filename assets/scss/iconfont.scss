@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'slm';  /* project id 1445911 */
-  src: url('//at.alicdn.com/t/font_1445911_hd5xmr66f6i.eot');
-  src: url('//at.alicdn.com/t/font_1445911_hd5xmr66f6i.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1445911_hd5xmr66f6i.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1445911_hd5xmr66f6i.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1445911_hd5xmr66f6i.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1445911_hd5xmr66f6i.svg#slm') format('svg');
+  src: url('//at.alicdn.com/t/font_1445911_niroqfw0xia.eot');
+  src: url('//at.alicdn.com/t/font_1445911_niroqfw0xia.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1445911_niroqfw0xia.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1445911_niroqfw0xia.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1445911_niroqfw0xia.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1445911_niroqfw0xia.svg#slm') format('svg');
 }
 
 
@@ -38,6 +38,18 @@
 .blog-renzheng { color: #4AC7FF !important; }  // 认证
 
 // iconfont
+
+.blog-qq:before {
+  content: "\e628";
+}
+
+.blog-weixin:before {
+  content: "\e643";
+}
+
+.blog-vip-crown-2-fill:before {
+  content: "\e6b7";
+}
 
 .blog-taiyang_sun61:before {
   content: "\e62e";

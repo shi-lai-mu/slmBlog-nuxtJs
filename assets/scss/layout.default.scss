@@ -234,7 +234,8 @@ li.ant-time-picker-panel-select-option-selected {
 }
 .ant-time-picker-panel-select li:hover {
   @include themify($themes) {
-    background-color: themed('font-lv2-color');
+    color: themed('font-color');
+    background-color: themed('bg-dp1-color-hover');
   }
 }
 
