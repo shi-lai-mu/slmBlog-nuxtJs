@@ -1,6 +1,6 @@
 <template>
   <Masks :hide="hide" :maskBackageMode="`blur-mask ${hideAni}`" :maskBoxStyle="maskBoxStyle" @close="() => hide = true">
-    <div :class="['account-popup-box', modelClass[model]]">
+    <main :class="['account-popup-box', modelClass[model]]">
       <div class="main-box transition-box">
         <div class="account-in-box login-box">
           <i class="slm blog-cuowu" @click="closeMask" @mouseenter="maskBoxStyle = { transform: 'rotate3d(1, 1, 0, 5deg)' }" @mouseout="maskBoxStyle = null"></i>
@@ -53,6 +53,13 @@
           <i :class="['slm', 'blog-' + item.icon]"></i>
         </a-tooltip>
       </div>
+    </main>
+    <div class="mask-footer" slot="mask-root">
+      <div>
+        <router-link class="footer-a" to="/">服务条款</router-link>
+        <router-link class="footer-a" to="/privacy">隐私政策</router-link>
+      </div>
+      <div>© 2021 史莱姆的博客 保留所有权利</div>
     </div>
   </Masks>
 </template>
@@ -137,8 +144,8 @@ export default class LoginPopup extends Vue {
    * 显示弹窗层
    */
   showMask(loginType?: '' | 'register' | 'unsetPwd') {
-    this.hide = false;
     this.model = loginType || '';
+    this.hide = false;
   }
 
 
@@ -376,7 +383,6 @@ export default class LoginPopup extends Vue {
     perspective: 1000px;
 
     &.unset-pwd {
-      
       .main-box {
         transform: rotateY(180deg);
         .unset-pwd-box {
@@ -390,7 +396,6 @@ export default class LoginPopup extends Vue {
     }
 
     &.toggle-card {
-
       .main-box {
         z-index: 1;
         transform: scale(.9) translateY(18%);
@@ -399,6 +404,22 @@ export default class LoginPopup extends Vue {
 
       .register-box {
         transform: scale(1);
+      }
+    }
+  }
+
+  .mask-footer {
+    position: fixed;
+    z-index: 999;
+    right: 10px;
+    bottom: 10px;
+    text-align: right;
+
+    .footer-a:last-child {
+      padding-left: 10px;
+      margin-left: 5px;
+      @include themify($themes) {
+        border-left: 1px solid rgba($color: themed('a-color'), $alpha: .5);
       }
     }
   }

@@ -62,10 +62,6 @@ export default class HomePage extends Vue {
       articleLatest: (await getArticleList()).result?.list || [], // 获取最新文章
     };
   }
-
-  created() {
-    // console.log('created');
-  }
 }
 </script>
 

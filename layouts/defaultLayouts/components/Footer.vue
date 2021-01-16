@@ -37,6 +37,7 @@ export default class LayoutDefaultFooter extends Vue {
 .body-footer {
   width: 100%;
   padding: 20px 10px;
+  margin-top: 20px;
   font-size: .9rem;
   text-align: center;
   @include themify($themes) {

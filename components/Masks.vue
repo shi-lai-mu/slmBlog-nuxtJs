@@ -13,6 +13,7 @@
     <div :class="['mask-box', { 'show-popup': showAni }]" :style="maskBoxStyle || {}">
       <slot></slot>
     </div>
+    <slot name="mask-root"></slot>
   </div>
 </template>
 

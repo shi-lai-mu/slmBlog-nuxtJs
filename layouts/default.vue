@@ -36,6 +36,7 @@ import resizeEvent from '@/utils/Event/resize';
 import ObServer from '@/utils/obServer';
 
 import { getUserConfig } from '@/service/data/user';
+import { watch } from 'less';
 
 @Component({
   scrollToTop: true,
@@ -57,10 +58,8 @@ export default class DefaultLayout extends Vue {
    */
   loginPopup: boolean = false;
 
-
   created() {
-    const { $config, $route, $router } = this;
-    $config.Navigation.init(this);
+    this.$config.Navigation.init(this);
   }
 
 
@@ -197,14 +196,15 @@ export default class DefaultLayout extends Vue {
 }
 .layout-default {
   // min-height: 100vh;
-  height: 100%;
+  // height: 100%;
+  overflow-y: scroll;
+  height: 100vh;
   transition: 1s;
 }
 .header {
   position: fixed;
 }
 .layout-page {
-  overflow-y: scroll;
   width: 100vw;
   height: 100vh;
   padding-top: 65px;

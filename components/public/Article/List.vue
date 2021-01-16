@@ -80,10 +80,6 @@ export default class Article extends Vue {
       const listCon = window.localStorage.getItem(_ARTICLE_LIST_LAYOUT_);
       if (listCon) this.layout = JSON.parse(listCon);
     }
-  }
-
-
-  mounted() {
     this.$observer.on('popstate', this.popstateEvent.bind(this));
   }
 

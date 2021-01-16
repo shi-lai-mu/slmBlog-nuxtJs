@@ -1,10 +1,11 @@
 <template>
   <header :class="['layout-header', $store.state.themes.mainBColor + '-80' ]">
     <div class="response-content max-content">
-      <router-link
+      <router-link  
         tag="h1"
         class="slm blog-logo"
         :to="{ name: 'index' }"
+        @click.native="$observer.emit('popstate')"
       />
       <!-- 响应型导航栏 -->
       <nav class="layout-top-nav">
