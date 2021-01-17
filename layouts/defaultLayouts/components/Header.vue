@@ -2,7 +2,6 @@
   <header :class="['layout-header', $store.state.themes.mainBColor + '-80' ]">
     <div class="response-content max-content">
       <router-link  
-        tag="h1"
         class="slm blog-logo"
         :to="{ name: 'index' }"
         @click.native="$observer.emit('popstate')"
@@ -146,7 +145,7 @@ $headerHeight: 60px;
   left: 0;
   right: 0;
   width: 100%;
-  line-height: $headerHeight;
+  height: $headerHeight;
   margin: auto;
   @include themify($themes) {
     color: themed('font-lv0-color');
@@ -154,23 +153,45 @@ $headerHeight: 60px;
     background-color: rgba($color: themed('bg-dp1-color-f'), $alpha: .8);
   }
   // border-radius: 0 0 20px 20px;
-  transition: 1s;
+  // transition: 1s;
   user-select: none;
   backdrop-filter: saturate(180%) blur(20px);
+  align-items: center;
+
+  &:hover {
+    z-index: 99;
+    top: 2px;
+    height: $headerHeight - 2px;
+    line-height: $headerHeight;
+    transition: 0s;
+
+    .navigation-item .slm {
+      height: $headerHeight + 2;
+    }
+
+    .header-navigation-right {
+      margin-top: -2px;
+    }
+  }
   
   .blog-logo {
+    display: flex;
     float: right;
-    font-size: 50px;
     margin: 0 20px 0 0;
+    font-size: 50px;
+    align-items: center;
+    
     @include themify($themes) {
       color: themed('font-lv0-color');
     }
     cursor: pointer;
+    text-decoration: none;
   }
 
   .response-content {
     display: flex;
     width: 100%;
+    height: 100%;
     margin: auto;
   }
 
@@ -207,9 +228,10 @@ $headerHeight: 60px;
 
       .navigation-item {
         position: relative;
+        display: flex;
+        align-items: center;
         width: 90px;
         padding: 0 10px;
-        line-height: $headerHeight;
         text-align: center;
         white-space: nowrap;
         cursor: pointer;
@@ -222,6 +244,7 @@ $headerHeight: 60px;
           .navigation-children {
             position: absolute;
             display: block;
+            top: 0;
             left: 0;
             text-align: left;
             line-height: $headerHeight / 1.5;
@@ -231,7 +254,7 @@ $headerHeight: 60px;
               // background-color: themed('bg-dp1-color-f');
               background-color: rgba($color: themed('bg-dp1-color-f'), $alpha: .8);
             }
-            transform: translateX(-15px);
+            transform: translateY($headerHeight - 2);
             backdrop-filter: saturate(180%) blur(20px);
           }
 
@@ -350,7 +373,6 @@ $headerHeight: 60px;
         width: auto;
         margin: 0;
         padding: 0;
-        line-height: 60px;
         // border-bottom: 1px solid rgba($color: #b6c3db, $alpha: .1);
 
 

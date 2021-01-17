@@ -1,5 +1,3 @@
-import dayJs from 'dayjs';
-
 /**
  * ===============
  * 站点设置配置文件
@@ -60,7 +58,6 @@ export class WebSettingService {
    */
   static deepExtends(userConfig, config) {
     try {
-      
       userConfig = this.addNew(userConfig, config);
       userConfig = this.deleteOld(userConfig, config);
     } catch(err) {
@@ -68,12 +65,15 @@ export class WebSettingService {
       userConfig = config;
     }
     return userConfig || config;
-    // return userConfig;
   }
 
 
+  /**
+   * 新增系统配置
+   * @param userConfig 用户配置
+   * @param config     系统配置
+   */
   static addNew(userConfig, config) {
-    
     if (userConfig === undefined) return config;
     this._echo(config, (item, key) => {
       const userCurrent = userConfig[key];
@@ -88,6 +88,11 @@ export class WebSettingService {
   }
 
 
+  /**
+   * 删除非系统配置
+   * @param userConfig 用户配置
+   * @param config     系统配置
+   */
   static deleteOld(userConfig, config) {
     // 排除
     this._echo(userConfig, (item, key) => {
@@ -105,6 +110,12 @@ export class WebSettingService {
     return userConfig;
   }
 
+
+  /**
+   * 内置遍历对象
+   * @param obj 对象
+   * @param cb  回调
+   */
   static _echo(obj: object, cb: (item, key) => void | boolean) {
     const objKey = Object.keys(obj);
     for (const key of objKey) {

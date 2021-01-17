@@ -1,5 +1,6 @@
 <template>
   <div
+    @scroll="layoutScroll"
     :class="[
       'layout',
       'bg-texture',
@@ -152,6 +153,11 @@ export default class DefaultLayout extends Vue {
    */
   setHeaderOpenState(state: boolean) {
     this.mobileHeaderOpen = state;
+  }
+
+
+  layoutScroll(e) {
+    this.$observer.emit('layoutScroll', e);
   }
 
   

@@ -1,6 +1,7 @@
 <template>
-  <article :class="['article-content-box', { 'toggle-transition': toggleTransition }, 'bg-texture']">
+  <article :class="['article-content-box', { 'toggle-transition': toggleTransition }, 'bg-texture']" @scroll="articleScroll">
     <ArticleViewSkeleton />
+    <HtmlTreeProcess ref="treeProcess"/>
     <a-row class="article-layout max-content">
       <a-col
         class="article-page__container max-content"
@@ -10,8 +11,13 @@
         <aside class="article-action"></aside>
         <div class="article-content__container row-box">
           <div class="article-content__header">
-            <h2 class="title" v-text="articleData.subject"></h2>
-            <div class="article-content__info">
+            <h1 class="title" v-text="articleData.subject"></h1>
+            <div class="article-items">
+              <span>{{ $tool.format.isoToDateTime(articleData.author.nickname) }}</span>
+              <span>作者: {{ articleData.author.nickname }}</span>
+            </div>
+            <div class="article-desc" v-html="articleData.description"></div>
+            <!-- <div class="article-content__info">
               <div class="release-time">
                 发布于 {{ $tool.format.isoToDateTime(articleData.createTime) }}
               </div>
@@ -22,7 +28,7 @@
               <ul class="tag-list">
                 <li class="tag-item" v-for="(item, key) in 3" :key="key">xxxxx</li>
               </ul>
-            </div>
+            </div> -->
           </div>
           <div class="article-content__body" v-html="articleData.content">
           </div>
@@ -47,7 +53,6 @@
 <script lang='ts'>
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 
-import { formatPeople } from '@/utils/atricle';
 import { getPostsData } from '@/service/data/article';
 import { articleBase } from '@/mock/article/data/index';
 import { getRelativeBrowserPos } from '@/utils/element';
@@ -57,6 +62,7 @@ import Imager from '@/components/public/Imager.vue';
 import UserCard from '@/components/public/UserCard.vue';
 import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
 import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleton.vue';
+import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue';
 
 
 /**
@@ -67,6 +73,7 @@ import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleto
     Imager,
     UserCard,
     LayoutFooter,
+    HtmlTreeProcess,
     ArticleViewSkeleton,
   }
 })
@@ -151,10 +158,10 @@ export default class ArticleContents extends Vue {
 
 
   /**
-   * 格式化人数
+   * 滚动文章触发事件
    */
-  formatPeople(v) {
-    return formatPeople(v);
+  articleScroll(e) {
+    (this.$refs.treeProcess as HtmlTreeProcess).updateProcess(e);
   }
 }
 </script>
@@ -179,8 +186,30 @@ export default class ArticleContents extends Vue {
     // background-color: themed('main-bg-color');
   }
 
-  .article-layout,
-  /deep/ .article-skeleton {
+  .article-items {
+    opacity: .8;
+    padding-bottom: 20px;
+    margin: 20px auto;
+    text-align: center;
+    font-size: .9em;
+    @include themify($themes) {
+      border-bottom: 1px dashed rgba($color: themed('font-color'), $alpha: .2);
+    }
+    span {
+      margin: 0 10px;
+    }
+  }
+
+  .article-desc {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    @include themify($themes) {
+      background-color: rgba(themed('main-bg-f2-color'), .7);
+    }
+  }
+
+  .article-layout {
     padding-top: 80px;
   }
 
@@ -206,7 +235,8 @@ export default class ArticleContents extends Vue {
 
     .title {
       text-indent: 5px;
-      font-weight: bold;
+      text-align: center;
+      font-weight: 500;
       font-size: 1.5rem;
       @include themify($themes) {
         color: themed('font-color');

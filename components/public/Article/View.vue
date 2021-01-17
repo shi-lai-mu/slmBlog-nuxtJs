@@ -168,10 +168,10 @@ export default class ArticleView extends Vue {
       this.style = {
         position: 'fixed',
         zIndex: '29',
-        top: `${scrollTop}px`,
-        left: `0`,
-        width: `100vw`,
-        height: `100vh`,
+        top: `${scrollTop + 60}px`,
+        left: '0',
+        width: '100vw',
+        height: 'calc(100vh - 60px)',
         borderRadius: '5px',
         transition: '.5s ',
       }
@@ -179,7 +179,8 @@ export default class ArticleView extends Vue {
       task.push(setTimeout(() => {
         // $config.GeminiScrollbar._viewElement.style.overflow = 'initial';
         // $config.GeminiScrollbar.destroy();
-        this.style.top = '0';
+        this.style.zIndex = '31';
+        this.style.top = '60px';
         this.style.transition = '0s';
         this.task = [];
       }, 500));
@@ -187,6 +188,9 @@ export default class ArticleView extends Vue {
   }
 
 
+  /**
+   * 关闭视图
+   */
   closeView() {
     const { $config, task, isOpen} = this;
     // 正在执行列队则跳出
@@ -200,7 +204,7 @@ export default class ArticleView extends Vue {
     // $config.GeminiScrollbar.create();
     const scrollTop = 0;
     const padding = 10;
-    this.style.top = `${scrollTop}px`;
+    this.style.top = `${scrollTop + 60}px`;
     
     task.push(setTimeout(() => {
       const { width, height, top, left } = el.getBoundingClientRect();
@@ -234,6 +238,10 @@ export default class ArticleView extends Vue {
 <style scoped lang="scss">
   .article-card {
     width: 100%;
+
+    /deep/ .article-layout {
+      padding-top: 18px;
+    }
   }
   .article-box {
     background-color: inherit;

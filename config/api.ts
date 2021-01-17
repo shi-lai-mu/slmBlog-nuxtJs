@@ -9,6 +9,7 @@ const api = {
   get_mock:        '/mock/test',                                      // mock测试
   // 账号类
   user: {
+    info:          '/user',                                           // 获取用户信息
     config:        '/user/config/all',                                // 获取用户配置
     saveConfig:    'post./user/config',                               // 保存用户配置
     login:         'post./user/signin',                               // 用户登录
