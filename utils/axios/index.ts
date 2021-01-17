@@ -71,7 +71,6 @@ import {
   isDev,
   isServer,
   isMockData,
-  tokenKeyStorage,
   observer,
 } from './lib/config';
 import { message } from './lib/log';
@@ -133,6 +132,10 @@ $axios.interceptors.response.use(
 $axios.interceptors.request.use(
   (value: AxiosRequestConfig) => {
     const data = value.data;
+
+    if (!value.appendCookie && value.method !== 'post') {
+      value.withCredentials = false;
+    }
 
     const mockData = $axios.mock.has(`${value.method}.${value.api?.replace(/:\w+/g, ':params')}`);
     if (mockData) {
@@ -405,6 +408,11 @@ declare module 'axios/index' {
 
   interface AxiosRequestConfig {
     api?: string;
+
+    /**
+     * 是否携带cookie
+     */
+    appendCookie?: boolean;
   }
 }
 

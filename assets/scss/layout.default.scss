@@ -232,13 +232,13 @@ li.ant-time-picker-panel-select-option-selected {
     background-color: themed('main-bg-f2-color');
   }
 }
+
 .ant-time-picker-panel-select li:hover {
   @include themify($themes) {
     color: themed('font-color');
     background-color: themed('bg-dp1-color-hover');
   }
 }
-
 
 // scrollbar
 

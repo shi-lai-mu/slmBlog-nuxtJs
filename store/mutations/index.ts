@@ -1,11 +1,12 @@
 import $cookie from 'js-cookie';
 import defaultsDeep from 'lodash/defaultsDeep';
 
-// import { saveUserConfig } from '@/service/data/user';
+import { saveUserConfig } from '@/service/data/user';
 import { GlobalTool } from '@/utils/tool';
 import { State } from '@/interface/state';
 import { WebSettingService, _WEB_CONFIG_VERSION_ } from '@/config/websetting';
 
+let saveUserClock: NodeJS.Timeout;
 
 const mutations = {
   /**
@@ -51,12 +52,14 @@ const mutations = {
       data = state.setting;
     }
     state.setting = WebSettingService.deepExtends(data, state.setting);
+    const config = GlobalTool.excludeKey(defaultsDeep({}, state.setting), ['title', 'description', 'type']);
+
+    clearTimeout(saveUserClock);
+    saveUserClock = setTimeout(async () => {
+      await saveUserConfig(config);
+    }, 1000);
     
-    $cookie.set(
-      'web',
-      JSON.stringify(GlobalTool.excludeKey(defaultsDeep({}, state.setting), ['title', 'description', 'type'])),
-      { expires: 365 },
-    );
+    $cookie.set('web', JSON.stringify(config), { expires: 365 });
   },
 };
 

@@ -1,6 +1,6 @@
 import nodeCookie from 'cookie';
 
-import { getUserConfig } from "@/service/data/user";
+import { getSelfInfo } from "@/service/data/user";
 
 export default async context => {
   // if (process.env.NODE_ENV === 'production') return;
@@ -19,15 +19,16 @@ export default async context => {
     // 从cookie中读取web设置
     if (cookies.web) {
       config = JSON.parse(cookies.web);
-    } else if (token) { // 如果包含token则从token中获取在线设置
-      const res = await getUserConfig({
+    }
+
+    if (token) {
+      const res: any = await getSelfInfo({
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      if (res.success) {
-        config = res.result;
-      }
+      context.store.commit('initUser', res.result);
+      context.store.commit('setJWT', token);
     }
     context.store.commit('setWebOptions', config);
   }

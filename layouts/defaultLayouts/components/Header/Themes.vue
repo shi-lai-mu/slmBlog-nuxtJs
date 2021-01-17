@@ -160,8 +160,7 @@ export default class HeaderThemes extends Vue {
    */
   toggleMainColor(colorName: string, color16: string, storage: boolean = true) {
     this.$config.themes.color.current = colorName;
-    this.$store.commit('setThemesMainColor', colorName);
-    // this.$store.commit('setWebSetting', this.$config);
+    this.$$store.commit('setThemesMainColor', colorName);
     
     if (storage) {
       this.toggleAntdThemes(color16);
@@ -250,9 +249,6 @@ export default class HeaderThemes extends Vue {
     width: 9rem;
     margin-bottom: 40px;
     font-size: 1rem;
-    @include themify($themes) {
-      color: themed('font-color');
-    }
   }
 
   // 文字大小拖动选择器
