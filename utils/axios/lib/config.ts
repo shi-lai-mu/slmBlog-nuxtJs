@@ -17,6 +17,11 @@ const isDev = process.env.NODE_ENV === 'development';
 const isServer = process && process.server;
 
 /**
+ * 为客户端
+ */
+const isClient = process && process.client;
+
+/**
  * 是否为Mock数据
  * @param res AxiosResponse响应
  */
@@ -65,6 +70,7 @@ export {
   localRegExp,
   isDev,
   isServer,
+  isClient,
   tips,
   observer,
   tokenKeyStorage,

@@ -26,18 +26,21 @@
     "antd-theme-generator": "^1.2.4",
     "cookie": "^0.4.1",
     "cross-env": "^5.2.1",
+    "highlight.js": "^10.5.0",
     "js-cookie": "^2.2.1",
     "less": "^3.12.2",
     "less-loader": "^7.0.1",
     "live2d-widget": "^3.1.4",
     "lodash": "^4.17.20",
+    "markdown": "^0.5.0",
     "nuxt": "^2.14.4",
     "nuxt-property-decorator": "^2.7.2",
     "sass-loader": "^7.3.1",
     "scss": "^0.2.4",
     "scss-loader": "^0.0.1",
     "vue-gemini-scrollbar": "^2.0.1",
-    "vue-ultimate-skeleton-cards": "^1.0.3"
+    "vue-ultimate-skeleton-cards": "^1.0.3",
+    "wangeditor": "^4.6.4"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.7",

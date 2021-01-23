@@ -1,4 +1,3 @@
-import { namespace } from "nuxt-property-decorator";
 /**
  * 请求
  */

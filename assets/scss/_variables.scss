@@ -16,7 +16,8 @@ $themes: (
 bright: (
     main-bg-color: #FFF,             // 主皮肤背景色
     main-bg-f1-color: #EEE,          // 主皮肤突出1色
-    main-bg-f2-color: #DDD,       // 主皮肤突出1色
+    main-bg-f2-color: #DDD,          // 主皮肤突出1色
+    main-bg-code-color: #c0bfbf,     // 主皮代码背景色
 
     font-color: #333,                // 文字 默认  颜色
     font-lv0-color: #434343,         // 文字 等级0 颜色 [ 标注、声明 ]
@@ -53,6 +54,7 @@ bright: (
     panel-floating-color: #242424,    // 浮层颜色
 
     border-bottom-color: #8c8c8c,     // 底部边框颜色
+    border-left-color: rgb(129, 140, 148),       // 左边框颜色
     mask-bg-color: #050505,           // 遮罩背景色
 
     btn-disable: #CCC,                // 禁用按钮色
@@ -73,6 +75,7 @@ dark: (
     main-bg-color: #15202B,          // 主皮肤背景色
     main-bg-f1-color: #192734,       // 主皮肤突出1色
     main-bg-f2-color: #202f3d,       // 主皮肤突出1色
+    main-bg-code-color: #2d3d4d,     // 主皮代码背景色
 
     font-color: #FFF,                // 文字 默认  颜色
     font-lv0-color: #b6c3db,         // 文字 等级0 颜色 [ 标注、声明 ]
@@ -109,6 +112,7 @@ dark: (
     panel-floating-color: #2c303a,    // 浮层颜色
 
     border-bottom-color: #38444d,     // 底部边框颜色
+    border-left-color: #586772,       // 左边框颜色
     mask-bg-color: #050505,           // 遮罩背景色
 
     btn-disable: #1C283B,             // 禁用按钮色

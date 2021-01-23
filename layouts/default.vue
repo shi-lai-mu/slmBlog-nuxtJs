@@ -24,8 +24,7 @@
 import '@/assets/scss/layout.default.scss';
 
 import { Component, Vue, Watch } from 'nuxt-property-decorator';
-import { LayoutDefault } from '@/interface/layout';
-import { deDeveloperTools, isOpenDevTool } from '@/utils/deDeveloperTools';
+import { isOpenDevTool } from '@/utils/deDeveloperTools';
 
 import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
 import LayoutHeader from '@/layouts/defaultLayouts/components/Header.vue';
@@ -34,10 +33,6 @@ import Live2D from '@/components/public/Live2D.vue';
 import LoginPopup from '@/components/Login.vue';
 
 import resizeEvent from '@/utils/Event/resize';
-import ObServer from '@/utils/obServer';
-
-import { getUserConfig } from '@/service/data/user';
-import { watch } from 'less';
 
 @Component({
   scrollToTop: true,
@@ -212,9 +207,9 @@ export default class DefaultLayout extends Vue {
 }
 .layout-page {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   padding-top: 65px;
-  min-height: calc(100vh - 121px);
+  // min-height: calc(100vh - 121px);
   box-sizing: border-box;
 }
 

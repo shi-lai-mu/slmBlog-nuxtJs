@@ -13,7 +13,7 @@
           <div class="article-content__header">
             <h1 class="title" v-text="articleData.subject"></h1>
             <div class="article-items">
-              <span>{{ $tool.format.isoToDateTime(articleData.author.nickname) }}</span>
+              <span>{{ $tool.format.isoToDateTime(articleData.createTime) }}</span>
               <span>作者: {{ articleData.author.nickname }}</span>
             </div>
             <div class="article-desc" v-html="articleData.description"></div>
@@ -55,8 +55,7 @@ import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 
 import { getPostsData } from '@/service/data/article';
 import { articleBase } from '@/mock/article/data/index';
-import { getRelativeBrowserPos } from '@/utils/element';
-import { Article, Article as IntefArticle } from '@/interface/request/article';
+import { Article as IntefArticle } from '@/interface/request/article';
 
 import Imager from '@/components/public/Imager.vue';
 import UserCard from '@/components/public/UserCard.vue';
