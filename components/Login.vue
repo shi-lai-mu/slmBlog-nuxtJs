@@ -183,7 +183,7 @@ export default class LoginPopup extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss" scoped>
   .hide-ani /deep/ .mask-box {
     transition: .3s;
     opacity: .1;

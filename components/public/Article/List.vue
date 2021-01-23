@@ -126,7 +126,7 @@ export default class Article extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss" scoped>
   $layoutTransition: .5s ease-in-out;
 
   .article-list-box {

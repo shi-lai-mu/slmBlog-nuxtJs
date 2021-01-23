@@ -127,83 +127,95 @@ export default class SlmEditor extends Vue {
 </script>
 
 <style lang="scss">
-  .w-e-toolbar,
-  .w-e-text-container,
-  .w-e-menu-panel,
-  .w-e-panel-tab-content input,
-  .w-e-panel-container {
-    @include themify($themes) {
-      color: themed('font-color') !important;
-      background-color: themed('main-bg-color') !important;
-      border-color: themed('border-bottom-color') !important;
+
+  #slmEditor {
+    margin-top: 25px;
+
+    .w-e-toolbar,
+    .w-e-text-container,
+    .w-e-menu-panel,
+    .w-e-panel-tab-content input,
+    .w-e-panel-container {
+      @include themify($themes) {
+        color: themed('font-color') !important;
+        background-color: themed('main-bg-color') !important;
+        border-color: themed('border-bottom-color') !important;
+        user-select: none;
+      }
     }
-  }
 
-  .w-e-toolbar .w-e-droplist .w-e-dp-title,
-  .w-e-panel-tab-title,
-  hr {
-    @include themify($themes) {
-      border-color: themed('border-bottom-color') !important;
+    .w-e-menu .w-e-panel-container {
+      @include themify($themes) {
+        box-shadow: 1px 1px 2px themed('border-bottom-color');
+      }
     }
-  }
 
-  .w-e-toolbar .w-e-droplist {
-    @include themify($themes) {
-      background-color: themed('main-bg-f1-color') !important;
-      border-color: themed('border-bottom-color') !important;
+    .w-e-toolbar .w-e-droplist .w-e-dp-title,
+    .w-e-panel-tab-title,
+    hr {
+      @include themify($themes) {
+        border-color: themed('border-bottom-color') !important;
+      }
     }
-  }
 
-  div.w-e-item,
-  div.w-e-menu i,
-  div.w-e-menu span,
-  .w-e-droplist p.w-e-dp-title,
-  .w-e-menu .w-e-panel-container .w-e-panel-tab-title li.w-e-item,
-  div.w-e-menu p {
-    @include themify($themes) {
-      color: themed('font-color');
+    .w-e-toolbar .w-e-droplist {
+      @include themify($themes) {
+        background-color: themed('main-bg-f1-color') !important;
+        border-color: themed('border-bottom-color') !important;
+      }
     }
-  }
 
-  
-  .w-e-drop-list-item {
-    @include themify($themes) {
-      color: themed('font-color') !important;
+    div.w-e-item,
+    div.w-e-menu i,
+    div.w-e-menu span,
+    .w-e-droplist p.w-e-dp-title,
+    .w-e-menu .w-e-panel-container .w-e-panel-tab-title li.w-e-item,
+    div.w-e-menu p {
+      @include themify($themes) {
+        color: themed('font-color');
+      }
     }
-  }
 
-
-  .w-e-toolbar .w-e-menu:hover,
-  .w-e-item:hover,
-  .w-e-panel-tab-content button {
-    @include themify($themes) {
-      background-color: themed('main-bg-f2-color') !important;
+    
+    .w-e-drop-list-item {
+      @include themify($themes) {
+        color: themed('font-color') !important;
+      }
     }
-  }
-  
-  .w-e-toolbar .w-e-menu:hover i,
-  .w-e-menu .w-e-panel-container .w-e-panel-tab-title li.w-e-active {
-    @include themify($themes) {
-      color: themed('a-color2');
+
+
+    .w-e-toolbar .w-e-menu:hover,
+    .w-e-item:hover,
+    .w-e-panel-tab-content button {
+      @include themify($themes) {
+        background-color: themed('main-bg-f2-color') !important;
+      }
     }
-  }
-  
-  article code,
-  article blockquote {
-    @include themify($themes) {
-      background-color: themed('main-bg-code-color') !important;
-      border-color: themed('border-left-color') !important;
+    
+    .w-e-toolbar .w-e-menu:hover i,
+    .w-e-menu .w-e-panel-container .w-e-panel-tab-title li.w-e-active {
+      @include themify($themes) {
+        color: themed('a-color2');
+      }
     }
-  }
+    
+    article code,
+    article blockquote {
+      @include themify($themes) {
+        background-color: themed('main-bg-code-color') !important;
+        border-color: themed('border-left-color') !important;
+      }
+    }
 
-  // 编辑器圆角
-  $w-e-radius: 10px;
+    // 编辑器圆角
+    $w-e-radius: 10px;
 
-  .w-e-toolbar {
-    border-radius: $w-e-radius $w-e-radius 0 0;
-  }
+    .w-e-toolbar {
+      border-radius: $w-e-radius $w-e-radius 0 0;
+    }
 
-  .w-e-text-container {
-    border-radius: 0 0 $w-e-radius $w-e-radius;
+    .w-e-text-container {
+      border-radius: 0 0 $w-e-radius $w-e-radius;
+    }
   }
 </style>

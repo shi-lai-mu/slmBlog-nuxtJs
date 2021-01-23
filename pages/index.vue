@@ -65,7 +65,7 @@ export default class HomePage extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss" scoped>
 $blockSpacingX: 20px; // 版块间距 横轴
 $blockSpacingY: 15px; // 版块间距 纵轴
 

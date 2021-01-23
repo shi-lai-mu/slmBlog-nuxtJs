@@ -80,7 +80,7 @@ export default class HtmlTreeProcess extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss" scoped>
   .html-tree-process {
     position: fixed;
     z-index: 99;

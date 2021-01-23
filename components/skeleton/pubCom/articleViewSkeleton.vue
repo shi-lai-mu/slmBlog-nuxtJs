@@ -61,7 +61,7 @@ import UserCard from '@/components/public/UserCard.vue';
 export default class UserCardSkeleton extends Vue {}
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss" scoped>
   .skeleton {
     position: absolute;
     z-index: 999;

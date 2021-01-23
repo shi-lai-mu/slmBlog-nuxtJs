@@ -52,7 +52,7 @@ import { Component, Vue } from 'nuxt-property-decorator';
 export default class TosPage extends Vue {}
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss" scoped>
 .privacy-page {
   height: auto;
   max-width: 800px;

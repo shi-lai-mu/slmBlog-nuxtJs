@@ -22,7 +22,7 @@ export default class Imager extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss" scoped>
 .slm-image {
   overflow: hidden;
   position: relative;

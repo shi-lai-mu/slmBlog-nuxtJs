@@ -79,7 +79,7 @@ export default class Masks extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss" scoped>
 
 // 移动端侧栏位移
 .layout-header .masks.mask-style.mobile-offset {

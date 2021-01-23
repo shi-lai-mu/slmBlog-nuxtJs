@@ -219,6 +219,22 @@ i.ant-time-picker-icon, i.ant-time-picker-clear {
   }
 }
 
+.ant-input  {
+  @include themify($themes) {
+    color: themed('font-color');
+    background-color: themed('main-bg-f2-color');
+    border-color: themed('border-bottom-color');
+
+    &:focus {
+      box-shadow: 0 0 5px 2px themed('border-bottom-color');
+    }
+    
+    &::placeholder {
+      color: themed('font-lv3-color');
+    }
+  }
+}
+
 .ant-time-picker-panel-input-wrap,
 .ant-time-picker-panel-select {
   @include themify($themes) {

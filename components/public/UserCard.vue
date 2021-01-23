@@ -183,7 +183,7 @@ export default class UserCard extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss" scoped>
   .user-card {
     overflow: hidden;
     padding: 0;

@@ -235,7 +235,7 @@ export default class ArticleView extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss" scoped>
   .article-card {
     width: 100%;
 
