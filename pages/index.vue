@@ -34,8 +34,8 @@
 import { Carousel } from 'ant-design-vue';
 import { Component, Vue } from 'nuxt-property-decorator';
 
-import { getUserBaseData } from '@/service/data/user';
-import { getArticleList } from '@/service/data/article';
+import { getUserBaseData } from '@/core/service/data/user';
+import { getArticleList } from '@/core/service/data/article';
 
 import Notice from '@/components/public/Notice.vue';
 import UserCard from '@/components/public/UserCard.vue';

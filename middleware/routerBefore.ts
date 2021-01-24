@@ -1,6 +1,6 @@
 import nodeCookie from 'cookie';
 
-import { getSelfInfo } from "@/service/data/user";
+import { getSelfInfo } from "~/core/service/data/user";
 
 export default async context => {
   // if (process.env.NODE_ENV === 'production') return;

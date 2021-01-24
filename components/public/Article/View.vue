@@ -29,7 +29,7 @@ import { formatPeople } from '@/utils/atricle';
 import { articleBase } from '@/mock/article/data/index';
 import { Article as IntefArticle } from '@/interface/request/article';
 
-import { getPostsData } from '@/service/data/article';
+import { getPostsData } from '@/core/service/data/article';
 import { getRelativeBrowserPos } from '@/utils/element';
 
 import Imager from '@/components/public/Imager.vue';

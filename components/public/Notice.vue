@@ -14,7 +14,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
 
-import { getNotic } from '@/service/data/notify';
+import { getNotic } from '@/core/service/data/notify';
 
 @Component
 export default class Notice extends Vue {

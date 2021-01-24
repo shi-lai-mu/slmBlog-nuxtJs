@@ -9,16 +9,16 @@
         <aside class="article-action"></aside>
         <div class="article-content__container row-box">
           <div class="article-content__header">
-            <a-input class="title input" placeholder="文章标题" />
+            <a-input v-model="article.subject" class="title input" placeholder="文章标题" />
             <div class="article-items">
               <span>发布：{{ $tool.format.isoToDateTime() }}</span> 
               <span>作者: {{ $$store.getters.getUserInfo.nickname }}</span>
             </div>
-            <a-textarea class="article-desc input" placeholder="文章 摘要/简介" :rows="4" />
+            <a-textarea v-model="article.description" class="article-desc input" placeholder="文章 摘要/简介" :rows="4" />
           </div>
-          <a-input placeholder="文章头图链接 https://xxxxxxxxxxx ..." />
+          <a-input v-model="article.banner" placeholder="文章头图链接 https://xxxxxxxxxxx ..." />
           <div class="article-content__body"></div>
-          <EditorComponents />
+          <EditorComponents ref="editor" />
           <div class="article-content__footer"></div>
         </div>
       </a-col>
@@ -27,11 +27,11 @@
         :lg="{ span: 8 }"
         :xxl="{ span: 8 }"
       >
-        <ArticleSetting />
+        <ArticleSetting ref="articleSetting"/>
         <div class="button-box">
           
-          <a-button type="link">保存草稿</a-button>
-          <a-button type="primary">发 布 文 章</a-button>
+          <a-button type="link" @click="saveDraft">保存草稿</a-button>
+          <a-button type="primary" @click="submitArticle">发 布 文 章</a-button>
         </div>
       </a-col>
     </a-row>
@@ -42,6 +42,8 @@
 <script lang='ts'>
 import { Input, Button } from 'ant-design-vue';
 import { Component, Vue } from 'nuxt-property-decorator';
+
+import { SubmitArticleDto } from '@/core/dto/article';
 
 import Imager from '@/components/public/Imager.vue';
 import EditorComponents from '@/components/public/Editor.vue';
@@ -55,22 +57,88 @@ import '@/components/public/Article/styles/content.scss';
  * 文章内容组件
  */
 @Component({
+  name: 'ArticleEditor',
   components: {
     Imager,
     LayoutFooter,
+    AInput: Input,
     ArticleSetting,
+    AButton: Button,
     HtmlTreeProcess,
     EditorComponents,
     ArticleViewSkeleton,
-    AInput: Input,
-    AButton: Button,
     ATextarea: Input.TextArea,
   }
 })
 export default class ArticleEditor extends Vue {
+
+  /**
+   * 文章数据
+   */
+  article = {
+    // 标题
+    subject: '',
+    // 简介
+    description: '',
+    // 头图
+    banner: '',
+    // 类目
+    category: [],
+  }
+
   created() {
-    const user = this.$$store.getters.getUserInfo;
-    if (!user) this.$message.error('未登录用户无法进行文章发布!');
+    console.log();
+    
+    console.log({ s: new SubmitArticleDto() });
+    console.log(Object.keys(SubmitArticleDto), Object.values(SubmitArticleDto));
+    
+    
+    // const user = this.$$store.getters.getUserInfo;
+    // if (!user) this.$message.error('未登录用户无法进行文章发布!');
+  }
+
+
+  /**
+   * 发布文章
+   */
+  submitArticle() {
+    console.log(this.getArticleData());
+  }
+
+
+  /**
+   * 保存为草稿
+   */
+  saveDraft() {
+    // code
+  }
+
+
+  /**
+   * 校验数据完整性
+   */
+  validateData() {
+    // code
+  }
+
+
+  /**
+   * 获取文章数据
+   */
+  getArticleData() {
+    const { editor, articleSetting } = this.$refs;
+    return Object.assign({}, this.article, {
+      content: (editor as EditorComponents).HTML,
+      setting: (articleSetting as ArticleSetting).options,
+    });
+  }
+
+
+  /**
+   * 设置文章数据
+   */
+  setArticleData() {
+    // code
   }
 }
 </script>

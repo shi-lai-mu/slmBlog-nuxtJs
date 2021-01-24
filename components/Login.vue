@@ -68,7 +68,7 @@
 import { Input, Tooltip as ATooltip } from 'ant-design-vue';
 import { Component, Prop, Watch, Vue } from 'nuxt-property-decorator';
 
-import { loginAccount } from '@/service/data/user';
+import { loginAccount } from '@/core/service/data/user';
 
 import Masks from '@/components/Masks.vue';
 import tripartite from '@/config/note/tripartite';

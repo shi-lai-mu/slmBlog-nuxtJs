@@ -53,7 +53,7 @@
 <script lang='ts'>
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 
-import { getPostsData } from '@/service/data/article';
+import { getPostsData } from '@/core/service/data/article';
 import { articleBase } from '@/mock/article/data/index';
 import { Article as IntefArticle } from '@/interface/request/article';
 

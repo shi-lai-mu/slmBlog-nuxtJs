@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 
-import { getPostsData } from '@/service/data/article';
+import { getPostsData } from '@/core/service/data/article';
 
 import ArticleContent from '@/components/public/Article/Contents.vue';
 
