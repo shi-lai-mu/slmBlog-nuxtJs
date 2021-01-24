@@ -1,25 +1,33 @@
+/**
+ * 数据校验装饰器
+ *
+ * @author Shi-Lai-Mu
+ * @create 2021-01-24
+ * @description 在类和属性上放装饰器从而验证传入传出数据是否正确
+ * @copyright slmblog.com Rights Reserved.
+ */
+
 /* tslint:disable */
-let x: any[] = [];
-export const Entity = (res: any) => {
-  console.log({res});
-  return function(target) {
-    console.log({target, res});
-    
-    target.apiUrl = x;
-    x = []
+import { ColumnOptions, EntityOptions } from "@/interface/core/decorators/validateData";
+// import { BaseValidateData } from "@/utils/validateData";
+
+/**
+ * 此装饰器用于标记将成为实体的类(校验入参或响应)
+ */
+export const Entity = (options: EntityOptions): ClassDecorator => {
+  return function<TFunction extends Function>(target: TFunction) {
+    target.prototype.$EntityOptions = options;
+    // return class extends BaseValidateData { } as unknown as TFunction | void;
   };
 }
 
-export const Column = (ColumnParams) => {
-  console.log({ ColumnParams });
-  return function(targetName, ValidateData) {
-    const { constructor } = ValidateData;
-    console.log({targetName, constructor});
-    x.push([targetName, ValidateData]);
-    targetName.xx = 'xx'
-    constructor.xx = 'xx'
-    // s.__proto__[c] = '';
-    // console.log(s.__proto__, s.__proto__[c]);
-    // s.__proto__[c] = ''
-  };
+
+/**
+ * 此装饰器用于标记字段
+ */
+export const Column = (options: ColumnOptions) => {
+  return function(target: any, key: string) {
+    if (!target.$columns) target.$columns = {};
+    target.$columns[key] = options;
+  } as PropertyDecorator;
 }

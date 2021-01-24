@@ -88,11 +88,10 @@ export default class ArticleEditor extends Vue {
 
   created() {
     console.log();
-    
-    console.log({ s: new SubmitArticleDto() });
-    console.log(Object.keys(SubmitArticleDto), Object.values(SubmitArticleDto));
-    
-    
+    const test = new SubmitArticleDto({
+      content: 'zaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+    })
+    console.log(test);
     // const user = this.$$store.getters.getUserInfo;
     // if (!user) this.$message.error('未登录用户无法进行文章发布!');
   }
