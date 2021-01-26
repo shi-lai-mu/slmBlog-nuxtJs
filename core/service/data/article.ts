@@ -2,6 +2,7 @@ import axios from '@/utils/axios';
 
 import { Request } from '@/interface/request';
 import { Article } from '@/interface/request/article'
+import { SubmitArticleDto } from '~/core/dto/article';
 
 
 /**
@@ -28,3 +29,12 @@ export const getPostsData = (articleId: Article.Base['id']) => axios.send(axios.
     articleId,
   }
 }) as Promise<Request.Result<Article.Posts>>;
+
+
+/**
+ * 提交文章
+ * @param article 文章数据
+ */
+export const submitPost = (article: SubmitArticleDto) => axios.send(axios.article.submit, {
+  data: article,
+}) as Promise<Request.Result<Article.Base>>;

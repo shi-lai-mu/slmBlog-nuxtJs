@@ -129,8 +129,6 @@ export default class SlmEditor extends Vue {
 <style lang="scss">
 
   #slmEditor {
-    margin-top: 25px;
-
     .w-e-toolbar,
     .w-e-text-container,
     .w-e-menu-panel,
