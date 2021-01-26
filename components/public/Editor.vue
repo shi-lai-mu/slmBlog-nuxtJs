@@ -33,7 +33,7 @@ export default class SlmEditor extends Vue {
   editor: any = null;
 
   // 获取当前html内容
-  get HTML() {
+  HTML() {
     return this.editor.txt.html();
   }
 

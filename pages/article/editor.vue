@@ -31,7 +31,7 @@
         <div class="button-box">
           
           <a-button type="link" @click="saveDraft">保存草稿</a-button>
-          <a-button type="primary" @click="submitArticle">发 布 文 章</a-button>
+          <a-button type="primary" @click="submitArticle" :loading="state.submit">发 布 文 章</a-button>
         </div>
       </a-col>
     </a-row>
@@ -86,12 +86,14 @@ export default class ArticleEditor extends Vue {
     category: [],
   }
 
+  /**
+   * 状态
+   */
+  state = {
+    submit: false,
+  }
+
   created() {
-    console.log();
-    const test = new SubmitArticleDto({
-      content: 'zaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-    })
-    console.log(test);
     // const user = this.$$store.getters.getUserInfo;
     // if (!user) this.$message.error('未登录用户无法进行文章发布!');
   }
@@ -101,7 +103,11 @@ export default class ArticleEditor extends Vue {
    * 发布文章
    */
   submitArticle() {
-    console.log(this.getArticleData());
+    const { error } = new SubmitArticleDto(this.getArticleData());
+    if (error.length) {
+      return this.$message.error(error[0].message);
+    }
+    this.state.submit = true;
   }
 
 
@@ -127,7 +133,7 @@ export default class ArticleEditor extends Vue {
   getArticleData() {
     const { editor, articleSetting } = this.$refs;
     return Object.assign({}, this.article, {
-      content: (editor as EditorComponents).HTML,
+      content: (editor as EditorComponents).HTML(),
       setting: (articleSetting as ArticleSetting).options,
     });
   }

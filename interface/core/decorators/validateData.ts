@@ -23,7 +23,7 @@ export interface ColumnOptions {
   /**
    * 规定字段名
    */
-  // name?: string;
+  name?: string;
 
   /**
    * 长度限制
@@ -66,6 +66,9 @@ export interface ColumnOptions {
    * 错误提示
    */
   message?: string | ((validationArguments: ValidationArguments) => string);
+
+
+  key?: string;
 }
 
 
@@ -90,9 +93,5 @@ export namespace ValidateNS {
     message: any;
     key: any;
     value: any;
-  }
-  
-  export interface ErrorList extends ErrorState {
-    list: ErrorState[];
   }
 }
