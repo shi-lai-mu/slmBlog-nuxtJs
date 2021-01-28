@@ -138,7 +138,7 @@ export default class SlmEditor extends Vue {
     .w-e-panel-container {
       @include themify($themes) {
         color: themed('font-color') !important;
-        background-color: themed('main-bg-color') !important;
+        background-color: themed('main-bg-f2-color') !important;
         border-color: themed('border-bottom-color') !important;
         user-select: none;
       }

@@ -2,7 +2,7 @@
   <article :class="['article-content-box', 'toggle-transition', 'bg-texture']">
     <a-row class="article-layout max-content">
       <a-col
-        class="article-page__container max-content"
+        class="article-page__container"
         :lg="{ span: 16 }"
         :xxl="{ span: 16 }"
       >
@@ -29,7 +29,6 @@
       >
         <ArticleSetting ref="articleSetting"/>
         <div class="button-box">
-          
           <a-button type="link" @click="saveDraft">保存草稿</a-button>
           <a-button type="primary" @click="submitArticle">发 布 文 章</a-button>
         </div>
@@ -161,6 +160,10 @@ export default class ArticleEditor extends Vue {
       border: 0;
       border-radius: 5px;
     }
+  }
+
+  .article-page__container {
+    padding-right: 20px;
   }
 }
 

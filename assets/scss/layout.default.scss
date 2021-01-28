@@ -249,6 +249,12 @@ li.ant-time-picker-panel-select-option-selected {
   }
 }
 
+.ant-form-item-label > label {
+  @include themify($themes) {
+    color: themed('font-lv0-color-hover');
+  }
+}
+
 .ant-time-picker-panel-select li:hover {
   @include themify($themes) {
     color: themed('font-color');

@@ -178,6 +178,8 @@ export default class LoginPopup extends Vue {
       if (token) {
         this.$store.commit('setJWT', token);
       }
+      this.closeMask();
+      this.$message.success(`登录成功!`);
     } else this.$message.error(loginRes.message);
   }
 }
