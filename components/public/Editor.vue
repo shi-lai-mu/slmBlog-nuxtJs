@@ -33,7 +33,7 @@ export default class SlmEditor extends Vue {
   editor: any = null;
 
   // 获取当前html内容
-  get HTML() {
+  HTML() {
     return this.editor.txt.html();
   }
 
@@ -129,8 +129,6 @@ export default class SlmEditor extends Vue {
 <style lang="scss">
 
   #slmEditor {
-    margin-top: 25px;
-
     .w-e-toolbar,
     .w-e-text-container,
     .w-e-menu-panel,

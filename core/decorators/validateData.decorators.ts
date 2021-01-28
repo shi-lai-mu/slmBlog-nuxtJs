@@ -25,9 +25,17 @@ export const Entity = (options: EntityOptions): ClassDecorator => {
 /**
  * 此装饰器用于标记字段
  */
-export const Column = (options: ColumnOptions) => {
+export const Column = (options: ColumnOptions = {}) => {
   return function(target: any, key: string) {
-    if (!target.$columns) target.$columns = {};
+    if (!target.$columns) {
+      target.$columns = {};
+      target.$columnsKey = [];
+      target.$columnsRequiredKey = {};
+    }
+    target.$columnsKey.push(key);
+    if (options.required) {
+      target.$columnsRequiredKey[key] = options;
+    }
     target.$columns[key] = options;
   } as PropertyDecorator;
 }

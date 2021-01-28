@@ -30,7 +30,7 @@
 
   .article-desc {
     padding: 15px;
-    margin-bottom: 15px;
+    // margin-bottom: 15px;
     border-radius: 5px;
     @include themify($themes) {
       background-color: rgba(themed('main-bg-f2-color'), .7);
