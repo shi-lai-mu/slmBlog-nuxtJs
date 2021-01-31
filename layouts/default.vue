@@ -208,7 +208,7 @@ export default class DefaultLayout extends Vue {
 .layout-page {
   width: 100vw;
   min-height: 100vh;
-  padding-top: 65px;
+  // padding-top: 65px;
   // min-height: calc(100vh - 121px);
   box-sizing: border-box;
 }
@@ -251,9 +251,6 @@ export default class DefaultLayout extends Vue {
     line-height: 1.5;
     margin-bottom: 0;
     padding-bottom: 5px;
-    @include themify($themes) {
-      border-bottom: 1px solid themed('border-bottom-color');
-    }
 
     .slm {
       font-size: 1rem;

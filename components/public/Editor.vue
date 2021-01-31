@@ -49,8 +49,6 @@ export default class SlmEditor extends Vue {
       const E = require('wangeditor');
       const editor = new E("#slmEditor");
 
-      // E.registerMenu('alertTest', AlertMenu);
-
       editor.config.height = 500;
       editor.config.zIndex = 10;
       editor.config.placeholder = placeholder || '请输入正文内容...';
@@ -58,6 +56,7 @@ export default class SlmEditor extends Vue {
       editor.config.historyMaxSize = 100;
       editor.config.onchangeTimeout = 500;
       editor.highlight = hljs;
+
       this.moifyAlter(editor);
       this.initEvents(editor);
   

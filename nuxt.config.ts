@@ -65,7 +65,7 @@ const globalConfig = {
   */
   plugins: [
     '@/plugins/global.ts',
-    '@/plugins/antd-ui.ts',
+    '@/plugins/global-ui.ts',
     { src: '@/plugins/app.ts', ssr: false },
     { src: '@/plugins/overallComponents.ts', ssr: false },
   ],
@@ -209,10 +209,10 @@ const globalConfig = {
     middleware: ["routerBefore"],
     extendRoutes(routes, resolve) {
       routes.push({
-        name: 'article-editor',
-        path: 'article/editor',
+        name: 'articleEditor',
+        path: '/article/editor',
         component: resolve(__dirname, 'pages/article/editor.vue'),
-      })
+      });
     }
   },
 }

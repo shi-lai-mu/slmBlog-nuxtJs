@@ -27,7 +27,7 @@
         <!-- 用户管理入口 -->
         <div class="user-entrance-row user-self" v-if="userSelf && $store.state.user.id === userData.id">
           <a-button type='primary' class="btn">管理</a-button>
-          <a-button type='primary' class="btn" @click="$router.push({ name: 'article-editor' })">发文章</a-button>
+          <a-button type='primary' class="btn" @click="$router.push({ name: 'articleEditor' })">发文章</a-button>
           <a-button type='primary' class="btn">消息</a-button>
         </div>
         <!-- 关注入口 -->

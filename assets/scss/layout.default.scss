@@ -73,6 +73,11 @@ li {
   overflow: hidden;
 }
 
+.rotate180 {
+  display: inline-block;
+  transform: rotate(180deg);
+}
+
 .button {
   margin: 10px 0;
   padding: 10px 15px;

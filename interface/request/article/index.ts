@@ -128,4 +128,22 @@ export namespace Article {
      */
     name: string;
   }
+
+  /**
+   * 文章锚点
+   */
+  export interface Anchor {
+    /**
+     * 锚点名
+     */
+    name: string;
+    /**
+     * 锚点链接
+     */
+    link?: string;
+    /**
+     * 子锚点
+     */
+    childs?: Anchor[];
+  }
 }

@@ -1,5 +1,8 @@
 <template>
-  <article :class="['article-content-box', { 'toggle-transition': toggleTransition }, 'bg-texture']" @scroll="articleScroll">
+  <article
+    :class="['article-content-box', { 'toggle-transition': toggleTransition }, 'bg-texture']"
+    @scroll="articleScroll"
+    ref="article">
     <ArticleViewSkeleton />
     <HtmlTreeProcess ref="treeProcess"/>
     <a-row class="article-layout max-content">
@@ -17,20 +20,8 @@
               <span>作者: {{ articleData.author.nickname }}</span>
             </div>
             <div class="article-desc" v-html="articleData.description"></div>
-            <!-- <div class="article-content__info">
-              <div class="release-time">
-                发布于 {{ $tool.format.isoToDateTime(articleData.createTime) }}
-              </div>
-              <div class="icon-box">
-                <i class="slm blog-pinglun" v-text="$tool.format.people(articleData.stat.bookmark_num)"></i>
-                <i class="slm blog-yueduliang" v-text="$tool.format.people(articleData.stat.view_num)"></i>
-              </div>
-              <ul class="tag-list">
-                <li class="tag-item" v-for="(item, key) in 3" :key="key">xxxxx</li>
-              </ul>
-            </div> -->
           </div>
-          <div class="article-content__body" v-html="articleData.content">
+          <div class="article-content__body" ref="articleContent" v-html="articleData.content">
           </div>
           <div class="article-content__footer"></div>
         </div>
@@ -44,6 +35,7 @@
         :xxl="{ span: 8 }"
       >
         <UserCard :ssr="articleData.author" userEntrance />
+        <ArticleAnchor ref="articleAnchor" :getContainer="() => $refs.article"/>
       </a-col>
     </a-row>
     <LayoutFooter />
@@ -59,6 +51,7 @@ import { Article as IntefArticle } from '@/interface/request/article';
 
 import Imager from '@/components/public/Imager.vue';
 import UserCard from '@/components/public/UserCard.vue';
+import ArticleAnchor from '@/components/public/Article/ArticleAnchor.vue';
 import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
 import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleton.vue';
 import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue';
@@ -72,6 +65,7 @@ import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue';
     Imager,
     UserCard,
     LayoutFooter,
+    ArticleAnchor,
     HtmlTreeProcess,
     ArticleViewSkeleton,
   }
@@ -111,6 +105,13 @@ export default class ArticleContents extends Vue {
 
   created() {
     this.ssrUpdate(this.articleId || this.ssr || articleBase);
+  }
+
+  mounted() {
+    this.$nextTick(() => {
+      const { articleContent, articleAnchor } = this.$refs;
+      (articleAnchor as ArticleAnchor).parseAnchor(articleContent as  Element);
+    })
   }
 
   /**
@@ -160,7 +161,11 @@ export default class ArticleContents extends Vue {
    * 滚动文章触发事件
    */
   articleScroll(e) {
-    (this.$refs.treeProcess as HtmlTreeProcess).updateProcess(e);
+    console.log(this.$refs.treeProcess);
+    const { treeProcess } = this.$refs;
+    if (treeProcess) {
+      (treeProcess as HtmlTreeProcess).updateProcess(e);
+    }
   }
 }
 </script>

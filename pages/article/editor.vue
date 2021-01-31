@@ -23,7 +23,7 @@
           <a-input v-model="article.category" placeholder="" />
           <div class="article-content__body"></div>
           <label class="label">内容</label>
-          <EditorComponents ref="editor" />
+          <EditorComponents ref="editor" @change="editorChange"/>           
           <div class="article-content__footer"></div>
         </div>
       </a-col>
@@ -32,7 +32,16 @@
         :lg="{ span: 8 }"
         :xxl="{ span: 8 }"
       >
-        <ArticleSetting ref="articleSetting"/>
+        <Row icon="guanfang" title="发布注意事项" :isFold="true" :foldState="true">
+          <p>发布文章后会进入审核阶段，管理员会在一个工作日内审核完成！</p>
+          <p>感谢为本站贡献文章(*^▽^*)，我们一起进步共同探讨！</p>
+        </Row>
+        
+        <Row icon="mulu" title="目录" :isFold="true" :foldState="false">
+          <ArticleAnchor ref="articleAnchor" :affix="true"/>
+        </Row>
+
+        <ArticleSetting ref="articleSetting" />
         <div class="button-box">
           <a-button type="link" @click="saveDraft">保存草稿</a-button>
           <a-button type="primary" @click="submitArticle" :loading="state.submit">发 布 文 章</a-button>
@@ -50,10 +59,12 @@ import { Component, Vue } from 'nuxt-property-decorator';
 import { SubmitArticleDto } from '@/core/dto/article';
 import { submitPost } from '@/core/service/data/article';
 
+import Row from '@/components/public/Row.vue';
 import Imager from '@/components/public/Imager.vue';
 import EditorComponents from '@/components/public/Editor.vue';
 import ArticleSetting from '@/components/public/Article/Setting.vue';
 import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue';
+import ArticleAnchor from '@/components/public/Article/ArticleAnchor.vue';
 import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
 import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleton.vue';
 
@@ -64,8 +75,10 @@ import '@/components/public/Article/styles/content.scss';
 @Component({
   name: 'ArticleEditor',
   components: {
+    Row,
     Imager,
     LayoutFooter,
+    ArticleAnchor,
     AInput: Input,
     ArticleSetting,
     AButton: Button,
@@ -76,10 +89,7 @@ import '@/components/public/Article/styles/content.scss';
   }
 })
 export default class ArticleEditor extends Vue {
-
-  /**
-   * 文章数据
-   */
+  // 文章数据
   article = {
     // 标题
     subject: '',
@@ -90,10 +100,9 @@ export default class ArticleEditor extends Vue {
     // 类目
     category: '',
   }
-
-  /**
-   * 状态
-   */
+  // 编辑器节流定时器下标
+  editorClock: NodeJS.Timeout;
+  // 状态
   state = {
     submit: false,
   }
@@ -140,10 +149,15 @@ export default class ArticleEditor extends Vue {
 
 
   /**
-   * 校验数据完整性
+   * 编辑器改变事件
    */
-  validateData() {
-    // code
+  editorChange(e) {
+    console.log(e);
+    
+    clearTimeout(this.editorClock);
+    this.editorClock = setTimeout(() => {
+      (this.$refs.articleAnchor as ArticleAnchor).parseAnchor((<EditorComponents>this.$refs.editor).editor.selection.editor.$textElem.elems[0]);
+    }, 500);
   }
 
 
@@ -152,10 +166,13 @@ export default class ArticleEditor extends Vue {
    */
   getArticleData() {
     const { editor, articleSetting } = this.$refs;
-    return Object.assign({}, this.article, {
+    
+    return {
+      ...this.article,
+      category: JSON.parse(this.article.category),
       content: (editor as EditorComponents).HTML(),
       setting: (articleSetting as ArticleSetting).options,
-    }) as SubmitArticleDto;
+    } as SubmitArticleDto;
   }
 
 
