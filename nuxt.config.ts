@@ -91,7 +91,7 @@ const globalConfig = {
   ** Build configuration
   */
   build: {
-    publicPath: isDev ? '/_nuxt/' : 'http://cdn.slmblog.com/_nuxt/',
+    // publicPath: isDev ? '/_nuxt/' : 'http://cdn.slmblog.com/_nuxt/',
     /*
     ** You can extend webpack config here
     */
@@ -167,25 +167,25 @@ const globalConfig = {
       }
     },
     // 打包分析
-    // analyze: !isDev, 	
+    analyze: !isDev, 	
     // assetFilter: (assetFilename) => {	    		
     //   return assetFilename.endsWith('.js');	    	
     // },
-    extractCSS: !isDev,
-    optimization: (() => {
-      return isDev ? undefined : {
-        splitChunks: {
-          cacheGroups: {
-            styles: {
-              name: 'styles',
-              test: /\.(css|vue|scss|less)$/,
-              chunks: 'all',
-              enforce: true
-            }
-          }
-        }
-      }
-    })()
+    // extractCSS: !isDev,
+    // optimization: (() => {
+    //   return isDev ? undefined : {
+    //     splitChunks: {
+    //       cacheGroups: {
+    //         styles: {
+    //           name: 'styles',
+    //           test: /\.(css|vue|scss|less)$/,
+    //           chunks: 'all',
+    //           enforce: true
+    //         }
+    //       }
+    //     }
+    //   }
+    // })()
   },
   
 

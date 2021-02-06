@@ -9,6 +9,7 @@ import {
   Button,
 } from 'ant-design-vue'
 import { isServer } from '../config/system';
+import VueOnScrollEvent from './vue-onscroll-event';
 
 Vue.config.productionTip = false;
 
@@ -28,4 +29,8 @@ Vue
   .use(Row)
   .use(Col)
   .use(Button)
+
+  .use(VueOnScrollEvent, {
+    el: '.layout'
+  })
 ;
