@@ -42,11 +42,20 @@ export default {
         });
       }
     };
-    
+
     Vue.directive('scroll-event', {
       inserted(target: HTMLElement, params: Options) {
         let privateEl;
         const { el: bindingEl } = params.value;
+
+        ScrollService
+          .useDefaultOrConfig(params, 'transformName', undefined, options.transformName)
+          .useDefaultOrConfig(params, 'transform', true, options.initTransform)
+        ;
+
+        if (params.transform && params.transformName) {
+          target.classList.add(params.transformName)
+        }
 
         if (bindingEl) {
           privateEl = bindingEl instanceof Function ? bindingEl() : bindingEl;
@@ -85,6 +94,24 @@ class ScrollService {
 
   static triggerEvent() {
     
+  }
+
+
+  /**
+   * 应用系统配置或用户配置
+   * @param obj          处理对象
+   * @param key          对象键
+   * @param defaultValue 默认值
+   * @param useOption    引入时的参数
+   */
+  static useDefaultOrConfig(obj: any, key: string, defaultValue: any, useOption?: any) {
+    obj[key] === undefined
+      ? useOption ?? defaultValue
+        ? obj[key] = useOption ?? defaultValue
+        : true
+      : false
+    ;
+    return this;
   }
 
   /**

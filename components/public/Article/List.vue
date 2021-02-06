@@ -11,7 +11,7 @@
         </tooltip>
       </div>
     </aside>
-    <div v-scroll-event="{ down: 'aos-in' }" :class="[ 'animated', 'article-list-item', layout.name, { 'is-open': viewId === item.id } ]" v-for="(item, index) in listData" :key="index">
+    <div v-scroll-event="{ down: 'aos-in' }" :class="[ 'article-list-item', layout.name, { 'is-open': viewId === item.id } ]" v-for="(item, index) in listData" :key="index">
       <ArticleView @open="openArticleEvent" @close="closeArticleEvent" :ssr="item" :viewId="viewId" :key="index" />
     </div>
   </div>

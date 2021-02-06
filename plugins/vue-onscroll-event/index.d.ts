@@ -14,6 +14,16 @@ export namespace ScrollEventNS {
      * 防抖延迟时间[ms]
      */
     debounceNumber?: number;
+
+    /**
+     * 过渡动画名
+     */
+    transformName?: string;
+
+    /**
+     * 首屏初始化时是否显示动画过渡 TODO: 首屏暂未完成
+     */
+    initTransform?: boolean;
   }
 
   interface CurrentElement extends HTMLElement {
@@ -49,6 +59,17 @@ export namespace ScrollEventNS {
      */
     currentElement: CurrentElement;
     modifiers: any
+
+    /**
+     * 是否显示动画过渡
+     */
+    transform?: boolean;
+
+    /**
+     * 过渡动画名
+     */
+    transformName?: string;
+
   }
 }
 
