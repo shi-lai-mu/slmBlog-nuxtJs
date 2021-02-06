@@ -53,11 +53,18 @@ export namespace ScrollEventNS {
        * 默认监听滚动元素 querySelector 选择器 or 元素
        */
       el?: string | (() => HTMLElement);
+      down?: string;
+      up?: string;
     }
+    
     /**
      * 滚动父级元素
      */
     currentElement: CurrentElement;
+
+    /**
+     * 修饰符
+     */
     modifiers: any
 
     /**
@@ -70,6 +77,15 @@ export namespace ScrollEventNS {
      */
     transformName?: string;
 
+    /**
+     * 最后滚动的位置
+     */
+    lastScrollTop: number;
+
+    /**
+     * 初始class
+     */
+    previousClassName: string;
   }
 }
 

@@ -17,9 +17,9 @@ export default {
           Img.src = target.src;
           target.src = '/loading.gif';
         }
-        console.dir(Vue);
+        // console.dir(Vue);
         Vue.$observer.on('scroll-in-el', data => {
-          console.log(data);
+          // console.log(data);
         })
       }
     });
