@@ -35,7 +35,11 @@
         :xxl="{ span: 8 }"
       >
         <UserCard :ssr="articleData.author" userEntrance />
-        <ArticleAnchor ref="articleAnchor" :getContainer="() => $refs.article"/>
+        <a-affix :offset-top="20" :target="() => $refs.article">
+          <Row title="目录">
+            <ArticleAnchor ref="articleAnchor" :getContainer="() => $refs.article" :affix="true"/>
+          </Row>
+        </a-affix>
       </a-col>
     </a-row>
     <LayoutFooter />
@@ -48,7 +52,9 @@ import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 import { getPostsData } from '@/core/service/data/article';
 import { articleBase } from '@/mock/article/data/index';
 import { Article as IntefArticle } from '@/interface/request/article';
+import { Affix } from 'ant-design-vue';
 
+import Row from '@/components/public/Row.vue';
 import Imager from '@/components/public/Imager.vue';
 import UserCard from '@/components/public/UserCard.vue';
 import ArticleAnchor from '@/components/public/Article/ArticleAnchor.vue';
@@ -62,10 +68,12 @@ import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue';
  */
 @Component({
   components: {
+    Row,
     Imager,
     UserCard,
     LayoutFooter,
     ArticleAnchor,
+    AAffix: Affix,
     HtmlTreeProcess,
     ArticleViewSkeleton,
   }

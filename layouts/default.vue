@@ -22,6 +22,7 @@
 
 <script lang="ts">
 import '@/assets/scss/layout.default.scss';
+import '@/plugins/vue-onscroll-event/animate.min.css';
 
 import { Component, Vue, Watch } from 'nuxt-property-decorator';
 import { isOpenDevTool } from '@/utils/deDeveloperTools';
@@ -153,6 +154,10 @@ export default class DefaultLayout extends Vue {
 
   layoutScroll(e) {
     this.$observer.emit('layoutScroll', e);
+    // const event = document.createEvent('MouseEvents');
+    // event.initMouseEvent('scroll', true, true, window,1, 2, 3, 4, 5, false, false, false, false, 6, null)
+    // window.dispatchEvent(event)
+    // document.documentElement.scrollTop = e.target.scrollTop
   }
 
   

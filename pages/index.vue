@@ -74,7 +74,7 @@ $blockSpacingY: 15px; // 版块间距 纵轴
   // padding-top: 500px !important;
 
   .home-content {
-    margin: 20px auto;
+    margin: 80px auto 20px;
 
     .home-carousel {
       max-width: 900px;

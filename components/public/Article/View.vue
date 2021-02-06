@@ -1,6 +1,10 @@
 <template>
   <div class="article-card">
-    <article v-if="article.id" :class="['article-box', { 'bg-texture': isOpen || (!isOpen && task.length)}] " @click="openView(article.id)" :style="style">
+    <article
+      v-if="article.id"
+      :class="['article-box', { 'bg-texture': isOpen || (!isOpen && task.length)}]"
+      @click="openView(article.id)" :style="style"
+    >
       <template v-if="!isOpen">
         <Imager class="figure-cover" v-if="article.banner" :src="article.banner" :alt="article.subject" :title="article.subject" />
         <i class="slm blog-img-err figure-cover" v-else></i>
@@ -25,12 +29,9 @@
 <script lang='ts'>
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 
-import { formatPeople } from '@/utils/atricle';
 import { articleBase } from '@/mock/article/data/index';
 import { Article as IntefArticle } from '@/interface/request/article';
-
 import { getPostsData } from '@/core/service/data/article';
-import { getRelativeBrowserPos } from '@/utils/element';
 
 import Imager from '@/components/public/Imager.vue';
 import ArticleContent from '@/components/public/Article/Contents.vue';

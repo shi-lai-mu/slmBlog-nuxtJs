@@ -4,11 +4,14 @@
       <div class="aside-child-box" v-for="(item, index) of getListAsideConfig.list" :key="index">
         <tooltip placement="left" v-for="(chiItem, chiIndex) of item" :key="chiIndex">
           <span slot="title" v-text="chiItem.title"></span>
-          <i :class="[ 'slm', 'icon-hover', 'blog-' + chiItem.icon ]" @click="chiItem.event(getListAsideConfig.bind)"></i>
+          <i
+            :class="[ 'slm', {check: layout.focus[index] === chiIndex}, 'blog-' + chiItem.icon ]"
+            @click="chiItem.event(getListAsideConfig.bind), (layout.focus[index] = chiIndex)"
+          ></i>
         </tooltip>
       </div>
     </aside>
-    <div :class="[ 'article-list-item', layout.name, { 'is-open': viewId === item.id } ]" v-for="(item, index) in listData" :key="index">
+    <div v-scroll-event="{ down: 'aos-in' }" :class="[ 'animated', 'article-list-item', layout.name, { 'is-open': viewId === item.id } ]" v-for="(item, index) in listData" :key="index">
       <ArticleView @open="openArticleEvent" @close="closeArticleEvent" :ssr="item" :viewId="viewId" :key="index" />
     </div>
   </div>
@@ -55,15 +58,16 @@ export default class Article extends Vue {
   /**
    * 正在观看是文章ID
    */
-  private viewId: IntefArticle.Base['id'] = -1;
+  viewId: IntefArticle.Base['id'] = -1;
 
   /**
    * 当前布局
    */
-  private layout = {
+  layout = {
     name: 'line-layout',
     sort: '',
     setting: {},
+    focus: {}
   };
 
   /**
@@ -73,8 +77,9 @@ export default class Article extends Vue {
   ssrUpdate(data: IntefArticle.Base[]) {
     if (data.length) this.listData = data;
   }
+  
 
-  created() {
+  mounted() {
     if (this.ssr) this.ssrUpdate(this.ssr);
     if (isBrowser) {
       const listCon = window.localStorage.getItem(_ARTICLE_LIST_LAYOUT_);
@@ -91,7 +96,7 @@ export default class Article extends Vue {
   /**
    * 布局值发生改变时
    */
-  @Watch('layout')
+  @Watch('layout', { deep: true })
   changLayout(value) {
     window.localStorage.setItem(_ARTICLE_LIST_LAYOUT_, JSON.stringify(value));
   }
