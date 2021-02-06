@@ -195,6 +195,24 @@ li {
     }
 }
 
+.load-success {
+  animation: .5s vanishInSmall;
+}
+@keyframes vanishInSmall{
+  0%{
+    opacity: 0;
+    transform-origin: 50% 50%;
+    transform: scale(1.5);
+    filter: blur(90px)
+  }
+  to{
+    opacity: 1;
+    transform-origin: 50% 50%;
+    transform:scale(1);
+    filter: blur(0)
+  }
+}
+
 #__nuxt {
   overflow: hidden;
   height: 100vh;

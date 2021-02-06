@@ -15,6 +15,10 @@ import ArticleContent from '@/components/public/Article/Contents.vue';
   },
 })
 export default class ArticlePostsContentPage extends Vue {
+  validate({ params }) {
+    return /^\d+$/.test(params.id);
+  }
+
   async asyncData({ params }) {
     const posts = (await getPostsData(params.id)).result;
     return {

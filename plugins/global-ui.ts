@@ -9,8 +9,10 @@ import {
   Button,
 } from 'ant-design-vue'
 import { isServer } from '../config/system';
-import VueOnScrollEvent from './vue-onscroll-event';
 import { ScrollEventNS } from '@/plugins/vue-onscroll-event/index.d';
+
+import VueOnScrollEvent from './vue-onscroll-event';
+import VueImageEvent from './vue-image-event';
 
 Vue.config.productionTip = false;
 
@@ -36,4 +38,6 @@ Vue
     transformName: 'animated',
     initTransform: true,
   } as ScrollEventNS.ScrollEventUseOptions)
+
+  .use(VueImageEvent)
 ;

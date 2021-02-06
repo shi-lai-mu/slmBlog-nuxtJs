@@ -1,6 +1,6 @@
 <template>
   <div class="slm-image">
-    <img :class="'img image-' + (mode || 'cover')" v-if="src" :src="src" :alt="alt" :title="title">
+    <img :class="'img image-' + (mode || 'cover')" v-if="src" :src="src" :alt="alt" :title="title" v-img>
   </div>
 </template>
 

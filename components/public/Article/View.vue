@@ -6,10 +6,15 @@
       @click="openView(article.id)" :style="style"
     >
       <template v-if="!isOpen">
-        <Imager class="figure-cover" v-if="article.banner" :src="article.banner" :alt="article.subject" :title="article.subject" />
+        <Imager class="figure-cover"
+          v-if="article.banner"
+          :src="article.banner"
+          :alt="article.subject"
+          :title="article.subject"
+        />
         <i class="slm blog-img-err figure-cover" v-else></i>
         <div class="article-content">
-          <h3 class="figure-subject line-ellipsis" v-text="article.subject"></h3>
+          <router-link :to="{ name: 'article-id', params: { id: article.id } }" class="figure-subject line-ellipsis" v-text="article.subject"></router-link>
           <p class="line-ellipsis double-line-ellipsis article-description" v-text="article.description"></p>
         </div>
         <div class="article-bottom">
