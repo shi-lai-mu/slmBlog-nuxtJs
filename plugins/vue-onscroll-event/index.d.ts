@@ -4,7 +4,7 @@ export namespace ScrollEventNS {
    * 滚动事件 Use 入参
    */
   export interface ScrollEventUseOptions {
-    value: { el: any; };
+    value?: { el: any; };
     /**
      * 默认监听滚动元素 querySelector 选择器
      */
@@ -48,7 +48,7 @@ export namespace ScrollEventNS {
    * 元素绑定入参
    */
   export interface ScrollEventBindingOptions {
-    value: {
+    value?: {
       /**
        * 默认监听滚动元素 querySelector 选择器 or 元素
        */
@@ -60,12 +60,12 @@ export namespace ScrollEventNS {
     /**
      * 滚动父级元素
      */
-    currentElement: CurrentElement;
+    currentElement?: CurrentElement;
 
     /**
      * 修饰符
      */
-    modifiers: any
+    modifiers?: any
 
     /**
      * 是否显示动画过渡
@@ -80,12 +80,12 @@ export namespace ScrollEventNS {
     /**
      * 最后滚动的位置
      */
-    lastScrollTop: number;
+    lastScrollTop?: number;
 
     /**
      * 初始class
      */
-    previousClassName: string;
+    previousClassName?: string;
   }
 }
 

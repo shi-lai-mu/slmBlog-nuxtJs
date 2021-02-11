@@ -169,7 +169,6 @@ export default class ArticleContents extends Vue {
    * 滚动文章触发事件
    */
   articleScroll(e) {
-    console.log(this.$refs.treeProcess);
     const { treeProcess } = this.$refs;
     if (treeProcess) {
       (treeProcess as HtmlTreeProcess).updateProcess(e);
