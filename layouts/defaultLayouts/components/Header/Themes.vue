@@ -174,8 +174,8 @@ export default class HeaderThemes extends Vue {
    */
   toggleMainColor(colorName: string, color16: string, storage: boolean = true) {
     this.$config.themes.color.current = colorName;
-    this.$$store.commit('setThemesMainColor', colorName);
-    this.setThemesMainColor(colorName)
+    // this.$$store.commit('setThemesMainColor', colorName);
+    this.setThemesMainColor(colorName);
     if (storage) {
       this.toggleAntdThemes(color16);
     } else {
@@ -246,7 +246,6 @@ export default class HeaderThemes extends Vue {
   div.row-box {
     padding-bottom: 0;
     margin-bottom: 10px;
-    // background-color: transparent;
 
     .row-content {
       margin-top: .5rem;

@@ -22,9 +22,9 @@
         :lg="{ span: 8 }"
         :xxl="{ span: 8 }"
       >
-        <UserCard class="noise-texture" :ssr="userData" userSelf userState/>
-        <Notice class="noise-texture" v-if="!$store.state.isMobile"/>
-        <FocalPointPlate :ssr="articleLatest" class="noise-texture" />
+        <UserCard :ssr="userData" userSelf userState/>
+        <Notice v-if="!$store.state.isMobile"/>
+        <FocalPointPlate :ssr="articleLatest" />
       </a-col>
     </a-row>
   </div>

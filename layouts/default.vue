@@ -24,17 +24,19 @@
 import '@/assets/scss/layout.default.scss';
 import '@/plugins/vue-onscroll-event/animate.min.css';
 
-import { Component, namespace, Vue, Watch } from 'nuxt-property-decorator';
-import { isOpenDevTool } from '@/utils/deDeveloperTools';
-import { stateData as ConfigState } from '@/store/config';
+import $cookie from 'js-cookie';
 
 import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
 import LayoutHeader from '@/layouts/defaultLayouts/components/Header.vue';
 import Background from '@/components/public/Background.vue';
 import Live2D from '@/components/public/Live2D.vue';
 import LoginPopup from '@/components/Login.vue';
-
 import resizeEvent from '@/utils/Event/resize';
+
+import { Component, namespace, Vue, Watch } from 'nuxt-property-decorator';
+import { isOpenDevTool } from '@/utils/deDeveloperTools';
+import { stateData as ConfigState } from '@/store/config';
+import { getSelfInfo } from "@/core/service/data/user";
 
 const ConfigModule = namespace('config');
 
@@ -62,8 +64,18 @@ export default class DefaultLayout extends Vue {
    */
   @ConfigModule.State setting!: typeof ConfigState.setting;
 
-  created() {
+  async created() {
     this.$config.Navigation.init(this);
+    const token = $cookie.get('token');
+    if (token) {
+      const res: any = await getSelfInfo({
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      this.$$store.commit('initUser', res.result);
+      this.$$store.commit('setJWT', token);
+    }
   }
 
 
@@ -232,11 +244,9 @@ export default class DefaultLayout extends Vue {
   filter: blur(1px);
   transition: .5s;
 }
-@include themify($themes, 0) {
-  &.layout-default {
-    color: themed('font-color');
-    background-color: themed('main-bg-color');
-  }
+.layout-default {
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
 }
 .mobile-header-open {
   transform: translateX(260px);
@@ -245,11 +255,9 @@ export default class DefaultLayout extends Vue {
 /deep/ .row-box {
   margin-bottom: 15px;
   padding: 20px;
-  @include themify($themes) {
-    background-color: themed('bg-dp4-color'); 
-    color: themed('font-color');
-      box-shadow: 0 2px 5px themed('bg-dp1-color-f');
-  }
+  background-color: var(--color-bg-primary);
+  // box-shadow: 0 2px 5px var(--color-border-tertiary);
+  border: 1px solid var(--color-border-primary);
   border-radius: 10px;
 
   .row-title {
@@ -268,9 +276,6 @@ export default class DefaultLayout extends Vue {
   .row-content {
     margin-top: 10px;
     font-size: .9rem;
-    @include themify($themes) {
-      color: themed('font-lv0-color');
-    }
   }
 }
 </style>

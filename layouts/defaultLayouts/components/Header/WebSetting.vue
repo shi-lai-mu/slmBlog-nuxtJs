@@ -227,7 +227,6 @@ export default class WebSetting extends Vue {
   div.row-box {
     padding-bottom: 2.5px;
     margin-bottom: 15px;
-    // background-color: transparent;
 
     .row-title {
       font-size: 1.1rem;

@@ -1,7 +1,5 @@
 import nodeCookie from 'cookie';
 
-import { getSelfInfo } from "@/core/service/data/user";
-
 export default async context => {
   // if (process.env.NODE_ENV === 'production') return;
   
@@ -13,24 +11,10 @@ export default async context => {
   // 解析cookie
   if (context.req?.headers.cookie) {
     const cookies = nodeCookie.parse(context.req.headers.cookie);
-    const token = cookies.token;
     let config: any = false;
-
     // 从cookie中读取web设置
     if (cookies.web) {
       config = JSON.parse(cookies.web);
-    }
-
-    console.log(token);
-    
-    if (token) {
-      const res: any = await getSelfInfo({
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      context.store.commit('initUser', res.result);
-      context.store.commit('setJWT', token);
     }
     context.store.commit('config/setWebOptions', config);
   }

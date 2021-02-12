@@ -162,9 +162,8 @@ export default class Article extends Vue {
       left: -10px;
       width: 3rem;
       padding: 10px 0;
-      @include themify($themes) {
-        background-color: themed('bg-dp4-color'); 
-      }
+      background-color: var(--color-bg-primary);
+      border: 1px solid var(--color-border-primary);
       border-radius: 5px;
       justify-content: center;
       flex-wrap: wrap;
@@ -173,7 +172,7 @@ export default class Article extends Vue {
       .aside-child-box:not(:last-child) {
         padding-bottom: 10px;
         margin-bottom: 10px;
-        border-bottom: 1px solid rgba($color: #000, $alpha: .3);
+        border-bottom: 1px solid var(--color-border-primary);
       }
 
       .slm {
@@ -182,20 +181,22 @@ export default class Article extends Vue {
         height: 35px;
         text-align: center;
         line-height: 35px;
-        @include themify($themes) {
-          color: themed('font-lv3-color');
-        }
+        color: var(--color-underlinenav-text);
         border-radius: 3px;
+        border: 1px solid transparent;
         cursor: pointer;
         transition: .2s;
 
         &:active,
         &.check {
-          @include themify($themes) {
-            background-color: rgba($color: themed('font-color'), $alpha: .1);
-            color: themed('font-lv0-color');
-            text-shadow: 0 0 6px themed('font-lv0-color');
-          }
+          background-color: var(--color-border-info);
+          color: var(--color-underlinenav-text-hover);
+          text-shadow: 0 0 6px var(--color-underlinenav-text-hover);
+        }
+
+        &:hover {
+          border-color: var(--color-border-primary);
+          box-sizing: border-box;
         }
       }
     }
@@ -209,9 +210,8 @@ export default class Article extends Vue {
       font-size: .85rem;
       border-radius: 10px;
       vertical-align: middle;
-      @include themify($themes) {
-        background-color: themed('bg-dp4-color'); 
-      }
+      background-color: var(--color-bg-primary);
+      border: 1px solid var(--color-border-primary);
       transition: $layoutTransition;
       cursor: pointer;
 
@@ -230,15 +230,14 @@ export default class Article extends Vue {
       }
 
       .figure-subject {
-        font-size: 1.05rem;
+        font-size: 1.2rem;
+        line-height: 2.1rem;
         color: inherit;
         cursor: text;
       }
 
       .article-description {
-        @include themify($themes) {
-          color: themed('font-lv2-color');
-        }
+        color: var(--color-text-secondary);
         cursor: text;
       }
     }
@@ -249,9 +248,7 @@ export default class Article extends Vue {
       justify-content: space-between;
       align-items: center;
       white-space: nowrap;
-      @include themify($themes) {
-        color: themed('font-lv2-color');
-      }
+      color: var(--color-text-secondary);
 
       .slm {
         overflow: hidden;

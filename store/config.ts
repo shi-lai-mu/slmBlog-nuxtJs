@@ -2,11 +2,12 @@ import $cookie from 'js-cookie';
 import defaultsDeep from 'lodash/defaultsDeep';
 
 import { StoreOptions } from 'vuex';
-import { themesdefaultConfig } from '@/config/themes';
 import { GlobalTool } from '@/utils/tool';
+import { isServer } from '@/config/system';
+import { themesdefaultConfig } from '@/config/themes';
 import { saveUserConfig } from '@/core/service/data/user';
+import { color as ThemesConfigColor } from '@/config/themes';
 import { webSetting, WebSettingService, _WEB_CONFIG_VERSION_ } from '@/config/websetting';
-import { isServer } from '~/config/system';
 
 let saveUserConfigClock = null;
 
@@ -56,7 +57,7 @@ export const stateData = {
   }
 }
 
-const configModule: StoreOptions<typeof stateData> = {
+export const configModule: StoreOptions<typeof stateData> = {
   state: () => stateData,
   mutations: {
     /**
@@ -95,7 +96,15 @@ const configModule: StoreOptions<typeof stateData> = {
       });
     }
   },
-  actions: {}
+  getters: {
+    /**
+     * 获取主题色16进制
+     */
+    webMainThemes16Color: state => {
+      return ThemesConfigColor.list[state.setting.theme.color].color;
+    }
+  },
+  actions: {},
 };
 
 export default configModule;

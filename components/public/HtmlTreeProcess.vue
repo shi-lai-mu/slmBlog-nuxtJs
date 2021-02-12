@@ -1,6 +1,6 @@
 <template>
   <div class="html-tree-process">
-    <div class="process-main" :style="{ backgroundColor:  $store.getters.webMainThemes16Color, width: viewProcess + '%' }"></div>
+    <div class="process-main" :style="{ backgroundColor:  webMainThemes16Color, width: viewProcess + '%' }"></div>
     <ul class="process-disc">
       <a-tooltip placement="bottomLeft" :title="node.title" v-for="(node, key) in tree" :key="key" overlayClassName="process-tips" arrowPointAtCenter>
         <li :style="{left: key + '%'}" @click="scrollTo(node, key)"></li>
@@ -10,8 +10,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Vue, namespace } from 'nuxt-property-decorator';
 import { Tooltip as ATooltip } from 'ant-design-vue';
+import { configModule } from '@/store/config';
 
 @Component({
   components: {
@@ -39,8 +40,14 @@ export default class HtmlTreeProcess extends Vue {
    * 滚动对象
    */
   scrollElement!: Element;
+  /**
+   * 获取主题色16进制
+   */
+  @namespace('config').Getter webMainThemes16Color: typeof configModule.getters.webMainThemes16Color;
 
   mounted() {
+    console.log({  webMainThemes16Color : this.webMainThemes16Color});
+    
     const articleElement = document.getElementsByClassName('article-content__container')[1];
     this.article = articleElement;
     this.viewHeight = document.body.clientHeight;

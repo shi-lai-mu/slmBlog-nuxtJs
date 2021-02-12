@@ -65,6 +65,7 @@ export default class Row extends Vue {
 
     .row-title {
       flex: 1 1 auto;
+      border-bottom: 1px solid var(--color-border-primary);
     }
 
     .tool {
@@ -72,12 +73,9 @@ export default class Row extends Vue {
         font-size: .9em;
         font-weight: initial;
         cursor: pointer;
-        @include themify($themes) {
-          color: themed('font-lv3-color');
           
-          &:hover {
-            color: themed('font-lv2-color');
-          }
+        &:hover {
+          color: var(color-text-white);
         }
       }
     }
