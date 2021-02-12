@@ -38,3 +38,7 @@ declare module 'vue/types/vue' {
     };
   }
 }
+
+
+export declare type StateAction = (payload?: any) => void;
+export declare type StateMutation = (payload?: any) => void;

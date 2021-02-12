@@ -63,24 +63,39 @@
 </template>  
 
 <script lang="ts">
-import { Vue, Component, Watch } from 'nuxt-property-decorator';
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+
 import Masks from '@/components/Masks.vue';
+import { StateMutation } from '@/interface/state';
+
+const ConfigModule = namespace('config');
 
 /**
  * 头部皮肤组件
  */
 @Component({
+  name: 'HeaderThemes',
   components: {
     Masks,
   },
 })
 export default class HeaderThemes extends Vue {
+  /**
+   * 样式列表
+   */
   styleList: any = {};
   /**
    * 是否显示弹窗
    */
   showPopup: boolean = false;
-
+  /**
+   * 设置站点参数
+   */
+  @ConfigModule.Mutation setWebOptions!: StateMutation;
+  /**
+   * 设置主题色
+   */
+  @ConfigModule.Mutation setThemesMainColor!: StateMutation;
   /**
    * 皮肤配置
    */
@@ -93,7 +108,6 @@ export default class HeaderThemes extends Vue {
   messageKey = 'HeaderThemesMessageKey';
 
   created() {
-    const { isMobile } = this.$store.state;
     const { ThemesConfig } = this;
     if (ThemesConfig.isLocalUpdate) {
       const callFn = {
@@ -161,7 +175,7 @@ export default class HeaderThemes extends Vue {
   toggleMainColor(colorName: string, color16: string, storage: boolean = true) {
     this.$config.themes.color.current = colorName;
     this.$$store.commit('setThemesMainColor', colorName);
-    
+    this.setThemesMainColor(colorName)
     if (storage) {
       this.toggleAntdThemes(color16);
     } else {
@@ -181,7 +195,7 @@ export default class HeaderThemes extends Vue {
    */
   toggleBGColor(colorName: string, color16: string, storage: boolean = true)  {
     this.$config.themes.backgroundColor.current = colorName;
-    this.$$store.commit('setWebOptions', {
+    this.setWebOptions({
       theme: {
         backgroundColor: colorName,
       }

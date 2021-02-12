@@ -34,6 +34,8 @@ const mutations = {
    * 初始化用户数据
    */
   initUser(state: State, data: State['user']) {
+    console.log({ user: data });
+    
     state.user = data;
   },
 
@@ -55,11 +57,14 @@ const mutations = {
     const config = GlobalTool.excludeKey(defaultsDeep({}, state.setting), ['title', 'description', 'type']);
 
     clearTimeout(saveUserClock);
-    saveUserClock = setTimeout(async () => {
-      await saveUserConfig(config);
-    }, 1000);
+    console.log(saveUserClock);
     
-    $cookie.set('web', JSON.stringify(config), { expires: 365 });
+    saveUserClock = setTimeout(async () => {
+      console.log('save');
+      await saveUserConfig(config);
+    
+      $cookie.set('web', JSON.stringify(config), { expires: 365 });
+    }, 10000);
   },
 };
 

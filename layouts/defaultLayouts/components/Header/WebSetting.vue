@@ -2,18 +2,19 @@
   <li :class="[ 'slm', 'blog-shezhi', $store.state.themes.mainBColor ]" @click.self="showPopup = !showPopup">
     <Masks :styleList="styleList" :hide="!showPopup" @close="() => showPopup = false">
       <div class="popup-box">
-        <h4 class="popup-title">网站设置<label class="web-setting__version">{{ $$store.state.setting.version }}</label></h4>
+        <h4 class="popup-title">网站设置<label class="web-setting__version">{{ setting.version }}</label></h4>
         <div class="popup-tips"></div>
         <div class="popup-content">
 
-          <div class="row-box popup-item" v-for="(item, key) of $$store.getters.webSetting" :key="key">
+          <div class="row-box popup-item" v-for="(item, key) of setting.web" :key="key">
             <span class="row-title" v-text="item.title || `配置项${key}`"></span>
             <ul class="row-content">
               <a-row
                 v-for="(value, index) in item"
-                v-show="typeof value !== 'string'"
+                v-show="(typeof value !== 'string')"
                 :class="['item-row', { 'item-row-disable': value.disable === true }]"
-                :key="index">
+                :key="index"
+              >
 
                 <a-col :lg="{ span: 18 }">
                   <span class="item-row__title" v-text="value.title"></span>
@@ -50,13 +51,17 @@
 
 <script lang="ts">
 import moment from 'moment';
-import { Vue, Component, Watch } from 'nuxt-property-decorator';
+import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import { stateData as ConfigState } from '@/store/config';
 import {
   Switch as ASwitch,
   TimePicker as ATimePicker
 } from 'ant-design-vue';
 
 import Masks from '@/components/Masks.vue';
+import { StateMutation } from '~/interface/state';
+
+const ConfigModule = namespace('config');
 
 /**
  * 网站设置类
@@ -73,6 +78,9 @@ import Masks from '@/components/Masks.vue';
   }
 })
 export default class WebSetting extends Vue {
+  /**
+   * 样式列表
+   */
   styleList: any = {};
   /**
    * 是否显示弹窗
@@ -82,17 +90,21 @@ export default class WebSetting extends Vue {
    * 临时输入存储入口
    */
   input = {};
-
-  created() {
-    const { isMobile, setting } = this.$$store.state;
-  }
+  /**
+   * 站点设置
+   */
+  @ConfigModule.State setting!: typeof ConfigState.setting;
+  /**
+   * 设置站点参数
+   */
+  @ConfigModule.Mutation setWebOptions!: StateMutation;
 
 
   /**
    * 开关滑块变动时
    */
   switchChange(e, v, key) {
-    const setting = this.$$store.getters.webSetting;
+    const setting = this.setting.web;
     v.enable = e;
 
     // 联动选项
@@ -117,8 +129,8 @@ export default class WebSetting extends Vue {
   /**
    * 时间组件变动事件
    */
-  timePickerChang(e, v, key, inputKey) {
-    const setting = this.$$store.getters.webSetting;
+  timePickerChang(e, v, key) {
+    const setting = this.setting.web;
     if (e) {
       const { $H, $m, $s } = e;
       v[0] = `${$H}:${$m}:${$s}`;
@@ -140,7 +152,7 @@ export default class WebSetting extends Vue {
    * 触发更新
    */
   updateSetting() {
-    this.$$store.commit('setWebOptions', this.$$store.state.setting);
+    this.setWebOptions(this.setting);
   }
 }
 

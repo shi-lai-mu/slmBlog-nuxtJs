@@ -6,17 +6,17 @@
       'bg-texture',
       'content-1300', // test
       'layout-default',
-      'theme-color-' + $store.state.setting.theme.color,
-      'theme-' + ($store.state.setting.theme.backgroundColor || 'dark'),
+      'theme-color-' + setting.theme.color,
+      'theme-' + (setting.theme.backgroundColor || 'dark'),
       { 'layout-default-mobile': $store.state.isMobile },
       { 'mobile-header-open': mobileHeaderOpen }
     ]">
-    <Background v-if="$$store.getters.webSetting.background.canvas.enable"/>
+    <Background v-if="setting.web.background.canvas.enable"/>
     <LayoutHeader class="header" @set-open-state="setHeaderOpenState" :mobileHeaderOpen="mobileHeaderOpen" />
     <nuxt class="layout-page"  @click.native="mobileHeaderOpen = false"/>
     <LayoutFooter />
     <LoginPopup v-if="loginPopup" ref="LoginPopup" />
-    <Live2D :enable="$$store.getters.webSetting.pendant.cat.enable"/>
+    <Live2D :enable="setting.web.pendant.cat.enable"/>
   </div>
 </template>
 
@@ -24,8 +24,9 @@
 import '@/assets/scss/layout.default.scss';
 import '@/plugins/vue-onscroll-event/animate.min.css';
 
-import { Component, Vue, Watch } from 'nuxt-property-decorator';
+import { Component, namespace, Vue, Watch } from 'nuxt-property-decorator';
 import { isOpenDevTool } from '@/utils/deDeveloperTools';
+import { stateData as ConfigState } from '@/store/config';
 
 import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
 import LayoutHeader from '@/layouts/defaultLayouts/components/Header.vue';
@@ -34,6 +35,8 @@ import Live2D from '@/components/public/Live2D.vue';
 import LoginPopup from '@/components/Login.vue';
 
 import resizeEvent from '@/utils/Event/resize';
+
+const ConfigModule = namespace('config');
 
 @Component({
   scrollToTop: true,
@@ -54,6 +57,10 @@ export default class DefaultLayout extends Vue {
    * 登录弹窗
    */
   loginPopup: boolean = false;
+  /**
+   * 网站设置
+   */
+  @ConfigModule.State setting!: typeof ConfigState.setting;
 
   created() {
     this.$config.Navigation.init(this);
@@ -104,11 +111,6 @@ export default class DefaultLayout extends Vue {
       }
     });
 
-    // 网站设置
-    // $observer.on('webSetting', setting => {
-    //   // if (setting.theme) this.theme = setting.theme;
-    // });
-
     // 事件添加
     resizeEvent(window, this);
     // slef.baiduPush()
@@ -137,7 +139,7 @@ export default class DefaultLayout extends Vue {
     this.loggerBlog();
   }
 
-  @Watch('$store.state.setting.theme.backgroundColor')
+  @Watch('$store.state.config.setting.theme.backgroundColor')
   backgroundColorChang() {
     const root: any = document.getElementsByTagName('html')[0];
     root.className = (root.className.replace(/(\s)?theme-(bright|dark)(\s)?/, '')) + ` theme-${this.$$store.state.setting.theme.backgroundColor || 'dark'}`;

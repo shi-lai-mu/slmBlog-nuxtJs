@@ -40,6 +40,7 @@
     "scss-loader": "^0.0.1",
     "vue-gemini-scrollbar": "^2.0.1",
     "vue-ultimate-skeleton-cards": "^1.0.3",
+    "vuex-class": "^0.3.2",
     "wangeditor": "^4.6.4"
   },
   "devDependencies": {
@@ -69,7 +70,8 @@
     "tslint-plugin-prettier": "^2.0.1",
     "typescript": "^4.0.3",
     "vconsole": "^3.3.4",
-    "vue-jest": "^3.0.6"
+    "vue-jest": "^3.0.6",
+    "vuex": "^3.6.2"
   },
   "config": {
     "nuxt": {

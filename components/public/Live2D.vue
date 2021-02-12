@@ -2,28 +2,44 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue, Prop, Watch }   from 'nuxt-property-decorator';
+import { Component, Vue, Prop, Watch, namespace }   from 'nuxt-property-decorator';
 import { getFPS } from '@/utils/animation';
+import { StateMutation } from '@/interface/state';
+import { stateData as ConfigState } from '@/store/config';
 
 let currentEl: HTMLElement;
 
+const ConfigModule = namespace('config');
+
+/**
+ * Live2D 组件
+ */
 @Component
 export default class Live2D extends Vue {
-
   /**
    * 是否启用Live2D
    */
   @Prop(Boolean) enable;
-
+  /**
+   * 设置站点参数
+   */
+  @ConfigModule.Mutation setWebOptions!: StateMutation;
+  /**
+   * 网站设置
+   */
+  @ConfigModule.State setting!: typeof ConfigState.setting;
   /**
    * 初始化状态
    */
   initState: boolean = false;
-
+  /**
+   * 消息key
+   */
   messageKey = 'live2dMessage';
 
   @Watch('enable')
   enableChang(enableState: boolean) {
+    const { messageKey: key } = this;
     if (this.initState) {
       const el = currentEl || document.getElementById('live2dcanvas');
       currentEl = el;
@@ -31,14 +47,17 @@ export default class Live2D extends Vue {
         el.style.display = enableState ? 'block' : 'none';
       }
     } else {
-      this.$message.loading({ content: 'heimi正在加入战场...', key: this.messageKey});
+      this.$message.loading({
+        key,
+        content: 'heimi正在加入战场...',
+      });
       this
         .init()
-        .then(() => this.$message.success({ content: '轰隆一声！heimi闪亮登场！！！', key: this.messageKey}))
+        .then(() => this.$message.success({ content: '轰隆一声！heimi闪亮登场！！！', key }))
         .catch(() => {
-          this.$$store.state.setting.web.pendant.cat.enable = false;
-          this.$$store.commit('setWebOptions', this.$$store.state.setting)
-          this.$message.error({ content: 'heimi外出觅食了... 晚点在召唤吧！', key: this.messageKey});
+          this.setting.web.pendant.cat.enable = false;
+          this.setWebOptions(this.setting);
+          this.$message.error({ content: 'heimi外出觅食了... 晚点再召唤吧！', key });
         })  
       ;
     }

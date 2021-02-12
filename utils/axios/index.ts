@@ -75,6 +75,7 @@ import {
 } from './lib/config';
 import { message } from './lib/log';
 import AxiosMock from './lib/mock';
+import { isDeBug } from '~/config/system';
 // 服务器配置
 const serverConfig = config.apiServer;
 // 频繁请求处理
@@ -113,10 +114,12 @@ $axios.interceptors.response.use(
       enumerable: false,
       get: () => res,
     });
-
     // mock 数据判断
     res.isMockData = isMockData(res);
-    // if (isDev) console.log(`[${res.config.method?.toLocaleUpperCase()}: ${res.status}] ${res.config.url}`, res.data);
+    if (isDev) console.log(
+      `\x1B[42;${res.status === 200 ? 37 : 31}m [${res.config.method?.toLocaleUpperCase()} ${res.status}] \x1B[0m ${res.config.url}`,
+      isDeBug ? res.data : '',
+    );
     return data || res;
   },
   err => {

@@ -1,6 +1,6 @@
 import nodeCookie from 'cookie';
 
-import { getSelfInfo } from "~/core/service/data/user";
+import { getSelfInfo } from "@/core/service/data/user";
 
 export default async context => {
   // if (process.env.NODE_ENV === 'production') return;
@@ -21,6 +21,8 @@ export default async context => {
       config = JSON.parse(cookies.web);
     }
 
+    console.log(token);
+    
     if (token) {
       const res: any = await getSelfInfo({
         headers: {
@@ -30,7 +32,7 @@ export default async context => {
       context.store.commit('initUser', res.result);
       context.store.commit('setJWT', token);
     }
-    context.store.commit('setWebOptions', config);
+    context.store.commit('config/setWebOptions', config);
   }
 
   const isMobile = !!context.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i);
