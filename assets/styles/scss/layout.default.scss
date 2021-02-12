@@ -1,8 +1,3 @@
-// :root {
-  // font-size: calc(.5vw + .5vh + .5vmin);
-// }
-
-
 @include themify($themes, true) {
   .noise-texture {
     background-image: url(themed('noise-img'));
@@ -28,19 +23,12 @@ body {
 }
 
 a {
-  color: inherit;
+  // color: currentColor;
   text-decoration: none;
-  @include themify($themes) {
-    color: themed('a-color');
+  // color: var(--color-text-link);
 
-    &:hover {
-      text-decoration: underline;
-      color: themed('a-hover-color');
-    }
-
-    &:active {
-      color: themed('a-active-color');
-    }
+  &:hover {
+    text-decoration: underline;
   }
 }
 
@@ -155,7 +143,13 @@ li {
     background-position: 0 50%
   }
 }
+.text-gray {
+  color: var(--color-text-secondary) !important;
 
+  &:hover {
+    color: var(--color-underlinenav-text-hover) !important;
+  }
+}
 .icon-hover:hover {
   @include themify($themes) {
     background-color: rgba($color: themed('font-lv0-color-hover'), $alpha: .1);

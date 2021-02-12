@@ -1,5 +1,5 @@
 <template>
-  <footer class="body-footer">
+  <footer class="body-footer text-gray">
     <div class="copyright">
       <div class="copyright-register" v-html="copyright()"></div>
       <div class="copyright-navigation">
@@ -35,15 +35,11 @@ export default class LayoutDefaultFooter extends Vue {
 <style lang="scss" scoped>
 // 底部样式
 .body-footer {
-  width: 100%;
   padding: 20px 10px;
-  margin-top: 20px;
+  margin: 20px 10px 0;
   font-size: .9rem;
   text-align: center;
-  @include themify($themes) {
-    color: themed('font-lv0-color');
-    background-color: themed('bg-dp1-color');
-  }
+  border-top: 1px solid var(--color-border-primary);
   box-sizing: border-box;
   .copyright {
     margin-bottom: 15px;
@@ -71,10 +67,10 @@ export default class LayoutDefaultFooter extends Vue {
     vertical-align: middle;
   }
 
-  .keep-on-record a {
-    @include themify($themes) {
-      color: themed('font-lv1-color');
-    }
-  }
+  // .keep-on-record a {
+  //   @include themify($themes) {
+  //     color: themed('font-lv1-color');
+  //   }
+  // }
 }
 </style>

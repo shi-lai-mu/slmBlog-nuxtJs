@@ -114,11 +114,11 @@ export default class Masks extends Vue {
   .mask-box {
     // padding: 10px;
     line-height: initial;
-    border-radius: 10px;
-    @include themify($themes) {
-      color: themed('font-lv0-color');
-      background-color: themed('main-bg-color');
-    }
+    background-clip: padding-box;
+    border: 1px solid var(--color-border-overlay);
+    border-radius: 6px;
+    box-shadow: var(--color-dropdown-shadow);
+    background-color: var(--color-bg-overlay);
   }
 
   .blog-back {

@@ -63,10 +63,11 @@
 </template>  
 
 <script lang="ts">
+import { StateMutation } from '@/interface/state';
+import { stateData as ConfigState } from '@/store/config';
 import { Vue, Component, namespace } from 'nuxt-property-decorator';
 
 import Masks from '@/components/Masks.vue';
-import { StateMutation } from '@/interface/state';
 
 const ConfigModule = namespace('config');
 
@@ -96,6 +97,10 @@ export default class HeaderThemes extends Vue {
    * 设置主题色
    */
   @ConfigModule.Mutation setThemesMainColor!: StateMutation;
+  /**
+   * 网站设置
+   */
+  @ConfigModule.State setting!: typeof ConfigState.setting;
   /**
    * 皮肤配置
    */
@@ -139,20 +144,20 @@ export default class HeaderThemes extends Vue {
     const { messageKey, initState } = this;
 
     if (initState) this.$message.loading({ content: '正在切换全站主题色...', key: messageKey });
-    window.less
-      .modifyVars({
-        '@primary-color': color,
-        '@link-color': color,
-        '@btn-primary-bg': color,
-        '@heading-color': '#fff',
-        '@text-color-inverse': color,
-      })
-      .then(() => initState && this.$message.success({ content: '切换成功!', key: messageKey }))
-      .catch(error => {
-        if (initState) this.$message.error({ content: '切换失败, 请稍后再试!', key: messageKey });
-        console.error('皮肤主题编译失败: ' + error);
-      })
-    ;
+    // window.less
+    //   .modifyVars({
+    //     '@primary-color': color,
+    //     '@link-color': color,
+    //     '@btn-primary-bg': color,
+    //     '@heading-color': '#fff',
+    //     '@text-color-inverse': color,
+    //   })
+    //   .then(() => initState && this.$message.success({ content: '切换成功!', key: messageKey }))
+    //   .catch(error => {
+    //     if (initState) this.$message.error({ content: '切换失败, 请稍后再试!', key: messageKey });
+    //     console.error('皮肤主题编译失败: ' + error);
+    //   })
+    // ;
 
     this.initState = true;
     return true;
@@ -179,14 +184,16 @@ export default class HeaderThemes extends Vue {
     if (storage) {
       this.toggleAntdThemes(color16);
     } else {
-      const { less }: any = window;
-      // 对应 index.js 等待 less.min.js 加载完成执行cb传入params
-      if (less.modifyVars) {
-        this.toggleAntdThemes(color16);
-      } else {
-        less.cb = this.toggleAntdThemes.bind(this);
-        less.params = color16;
-      }
+      // const { less }: any = window;
+      // // 对应 index.js 等待 less.min.js 加载完成执行cb传入params
+      // if (less.modifyVars) {
+      //   this.toggleAntdThemes(color16);
+      // } else {
+      //   less.cb = this.toggleAntdThemes.bind(this);
+      //   less.params = color16;
+      // }
+      const root: HTMLElement = document.getElementsByTagName('html')[0];
+      root.setAttribute('data-color-mode', this.setting.theme.color);
     }
   }
 
@@ -244,15 +251,12 @@ export default class HeaderThemes extends Vue {
   }
   
   div.row-box {
-    padding-bottom: 0;
     margin-bottom: 10px;
 
     .row-content {
       margin-top: .5rem;
       padding: 10px;
-      @include themify($themes) {
-        background-color: themed('main-bg-f1-color');
-      }
+      border: 1px solid var(--color-border-overlay);
       border-radius: 15px;
     }
   }

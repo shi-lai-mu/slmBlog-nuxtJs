@@ -1,0 +1,54 @@
+%primary-bg {
+  background-color: var(--m-color-bg-primary);
+}
+%primary-font-color {
+  color: var(--m-color-text-primary);
+}
+.primary-all {
+  @extend %primary-bg, %primary-font-color;
+}
+
+// 按钮
+.ant-btn {
+  color: var(--m-color-text-primary);
+  background-color: var(--m-color-bg-primary);
+  border-color: var(--m-color-bg-primary-2);
+}
+.ant-btn:hover,
+.ant-btn:focus {
+  color: var(--m-color-text-primary-3);
+  background-color: var(--m-color-bg-primary-2);
+  border-color: var(--m-color-bg-primary-5);
+}
+.ant-btn:active,
+.ant-btn.active {
+  color: var(--m-color-text-primary-5);
+  background-color: var(--m-color-bg-primary-5);
+  border-color: var(--m-color-bg-primary-7);
+}
+
+// 滚动条
+.ant-slider-handle {
+  border-color: var(--m-color-bg-primary);
+  &.ant-tooltip-open {
+    border-color: var(--m-color-bg-primary-2);
+  }
+}
+.ant-slider-handle:focus {
+  box-shadow: 0 0 0 5px var(--m-color-opacity-2-bg-primary);
+  border-color: var(--m-color-bg-primary-5);
+}
+.ant-slider-track {
+  background-color: var(--m-color-opacity-2-bg-primary);
+}
+.ant-slider-dot-active {
+  border-color: var(--m-color-opacity-5-bg-primary);
+}
+.ant-slider:hover {
+  .ant-slider-track {
+    background-color: var(--m-color-opacity-5-bg-primary);
+  }
+  .ant-slider-dot-active {
+    border-color: var(--m-color-bg-primary);
+  }
+}

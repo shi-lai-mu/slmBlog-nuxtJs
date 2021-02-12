@@ -21,7 +21,11 @@
 </template>
 
 <script lang="ts">
-import '@/assets/scss/layout.default.scss';
+import 'ant-design-vue/dist/antd.css';
+import '@/assets/styles/scss/layout.default.scss';
+import '@/assets/styles/scss/antd.ui.scss';
+// import '@/assets/styles/less/_antd.ui.less';
+// import '@/assets/scss/_variables.scss';
 import '@/plugins/vue-onscroll-event/animate.min.css';
 
 import $cookie from 'js-cookie';
@@ -41,6 +45,7 @@ import { getSelfInfo } from "@/core/service/data/user";
 const ConfigModule = namespace('config');
 
 @Component({
+  name: 'DefaultLayout',
   scrollToTop: true,
   components: {
     LayoutFooter,
@@ -153,8 +158,8 @@ export default class DefaultLayout extends Vue {
 
   @Watch('$store.state.config.setting.theme.backgroundColor')
   backgroundColorChang() {
-    const root: any = document.getElementsByTagName('html')[0];
-    root.className = (root.className.replace(/(\s)?theme-(bright|dark)(\s)?/, '')) + ` theme-${this.$$store.state.setting.theme.backgroundColor || 'dark'}`;
+    const root: HTMLElement = document.getElementsByTagName('html')[0];
+    root.setAttribute('data-theme-mode', this.setting.theme.backgroundColor);
   }
   
 

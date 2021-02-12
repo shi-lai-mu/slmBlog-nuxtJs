@@ -12,20 +12,10 @@ $mobileAsideWidth: 260px;
 \* * * * * * * * * */
 
 $themes: (
-/**********\
-   默认皮肤
-\**********/
-bright: $bright,
-/**********\
-   暗色皮肤
-\**********/
-
-dark: $dark,
-/**********\
-   混色皮肤
-\**********/
-
-// theme-mixing: () // test...
+    // 亮色主题
+    bright: $bright,
+    // 暗色主题
+    dark: $dark,
 );
 @mixin themify($themes: $themes, $isParent: 1) {
     @each $theme-name,$map in $themes {
@@ -67,56 +57,54 @@ dark: $dark,
 
 $mainColor:  (
     dark: (
-        color: #212C3D,
-        fontColor: #FFF,
+        bg-primary: #212C3D,
+        text-primary: #FFF,
     ),
     bright: (
-        color: #CCC,
-        fontColor: #333,
+        bg-primary: #CCC,
+        text-primary: #333,
     ),
     blue: (
-        color: #1DA1F2,
-        fontColor: #FFF,
+        bg-primary: #1DA1F2,
+        text-primary: #FFF,
     ),
     yellow: (
-        color: #FFAD1F,
-        fontColor: #FFF,
+        bg-primary: #FFAD1F,
+        text-primary: #FFF,
     ),
     powder: (
-        color: #E0245E,
-        fontColor: #FFF,
+        bg-primary: #E0245E,
+        text-primary: #FFF,
     ),
     purple: (
-        color: #794BC4,
-        fontColor: #FFF,
+        bg-primary: #794BC4,
+        text-primary: #FFF,
     ),
     orange: (
-        color: #F45D22,
-        fontColor: #FFF,
+        bg-primary: #F45D22,
+        text-primary: #FFF,
     ),
     green: (
-        color: #17BF63,
-        fontColor: #FFF,
+        bg-primary: #17BF63,
+        text-primary: #FFF,
     )
 );
 @each $main-name,$map in $mainColor {
-    .m-b-#{$main-name} {
-        background-color: map-get($map, 'color') !important;
-        transition: .5s;
-        color: map-get($map, 'fontColor');
-    }
-    .m-b-#{$main-name}-20 {
-        background-color: rgba($color: map-get($map, 'color'), $alpha: .4) !important;
-        transition: .5s;
-    }
-    .m-c-#{$main-name} {
-        color: map-get($map, 'color') !important;
-        transition: .5s;
+    #{'[data-color-mode=' + $main-name + ']'}{
+        @each $key,$value in $map {
+            #{'--m-color-' + $key}: $value;
+            @each $i,$v in (1, 2, 5, 7) {
+                #{'--m-color-' + $key + '-' + $i}: darken($value, $i * 5);
+            }
+            #{'--m-color-gray-' + $key}: desaturate($value, 70%);
+            #{'--m-color-opacity-5-' + $key}: rgba($value, .5);
+            #{'--m-color-opacity-2-' + $key}: rgba($value, .2);
+        }
     }
 }
 
 @each $theme-name,$map in $themes {
-    :root, #{'[data-color-mode=' + $theme-name + ']'}{
+    #{'[data-theme-mode=' + $theme-name + ']'}{
         @each $key,$value in $map {
             #{'--color-' + $key}: $value;
         }

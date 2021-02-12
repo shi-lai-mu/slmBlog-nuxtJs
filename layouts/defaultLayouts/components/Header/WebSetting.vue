@@ -225,7 +225,7 @@ export default class WebSetting extends Vue {
     }
   }
   div.row-box {
-    padding-bottom: 2.5px;
+    padding: 10px 20px;
     margin-bottom: 15px;
 
     .row-title {
@@ -237,9 +237,7 @@ export default class WebSetting extends Vue {
     .row-content {
       margin-top: .5rem;
       padding: 10px;
-      @include themify($themes) {
-        background-color: themed('main-bg-f2-color');
-      }
+      border: 1px solid var(--color-border-overlay);
       border-radius: 15px;
     }
   }
