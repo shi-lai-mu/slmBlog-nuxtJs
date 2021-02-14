@@ -1,7 +1,7 @@
 <template>
   <li :class="[ 'slm', 'blog-themes', $store.state.themes.mainBColor ]" @click.self="showPopup = !showPopup">
     <Masks :styleList="styleList" :hide="!showPopup" @close="() => showPopup = false">
-      <div class="popup-box">
+      <div class="popup-box" v-if="ThemesConfig">
         <h4 class="popup-title">自定义主题皮肤</h4>
         <div class="popup-tips">管理字体大小、颜色和背景。这些设置会影响此浏览器上，如果登录账号将同步到云端。</div>
         <div class="popup-content">
@@ -14,7 +14,7 @@
                 :marks="ThemesConfig.fontSize.marks"
                 :min="ThemesConfig.fontSize.min"
                 :max="ThemesConfig.fontSize.max"
-                :defaultValue="ThemesConfig.fontSize.current"
+                :defaultValue="setting.theme.fontSize"
                 @change="fontSizeChang"/>
               <i class="slm blog-Aa big-Aa"></i>
             </div>
@@ -22,7 +22,7 @@
           <div class="row-box">
             <span>颜色</span>
             <div class="row-content">
-              <a-radio-group :default-value="ThemesConfig.color.current" size="large" class="themes-color-group">
+              <a-radio-group :default-value="setting.theme.color" size="large" class="themes-color-group">
                 <a-radio-button
                   class="themes-color-item"
                   v-for="(item, index) in ThemesConfig.color.list"
@@ -30,7 +30,7 @@
                   :value="index"
                   @click="toggleMainColor(index, item.color)">
                   <div class="color-round" :style="{ backgroundColor: item.color, color: item.color}">
-                    <i class="slm blog-xuanzhong" v-show="ThemesConfig.color.current === index"></i>
+                    <i class="slm blog-xuanzhong" v-show="setting.theme.color === index"></i>
                   </div>
                   <i :class="`slm blog-${item.icon}`" :style="`color: ${item.iconColor || item.color}`"></i>
                 </a-radio-button>
@@ -64,6 +64,7 @@
 
 <script lang="ts">
 import { StateMutation } from '@/interface/state';
+import { isClient } from '@/utils/axios/lib/config';
 import { stateData as ConfigState } from '@/store/config';
 import { Vue, Component, namespace } from 'nuxt-property-decorator';
 
@@ -79,6 +80,11 @@ const ConfigModule = namespace('config');
   components: {
     Masks,
   },
+  computed: {
+    ThemesConfig() {
+      return (this as HeaderThemes).setting?.config?.theme;
+    },
+  }
 })
 export default class HeaderThemes extends Vue {
   /**
@@ -94,27 +100,21 @@ export default class HeaderThemes extends Vue {
    */
   @ConfigModule.Mutation setWebOptions!: StateMutation;
   /**
-   * 设置主题色
-   */
-  @ConfigModule.Mutation setThemesMainColor!: StateMutation;
-  /**
    * 网站设置
    */
   @ConfigModule.State setting!: typeof ConfigState.setting;
   /**
-   * 皮肤配置
+   * 初始化状态
    */
-  get ThemesConfig() {
-    return this.$config.themes;
-  }
-
   initState = false;
-
+  /**
+   * 消息key
+   */
   messageKey = 'HeaderThemesMessageKey';
 
   created() {
-    const { ThemesConfig } = this;
-    if (ThemesConfig.isLocalUpdate) {
+    const { ThemesConfig }: any = this;
+    if (isClient) {
       const callFn = {
         fontSize: {
           fn: 'fontSizeChang',
@@ -133,86 +133,51 @@ export default class HeaderThemes extends Vue {
         }
       });
     }
-
-  }
-
-
-  /**
-   * 切换UI主题色
-   */
-  toggleAntdThemes(color: string) {
-    const { messageKey, initState } = this;
-
-    if (initState) this.$message.loading({ content: '正在切换全站主题色...', key: messageKey });
-    // window.less
-    //   .modifyVars({
-    //     '@primary-color': color,
-    //     '@link-color': color,
-    //     '@btn-primary-bg': color,
-    //     '@heading-color': '#fff',
-    //     '@text-color-inverse': color,
-    //   })
-    //   .then(() => initState && this.$message.success({ content: '切换成功!', key: messageKey }))
-    //   .catch(error => {
-    //     if (initState) this.$message.error({ content: '切换失败, 请稍后再试!', key: messageKey });
-    //     console.error('皮肤主题编译失败: ' + error);
-    //   })
-    // ;
-
-    this.initState = true;
-    return true;
   }
 
 
   /**
    * slider修改文字大小时
    */
-  fontSizeChang(fontsize: number, storage: boolean = true) {
-    const root: any = document.getElementsByTagName('html')[0];
-    root.style = `font-size: ${fontsize}px`;
-    if (storage) this.$config.themes.fontSize.current = fontsize;
+  fontSizeChang(fontSize: number) {
+    const root: HTMLElement = document.getElementsByTagName('html')[0];
+    root.style.fontSize = `${fontSize}px`;
+    this.setWebOptions({
+      theme: {
+        fontSize,
+      }
+    });
   }
 
 
   /**
    * 切换主题色
    */
-  toggleMainColor(colorName: string, color16: string, storage: boolean = true) {
-    this.$config.themes.color.current = colorName;
-    // this.$$store.commit('setThemesMainColor', colorName);
-    this.setThemesMainColor(colorName);
-    if (storage) {
-      this.toggleAntdThemes(color16);
-    } else {
-      // const { less }: any = window;
-      // // 对应 index.js 等待 less.min.js 加载完成执行cb传入params
-      // if (less.modifyVars) {
-      //   this.toggleAntdThemes(color16);
-      // } else {
-      //   less.cb = this.toggleAntdThemes.bind(this);
-      //   less.params = color16;
-      // }
-      const root: HTMLElement = document.getElementsByTagName('html')[0];
-      root.setAttribute('data-color-mode', this.setting.theme.color);
-    }
+  toggleMainColor(colorName: string) {
+    const { initState, messageKey } = this;
+    const root: HTMLElement = document.getElementsByTagName('html')[0];
+
+    if (initState) this.$message.loading({ content: '正在切换全站主题色...', key: messageKey });
+    this.initState = true;
+    this.setWebOptions({
+      theme: {
+        color: colorName
+      }
+    });
+    root.setAttribute('data-color-mode', colorName);
+    this.$message.success({ content: '切换成功!', key: messageKey });
   }
 
   /**
    * 切换背景色
    */
-  toggleBGColor(colorName: string, color16: string, storage: boolean = true)  {
-    this.$config.themes.backgroundColor.current = colorName;
+  toggleBGColor(colorName: string)  {
     this.setWebOptions({
       theme: {
         backgroundColor: colorName,
       }
     });
   }
-
-
-  // GeminiScrollbarInit(e) {
-  //   setTimeout(() =>e.update());
-  // }
 }
 </script>
 

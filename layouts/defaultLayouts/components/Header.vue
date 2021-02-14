@@ -56,7 +56,6 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import { Navigator } from '../../../interface/router';
-import { PageHeader } from 'ant-design-vue';
 import navigator from '../../../config/navigation';
 import FocusingDisplac from '@/components/FocusingDisplacs.vue';
 import HeaderSearch from './Header/Search.vue';
@@ -112,8 +111,6 @@ export default class LayoutDefaultHeader extends Vue {
    * @param animation 是否展示动画
    */
   jumpNav(index: number, animation: boolean = true) {
-    // const { config } = this.$config.Navigation.config;
-    // if (!config[index].to) return false;
     if (this.$store.state.isMobile) return false;
     const { $refs } = this;
     const navigation = $refs.Navigation as Element;
@@ -144,16 +141,11 @@ $headerHeight: 60px;
   top: 0;
   left: 0;
   right: 0;
-  width: 100%;
+  width: 100%;    
   height: $headerHeight;
   margin: auto;
-  @include themify($themes) {
-    color: themed('font-lv0-color');
-    // background-color: themed('bg-dp1-color-f');
-    background-color: rgba($color: themed('bg-dp1-color-f'), $alpha: .8);
-  }
-  // border-radius: 0 0 20px 20px;
-  // transition: 1s;
+  color: var(--color-text-primary);
+  background-color: var(--m-color-opacity-2-bg-primary);
   user-select: none;
   backdrop-filter: saturate(180%) blur(20px);
   align-items: center;
@@ -178,12 +170,10 @@ $headerHeight: 60px;
     display: flex;
     float: right;
     margin: 0 20px 0 0;
+    // color: var(--m-color-text-primary);
+    color: #333;
     font-size: 50px;
     align-items: center;
-    
-    @include themify($themes) {
-      color: themed('font-lv0-color');
-    }
     cursor: pointer;
     text-decoration: none;
   }
@@ -199,16 +189,8 @@ $headerHeight: 60px;
     position: fixed;
     top: 0;
     left: 10px;
-    // opacity: .4;
-    // font-size: 27px;
     line-height: 50px;
     z-index: 9999;
-
-    &:active {
-      @include themify($themes) {
-        color: themed('font-lv0-color-hover');
-      }
-    }
   }
 
   .layout-top-nav {
@@ -237,9 +219,7 @@ $headerHeight: 60px;
         cursor: pointer;
 
         &:hover {
-          @include themify($themes) {
-            color: themed('font-lv0-color-hover');
-          }
+          background-color: var(--m-color-opacity-5-bg-primary);
 
           .navigation-children {
             position: absolute;
@@ -249,11 +229,7 @@ $headerHeight: 60px;
             text-align: left;
             line-height: $headerHeight / 1.5;
             white-space: nowrap;
-            // padding: 0 10px;
-            @include themify($themes) {
-              // background-color: themed('bg-dp1-color-f');
-              background-color: rgba($color: themed('bg-dp1-color-f'), $alpha: .8);
-            }
+            background-color: var(--m-color-opacity-8-bg-primary);
             transform: translateY($headerHeight - 2);
             backdrop-filter: saturate(180%) blur(20px);
           }
@@ -280,13 +256,13 @@ $headerHeight: 60px;
 
         .navigation-children-item {
           padding: 0 20px;
+          color: var(--m-color-text-primary);
 
           &:hover,
           &.navigation-children-focus {
-            @include themify($themes) {
-              background-color: themed('bg-dp1-color-hover');
-              // background-color: rgba($color: themed('bg-dp1-color-f'), $alpha: .9);
-            }
+            color: var(--m-color-text-primary);
+            background-color: var(--m-color-bg-primary-2);
+            border-radius: 5px;
             transition: .5s;
             transform: scale(1.1);
           }
@@ -303,16 +279,13 @@ $headerHeight: 60px;
         text-align: center;
         line-height: 40px;
         margin: 0 10px;
+        color: var(--m-color-text-primary);
+        background-color: var(--m-color-bg-primary);
         border-radius: 50%;
-        @include themify($themes) {
-          background-color: themed('bg-dp4-color');
-        }
         cursor: pointer;
 
         &:hover {
-          @include themify($themes) {
-            background-color: themed('bg-dp4-color-hover');
-          }
+          background-color: var(--m-color-bg-primary-2);
         }
       }
     }
@@ -373,8 +346,6 @@ $headerHeight: 60px;
         width: auto;
         margin: 0;
         padding: 0;
-        // border-bottom: 1px solid rgba($color: #b6c3db, $alpha: .1);
-
 
         &:hover {
           
@@ -389,8 +360,6 @@ $headerHeight: 60px;
       }
 
       .blog-zhankai {
-        // position: absolute;
-        // right: 0;
         display: none;
       }
     }

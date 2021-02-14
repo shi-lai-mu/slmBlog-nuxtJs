@@ -56,7 +56,8 @@ export class WebSettingService {
    * @param userConfig 用户配置
    * @param config     目标配置
    */
-  static deepExtends(userConfig, config) {
+  static deepExtends(userConfig, config?: any) {
+    if (!config) config = webSetting;
     try {
       userConfig = this.addNew(userConfig, config);
       userConfig = this.deleteOld(userConfig, config);

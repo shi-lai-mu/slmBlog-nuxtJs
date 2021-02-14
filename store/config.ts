@@ -28,23 +28,15 @@ export const stateData = {
      * 网站设置
      */
     web: webSetting,
-  },
-  /**
-   * 主题
-   */
-  themes: {
     /**
-     * 文字主色
+     * 配置项
      */
-    mainFColor: `m-c-${[ 'blue', 'yellow', 'powder', 'purple', 'orange', 'green' ][0]}`,
-    /**
-     * 背景主色
-     */
-    mainBColor: `m-b-${[ 'blue', 'yellow', 'powder', 'purple', 'orange', 'green' ][0]}`,
-    /**
-     * HTML根文字大小
-     */
-    fontSize: 16,
+    config: {
+      /**
+       * 主题配置
+       */
+      theme: {},
+    }
   },
   /**
    * 定时器下标
@@ -68,7 +60,8 @@ export const configModule: StoreOptions<typeof stateData> = {
         payload = state.setting;
       }
       state.setting = WebSettingService.deepExtends(payload, state.setting);
-      const config = GlobalTool.excludeKey(defaultsDeep({}, state.setting), ['title', 'description', 'type']);
+      const config = GlobalTool.excludeKey(defaultsDeep({}, state.setting), ['title', 'description', 'type', 'config']);
+      delete config.config;
 
       if (isServer) return false;
   
@@ -86,15 +79,23 @@ export const configModule: StoreOptions<typeof stateData> = {
     /**
      * 设置主题色
      */
-    setThemesMainColor(state, payload) {
-      state.themes.mainFColor = `m-c-${payload}`;
-      state.themes.mainBColor = `m-b-${payload}`;
+    setThemesMainColor(_state, payload) {
       this.commit('setWebOptions',  {
         theme: {
           color: payload,
         }
       });
-    }
+    },
+
+    /**
+     * 设置配置项
+     */
+    setConfig(state, payload) {
+      state.setting.config = {
+        ...state.setting.config,
+        ...payload,
+      };
+    },
   },
   getters: {
     /**

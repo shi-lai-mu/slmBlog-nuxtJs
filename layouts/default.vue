@@ -36,11 +36,16 @@ import Background from '@/components/public/Background.vue';
 import Live2D from '@/components/public/Live2D.vue';
 import LoginPopup from '@/components/Login.vue';
 import resizeEvent from '@/utils/Event/resize';
+import ThemesConfig from '@/plugins/config/Themes';
 
 import { Component, namespace, Vue, Watch } from 'nuxt-property-decorator';
 import { isOpenDevTool } from '@/utils/deDeveloperTools';
 import { stateData as ConfigState } from '@/store/config';
 import { getSelfInfo } from "@/core/service/data/user";
+import { StateMutation } from '~/interface/state';
+import { WebSettingService } from '@/config/websetting';
+import { themesdefaultConfig } from '~/config/themes';
+import Themes from '@/plugins/config/Themes';
 
 const ConfigModule = namespace('config');
 
@@ -68,19 +73,32 @@ export default class DefaultLayout extends Vue {
    * 网站设置
    */
   @ConfigModule.State setting!: typeof ConfigState.setting;
+  @ConfigModule.Mutation setConfig!: StateMutation;
 
   async created() {
     this.$config.Navigation.init(this);
     const token = $cookie.get('token');
+    let userConfig;
+
     if (token) {
       const res: any = await getSelfInfo({
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      this.$$store.commit('initUser', res.result);
-      this.$$store.commit('setJWT', token);
+      if (res.success) {
+        this.$$store.commit('initUser', res.result);
+        this.$$store.commit('setJWT', token);
+        userConfig = res.result.config;
+        userConfig.config = Themes.config;
+      }
     }
+    
+    this.setConfig({
+      theme: userConfig || ThemesConfig.config,
+    });
+    console.log(this.setting, userConfig, Themes.config);
+    
   }
 
 
@@ -223,6 +241,7 @@ export default class DefaultLayout extends Vue {
   // min-height: 100vh;
   // height: 100%;
   overflow-y: scroll;
+  overflow-x: hidden;
   height: 100vh;
   transition: 1s;
 }

@@ -46,12 +46,12 @@ export const color = {
     dark: {
       color: '#212C3D',
       icon: 'dark',
-      iconColor: '#B6C3DB',
+      // iconColor: '#B6C3DB',
     },
     bright: {
       color: '#CCC',
       icon: 'taiyang_sun61',
-      iconColor: '#707885',
+      fontColor: '#333',
     },
     blue: {
       color: '#1DA1F2',

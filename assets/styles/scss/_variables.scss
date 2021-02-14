@@ -97,6 +97,7 @@ $mainColor:  (
                 #{'--m-color-' + $key + '-' + $i}: darken($value, $i * 5);
             }
             #{'--m-color-gray-' + $key}: desaturate($value, 70%);
+            #{'--m-color-opacity-8-' + $key}: rgba($value, .8);
             #{'--m-color-opacity-5-' + $key}: rgba($value, .5);
             #{'--m-color-opacity-2-' + $key}: rgba($value, .2);
         }
