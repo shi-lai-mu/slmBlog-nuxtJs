@@ -28,7 +28,7 @@
                   v-for="(item, index) in ThemesConfig.color.list"
                   :key="index"
                   :value="index"
-                  @click="toggleMainColor(index, item.color)">
+                  @click="toggleMainColor(index, true)">
                   <div class="color-round" :style="{ backgroundColor: item.color, color: item.color}">
                     <i class="slm blog-xuanzhong" v-show="setting.theme.color === index"></i>
                   </div>
@@ -40,14 +40,14 @@
           <div class="row-box">
             <span>背景</span>
             <div class="row-content"> 
-              <a-radio-group :default-value="ThemesConfig.backgroundColor.current" size="large" class="themes-bgcolor-group">
+              <a-radio-group :default-value="setting.theme.backgroundColor" size="large" class="themes-bgcolor-group">
                 <a-radio-button
                   class="themes-bgcolor-item"
                   v-for="(item, index) in ThemesConfig.backgroundColor.list"
                   :key="index"
                   :value="index"
                   :disabled="item.disable"
-                  @click="toggleBGColor(index, item)">
+                  @click="toggleBGColor(index, true)">
                   <div class="color-round" :style="{ backgroundColor: item.color, color: item.fontColor }">
                     {{ item.name }}<i class="slm blog-xuanzhong" :style="{ color: 'currentColor' }"></i>
                   </div>
@@ -113,7 +113,7 @@ export default class HeaderThemes extends Vue {
   messageKey = 'HeaderThemesMessageKey';
 
   created() {
-    const { ThemesConfig }: any = this;
+    const ThemesConfig = this.setting.theme;
     if (isClient) {
       const callFn = {
         fontSize: {
@@ -121,14 +121,18 @@ export default class HeaderThemes extends Vue {
         },
         color: {
           fn: 'toggleMainColor',
-          cb: (val, arr) => [ val, arr.list[val].color ],
         },
+        backgroundColor: {
+          fn: 'toggleBGColor',
+        }
       };
       Object.keys(ThemesConfig).forEach(key => {
         const targetFn = callFn[key];
         if (targetFn) {
           const currentConifg = ThemesConfig[key];
-          const params = targetFn.cb ? targetFn.cb(currentConifg.current, currentConifg) : [ currentConifg.current ];
+          const params = targetFn.cb ? targetFn.cb(currentConifg.current, currentConifg) : [ currentConifg ];
+          console.log(params, currentConifg);
+          
           this[targetFn.fn].apply(this, [...params, false]);
         }
       });
@@ -138,31 +142,36 @@ export default class HeaderThemes extends Vue {
 
   /**
    * slider修改文字大小时
+   * @param fontSize 文字大小
+   * @param isSave   是否执行保存
    */
-  fontSizeChang(fontSize: number) {
+  fontSizeChang(fontSize: number, isSave = true) {
     const root: HTMLElement = document.getElementsByTagName('html')[0];
     root.style.fontSize = `${fontSize}px`;
     this.setWebOptions({
       theme: {
         fontSize,
-      }
-    });
+      },
+      isSave,
+    });  
   }
 
 
   /**
    * 切换主题色
+   * @param colorName 主题色
+   * @param isSave    是否执行保存
    */
-  toggleMainColor(colorName: string) {
+  toggleMainColor(colorName: string, isSave = true) {
     const { initState, messageKey } = this;
     const root: HTMLElement = document.getElementsByTagName('html')[0];
-
     if (initState) this.$message.loading({ content: '正在切换全站主题色...', key: messageKey });
     this.initState = true;
     this.setWebOptions({
       theme: {
         color: colorName
-      }
+      },
+      isSave,
     });
     root.setAttribute('data-color-mode', colorName);
     this.$message.success({ content: '切换成功!', key: messageKey });
@@ -170,12 +179,17 @@ export default class HeaderThemes extends Vue {
 
   /**
    * 切换背景色
+   * @param colorName 背景色
+   * @param isSave    是否执行保存
    */
-  toggleBGColor(colorName: string)  {
+  toggleBGColor(colorName: string, isSave = true) {
+    console.log(colorName);
+    
     this.setWebOptions({
       theme: {
         backgroundColor: colorName,
-      }
+      },
+      isSave,
     });
   }
 }

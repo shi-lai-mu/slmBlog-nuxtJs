@@ -56,20 +56,24 @@ export const configModule: StoreOptions<typeof stateData> = {
      * 设置站点参数
      */
     setWebOptions(state, payload) {
-      if (payload.version !== undefined && payload.version !== _WEB_CONFIG_VERSION_) {
-        payload = state.setting;
-      }
+      // if (payload.version !== undefined && payload.version !== _WEB_CONFIG_VERSION_) {
+      //   payload = state.setting;
+      // }
+      const { isSave } = payload;
+      
       state.setting = WebSettingService.deepExtends(payload, state.setting);
-      const config = GlobalTool.excludeKey(defaultsDeep({}, state.setting), ['title', 'description', 'type', 'config']);
+      const config = GlobalTool.excludeKey(defaultsDeep({}, state.setting), ['title', 'description', 'type', 'config', 'isSave']);
       delete config.config;
-
+      
       if (isServer) return false;
   
-      clearTimeout(saveUserConfigClock);
-      saveUserConfigClock = setTimeout(async () => {
-        await saveUserConfig(config);
-        $cookie.set('web', JSON.stringify(config), { expires: 365 });
-      }, 1000);
+      if (isSave) {
+        clearTimeout(saveUserConfigClock);
+        saveUserConfigClock = setTimeout(async () => {
+          await saveUserConfig(config);
+          $cookie.set('web', JSON.stringify(config), { expires: 365 });
+        }, 1000);
+      }
       
       if (typeof saveUserConfigClock === 'number') {
         state.clock.saveUserConfig = saveUserConfigClock;

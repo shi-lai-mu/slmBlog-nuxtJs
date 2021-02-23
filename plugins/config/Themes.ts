@@ -80,7 +80,6 @@ export default new class Themes {
       fontSize: fs.current,
       color: c.current,
       backgroundColor: bc.current,
-      last_update: Date.now(),
     }));
 
     return true;

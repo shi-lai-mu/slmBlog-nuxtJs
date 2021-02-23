@@ -152,8 +152,6 @@ export default class ArticleEditor extends Vue {
    * 编辑器改变事件
    */
   editorChange(e) {
-    console.log(e);
-    
     clearTimeout(this.editorClock);
     this.editorClock = setTimeout(() => {
       (this.$refs.articleAnchor as ArticleAnchor).parseAnchor((<EditorComponents>this.$refs.editor).editor.selection.editor.$textElem.elems[0]);

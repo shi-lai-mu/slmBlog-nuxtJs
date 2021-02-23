@@ -125,9 +125,5 @@ export namespace User {
      * 字体大小
      */
     fontSize: keyof typeof ThemesFontSize.marks;
-    /**
-     * 最后更新时间
-     */
-    last_update: number;
   }
 }
