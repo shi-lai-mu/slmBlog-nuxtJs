@@ -21,6 +21,8 @@ export default class ArticlePostsContentPage extends Vue {
 
   async asyncData({ params }) {
     const posts = (await getPostsData(params.id)).result;
+    console.log({posts});
+    
     return {
       posts: posts.article, // 获取最新文章
     };

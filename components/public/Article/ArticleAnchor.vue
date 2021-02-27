@@ -82,8 +82,14 @@ export default class ArticleAnchor extends Vue {
 
 <style lang="scss" scoped>
   .article-anchor {
-    /deep/.ant-anchor-wrapper {
+    /deep/ .ant-anchor-wrapper {
       background-color: transparent;
+    }
+    /deep/ .ant-anchor-link-title {
+      color: var(--c-btn-text);
+    }
+    /deep/ .ant-anchor-ink::before {
+      background-color: var(--c-blankslate-icon);
     }
   }
 </style>

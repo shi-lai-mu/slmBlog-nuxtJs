@@ -131,8 +131,6 @@ export default class HeaderThemes extends Vue {
         if (targetFn) {
           const currentConifg = ThemesConfig[key];
           const params = targetFn.cb ? targetFn.cb(currentConifg.current, currentConifg) : [ currentConifg ];
-          console.log(params, currentConifg);
-          
           this[targetFn.fn].apply(this, [...params, false]);
         }
       });
@@ -235,7 +233,7 @@ export default class HeaderThemes extends Vue {
     .row-content {
       margin-top: .5rem;
       padding: 10px;
-      border: 1px solid var(--color-border-overlay);
+      border: 1px solid var(--c-border-overlay);
       border-radius: 15px;
     }
   }

@@ -39,7 +39,7 @@ export default class LayoutDefaultFooter extends Vue {
   margin: 20px 10px 0;
   font-size: .9rem;
   text-align: center;
-  border-top: 1px solid var(--color-border-primary);
+  border-top: 1px solid var(--c-border-primary);
   box-sizing: border-box;
   .copyright {
     margin-bottom: 15px;

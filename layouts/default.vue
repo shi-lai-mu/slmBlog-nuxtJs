@@ -36,16 +36,12 @@ import Background from '@/components/public/Background.vue';
 import Live2D from '@/components/public/Live2D.vue';
 import LoginPopup from '@/components/Login.vue';
 import resizeEvent from '@/utils/Event/resize';
-import ThemesConfig from '@/plugins/config/Themes';
 
 import { Component, namespace, Vue, Watch } from 'nuxt-property-decorator';
 import { isOpenDevTool } from '@/utils/deDeveloperTools';
 import { stateData as ConfigState } from '@/store/config';
 import { getSelfInfo } from "@/core/service/data/user";
 import { StateMutation } from '~/interface/state';
-import { WebSettingService } from '@/config/websetting';
-import { themesdefaultConfig } from '~/config/themes';
-import Themes from '@/plugins/config/Themes';
 
 const ConfigModule = namespace('config');
 
@@ -73,7 +69,7 @@ export default class DefaultLayout extends Vue {
    * 网站设置
    */
   @ConfigModule.State setting!: typeof ConfigState.setting;
-  @ConfigModule.Mutation setConfig!: StateMutation;
+  @ConfigModule.Mutation setWebOptions!: StateMutation;
 
   async created() {
     this.$config.Navigation.init(this);
@@ -90,15 +86,10 @@ export default class DefaultLayout extends Vue {
         this.$$store.commit('initUser', res.result);
         this.$$store.commit('setJWT', token);
         userConfig = res.result.config;
-        userConfig.config = Themes.config;
       }
     }
     
-    this.setConfig({
-      theme: userConfig || ThemesConfig.config,
-    });
-    console.log(this.setting, userConfig, Themes.config);
-    
+    this.setWebOptions(userConfig);
   }
 
 
@@ -269,8 +260,8 @@ export default class DefaultLayout extends Vue {
   transition: .5s;
 }
 .layout-default {
-  color: var(--color-text-primary);
-  background-color: var(--color-bg-primary);
+  color: var(--c-text-primary);
+  background-color: var(--c-bg-primary);
 }
 .mobile-header-open {
   transform: translateX(260px);
@@ -279,9 +270,9 @@ export default class DefaultLayout extends Vue {
 /deep/ .row-box {
   margin-bottom: 15px;
   padding: 20px;
-  background-color: var(--color-bg-primary);
-  // box-shadow: 0 2px 5px var(--color-border-tertiary);
-  border: 1px solid var(--color-border-primary);
+  background-color: var(--c-bg-primary);
+  // box-shadow: 0 2px 5px var(--c-border-tertiary);
+  border: 1px solid var(--c-border-primary);
   border-radius: 10px;
 
   .row-title {

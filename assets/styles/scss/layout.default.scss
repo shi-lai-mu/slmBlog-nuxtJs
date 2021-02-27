@@ -25,7 +25,7 @@ body {
 a {
   // color: currentColor;
   text-decoration: none;
-  // color: var(--color-text-link);
+  // color: var(--c-text-link);
 
   &:hover {
     text-decoration: underline;
@@ -144,10 +144,10 @@ li {
   }
 }
 .text-gray {
-  color: var(--color-text-secondary) !important;
+  color: var(--c-text-secondary) !important;
 
   &:hover {
-    color: var(--color-underlinenav-text-hover) !important;
+    color: var(--c-underlinenav-text-hover) !important;
   }
 }
 .icon-hover:hover {

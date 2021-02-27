@@ -12,6 +12,7 @@
       </div>
     </aside>
     <div v-scroll-event="{ down: 'aos-in' }" :class="[ 'article-list-item', layout.name, { 'is-open': viewId === item.id } ]" v-for="(item, index) in listData" :key="index">
+      {{log(item, index)}}
       <ArticleView @open="openArticleEvent" @close="closeArticleEvent" :ssr="item" :viewId="viewId" :key="index" />
     </div>
   </div>
@@ -49,11 +50,15 @@ import ArticleView from './View.vue';
 })
 export default class Article extends Vue {
   @Prop(Array) ssr?: IntefArticle.Base[];
+  log(params, index) {
+    console.log(params.banner, params.id, index, params.subject);
+    
+  }
 
   /**
    * 列表数据
    */
-  private listData: IntefArticle.Base[] = new Array(4).fill(articleBase);
+  listData: IntefArticle.Base[] = []
 
   /**
    * 正在观看是文章ID
@@ -80,7 +85,11 @@ export default class Article extends Vue {
   
 
   mounted() {
-    if (this.ssr) this.ssrUpdate(this.ssr);
+    if (this.ssr) {
+      this.ssrUpdate(this.ssr);
+    } else {
+      this.listData = new Array(4).fill(articleBase);
+    }
     if (isBrowser) {
       const listCon = window.localStorage.getItem(_ARTICLE_LIST_LAYOUT_);
       if (listCon) this.layout = JSON.parse(listCon);
@@ -162,8 +171,8 @@ export default class Article extends Vue {
       left: -10px;
       width: 3rem;
       padding: 10px 0;
-      background-color: var(--color-bg-primary);
-      border: 1px solid var(--color-border-primary);
+      background-color: var(--c-bg-primary);
+      border: 1px solid var(--c-border-primary);
       border-radius: 5px;
       justify-content: center;
       flex-wrap: wrap;
@@ -172,7 +181,7 @@ export default class Article extends Vue {
       .aside-child-box:not(:last-child) {
         padding-bottom: 10px;
         margin-bottom: 10px;
-        border-bottom: 1px solid var(--color-border-primary);
+        border-bottom: 1px solid var(--c-border-primary);
       }
 
       .slm {
@@ -181,7 +190,7 @@ export default class Article extends Vue {
         height: 35px;
         text-align: center;
         line-height: 35px;
-        color: var(--color-underlinenav-text);
+        color: var(--c-underlinenav-text);
         border-radius: 3px;
         border: 1px solid transparent;
         cursor: pointer;
@@ -189,13 +198,13 @@ export default class Article extends Vue {
 
         &:active,
         &.check {
-          background-color: var(--color-border-info);
-          color: var(--color-underlinenav-text-hover);
-          text-shadow: 0 0 6px var(--color-underlinenav-text-hover);
+          background-color: var(--c-border-info);
+          color: var(--c-underlinenav-text-hover);
+          text-shadow: 0 0 6px var(--c-underlinenav-text-hover);
         }
 
         &:hover {
-          border-color: var(--color-border-primary);
+          border-color: var(--c-border-primary);
           box-sizing: border-box;
         }
       }
@@ -210,8 +219,8 @@ export default class Article extends Vue {
       font-size: .85rem;
       border-radius: 10px;
       vertical-align: middle;
-      background-color: var(--color-bg-primary);
-      border: 1px solid var(--color-border-primary);
+      background-color: var(--c-bg-primary);
+      border: 1px solid var(--c-border-primary);
       transition: $layoutTransition;
       cursor: pointer;
 
@@ -237,7 +246,7 @@ export default class Article extends Vue {
       }
 
       .article-description {
-        color: var(--color-text-secondary);
+        color: var(--c-text-secondary);
         cursor: text;
       }
     }
@@ -248,7 +257,7 @@ export default class Article extends Vue {
       justify-content: space-between;
       align-items: center;
       white-space: nowrap;
-      color: var(--color-text-secondary);
+      color: var(--c-text-secondary);
 
       .slm {
         overflow: hidden;

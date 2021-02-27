@@ -65,7 +65,7 @@ export default class Row extends Vue {
 
     .row-title {
       flex: 1 1 auto;
-      border-bottom: 1px solid var(--color-border-primary);
+      border-bottom: 1px solid var(--c-border-primary);
     }
 
     .tool {

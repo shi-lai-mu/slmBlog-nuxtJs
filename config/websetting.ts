@@ -62,7 +62,7 @@ export class WebSettingService {
       userConfig = this.addNew(userConfig, config);
       userConfig = this.deleteOld(userConfig, config);
     } catch(err) {
-      console.log(err);
+      console.log({ err });
       userConfig = config;
     }
     return userConfig || config;
@@ -76,6 +76,7 @@ export class WebSettingService {
    */
   static addNew(userConfig, config) {
     if (userConfig === undefined) return config;
+    userConfig = Object.assign({}, userConfig);
     this._echo(config, (item, key) => {
       const userCurrent = userConfig[key];
       if (typeof item !== 'object') {

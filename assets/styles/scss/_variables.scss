@@ -107,7 +107,7 @@ $mainColor:  (
 @each $theme-name,$map in $themes {
     #{'[data-theme-mode=' + $theme-name + ']'}{
         @each $key,$value in $map {
-            #{'--color-' + $key}: $value;
+            #{'--c-' + $key}: $value;
         }
     }
 }

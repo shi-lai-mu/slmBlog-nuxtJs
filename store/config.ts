@@ -4,9 +4,13 @@ import defaultsDeep from 'lodash/defaultsDeep';
 import { StoreOptions } from 'vuex';
 import { GlobalTool } from '@/utils/tool';
 import { isServer } from '@/config/system';
-import { themesdefaultConfig } from '@/config/themes';
 import { saveUserConfig } from '@/core/service/data/user';
-import { color as ThemesConfigColor } from '@/config/themes';
+import {
+  color as ThemesConfigColor,
+  backgroundColor as ThemesBackgroundColor,
+  fontSize as ThemesFontSize,
+  themesdefaultConfig,
+} from '@/config/themes';
 import { webSetting, WebSettingService, _WEB_CONFIG_VERSION_ } from '@/config/websetting';
 
 let saveUserConfigClock = null;
@@ -59,16 +63,17 @@ export const configModule: StoreOptions<typeof stateData> = {
       // if (payload.version !== undefined && payload.version !== _WEB_CONFIG_VERSION_) {
       //   payload = state.setting;
       // }
+      if (!payload) return;
+
       const { isSave } = payload;
-      
       state.setting = WebSettingService.deepExtends(payload, state.setting);
-      const config = GlobalTool.excludeKey(defaultsDeep({}, state.setting), ['title', 'description', 'type', 'config', 'isSave']);
-      delete config.config;
       
-      if (isServer) return false;
+      if (isServer) return;
   
       if (isSave) {
         clearTimeout(saveUserConfigClock);
+        const config = GlobalTool.excludeKey(defaultsDeep({}, state.setting), ['title', 'description', 'type', 'config', 'isSave']);
+        delete config.config;
         saveUserConfigClock = setTimeout(async () => {
           await saveUserConfig(config);
           $cookie.set('web', JSON.stringify(config), { expires: 365 });
@@ -78,6 +83,14 @@ export const configModule: StoreOptions<typeof stateData> = {
       if (typeof saveUserConfigClock === 'number') {
         state.clock.saveUserConfig = saveUserConfigClock;
       }
+      
+      state.setting.config = {
+        theme: {
+          color: ThemesConfigColor,
+          backgroundColor: ThemesBackgroundColor,
+          fontSize: ThemesFontSize,
+        },
+      };
     },
 
     /**
@@ -106,7 +119,7 @@ export const configModule: StoreOptions<typeof stateData> = {
      * 获取主题色16进制
      */
     webMainThemes16Color: state => {
-      return ThemesConfigColor.list[state.setting.theme.color].color;
+      return ThemesConfigColor.list[state.setting.theme?.color]?.color;
     }
   },
   actions: {},

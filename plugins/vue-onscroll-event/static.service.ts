@@ -43,7 +43,7 @@ export class ScrollService {
   static install(target: HTMLElement, params: Options, options: ScrollEventNS.ScrollEventUseOptions) {
     let privateEl;
     const bindingEl = params?.value?.el;
-    
+    options.el = options.el || '.layout';
 
     // 初始过渡类名
     if (params.transform && params.transformName) {
@@ -54,10 +54,13 @@ export class ScrollService {
     if (bindingEl) {
       privateEl = bindingEl instanceof Function ? bindingEl() : bindingEl;
     }
-    params.currentElement = privateEl || prveElement || (options.el ? document.querySelector(options.el) : window) as HTMLElement | Window | null;
+    
+    params.currentElement = privateEl || (options.el ? document.querySelector(options.el) : window) as HTMLElement | Window | null || prveElement;
     prveElement = params.currentElement;
     params.previousClassName = params.previousClassName || target.className;
 
+    console.log(params, 'init', privateEl ,prveElement, options.el);
+      
     ScrollService.append(target, params);
 
     // 防抖结束时添加事件

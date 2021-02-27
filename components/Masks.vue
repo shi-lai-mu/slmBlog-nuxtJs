@@ -115,10 +115,10 @@ export default class Masks extends Vue {
     // padding: 10px;
     line-height: initial;
     background-clip: padding-box;
-    border: 1px solid var(--color-border-overlay);
+    border: 1px solid var(--c-border-overlay);
     border-radius: 6px;
-    box-shadow: var(--color-dropdown-shadow);
-    background-color: var(--color-bg-overlay);
+    box-shadow: var(--c-dropdown-shadow);
+    background-color: var(--c-bg-overlay);
   }
 
   .blog-back {

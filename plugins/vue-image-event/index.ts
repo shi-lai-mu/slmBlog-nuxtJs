@@ -1,8 +1,6 @@
 import { ScrollService } from "../vue-onscroll-event/static.service";
 import { ImageElement } from './index.d'
 
-const ImgList: HTMLImageElement[] = [];
-
 export default {
   install(Vue, options) {
 
@@ -23,7 +21,13 @@ export default {
     Vue.directive('img', {
       inserted(target: ImageElement, params) {
         if (target instanceof HTMLImageElement) {
+          ScrollService.install(target, {}, {
+            value: {
+              el: target,
+            }
+          });
           const Img = new Image();
+          const src = target.src;
           Img.onerror = () => {
             target.setAttribute('error-src', Img.src);
             Img.src = target.src = '/error.jpg';
@@ -32,14 +36,8 @@ export default {
             // target.src = Img.src;
           // };
           target.loadImg = Img;
-          Img.src = target.src;
+          Img.src = src;
           target.src = '/loading.gif';
-          ImgList.push(target);
-          ScrollService.install(target, {}, {
-            value: {
-              el: target,
-            }
-          });
         }
       }
     });

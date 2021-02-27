@@ -237,7 +237,7 @@ export default class WebSetting extends Vue {
     .row-content {
       margin-top: .5rem;
       padding: 10px;
-      border: 1px solid var(--color-border-overlay);
+      border: 1px solid var(--c-border-overlay);
       border-radius: 15px;
     }
   }

@@ -250,6 +250,7 @@ export default class ArticleView extends Vue {
     }
   }
   .article-box {
+    overflow: hidden;
     background-color: inherit;
   }
 
