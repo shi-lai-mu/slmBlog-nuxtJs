@@ -65,7 +65,7 @@ export default class UserCardSkeleton extends Vue {}
   .skeleton {
     position: absolute;
     z-index: 999;
-    top: 0;
+    top: 60px;
     left: 0;
     width: 100%;
     height: 100%;

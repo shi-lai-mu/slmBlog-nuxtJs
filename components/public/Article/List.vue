@@ -12,29 +12,29 @@
       </div>
     </aside>
     <div v-scroll-event="{ down: 'aos-in' }" :class="[ 'article-list-item', layout.name, { 'is-open': viewId === item.id } ]" v-for="(item, index) in listData" :key="index">
-      {{log(item, index)}}
       <ArticleView @open="openArticleEvent" @close="closeArticleEvent" :ssr="item" :viewId="viewId" :key="index" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 import { Tooltip } from 'ant-design-vue';
+import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 
-import { _ARTICLE_LIST_LAYOUT_ } from '@/config/storage';
 import { isBrowser } from '@/config/system';
-import { Article as IntefArticle } from '@/interface/request/article';
 import { articleBase } from '@/mock/article/data/index';
+import { _ARTICLE_LIST_LAYOUT_ } from '@/config/storage';
+import { Article as IntefArticle } from '@/interface/request/article';
 
-import listAsideConfig from './ListAside.config';
 import ArticleView from './View.vue';
+import listAsideConfig from './config/listAside.config';
 
 /**
  * 文章列表
  * - 展示文章列表
  */
 @Component({
+  name: 'ArticleList',
   components: {
     Tooltip,
     ArticleView,
@@ -48,12 +48,8 @@ import ArticleView from './View.vue';
     }
   }
 })
-export default class Article extends Vue {
+export default class ArticleList extends Vue {
   @Prop(Array) ssr?: IntefArticle.Base[];
-  log(params, index) {
-    console.log(params.banner, params.id, index, params.subject);
-    
-  }
 
   /**
    * 列表数据
@@ -85,7 +81,7 @@ export default class Article extends Vue {
   
 
   mounted() {
-    if (this.ssr) {
+    if (this.ssr.length) {
       this.ssrUpdate(this.ssr);
     } else {
       this.listData = new Array(4).fill(articleBase);

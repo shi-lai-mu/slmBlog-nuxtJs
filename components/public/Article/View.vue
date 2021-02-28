@@ -1,6 +1,6 @@
 <template>
   <div class="article-card">
-    <article
+    <div
       v-if="article.id"
       :class="['article-box', { 'bg-texture': isOpen || (!isOpen && task.length)}]"
       @click="openView(article.id)" :style="style"
@@ -26,7 +26,7 @@
         </div>
       </template>
       <ArticleContent v-if="isOpen" :ssr="article" initSkeleton />
-    </article>
+    </div>
     <ArticleCardSkeleton v-else/>
   </div>
 </template>
@@ -174,10 +174,13 @@ export default class ArticleView extends Vue {
       this.style = {
         position: 'fixed',
         zIndex: '29',
-        top: `${scrollTop + 60}px`,
+        // top: `${scrollTop + 60}px`,
+        top: `0px`,
         left: '0',
+        // paddingTop: '60px',
         width: '100vw',
-        height: 'calc(100vh - 60px)',
+        // height: 'calc(100vh - 60px)',
+        height: '100vh',
         borderRadius: '5px',
         transition: '.5s ',
       }
@@ -185,8 +188,9 @@ export default class ArticleView extends Vue {
       task.push(setTimeout(() => {
         // $config.GeminiScrollbar._viewElement.style.overflow = 'initial';
         // $config.GeminiScrollbar.destroy();
-        this.style.zIndex = '31';
-        this.style.top = '60px';
+        // this.style.zIndex = '31';
+        // this.style.top = '60px';
+        // this.style.top = '0px';
         this.style.transition = '0s';
         this.task = [];
       }, 500));
@@ -285,9 +289,9 @@ export default class ArticleView extends Vue {
   }
 
   .is-open {
-    .article-box {
-      padding-top: 70px;
-    }
+    // .article-box {
+      // padding-top: 70px;
+    // }
 
     .article-frame {
       position: absolute;

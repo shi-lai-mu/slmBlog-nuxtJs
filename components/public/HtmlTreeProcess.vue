@@ -93,7 +93,7 @@ export default class HtmlTreeProcess extends Vue {
     z-index: 99;
     width: 100vw;
     height: 4px;
-    top: 0;
+    bottom: 0;
     left: 0;
     cursor: pointer;
     
