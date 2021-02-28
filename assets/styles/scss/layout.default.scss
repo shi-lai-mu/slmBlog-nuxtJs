@@ -22,13 +22,15 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-a {
+a,
+.a-link {
   // color: currentColor;
   text-decoration: none;
-  // color: var(--c-text-link);
+  color: var(--c-primary);
 
   &:hover {
     text-decoration: underline;
+    color: var(--c-text-link);
   }
 }
 

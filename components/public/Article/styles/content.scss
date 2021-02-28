@@ -8,14 +8,16 @@
 }
 
 .article-content-box {
-  position: absolute;
+  // position: absolute;
   overflow-y: scroll;
-  top: 60px;
+  // top: 60px;
   left: 0;
   width: 100%;
-  min-height: calc(100vh - 60px);
-  height: calc(100vh - 60px);
-  padding-top: 0;
+  min-height: 100vh;
+  // min-height: calc(100vh - 60px);
+  height: 100vh;
+  // height: calc(100vh - 60px);
+  padding-top: 60px;
   @include themify($themes) {
     color: themed('font-color');
   }
@@ -36,7 +38,7 @@
 
   .article-desc {
     padding: 15px;
-    // margin-bottom: 15px;
+    margin-bottom: 15px;
     border-radius: 5px;
     @include themify($themes) {
       background-color: rgba(themed('main-bg-f2-color'), .7);
