@@ -9,11 +9,15 @@
 </template>
 
 <script lang="ts">
-import { Anchor } from 'ant-design-vue';
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import { Article } from '~/interface/request/article';
+import { Anchor } from 'ant-design-vue';
 
+/**
+ * 文章目录结构组件
+ */
 @Component({
+  name: 'ArticleAnchor',
   components: {
     AAnchor: Anchor,
     AAnchorLink: Anchor.Link,
@@ -32,7 +36,9 @@ export default class ArticleAnchor extends Vue {
    * 浮动模式
    */
   @Prop(Boolean) affix?: boolean;
-
+  /**
+   * 节点列表
+   */
   list: Article.Anchor[] = [];
 
   created() {
@@ -46,15 +52,14 @@ export default class ArticleAnchor extends Vue {
     const els = el.getElementsByTagName(tagName);
     const childEls: HTMLElement[] = Object.values(el.getElementsByTagName('h3'));
     this.list = Object.values(els).map((el, i) => {
-      const name =  el.innerText;
-      const id = el.getAttribute('id');
-      const elTop = el.offsetTop;
-      const elBottom =  (els[i + 1] ? els[i + 1].offsetTop : els[i].offsetTop + el.offsetTop);
-      
       const childs = [];
+      const name = el.innerText;
+      const elTop = el.offsetTop;
+      const id = el.getAttribute('id');
+      const elBottom = (els[i + 1] ? els[i + 1].offsetTop : els[i].offsetTop + el.offsetTop);
+
       childEls.some((child, childIndex) => {
         const { offsetTop } = child;
-        
         if (offsetTop > elTop && offsetTop < elBottom) {
           const childName = child.innerText;
           const childId = child.getAttribute('id');
@@ -74,7 +79,6 @@ export default class ArticleAnchor extends Vue {
         childs,
       };
     });
-
     return this.list;
   }
 }
@@ -85,9 +89,11 @@ export default class ArticleAnchor extends Vue {
     /deep/ .ant-anchor-wrapper {
       background-color: transparent;
     }
+
     /deep/ .ant-anchor-link-title {
       color: var(--c-btn-text);
     }
+
     /deep/ .ant-anchor-ink::before {
       background-color: var(--c-blankslate-icon);
     }

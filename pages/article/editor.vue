@@ -167,7 +167,7 @@ export default class ArticleEditor extends Vue {
     
     return {
       ...this.article,
-      category: JSON.parse(this.article.category),
+      category: this.article.category,
       content: (editor as EditorComponents).HTML(),
       setting: (articleSetting as ArticleSetting).options,
     } as SubmitArticleDto;

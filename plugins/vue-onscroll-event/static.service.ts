@@ -59,8 +59,6 @@ export class ScrollService {
     prveElement = params.currentElement;
     params.previousClassName = params.previousClassName || target.className;
 
-    console.log(params, 'init', privateEl ,prveElement, options.el);
-      
     ScrollService.append(target, params);
 
     // 防抖结束时添加事件

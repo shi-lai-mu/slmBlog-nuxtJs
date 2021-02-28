@@ -30,7 +30,7 @@ export class SubmitArticleDto extends BaseValidateData {
   banner: string;
 
   @Column()
-  category: [];
+  category: [] | string;
 
   @Column()
   setting: {

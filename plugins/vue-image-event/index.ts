@@ -19,13 +19,14 @@ export default {
     }
     
     Vue.directive('img', {
-      inserted(target: ImageElement, params) {
+      inserted(target: ImageElement, _params) {
         if (target instanceof HTMLImageElement) {
           ScrollService.install(target, {}, {
             value: {
               el: target,
             }
           });
+          
           const Img = new Image();
           const src = target.src;
           Img.onerror = () => {

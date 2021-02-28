@@ -21,8 +21,17 @@ export class GlobalTool {
      * 格式化日期
      * @param fmt 日期格式 如：yyyy-MM-dd HH:mm:ss
      * @param form 指定时间 不传参 默认目前时间
+     * @param type 转换类型
      */
-    date(fmt: string = 'yyyy-MM-dd HH:mm:ss', form?: number) {
+    date(form?: number | string, fmt: string = 'yyyy-MM-dd HH:mm:ss', type: 'ios' | '' = '') {
+
+      // IOS 时区转换
+      if (type === 'ios') {
+        let timeMills = new Date(form).getTime();
+        let tzOffset = (new Date()).getTimezoneOffset() * 60000;
+        form = timeMills + tzOffset;
+      }
+
       const date: any = form ? new Date(form) : new Date();
       const o: any = {
         'M+': date.getMonth() + 1,
@@ -62,7 +71,7 @@ export class GlobalTool {
      * @param fmt 日期格式 如：yyyy-MM-dd HH:mm:ss
      */
     isoToDateTime(isoString: string, fmt: string = 'yyyy-MM-dd HH:mm:ss') {
-      return GlobalTool.format.date(fmt, new Date(isoString).getTime());
+      return GlobalTool.format.date(new Date(isoString).getTime(), fmt, 'ios');
     },
 
 

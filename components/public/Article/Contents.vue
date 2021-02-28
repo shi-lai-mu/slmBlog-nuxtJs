@@ -19,15 +19,26 @@
               <span>{{ $tool.format.isoToDateTime(articleData.createTime) }}</span>
               <span>作者: {{ articleData.author.nickname }}</span>
             </div>
-            <div class="article-desc" v-html="articleData.description"></div>
+            <div class="article-desc">
+              <span v-html="articleData.description"></span>
+              <div class="sharing-channels">
+                <span>分享到：</span>
+                <tooltip v-for="(item, key) in sharingConfig" :key="key">
+                  <span slot="title" v-text="item.name"></span>
+                  <i :class="['slm', `blog-${item.icon}`]"></i>
+                </tooltip>
+              </div>
+            </div>
           </div>
-          <div class="article-content__body" ref="articleContent" v-html="articleData.content">
+          <div class="article-content__body">
+            <div ref="articleContent" v-html="articleData.content"></div>
+            <ArticleContentFooter :articleData="articleData" />
           </div>
-          <div class="article-content__footer"></div>
+          <div class="article-content__footer">
+            <UpperLowerArticle :articleId="articleData.id" />
+          </div>
         </div>
-        <div class="article-reply__container">
-
-        </div>
+        <ArticleReply />
       </a-col>
       <a-col
         class="article-page__sideber"
@@ -47,69 +58,74 @@
 </template>
 
 <script lang='ts'>
+import { Affix, Tooltip } from 'ant-design-vue';
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 
-import { getPostsData } from '@/core/service/data/article';
 import { articleBase } from '@/mock/article/data/index';
+import { getPostsData } from '@/core/service/data/article';
 import { Article as IntefArticle } from '@/interface/request/article';
-import { Affix } from 'ant-design-vue';
 
 import Row from '@/components/public/Row.vue';
+import sharingConfig from './config/sharing.config';
 import Imager from '@/components/public/Imager.vue';
 import UserCard from '@/components/public/UserCard.vue';
+import ArticleReply from './components/ArticleReply.vue';
+import UpperLowerArticle from './components/UpperLowerArticle.vue';
+import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue';
+import ArticleContentFooter from './components/ArticleContentFooter.vue';
 import ArticleAnchor from '@/components/public/Article/ArticleAnchor.vue';
 import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
 import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleton.vue';
-import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue';
-
 
 /**
  * 文章内容组件
  */
 @Component({
+  name: 'ArticleContent',
   components: {
     Row,
     Imager,
+    Tooltip,
     UserCard,
+    ArticleReply,
     LayoutFooter,
     ArticleAnchor,
     AAffix: Affix,
     HtmlTreeProcess,
+    UpperLowerArticle,
     ArticleViewSkeleton,
+    ArticleContentFooter,
   }
 })
-export default class ArticleContents extends Vue {
-
+export default class ArticleContent extends Vue {
   /**
    * 文章ID
    */
   @Prop(Number) articleId?: number;
-
   /**
    * 传入的列表数据 SSR
    */
   @Prop(Object) ssr?: IntefArticle.Base;
-
   /**
    * 初始化骨架屏
    */
   @Prop(Boolean) initSkeleton?: boolean;
-
   /**
    * 文章数据
    */
-  private articleData?: IntefArticle.Base = articleBase;
-
+  articleData?: IntefArticle.Base = articleBase;
   /**
    * 是否禁用骨架屏
    */
   // private disableSkeleton = false;
-
   /**
    * 骨架于内容切换过渡
    */
-  private toggleTransition = false;
-
+  toggleTransition = false;
+  /**
+   * 分享配置
+   */
+  sharingConfig = sharingConfig;
 
   created() {
     this.ssrUpdate(this.articleId || this.ssr || articleBase);
@@ -179,4 +195,25 @@ export default class ArticleContents extends Vue {
 
 <style  lang="scss" scoped>
 @import './styles/content.scss';
+.sharing-channels {
+  margin-top: 10px;
+  text-align: right;
+  user-select: none;
+  color: var(--c-text-secondary);
+
+  .slm {
+    font-size: 1.1em;
+    cursor: pointer;
+
+    &:not(:last-child)::after {
+      content: '/';
+      margin: 0 5px;
+      color: var(--c-text-placeholder);
+    }
+
+    &:hover {
+      color: var(--c-text-link);
+    }
+  }
+}
 </style>
