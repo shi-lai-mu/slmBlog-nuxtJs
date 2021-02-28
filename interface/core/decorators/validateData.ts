@@ -1,5 +1,3 @@
-import { namespace } from "nuxt-property-decorator";
-
 export interface EntityOptions {
   /**
    * 规定实体名

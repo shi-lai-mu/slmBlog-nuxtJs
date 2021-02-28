@@ -62,11 +62,10 @@ export default class FocusingDisplac extends Vue {
     if (clock[0] || clock[1] || !element) return false;
     
     // 位置计算
-    let { x, y, width, height } = element.getBoundingClientRect();
+    let { x, width, height } = element.getBoundingClientRect();
     if (parentElement) {
-      const { x: parentX, y: parentY } = parentElement.getBoundingClientRect();
+      const { x: parentX} = parentElement.getBoundingClientRect();
       x -= parentX;
-      y -= parentY;
     }
     
     // 偏移及宽度计算

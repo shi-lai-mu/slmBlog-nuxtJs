@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { Carousel } from 'ant-design-vue';
+// import { Carousel } from 'ant-design-vue';
 import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component({ name: 'Tos' })

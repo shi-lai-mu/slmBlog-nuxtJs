@@ -138,7 +138,7 @@ export default class ArticleView extends Vue {
    * 加载文章
    */
   openView(articleId: number) {
-    const { $config, task, $el, isOpen } = this;
+    const { task, $el, isOpen } = this;
 
     // 正在执行列队则跳出
     if (task.length || isOpen) return false;
@@ -202,7 +202,7 @@ export default class ArticleView extends Vue {
    * 关闭视图
    */
   closeView() {
-    const { $config, task, isOpen} = this;
+    const { task, isOpen} = this;
     // 正在执行列队则跳出
     // if (task.length) return false;
     if (task.length) task.forEach((v: any) => clearTimeout(v));

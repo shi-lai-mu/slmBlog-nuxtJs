@@ -119,7 +119,7 @@ export default class DefaultLayout extends Vue {
       && /(192|127)\.\d+\.\d+\.\d+/.test(window.location.host)
       && $store.state.isMobile  
     ) {
-      const vConsole = new (require('vconsole'));
+      new (require('vconsole'));
     }
 
     // 监听popstate变化

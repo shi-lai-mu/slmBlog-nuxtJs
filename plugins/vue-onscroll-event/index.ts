@@ -3,7 +3,7 @@ import { ScrollEventNS } from './index.d';
 import { ScrollService } from './static.service';
 
 // 事件容器合集
-const eventElMap: ScrollEventNS.EventElMap = {};
+// const eventElMap: ScrollEventNS.EventElMap = {};
 // 绑定参数
 type Options = ScrollEventNS.ScrollEventBindingOptions;
 // 内置观察者

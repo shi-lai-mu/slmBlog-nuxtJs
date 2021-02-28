@@ -118,7 +118,6 @@ export default class Background {
    * 初始化
    */
   private init() {
-    const that = this;
     const { grain } = this.options;
     let grainSize = grain.number;
 

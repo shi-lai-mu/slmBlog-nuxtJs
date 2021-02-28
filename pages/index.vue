@@ -54,7 +54,7 @@ import FocalPointPlate from '@/components/pages/home/FocalPointPlate.vue';
 })
 export default class HomePage extends Vue {
   // 文章页数
-  private articlePage = 1;
+  articlePage = 1;
 
   async asyncData({ $http, $axios}) {
     return {

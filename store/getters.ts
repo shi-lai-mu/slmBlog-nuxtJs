@@ -1,8 +1,5 @@
 import { State } from '@/interface/state';
 import { User } from '@/interface/request/user';
-import {
-  color as ThemesConfigColor,
-} from '@/config/themes';
 
 const getters = {
   /**

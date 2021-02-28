@@ -63,8 +63,8 @@ import axiosQs from 'qs';
 import API from '@/config/api';
 // 配置文件
 import config from '@/config/default';
-import Axios from 'axios';
-import { namespace, Vue } from 'nuxt-property-decorator';
+// import Axios from 'axios';
+import { Vue } from 'nuxt-property-decorator';
 // 内部配置
 import {
   localRegExp,

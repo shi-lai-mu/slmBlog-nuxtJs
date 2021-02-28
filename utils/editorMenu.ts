@@ -1,5 +1,6 @@
 import E from 'wangeditor';
-const { $, BtnMenu, DropListMenu, PanelMenu, DropList, Panel, Tooltip } = E;
+// const { $, BtnMenu, DropListMenu, PanelMenu, DropList, Panel, Tooltip } = E;
+const { BtnMenu } = E;
 
 export class AlertMenu extends BtnMenu {
   constructor(editor) {

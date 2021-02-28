@@ -139,7 +139,7 @@ export default class UserCard extends Vue {
   /**
    * 用户数据
    */
-  private userData: User.Base = userData;
+  userData: User.Base = userData;
 
   /**
    * data的更新触发 [userData将被覆盖] | userId的更新触发

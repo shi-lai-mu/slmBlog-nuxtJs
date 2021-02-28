@@ -9,7 +9,7 @@ import { SubmitArticleDto } from '~/core/dto/article';
  * 获取文章列表
  */
 export const getArticleList = (
-  filterMode: keyof typeof Article.StateEnum = 'Routine',
+  filterMode: keyof typeof Article.StateEnum = 'routine',
   page: number = 1,
   count: number = 10,
 ) => axios.send(axios.article.list, {

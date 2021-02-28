@@ -1,7 +1,6 @@
 import * as path from 'path';
 import { isDev, isMock } from './config/system';
 import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
-import { Route } from 'ant-design-vue/types/breadcrumb/breadcrumb';
 // import webpack from 'webpack';
 // import CompressionPlugin from 'compression-webpack-plugin';
 
