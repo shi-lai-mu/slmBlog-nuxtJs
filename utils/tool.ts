@@ -24,7 +24,6 @@ export class GlobalTool {
      * @param type 转换类型
      */
     date(form?: number | string, fmt: string = 'yyyy-MM-dd HH:mm:ss', type: 'ios' | '' = '') {
-
       // IOS 时区转换
       if (type === 'ios') {
         let timeMills = new Date(form).getTime();

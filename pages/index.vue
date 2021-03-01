@@ -24,7 +24,7 @@
       >
         <UserCard :ssr="userData" userSelf userState/>
         <Notice v-if="!$store.state.isMobile"/>
-        <FocalPointPlate :ssr="articleLatest" />
+        <FocalPointPlate :ssr="recommendedArticle" />
       </a-col>
     </a-row>
   </div>
@@ -56,10 +56,11 @@ export default class HomePage extends Vue {
   // 文章页数
   articlePage = 1;
 
-  async asyncData({ $http, $axios}) {
+  async asyncData() {
     return {
       userData: (await getUserBaseData(1)).result || {},          // 获取用户信息
       articleLatest: (await getArticleList()).result?.list || [], // 获取最新文章
+      recommendedArticle: (await getArticleList('recommend', 1, 6)).result?.list || [],
     };
   }
 }

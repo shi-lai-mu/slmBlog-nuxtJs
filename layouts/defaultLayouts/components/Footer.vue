@@ -3,7 +3,7 @@
     <div class="copyright">
       <div class="copyright-register" v-html="copyright()"></div>
       <div class="copyright-navigation">
-        <a class="navigation-li" >条款和免责</a>
+        <router-link class="navigation-li" :to="{ path: '/tos' }">条款和免责</router-link>
         <a class="navigation-li" >关于本站</a>
       </div>
     </div>
@@ -35,6 +35,7 @@ export default class LayoutDefaultFooter extends Vue {
 <style lang="scss" scoped>
 // 底部样式
 .body-footer {
+  position: relative;
   padding: 20px 10px;
   margin: 20px 10px 0;
   font-size: .9rem;

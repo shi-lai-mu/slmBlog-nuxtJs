@@ -14,7 +14,12 @@
         />
         <i class="slm blog-img-err figure-cover" v-else></i>
         <div class="article-content">
-          <router-link :to="{ name: 'article-id', params: { id: article.id } }" class="figure-subject line-ellipsis" v-text="article.subject"></router-link>
+          <router-link
+            :to="{ name: 'article-id', params: { id: article.id } }"
+            class="figure-subject line-ellipsis"
+            v-text="article.subject"
+            @click.native.stop="() => {}"
+          ></router-link>
           <p class="line-ellipsis double-line-ellipsis article-description" v-text="article.description"></p>
         </div>
         <div class="article-bottom">

@@ -14,7 +14,12 @@ export default class VueBackground extends Vue {
 
   mounted() {
     this.$nextTick(() => {
-      this.bg = new Background(this.$refs.canvas as HTMLCanvasElement);
+      const { isMobile } = this.$$store.state;
+      this.bg = new Background(this.$refs.canvas as HTMLCanvasElement, {
+        grain: {
+          number: isMobile ? 15 : 100,
+        }
+      });
     });
   }
 

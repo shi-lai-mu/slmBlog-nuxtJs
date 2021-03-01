@@ -300,7 +300,7 @@ export namespace BackgroundSpace {
       /**
        * 粒子大小 最小值
        */
-      size: number;
+      size?: number;
     }
   }
 

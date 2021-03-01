@@ -80,7 +80,7 @@ export default class ArticleList extends Vue {
   }
   
 
-  mounted() {
+  created() {
     if (this.ssr.length) {
       this.ssrUpdate(this.ssr);
     } else {

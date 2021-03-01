@@ -39,7 +39,7 @@ export const stateData = {
       /**
        * 主题配置
        */
-      theme: {},
+      theme: themesdefaultConfig,
     }
   },
   /**
@@ -89,7 +89,7 @@ export const configModule: StoreOptions<typeof stateData> = {
           color: ThemesConfigColor,
           backgroundColor: ThemesBackgroundColor,
           fontSize: ThemesFontSize,
-        },
+        } as any,
       };
     },
 

@@ -1,7 +1,6 @@
 <template>
   <div
     @scroll="layoutScroll"
-    ref="layoutScroll"
     :class="[
       'layout',
       'bg-texture',
@@ -14,10 +13,7 @@
     ]">
     <Background v-if="setting.web.background.canvas.enable"/>
     <LayoutHeader class="header" @set-open-state="setHeaderOpenState" :mobileHeaderOpen="mobileHeaderOpen" />
-    <transition name="transition">
-      <nuxt class="layout-page" @click.native="mobileHeaderOpen = false"/>
-    </transition>
-    <LayoutFooter />
+    <nuxt class="layout-page"  @click.native="mobileHeaderOpen = false"/>
     <LoginPopup v-if="loginPopup" ref="LoginPopup" />
     <Live2D :enable="setting.web.pendant.cat.enable"/>
   </div>
@@ -72,9 +68,6 @@ export default class DefaultLayout extends Vue {
    * 网站设置
    */
   @ConfigModule.State setting!: typeof ConfigState.setting;
-  /**
-   * 设置网站参数
-   */
   @ConfigModule.Mutation setWebOptions!: StateMutation;
 
   async created() {
@@ -96,18 +89,11 @@ export default class DefaultLayout extends Vue {
     }
     
     this.setWebOptions(userConfig);
-
-    this.$router.beforeEach((_to, _from, next) => {
-      next();
-      this.$observer.emit('scrollTop', [0, 0]);
-      return true;
-    })
   }
 
 
   mounted() {
     const { $http, $refs, $nuxt, $store, $observer } = this;
-    const { LoginPopup, layoutScroll } = $refs;
     
     // 初始化权限组
     $http.$vue = this;
@@ -140,20 +126,13 @@ export default class DefaultLayout extends Vue {
       $observer.emit('popstate', e);
     });
 
-    // 全局滚动控制事件
-    $observer.on('scrollTop', ({x, y}) => {
-      if (layoutScroll) {
-        (layoutScroll as Element).scrollTo(x, y);
-      }
-    });
-
     // 登录弹窗观察者绑定
     $observer.on('login', loginType => {
       if (!this.loginPopup) {
         this.loginPopup = true;
-        this.$nextTick(() => (LoginPopup as LoginPopup).showMask(loginType));
+        this.$nextTick(() => ($refs.LoginPopup as LoginPopup).showMask(loginType));
       } else {
-        (LoginPopup as LoginPopup).showMask(loginType);
+        ($refs.LoginPopup as LoginPopup).showMask(loginType);
       }
     });
 
@@ -239,9 +218,6 @@ export default class DefaultLayout extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.home-enter-active, .home-leave-active { transition: opacity .5s; }
-.home-enter, .home-leave-active { opacity: 0; }
-
 .transition-enter-active,
 .transition-leave-active {
   transition: 1s;

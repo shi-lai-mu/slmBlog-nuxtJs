@@ -1,59 +1,61 @@
 <template>
   <article
-    :class="['article-content-box', { 'toggle-transition': toggleTransition }, 'bg-texture']"
+    :class="['article-content-box', { 'toggle-transition': toggleTransition }, { 'bg-texture': !isPage }, { 'is-page-mode': isPage }]"
     @scroll="articleScroll"
     ref="article">
     <ArticleViewSkeleton />
-    <HtmlTreeProcess ref="treeProcess"/>
-    <a-row class="article-layout max-content">
-      <a-col
-        class="article-page__container max-content"
-        :lg="{ span: 16 }"
-        :xxl="{ span: 16 }"
-      >
-        <aside class="article-action"></aside>
-        <div class="article-content__container row-box">
-          <div class="article-content__header">
-            <h1 class="title" v-text="articleData.subject"></h1>
-            <div class="article-items">
-              <span>{{ $tool.format.isoToDateTime(articleData.createTime) }}</span>
-              <span>作者: {{ articleData.author.nickname }}</span>
-            </div>
-            <div class="article-desc">
-              <span v-html="articleData.description"></span>
-              <div class="sharing-channels">
-                <span>分享到：</span>
-                <tooltip v-for="(item, key) in sharingConfig" :key="key">
-                  <span slot="title" v-text="item.name"></span>
-                  <i :class="['slm', `blog-${item.icon}`]"></i>
-                </tooltip>
+    <template v-if="articleData && articleData.id">
+      <HtmlTreeProcess ref="treeProcess"/>
+      <a-row class="article-layout max-content">
+        <a-col
+          class="article-page__container max-content"
+          :lg="{ span: 16 }"
+          :xxl="{ span: 16 }"
+        >
+          <aside class="article-action"></aside>
+          <div class="article-content__container row-box">
+            <div class="article-content__header">
+              <h1 class="title" v-text="articleData.subject"></h1>
+              <div class="article-items">
+                <span>{{ $tool.format.isoToDateTime(articleData.createTime) }}</span>
+                <span>作者: {{ articleData.author.nickname }}</span>
+              </div>
+              <div class="article-desc">
+                <span v-html="articleData.description"></span>
+                <div class="sharing-channels">
+                  <span>分享到：</span>
+                  <tooltip v-for="(item, key) in sharingConfig" :key="key">
+                    <span slot="title" v-text="item.name"></span>
+                    <i :class="['slm', `blog-${item.icon}`]"></i>
+                  </tooltip>
+                </div>
               </div>
             </div>
+            <div class="article-content__body">
+              <div ref="articleContent" v-html="articleData.content"></div>
+              <ArticleContentFooter :articleData="articleData" />
+            </div>
+            <div class="article-content__footer">
+              <UpperLowerArticle :articleId="articleData.id" />
+            </div>
           </div>
-          <div class="article-content__body">
-            <div ref="articleContent" v-html="articleData.content"></div>
-            <ArticleContentFooter :articleData="articleData" />
-          </div>
-          <div class="article-content__footer">
-            <UpperLowerArticle :articleId="articleData.id" />
-          </div>
-        </div>
-        <ArticleReply />
-      </a-col>
-      <a-col
-        class="article-page__sideber"
-        :lg="{ span: 8 }"
-        :xxl="{ span: 8 }"
-      >
-        <UserCard :ssr="articleData.author" userEntrance />
-        <a-affix :offset-top="20" :target="() => $refs.article">
-          <Row title="目录">
-            <ArticleAnchor ref="articleAnchor" :getContainer="() => $refs.article" :affix="true"/>
-          </Row>
-        </a-affix>
-      </a-col>
-    </a-row>
-    <LayoutFooter />
+          <ArticleReply />
+        </a-col>
+        <a-col
+          class="article-page__sideber"
+          :lg="{ span: 8 }"
+          :xxl="{ span: 8 }"
+        >
+          <UserCard :ssr="articleData.author" userEntrance />
+          <a-affix :offset-top="20" :target="() => $refs.article">
+            <Row title="目录">
+              <ArticleAnchor ref="articleAnchor" :getContainer="() => $refs.article" :affix="true"/>
+            </Row>
+          </a-affix>
+        </a-col>
+      </a-row>
+      <LayoutFooter v-if="!isPage"/>
+    </template>
   </article>
 </template>
 
@@ -64,6 +66,7 @@ import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 import { articleBase } from '@/mock/article/data/index';
 import { getPostsData } from '@/core/service/data/article';
 import { Article as IntefArticle } from '@/interface/request/article';
+import { RequestConst } from '@/core/constants/request';
 
 import Row from '@/components/public/Row.vue';
 import sharingConfig from './config/sharing.config';
@@ -105,11 +108,15 @@ export default class ArticleContent extends Vue {
   /**
    * 传入的列表数据 SSR
    */
-  @Prop(Object) ssr?: IntefArticle.Base;
+  @Prop(Object) ssr?: IntefArticle.Base | IntefArticle.Posts;
   /**
    * 初始化骨架屏
    */
   @Prop(Boolean) initSkeleton?: boolean;
+  /**
+   * 是否为页面模式渲染
+   */
+  @Prop(Boolean) isPage?: boolean;
   /**
    * 文章数据
    */
@@ -131,19 +138,12 @@ export default class ArticleContent extends Vue {
     this.ssrUpdate(this.articleId || this.ssr || articleBase);
   }
 
-  mounted() {
-    this.$nextTick(() => {
-      const { articleContent, articleAnchor } = this.$refs;
-      (articleAnchor as ArticleAnchor).parseAnchor(articleContent as  Element);
-    })
-  }
-
   /**
    * 文章ID更新
    */
   @Watch('articleId')
-  changArticleId(articleId: IntefArticle.Base['id']) {
-    getPostsData(articleId)
+  changArticleId(data: IntefArticle.Base['id']) {
+    getPostsData(data)
       .then(data => {
         if (data.result) this.articleData = this.setRenderData(data.result[0]);
         this.$forceUpdate();
@@ -153,31 +153,43 @@ export default class ArticleContent extends Vue {
 
 
   @Watch('ssr')
-  ssrUpdate(data: IntefArticle.Base | number) {
+  async ssrUpdate(data: IntefArticle.Base | IntefArticle.Posts | number) {
+    console.log({data});
+    
+    const { id } = data as IntefArticle.Base || { id: 0 };
     // 如果对骨架屏进行了初始化则先显示骨架屏进行交互
     if (this.initSkeleton) {
-      setTimeout(() => this.toggleTransition = true, 500);
+      setTimeout(() => this.toggleTransition = true, 200);
     } else this.toggleTransition = true;
-    
-    if (typeof data === 'number' && data !== -1) {
-      getPostsData(data).then(res => this.setRenderData(res.result))
-    } else {
-      this.setRenderData(data);
+
+    if (id || typeof data === 'number') {
+      const res = await getPostsData(data as IntefArticle.Base | number);
+      if (res.code === RequestConst.SUCCESS_CODE) {
+        data = res.result;
+      }
     }
+    this.setRenderData(data as IntefArticle.Posts);
   }
 
 
   /**
    * 设置渲染属性
    */
-  setRenderData(data) {
+  setRenderData(data: IntefArticle.Posts) {
     if (Object.keys(data).length === 0) {
       return this.articleData = this.$tool.format.asignError(articleBase, {
         id: -1,
         content: '文章内容获取失败',
       });
     }
-    this.articleData = Object.assign(articleBase, data);
+    this.articleData = Object.assign(articleBase, data.article);
+    // this.articleData = data.article;
+    this.$nextTick(() => {
+      const { articleContent, articleAnchor } = this.$refs;
+      if (articleAnchor) {
+        (articleAnchor as ArticleAnchor).parseAnchor(articleContent as Element);
+      }
+    });
   }
 
 
@@ -215,5 +227,9 @@ export default class ArticleContent extends Vue {
       color: var(--c-text-link);
     }
   }
+}
+.is-page-mode {
+  overflow: visible ;
+  height: auto;
 }
 </style>

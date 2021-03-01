@@ -164,7 +164,6 @@ export default class HeaderThemes extends Vue {
     const { initState, messageKey } = this;
     const root: HTMLElement = document.getElementsByTagName('html')[0];
     if (initState) this.$message.loading({ content: '正在切换全站主题色...', key: messageKey });
-    this.initState = true;
     this.setWebOptions({
       theme: {
         color: colorName
@@ -172,7 +171,8 @@ export default class HeaderThemes extends Vue {
       isSave,
     });
     root.setAttribute('data-color-mode', colorName);
-    this.$message.success({ content: '切换成功!', key: messageKey });
+    if (initState) this.$message.success({ content: '切换成功!', key: messageKey });
+    this.initState = true;
   }
 
   /**
@@ -181,8 +181,6 @@ export default class HeaderThemes extends Vue {
    * @param isSave    是否执行保存
    */
   toggleBGColor(colorName: string, isSave = true) {
-    console.log(colorName);
-    
     this.setWebOptions({
       theme: {
         backgroundColor: colorName,

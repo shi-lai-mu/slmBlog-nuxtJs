@@ -216,6 +216,7 @@ $headerHeight: 60px;
         padding: 0 10px;
         text-align: center;
         white-space: nowrap;
+        justify-content: center;
         cursor: pointer;
 
         &:hover {

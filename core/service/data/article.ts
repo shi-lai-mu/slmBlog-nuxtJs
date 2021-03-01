@@ -9,14 +9,16 @@ import { SubmitArticleDto } from '~/core/dto/article';
  * 获取文章列表
  */
 export const getArticleList = (
-  filterMode: keyof typeof Article.StateEnum = 'routine',
+  filterMode: keyof typeof Article.StateEnum = 'latest',
   page: number = 1,
   count: number = 10,
+  isSimple: boolean = false,
 ) => axios.send(axios.article.list, {
   params: {
     filterMode,
     page,
     count,
+    isSimple,
   }
 }) as Promise<Request.ResultList<Article.Base>>;
 
@@ -24,9 +26,9 @@ export const getArticleList = (
 /**
  * 获取文章内容
  */
-export const getPostsData = (articleId: Article.Base['id']) => axios.send(axios.article.data, {
+export const getPostsData = (data: Article.Base['id'] | Article.Base) => axios.send(axios.article.data, {
   params: {
-    articleId,
+    articleId: typeof data === 'object' ? data.id : data,
   }
 }) as Promise<Request.Result<Article.Posts>>;
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="privacy-page">
+  <div class="privacy-page row-box">
     <h2>史莱姆博客服务条款</h2>
     <p>
       初版发布日期：2021 年 01 月 16 日
@@ -48,15 +48,17 @@
 // import { Carousel } from 'ant-design-vue';
 import { Component, Vue } from 'nuxt-property-decorator';
 
-@Component({ name: 'Tos' })
+@Component({
+  name: 'Tos',
+})
 export default class TosPage extends Vue {}
 </script>
 
 <style  lang="scss" scoped>
 .privacy-page {
   height: auto;
-  max-width: 800px;
-  padding: 80px 10px;
+  max-width: 1000px;
+  padding: 80px 50px;
   margin: 20px auto 40px;
 }
 
