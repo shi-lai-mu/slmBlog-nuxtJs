@@ -1,6 +1,6 @@
 <template>
   <FunctionalPlate title="焦点推荐">
-    <template v-if="renderList.top || renderList.children || $isServer">
+    <template v-if="renderList.top || renderList.children">
       <router-link class="plate-first-place__row" :to="$config.router.to('article', { id: renderList.top.id })" v-if="renderList.top">
         <Imager class="plate-first-place__img" :src="renderList.top.banner"/>
         <p class="plate-first-place__title line-ellipsis">{{ renderList.top.subject }}</p>
@@ -13,6 +13,7 @@
       </div>
     </template>
 
+    <!-- 骨架 -->
     <template v-else>
       <div class="skeleton">
         <div class="plate-list-place">

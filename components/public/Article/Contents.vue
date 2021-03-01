@@ -39,7 +39,7 @@
               <UpperLowerArticle :articleId="articleData.id" />
             </div>
           </div>
-          <ArticleReply />
+          <ArticleReply :ssr="commit" />
         </a-col>
         <a-col
           class="article-page__sideber"
@@ -76,8 +76,8 @@ import ArticleReply from './components/ArticleReply.vue';
 import UpperLowerArticle from './components/UpperLowerArticle.vue';
 import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue';
 import ArticleContentFooter from './components/ArticleContentFooter.vue';
-import ArticleAnchor from '@/components/public/Article/ArticleAnchor.vue';
 import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
+import ArticleAnchor from '@/components/public/Article/components/ArticleAnchor.vue';
 import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleton.vue';
 
 /**
@@ -133,6 +133,10 @@ export default class ArticleContent extends Vue {
    * 分享配置
    */
   sharingConfig = sharingConfig;
+  /**
+   * 评论列表
+   */
+  commit = [];
 
   created() {
     this.ssrUpdate(this.articleId || this.ssr || articleBase);
@@ -154,8 +158,6 @@ export default class ArticleContent extends Vue {
 
   @Watch('ssr')
   async ssrUpdate(data: IntefArticle.Base | IntefArticle.Posts | number) {
-    console.log({data});
-    
     const { id } = data as IntefArticle.Base || { id: 0 };
     // 如果对骨架屏进行了初始化则先显示骨架屏进行交互
     if (this.initSkeleton) {
@@ -183,6 +185,7 @@ export default class ArticleContent extends Vue {
       });
     }
     this.articleData = Object.assign(articleBase, data.article);
+    this.commit = data.commit || [];
     // this.articleData = data.article;
     this.$nextTick(() => {
       const { articleContent, articleAnchor } = this.$refs;

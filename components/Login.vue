@@ -1,6 +1,7 @@
 <template>
   <Masks :hide="hide" :maskBackageMode="`blur-mask ${hideAni}`" :maskBoxStyle="maskBoxStyle" @close="() => hide = true">
-    <main :class="['account-popup-box', modelClass[model]]">
+    <div :class="['account-popup-box', modelClass[model]]">
+
       <div class="main-box transition-box">
         <div class="account-in-box login-box">
           <i class="slm blog-cuowu" @click="closeMask" @mouseenter="maskBoxStyle = { transform: 'rotate3d(1, 1, 0, 5deg)' }" @mouseout="maskBoxStyle = null"></i>
@@ -25,10 +26,13 @@
             type="primary"
             :disabled="!formData.account || !formData.password"
             :loading="loggingIn"
-            @click="login"
-          >登录</a-button>
+            @click="() => sign()"
+          >
+            登录
+          </a-button>
           <span class="bottom-tips active-span" @click="model =  model === 'register' ? '' : 'unsetPwd'">{{ model === 'register' ? '使用账号登录' : '找回密码' }}</span>
         </div>
+        <!-- 找回密码 -->
         <div class="account-in-box unset-pwd-box">
           <i class="slm blog-cuowu" @click="closeMask" @mouseenter="maskBoxStyle = { transform: 'rotate3d(1, 1, 0, 5deg)' }" @mouseout="maskBoxStyle = null"></i>
           <div class="title">找回密码</div>
@@ -38,29 +42,38 @@
           <span class="bottom-tips active-span" @click="model = model ? '' : 'unsetPwd'">返回 登录</span>
         </div>
       </div>
+
+      <!-- 注册 -->
       <div class="account-in-box register-box">
         <i class="slm blog-cuowu" @click="closeMask" @mouseenter="maskBoxStyle = { transform: 'rotate3d(1, 1, 0, 5deg)' }" @mouseout="maskBoxStyle = null"></i>
         <div class="title">注册</div>
         <div class="description">本站非强制性要求验证邮箱，但务必填写真实邮箱方便找回密码</div>
         <Input class="input" placeholder="邮箱" v-model="formData.email" />
         <Input class="input" placeholder="密码" v-model="formData.password" type="password" />
-          <a-button size="large" class="btn" type="primary" :disabled="!formData.email || !formData.password">注册</a-button>
-        <span v-if="model !== 'register'" class="bottom-tips">没有账号？<span class="active-span" @click="model = 'register'">注册</span></span>
+        <a-button size="large" class="btn" type="primary" :disabled="!formData.email || !formData.password" @click="() => sign('register')">注册</a-button>
+        <span v-if="model !== 'register'" class="bottom-tips">
+          <span>没有账号？</span>
+          <span class="active-span" @click="model = 'register'">注册</span>
+        </span>
       </div>
+
       <div class="tripartite-acccount">
         <a-tooltip v-for="(item, key) in tripartite" :key="key" placement="right">
           <template slot="title">{{item.name}}</template>
           <i :class="['slm', 'blog-' + item.icon]"></i>
         </a-tooltip>
       </div>
-    </main>
+
+    </div>
+
     <div class="mask-footer" slot="mask-root">
       <div>
-        <router-link class="footer-a" to="/">服务条款</router-link>
+        <router-link class="footer-a" to="/tos">服务条款</router-link>
         <router-link class="footer-a" to="/privacy">隐私政策</router-link>
       </div>
       <div>© 2021 史莱姆的博客 保留所有权利</div>
     </div>
+
   </Masks>
 </template>
 
@@ -68,10 +81,11 @@
 import { Input, Tooltip as ATooltip } from 'ant-design-vue';
 import { Component, Prop, Watch, Vue } from 'nuxt-property-decorator';
 
-import { loginAccount } from '@/core/service/data/user';
+import { loginAccount, registerAccount } from '@/core/service/data/user';
 
 import Masks from '@/components/Masks.vue';
 import tripartite from '@/config/note/tripartite';
+import { RequestConst } from '~/core/constants/request';
 
 /**
  * 登录弹窗组件
@@ -163,15 +177,26 @@ export default class LoginPopup extends Vue {
 
 
   /**
-   * 登录账号
+   * 登录/注册 账号
    */
-  async login() {
-    const { account, password } = this.formData;
+  async sign(signType: 'login' | 'register' = 'login') {
+    const { account, password, email } = this.formData;
     const ing = setTimeout(() => this.loggingIn = true, 100);
-    const loginRes = await loginAccount(account, password);
+    const method = {
+      login: loginAccount,
+      register: registerAccount,
+    }[signType] || loginAccount;
+    console.log({method});
+    
+
+    const loginRes = await method(
+      signType === 'login' ? account : email,
+      password,
+    );
+
     clearTimeout(ing);
     this.loggingIn = false;
-    if (loginRes.code === 0) {
+    if (loginRes.code === RequestConst.SUCCESS_CODE) {
       const { result } = loginRes;
       this.$store.commit('initUser', result);
       const token = (loginRes._res.headers as any).token;
