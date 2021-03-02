@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'slm';  /* project id 1445911 */
-  src: url('//at.alicdn.com/t/font_1445911_130fowrnmmpc.eot');
-  src: url('//at.alicdn.com/t/font_1445911_130fowrnmmpc.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1445911_130fowrnmmpc.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1445911_130fowrnmmpc.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1445911_130fowrnmmpc.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1445911_130fowrnmmpc.svg#slm') format('svg');
+  src: url('//at.alicdn.com/t/font_1445911_4f056kd0gvl.eot');
+  src: url('//at.alicdn.com/t/font_1445911_4f056kd0gvl.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1445911_4f056kd0gvl.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1445911_4f056kd0gvl.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1445911_4f056kd0gvl.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1445911_4f056kd0gvl.svg#slm') format('svg');
 }
 
 
@@ -40,6 +40,14 @@
 
 // iconfont
 
+
+.blog-lianjie:before {
+  content: "\e60b";
+}
+
+.blog-qinggan:before {
+  content: "\e6f2";
+}
 
 .blog-haibao:before {
   content: "\e671";

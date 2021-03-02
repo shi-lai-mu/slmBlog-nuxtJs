@@ -1,53 +1,1237 @@
+$text-color: currentColor;
+$text-color-1: var(--m-color-text-primary-1);
+$text-color-2: var(--m-color-text-primary-2);
+$text-color-5: var(--m-color-text-primary-5);
+$bg-primary: var(--m-color-bg-primary);
+$bg-primary-2: var(--m-color-bg-primary-2);
+$bg-primary-5: var(--m-color-bg-primary-5);
+$bg-primary-7: var(--m-color-bg-primary-7);
+$bg-primary-op-2: var(--m-color-opacity-2-bg-primary);
+
 %primary-bg {
   background-color: var(--m-color-bg-primary);
 }
+
 %primary-font-color {
   color: var(--m-color-text-primary);
 }
-.primary-all {
-  @extend %primary-bg, %primary-font-color;
+
+// .primary-all {
+//   $extend %primary-bg, %primary-font-color;
+// }
+
+.ant-btn {
+  background-image: none;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 0 $bg-primary-op-2;
+  border-radius: 4px;
+  color: $text-color;
+  background-color: transparent;
+  border-color: $text-color;
 }
 
-// 按钮
-.ant-btn {
-  color: var(--m-color-text-primary);
-  background-color: var(--m-color-bg-primary);
-  border-color: var(--m-color-bg-primary-2);
+.ant-btn:not([disabled]):active {
+  box-shadow: none;
 }
+
+.ant-btn-lg {
+  border-radius: 4px;
+}
+
+.ant-btn-sm {
+  border-radius: 4px;
+}
+
+.ant-btn>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn>a:only-child::after {
+  background: transparent;
+}
+
 .ant-btn:hover,
 .ant-btn:focus {
-  color: var(--m-color-text-primary-3);
-  background-color: var(--m-color-bg-primary-2);
-  border-color: var(--m-color-bg-primary-5);
+  color: $text-color;
+  background-color: $bg-primary-op-2;
+  border-color: $text-color-2;
 }
+
+.ant-btn:hover>a:only-child,
+.ant-btn:focus>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn:hover>a:only-child::after,
+.ant-btn:focus>a:only-child::after {
+  background: transparent;
+}
+
 .ant-btn:active,
 .ant-btn.active {
-  color: var(--m-color-text-primary-5);
-  background-color: var(--m-color-bg-primary-5);
-  border-color: var(--m-color-bg-primary-7);
+  color: $text-color;
+  background-color: $bg-primary-7;
+  border-color: $text-color-5;
+}
+
+.ant-btn:active>a:only-child,
+.ant-btn.active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn:active>a:only-child::after,
+.ant-btn.active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-disabled,
+.ant-btn.disabled,
+.ant-btn[disabled],
+.ant-btn-disabled:hover,
+.ant-btn.disabled:hover,
+.ant-btn[disabled]:hover,
+.ant-btn-disabled:focus,
+.ant-btn.disabled:focus,
+.ant-btn[disabled]:focus,
+.ant-btn-disabled:active,
+.ant-btn.disabled:active,
+.ant-btn[disabled]:active,
+.ant-btn-disabled.active,
+.ant-btn.disabled.active,
+.ant-btn[disabled].active {
+  color: $text-color;
+  background-color: #f5f5f5;
+  border-color: #d9d9d9;
+  box-shadow: none;
+}
+
+.ant-btn-disabled>a:only-child,
+.ant-btn.disabled>a:only-child,
+.ant-btn[disabled]>a:only-child,
+.ant-btn-disabled:hover>a:only-child,
+.ant-btn.disabled:hover>a:only-child,
+.ant-btn[disabled]:hover>a:only-child,
+.ant-btn-disabled:focus>a:only-child,
+.ant-btn.disabled:focus>a:only-child,
+.ant-btn[disabled]:focus>a:only-child,
+.ant-btn-disabled:active>a:only-child,
+.ant-btn.disabled:active>a:only-child,
+.ant-btn[disabled]:active>a:only-child,
+.ant-btn-disabled.active>a:only-child,
+.ant-btn.disabled.active>a:only-child,
+.ant-btn[disabled].active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-disabled>a:only-child::after,
+.ant-btn.disabled>a:only-child::after,
+.ant-btn[disabled]>a:only-child::after,
+.ant-btn-disabled:hover>a:only-child::after,
+.ant-btn.disabled:hover>a:only-child::after,
+.ant-btn[disabled]:hover>a:only-child::after,
+.ant-btn-disabled:focus>a:only-child::after,
+.ant-btn.disabled:focus>a:only-child::after,
+.ant-btn[disabled]:focus>a:only-child::after,
+.ant-btn-disabled:active>a:only-child::after,
+.ant-btn.disabled:active>a:only-child::after,
+.ant-btn[disabled]:active>a:only-child::after,
+.ant-btn-disabled.active>a:only-child::after,
+.ant-btn.disabled.active>a:only-child::after,
+.ant-btn[disabled].active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn:hover,
+.ant-btn:focus,
+.ant-btn:active,
+.ant-btn.active {
+  background: $bg-primary-op-2;
+}
+
+.ant-btn-primary {
+  color: $text-color;
+  background-color: var(--m-color-bg-primary);
+  border-color: var(--m-color-bg-primary);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+
+.ant-btn-primary>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-primary>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  color: $text-color;
+  background-color: $bg-primary-2;
+  border-color: $bg-primary-2;
+}
+
+.ant-btn-primary:hover>a:only-child,
+.ant-btn-primary:focus>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-primary:hover>a:only-child::after,
+.ant-btn-primary:focus>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-primary:active,
+.ant-btn-primary.active {
+  color: $text-color;
+  background-color: $bg-primary-7;
+  border-color: $bg-primary-7;
+}
+
+.ant-btn-primary:active>a:only-child,
+.ant-btn-primary.active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-primary:active>a:only-child::after,
+.ant-btn-primary.active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-primary-disabled,
+.ant-btn-primary.disabled,
+.ant-btn-primary[disabled],
+.ant-btn-primary-disabled:hover,
+.ant-btn-primary.disabled:hover,
+.ant-btn-primary[disabled]:hover,
+.ant-btn-primary-disabled:focus,
+.ant-btn-primary.disabled:focus,
+.ant-btn-primary[disabled]:focus,
+.ant-btn-primary-disabled:active,
+.ant-btn-primary.disabled:active,
+.ant-btn-primary[disabled]:active,
+.ant-btn-primary-disabled.active,
+.ant-btn-primary.disabled.active,
+.ant-btn-primary[disabled].active {
+  color: $text-color;
+  background-color: #f5f5f5;
+  border-color: #d9d9d9;
+  box-shadow: none;
+}
+
+.ant-btn-primary-disabled>a:only-child,
+.ant-btn-primary.disabled>a:only-child,
+.ant-btn-primary[disabled]>a:only-child,
+.ant-btn-primary-disabled:hover>a:only-child,
+.ant-btn-primary.disabled:hover>a:only-child,
+.ant-btn-primary[disabled]:hover>a:only-child,
+.ant-btn-primary-disabled:focus>a:only-child,
+.ant-btn-primary.disabled:focus>a:only-child,
+.ant-btn-primary[disabled]:focus>a:only-child,
+.ant-btn-primary-disabled:active>a:only-child,
+.ant-btn-primary.disabled:active>a:only-child,
+.ant-btn-primary[disabled]:active>a:only-child,
+.ant-btn-primary-disabled.active>a:only-child,
+.ant-btn-primary.disabled.active>a:only-child,
+.ant-btn-primary[disabled].active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-primary-disabled>a:only-child::after,
+.ant-btn-primary.disabled>a:only-child::after,
+.ant-btn-primary[disabled]>a:only-child::after,
+.ant-btn-primary-disabled:hover>a:only-child::after,
+.ant-btn-primary.disabled:hover>a:only-child::after,
+.ant-btn-primary[disabled]:hover>a:only-child::after,
+.ant-btn-primary-disabled:focus>a:only-child::after,
+.ant-btn-primary.disabled:focus>a:only-child::after,
+.ant-btn-primary[disabled]:focus>a:only-child::after,
+.ant-btn-primary-disabled:active>a:only-child::after,
+.ant-btn-primary.disabled:active>a:only-child::after,
+.ant-btn-primary[disabled]:active>a:only-child::after,
+.ant-btn-primary-disabled.active>a:only-child::after,
+.ant-btn-primary.disabled.active>a:only-child::after,
+.ant-btn-primary[disabled].active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-group .ant-btn-primary:not(:first-child):not(:last-child) {
+  border-right-color: var("--m-color-5-text-primary");
+  border-left-color: var("--m-color-5-text-primary");
+}
+
+.ant-btn-group .ant-btn-primary:not(:first-child):not(:last-child):disabled {
+  border-color: #d9d9d9;
+}
+
+.ant-btn-group .ant-btn-primary:first-child:not(:last-child) {
+  border-right-color: var("--m-color-5-text-primary");
+}
+
+.ant-btn-group .ant-btn-primary:first-child:not(:last-child)[disabled] {
+  border-right-color: #d9d9d9;
+}
+
+.ant-btn-group .ant-btn-primary:last-child:not(:first-child),
+.ant-btn-group .ant-btn-primary+.ant-btn-primary {
+  border-left-color: var("--m-color-5-text-primary");
+}
+
+.ant-btn-group .ant-btn-primary:last-child:not(:first-child)[disabled],
+.ant-btn-group .ant-btn-primary+.ant-btn-primary[disabled] {
+  border-left-color: #d9d9d9;
+}
+
+.ant-btn-ghost {
+  color: $text-color;
+  background-color: transparent;
+  border-color: #d9d9d9;
+}
+
+.ant-btn-ghost>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-ghost>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-ghost:hover,
+.ant-btn-ghost:focus {
+  color: $bg-primary-5;
+  background-color: transparent;
+  border-color: $bg-primary-5;
+}
+
+.ant-btn-ghost:hover>a:only-child,
+.ant-btn-ghost:focus>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-ghost:hover>a:only-child::after,
+.ant-btn-ghost:focus>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-ghost:active,
+.ant-btn-ghost.active {
+  color: $bg-primary-7;
+  background-color: transparent;
+  border-color: $bg-primary-7;
+}
+
+.ant-btn-ghost:active>a:only-child,
+.ant-btn-ghost.active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-ghost:active>a:only-child::after,
+.ant-btn-ghost.active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-ghost-disabled,
+.ant-btn-ghost.disabled,
+.ant-btn-ghost[disabled],
+.ant-btn-ghost-disabled:hover,
+.ant-btn-ghost.disabled:hover,
+.ant-btn-ghost[disabled]:hover,
+.ant-btn-ghost-disabled:focus,
+.ant-btn-ghost.disabled:focus,
+.ant-btn-ghost[disabled]:focus,
+.ant-btn-ghost-disabled:active,
+.ant-btn-ghost.disabled:active,
+.ant-btn-ghost[disabled]:active,
+.ant-btn-ghost-disabled.active,
+.ant-btn-ghost.disabled.active,
+.ant-btn-ghost[disabled].active {
+  color: $text-color;
+  background-color: #f5f5f5;
+  border-color: #d9d9d9;
+  box-shadow: none;
+}
+
+.ant-btn-ghost-disabled>a:only-child,
+.ant-btn-ghost.disabled>a:only-child,
+.ant-btn-ghost[disabled]>a:only-child,
+.ant-btn-ghost-disabled:hover>a:only-child,
+.ant-btn-ghost.disabled:hover>a:only-child,
+.ant-btn-ghost[disabled]:hover>a:only-child,
+.ant-btn-ghost-disabled:focus>a:only-child,
+.ant-btn-ghost.disabled:focus>a:only-child,
+.ant-btn-ghost[disabled]:focus>a:only-child,
+.ant-btn-ghost-disabled:active>a:only-child,
+.ant-btn-ghost.disabled:active>a:only-child,
+.ant-btn-ghost[disabled]:active>a:only-child,
+.ant-btn-ghost-disabled.active>a:only-child,
+.ant-btn-ghost.disabled.active>a:only-child,
+.ant-btn-ghost[disabled].active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-ghost-disabled>a:only-child::after,
+.ant-btn-ghost.disabled>a:only-child::after,
+.ant-btn-ghost[disabled]>a:only-child::after,
+.ant-btn-ghost-disabled:hover>a:only-child::after,
+.ant-btn-ghost.disabled:hover>a:only-child::after,
+.ant-btn-ghost[disabled]:hover>a:only-child::after,
+.ant-btn-ghost-disabled:focus>a:only-child::after,
+.ant-btn-ghost.disabled:focus>a:only-child::after,
+.ant-btn-ghost[disabled]:focus>a:only-child::after,
+.ant-btn-ghost-disabled:active>a:only-child::after,
+.ant-btn-ghost.disabled:active>a:only-child::after,
+.ant-btn-ghost[disabled]:active>a:only-child::after,
+.ant-btn-ghost-disabled.active>a:only-child::after,
+.ant-btn-ghost.disabled.active>a:only-child::after,
+.ant-btn-ghost[disabled].active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-dashed {
+  color: $text-color;
+  background-color: $bg-primary;
+  border-color: #d9d9d9;
+  border-style: dashed;
+}
+
+.ant-btn-dashed>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-dashed>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-dashed:hover,
+.ant-btn-dashed:focus {
+  color: $bg-primary-5;
+  background-color: $bg-primary;
+  border-color: $bg-primary-5;
+}
+
+.ant-btn-dashed:hover>a:only-child,
+.ant-btn-dashed:focus>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-dashed:hover>a:only-child::after,
+.ant-btn-dashed:focus>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-dashed:active,
+.ant-btn-dashed.active {
+  color: $bg-primary-7;
+  background-color: $bg-primary;
+  border-color: $bg-primary-7;
+}
+
+.ant-btn-dashed:active>a:only-child,
+.ant-btn-dashed.active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-dashed:active>a:only-child::after,
+.ant-btn-dashed.active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-dashed-disabled,
+.ant-btn-dashed.disabled,
+.ant-btn-dashed[disabled],
+.ant-btn-dashed-disabled:hover,
+.ant-btn-dashed.disabled:hover,
+.ant-btn-dashed[disabled]:hover,
+.ant-btn-dashed-disabled:focus,
+.ant-btn-dashed.disabled:focus,
+.ant-btn-dashed[disabled]:focus,
+.ant-btn-dashed-disabled:active,
+.ant-btn-dashed.disabled:active,
+.ant-btn-dashed[disabled]:active,
+.ant-btn-dashed-disabled.active,
+.ant-btn-dashed.disabled.active,
+.ant-btn-dashed[disabled].active {
+  color: $text-color;
+  background-color: #f5f5f5;
+  border-color: #d9d9d9;
+  box-shadow: none;
+}
+
+.ant-btn-dashed-disabled>a:only-child,
+.ant-btn-dashed.disabled>a:only-child,
+.ant-btn-dashed[disabled]>a:only-child,
+.ant-btn-dashed-disabled:hover>a:only-child,
+.ant-btn-dashed.disabled:hover>a:only-child,
+.ant-btn-dashed[disabled]:hover>a:only-child,
+.ant-btn-dashed-disabled:focus>a:only-child,
+.ant-btn-dashed.disabled:focus>a:only-child,
+.ant-btn-dashed[disabled]:focus>a:only-child,
+.ant-btn-dashed-disabled:active>a:only-child,
+.ant-btn-dashed.disabled:active>a:only-child,
+.ant-btn-dashed[disabled]:active>a:only-child,
+.ant-btn-dashed-disabled.active>a:only-child,
+.ant-btn-dashed.disabled.active>a:only-child,
+.ant-btn-dashed[disabled].active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-dashed-disabled>a:only-child::after,
+.ant-btn-dashed.disabled>a:only-child::after,
+.ant-btn-dashed[disabled]>a:only-child::after,
+.ant-btn-dashed-disabled:hover>a:only-child::after,
+.ant-btn-dashed.disabled:hover>a:only-child::after,
+.ant-btn-dashed[disabled]:hover>a:only-child::after,
+.ant-btn-dashed-disabled:focus>a:only-child::after,
+.ant-btn-dashed.disabled:focus>a:only-child::after,
+.ant-btn-dashed[disabled]:focus>a:only-child::after,
+.ant-btn-dashed-disabled:active>a:only-child::after,
+.ant-btn-dashed.disabled:active>a:only-child::after,
+.ant-btn-dashed[disabled]:active>a:only-child::after,
+.ant-btn-dashed-disabled.active>a:only-child::after,
+.ant-btn-dashed.disabled.active>a:only-child::after,
+.ant-btn-dashed[disabled].active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-danger {
+  color: $text-color;
+  background-color: #ff4d4f;
+  border-color: #ff4d4f;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+
+.ant-btn-danger>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-danger>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-danger:hover,
+.ant-btn-danger:focus {
+  color: $text-color;
+  background-color: #ff7875;
+  border-color: #ff7875;
+}
+
+.ant-btn-danger:hover>a:only-child,
+.ant-btn-danger:focus>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-danger:hover>a:only-child::after,
+.ant-btn-danger:focus>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-danger:active,
+.ant-btn-danger.active {
+  color: $text-color;
+  background-color: #d9363e;
+  border-color: #d9363e;
+}
+
+.ant-btn-danger:active>a:only-child,
+.ant-btn-danger.active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-danger:active>a:only-child::after,
+.ant-btn-danger.active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-danger-disabled,
+.ant-btn-danger.disabled,
+.ant-btn-danger[disabled],
+.ant-btn-danger-disabled:hover,
+.ant-btn-danger.disabled:hover,
+.ant-btn-danger[disabled]:hover,
+.ant-btn-danger-disabled:focus,
+.ant-btn-danger.disabled:focus,
+.ant-btn-danger[disabled]:focus,
+.ant-btn-danger-disabled:active,
+.ant-btn-danger.disabled:active,
+.ant-btn-danger[disabled]:active,
+.ant-btn-danger-disabled.active,
+.ant-btn-danger.disabled.active,
+.ant-btn-danger[disabled].active {
+  color: $text-color;
+  background-color: #f5f5f5;
+  border-color: #d9d9d9;
+  box-shadow: none;
+}
+
+.ant-btn-danger-disabled>a:only-child,
+.ant-btn-danger.disabled>a:only-child,
+.ant-btn-danger[disabled]>a:only-child,
+.ant-btn-danger-disabled:hover>a:only-child,
+.ant-btn-danger.disabled:hover>a:only-child,
+.ant-btn-danger[disabled]:hover>a:only-child,
+.ant-btn-danger-disabled:focus>a:only-child,
+.ant-btn-danger.disabled:focus>a:only-child,
+.ant-btn-danger[disabled]:focus>a:only-child,
+.ant-btn-danger-disabled:active>a:only-child,
+.ant-btn-danger.disabled:active>a:only-child,
+.ant-btn-danger[disabled]:active>a:only-child,
+.ant-btn-danger-disabled.active>a:only-child,
+.ant-btn-danger.disabled.active>a:only-child,
+.ant-btn-danger[disabled].active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-danger-disabled>a:only-child::after,
+.ant-btn-danger.disabled>a:only-child::after,
+.ant-btn-danger[disabled]>a:only-child::after,
+.ant-btn-danger-disabled:hover>a:only-child::after,
+.ant-btn-danger.disabled:hover>a:only-child::after,
+.ant-btn-danger[disabled]:hover>a:only-child::after,
+.ant-btn-danger-disabled:focus>a:only-child::after,
+.ant-btn-danger.disabled:focus>a:only-child::after,
+.ant-btn-danger[disabled]:focus>a:only-child::after,
+.ant-btn-danger-disabled:active>a:only-child::after,
+.ant-btn-danger.disabled:active>a:only-child::after,
+.ant-btn-danger[disabled]:active>a:only-child::after,
+.ant-btn-danger-disabled.active>a:only-child::after,
+.ant-btn-danger.disabled.active>a:only-child::after,
+.ant-btn-danger[disabled].active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-link {
+  color: $text-color;
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.ant-btn-link>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-link>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-link:hover,
+.ant-btn-link:focus {
+  color: $bg-primary-5;
+  background-color: transparent;
+  border-color: $bg-primary-5;
+}
+
+.ant-btn-link:hover>a:only-child,
+.ant-btn-link:focus>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-link:hover>a:only-child::after,
+.ant-btn-link:focus>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-link:active,
+.ant-btn-link.active {
+  color: $bg-primary-7;
+  background-color: transparent;
+  border-color: $bg-primary-7;
+}
+
+.ant-btn-link:active>a:only-child,
+.ant-btn-link.active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-link:active>a:only-child::after,
+.ant-btn-link.active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-link-disabled,
+.ant-btn-link.disabled,
+.ant-btn-link[disabled],
+.ant-btn-link-disabled:hover,
+.ant-btn-link.disabled:hover,
+.ant-btn-link[disabled]:hover,
+.ant-btn-link-disabled:focus,
+.ant-btn-link.disabled:focus,
+.ant-btn-link[disabled]:focus,
+.ant-btn-link-disabled:active,
+.ant-btn-link.disabled:active,
+.ant-btn-link[disabled]:active,
+.ant-btn-link-disabled.active,
+.ant-btn-link.disabled.active,
+.ant-btn-link[disabled].active {
+  color: $text-color;
+  background-color: #f5f5f5;
+  border-color: #d9d9d9;
+  box-shadow: none;
+}
+
+.ant-btn-link-disabled>a:only-child,
+.ant-btn-link.disabled>a:only-child,
+.ant-btn-link[disabled]>a:only-child,
+.ant-btn-link-disabled:hover>a:only-child,
+.ant-btn-link.disabled:hover>a:only-child,
+.ant-btn-link[disabled]:hover>a:only-child,
+.ant-btn-link-disabled:focus>a:only-child,
+.ant-btn-link.disabled:focus>a:only-child,
+.ant-btn-link[disabled]:focus>a:only-child,
+.ant-btn-link-disabled:active>a:only-child,
+.ant-btn-link.disabled:active>a:only-child,
+.ant-btn-link[disabled]:active>a:only-child,
+.ant-btn-link-disabled.active>a:only-child,
+.ant-btn-link.disabled.active>a:only-child,
+.ant-btn-link[disabled].active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-link-disabled>a:only-child::after,
+.ant-btn-link.disabled>a:only-child::after,
+.ant-btn-link[disabled]>a:only-child::after,
+.ant-btn-link-disabled:hover>a:only-child::after,
+.ant-btn-link.disabled:hover>a:only-child::after,
+.ant-btn-link[disabled]:hover>a:only-child::after,
+.ant-btn-link-disabled:focus>a:only-child::after,
+.ant-btn-link.disabled:focus>a:only-child::after,
+.ant-btn-link[disabled]:focus>a:only-child::after,
+.ant-btn-link-disabled:active>a:only-child::after,
+.ant-btn-link.disabled:active>a:only-child::after,
+.ant-btn-link[disabled]:active>a:only-child::after,
+.ant-btn-link-disabled.active>a:only-child::after,
+.ant-btn-link.disabled.active>a:only-child::after,
+.ant-btn-link[disabled].active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-link:hover,
+.ant-btn-link:focus,
+.ant-btn-link:active {
+  border-color: transparent;
+}
+
+.ant-btn-link-disabled,
+.ant-btn-link.disabled,
+.ant-btn-link[disabled],
+.ant-btn-link-disabled:hover,
+.ant-btn-link.disabled:hover,
+.ant-btn-link[disabled]:hover,
+.ant-btn-link-disabled:focus,
+.ant-btn-link.disabled:focus,
+.ant-btn-link[disabled]:focus,
+.ant-btn-link-disabled:active,
+.ant-btn-link.disabled:active,
+.ant-btn-link[disabled]:active,
+.ant-btn-link-disabled.active,
+.ant-btn-link.disabled.active,
+.ant-btn-link[disabled].active {
+  color: $text-color;
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.ant-btn-link-disabled>a:only-child,
+.ant-btn-link.disabled>a:only-child,
+.ant-btn-link[disabled]>a:only-child,
+.ant-btn-link-disabled:hover>a:only-child,
+.ant-btn-link.disabled:hover>a:only-child,
+.ant-btn-link[disabled]:hover>a:only-child,
+.ant-btn-link-disabled:focus>a:only-child,
+.ant-btn-link.disabled:focus>a:only-child,
+.ant-btn-link[disabled]:focus>a:only-child,
+.ant-btn-link-disabled:active>a:only-child,
+.ant-btn-link.disabled:active>a:only-child,
+.ant-btn-link[disabled]:active>a:only-child,
+.ant-btn-link-disabled.active>a:only-child,
+.ant-btn-link.disabled.active>a:only-child,
+.ant-btn-link[disabled].active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-link-disabled>a:only-child::after,
+.ant-btn-link.disabled>a:only-child::after,
+.ant-btn-link[disabled]>a:only-child::after,
+.ant-btn-link-disabled:hover>a:only-child::after,
+.ant-btn-link.disabled:hover>a:only-child::after,
+.ant-btn-link[disabled]:hover>a:only-child::after,
+.ant-btn-link-disabled:focus>a:only-child::after,
+.ant-btn-link.disabled:focus>a:only-child::after,
+.ant-btn-link[disabled]:focus>a:only-child::after,
+.ant-btn-link-disabled:active>a:only-child::after,
+.ant-btn-link.disabled:active>a:only-child::after,
+.ant-btn-link[disabled]:active>a:only-child::after,
+.ant-btn-link-disabled.active>a:only-child::after,
+.ant-btn-link.disabled.active>a:only-child::after,
+.ant-btn-link[disabled].active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-icon-only {
+  border-radius: 4px;
+}
+
+.ant-btn-icon-only.ant-btn-lg {
+  border-radius: 4px;
+}
+
+.ant-btn-icon-only.ant-btn-sm {
+  border-radius: 4px;
+}
+
+.ant-btn-round {
+  border-radius: 32px;
+}
+
+.ant-btn-round.ant-btn-lg {
+  border-radius: 40px;
+}
+
+.ant-btn-round.ant-btn-sm {
+  border-radius: 24px;
+}
+
+.ant-btn-circle,
+.ant-btn-circle-outline {
+  border-radius: 50%;
+}
+
+.ant-btn-circle.ant-btn-lg,
+.ant-btn-circle-outline.ant-btn-lg {
+  border-radius: 50%;
+}
+
+.ant-btn-circle.ant-btn-sm,
+.ant-btn-circle-outline.ant-btn-sm {
+  border-radius: 50%;
+}
+
+.ant-btn::before {
+  background: $bg-primary;
+  border-radius: inherit;
+}
+
+.ant-btn-group-lg>.ant-btn,
+.ant-btn-group-lg>span>.ant-btn {
+  border-radius: 0;
+}
+
+.ant-btn-group-sm>.ant-btn,
+.ant-btn-group-sm>span>.ant-btn {
+  border-radius: 0;
+}
+
+.ant-btn-group .ant-btn-primary+.ant-btn:not(.ant-btn-primary):not([disabled]) {
+  border-left-color: transparent;
+}
+
+.ant-btn-group .ant-btn {
+  border-radius: 0;
+}
+
+.ant-btn-group>.ant-btn:only-child {
+  border-radius: 4px;
+}
+
+.ant-btn-group>span:only-child>.ant-btn {
+  border-radius: 4px;
+}
+
+.ant-btn-group>.ant-btn:first-child:not(:last-child),
+.ant-btn-group>span:first-child:not(:last-child)>.ant-btn {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.ant-btn-group>.ant-btn:last-child:not(:first-child),
+.ant-btn-group>span:last-child:not(:first-child)>.ant-btn {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.ant-btn-group-sm>.ant-btn:only-child {
+  border-radius: 4px;
+}
+
+.ant-btn-group-sm>span:only-child>.ant-btn {
+  border-radius: 4px;
+}
+
+.ant-btn-group-sm>.ant-btn:first-child:not(:last-child),
+.ant-btn-group-sm>span:first-child:not(:last-child)>.ant-btn {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.ant-btn-group-sm>.ant-btn:last-child:not(:first-child),
+.ant-btn-group-sm>span:last-child:not(:first-child)>.ant-btn {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.ant-btn-group>.ant-btn-group:not(:first-child):not(:last-child)>.ant-btn {
+  border-radius: 0;
+}
+
+.ant-btn-group>.ant-btn-group:first-child:not(:last-child)>.ant-btn:last-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.ant-btn-group>.ant-btn-group:last-child:not(:first-child)>.ant-btn:first-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.ant-btn-background-ghost {
+  color: $text-color;
+  background: transparent !important;
+  border-color: $text-color;
+}
+
+.ant-btn-background-ghost.ant-btn-primary {
+  color: var(--m-color-bg-primary);
+  background-color: transparent;
+  border-color: var(--m-color-bg-primary);
+}
+
+.ant-btn-background-ghost.ant-btn-primary>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-background-ghost.ant-btn-primary>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-background-ghost.ant-btn-primary:hover,
+.ant-btn-background-ghost.ant-btn-primary:focus {
+  color: $bg-primary-5;
+  background-color: transparent;
+  border-color: $bg-primary-5;
+}
+
+.ant-btn-background-ghost.ant-btn-primary:hover>a:only-child,
+.ant-btn-background-ghost.ant-btn-primary:focus>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-background-ghost.ant-btn-primary:hover>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-primary:focus>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-background-ghost.ant-btn-primary:active,
+.ant-btn-background-ghost.ant-btn-primary.active {
+  color: $bg-primary-7;
+  background-color: transparent;
+  border-color: $bg-primary-7;
+}
+
+.ant-btn-background-ghost.ant-btn-primary:active>a:only-child,
+.ant-btn-background-ghost.ant-btn-primary.active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-background-ghost.ant-btn-primary:active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-primary.active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-background-ghost.ant-btn-primary-disabled,
+.ant-btn-background-ghost.ant-btn-primary.disabled,
+.ant-btn-background-ghost.ant-btn-primary[disabled],
+.ant-btn-background-ghost.ant-btn-primary-disabled:hover,
+.ant-btn-background-ghost.ant-btn-primary.disabled:hover,
+.ant-btn-background-ghost.ant-btn-primary[disabled]:hover,
+.ant-btn-background-ghost.ant-btn-primary-disabled:focus,
+.ant-btn-background-ghost.ant-btn-primary.disabled:focus,
+.ant-btn-background-ghost.ant-btn-primary[disabled]:focus,
+.ant-btn-background-ghost.ant-btn-primary-disabled:active,
+.ant-btn-background-ghost.ant-btn-primary.disabled:active,
+.ant-btn-background-ghost.ant-btn-primary[disabled]:active,
+.ant-btn-background-ghost.ant-btn-primary-disabled.active,
+.ant-btn-background-ghost.ant-btn-primary.disabled.active,
+.ant-btn-background-ghost.ant-btn-primary[disabled].active {
+  color: $text-color;
+  background-color: #f5f5f5;
+  border-color: #d9d9d9;
+  box-shadow: none;
+}
+
+.ant-btn-background-ghost.ant-btn-primary-disabled>a:only-child,
+.ant-btn-background-ghost.ant-btn-primary.disabled>a:only-child,
+.ant-btn-background-ghost.ant-btn-primary[disabled]>a:only-child,
+.ant-btn-background-ghost.ant-btn-primary-disabled:hover>a:only-child,
+.ant-btn-background-ghost.ant-btn-primary.disabled:hover>a:only-child,
+.ant-btn-background-ghost.ant-btn-primary[disabled]:hover>a:only-child,
+.ant-btn-background-ghost.ant-btn-primary-disabled:focus>a:only-child,
+.ant-btn-background-ghost.ant-btn-primary.disabled:focus>a:only-child,
+.ant-btn-background-ghost.ant-btn-primary[disabled]:focus>a:only-child,
+.ant-btn-background-ghost.ant-btn-primary-disabled:active>a:only-child,
+.ant-btn-background-ghost.ant-btn-primary.disabled:active>a:only-child,
+.ant-btn-background-ghost.ant-btn-primary[disabled]:active>a:only-child,
+.ant-btn-background-ghost.ant-btn-primary-disabled.active>a:only-child,
+.ant-btn-background-ghost.ant-btn-primary.disabled.active>a:only-child,
+.ant-btn-background-ghost.ant-btn-primary[disabled].active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-background-ghost.ant-btn-primary-disabled>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-primary.disabled>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-primary[disabled]>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-primary-disabled:hover>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-primary.disabled:hover>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-primary[disabled]:hover>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-primary-disabled:focus>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-primary.disabled:focus>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-primary[disabled]:focus>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-primary-disabled:active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-primary.disabled:active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-primary[disabled]:active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-primary-disabled.active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-primary.disabled.active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-primary[disabled].active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-background-ghost.ant-btn-danger {
+  color: #ff4d4f;
+  background-color: transparent;
+  border-color: #ff4d4f;
+}
+
+.ant-btn-background-ghost.ant-btn-danger>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-background-ghost.ant-btn-danger>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-background-ghost.ant-btn-danger:hover,
+.ant-btn-background-ghost.ant-btn-danger:focus {
+  color: #ff7875;
+  background-color: transparent;
+  border-color: #ff7875;
+}
+
+.ant-btn-background-ghost.ant-btn-danger:hover>a:only-child,
+.ant-btn-background-ghost.ant-btn-danger:focus>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-background-ghost.ant-btn-danger:hover>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-danger:focus>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-background-ghost.ant-btn-danger:active,
+.ant-btn-background-ghost.ant-btn-danger.active {
+  color: #d9363e;
+  background-color: transparent;
+  border-color: #d9363e;
+}
+
+.ant-btn-background-ghost.ant-btn-danger:active>a:only-child,
+.ant-btn-background-ghost.ant-btn-danger.active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-background-ghost.ant-btn-danger:active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-danger.active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-background-ghost.ant-btn-danger-disabled,
+.ant-btn-background-ghost.ant-btn-danger.disabled,
+.ant-btn-background-ghost.ant-btn-danger[disabled],
+.ant-btn-background-ghost.ant-btn-danger-disabled:hover,
+.ant-btn-background-ghost.ant-btn-danger.disabled:hover,
+.ant-btn-background-ghost.ant-btn-danger[disabled]:hover,
+.ant-btn-background-ghost.ant-btn-danger-disabled:focus,
+.ant-btn-background-ghost.ant-btn-danger.disabled:focus,
+.ant-btn-background-ghost.ant-btn-danger[disabled]:focus,
+.ant-btn-background-ghost.ant-btn-danger-disabled:active,
+.ant-btn-background-ghost.ant-btn-danger.disabled:active,
+.ant-btn-background-ghost.ant-btn-danger[disabled]:active,
+.ant-btn-background-ghost.ant-btn-danger-disabled.active,
+.ant-btn-background-ghost.ant-btn-danger.disabled.active,
+.ant-btn-background-ghost.ant-btn-danger[disabled].active {
+  color: $text-color;
+  background-color: #f5f5f5;
+  border-color: #d9d9d9;
+  box-shadow: none;
+}
+
+.ant-btn-background-ghost.ant-btn-danger-disabled>a:only-child,
+.ant-btn-background-ghost.ant-btn-danger.disabled>a:only-child,
+.ant-btn-background-ghost.ant-btn-danger[disabled]>a:only-child,
+.ant-btn-background-ghost.ant-btn-danger-disabled:hover>a:only-child,
+.ant-btn-background-ghost.ant-btn-danger.disabled:hover>a:only-child,
+.ant-btn-background-ghost.ant-btn-danger[disabled]:hover>a:only-child,
+.ant-btn-background-ghost.ant-btn-danger-disabled:focus>a:only-child,
+.ant-btn-background-ghost.ant-btn-danger.disabled:focus>a:only-child,
+.ant-btn-background-ghost.ant-btn-danger[disabled]:focus>a:only-child,
+.ant-btn-background-ghost.ant-btn-danger-disabled:active>a:only-child,
+.ant-btn-background-ghost.ant-btn-danger.disabled:active>a:only-child,
+.ant-btn-background-ghost.ant-btn-danger[disabled]:active>a:only-child,
+.ant-btn-background-ghost.ant-btn-danger-disabled.active>a:only-child,
+.ant-btn-background-ghost.ant-btn-danger.disabled.active>a:only-child,
+.ant-btn-background-ghost.ant-btn-danger[disabled].active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-background-ghost.ant-btn-danger-disabled>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-danger.disabled>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-danger[disabled]>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-danger-disabled:hover>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-danger.disabled:hover>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-danger[disabled]:hover>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-danger-disabled:focus>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-danger.disabled:focus>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-danger[disabled]:focus>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-danger-disabled:active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-danger.disabled:active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-danger[disabled]:active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-danger-disabled.active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-danger.disabled.active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-danger[disabled].active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-background-ghost.ant-btn-link {
+  color: $bg-primary;
+  background-color: transparent;
+  border-color: transparent;
+  color: $text-color;
+}
+
+.ant-btn-background-ghost.ant-btn-link>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-background-ghost.ant-btn-link>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-background-ghost.ant-btn-link:hover,
+.ant-btn-background-ghost.ant-btn-link:focus {
+  color: var("--m-color-5-text-primary");
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.ant-btn-background-ghost.ant-btn-link:hover>a:only-child,
+.ant-btn-background-ghost.ant-btn-link:focus>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-background-ghost.ant-btn-link:hover>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-link:focus>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-background-ghost.ant-btn-link:active,
+.ant-btn-background-ghost.ant-btn-link.active {
+  color: var("--m-color-7-text-primary");
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.ant-btn-background-ghost.ant-btn-link:active>a:only-child,
+.ant-btn-background-ghost.ant-btn-link.active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-background-ghost.ant-btn-link:active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-link.active>a:only-child::after {
+  background: transparent;
+}
+
+.ant-btn-background-ghost.ant-btn-link-disabled,
+.ant-btn-background-ghost.ant-btn-link.disabled,
+.ant-btn-background-ghost.ant-btn-link[disabled],
+.ant-btn-background-ghost.ant-btn-link-disabled:hover,
+.ant-btn-background-ghost.ant-btn-link.disabled:hover,
+.ant-btn-background-ghost.ant-btn-link[disabled]:hover,
+.ant-btn-background-ghost.ant-btn-link-disabled:focus,
+.ant-btn-background-ghost.ant-btn-link.disabled:focus,
+.ant-btn-background-ghost.ant-btn-link[disabled]:focus,
+.ant-btn-background-ghost.ant-btn-link-disabled:active,
+.ant-btn-background-ghost.ant-btn-link.disabled:active,
+.ant-btn-background-ghost.ant-btn-link[disabled]:active,
+.ant-btn-background-ghost.ant-btn-link-disabled.active,
+.ant-btn-background-ghost.ant-btn-link.disabled.active,
+.ant-btn-background-ghost.ant-btn-link[disabled].active {
+  color: $text-color;
+  background-color: #f5f5f5;
+  border-color: #d9d9d9;
+  box-shadow: none;
+}
+
+.ant-btn-background-ghost.ant-btn-link-disabled>a:only-child,
+.ant-btn-background-ghost.ant-btn-link.disabled>a:only-child,
+.ant-btn-background-ghost.ant-btn-link[disabled]>a:only-child,
+.ant-btn-background-ghost.ant-btn-link-disabled:hover>a:only-child,
+.ant-btn-background-ghost.ant-btn-link.disabled:hover>a:only-child,
+.ant-btn-background-ghost.ant-btn-link[disabled]:hover>a:only-child,
+.ant-btn-background-ghost.ant-btn-link-disabled:focus>a:only-child,
+.ant-btn-background-ghost.ant-btn-link.disabled:focus>a:only-child,
+.ant-btn-background-ghost.ant-btn-link[disabled]:focus>a:only-child,
+.ant-btn-background-ghost.ant-btn-link-disabled:active>a:only-child,
+.ant-btn-background-ghost.ant-btn-link.disabled:active>a:only-child,
+.ant-btn-background-ghost.ant-btn-link[disabled]:active>a:only-child,
+.ant-btn-background-ghost.ant-btn-link-disabled.active>a:only-child,
+.ant-btn-background-ghost.ant-btn-link.disabled.active>a:only-child,
+.ant-btn-background-ghost.ant-btn-link[disabled].active>a:only-child {
+  color: currentColor;
+}
+
+.ant-btn-background-ghost.ant-btn-link-disabled>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-link.disabled>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-link[disabled]>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-link-disabled:hover>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-link.disabled:hover>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-link[disabled]:hover>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-link-disabled:focus>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-link.disabled:focus>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-link[disabled]:focus>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-link-disabled:active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-link.disabled:active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-link[disabled]:active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-link-disabled.active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-link.disabled.active>a:only-child::after,
+.ant-btn-background-ghost.ant-btn-link[disabled].active>a:only-child::after {
+  background: transparent;
 }
 
 // 滚动条
 .ant-slider-handle {
   border-color: var(--m-color-bg-primary);
+
   &.ant-tooltip-open {
     border-color: var(--m-color-bg-primary-2);
   }
 }
+
 .ant-slider-handle:focus {
   box-shadow: 0 0 0 5px var(--m-color-opacity-2-bg-primary);
   border-color: var(--m-color-bg-primary-5);
 }
+
 .ant-slider-track {
   background-color: var(--m-color-opacity-2-bg-primary);
 }
+
 .ant-slider-dot-active {
   border-color: var(--m-color-opacity-5-bg-primary);
 }
+
 .ant-slider:hover {
   .ant-slider-track {
     background-color: var(--m-color-opacity-5-bg-primary);
   }
+
   .ant-slider-dot-active {
     border-color: var(--m-color-bg-primary);
   }
