@@ -122,7 +122,45 @@ export const configModule: StoreOptions<typeof stateData> = {
       return ThemesConfigColor.list[state.setting.theme?.color]?.color;
     }
   },
-  actions: {},
+  actions: {
+    /**
+     * 保存配置到服务器 
+     */
+    async saveConfigServer(store, payload) {
+      const { state, rootState } = store;
+
+      if (!payload) return;
+
+      const { isSave } = payload;
+      state.setting = WebSettingService.deepExtends(payload, state.setting);
+      
+      if (isServer) return;
+  
+      if (isSave) {
+        const config = GlobalTool.excludeKey(defaultsDeep({}, state.setting), ['title', 'description', 'type', 'config', 'isSave']);
+        delete config.config;
+        $cookie.set('web', JSON.stringify(config), { expires: 365 });
+        if ((rootState as any).jwt) {
+          clearTimeout(saveUserConfigClock);
+          saveUserConfigClock = setTimeout(async () => {
+            await saveUserConfig(config);
+          }, 1000);
+        }
+      }
+      
+      if (typeof saveUserConfigClock === 'number') {
+        state.clock.saveUserConfig = saveUserConfigClock;
+      }
+      
+      state.setting.config = {
+        theme: {
+          color: ThemesConfigColor,
+          backgroundColor: ThemesBackgroundColor,
+          fontSize: ThemesFontSize,
+        } as any,
+      };
+    }
+  },
 };
 
 export default configModule;

@@ -64,8 +64,8 @@ import Imager from '@/components/public/Imager.vue';
 import EditorComponents from '@/components/public/Editor.vue';
 import ArticleSetting from '@/components/public/Article/Setting.vue';
 import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue';
-import ArticleAnchor from '@/components/public/Article/ArticleAnchor.vue';
 import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
+import ArticleAnchor from '@/components/public/Article/components/ArticleAnchor.vue';
 import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleton.vue';
 
 import '@/components/public/Article/styles/content.scss';

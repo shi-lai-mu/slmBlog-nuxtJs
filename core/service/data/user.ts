@@ -47,11 +47,25 @@ export const getUserBaseData = (userId: User.Base['id']) => axios.send(
  * 登录账号
  */
 export const loginAccount = (acc: User.LoginDto['account'], pass: User.LoginDto['password']) => axios.send(
-  axios.user.login, {
-  data: {
-    account: acc,
-    password: pass
-  },
+  axios.user.login,
+  {
+    data: {
+      account: acc,
+      password: pass
+    },
     appendCookie: true,
+  }
+) as Promise<Request.Result<User.Base>>;
+
+/**
+ * 注册账号
+ */
+export const registerAccount = (acc: User.LoginDto['account'], pass: User.LoginDto['password']) => axios.send(
+  axios.user.register,
+  {
+    data: {
+      account: acc,
+      password: pass
+    },
   }
 ) as Promise<Request.Result<User.Base>>;

@@ -7,6 +7,9 @@
 <script>
 import { Vue, Component } from 'nuxt-property-decorator';
 
+/**
+ * 文章评论列表
+ */
 @Component({
   name: 'ArticleReplyList',
 })

@@ -97,7 +97,7 @@ export default class WebSetting extends Vue {
   /**
    * 设置站点参数
    */
-  @ConfigModule.Mutation setWebOptions!: StateMutation;
+  @ConfigModule.Action saveConfigServer!: StateMutation;
 
 
   /**
@@ -152,7 +152,10 @@ export default class WebSetting extends Vue {
    * 触发更新
    */
   updateSetting() {
-    this.setWebOptions(this.setting);
+    this.saveConfigServer({
+      ...this.setting,
+      isSave: true,
+    });
   }
 }
 

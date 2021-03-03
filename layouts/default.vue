@@ -107,7 +107,7 @@ export default class DefaultLayout extends Vue {
 
   mounted() {
     const { $http, $refs, $nuxt, $store, $observer } = this;
-    const { LoginPopup, layoutScroll } = $refs;
+    const { layoutScroll } = $refs;
     
     // 初始化权限组
     $http.$vue = this;
@@ -151,9 +151,9 @@ export default class DefaultLayout extends Vue {
     $observer.on('login', loginType => {
       if (!this.loginPopup) {
         this.loginPopup = true;
-        this.$nextTick(() => (LoginPopup as LoginPopup).showMask(loginType));
+        this.$nextTick(() => ($refs.LoginPopup as LoginPopup).showMask(loginType));
       } else {
-        (LoginPopup as LoginPopup).showMask(loginType);
+        ($refs.LoginPopup as LoginPopup).showMask(loginType);
       }
     });
 
