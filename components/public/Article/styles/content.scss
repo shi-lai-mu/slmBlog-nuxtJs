@@ -43,6 +43,9 @@
     @include themify($themes) {
       background-color: rgba(themed('main-bg-f2-color'), .7);
     }
+    span {
+      word-break: break-word;
+    }
   }
 
   .article-layout {

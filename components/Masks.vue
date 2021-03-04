@@ -140,7 +140,7 @@ export default class Masks extends Vue {
 @media screen and (max-width: 500px) {
   .masks {
     .mask-box {
-      padding-top: 100px;
+      padding-top: 50px;
       width: 100vw;
       height: 100vh;
 

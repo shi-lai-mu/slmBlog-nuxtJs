@@ -6,7 +6,8 @@
       @click="openView(article.id)" :style="style"
     >
       <template v-if="!isOpen">
-        <Imager class="figure-cover"
+        <Imager
+          class="figure-cover"
           v-if="article.banner"
           :src="article.banner"
           :alt="article.subject"
@@ -305,5 +306,10 @@ export default class ArticleView extends Vue {
       width: 100vw;
       height: 100vh;
     }
+  }
+
+  .layout-default-mobile .figure-cover {
+    width: 10vh !important;
+    height: 10vhw !important;
   }
 </style>

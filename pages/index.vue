@@ -89,7 +89,7 @@ $blockSpacingY: 15px; // 版块间距 纵轴
         }
       }
 
-      /deep/ .slick-slide {
+      /deep/ .slick-slide { 
         display: flex;
         align-items: center;
         border-radius: 10px;
@@ -125,13 +125,16 @@ $blockSpacingY: 15px; // 版块间距 纵轴
   }
   
   /deep/ .home-main-article-list {
+    width: calc(100% - 5px);
     margin-top: $blockSpacingY;
     margin-right: 0;
     border-radius: 0;
   }
 
-  .sideber {
-    padding: 20px;
+  .row-box {
+    width: calc(100% - 5px);
+    margin-top: 20px;
+    border-radius: 0;
   }
 }
 </style>

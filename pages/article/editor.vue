@@ -48,13 +48,12 @@
         </div>
       </a-col>
     </a-row>
-    <LayoutFooter />
   </article>
 </template>
 
 <script lang='ts'>
 import { Input, Button } from 'ant-design-vue';
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Prop, Vue } from 'nuxt-property-decorator';
 
 import { SubmitArticleDto } from '@/core/dto/article';
 import { submitPost } from '@/core/service/data/article';
@@ -221,5 +220,16 @@ export default class ArticleEditor extends Vue {
 
 .button-box {
   text-align: right;
+}
+
+.layout-default-mobile {
+  .article-page__container,
+  .article-page__sideber {
+    padding: 0 0 0 5px;
+  }
+  
+  .layout-page {
+    padding-top: 20px;
+  }
 }
 </style>

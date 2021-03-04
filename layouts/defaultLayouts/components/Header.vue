@@ -151,11 +151,12 @@ $headerHeight: 60px;
   align-items: center;
 
   &:hover {
-    z-index: 99;
-    top: 2px;
+    // z-index: 99;
+    // top: 2px;
     height: $headerHeight - 2px;
     line-height: $headerHeight;
-    transition: 0s;
+    // transition: 0s;
+    transition: .5s;
 
     .navigation-item .slm {
       height: $headerHeight + 2;
@@ -303,8 +304,10 @@ $headerHeight: 60px;
   border-radius: 0;
   
   .blog-logo {
+    display: block;
     height: 80%;
-    margin: -5px 50vw 0;
+    margin: 0 50vw;
+    line-height: $headerHeight;
     font-size: $headerHeight - 10px;
     transform: translateX(-50%);
   }
@@ -372,7 +375,8 @@ $headerHeight: 60px;
 }
 .layout-default-mobile.mobile-header-open  .layout-top-nav::before {
   opacity: 1;
-  transition: .5s .8s;
+  // transition: .5s .8s;
+  transition: .1s .8s;
   pointer-events: initial;
 }
 </style>

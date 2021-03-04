@@ -246,11 +246,13 @@ export default class DefaultLayout extends Vue {
 .transition-leave-active {
   transition: 1s;
 }
+
 .transition-enter,
 .transition-leave-active {
   opacity: 0;
   transform: translate(-50px, 0);
 }
+
 .layout-default {
   // min-height: 100vh;
   // height: 100%;
@@ -259,9 +261,11 @@ export default class DefaultLayout extends Vue {
   height: 100vh;
   transition: 1s;
 }
+
 .header {
   position: fixed;
 }
+
 .layout-page {
   position: relative;
   width: 100vw;
@@ -269,6 +273,7 @@ export default class DefaultLayout extends Vue {
   // padding-top: 65px;
   // min-height: calc(100vh - 121px);
   box-sizing: border-box;
+  transition: .5s;
 }
 
 @each $size-name, $value in (1300: 1300px, 1240: 1240px, 90: 90vh) {
@@ -284,11 +289,13 @@ export default class DefaultLayout extends Vue {
   filter: blur(1px);
   transition: .5s;
 }
+
 .layout-default {
   color: var(--c-text-primary);
   background-color: var(--c-bg-primary);
 }
-.mobile-header-open {
+
+.mobile-header-open > * {
   transform: translateX(260px);
 }
 
