@@ -149,23 +149,6 @@ $headerHeight: 60px;
   user-select: none;
   backdrop-filter: saturate(180%) blur(20px);
   align-items: center;
-
-  &:hover {
-    // z-index: 99;
-    // top: 2px;
-    height: $headerHeight - 2px;
-    line-height: $headerHeight;
-    // transition: 0s;
-    transition: .5s;
-
-    .navigation-item .slm {
-      height: $headerHeight + 2;
-    }
-
-    .header-navigation-right {
-      margin-top: -2px;
-    }
-  }
   
   .blog-logo {
     display: flex;

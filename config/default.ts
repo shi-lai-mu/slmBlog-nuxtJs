@@ -1,8 +1,11 @@
 import { WebConfig } from '@/interface/config';
+import { getIPAdress } from '@/utils/network';
 import user from './note/user';
 
 const isDev = process.env.NODE_ENV === 'development';
 const domain = !isDev ? 'https://slmblog.com' : `http://dev.slmblog.com:8888`;
+const devDomain =  getIPAdress() ?? location.hostname;
+const devOSSDomain = '//' + (getIPAdress() ?? location.host);
 
 /**
  * 默认配置
@@ -15,7 +18,7 @@ const defaultConfig: WebConfig.Default = {
   /**
    * 域名
    */
-  domain,
+  domain: devDomain,
   /**
    * LOGO相对路径
    */
@@ -64,7 +67,7 @@ const defaultConfig: WebConfig.Default = {
    */
   ossLink: !isDev
     ? 'https://oss.slmblog.com/blog'
-    : domain + '/blog'
+    : (devOSSDomain || domain) + '/blog'
   ,
   /**
    * SEO备用本站存储地址
@@ -77,8 +80,8 @@ const defaultConfig: WebConfig.Default = {
    * Axios 请求的服务器
    */
   apiServer: {
-    host: 'http://127.0.0.1:3000',
-    devHost: 'http://127.0.0.1:3000',
+    host: `http://${devDomain}:3000`,
+    devHost: `http://${devDomain}:3000`,
     apiVersion: '/api/v1',
     // defaultHost: '',
     // defaultHost: isDev ? 'yapi' : '',

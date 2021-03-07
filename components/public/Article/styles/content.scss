@@ -1,8 +1,3 @@
-.layout-default-mobile .article-layout,
-.layout-default-mobile /deep/ .article-skeleton {
-  padding-top: 60px !important;
-}
-
 .article-card .article-content-box {
   top: 0;
 }
@@ -140,5 +135,16 @@
 
   /deep/ .-horizontal {
     display: none;
+  }
+}
+
+.layout-default-mobile {
+  .article-page__container,
+  .article-page__sideber {
+    padding: 0;
+  }
+  
+  /deep/ .layout-page {
+    padding-top: 20px;
   }
 }

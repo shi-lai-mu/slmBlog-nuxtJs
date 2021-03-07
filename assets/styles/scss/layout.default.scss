@@ -179,6 +179,11 @@ li {
     background-color: rgba(255, 255, 255, .1);
   }
 }
+.layout-default-mobile {
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+}
 
 ::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, .5);
