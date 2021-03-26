@@ -2,7 +2,7 @@ import axios from '@/utils/axios';
 import { AxiosRequestConfig } from 'axios/index';
 
 import { Request } from '@/interface/request';
-import { User } from '@/interface/request/user';
+import { AccountValidateDto, User } from '@/interface/request/user';
 import { themesdefaultConfig } from '@/config/themes';
 
 /**
@@ -69,3 +69,13 @@ export const registerAccount = (acc: User.LoginDto['account'], pass: User.LoginD
     },
   }
 ) as Promise<Request.Result<User.Base>>;
+
+/**
+ * 获取用户信息
+ */
+ export const validateAccountEmail = (validateEmailData?: AccountValidateDto.Email) => (axios.send(
+  axios.user.validate.email,
+  {
+    data: validateEmailData,
+  },
+)) as Promise<Request.Result<string>>;

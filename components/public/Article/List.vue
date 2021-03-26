@@ -11,7 +11,16 @@
         </tooltip>
       </div>
     </aside>
-    <div v-scroll-event="{ down: 'aos-in' }" :class="[ 'article-list-item', layout.name, { 'is-open': viewId === item.id } ]" v-for="(item, index) in listData" :key="index">
+    <div
+      v-scroll-event="{ down: 'aos-in' }"
+      :class="[
+        'article-list-item',
+        layout.name,
+        { 'is-open': viewId === item.id }
+      ]"
+      v-for="(item, index) in listData"
+      :key="index"
+    >
       <ArticleView @open="openArticleEvent" @close="closeArticleEvent" :ssr="item" :viewId="viewId" :key="index" />
     </div>
   </div>
@@ -34,6 +43,9 @@ import listAsideConfig from './config/listAside.config';
  * - 展示文章列表
  */
 @Component({
+
+
+  
   name: 'ArticleList',
   components: {
     Tooltip,
@@ -54,7 +66,7 @@ export default class ArticleList extends Vue {
   /**
    * 列表数据
    */
-  listData: IntefArticle.Base[] = []
+  listData: IntefArticle.Base[] = [];
 
   /**
    * 正在观看是文章ID

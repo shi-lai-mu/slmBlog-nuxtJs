@@ -127,3 +127,27 @@ export namespace User {
     fontSize: keyof typeof ThemesFontSize.marks;
   }
 }
+
+
+/**
+ * 账号相关验证
+ */
+export namespace AccountValidateDto {
+  /**
+   * 邮箱验证
+   */
+  export interface Email {
+    /**
+     * 邮箱 (必须为邮箱格式)
+     */
+    email: string;
+    /**
+     * 序列ID
+     */
+    id: number;
+    /**
+     * 验证邮箱用的UUID，唯一序列号，只有\`序列ID\`和\`序列号\`对应才能成功验证邮箱
+     */
+    uuid: string;
+  }
+}

@@ -302,7 +302,7 @@ export default class LoginPopup extends Vue {
       &:hover {
         transform: rotate3d(1, 1, 0, -5deg);
         text-shadow: 5px 5px 2px rgba($color: #000, $alpha: .5);
-        @include themify($themes) {
+        @include themify($themes) { 
           color: themed('font-lv0-color-hover');
         }
         transition: text-shadow .5s;

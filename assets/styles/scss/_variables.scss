@@ -90,7 +90,7 @@ $mainColor:  (
     )
 );
 @each $main-name,$map in $mainColor {
-    #{'[data-color-mode=' + $main-name + ']'}{
+    #{'.theme-color-' + $main-name} {
         @each $key,$value in $map {
             #{'--m-color-' + $key}: $value;
             @each $i,$v in (1, 2, 5, 7) {
@@ -105,7 +105,7 @@ $mainColor:  (
 }
 
 @each $theme-name,$map in $themes {
-    #{'[data-theme-mode=' + $theme-name + ']'}{
+    #{'.theme-' + $theme-name}{
         @each $key,$value in $map {
             #{'--c-' + $key}: $value;
         }

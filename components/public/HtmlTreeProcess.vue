@@ -46,8 +46,6 @@ export default class HtmlTreeProcess extends Vue {
   @namespace('config').Getter webMainThemes16Color: typeof configModule.getters.webMainThemes16Color;
 
   mounted() {
-    console.log({  webMainThemes16Color : this.webMainThemes16Color});
-    
     const articleElement = document.getElementsByClassName('article-content__container')[1];
     this.article = articleElement;
     this.viewHeight = document.body.clientHeight;

@@ -15,6 +15,9 @@ const api = {
     login:         'post./user/signin',                               // 用户登录
     register:      'post./user/register',                             // 注册账号
     data:          'get./user/:id',                                   // 获取用户信息
+    validate: {
+      email:       'put./user/auth/validate/email',                      // 验证邮箱
+    }
   },
   // 文章类
   article: {
