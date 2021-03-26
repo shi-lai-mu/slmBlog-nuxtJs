@@ -58,7 +58,7 @@
       </div>
 
       <div class="tripartite-acccount">
-        <a-tooltip v-for="(item, key) in tripartite" :key="key" placement="right">
+        <a-tooltip v-for="(item, key) in tripartite" :key="key" placement="right" @click="noteLogin(item)">
           <template slot="title">{{item.name}}</template>
           <i :class="['slm', 'blog-' + item.icon]"></i>
         </a-tooltip>
@@ -84,8 +84,9 @@ import { Component, Prop, Watch, Vue } from 'nuxt-property-decorator';
 import { loginAccount, registerAccount } from '@/core/service/data/user';
 
 import Masks from '@/components/Masks.vue';
-import tripartite from '@/config/note/tripartite';
+import tripartite, { LOGIN_TYPE } from '@/config/note/tripartite';
 import { RequestConst } from '~/core/constants/request';
+import { TripartiteConfig } from '~/interface/config';
 
 /**
  * 登录弹窗组件
@@ -186,8 +187,6 @@ export default class LoginPopup extends Vue {
       login: loginAccount,
       register: registerAccount,
     }[signType] || loginAccount;
-    console.log({method});
-    
 
     const loginRes = await method(
       signType === 'login' ? account : email,
@@ -206,6 +205,26 @@ export default class LoginPopup extends Vue {
       this.closeMask();
       this.$message.success(`登录成功!`);
     } else this.$message.error(loginRes.message);
+  }
+
+
+  /**
+   * 三方登录方法
+   */
+  async noteLogin(tripartite: TripartiteConfig) {
+    if (tripartite.link) {
+      let link = '';
+      switch(tripartite.type) {
+        case LOGIN_TYPE.QQ:
+          link = tripartite.link();
+          break;
+
+        case LOGIN_TYPE.SUPER:
+          link = '/admin/login';
+          break;
+      }
+      window.location.href = link;
+    }
   }
 }
 </script>

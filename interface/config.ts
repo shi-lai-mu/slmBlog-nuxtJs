@@ -1,3 +1,4 @@
+import { LOGIN_TYPE } from "~/config/note/tripartite";
 
 /**
  * 站点配置
@@ -141,3 +142,27 @@ export namespace WebConfig {
     
   }
 }
+
+
+
+/**
+ * 三方登录配置
+ */
+export declare type TripartiteConfig = {
+  /**
+   * 登录平台名称
+   */
+  name: string;
+  /**
+   * 登录平台icon
+   */
+  icon: string;
+  /**
+   * 登录类型
+   */
+  type: LOGIN_TYPE;
+  /**
+   * 登录平台外链获取方法
+   */
+  link?(...params: any): string;
+};

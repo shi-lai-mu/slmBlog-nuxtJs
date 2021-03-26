@@ -57,9 +57,9 @@
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 
-import { getUserBaseData } from '@/core/service/data/user.ts';
 import { User } from '@/interface/request/user';
-import { userData } from '@/mock/user/data/user.ts';
+import { userData } from '@/mock/user/data/user';
+import { getUserBaseData } from '@/core/service/data/user';
 
 import UserCardSkeleton from '@/components/skeleton/pubCom/userCardSkeleton.vue';
 import Imager from '@/components/public/Imager.vue';

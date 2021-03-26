@@ -13,11 +13,10 @@
           }}
         </h2>
         <p class="tips">{{ message }}</p>
-        <aside class="aside-btn">
-          <a-button>首页</a-button>
-          <a-button v-show="loading">取消</a-button>
-          <a-button v-show="loading && status" @click="$observer.emit('login')">登录</a-button>
-          <a-button v-show="loading && !status" @click="() => validateEmail()">重试</a-button>
+        <aside class="aside-btn" v-if="!loading">
+          <a-button><router-link :to="{ path: '/' }">首页</router-link></a-button>
+          <a-button v-show="status" @click="$observer.emit('login')">登录</a-button>
+          <a-button v-show="!status" @click="() => validateEmail()">重试</a-button>
         </aside> 
       </div>
     </div>
@@ -64,7 +63,7 @@ export default class UserValidateEmailPage extends Vue {
     const { uuid, code, n }: any = query;
 
     this.loading = true;
-    this.message = '';
+    this.message = '请稍等...';
     this.status = null;
 
     // 给个动画时间
@@ -101,6 +100,10 @@ export default class UserValidateEmailPage extends Vue {
       display: flex;
       justify-content: space-between;
       transform: translateY(10vh);
+
+      .ant-btn {
+        width: 40%;
+      }
     }
   }
 
@@ -142,9 +145,5 @@ export default class UserValidateEmailPage extends Vue {
         animation: success-big 1s;
       }
     }
-  }
-
-  @keyframes success-big {
-    
   }
 </style>
