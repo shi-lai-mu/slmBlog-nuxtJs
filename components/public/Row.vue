@@ -58,14 +58,11 @@ export default class Row extends Vue {
     .row-tab {
       display: flex;
       width: 100%;
-      @include themify($themes) {
-        border-bottom: 1px solid themed('border-bottom-color');
-      }
+      border-bottom: 1px solid var(--c-border-primary);
     }
 
     .row-title {
       flex: 1 1 auto;
-      border-bottom: 1px solid var(--c-border-primary);
     }
 
     .tool {

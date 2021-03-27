@@ -1,4 +1,4 @@
-$text-color: currentColor;
+$text-color: var(--m-color-text-primary);
 $text-color-1: var(--m-color-text-primary-1);
 $text-color-2: var(--m-color-text-primary-2);
 $text-color-5: var(--m-color-text-primary-5);
@@ -213,9 +213,10 @@ $bg-primary-op-2: var(--m-color-opacity-2-bg-primary);
 .ant-btn-primary.disabled.active,
 .ant-btn-primary[disabled].active {
   color: $text-color;
-  background-color: #f5f5f5;
-  border-color: #d9d9d9;
+  background-color: var(--m-color-bg-primary-7);
+  border-color: transparent;
   box-shadow: none;
+  opacity: .3;
 }
 
 .ant-btn-primary-disabled>a:only-child,
@@ -1235,4 +1236,66 @@ $bg-primary-op-2: var(--m-color-opacity-2-bg-primary);
   .ant-slider-dot-active {
     border-color: var(--m-color-bg-primary);
   }
+}
+
+
+// 时间控件 time-picker
+input.ant-time-picker-input,
+.ant-time-picker-panel-input,
+div.ant-time-picker-panel-inner {
+  color: var(--m-color-bg-primary);
+  background-color: var(--c-bg-overlay);
+  border-color: var(--m-color-bg-primary-7);
+}
+
+div.ant-time-picker-panel-select li:focus,
+i.ant-time-picker-icon,
+i.ant-time-picker-clear,
+input.ant-time-picker-input {
+  color: var(--m-color-bg-primary);
+}
+
+i.ant-time-picker-icon,
+i.ant-time-picker-clear {
+  background-color: transparent;
+}
+
+button.ant-switch-checked {
+  background-color: var(--m-color-bg-primary);
+}
+
+.ant-input  {
+  background-color: var(--c-input-bg);
+  border-color: var(--c-input-border);
+  color: var(--c-text-primary);
+
+  &:focus {
+    box-shadow: 0 0 5px 2px var(--c-input-shadow);
+  }
+  
+  &::placeholder {
+    color: var(--c-input-placeholder-text-bg);
+  }
+}
+
+input.ant-time-picker-input:hover {
+  border-color: var(--m-color-bg-primary-5);
+}
+
+div.ant-time-picker-panel-input-wrap,
+div.ant-time-picker-panel-select {
+  border-color: var(--c-bg-backdrop);
+}
+
+ul li.ant-time-picker-panel-select-option-selected {
+  background-color: var(--m-color-opacity-5-bg-primary);
+  color: var(--c-text-primary);
+}
+.ant-time-picker-panel-select li:hover {
+  color: var(--m-color-bg-primary-7);
+  background-color: var(--m-color-opacity-8-bg-primary) !important;
+}
+
+.ant-form-item-label > label {
+  color: var(--c-text-primary);
 }

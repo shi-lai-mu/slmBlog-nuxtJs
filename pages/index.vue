@@ -84,9 +84,6 @@ $blockSpacingY: 15px; // 版块间距 纵轴
 
       .slm {
         margin-top: 0;
-        @include themify($themes) {
-          color: themed('font-color');
-        }
       }
 
       /deep/ .slick-slide { 

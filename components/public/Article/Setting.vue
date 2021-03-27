@@ -130,18 +130,19 @@ export default class ArticleSetting extends Vue {
   .ant-form-item {
     margin-bottom: 0;
   }
+
   .ant-input {
     width: 90%;
   }
+
   /deep/.ant-form-item-control {
     text-align: right;
   }
+
   .ant-divider  {
-    @include themify($themes) {
-      &::after, &::before {
-        border-color: themed('border-bottom-color');
-      }
-      color: themed('font-lv1-color');
+    color: var(--c-text-primary);
+    &::after, &::before {
+      border-color: var(--c-border-primary)
     }
   }
 </style>

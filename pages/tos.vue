@@ -67,9 +67,6 @@ h2 {
   font-size: 1.85rem;
   font-weight: bold;
   text-align: center;
-  @include themify($themes) {
-    border-bottom: 1px solid rgba($color: themed('font-color'), $alpha: .2);
-  }
 }
 
 h3 {
@@ -107,9 +104,6 @@ li::marker {
   text-align-last: start !important;
 }
 .link-a {
-  @include themify($themes) {
-    color: themed('a-color2');
-  }
   cursor: pointer;
 }
 

@@ -17,35 +17,35 @@ $themes: (
     // 暗色主题
     dark: $dark,
 );
-@mixin themify($themes: $themes, $isParent: 1) {
-    @each $theme-name,$map in $themes {
-        @if $isParent == 1 {
-            .theme-#{$theme-name} & {
-                $theme-map: () !global;
-                @each $key,
-                $value in $map {
-                    $theme-map: map-merge($theme-map, ($key: $value)) !global;
-                }
-                @content;
-                $theme-map: null !global;
-            }
-        } @else {
-            .theme-#{$theme-name} {
-                $theme-map: () !global;
-                @each $key,
-                $value in $map {
-                    $theme-map: map-merge($theme-map, ($key: $value)) !global;
-                }
-                @content;
-                $theme-map: null !global;
-            }
-        }
-    }
-}
+// @mixin themify($themes: $themes, $isParent: 1) {
+//     @each $theme-name,$map in $themes {
+//         @if $isParent == 1 {
+//             .theme-#{$theme-name} & {
+//                 $theme-map: () !global;
+//                 @each $key,
+//                 $value in $map {
+//                     $theme-map: map-merge($theme-map, ($key: $value)) !global;
+//                 }
+//                 @content;
+//                 $theme-map: null !global;
+//             }
+//         } @else {
+//             .theme-#{$theme-name} {
+//                 $theme-map: () !global;
+//                 @each $key,
+//                 $value in $map {
+//                     $theme-map: map-merge($theme-map, ($key: $value)) !global;
+//                 }
+//                 @content;
+//                 $theme-map: null !global;
+//             }
+//         }
+//     }
+// }
 
-@function themed($key, $themeMap: $theme-map) {
-    @return map-get($themeMap, $key);
-}
+// @function themed($key, $themeMap: $theme-map) {
+//     @return map-get($themeMap, $key);
+// }
 
 
 /* * * * * * * * * *\

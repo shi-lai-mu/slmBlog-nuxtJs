@@ -147,7 +147,7 @@ const globalConfig = {
           {
             libraryName: "ant-design-vue",
             libraryDirectory: "es",
-            style: false,
+            style: true,
           },
           "ant-design-vue"
         ]
@@ -196,6 +196,7 @@ const globalConfig = {
       './assets/styles/scss/_variables.scss',
       './assets/styles/scss/_mixins.scss',
       './assets/styles/scss/iconfont.scss',
+      './assets/styles/scss/antd.ui.scss',
     ],
     // less: [
     //   './assets/scss/_antd.ui.less',

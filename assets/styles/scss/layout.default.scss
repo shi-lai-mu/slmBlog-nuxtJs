@@ -1,18 +1,17 @@
-// @import './font.scss';
+@import './font.scss';
 
-@include themify($themes, true) {
-  .noise-texture {
-    background-image: url(themed('noise-img'));
-  }
-  
-  .bg-texture,
-  &.bg-texture {
-    background-image: url(themed('bg-img'));
-  }
+// .noise-texture {
+//   background-image: var(--c-bg-img);
+// }
 
-  h1, h2, h3, h4, h5, h6 {
-    color: themed('font-color');
-  }
+.bg-texture.theme-dark,
+.theme-dark .bg-texture {
+  background-image: url('/texture/dark_mosaic.png');
+}
+
+.bg-texture.theme-bright,
+.theme-bright .bg-texture {
+  background-image: url('/texture/so-white.png');
 }
 
 body {
@@ -20,16 +19,25 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
+  color: var(--c-text-primary);
   // font-size: 14px;
   font-family: josefin sans, sans-serif;
   -webkit-tap-highlight-color: transparent;
 }
 
+body {
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--c-text-primary);
+  }
+}
+
 a,
+a[href],
+a[class],
 .a-link {
   // color: currentColor;
   text-decoration: none;
-  color: var(--c-primary);
+  color: var(--c-text-primary);
 
   &:hover {
     text-decoration: underline;
@@ -104,42 +112,47 @@ li {
 .skeleton li,
 .skeleton span {
   opacity: .2;
-  @include themify($themes) {
-    background: linear-gradient(90deg,
-      rgba(themed('panel-floating-color'), .5) 25%,
-      rgba(themed('wave-color'), .8) 7%,
-      rgba(themed('panel-floating-color'), .5) 83%,
-    );
-    background-size: 400% 100%;
-  }
+  background: linear-gradient(90deg,
+    var(--c-fade-fg-50) 25%,
+    var(--c-fade-fg-85) 7%,
+    var(--c-fade-fg-50) 83%,
+  );
+  background-size: 400% 100%;
   border-radius: 5px;
   animation: skeleton-loading 2s ease infinite;
 }
+
 .skeleton-content {
   display: block;
   height: 1em;
 }
+
 .skeleton-title {
   @extend .skeleton-content;
   width: 50%;
 }
+
 .skeleton-desc {
   @extend .skeleton-content;
   width: 70%;
 }
+
 .skeleton-tag {
   @extend .skeleton-content;
   margin-top: .1em !important;
   width: 30%;
 }
+
 .skeleton-icon {
   display: inline-block;
   height: 1em;
   width: 1em;
 }
+
 .skeleton-center {
   margin: 0 auto;
 }
+
 @keyframes skeleton-loading {
   0% {
     background-position: 100% 50%
@@ -148,6 +161,7 @@ li {
     background-position: 0 50%
   }
 }
+
 .text-gray {
   color: var(--c-text-secondary) !important;
 
@@ -155,24 +169,12 @@ li {
     color: var(--c-underlinenav-text-hover) !important;
   }
 }
+
 .icon-hover:hover {
-  @include themify($themes) {
-    background-color: rgba($color: themed('font-lv0-color-hover'), $alpha: .1);
-    color: themed('font-lv0-color-hover') !important;
-    text-shadow: 0 0 6px themed('font-lv0-color-hover');
-  }
+  background-color: var(--c-text-secondary);
+  color: var(--c-text-primary) !important;
+  text-shadow: 0 0 6px var(--c-text-primary);
 }
-
-// ::selection {
-//   color: #fff;
-//   background: #2c2c2c;
-// }
-
-// .mobile {
-//   ::-webkit-scrollbar {
-//     width: 0;
-//   }
-// }
 
 ::-webkit-scrollbar {
   width: 5px;
@@ -181,6 +183,7 @@ li {
     background-color: rgba(255, 255, 255, .1);
   }
 }
+
 .layout-default-mobile {
   &::-webkit-scrollbar {
     width: 0;
@@ -190,18 +193,20 @@ li {
 ::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, .5);
     // background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .3) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .3) 50%, rgba(255, 255, 255, .3) 75%, transparent 75%, transparent);
+    background-color: var(--m-color-opacity-2-bg-primary);
     border-radius: 5px;
     &:hover {
-      background-color: #F90;
+      background-color: var(--m-color-opacity-5-bg-primary);
     }
     &:active {
-      background-color: #de4f3a;
+      background-color: var(--m-color-opacity-8-bg-primary);
     }
 }
 
 .load-success {
   animation: .5s vanishInSmall;
 }
+
 @keyframes vanishInSmall{
   0%{
     opacity: 0;
@@ -223,110 +228,49 @@ li {
 }
 
 // antd
-.ant-btn-primary-disabled, .ant-btn-primary.disabled, .ant-btn-primary[disabled], .ant-btn-primary-disabled:hover, .ant-btn-primary.disabled:hover, .ant-btn-primary[disabled]:hover, .ant-btn-primary-disabled:focus, .ant-btn-primary.disabled:focus, .ant-btn-primary[disabled]:focus, .ant-btn-primary-disabled:active, .ant-btn-primary.disabled:active, .ant-btn-primary[disabled]:active, .ant-btn-primary-disabled.active, .ant-btn-primary.disabled.active, .ant-btn-primary[disabled].active {
-  @include themify($themes) {
-    background-color: themed('btn-disable');
-    color: themed('btn-disable-color');
-  }
-  border-color: currentColor;
-}
-i.ant-time-picker-icon, i.ant-time-picker-clear {
-  color: var(--antd-wave-shadow-color);
-  background-color: transparent;
-}
-
-// 时间控件 time-picker
-.ant-time-picker-input,
-.ant-time-picker-panel-input,
-.ant-time-picker-panel-inner {
-  @include themify($themes) {
-    color: themed('font-lv1-color');
-    background-color: themed('main-bg-f1-color');
-    border-color: themed('main-bg-color');
-  }
-}
-
-.ant-input  {
-  @include themify($themes) {
-    color: themed('font-color');
-    background-color: themed('main-bg-f2-color');
-    border-color: themed('border-bottom-color');
-
-    &:focus {
-      box-shadow: 0 0 5px 2px themed('border-bottom-color');
-    }
-    
-    &::placeholder {
-      color: themed('font-lv3-color');
-    }
-  }
-}
-
-.ant-time-picker-panel-input-wrap,
-.ant-time-picker-panel-select {
-  @include themify($themes) {
-    border-color: themed('main-bg-color');
-  }
-}
-
-li.ant-time-picker-panel-select-option-selected {
-  @include themify($themes) {
-    color: themed('font-lv0-color-hover');
-    background-color: themed('main-bg-f2-color');
-  }
-}
-
-.ant-form-item-label > label {
-  @include themify($themes) {
-    color: themed('font-lv0-color-hover');
-  }
-}
-
-.ant-time-picker-panel-select li:hover {
-  @include themify($themes) {
-    color: themed('font-color');
-    background-color: themed('bg-dp1-color-hover');
-  }
-}
+// i.ant-time-picker-icon, i.ant-time-picker-clear {
+//   color: var(--antd-wave-shadow-color);
+//   background-color: transparent;
+// }
 
 // scrollbar
 
-.gm-scrollbar.-vertical:hover {
-//   @include themify($themes) {
-//     background-color: rgba($color: themed('bg-dp1-color-f'), $alpha: 0.4);
-//   }
-  background-color: transparent;
-}
-
-// .gm-scroll-view {
-//   overflow: hidden;
+// .gm-scrollbar.-vertical:hover {
+// //   @include themify($themes) {
+// //     background-color: rgba($color: themed('bg-dp1-color-f'), $alpha: 0.4);
+// //   }
+//   background-color: transparent;
 // }
 
-.gm-scrollbar.-horizontal {
-  background-color: transparent;
-}
+// // .gm-scroll-view {
+// //   overflow: hidden;
+// // }
 
-.gm-scrollbar div.thumb {
-  @include themify($themes) {
-    background-color: rgba($color: themed('a-color'), $alpha: 0.4);
-  }
-}
+// .gm-scrollbar.-horizontal {
+//   background-color: transparent;
+// }
 
-.gm-scrollbar-disable-selection .gm-scrollbar div.thumb {
-    background-color: #c5cfe2;
-}
+// .gm-scrollbar div.thumb {
+//   @include themify($themes) {
+//     background-color: rgba($color: themed('a-color'), $alpha: 0.4);
+//   }
+// }
 
-.gm-scrollbar div.thumb:hover {
-  @include themify($themes) {
-    background-color: rgba($color: themed('a-hover-color'), $alpha: .7);
-  }
-}
+// .gm-scrollbar-disable-selection .gm-scrollbar div.thumb {
+//     background-color: #c5cfe2;
+// }
+
+// .gm-scrollbar div.thumb:hover {
+//   @include themify($themes) {
+//     background-color: rgba($color: themed('a-hover-color'), $alpha: .7);
+//   }
+// }
 
 // 20.10.28后vue-gemini-scrollbar在
-.layout > .gm-scrollbar-container > .-horizontal {
-  width: 0 !important;
-  .thumb { width: 0 !important; }
-}
+// .layout > .gm-scrollbar-container > .-horizontal {
+//   width: 0 !important;
+//   .thumb { width: 0 !important; }
+// }
 
 // 移动端布局兼容
 // .layout-default-mobile {}

@@ -44,9 +44,6 @@ export default class PublicFunctionalPlateComponent extends Vue {
     .functional-plate__header {
       display: flex;
       padding: 15px 20px;
-      @include themify($themes) {
-        border-bottom: 1px solid themed('border-bottom-color');
-      }
       justify-content: space-between;
       align-items: center;
 
@@ -54,9 +51,6 @@ export default class PublicFunctionalPlateComponent extends Vue {
         margin-bottom: 0;
         font-size: 1.05rem;
         font-weight: bold;
-        @include themify($themes) {
-          color: themed('a-color');
-        }
       }
     }
 
@@ -65,9 +59,6 @@ export default class PublicFunctionalPlateComponent extends Vue {
 
       .functional-plate__loading {
         text-align: center;
-        @include themify($themes) {
-          color: themed('font-lv3-color');
-        }
       }
     }
   }

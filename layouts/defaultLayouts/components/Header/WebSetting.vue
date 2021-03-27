@@ -170,9 +170,6 @@ export default class WebSetting extends Vue {
   padding: 0 10px;
   font-size: .8rem;
   text-align: center;
-  @include themify($themes) {
-    color: themed('font-lv1-color');
-  }
   box-sizing: border-box;
 
   .popup-item .row-content {
@@ -182,17 +179,11 @@ export default class WebSetting extends Vue {
   .web-setting__version {
     margin-left: 1em;
     font-size: .7em;
-    @include themify($themes) {
-      color: themed('font-lv3-color');
-    }
   }
 
   .popup-title {
     margin: 1rem 0 .3rem;
     font-size: 1.3rem;
-    @include themify($themes) {
-      color: themed('font-color');
-    }
   }
 
   .popup-content {
@@ -200,9 +191,6 @@ export default class WebSetting extends Vue {
     max-height: 70vh;
     text-align: left;
     padding: 15px 10px 10px;
-    @include themify($themes) {
-      color: themed('font-lv1-color');
-    }
   }
 
   .item-row {
@@ -222,9 +210,6 @@ export default class WebSetting extends Vue {
     .item-row__desc {
       display: block;
       font-size: .8em;
-      @include themify($themes) {
-        color: themed('font-lv2-color');
-      }
     }
   }
   div.row-box {

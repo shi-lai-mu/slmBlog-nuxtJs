@@ -133,33 +133,25 @@ export default class SlmEditor extends Vue {
     .w-e-menu-panel,
     .w-e-panel-tab-content input,
     .w-e-panel-container {
-      @include themify($themes) {
-        color: themed('font-color') !important;
-        background-color: themed('main-bg-f2-color') !important;
-        border-color: themed('border-bottom-color') !important;
-        user-select: none;
-      }
+      color: var(--c-text-primary) !important;
+      background-color: var(--c-bg-tertiary) !important;
+      border-color: var(--c-bg-secondary) !important;
+      user-select: none;
     }
 
     .w-e-menu .w-e-panel-container {
-      @include themify($themes) {
-        box-shadow: 1px 1px 2px themed('border-bottom-color');
-      }
+      box-shadow: 1px 1px 2px var(--c-bg-info);
     }
 
     .w-e-toolbar .w-e-droplist .w-e-dp-title,
     .w-e-panel-tab-title,
     hr {
-      @include themify($themes) {
-        border-color: themed('border-bottom-color') !important;
-      }
+      border-color: var(--c-bg-secondary) !important;
     }
 
     .w-e-toolbar .w-e-droplist {
-      @include themify($themes) {
-        background-color: themed('main-bg-f1-color') !important;
-        border-color: themed('border-bottom-color') !important;
-      }
+      background-color: var(--c-bg-overlay) !important;
+      border-color: var(--c-bg-secondary) !important;
     }
 
     div.w-e-item,
@@ -168,40 +160,30 @@ export default class SlmEditor extends Vue {
     .w-e-droplist p.w-e-dp-title,
     .w-e-menu .w-e-panel-container .w-e-panel-tab-title li.w-e-item,
     div.w-e-menu p {
-      @include themify($themes) {
-        color: themed('font-color');
-      }
+      color: var(--c-text-primary) !important;
     }
 
     
     .w-e-drop-list-item {
-      @include themify($themes) {
-        color: themed('font-color') !important;
-      }
+      color: var(--c-text-primary) !important;
     }
 
 
     .w-e-toolbar .w-e-menu:hover,
     .w-e-item:hover,
     .w-e-panel-tab-content button {
-      @include themify($themes) {
-        background-color: themed('main-bg-f2-color') !important;
-      }
+      background-color: var(--c-bg-overlay) !important;
     }
     
     .w-e-toolbar .w-e-menu:hover i,
     .w-e-menu .w-e-panel-container .w-e-panel-tab-title li.w-e-active {
-      @include themify($themes) {
-        color: themed('a-color2');
-      }
+      color: var(--c-text-primary) !important;
     }
     
     article code,
     article blockquote {
-      @include themify($themes) {
-        background-color: themed('main-bg-code-color') !important;
-        border-color: themed('border-left-color') !important;
-      }
+      background-color: var(--c-bg-overlay) !important;
+      color: var(--c-text-primary) !important;
     }
 
     // 编辑器圆角

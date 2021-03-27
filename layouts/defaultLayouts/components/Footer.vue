@@ -67,11 +67,5 @@ export default class LayoutDefaultFooter extends Vue {
     height: 20px;
     vertical-align: middle;
   }
-
-  // .keep-on-record a {
-  //   @include themify($themes) {
-  //     color: themed('font-lv1-color');
-  //   }
-  // }
 }
 </style>

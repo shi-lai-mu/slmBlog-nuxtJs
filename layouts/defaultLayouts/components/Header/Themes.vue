@@ -170,7 +170,7 @@ export default class HeaderThemes extends Vue {
       },
       isSave,
     });
-    root.setAttribute('data-color-mode', colorName);
+    root.classList.add('theme-color-' + colorName);
     if (initState) this.$message.success({ content: '切换成功!', key: messageKey });
     this.initState = true;
   }
@@ -201,17 +201,11 @@ export default class HeaderThemes extends Vue {
   padding: 0 10px;
   font-size: .8rem;
   text-align: center;
-  @include themify($themes) {
-    color: themed('font-lv1-color');
-  }
   box-sizing: border-box;
 
   .popup-title {
     margin: 1rem 0 .3rem;
     font-size: 1.3rem;
-    @include themify($themes) {
-      color: themed('font-color');
-    }
   }
 
   .popup-content {
@@ -220,9 +214,6 @@ export default class HeaderThemes extends Vue {
     text-align: left;
     padding: 15px 10px 10px;
     margin: 20px 0;
-    @include themify($themes) {
-      color: themed('font-lv1-color');
-    }
   }
   
   div.row-box {

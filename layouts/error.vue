@@ -60,11 +60,9 @@ export default class ErrorPage extends Vue  {
     height: calc(100vh - 300px);
     margin: 40px auto;
     padding: 5vw;
-    @include themify($themes) {
-      color: themed('font-lv0-color');
-      background-color: themed('bg-dp1-color');
-      // box-shadow: inset 10px 5px 5px themed('bg-dp0-color');
-    }
+    color: var(--c-text-primary);
+    background-color: var(--c-bg-primary);
+    // box-shadow: inset 10px 5px 5px themed('bg-dp0-color');
     border-radius: 10px;
     box-shadow: inset 10px -10vh 50px rgba($color: #000, $alpha: .8);
     box-sizing: border-box;
@@ -96,9 +94,7 @@ export default class ErrorPage extends Vue  {
     bottom: -20vh;
     width: 100%;
     height: 50vh;
-    @include themify($themes) {
-      fill: themed('wave-color');
-    }
+    fill: var(--c-wave-color);
     opacity: .6;
     animation: waveSvgAnim 5s linear infinite alternate;
   }

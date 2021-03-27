@@ -26,6 +26,7 @@ $dark: (
   bg-dp9-color: #343434,           // 背景 海拔dp9  色
   bg-dp10-color: #383838,          // 背景 海拔dp10 色
   bg-dp11-color: #131417,          // 背景 主色
+  bg-dp11-color-50: rgba(#131417, .5), // 背景 主色
 
   a-color: #b6c3db,                // 链接默认颜色
   a-hover-color: #c5cfe2,          // 链接hover颜色
@@ -402,9 +403,10 @@ $dark: (
   label-orange-text: #db6d28,
   label-orange-border: rgba(219,109,40,0.4),
   input-bg: #0d1117,
+  input-placeholder-text-bg: #8b949e,
   input-contrast-bg: rgba(1,4,9,0.3),
   input-border: #21262d,
-  input-shadow: 0 0 transparent,
+  input-shadow: rgba(#30363d, .7),
   input-disabled-bg: #161b22,
   input-disabled-border: #30363d,
   input-warning-border: #d29922,

@@ -221,9 +221,7 @@ export default class UserCard extends Vue {
       }
 
       .state-item-tag {
-        @include themify($themes) {
-          color: themed('font-lv2-color');
-        }
+        color: var(--c-text-secondary);
       }
     }
 

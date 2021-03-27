@@ -206,8 +206,8 @@ export default class ArticleList extends Vue {
 
         &:active,
         &.check {
-          background-color: var(--c-border-info);
-          color: var(--c-underlinenav-text-hover);
+          background-color: var(--m-color-bg-primary);
+          color: var(--m-color-text-primary);
           text-shadow: 0 0 6px var(--c-underlinenav-text-hover);
         }
 

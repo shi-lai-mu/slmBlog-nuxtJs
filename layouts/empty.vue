@@ -20,9 +20,9 @@
 </template>
 
 <script lang="ts">
-import 'ant-design-vue/dist/antd.css';
+// import 'ant-design-vue/dist/antd.css';
 import '@/assets/styles/scss/layout.default.scss';
-import '@/assets/styles/scss/antd.ui.scss';
+// import '@/assets/styles/scss/antd.ui.scss';
 // import '@/assets/styles/less/_antd.ui.less';
 // import '@/assets/scss/_variables.scss';
 import '@/plugins/vue-onscroll-event/animate.min.css';

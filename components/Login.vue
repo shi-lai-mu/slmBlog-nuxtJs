@@ -281,9 +281,7 @@ export default class LoginPopup extends Vue {
       transform-origin: 25% 50%;
 
       &:hover {
-        @include themify($themes) {
-          color: themed('font-lv0-color-hover');
-        }
+        color: var(--c-text-primary);
         transition: .5s;
         transform: scale(1.2);
       }
@@ -302,10 +300,8 @@ export default class LoginPopup extends Vue {
     height: 80vh;
     max-width: 400px;
     max-height: 500px;
-    @include themify($themes) {
-      background-color: themed('main-bg-color');
-      box-shadow: 0 10px 10px rgba($color:  themed('bg-dp11-color'), $alpha: .5);
-    }
+    background-color: var(--c-main-bg-color);
+    box-shadow: 0 10px 10px var(--c-bg-dp11-color-50);
     border-radius: 20px;
     perspective: 1000px;
     @extend .transition-box;
@@ -321,9 +317,7 @@ export default class LoginPopup extends Vue {
       &:hover {
         transform: rotate3d(1, 1, 0, -5deg);
         text-shadow: 5px 5px 2px rgba($color: #000, $alpha: .5);
-        @include themify($themes) { 
-          color: themed('font-lv0-color-hover');
-        }
+        color: var(--c-text-primary-secondary);
         transition: text-shadow .5s;
       }
     }
@@ -339,9 +333,7 @@ export default class LoginPopup extends Vue {
       width: 80%;
       margin: 30px auto 60px;
       text-align: center;
-      @include themify($themes) {
-        color: themed('font-lv2-color');
-      }
+      color: var(--c-text-primary-secondary);
     }
 
     .input {
@@ -352,29 +344,12 @@ export default class LoginPopup extends Vue {
       font-size: 1rem;
       // border-radius: 2rem;
       border-color: transparent;
-      @include themify($themes) {
-        background-color: rgba($color: themed('bg-dp10-color'), $alpha: .2);
-        color: themed('font-lv1-color');
-
-        &:hover,
-        &:focus {
-          background-color: rgba($color: themed('bg-dp10-color'), $alpha: .6);
-          color: themed('font-lv0-color');
-          border-color: themed('border-bottom-color');
-        }
-
-        &::placeholder {
-          color: themed('font-lv3-color');
-        }
-      }
     }
 
     .input-msg {
       display: block;
       text-align: center;
-      @include themify($themes) {
-        color: themed('font-lv1-color');
-      }
+      color: var(--c-text-primary);
     }
 
     .btn {
@@ -387,12 +362,6 @@ export default class LoginPopup extends Vue {
       color: inherit;
       border-color: currentColor;
       background-color: transparent;
-
-      &:hover {
-        @include themify($themes) {
-          background-color: rgba($color: themed('bg-dp10-color'), $alpha: .8);
-        }
-      }
     }
 
     .bottom-tips {
@@ -401,23 +370,19 @@ export default class LoginPopup extends Vue {
       left: 0;
       width: 100%;
       text-align: center;
-      @include themify($themes) {
-        color:  themed('font-lv3-color');
-      }
+      color: var(--c-text-primary);
     }
 
     .active-span {
       cursor: pointer;
-      @include themify($themes) {
-        color:  themed('font-lv1-color');
+      color: var(--c-text-primary);
 
-        &:hover {
-          color:  themed('font-lv0-color-hover');
-        }
+      &:hover {
+        color: var(--c-text-secondary);
+      }
 
-        &:active {
-          color:  themed('font-color');
-        }
+      &:active {
+        color: var(--c-text-tertiary);
       }
     }
   }
@@ -461,12 +426,13 @@ export default class LoginPopup extends Vue {
     bottom: 10px;
     text-align: right;
 
+    .footer-a {
+      color: var(--c-text-link);
+    }
     .footer-a:last-child {
       padding-left: 10px;
       margin-left: 5px;
-      @include themify($themes) {
-        border-left: 1px solid rgba($color: themed('a-color'), $alpha: .5);
-      }
+      border-left: 1px solid var(--c-text-disabled);
     }
   }
 

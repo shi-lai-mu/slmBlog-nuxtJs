@@ -13,9 +13,7 @@
   height: 100vh;
   // height: calc(100vh - 60px);
   padding-top: 60px;
-  @include themify($themes) {
-    color: themed('font-color');
-  }
+  color: var(--c-text-primary);
 
   .article-items {
     opacity: .8;
@@ -23,9 +21,8 @@
     margin: 20px auto;
     text-align: center;
     font-size: .9em;
-    @include themify($themes) {
-      border-bottom: 1px dashed rgba($color: themed('font-color'), $alpha: .2);
-    }
+    border-bottom: 1px dashed var(--c-border-primary);
+
     span {
       margin: 0 10px;
     }
@@ -35,25 +32,25 @@
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 5px;
-    @include themify($themes) {
-      background-color: rgba(themed('main-bg-f2-color'), .7);
-    }
+    background-color: var(--c-border-secondary);
+
     span {
       word-break: break-word;
     }
   }
 
   .article-layout {
-    // padding-top: 80px;
     padding-top: 10px;
   }
 
   &.toggle-transition {
+
     /deep/ .article-skeleton {
       opacity: 0;
       transition: 1s;
       visibility: hidden;
     }
+
     .article-layout {
       opacity: 1;
       transition: .5s;
@@ -72,10 +69,8 @@
       text-indent: 5px;
       text-align: center;
       font-weight: 500;
-      font-size: 1.5rem;
-      @include themify($themes) {
-        color: themed('font-color');
-      }
+      // font-size: 1.5rem;
+      color: var(--c-text-primary);
     }
   }
 
@@ -91,10 +86,6 @@
       margin: 20px 0;
       padding: 10px 20px;
       font-size: 1rem;
-      @include themify($themes) {
-        color: themed('font-lv3-color');
-        background-color: themed('bg-dp3-color');
-      }
       border-radius: 10px;
       justify-content: space-between;
       flex-wrap: wrap;
@@ -113,19 +104,55 @@
           margin-top: 10px;
           margin-right: 10px;
           padding: 0 10px;
-          @include themify($themes) {
-            background-color: themed('bg-dp6-color');
-          }
           border-radius: 5px;
           cursor: pointer;
-
-          &:hover {
-            @include themify($themes) {
-              background-color: themed('bg-dp9-color');
-            }
-          }
         }
       }
+    }
+  }
+    
+  .article-content__body {
+    /deep/ img {
+      max-width: 100%;
+      border-radius: 5px;
+    }
+
+    /deep/ iframe {
+      width: 100%;
+      min-height: 250px;
+      height: 25vw;
+      border-radius: 5px;
+    }
+
+    /deep/ ul,
+    /deep/ li {
+      list-style: inherit;
+      margin: initial;
+      padding: initial;
+    }
+
+    /deep/ ul {
+      padding-left: 40px;
+    }
+
+    /deep/ tbody {
+      border: 1px solid var(--c-markdown-table-border);
+      border-radius: 2px;
+    }
+
+    /deep/ th,
+    /deep/ td {
+      padding: 10px;
+      border-bottom: 1px solid var(--c-markdown-table-tr-border);
+      border-right: 1px solid var(--c-markdown-table-tr-border);
+
+      &:last-child {
+        border-right: 0;
+      }
+    }
+    
+    /deep/ th {
+      background-color: var(--c-markdown-table-border);
     }
   }
 

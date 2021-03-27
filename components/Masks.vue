@@ -98,9 +98,7 @@ export default class Masks extends Vue {
   cursor: initial;
 
   &.mask-style {
-    @include themify($themes) {
-      background-color: rgba($color: themed('mask-bg-color'), $alpha: .4);
-    }
+    background-color: rgba($color: #050505, $alpha: .4);
     backdrop-filter: inherit;
   }
 

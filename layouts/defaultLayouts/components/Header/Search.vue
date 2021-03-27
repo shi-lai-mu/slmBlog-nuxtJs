@@ -93,9 +93,6 @@ export default class HeaderSearch extends Vue {
         font-size: 1rem;
         color: #FFF;
         background-color: inherit;
-        // @include themify($themes) {
-        //   color: themed('font-lv0-color');
-        // }
         border: 0;
         &::placeholder {
           color: #FFF;
@@ -111,9 +108,6 @@ export default class HeaderSearch extends Vue {
         width: 100%;
         padding: 20px 10px 10px;
         text-align: left;
-        // @include themify($themes) {
-        //   background-color: themed('panel-floating-color');
-        // }
         border-radius: 0 0 20px 20px;
         transform: translateY(-20px);
 
@@ -130,18 +124,9 @@ export default class HeaderSearch extends Vue {
             padding: 0 10px;
             font-size: .8em;
             line-height: 2.3em;
-            @include themify($themes) {
-              // color: themed('a-active-color');
-              background-color: rgba($color: #000, $alpha: .2);
-            }
+            background-color: rgba($color: #000, $alpha: .2);
             border-radius: 5px;
             cursor: pointer;
-
-            &:hover {
-              @include themify($themes) {
-                color: themed('font-color');
-              }
-            }
           }
 
           .slm {
@@ -172,10 +157,6 @@ export default class HeaderSearch extends Vue {
     }
 
     &.input-focus {
-      // @include themify($themes) {
-      //   background-color: themed('panel-floating-color') !important;
-      // }
-
       .search-input {
         overflow: initial;
         width: 60vw !important;

@@ -24,14 +24,15 @@
 </template>
 
 <script lang="ts">
-import 'ant-design-vue/dist/antd.css';
+// import 'ant-design-vue/dist/antd.css';
 import '@/assets/styles/scss/layout.default.scss';
-import '@/assets/styles/scss/antd.ui.scss';
+// import '@/assets/styles/scss/antd.ui.scss';
 // import '@/assets/styles/less/_antd.ui.less';
 // import '@/assets/scss/_variables.scss';
 import '@/plugins/vue-onscroll-event/animate.min.css';
 
 import $cookie from 'js-cookie';
+import { Component, namespace, Vue, Watch } from 'nuxt-property-decorator';
 
 import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
 import LayoutHeader from '@/layouts/defaultLayouts/components/Header.vue';
@@ -40,11 +41,10 @@ import Live2D from '@/components/public/Live2D.vue';
 import LoginPopup from '@/components/Login.vue';
 import resizeEvent from '@/utils/Event/resize';
 
-import { Component, namespace, Vue, Watch } from 'nuxt-property-decorator';
 import { isOpenDevTool } from '@/utils/deDeveloperTools';
 import { stateData as ConfigState } from '@/store/config';
 import { getSelfInfo } from "@/core/service/data/user";
-import { StateMutation } from '~/interface/state';
+import { StateMutation } from '@/interface/state';
 
 const ConfigModule = namespace('config');
 
@@ -188,7 +188,7 @@ export default class DefaultLayout extends Vue {
   @Watch('$store.state.config.setting.theme.backgroundColor')
   backgroundColorChang() {
     const root: HTMLElement = document.getElementsByTagName('html')[0];
-    root.setAttribute('data-theme-mode', this.setting.theme.backgroundColor);
+    root.classList.add('theme-' + this.setting.theme.backgroundColor);
   }
   
 
@@ -301,7 +301,7 @@ export default class DefaultLayout extends Vue {
 
 /deep/ .row-box {
   margin-bottom: 15px;
-  padding: 20px;
+  padding: 10px 20px;
   background-color: var(--c-bg-primary);
   // box-shadow: 0 2px 5px var(--c-border-tertiary);
   border: 1px solid var(--c-border-primary);

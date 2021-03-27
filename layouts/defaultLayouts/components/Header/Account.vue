@@ -49,20 +49,11 @@ export default class HeaderAccount extends Vue {
     position: absolute;
     overflow: hidden;
     width: 100px;
-    @include themify($themes) {
-      background-color: rgba($color: themed('bg-dp1-color-f'), $alpha: .8);
-    }
     max-height: 0;
     border-radius: 0 0 10px 10px;
     transform: translate(-30px, 11px);
     transition: 1s;
     backdrop-filter: saturate(180%) blur(20px);
-
-    .account-munt-item:hover {
-      @include themify($themes) {
-        background-color: rgba($color: themed('bg-dp1-color-hover'), $alpha: .8);
-      }
-    }
   }
 
   &:hover {

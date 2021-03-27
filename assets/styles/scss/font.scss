@@ -1,13 +1,13 @@
 $headerFontStack: Helvetica, Arial, sans-serif;
-$h1Base: 3;
-$h2Base: 2;
-$h3Base: 1;
-$h4Base: 0.7;
-$h5Base: 0.5;
-$h6Base: 0.4;
+$h1Base: 1;
+$h2Base: .8;
+$h3Base: .6;
+$h4Base: .5;
+$h5Base: .4;
+$h6Base: .3;
 
 $bodyFontStack: Helvetica, Arial, sans-serif;
-$baseFontSize: 14; // Handled as px
+$baseFontSize: 12; // Handled as px
 $pBase: 0.1;
 
 @mixin responsive-type($minFont, $viewport, $default) {
@@ -25,13 +25,13 @@ $pBase: 0.1;
 }
 
 /* { @include responsive-type( minimum, viewport%, default fallback ); } */
-h1 { @include responsive-type( $baseFontSize, $h1Base, 42px ); }
-h2 { @include responsive-type( $baseFontSize, $h2Base, 36px ); }
+h1 { @include responsive-type( $baseFontSize, $h1Base, 32px ); }
+h2 { @include responsive-type( $baseFontSize, $h2Base, 28px ); }
 h3 { @include responsive-type( $baseFontSize, $h3Base, 22px ); }
 h4 { @include responsive-type( $baseFontSize, $h4Base, 20px ); }
 h5 { @include responsive-type( $baseFontSize, $h5Base, 14px ); }
 h6 { @include responsive-type( $baseFontSize, $h6Base, 14px ); }
 
-body, input, textarea, button, select, p, a {
-  @include responsive-type( $baseFontSize, $pBase, 12px );
-}
+// body, input, textarea, button, select, p, a {
+//   @include responsive-type( $baseFontSize, $pBase, 12px );
+// }
