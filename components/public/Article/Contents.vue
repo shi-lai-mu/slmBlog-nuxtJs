@@ -65,8 +65,8 @@ import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 
 import { articleBase } from '@/mock/article/data/index';
 import { getPostsData } from '@/core/service/data/article';
-import { Article as IntefArticle } from '@/interface/request/article';
 import { RequestConst } from '@/core/constants/request';
+import { Article as IntefArticle } from '@/interface/request/article';
 
 import Row from '@/components/public/Row.vue';
 import sharingConfig from './config/sharing.config';

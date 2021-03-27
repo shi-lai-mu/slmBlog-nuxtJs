@@ -40,3 +40,13 @@ export const getPostsData = (data: Article.Base['id'] | Article.Base) => axios.s
 export const submitPost = (article: SubmitArticleDto) => axios.send(axios.article.submit, {
   data: article,
 }) as Promise<Request.Result<Article.Base>>;
+
+
+/**
+ * 获取上下篇文章
+ */
+export const getProfile = (articleId: string) => axios.send(axios.article.profile, {
+  data: {
+    ids: articleId,
+  },
+}) as Promise<Request.Result<Array<null | Article.Base> | ''>>;

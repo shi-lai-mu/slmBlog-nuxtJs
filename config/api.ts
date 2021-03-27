@@ -16,7 +16,7 @@ const api = {
     register:      'post./user/register',                             // 注册账号
     data:          'get./user/:id',                                   // 获取用户信息
     validate: {
-      email:       'put./user/validate/email',                      // 验证邮箱
+      email:       'put./user/validate/email',                        // 验证邮箱
     }
   },
   // 文章类
@@ -24,6 +24,7 @@ const api = {
     submit:        'post./article',                                   // 发布文章
     list:          'get./article/:filterMode/:page/:count',           // 最新文章
     data:          'get./article/:articleId',                         // 获取文章内容
+    profile:       'get./article/profile/list',                       // 获取文章简洁信息
   },
   // 通知类
   notify: {

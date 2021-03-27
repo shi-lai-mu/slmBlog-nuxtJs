@@ -66,14 +66,16 @@ const defaultConfig: WebConfig.Default = {
    * OSS存储对象地址
    */
   ossLink: !isDev
-    ? 'https://oss.slmblog.com/blog'
+    ? (devOSSDomain || domain) + '/blog'
+    // ? 'https://oss.slmblog.com/blog'
     : (devOSSDomain || domain) + '/blog'
   ,
   /**
    * SEO备用本站存储地址
    */
   imgLink: !isDev
-    ? 'https://img.slmblog.com/blog'
+    ? domain + 'blog'
+    // ? 'https://img.slmblog.com/blog'
     : domain + 'blog'
   ,
   /**

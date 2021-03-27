@@ -54,6 +54,11 @@ export default class HeaderAccount extends Vue {
     transform: translate(-30px, 11px);
     transition: 1s;
     backdrop-filter: saturate(180%) blur(20px);
+    background-color: var(--c-bg-primary);
+
+    li:hover {
+      background-color: var(--c-bg-secondary);
+    }
   }
 
   &:hover {
