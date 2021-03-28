@@ -32,7 +32,13 @@
   cursor: pointer;
 
   .avatar {
+    position: relative;
     transition: .5s ease-in-out;
+    
+    img {
+      width: 100%;
+      border-radius: 50%;
+    }
   }
 
   &:hover {
@@ -104,5 +110,13 @@
 
   .comment-item:hover {
     background-color: var(--c-bg-info);
+  }
+}
+
+.article-replay__user-card {
+  min-width: 350px;
+
+  .user-cover {
+    border-radius: 5px 5px 0 0;
   }
 }

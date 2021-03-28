@@ -30,6 +30,24 @@ export const getPostsData = (data: Article.Base['id'] | Article.Base) => axios.s
   params: {
     articleId: typeof data === 'object' ? data.id : data,
   }
+})
+.then((res: Request.Result<Article.Posts>) => {
+  if (res.success) {
+    if (res.result.comment) {
+      res.result.comment.list = res.result.comment?.list.reverse().map(comment => {
+        const { user, subComment } = comment;
+        if (user) comment.nickname = user.nickname;
+        if (subComment) {
+          subComment.list = subComment.list.reverse().map(subItem => {
+            if (subItem.user) subItem.nickname = subItem.user.nickname;
+            return subItem;
+          });
+        }
+        return comment;
+      });
+    }
+  }
+  return res;
 }) as Promise<Request.Result<Article.Posts>>;
 
 

@@ -70,4 +70,18 @@ export namespace Request {
      */
     readonly _res: Response;
   }
+
+  /**
+   * 列表
+   */
+  export interface ListTotal<T> {
+    /**
+     * 列表
+     */
+    list: T[];
+    /**
+     * 总数
+     */
+    total: number;
+  }
 }

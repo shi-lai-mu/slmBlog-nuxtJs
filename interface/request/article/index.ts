@@ -1,5 +1,6 @@
 import { User } from '@/interface/request/user';
 import { UploadImagerBase } from '@/interface/request/public';
+import { Request } from '~/interface/request';
 
 export namespace Article {
 
@@ -116,7 +117,70 @@ export namespace Article {
     /**
      * 评论列表
      */
-    comment: [];
+    comment: Request.ListTotal<Comment>;
+  }
+
+  /**
+   * 评论
+   */
+  export interface Comment {
+    /**
+     * 评论ID
+     */
+    id: number;
+    /**
+     * 评论内容
+     */
+    content: string;
+    /**
+     * 点赞数
+     */
+    loveNum: number;
+    /**
+     * 点踩数
+     */
+    criticismNum: number;
+    /**
+     * 子评论总数
+     */
+    subCommentCount: number
+    /**
+     * 昵称 (登录用户为null)
+     */
+    nickname: string;
+    /**
+     * 绑定链接 
+     */
+    link: string | null;
+    /**
+     * 邮箱 (登录用户为null)
+     */
+    email: string | null;
+    /**
+     * 更新时间
+     */
+    updateTime: string;
+    /**
+     * 发布评论 登录用户 (非登录用户为null)
+     */
+    user: {
+      /**
+       * 用户ID
+       */
+      id: User.Base['id'];
+      /**
+       * 昵称
+       */
+      nickname: User.Base['nickname'];
+      /**
+       * 头像
+       */
+      avatarUrl: User.Base['avatarUrl'];
+    } | null;
+    /**
+     * 子评论数据
+     */
+    subComment?: Request.ListTotal<Comment>;
   }
 
   /**

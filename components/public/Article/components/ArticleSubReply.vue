@@ -3,7 +3,16 @@
     <div class="comment-item" v-for="(item, key) in ssr" :key="key">
       <div class="comment-box">
         <div class="avatar-box">
-          <object class="avatar" :data="getAvatarUrl(item.nickname)" type="image/svg+xml"/>
+          <a-popover placement="topLeft">
+            <div v-if="item.user" class="avatar">
+              <img :src="item.user.avatarUrl" :alt="item.user.nickname">
+            </div>
+            <object v-else class="avatar" :data="getAvatarUrl(item.nickname)" type="image/svg+xml"/>
+            <template slot="content">
+              <UserCard class="article-replay__user-card" :userId="item.user.id" v-if="item.user" userEntrance userState/>
+              <div :style="{padding: '10px'}" v-else>游客展示暂未开发!</div>
+            </template>
+          </a-popover>
         </div>
         <div class="comment-right">
           <div class="comment-content">
@@ -11,14 +20,14 @@
             {{ item.content }}
           </div>
           <div class="tool">
-            <time class="comment-metadata">2星期</time>
+            <time class="comment-metadata">{{ $tool.format.isoToDateTime(item.updateTime) }}</time>
             <a-button type="link" size="small">
               <i class="slm blog-like"></i>
-              <span>123456798</span>
+              <span>123</span>
             </a-button>
             <a-button type="link" size="small">
               <i class="slm blog-tread"></i>
-              <span>123456798</span>
+              <span>567</span>
             </a-button>
             <a-button @click="appendReply(item)" type="link" size="small">{{replyStore[item.id] !== undefined ? '收起' : '回复'}}</a-button>
             <ArticleReplyAdd v-if="replyStore[item.id] !== undefined"/>
@@ -34,23 +43,28 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'nuxt-property-decorator';
-import { Input, Col, Row, Button } from 'ant-design-vue';
-import { GlobalTool } from '@/utils/tool';
+import { Input, Col, Row, Button, Popover } from 'ant-design-vue';
 
 import api from '@/config/api';
+import { GlobalTool } from '@/utils/tool';
+import { Article } from '@/interface/request/article';
+
 import ComRow from '@/components/public/Row.vue';
 import ArticleReplyAdd from './ArticleReplyAdd.vue';
-import { Article } from '@/interface/request/article';
+import UserCard from '@/components/public/UserCard.vue';
+
 
 @Component({
   name: 'ArticleSubReply',
   components: {
     ComRow,
+    UserCard,
     ARow: Row,
     ACol: Col,
     AInput: Input,
     AButton: Button,
     ArticleReplyAdd,
+    APopover: Popover,
     ATextArea: Input.TextArea,
   }
 })
@@ -112,7 +126,7 @@ export default class ArticleSubReply extends Vue {
   height: 30px;
   margin-right: 10px;
   background-color: var(--c-avatar-bg);
-  border: 3px solid var(--c-avatar-border);
+  border-width: 1px;
   border-radius: 30px;
   transition: .5s ease-in-out;
   cursor: pointer;

@@ -63,6 +63,7 @@
 import { Affix, Tooltip } from 'ant-design-vue';
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 
+import { Request } from '@/interface/request';
 import { articleBase } from '@/mock/article/data/index';
 import { getPostsData } from '@/core/service/data/article';
 import { RequestConst } from '@/core/constants/request';
@@ -136,7 +137,7 @@ export default class ArticleContent extends Vue {
   /**
    * 评论列表
    */
-  comment = [];
+  comment: Request.ListTotal<IntefArticle.Comment>;
 
   created() {
     this.ssrUpdate(this.articleId || this.ssr || articleBase);
@@ -185,7 +186,9 @@ export default class ArticleContent extends Vue {
       });
     }
     this.articleData = Object.assign(articleBase, data.article);
-    this.comment = data.comment || [];
+    if (data.comment) {
+      this.comment = data.comment;
+    }
     // this.articleData = data.article;
     this.$nextTick(() => {
       const { articleContent, articleAnchor } = this.$refs;

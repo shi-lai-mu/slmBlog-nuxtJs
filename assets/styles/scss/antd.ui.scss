@@ -19,6 +19,30 @@ $bg-primary-op-2: var(--m-color-opacity-2-bg-primary);
 // .primary-all {
 //   $extend %primary-bg, %primary-font-color;
 // }
+.ant-popover-inner,
+.ant-select-dropdown {
+  background-color: var(--c-tooltip-bg);
+  color: var(--c-tooltip-text);
+}
+
+.ant-select-dropdown-menu-item {
+  color: var(--c-tooltip-text);
+}
+
+.ant-select-dropdown-menu-item-selected,
+.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled),
+.ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled) {
+  background-color: var(--c-social-count-bg);
+}
+
+.ant-popover-arrow {
+  border-color: var(--c-tooltip-bg) !important;
+}
+
+.ant-popover-inner-content {
+  padding: 0;
+  color: var(--c-text-primary);
+}
 
 .ant-btn {
   background-image: none;
@@ -1264,7 +1288,11 @@ button.ant-switch-checked {
   background-color: var(--m-color-bg-primary);
 }
 
-.ant-input  {
+.ant-input,
+.ant-pagination-item,
+.ant-select-selection,
+.ant-pagination-prev .ant-pagination-item-link,
+.ant-pagination-next .ant-pagination-item-link {
   background-color: var(--c-input-bg);
   border-color: var(--c-input-border);
   color: var(--c-text-primary);
@@ -1298,4 +1326,21 @@ ul li.ant-time-picker-panel-select-option-selected {
 
 .ant-form-item-label > label {
   color: var(--c-text-primary);
+}
+
+// 分页器
+.ant-pagination {
+  text-align: right;
+}
+
+.ant-pagination-item a {
+  color: var(--c-text-tertiary);
+}
+
+li.ant-pagination-item-active a {
+  color: var(--m-color-bg-primary);
+}
+
+li.ant-pagination-item-active {
+  border-color: var(--m-color-bg-primary);
 }
