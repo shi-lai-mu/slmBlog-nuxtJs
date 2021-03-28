@@ -6,8 +6,10 @@
           <object class="avatar" :data="getAvatarUrl(item.nickname)" type="image/svg+xml"/>
         </div>
         <div class="comment-right">
-          <div class="comment-meta">{{ item.nickname }}</div>
-          <div class="comment-content">{{ item.content }}</div>
+          <div class="comment-content">
+            <span class="comment-meta">{{ item.nickname }}</span>
+            {{ item.content }}
+          </div>
           <div class="tool">
             <time class="comment-metadata">2星期</time>
             <a-button type="link" size="small">
@@ -24,7 +26,7 @@
         </div>
       </div>
       <div class="subcomment" v-if="item.subComment">
-        <ArticleSubReply :ssr="item.subComment.list" />
+        <ArticleReply :ssr="item.subComment.list" />
       </div>
     </div>
   </div>
@@ -33,18 +35,15 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'nuxt-property-decorator';
 import { Input, Col, Row, Button } from 'ant-design-vue';
+import { GlobalTool } from '@/utils/tool';
 
 import api from '@/config/api';
 import ComRow from '@/components/public/Row.vue';
 import ArticleReplyAdd from './ArticleReplyAdd.vue';
-import ArticleSubReply from './ArticleSubReply.vue';
-
-import { GlobalTool } from '@/utils/tool';
 import { Article } from '@/interface/request/article';
-import './styles/articleReply.scss';
 
 @Component({
-  name: 'ArticleReply',
+  name: 'ArticleSubReply',
   components: {
     ComRow,
     ARow: Row,
@@ -53,10 +52,9 @@ import './styles/articleReply.scss';
     AButton: Button,
     ArticleReplyAdd,
     ATextArea: Input.TextArea,
-    ArticleSubReply,
   }
 })
-export default class ArticleReply extends Vue {
+export default class ArticleSubReply extends Vue {
   /**
    * 传入的列表数据 SSR
    */
@@ -89,5 +87,62 @@ export default class ArticleReply extends Vue {
 </script>
 
 <style lang="scss" scoped>
-// @import url('');
+.comment-item {
+  padding: 10px;
+  margin-bottom: 0;
+  background-color: var(--c-bg-tertiary);
+  border-radius: 5px 5px 0 0;
+  transition: .2s ease-in;
+  cursor: pointer;
+
+  &:last-child {
+    margin-bottom: 0;
+    border-radius: 0 0 5px 5px;
+  }
+}
+
+.comment-right .comment-content {
+  margin-top: 0;
+}
+
+.avatar-box {
+  overflow: hidden;
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  background-color: var(--c-avatar-bg);
+  border: 3px solid var(--c-avatar-border);
+  border-radius: 30px;
+  transition: .5s ease-in-out;
+  cursor: pointer;
+
+  .avatar {
+    transition: .5s ease-in-out;
+  }
+
+  &:hover {
+    overflow: initial;
+    transform: scale(.5);
+    
+    .avatar {
+      transform: scale(2);
+    }
+  }
+}
+
+.comment-right {
+  .comment-meta {
+    &::after {
+      content: ':';
+      margin-right: 10px;
+    }
+  }
+}
+
+
+.subcomment {
+  margin-top: 10px;
+  margin-left: 50px;
+}
 </style>

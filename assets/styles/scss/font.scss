@@ -10,27 +10,27 @@ $bodyFontStack: Helvetica, Arial, sans-serif;
 $baseFontSize: 12; // Handled as px
 $pBase: 0.1;
 
-@mixin responsive-type($minFont, $viewport, $default) {
+@mixin responsive-type($minFont, $viewport, $default, $rem) {
   font-size: em(#{$default});
   //em fallback
   font-size: -moz-calc(#{$minFont}px + #{$viewport}vw);
   font-size: -webkit-calc(#{$minFont}px + #{$viewport}vw);
   font-size: -o-calc(#{$minFont}px + #{$viewport}vw);
-  font-size: calc(#{$minFont}px + #{$viewport}vw);
+  font-size: calc(#{$minFont}px + #{$viewport}vw + #{$rem});
   //vw fallback
   font-size: -moz-calc(#{$minFont}px + #{$viewport}vmax);
   font-size: -webkit-calc(#{$minFont}px + #{$viewport}vmax);
   font-size: -o-calc(#{$minFont}px + #{$viewport}vmax);
-  font-size: calc(#{$minFont}px + #{$viewport}vmax);
+  font-size: calc(#{$minFont}px + #{$viewport}vmax + #{$rem});
 }
 
 /* { @include responsive-type( minimum, viewport%, default fallback ); } */
-h1 { @include responsive-type( $baseFontSize, $h1Base, 32px ); }
-h2 { @include responsive-type( $baseFontSize, $h2Base, 28px ); }
-h3 { @include responsive-type( $baseFontSize, $h3Base, 22px ); }
-h4 { @include responsive-type( $baseFontSize, $h4Base, 20px ); }
-h5 { @include responsive-type( $baseFontSize, $h5Base, 14px ); }
-h6 { @include responsive-type( $baseFontSize, $h6Base, 14px ); }
+h1 { @include responsive-type( $baseFontSize, $h1Base, 32px, .4rem ); }
+h2 { @include responsive-type( $baseFontSize, $h2Base, 28px, .3rem ); }
+h3 { @include responsive-type( $baseFontSize, $h3Base, 22px, .2rem ); }
+h4 { @include responsive-type( $baseFontSize, $h4Base, 20px, .1rem ); }
+h5 { @include responsive-type( $baseFontSize, $h5Base, 14px, .05rem ); }
+h6 { @include responsive-type( $baseFontSize, $h6Base, 14px, .025rem ); }
 
 // body, input, textarea, button, select, p, a {
 //   @include responsive-type( $baseFontSize, $pBase, 12px );

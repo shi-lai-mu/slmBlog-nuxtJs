@@ -116,7 +116,7 @@ export namespace Article {
     /**
      * 评论列表
      */
-    commit: [];
+    comment: [];
   }
 
   /**

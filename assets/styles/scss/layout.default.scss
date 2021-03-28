@@ -14,13 +14,14 @@
   background-image: url('/texture/so-white.png');
 }
 
-body {
+html body {
   position: fixed;
   overflow: hidden;
   margin: 0;
   padding: 0;
   color: var(--c-text-primary);
   // font-size: 14px;
+  font-size: 1rem;
   font-family: josefin sans, sans-serif;
   -webkit-tap-highlight-color: transparent;
 }

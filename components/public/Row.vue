@@ -1,10 +1,14 @@
 <template>
-  <div class="row-box">
-    <div class="row-tab">
-      <h4 class="row-title" v-if="title">
+  <div :class="{ 'row-box': !hideRowBox }">
+    <div :class="['row-tab', { 'hide-tab-border': hideTabBorder }]">
+      <h3 class="row-title" v-if="title">
         <i v-if="icon" :class="`slm blog-${icon}`"></i>
         {{ title }}
-      </h4>
+        <a-tooltip v-if="tooltip">
+          <template slot="title">{{ tooltip }}</template>
+          <i class="slm blog-gantanhao"></i>
+        </a-tooltip>
+      </h3>
       <div class="tool">
         <i v-if="isFold" :class="['slm', 'blog-zhankai', { rotate180: isFoldOpen }]" @click="isFoldOpen = !isFoldOpen"></i>
         <slot name="tool"></slot>
@@ -18,8 +22,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
+import { Tooltip as ATooltip } from 'ant-design-vue';
 
-@Component
+@Component({
+  components: { ATooltip },
+})
 export default class Row extends Vue {
   /**
    * 标题
@@ -39,6 +46,18 @@ export default class Row extends Vue {
    * false: 开启
    */
   @Prop(Boolean) foldState?: boolean;
+  /**
+   * 备注
+   */
+  @Prop(String) tooltip?: string;
+  /**
+   * 隐藏tab底部边框
+   */
+  @Prop(Boolean) hideTabBorder?: boolean;
+  /**
+   * 隐藏外部边框
+   */
+  @Prop(Boolean) hideRowBox?: boolean;
 
   /**
    * 是否处于展开状态
@@ -59,10 +78,20 @@ export default class Row extends Vue {
       display: flex;
       width: 100%;
       border-bottom: 1px solid var(--c-border-primary);
+
+      &.hide-tab-border {
+        border-bottom: 0;
+      }
     }
 
     .row-title {
       flex: 1 1 auto;
+      .blog-gantanhao {
+        opacity: .8;
+        margin-left: 5px;
+        font-size: .7em !important;
+        vertical-align: text-top;
+      }
     }
 
     .tool {

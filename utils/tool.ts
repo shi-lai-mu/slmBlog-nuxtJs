@@ -1,10 +1,11 @@
+import defaultConfig from "~/config/default";
+import { isDev } from "~/config/system";
+
 export class GlobalTool {
   /**
    * 格式化
    */
   static format = {
-
-
     /**
      * 人数
      * @param peopleNumber 人数
@@ -81,7 +82,22 @@ export class GlobalTool {
      */
     asignError<T>(source: T, value: any): T {
       return Object.assign(source, value);
-    }
+    },
+
+
+    /**
+     * 转换路由参数
+     * @param url    url链接
+     * @param params 路由参数
+     * @param prefix 是否携带请求前缀
+     */
+    paramsUrl(url: string, params: { [k: string]: string | number }, prefix: boolean = true) {
+      Object.keys(params).forEach(key => {
+        url = url.replace(`{${key}}`, String(params[key]));
+      });
+      const { apiVersion, devHost, host } = defaultConfig.apiServer;
+      return (prefix ? (!isDev ? host : devHost) + apiVersion : '') + url;
+    },
   };
 
   /**

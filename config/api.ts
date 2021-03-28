@@ -29,6 +29,10 @@ const api = {
   // 通知类
   notify: {
     notic:         'get./notic',                                      // 获取置顶公告
-  }
+  },
+  // 资源类
+  resources: {
+    avatars:       '/resources/avatars/{gender}/{nickname}.svg',      // 随机用户头像
+  },
 };
 export default api;

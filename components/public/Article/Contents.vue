@@ -39,7 +39,7 @@
               <UpperLowerArticle :articleId="articleData.id" />
             </div>
           </div>
-          <ArticleReply :ssr="commit" />
+          <ArticleReplyList :ssr="comment" />
         </a-col>
         <a-col
           class="article-page__sideber"
@@ -72,7 +72,7 @@ import Row from '@/components/public/Row.vue';
 import sharingConfig from './config/sharing.config';
 import Imager from '@/components/public/Imager.vue';
 import UserCard from '@/components/public/UserCard.vue';
-import ArticleReply from './components/ArticleReply.vue';
+import ArticleReplyList from './components/ArticleReplyList.vue';
 import UpperLowerArticle from './components/UpperLowerArticle.vue';
 import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue';
 import ArticleContentFooter from './components/ArticleContentFooter.vue';
@@ -90,11 +90,11 @@ import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleto
     Imager,
     Tooltip,
     UserCard,
-    ArticleReply,
     LayoutFooter,
     ArticleAnchor,
     AAffix: Affix,
     HtmlTreeProcess,
+    ArticleReplyList,
     UpperLowerArticle,
     ArticleViewSkeleton,
     ArticleContentFooter,
@@ -136,7 +136,7 @@ export default class ArticleContent extends Vue {
   /**
    * 评论列表
    */
-  commit = [];
+  comment = [];
 
   created() {
     this.ssrUpdate(this.articleId || this.ssr || articleBase);
@@ -185,7 +185,7 @@ export default class ArticleContent extends Vue {
       });
     }
     this.articleData = Object.assign(articleBase, data.article);
-    this.commit = data.commit || [];
+    this.comment = data.comment || [];
     // this.articleData = data.article;
     this.$nextTick(() => {
       const { articleContent, articleAnchor } = this.$refs;

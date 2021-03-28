@@ -7,7 +7,7 @@
         :to="{
             name: 'article-id',
             params: {
-              id: profileList[index] ? profileList[index].id : 1, 
+              id: profileList[index] ? profileList[index].id : articleId, 
             }
           }
         "
