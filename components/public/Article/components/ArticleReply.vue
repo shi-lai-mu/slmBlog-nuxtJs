@@ -28,7 +28,7 @@
               <span>345</span>
             </a-button>
             <a-button @click="appendReply(item)" type="link" size="small">{{replyStore[item.id] !== undefined ? '收起' : '回复'}}</a-button>
-            <ArticleReplyAdd v-if="replyStore[item.id] !== undefined"/>
+            <ArticleReplyAdd :editor-id="`articleReplayComment_${item.id}`" v-if="replyStore[item.id] !== undefined"/>
           </div>
         </div>
       </div>
@@ -64,7 +64,6 @@ import UserCard from '@/components/public/UserCard.vue';
 
 import { GlobalTool } from '@/utils/tool';
 import { Article } from '@/interface/request/article';
-import './styles/articleReply.scss';
 
 @Component({
   name: 'ArticleReply',
@@ -119,5 +118,5 @@ export default class ArticleReply extends Vue {
 </script>
 
 <style lang="scss" scoped>
-// @import url('');
+@import './styles/articleReply.scss';
 </style>

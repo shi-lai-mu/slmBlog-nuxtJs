@@ -1,6 +1,6 @@
 <template>
   <ComRow class="article-reply__container row-box" title="发表评论" tooltip="说点什么吧!" hideTabBorder>
-    <ArticleReplyAdd />
+    <ArticleReplyAdd editor-id="articleReplayList"/>
     <ComRow class="reply-list" :title="`评论 (${ssr.total})`" hideTabBorder hideRowBox>
       <ArticleReply :ssr="ssr.list" />
     </ComRow>

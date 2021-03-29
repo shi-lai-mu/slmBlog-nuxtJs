@@ -30,7 +30,7 @@
               <span>567</span>
             </a-button>
             <a-button @click="appendReply(item)" type="link" size="small">{{replyStore[item.id] !== undefined ? '收起' : '回复'}}</a-button>
-            <ArticleReplyAdd v-if="replyStore[item.id] !== undefined"/>
+            <ArticleReplyAdd :editor-id="`articleReplayComment_${item.id}`" v-if="replyStore[item.id] !== undefined"/>
           </div>
         </div>
       </div>
@@ -101,6 +101,7 @@ export default class ArticleSubReply extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import './styles/articleReply.scss';
 .comment-item {
   padding: 10px;
   margin-bottom: 0;

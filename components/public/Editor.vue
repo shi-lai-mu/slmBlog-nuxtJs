@@ -1,6 +1,6 @@
 <template>
-  <div id="slmEditor">
-    <p v-html="content"></p>
+  <div class="editor-box" :id="id || 'slmEditor'">
+    <p v-html="content" v-if="content"></p>
   </div>  
 </template>
 
@@ -13,6 +13,7 @@ import { isClient } from '@/utils/axios/lib/config';
 
 @Component
 export default class SlmEditor extends Vue {
+  @Prop(String) id?: string;
 
   // 提示内容
   @Prop(String) placeholder?: string;
@@ -24,10 +25,13 @@ export default class SlmEditor extends Vue {
   @Prop(String) content?: string;
 
   // 自定义菜单项
-  @Prop(Array) menus?: string[];
+  @Prop() menus?: string[] | false;
 
   // 排除菜单项
   @Prop(Array) excludeMenus?: string[];
+
+  // 编辑器高度
+  @Prop(Number) height?: number;
 
   // 编辑器实例
   editor: any = null;
@@ -45,23 +49,30 @@ export default class SlmEditor extends Vue {
 
   mounted() {
     if (isClient) {
-      const { focus, placeholder } = this;
-      const E = require('wangeditor');
-      const editor = new E("#slmEditor");
+      const { id, focus, placeholder, menus } = this;
+      this.$nextTick(() => {
+        const E = require('wangeditor');
+        const editor = new E(`#${id || 'slmEditor'}`);
 
-      editor.config.height = 500;
-      editor.config.zIndex = 10;
-      editor.config.placeholder = placeholder || '请输入正文内容...';
-      editor.config.focus = focus || false;
-      editor.config.historyMaxSize = 100;
-      editor.config.onchangeTimeout = 500;
-      editor.highlight = hljs;
+        editor.config.height = this.height || 500;
+        editor.config.zIndex = 10;
+        editor.config.placeholder = placeholder || '请输入正文内容...';
+        editor.config.focus = focus || false;
+        editor.config.historyMaxSize = 100;
+        editor.config.onchangeTimeout = this.height || 500;
+        editor.highlight = hljs;
 
-      this.moifyAlter(editor);
-      this.initEvents(editor);
-  
-      editor.create();
-      this.editor = editor;
+        if (menus === false || menus?.length) {
+          editor.config.menus = menus || [];
+          if (!menus) editor.config.showFullScreen = false;
+        }
+
+        this.moifyAlter(editor);
+        this.initEvents(editor);
+    
+        editor.create();
+        this.editor = editor;
+      })
     }
   }
 
@@ -127,15 +138,15 @@ export default class SlmEditor extends Vue {
 
 <style lang="scss">
 
-  #slmEditor {
+  .editor-box {
     .w-e-toolbar,
     .w-e-text-container,
     .w-e-menu-panel,
     .w-e-panel-tab-content input,
     .w-e-panel-container {
       color: var(--c-text-primary) !important;
-      background-color: var(--c-bg-tertiary) !important;
-      border-color: var(--c-bg-secondary) !important;
+      background-color: var(--c-bg-primary) !important;
+      border: 1px solid var(--c-border-primary) !important;
       user-select: none;
     }
 
@@ -195,6 +206,11 @@ export default class SlmEditor extends Vue {
 
     .w-e-text-container {
       border-radius: 0 0 $w-e-radius $w-e-radius;
+      cursor: text;
+      
+      .placeholder {
+        color: var(--c-text-placeholder);
+      }
     }
   }
 </style>
