@@ -204,7 +204,7 @@ $axios.interceptors.request.use(
     }
 
     if (value.baseURL) {
-      value.url = value.baseURL + serverConfig.apiVersion + value.url;
+      value.url = value.baseURL + serverConfig.apiVersion + value.url.trim();
       value.baseURL = '';
     }
 

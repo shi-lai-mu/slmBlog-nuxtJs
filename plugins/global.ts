@@ -14,6 +14,7 @@ export default (_context, inject) => {
   const $config = defaultConfig as Config;
   $config.Navigation = Navigation;
   $config.themes = Themes.config;
+  $config.layout;
   $config.router = Router;
   inject('$store', _context.store);
   inject('tool', GlobalTool);
@@ -24,6 +25,7 @@ export default (_context, inject) => {
 
 
 interface Config extends WebConfig.Default {
+  layout?: HTMLElement;
   /**
    * 导航类
    */

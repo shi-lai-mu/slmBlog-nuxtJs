@@ -170,21 +170,21 @@ const globalConfig = {
     // assetFilter: (assetFilename) => {	    		
     //   return assetFilename.endsWith('.js');	    	
     // },
-    // extractCSS: !isDev,
-    // optimization: (() => {
-    //   return isDev ? undefined : {
-    //     splitChunks: {
-    //       cacheGroups: {
-    //         styles: {
-    //           name: 'styles',
-    //           test: /\.(css|vue|scss|less)$/,
-    //           chunks: 'all',
-    //           enforce: true
-    //         }
-    //       }
-    //     }
-    //   }
-    // })()
+    extractCSS: !isDev,
+    optimization: (() => {
+      return isDev ? undefined : {
+        splitChunks: {
+          cacheGroups: {
+            styles: {
+              name: 'styles',
+              test: /\.(css|vue|scss|less)$/,
+              chunks: 'all',
+              enforce: true
+            }
+          }
+        }
+      }
+    })()
   },
   
 

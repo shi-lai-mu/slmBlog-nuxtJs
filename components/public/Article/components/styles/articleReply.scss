@@ -67,6 +67,11 @@
 
   .comment-content {
     margin-top: 10px;
+    
+    /deep/ img {
+      max-height: 2em !important;
+      vertical-align: middle;
+    }
   }
 }
 

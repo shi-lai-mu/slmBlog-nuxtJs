@@ -17,7 +17,7 @@
         <div class="comment-right">
           <div class="comment-content">
             <span class="comment-meta">{{ item.nickname }}</span>
-            {{ item.content }}
+            <span v-html="item.content"></span>
           </div>
           <div class="tool">
             <time class="comment-metadata">{{ $tool.format.isoToDateTime(item.updateTime) }}</time>
@@ -30,7 +30,7 @@
               <span>567</span>
             </a-button>
             <a-button @click="appendReply(item)" type="link" size="small">{{replyStore[item.id] !== undefined ? '收起' : '回复'}}</a-button>
-            <ArticleReplyAdd :editor-id="`articleReplayComment_${item.id}`" v-if="replyStore[item.id] !== undefined"/>
+            <ArticleReplyAdd :editor-id="`articleReplayComment_${item.id}`" v-if="replyStore[item.id] !== undefined" @replaySuccess="replaySuccess" />
           </div>
         </div>
       </div>
@@ -96,6 +96,14 @@ export default class ArticleSubReply extends Vue {
       nickname,
       gender: 'male',
     });
+  }
+
+  
+  /**
+   * 评论成功回调
+   */
+  replaySuccess(res: any) {
+    console.log(res);
   }
 }
 </script>

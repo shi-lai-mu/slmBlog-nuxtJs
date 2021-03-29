@@ -108,6 +108,8 @@ export default class DefaultLayout extends Vue {
   mounted() {
     const { $http, $refs, $nuxt, $store, $observer } = this;
     const { layoutScroll } = $refs;
+
+    this.$config.layout = layoutScroll as HTMLElement;
     
     // 初始化权限组
     $http.$vue = this;

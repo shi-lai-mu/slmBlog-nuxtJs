@@ -117,6 +117,7 @@ export default class SlmEditor extends Vue {
   initEvents(editor) {
     editor.config.onchange = (newHtml) => {
       this.$emit('change', newHtml);
+      this.$emit('input', newHtml);
     }
     editor.config.onblur = (newHtml) => {
       this.$emit('blur', newHtml);

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="comment-item" v-for="(item, key) in ssr" :key="key">
+    <div class="comment-item" v-for="(item, key) in ssr.list" :key="key">
       <div class="comment-box">
         <div class="avatar-box">
           <a-popover placement="topLeft">
@@ -16,7 +16,7 @@
         </div>
         <div class="comment-right">
           <div class="comment-meta">{{ item.nickname }}</div>
-          <div class="comment-content">{{ item.content }}</div>
+          <div class="comment-content" v-html="item.content"></div>
           <div class="tool">
             <time class="comment-metadata">{{ $tool.format.isoToDateTime(item.updateTime) }}</time>
             <a-button type="link" size="small">
@@ -28,7 +28,7 @@
               <span>345</span>
             </a-button>
             <a-button @click="appendReply(item)" type="link" size="small">{{replyStore[item.id] !== undefined ? '收起' : '回复'}}</a-button>
-            <ArticleReplyAdd :editor-id="`articleReplayComment_${item.id}`" v-if="replyStore[item.id] !== undefined"/>
+            <ArticleReplyAdd :editor-id="`articleReplayComment_${item.id}`" v-if="replyStore[item.id] !== undefined" @replaySuccess="replaySuccess" />
           </div>
         </div>
       </div>
@@ -38,11 +38,12 @@
     </div>
 
     <a-pagination
+      v-if="ssr.page * ssr.pageSize < ssr.total"
       v-model="current"
       :page-size-options="pageSizeOptions"
       :total="total"
-      show-size-changer
       :page-size="pageSize"
+      show-size-changer
     >
       <template slot="buildOptionText" slot-scope="props">
         <span v-if="props.value !== '50'">{{ props.value }}条/页</span>
@@ -85,7 +86,7 @@ export default class ArticleReply extends Vue {
   /**
    * 传入的列表数据 SSR
    */
-  @Prop(Array) ssr: Article.Base[];
+  @Prop(Object) ssr?: Article.Base;
   /**
    * 评论回复存储
    */
@@ -113,6 +114,14 @@ export default class ArticleReply extends Vue {
       nickname,
       gender: 'male',
     });
+  }
+
+  
+  /**
+   * 评论成功回调
+   */
+  replaySuccess(res: any) {
+    console.log(res);
   }
 }
 </script>

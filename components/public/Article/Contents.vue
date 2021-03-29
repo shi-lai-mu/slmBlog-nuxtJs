@@ -39,7 +39,7 @@
               <UpperLowerArticle :articleId="articleData.id" />
             </div>
           </div>
-          <ArticleReplyList :ssr="comment" />
+          <ArticleReplyList :ssr="comment" :articleId="articleData.id" />
         </a-col>
         <a-col
           class="article-page__sideber"
@@ -47,7 +47,7 @@
           :xxl="{ span: 8 }"
         >
           <UserCard :ssr="articleData.author" userEntrance />
-          <a-affix :offset-top="20" :target="() => $refs.article">
+          <a-affix :offset-top="80" :target="() => isPage ? $config.layout : $refs.article">
             <Row title="目录">
               <ArticleAnchor ref="articleAnchor" :getContainer="() => $refs.article" :affix="true"/>
             </Row>
@@ -141,6 +141,8 @@ export default class ArticleContent extends Vue {
 
   created() {
     this.ssrUpdate(this.articleId || this.ssr || articleBase);
+    console.log(this.$config.layout);
+    
   }
 
   /**

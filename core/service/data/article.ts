@@ -1,8 +1,8 @@
 import axios from '@/utils/axios';
 
 import { Request } from '@/interface/request';
-import { Article } from '@/interface/request/article'
-import { SubmitArticleDto } from '~/core/dto/article';
+import { Article } from '@/interface/request/article';
+import { SubmitArticleDto, submitArticleReplayDto } from '@/core/dto/article';
 
 
 /**
@@ -34,11 +34,11 @@ export const getPostsData = (data: Article.Base['id'] | Article.Base) => axios.s
 .then((res: Request.Result<Article.Posts>) => {
   if (res.success) {
     if (res.result.comment) {
-      res.result.comment.list = res.result.comment?.list.reverse().map(comment => {
+      res.result.comment.list = res.result.comment?.list.map(comment => {
         const { user, subComment } = comment;
         if (user) comment.nickname = user.nickname;
         if (subComment) {
-          subComment.list = subComment.list.reverse().map(subItem => {
+          subComment.list = subComment.list.map(subItem => {
             if (subItem.user) subItem.nickname = subItem.user.nickname;
             return subItem;
           });
@@ -68,3 +68,14 @@ export const getProfile = (articleId: string) => axios.send(axios.article.profil
     ids: articleId,
   },
 }) as Promise<Request.Result<Array<null | Article.Base> | ''>>;
+
+
+/**
+ * 提交文章评论
+ */
+export const submitArticleReplay = (articleId: number, comment: submitArticleReplayDto) => axios.send(axios.article.submitReplay, {
+  params: {
+    articleId,
+  },
+  data: comment,
+}) as Promise<Request.Result<Article.Comment>>;

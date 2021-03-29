@@ -5,16 +5,24 @@ import { ColumnOptions, EntityOptions, ValidateNS } from "~/interface/core/decor
  */
 export class BaseValidateData {
 
-  error: ValidateNS.ErrorState[];
+  error?: ValidateNS.ErrorState[];
 
-  constructor(data) {
+  constructor(data?: any) {
     if (data) this.validate(data);
+  }
+
+  /**
+   * 获取第一个错误
+   * @returns 第一个错误
+   */
+  firsrtError?() {
+    return this.error[0];
   }
 
   /**
    * 校验数据
    */
-  validate(data: Object) {
+  validate?(data: Object) {
     const { $columns, $EntityOptions, $columnsKey, $columnsRequiredKey } = this;
     const columnsRequiredKey = Object.assign({}, $columnsRequiredKey);
     const errorArray: ValidateNS.ErrorState[] = [];
@@ -63,7 +71,7 @@ export class BaseValidateData {
    * @param options  规则
    * @param fieldKey 键
    */
-  validateField(value, options: ColumnOptions, fieldKey?: string): true | ValidateNS.ErrorState {
+  validateField?(value, options: ColumnOptions, fieldKey?: string): true | ValidateNS.ErrorState {
     let validate: true | ValidateNS.ErrorState = true;
     this._echo(options, (item, key) => {
       const rules = ValidateRules[key + 'Validate'];
@@ -94,7 +102,7 @@ export class BaseValidateData {
    * @param obj 对象
    * @param cb  回调
    */
-  private _echo(obj: Object, cb: (item, key) => any) {
+  private _echo?(obj: Object, cb: (item, key) => any) {
     const objKey = Object.keys(obj);
     let cbValue = true;
     for (const key of objKey) {
@@ -107,24 +115,24 @@ export class BaseValidateData {
   /**
    * 实体的类 配置
    */
-  private readonly $EntityOptions: EntityOptions;
+  private readonly $EntityOptions?: EntityOptions;
 
   /**
    * 字段名数组
    */
-  private readonly $columnsKey: string[];
+  private readonly $columnsKey?: string[];
 
   /**
    * 必填字段
    */
-  private readonly $columnsRequiredKey: {
+  private readonly $columnsRequiredKey?: {
     [key: string]: ColumnOptions;
   };
 
   /**
    * 校验字段 配置
    */
-  private readonly $columns: {
+  private readonly $columns?: {
     [key: string]: ColumnOptions;
   };
 }
