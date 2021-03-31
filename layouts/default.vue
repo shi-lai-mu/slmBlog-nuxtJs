@@ -258,6 +258,7 @@ export default class DefaultLayout extends Vue {
 .layout-default {
   // min-height: 100vh;
   // height: 100%;
+  position: relative;
   overflow-y: scroll;
   overflow-x: hidden;
   height: 100vh;

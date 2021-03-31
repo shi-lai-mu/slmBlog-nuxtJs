@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import hljs from 'highlight.js';
+// import hljs from 'highlight.js';
 
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import { isClient } from '@/utils/axios/lib/config';
@@ -33,6 +33,9 @@ export default class SlmEditor extends Vue {
   // 编辑器高度
   @Prop(Number) height?: number;
 
+  // 自定义处理粘贴的文本内容
+  @Prop(Function) pasteTextHandle?: (pasteStr: string) => string;
+
   // 编辑器实例
   editor: any = null;
 
@@ -50,29 +53,28 @@ export default class SlmEditor extends Vue {
   mounted() {
     if (isClient) {
       const { id, focus, placeholder, menus } = this;
-      this.$nextTick(() => {
-        const E = require('wangeditor');
-        const editor = new E(`#${id || 'slmEditor'}`);
+      const E = require('wangeditor');
+      const editor = new E(`#${id || 'slmEditor'}`);
 
-        editor.config.height = this.height || 500;
-        editor.config.zIndex = 10;
-        editor.config.placeholder = placeholder || '请输入正文内容...';
-        editor.config.focus = focus || false;
-        editor.config.historyMaxSize = 100;
-        editor.config.onchangeTimeout = this.height || 500;
-        editor.highlight = hljs;
+      editor.config.height = this.height || 500;
+      editor.config.zIndex = 10;
+      editor.config.placeholder = placeholder || '请输入正文内容...';
+      editor.config.pasteFilterStyle = false;
+      editor.config.focus = focus || false;
+      editor.config.historyMaxSize = 100;
+      editor.config.onchangeTimeout = 100;
+      // editor.highlight = hljs;
 
-        if (menus === false || menus?.length) {
-          editor.config.menus = menus || [];
-          if (!menus) editor.config.showFullScreen = false;
-        }
+      if (menus === false || menus?.length) {
+        editor.config.menus = menus || [];
+        if (!menus) editor.config.showFullScreen = false;
+      }
 
-        this.moifyAlter(editor);
-        this.initEvents(editor);
-    
-        editor.create();
-        this.editor = editor;
-      })
+      this.moifyAlter(editor);
+      this.initEvents(editor);
+  
+      editor.create();
+      this.editor = editor;
     }
   }
 
@@ -84,12 +86,14 @@ export default class SlmEditor extends Vue {
     this.editor.txt.clear();
   }
 
+
   /**
    * 设置内容
    */
   setContent(content: string) {
     this.editor.txt.html(content);
   }
+
 
   /**
    * 修改alter
@@ -115,6 +119,7 @@ export default class SlmEditor extends Vue {
    * 初始化事件
    */
   initEvents(editor) {
+    const { pasteTextHandle } = this;
     editor.config.onchange = (newHtml) => {
       this.$emit('change', newHtml);
       this.$emit('input', newHtml);
@@ -133,6 +138,12 @@ export default class SlmEditor extends Vue {
     editor.config.onlineVideoCallback = (video) => {
       console.log('lineVideo', video)
     }
+    // 自定义处理粘贴的文本内容
+    editor.config.pasteTextHandle = pasteStr => pasteTextHandle ? pasteTextHandle(pasteStr) : pasteStr;
+  }
+
+  cmdDo(html: string) {
+    this.editor.cmd.do('insertHTML', html);
   }
 }
 </script>
@@ -145,7 +156,7 @@ export default class SlmEditor extends Vue {
     .w-e-menu-panel,
     .w-e-panel-tab-content input,
     .w-e-panel-container {
-      color: var(--c-text-primary) !important;
+      // color: var(--c-text-primary) !important;
       background-color: var(--c-bg-primary) !important;
       border: 1px solid var(--c-border-primary) !important;
       user-select: none;

@@ -15,6 +15,7 @@ export default (_context, inject) => {
   $config.Navigation = Navigation;
   $config.themes = Themes.config;
   $config.layout;
+  $config.getScrollContainer = () => null;
   $config.router = Router;
   inject('$store', _context.store);
   inject('tool', GlobalTool);
@@ -25,6 +26,13 @@ export default (_context, inject) => {
 
 
 interface Config extends WebConfig.Default {
+  /**
+   * 获取当前滚动的父级
+   */
+  getScrollContainer: () => HTMLElement | Vue | Element | Vue[] | Element[];
+  /**
+   * layout元素
+   */
   layout?: HTMLElement;
   /**
    * 导航类

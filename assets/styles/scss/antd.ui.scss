@@ -1311,7 +1311,8 @@ input.ant-time-picker-input:hover {
 }
 
 div.ant-time-picker-panel-input-wrap,
-div.ant-time-picker-panel-select {
+div.ant-time-picker-panel-select,
+.ant-tabs-bar {
   border-color: var(--c-bg-backdrop);
 }
 
@@ -1324,7 +1325,8 @@ ul li.ant-time-picker-panel-select-option-selected {
   background-color: var(--m-color-opacity-8-bg-primary) !important;
 }
 
-.ant-form-item-label > label {
+.ant-form-item-label > label,
+.ant-tabs {
   color: var(--c-text-primary);
 }
 

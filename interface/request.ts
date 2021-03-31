@@ -83,5 +83,13 @@ export namespace Request {
      * 总数
      */
     total: number;
+    /**
+     * 页数
+     */
+    page: number;
+    /**
+     * 单页总数
+     */
+    pageSize: number;
   }
 }

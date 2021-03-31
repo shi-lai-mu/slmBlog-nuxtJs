@@ -41,7 +41,7 @@
     "vue-gemini-scrollbar": "^2.0.1",
     "vue-ultimate-skeleton-cards": "^1.0.3",
     "vuex-class": "^0.3.2",
-    "wangeditor": "^4.6.8"
+    "wangeditor": "^4.6.12"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^2.0.6",
