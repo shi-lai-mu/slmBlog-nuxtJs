@@ -27,13 +27,26 @@
               <i class="slm blog-tread"></i>
               <span>345</span>
             </a-button>
-            <a-button @click="appendReply(item)" type="link" size="small">{{replyStore[item.id] !== undefined ? '收起' : '回复'}}</a-button>
-            <ArticleReplyAdd :editor-id="`articleReplayComment_${item.id}`" v-if="replyStore[item.id] !== undefined" @replaySuccess="replaySuccess" />
+            <a-button @click="appendReply(item, key)" type="link" size="small">{{replyStore[item.id] !== undefined ? '收起' : '回复'}}</a-button>
           </div>
         </div>
       </div>
-      <div class="subcomment" v-if="item.subComment">
-        <ArticleSubReply :ssr="item.subComment.list" />
+      <div class="subcomment">
+        <ArticleSubReply
+          v-if="item.subComment"
+          :ssr="item.subComment"
+          :parentId="item.id"
+          :articleId="articleId"
+        />
+        <div ref="replyAdd">
+          <ArticleReplyAdd
+            v-if="replyStore[item.id] !== undefined"
+            :editor-id="`articleReplayComment_${item.id}`"
+            :parentId="item.id"
+            :articleId="articleId"
+            @replaySuccess="res => replaySuccess(res, key)"
+          />
+        </div>
       </div>
     </div>
 
@@ -45,7 +58,7 @@
       :page-size="pageSize"
       show-size-changer
     >
-      <template slot="buildOptionText" slot-scope="props">
+      <template slot="buildOpti onText" slot-scope="props">
         <span v-if="props.value !== '50'">{{ props.value }}条/页</span>
         <span v-if="props.value === '50'">全部</span>
       </template>
@@ -64,6 +77,7 @@ import ArticleSubReply from './ArticleSubReply.vue';
 import UserCard from '@/components/public/UserCard.vue';
 
 import { GlobalTool } from '@/utils/tool';
+import { Request } from '@/interface/request';
 import { Article } from '@/interface/request/article';
 
 @Component({
@@ -86,7 +100,11 @@ export default class ArticleReply extends Vue {
   /**
    * 传入的列表数据 SSR
    */
-  @Prop(Object) ssr?: Article.Base;
+  @Prop(Object) ssr!: Request.ListTotal<Article.Comment>;
+  /**
+   * 文章ID
+   */
+  @Prop(Number) articleId!: Article.Base['id'];
   /**
    * 评论回复存储
    */
@@ -96,18 +114,25 @@ export default class ArticleReply extends Vue {
   current = 1
   pageSize = 10
   total = 50
-
+  
   /**
    * 添加回复
+   * @param item 回复评论信息
+   * @param key  回复的子评论下标
    */
-  appendReply(item: Article.Base) {
+  appendReply(item: Article.Base, key: number) {
     this.replyStore[item.id] = this.replyStore[item.id] !== undefined ? undefined : null;
     this.$forceUpdate();
+    this.$refs.replyAdd[key].scrollIntoView({
+      behavior: "smooth",
+      block: 'center',
+    });
   }
 
 
   /**
    * 获取头像链接
+   * @param nickname 昵称
    */
   getAvatarUrl(nickname: string) {
     return GlobalTool.format.paramsUrl(api.resources.avatars, {
@@ -119,13 +144,18 @@ export default class ArticleReply extends Vue {
   
   /**
    * 评论成功回调
+   * @param res   回复评论响应
+   * @param index 回复的子评论下标
    */
-  replaySuccess(res: any) {
-    console.log(res);
+  replaySuccess(res: Request.Result<Article.Comment>, index: number) {
+    const current = this.ssr.list[index];
+    this.replyStore[current.id] = undefined;
+    current.subComment?.list.push(res.result);
+    this.$forceUpdate();
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import './styles/articleReply.scss';
+@import '../styles/articleReply.scss';
 </style>

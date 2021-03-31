@@ -1,8 +1,8 @@
 <template>
   <ComRow class="article-reply__container row-box" title="发表评论" tooltip="说点什么吧!" v-if="ssr" hideTabBorder>
-    <ArticleReplyAdd editor-id="articleReplayList" :articleId="articleId" @replaySuccess="replaySuccess" />
+    <ArticleReplyAdd editor-id="articleReplayList" :articleId="articleId" @replaySuccess="replaySuccess"/>
     <ComRow v-if="ssr.total" class="reply-list" :title="`评论 (${ssr.total})`" hideTabBorder hideRowBox>
-      <ArticleReply :ssr="ssr" />
+      <ArticleReply ref="ArticleReply" :ssr="ssr" :articleId="articleId" />
     </ComRow>
     <div v-else class="not-replay">
       暂无评论哇~快来占个位呗!
@@ -46,8 +46,8 @@ export default class ArticleReplyList extends Vue {
    * 评论成功回调
    */
   replaySuccess(res: Request.Result<Article.Comment>) {
-    console.log(res);
     this.ssr.list.unshift(res.result);
+    this.ssr.total++;
   }
 }
 </script>

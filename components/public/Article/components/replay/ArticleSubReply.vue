@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="comment-item" v-for="(item, key) in ssr" :key="key">
+    <div class="comment-item" v-for="(item, key) in ssr.list" :key="key">
       <div class="comment-box">
         <div class="avatar-box">
           <a-popover placement="topLeft">
@@ -16,7 +16,7 @@
         </div>
         <div class="comment-right">
           <div class="comment-content">
-            <span class="comment-meta">{{ item.nickname }}</span>
+            <span class="comment-meta">{{ item.nickname || item.user.nickname }}</span>
             <span v-html="item.content"></span>
           </div>
           <div class="tool">
@@ -30,7 +30,13 @@
               <span>567</span>
             </a-button>
             <a-button @click="appendReply(item)" type="link" size="small">{{replyStore[item.id] !== undefined ? '收起' : '回复'}}</a-button>
-            <ArticleReplyAdd :editor-id="`articleReplayComment_${item.id}`" v-if="replyStore[item.id] !== undefined" @replaySuccess="replaySuccess" />
+            <ArticleReplyAdd
+              v-if="replyStore[item.id] !== undefined"
+              :editor-id="`articleReplayComment_${item.id}`"
+              :parentId="item.id"
+              :articleId="articleId"
+              @replaySuccess="res => replaySuccess(res, key)"
+            />
           </div>
         </div>
       </div>
@@ -52,6 +58,7 @@ import { Article } from '@/interface/request/article';
 import ComRow from '@/components/public/Row.vue';
 import ArticleReplyAdd from './ArticleReplyAdd.vue';
 import UserCard from '@/components/public/UserCard.vue';
+import { Request } from '~/interface/request';
 
 
 @Component({
@@ -72,7 +79,15 @@ export default class ArticleSubReply extends Vue {
   /**
    * 传入的列表数据 SSR
    */
-  @Prop(Array) ssr: Article.Base[];
+  @Prop(Object) ssr!: Request.ListTotal<Article.Comment>;
+  /**
+   * 文章ID
+   */
+  @Prop(Number) articleId!: Article.Base['id'];
+  /**
+   * 父级评论ID
+   */
+  @Prop(Number) parentId!: Article.Comment['id'];
   /**
    * 评论回复存储
    */
@@ -101,31 +116,32 @@ export default class ArticleSubReply extends Vue {
   
   /**
    * 评论成功回调
+   * @param res   回复评论响应
+   * @param index 回复的子评论下标
    */
-  replaySuccess(res: any) {
-    console.log(res);
+  replaySuccess(res: Request.Result<Article.Comment>, index: number) {
+    const current = this.ssr.list[index];
+    this.replyStore[current.id] = undefined;
+    this.ssr.list.push(res.result);
+    this.$forceUpdate();
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import './styles/articleReply.scss';
+@import '../styles/articleReply.scss';
+
 .comment-item {
   padding: 10px;
   margin-bottom: 0;
   background-color: var(--c-bg-tertiary);
-  border-radius: 5px 5px 0 0;
   transition: .2s ease-in;
   cursor: pointer;
-
-  &:last-child {
-    margin-bottom: 0;
-    border-radius: 0 0 5px 5px;
-  }
 }
 
 .comment-right .comment-content {
   margin-top: 0;
+  word-break: break-all;
 }
 
 .avatar-box {

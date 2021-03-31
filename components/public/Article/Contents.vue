@@ -39,7 +39,7 @@
               <UpperLowerArticle :articleId="articleData.id" />
             </div>
           </div>
-          <ArticleReplyList :ssr="comment" :articleId="articleData.id" />
+          <ArticleReplyList :ssr="comment" :articleId="articleData.id"/>
         </a-col>
         <a-col
           class="article-page__sideber"
@@ -73,7 +73,7 @@ import Row from '@/components/public/Row.vue';
 import sharingConfig from './config/sharing.config';
 import Imager from '@/components/public/Imager.vue';
 import UserCard from '@/components/public/UserCard.vue';
-import ArticleReplyList from './components/ArticleReplyList.vue';
+import ArticleReplyList from './components/replay/ArticleReplyList.vue';
 import UpperLowerArticle from './components/UpperLowerArticle.vue';
 import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue';
 import ArticleContentFooter from './components/ArticleContentFooter.vue';
@@ -140,9 +140,11 @@ export default class ArticleContent extends Vue {
   comment: Request.ListTotal<IntefArticle.Comment>;
 
   created() {
+    // 重置父级容器可能性
+    this.$config.getScrollContainer = () => {
+      return this.isPage ? this.$config.layout : this.$refs.article;
+    };
     this.ssrUpdate(this.articleId || this.ssr || articleBase);
-    console.log(this.$config.layout);
-    
   }
 
   /**
