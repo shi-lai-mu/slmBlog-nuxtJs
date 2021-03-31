@@ -144,7 +144,6 @@ export namespace WebConfig {
 }
 
 
-
 /**
  * 三方登录配置
  */
@@ -166,3 +165,55 @@ export declare type TripartiteConfig = {
    */
   link?(...params: any): string;
 };
+
+
+/**
+ * 表情配置
+ */
+export declare type EmoteConfig = {
+  /**
+   * 表情列表
+   */
+  list: {
+    /**
+     * 如果model为local对应文件夹名
+     */
+    [key: string]: {
+      /**
+       * 显示名称
+       */
+      name: string;
+      /**
+       * 表情模式
+       * local  本地模式，map内表情采用 oss/本地 进行链接
+       * online 外部线上，map内表情用线上的外部链接
+       */
+      mode: 'local' | 'online';
+      /**
+       * 链接前缀
+       */
+      perfix: string;
+      /**
+       * 样式
+       */
+      style: string;
+      /**
+       * 获取链接方法
+       */
+      getLink: (emooteUrl: string) => string;
+      /**
+       * 表情列表
+       */
+      map: Array<{
+        /**
+         * 链接
+         */
+        url: string;
+        /**
+         * 显示名称
+         */
+        name: string;
+      }>;
+    };
+  };
+}
