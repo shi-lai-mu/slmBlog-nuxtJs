@@ -1,6 +1,6 @@
 <template>
   <article
-    :class="['article-content-box', { 'toggle-transition': toggleTransition }, { 'bg-texture': !isPage }, { 'is-page-mode': isPage }]"
+    :class="['article-content-box', { 'toggle-transition': toggleTransition }, { 'is-page-mode': isPage }]"
     @scroll="articleScroll"
     ref="article">
     <ArticleViewSkeleton />
@@ -47,10 +47,10 @@
           :xxl="{ span: 8 }"
         >
           <UserCard :ssr="articleData.author" userEntrance />
-          <a-affix :offset-top="80" :target="() => isPage ? $config.layout : $refs.article">
-            <Row title="目录">
-              <ArticleAnchor ref="articleAnchor" :getContainer="() => $refs.article" :affix="true"/>
-            </Row>
+          <a-affix :offset-top="80" :target="$config.container">
+          <Row title="目录">
+            <ArticleAnchor ref="articleAnchor" :getContainer="$config.container" :affix="true"/>
+          </Row>
           </a-affix>
         </a-col>
       </a-row>

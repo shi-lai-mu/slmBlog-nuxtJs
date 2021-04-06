@@ -42,10 +42,7 @@ import listAsideConfig from './config/listAside.config';
  * 文章列表
  * - 展示文章列表
  */
-@Component({
-
-
-  
+@Component({  
   name: 'ArticleList',
   components: {
     Tooltip,

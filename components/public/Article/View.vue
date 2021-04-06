@@ -31,7 +31,7 @@
           <span class="release-time" v-text="$tool.format.isoToDateTime(article.createTime)"></span>
         </div>
       </template>
-      <ArticleContent v-if="isOpen" :ssr="article" initSkeleton />
+        <ArticleContent v-if="isOpen" :ssr="article" initSkeleton />
     </div>
     <ArticleCardSkeleton v-else/>
   </div>

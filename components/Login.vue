@@ -87,6 +87,7 @@ import Masks from '@/components/Masks.vue';
 import tripartite, { LOGIN_TYPE } from '@/config/note/tripartite';
 import { RequestConst } from '~/core/constants/request';
 import { TripartiteConfig } from '~/interface/config';
+import { axiosError } from '~/config/error';
 
 /**
  * 登录弹窗组件
@@ -204,7 +205,7 @@ export default class LoginPopup extends Vue {
       }
       this.closeMask();
       this.$message.success(`登录成功!`);
-    } else this.$message.error(loginRes.message);
+    } else this.$message.error(axiosError.error(loginRes.message));
   }
 
 

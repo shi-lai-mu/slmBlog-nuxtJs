@@ -1,6 +1,6 @@
 <template>
   <div class="article-anchor">
-    <a-anchor :getContainer="getContainer" :offsetTop="40" :affix="!affix" v-if="list.length">
+    <a-anchor :getContainer="getScrollContainer" :offsetTop="40" :affix="!affix" v-if="list.length">
       <a-anchor-link v-for="(item, index) in list" :key="index" :href="item.link" :title="item.name">
         <a-anchor-link v-for="(childItem, childIndex) in item.childs" :key="childIndex" :href="childItem.link" :title="childItem.name" />
       </a-anchor-link>
@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
-import { Article } from '~/interface/request/article';
+import { Article } from '@/interface/request/article';
 import { Anchor } from 'ant-design-vue';
 
 /**
@@ -24,7 +24,7 @@ import { Anchor } from 'ant-design-vue';
   components: {
     AAnchor: Anchor,
     AAnchorLink: Anchor.Link,
-  }
+  },
 })
 export default class ArticleAnchor extends Vue {
   /**
@@ -83,6 +83,15 @@ export default class ArticleAnchor extends Vue {
       };
     });
     return this.list;
+  }
+
+
+  /**
+   * 获取滚动对象
+   */
+  getScrollContainer() {
+    const { getScrollContainer } = this.$config;
+    return getScrollContainer && getScrollContainer() ? getScrollContainer() : document.body;
   }
 }
 </script>
