@@ -11,7 +11,7 @@ export const getRelativeBrowserPos = (
 ): { top:number; right:number; bottom:number; left: number; }  => {
   const pos = _pos || Array(4).fill(0);
   const directionPoint = [ 'Top', 'Right', 'Bottom', 'Left' ];
-  let { top, right, bottom, left } = el.getBoundingClientRect();
+  let { top, right, bottom, left } = el?.getBoundingClientRect();
   const posArray = [ top, right, bottom, left ];
   const posIndex = _posIndex !== undefined ? _posIndex : directionPoint.indexOf(direction);
 

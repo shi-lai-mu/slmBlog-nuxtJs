@@ -19,9 +19,9 @@ const mutations = {
   /**
    * 初始化滚动条
    */
-  initGeminiScrollbar(state: State, data: State['body']['GeminiScrollbar']) {
-    state.body.GeminiScrollbar = data;
-  },
+  // initGeminiScrollbar(state: State, data: State['body']['GeminiScrollbar']) {
+  //   state.body.GeminiScrollbar = data;
+  // },
 
   /**
    * 初始化用户数据

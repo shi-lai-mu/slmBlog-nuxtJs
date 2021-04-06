@@ -25,10 +25,11 @@
 
 <script lang="ts">
 // import 'ant-design-vue/dist/antd.css';
-import '@/assets/styles/scss/layout.default.scss';
+// import '@/assets/scss/_variables.scss';
 // import '@/assets/styles/scss/antd.ui.scss';
 // import '@/assets/styles/less/_antd.ui.less';
-// import '@/assets/scss/_variables.scss';
+import '@/assets/styles/scss/layout.default.scss';
+// import "vue-custom-scrollbar/dist/vueScrollbar.css";
 import '@/plugins/vue-onscroll-event/animate.min.css';
 
 import $cookie from 'js-cookie';
@@ -109,7 +110,10 @@ export default class DefaultLayout extends Vue {
     const { $http, $refs, $nuxt, $store, $observer } = this;
     const { layoutScroll } = $refs;
 
-    this.$config.layout = layoutScroll as HTMLElement;
+    if (layoutScroll) {
+      this.$config.layout = (<Vue>layoutScroll).$el as HTMLElement;
+      this.$config.getScrollContainer = () => this.$config.layout;
+    }
     
     // 初始化权限组
     $http.$vue = this;
@@ -144,8 +148,9 @@ export default class DefaultLayout extends Vue {
 
     // 全局滚动控制事件
     $observer.on('scrollTop', ({x, y}) => {
+      const { layoutScroll } = $refs;
       if (layoutScroll) {
-        (layoutScroll as Element).scrollTo(x, y);
+        (layoutScroll as Vue)?.$el?.scrollTo(x, y);
       }
     });
 
@@ -261,6 +266,7 @@ export default class DefaultLayout extends Vue {
   position: relative;
   overflow-y: scroll;
   overflow-x: hidden;
+  // overflow-y: hidden;
   height: 100vh;
   transition: 1s;
 }

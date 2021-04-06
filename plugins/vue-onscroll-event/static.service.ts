@@ -64,7 +64,7 @@ export class ScrollService {
     // 防抖结束时添加事件
     ScrollService.debounce(() => {
       Object.values(eventElMap).forEach(({ el }) => {
-        el.addEventListener('scroll', this.scrollEvent);
+        el?.addEventListener('scroll', this.scrollEvent);
       });
       this.scrollEvent();
     }, options?.debounceNumber || 100, 'inserted');
@@ -116,7 +116,7 @@ export class ScrollService {
    * 是否进入视图内
    */
   static isInScrollView(el: HTMLElement, options: Options) {
-    const { top, bottom } = el.getBoundingClientRect();
+    const { top, bottom } = el?.getBoundingClientRect();
     return top < options.currentElement.clientHeight && bottom > 0;
   }
 
@@ -195,6 +195,7 @@ export class ScrollService {
    * 增加成员
    */
   static append(el: HTMLElement, binding: Options) {
+    if (!binding.currentElement) return false;
     let { scrollUUID } = binding.currentElement;
     if (!scrollUUID) {
       scrollUUID = (Date.now() * Math.random()).toString(16).substr(-8).replace('.', '');

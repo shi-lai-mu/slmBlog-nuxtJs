@@ -1,4 +1,4 @@
 // import Vue from 'vue';
-// import GeminiScrollbar from 'vue-gemini-scrollbar';
+// import vueCustomScrollbar from 'vue-custom-scrollbar';
 
-// Vue.use(GeminiScrollbar);
+// Vue.use(vueCustomScrollbar);

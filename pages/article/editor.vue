@@ -68,6 +68,7 @@ import ArticleAnchor from '@/components/public/Article/components/ArticleAnchor.
 import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleton.vue';
 
 import '@/components/public/Article/styles/content.scss';
+import { axiosError } from '@/config/error';
 /**
  * 文章内容组件
  */
@@ -119,7 +120,7 @@ export default class ArticleEditor extends Vue {
     const article = this.getArticleData();
     const { error } = new SubmitArticleDto(article);
     if (error.length) {
-      return this.$message.error(error[0].message);
+      return this.$message.error(axiosError.error(error[0].message));
     }
     this.state.submit = true;
     const { result, success, message } = await submitPost(article);
@@ -133,7 +134,7 @@ export default class ArticleEditor extends Vue {
         });
       }, 1000);
     } else {
-      this.$message.error(message);
+      this.$message.error(axiosError.error(message));
     }
     this.state.submit = false;
   }

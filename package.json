@@ -38,6 +38,7 @@
     "sass-loader": "^11.0.1",
     "scss": "^0.2.4",
     "scss-loader": "^0.0.1",
+    "vue-custom-scrollbar": "^1.4.0",
     "vue-gemini-scrollbar": "^2.0.1",
     "vue-ultimate-skeleton-cards": "^1.0.3",
     "vuex-class": "^0.3.2",
@@ -70,6 +71,7 @@
     "tslint-plugin-prettier": "^2.3.0",
     "typescript": "^4.2.3",
     "vconsole": "^3.4.0",
+    "vue-custom-scrollbar": "^1.4.0",
     "vue-jest": "^3.0.7",
     "vuex": "^3.6.2"
   },

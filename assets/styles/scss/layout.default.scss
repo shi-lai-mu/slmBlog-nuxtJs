@@ -177,6 +177,11 @@ li {
   text-shadow: 0 0 6px var(--c-text-primary);
 }
 
+// .vue-custom-scrollbar {
+//   width: 100%;
+//   height: 100%;
+// }
+
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -275,3 +280,19 @@ li {
 
 // 移动端布局兼容
 // .layout-default-mobile {}
+
+// .ps-container > .ps-scrollbar-x-rail {
+//   visibility: hidden;
+// }
+// .ps-container > .ps-scrollbar-y-rail {
+//   visibility: hidden;
+// }
+// html .ps .ps__rail-y:hover {
+//   background-color: transparent;
+// }
+// .ps .ps--clicking {
+//   background-color: var(--m-color-opacity-2-bg-primary) !important;
+// }
+// .ps__thumb-y {
+//   background-color: var(--m-color-opacity-8-bg-primary) !important;
+// }
