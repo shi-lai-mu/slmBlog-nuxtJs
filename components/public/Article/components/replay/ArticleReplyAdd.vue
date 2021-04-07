@@ -23,14 +23,14 @@
       </a-col>
     </a-row>
     <div class="reply-user-footer">
-      <a-popover :getPopupContainer="$config.getScrollContainer" placement="bottom" v-model="emotePopoverVisible">
+      <a-popover :getPopupContainer="$config.container" placement="bottom" v-model="emotePopoverVisible">
         <a-button><i class="slm blog-qinggan"></i></a-button>
         <a-tabs :default-active-key="'lyf'" class="popover-content" slot="content">
           <a-tab-pane v-for="(item, index) in getEmoteConfig().list" :key="index" :tab="item.name">
             <ul class="emote-list">
               <li v-for="(emoteItem, emoteIndex) in item.map" :key="emoteIndex" class="emote-item">
                 <a-tooltip :title="emoteItem.name">
-                  <img :src="item.getLink(emoteItem.url)" :alt="emoteItem.name" @click="(e) => insertEmote(e, item)">
+                  <img :src="item.getLink(emoteItem.url)" :alt="emoteItem.name" @click="e => insertEmote(e, item)">
                 </a-tooltip>
               </li>
             </ul>
@@ -51,6 +51,7 @@ import { EmoteConfig } from '@/interface/config';
 import Editor from '@/components/public/Editor.vue';
 import { submitArticleReplayDto } from '@/core/dto/article';
 import { submitArticleReplay } from '@/core/service/data/article';
+import { axiosError } from '~/config/error';
 
 /**
  * 添加/回复 评论组件
@@ -114,8 +115,6 @@ export default class ArticleReplyAdd extends Vue {
    * 提交评论方法
    */
   async submit() {
-    console.log(this.jwt);
-    
     const { articleId, content, nickname, email, link, parentId } = this;
     let submitData: submitArticleReplayDto = {
       content,
@@ -156,7 +155,7 @@ export default class ArticleReplyAdd extends Vue {
       (<Editor>this.$refs.editor).clear();
       this.nickname = this.email = this.link = '';
     } else {
-      this.$message.error(submit.message);
+      this.$message.error(axiosError.error(submit.message));
     }
     this.loading = false;
   }

@@ -151,6 +151,8 @@ export default class ArticleReply extends Vue {
     const current = this.ssr.list[index];
     this.replyStore[current.id] = undefined;
     current.subComment?.list.push(res.result);
+    console.log(res.result);
+    
     this.$forceUpdate();
   }
 }

@@ -58,7 +58,7 @@ import { Article } from '@/interface/request/article';
 import ComRow from '@/components/public/Row.vue';
 import ArticleReplyAdd from './ArticleReplyAdd.vue';
 import UserCard from '@/components/public/UserCard.vue';
-import { Request } from '~/interface/request';
+import { Request } from '@/interface/request';
 
 
 @Component({
