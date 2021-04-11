@@ -61,8 +61,8 @@ import { User } from '@/interface/request/user';
 import { userData } from '@/mock/user/data/user';
 import { getUserBaseData } from '@/core/service/data/user';
 
-import UserCardSkeleton from '@/components/skeleton/pubCom/userCardSkeleton.vue';
 import Imager from '@/components/public/Imager.vue';
+import UserCardSkeleton from '@/components/skeleton/pubCom/userCardSkeleton.vue';
 
 /**
  * 用户信息展示卡片
@@ -160,7 +160,7 @@ export default class UserCard extends Vue {
 
 
   /**
-   * 设置渲染属性
+   * 设置渲染数据
    */
   setRenderData(data) {
     if (Object.keys(data).length === 0) {

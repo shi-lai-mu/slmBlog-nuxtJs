@@ -14,10 +14,11 @@ export default (_context, inject) => {
   const $config = defaultConfig as Config;
   $config.Navigation = Navigation;
   $config.themes = Themes.config;
-  $config.layout;
-  $config.getScrollContainer = () => null;
+  $config.layout = () => null;
+  $config.getScrollContainer = null;
   $config.container = () => {
     const container = $config.getScrollContainer();
+    // console.log(container);
     return container ? container :document.body;
   }
   $config.router = Router;
@@ -41,7 +42,7 @@ interface Config extends WebConfig.Default {
   /**
    * layout元素
    */
-  layout?: HTMLElement;
+  layout?: () => HTMLElement;
   /**
    * 导航类
    */

@@ -23,7 +23,7 @@
 import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator';
 
 import { getProfile } from '@/core/service/data/article';
-import { Article } from '~/interface/request/article';
+import { Article } from '@/interface/request/article';
 
 /**
  * 上下篇文章切换组件

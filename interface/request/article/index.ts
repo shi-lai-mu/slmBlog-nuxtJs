@@ -1,6 +1,6 @@
 import { User } from '@/interface/request/user';
 import { UploadImagerBase } from '@/interface/request/public';
-import { Request } from '~/interface/request';
+import { Request } from '@/interface/request';
 
 export namespace Article {
 

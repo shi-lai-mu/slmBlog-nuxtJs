@@ -1,5 +1,5 @@
-import defaultConfig from "~/config/default";
-import { isDev } from "~/config/system";
+import { isDev } from "@/config/system";
+import defaultConfig from "@/config/default";
 
 export class GlobalTool {
   /**
@@ -163,5 +163,18 @@ export class GlobalTool {
       } else object[key] = GlobalTool.excludeKey(object[key], keyName);
     });
     return object;
+  }
+
+
+  /**
+   * 设置延迟
+   * @param ms 延迟时间
+   * @param notDeBug 忽略DeBug
+   */
+  static async speed(ms: number = 5000, notDeBug: boolean = false) {
+    return isDev || notDeBug
+      ? new Promise(res => setTimeout(res, ms))
+      : !1
+    ;
   }
 }

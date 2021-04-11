@@ -2,7 +2,8 @@
   <article
     :class="['article-content-box', { 'toggle-transition': toggleTransition }, { 'is-page-mode': isPage }]"
     @scroll="articleScroll"
-    ref="article">
+    ref="article"
+  >
     <ArticleViewSkeleton />
     <template v-if="articleData && articleData.id">
       <HtmlTreeProcess ref="treeProcess"/>
@@ -47,11 +48,7 @@
           :xxl="{ span: 8 }"
         >
           <UserCard :ssr="articleData.author" userEntrance />
-          <a-affix :offset-top="80" :target="$config.container">
-          <Row title="目录">
-            <ArticleAnchor ref="articleAnchor" :getContainer="$config.container" :affix="true"/>
-          </Row>
-          </a-affix>
+          <ArticleAnchor ref="articleAnchor" :affix="true" title="目录"/>
         </a-col>
       </a-row>
       <LayoutFooter v-if="!isPage"/>
@@ -73,9 +70,9 @@ import Row from '@/components/public/Row.vue';
 import sharingConfig from './config/sharing.config';
 import Imager from '@/components/public/Imager.vue';
 import UserCard from '@/components/public/UserCard.vue';
-import ArticleReplyList from './components/replay/ArticleReplyList.vue';
 import UpperLowerArticle from './components/UpperLowerArticle.vue';
 import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue';
+import ArticleReplyList from './components/replay/ArticleReplyList.vue';
 import ArticleContentFooter from './components/ArticleContentFooter.vue';
 import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
 import ArticleAnchor from '@/components/public/Article/components/ArticleAnchor.vue';
@@ -140,11 +137,15 @@ export default class ArticleContent extends Vue {
   comment: Request.ListTotal<IntefArticle.Comment>;
 
   created() {
-    // 重置父级容器可能性
-    this.$config.getScrollContainer = () => {
-      return this.isPage ? this.$config.layout : this.$refs.article;
-    };
     this.ssrUpdate(this.articleId || this.ssr || articleBase);
+  }
+
+  mounted() {
+    // 重置父级容器可能性
+    this.$config.getScrollContainer = () => this.isPage
+      ? this.$config.layout()
+      : this.$refs.article
+    ;
   }
 
   /**
@@ -154,7 +155,7 @@ export default class ArticleContent extends Vue {
   changArticleId(data: IntefArticle.Base['id']) {
     getPostsData(data)
       .then(data => {
-        if (data.result) this.articleData = this.setRenderData(data.result[0]);
+        if (data.result) this.setRenderData(data.result[0]);
         this.$forceUpdate();
       })
     ;
@@ -165,9 +166,7 @@ export default class ArticleContent extends Vue {
   async ssrUpdate(data: IntefArticle.Base | IntefArticle.Posts | number) {
     const { id } = data as IntefArticle.Base || { id: 0 };
     // 如果对骨架屏进行了初始化则先显示骨架屏进行交互
-    if (this.initSkeleton) {
-      setTimeout(() => this.toggleTransition = true, 200);
-    } else this.toggleTransition = true;
+    if (!this.initSkeleton) this.toggleTransition = true;
 
     if (id || typeof data === 'number') {
       const res = await getPostsData(data as IntefArticle.Base | number);
@@ -183,11 +182,14 @@ export default class ArticleContent extends Vue {
    * 设置渲染属性
    */
   setRenderData(data: IntefArticle.Posts) {
-    if (Object.keys(data).length === 0) {
-      return this.articleData = this.$tool.format.asignError(articleBase, {
-        id: -1,
-        content: '文章内容获取失败',
-      });
+    console.log({data, ssr: this.ssr});
+    if (Object.keys(data).length === 0 || !data.comment) {
+      return this.$router.push({
+        name: 'article-error',
+        query: {
+          message: '文章',
+        }
+      })
     }
     this.articleData = Object.assign(articleBase, data.article);
     if (data.comment) {
@@ -200,6 +202,7 @@ export default class ArticleContent extends Vue {
         (articleAnchor as ArticleAnchor).parseAnchor(articleContent as Element);
       }
     });
+    this.toggleTransition = true;
   }
 
 

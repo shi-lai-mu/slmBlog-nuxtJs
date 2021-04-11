@@ -31,6 +31,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator';
 
+import { GlobalTool } from '@/utils/tool';
 import { Article } from '@/interface/request/article';
 
 import Imager from '@/components/public/Imager.vue';
@@ -49,6 +50,9 @@ import FunctionalPlate from '@/components/public/FunctionalPlate.vue';
 export default class FocalPointPlate extends Vue {
   @Prop(Array) ssr?: Article.Base[];
 
+  /**
+   * 渲染列表
+   */
   renderList: any = {};
 
   created() {
@@ -57,10 +61,11 @@ export default class FocalPointPlate extends Vue {
 
 
   /**
-   * 设置渲染属性
+   * 设置渲染数据
    */
   @Watch('ssr')
-  setRenderData(articleList: Article.Base[]) {
+  async setRenderData(articleList: Article.Base[]) {
+    await GlobalTool.speed();
     if (!articleList.length) return false;
     articleList = Object.assign([], articleList);
     this.renderList = {

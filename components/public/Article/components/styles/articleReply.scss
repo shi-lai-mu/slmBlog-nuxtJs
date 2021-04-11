@@ -3,30 +3,44 @@
 }
 
 .comment-item {
-  padding: 20px 10px;
-  margin-bottom: 20px;
+  padding: 10px;
+  margin-bottom: 10px;
   background-color: var(--c-bg-tertiary);
-  border-radius: 5px;
   transition: .2s ease-in;
-  cursor: pointer;
+  // cursor: pointer;
+  border-radius: 5px;
 
-  &:hover .subcomment .comment-item {
-    background-color: var(--c-bg-overlay);
-    
-    &:last-child {
-      margin-bottom: 0;
-      border-radius: 0 0 5px 5px;
+  &:hover {
+    .subcomment .comment-item {
+      background-color: var(--c-bg-overlay);
+      transition: 0s;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
-    &:first-child {
-      border-radius: 5px 5px 0 0;
+    .sub-comment-box {
+      background-color: var(--c-bg-overlay);
+      border-radius: 5px;
+      padding: 5px;
     }
+
+    .tool {
+      opacity: 1;
+      max-height: 50em;
+    }
+  }
+
+  .sub-comment-box {
+    padding: 5px;
   }
 }
 
 .avatar-box {
   overflow: hidden;
   width: 50px;
+  min-width: 50px;
   height: 50px;
   margin-right: 10px;
   background-color: var(--c-avatar-bg);
@@ -57,25 +71,28 @@
 
 .comment-right {
   flex: 1 1 auto;
+  color: var(--c-text-secondary);
 
   .comment-meta {
     width: 100%;
     margin-bottom: 3px;
-    color: var(--c-text-secondary);
+    color: var(--c-text-primary);
     font-weight: bold;
     font-size: 1.1em;
   }
 
   .comment-metadata {
-    font-size: .7em;
+    font-size: .8em;
   }
 
   .comment-content {
     margin-top: 10px;
-    
+
     /deep/ img {
       max-height: 2em !important;
       vertical-align: middle;
+      pointer-events: none;
+      cursor: text;
     }
   }
 }
@@ -86,11 +103,11 @@
 
   button.ant-btn-sm {
     color: var(--c-text-placeholder);
-    font-size: .6em;
     vertical-align: middle;
 
     .slm {
       font-size: .9rem;
+      margin-right: .2em;
       vertical-align: middle;
     }
 
@@ -117,8 +134,18 @@
   margin-top: 10px;
   margin-left: 50px;
 
-  .comment-item:hover {
-    background-color: var(--c-bg-info);
+  .tool {
+    opacity: 0;
+    max-height: 0;
+    transition: .5s .5s;
+  }
+  
+  .comment-item {
+    padding-bottom: 0;
+
+    &:hover {
+      background-color: var(--c-bg-info);
+    }
   }
 }
 
@@ -127,5 +154,27 @@
 
   .user-cover {
     border-radius: 5px 5px 0 0;
+  }
+}
+
+.layout-default-mobile {
+  .avatar-box {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+  }
+
+  .subcomment {
+    .comment-item {
+      padding: 0 0 5px 0;
+    }
+
+    .avatar-box {
+      display: none;
+    }
+  }
+
+  .tool {
+    display: none;
   }
 }

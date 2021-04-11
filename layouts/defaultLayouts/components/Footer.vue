@@ -36,7 +36,7 @@ export default class LayoutDefaultFooter extends Vue {
 // 底部样式
 .body-footer {
   position: relative;
-  padding: 20px 10px;
+  padding: 20px 10px 30px;
   margin: 20px 10px 0;
   font-size: .9rem;
   text-align: center;

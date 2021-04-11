@@ -1,20 +1,31 @@
 <template>
   <div class="article-anchor">
-    <a-anchor :getContainer="getScrollContainer" :offsetTop="40" :affix="!affix" v-if="list.length">
-      <a-anchor-link v-for="(item, index) in list" :key="index" :href="item.link" :title="item.name">
-        <a-anchor-link v-for="(childItem, childIndex) in item.childs" :key="childIndex" :href="childItem.link" :title="childItem.name" />
-      </a-anchor-link>
-    </a-anchor>
-    <div class="not-data" v-else>
-      本文章暂未解析出有效的目录!
-    </div>
+    <a-affix :target="$config.container" :offsetTop="90" :affix="!affix">
+      <Row :title="title">
+        <!-- TODO: 待重写 -->
+        <template v-if="list.length">
+          <div v-for="(item, index) in list" :key="index" @click.stop="scrollInView(item)">
+            {{ item.name }}
+            <div v-for="(childItem, childIndex) in item.childs" :key="childIndex" @click.stop="scrollInView(childItem)">
+              {{ childItem.name }}
+            </div>
+          </div>
+        </template>
+        <div class="not-data" v-else>
+          本文章暂未解析出有效的目录!
+        </div>
+      </Row>
+    </a-affix>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
+
 import { Article } from '@/interface/request/article';
-import { Anchor } from 'ant-design-vue';
+
+import { Affix } from 'ant-design-vue';
+import Row from '@/components/public/Row.vue';
 
 /**
  * 文章目录结构组件
@@ -22,15 +33,11 @@ import { Anchor } from 'ant-design-vue';
 @Component({
   name: 'ArticleAnchor',
   components: {
-    AAnchor: Anchor,
-    AAnchorLink: Anchor.Link,
+    Row,
+    AAffix: Affix,
   },
 })
 export default class ArticleAnchor extends Vue {
-  /**
-   * 指定滚动的容器
-   */
-  @Prop(Function) getContainer!: () => Element;
   /**
    * 锚点列表
    */
@@ -39,6 +46,10 @@ export default class ArticleAnchor extends Vue {
    * 浮动模式
    */
   @Prop(Boolean) affix?: boolean;
+  /**
+   * 标题
+   */
+  @Prop(String) title!: string;
   /**
    * 节点列表
    */
@@ -67,8 +78,9 @@ export default class ArticleAnchor extends Vue {
           const childName = child.innerText;
           const childId = child.getAttribute('id');
           childs.push({
+            el: child,
             name: childName,
-            link: `#${childId || (child.id = name)}`,
+            link: `#${childId || name}`,
           });
           childEls.splice(childIndex, 1);
         } else {
@@ -77,21 +89,21 @@ export default class ArticleAnchor extends Vue {
       });
 
       return {
+        el,
         name,
-        link: `#${id || (el.id = name)}`,
+        link: `#${id || name}`,
         childs,
       };
     });
     return this.list;
   }
 
-
-  /**
-   * 获取滚动对象
-   */
-  getScrollContainer() {
-    const { getScrollContainer } = this.$config;
-    return getScrollContainer && getScrollContainer() ? getScrollContainer() : document.body;
+  scrollInView(item) {
+    console.log(item);
+    item.el.scrollIntoView({
+      behavior: "smooth",
+      block: 'center',
+    });
   }
 }
 </script>

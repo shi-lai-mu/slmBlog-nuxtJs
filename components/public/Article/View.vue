@@ -105,8 +105,9 @@ export default class ArticleView extends Vue {
   @Watch('ssr')
   ssrUpdate(data: IntefArticle.Base | number) {
     typeof data === 'number' && data !== -1
-    ? getPostsData(data).then(res => this.setRenderData(res.result))
-    : this.setRenderData(data);
+      ? getPostsData(data).then(res => this.setRenderData(res.result))
+      : this.setRenderData(data)
+    ;
   }
 
   created() {
@@ -119,7 +120,7 @@ export default class ArticleView extends Vue {
 
 
   /**
-   * 设置渲染属性
+   * 设置渲染数据
    */
   setRenderData(data) {
     if (Object.keys(data).length === 0) {

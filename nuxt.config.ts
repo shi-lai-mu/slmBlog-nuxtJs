@@ -184,7 +184,9 @@ const globalConfig = {
           }
         }
       }
-    })()
+    })(),
+    cache: true,
+    parallel: true,
   },
   
 

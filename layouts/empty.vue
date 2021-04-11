@@ -40,7 +40,7 @@ import { Component, namespace, Vue, Watch } from 'nuxt-property-decorator';
 import { isOpenDevTool } from '@/utils/deDeveloperTools';
 import { stateData as ConfigState } from '@/store/config';
 import { getSelfInfo } from "@/core/service/data/user";
-import { StateMutation } from '~/interface/state';
+import { StateMutation } from '@/interface/state';
 
 const ConfigModule = namespace('config');
 

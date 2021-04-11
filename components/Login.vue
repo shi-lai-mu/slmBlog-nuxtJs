@@ -85,9 +85,9 @@ import { loginAccount, registerAccount } from '@/core/service/data/user';
 
 import Masks from '@/components/Masks.vue';
 import tripartite, { LOGIN_TYPE } from '@/config/note/tripartite';
-import { RequestConst } from '~/core/constants/request';
-import { TripartiteConfig } from '~/interface/config';
-import { axiosError } from '~/config/error';
+import { RequestConst } from '@/core/constants/request';
+import { TripartiteConfig } from '@/interface/config';
+import { axiosError } from '@/config/error';
 
 /**
  * 登录弹窗组件

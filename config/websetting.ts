@@ -10,7 +10,7 @@ export const webSetting = {
       title: '启用背景动画',
       description: '立即生效; 显示背景动画，可能会提高性能损耗、发热和耗电；',
       type: 'switch',
-      enable: true,
+      enable: false,
     }
   },
   pendant: {
@@ -19,7 +19,7 @@ export const webSetting = {
       title: '启用小猫 (heimi)',
       description: '立即生效; 右下角开启博主家的猫猫，可能会提高性能损耗、发热和耗电；',
       type: 'switch',
-      enable: true,
+      enable: false,
     },
   },
   themes: {

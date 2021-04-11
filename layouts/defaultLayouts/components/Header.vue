@@ -124,7 +124,8 @@ export default class LayoutDefaultHeader extends Vue {
 <style lang="scss" scoped>
 $headerHeight: 60px;
 // TODO: 加载时的logo状态
-#__nuxt .nuxt-progress + #__layout .layout-header .blog-logo {
+#__nuxt .nuxt-progress + #__layout .layout-header .blog-logo::before {
+  display: block;
   animation: 2s logo-loading ease-in-out infinite;
 }
 @keyframes logo-loading {

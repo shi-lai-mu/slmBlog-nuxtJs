@@ -78,8 +78,30 @@ export default class DefaultLayout extends Vue {
    */
   @ConfigModule.Mutation setWebOptions!: StateMutation;
 
-  async created() {
-    this.$config.Navigation.init(this);
+  async beforeCreate() {
+    const { $config } = this;
+
+    $config.Navigation.init(this);
+
+    $config.layout = () => {
+      return (<Vue>this.$refs.layoutScroll).$el as HTMLElement;
+    }
+
+    $config.getScrollContainer = $config.getScrollContainer ?? (() => {
+      return this.$config.layout();
+    });
+
+    this.$router.beforeEach((_to, _from, next) => {
+      next();
+      this.$observer.emit('scrollTop', [0, 0]);
+      return true;
+    });
+  }
+
+
+  async mounted() {
+    const { $http, $refs, $nuxt, $store, $observer } = this;
+
     const token = $cookie.get('token');
     let userConfig;
 
@@ -98,23 +120,6 @@ export default class DefaultLayout extends Vue {
     
     this.setWebOptions(userConfig);
 
-    this.$router.beforeEach((_to, _from, next) => {
-      next();
-      this.$observer.emit('scrollTop', [0, 0]);
-      return true;
-    })
-  }
-
-
-  mounted() {
-    const { $http, $refs, $nuxt, $store, $observer } = this;
-    const { layoutScroll } = $refs;
-
-    if (layoutScroll) {
-      this.$config.layout = (<Vue>layoutScroll).$el as HTMLElement;
-      this.$config.getScrollContainer = () => this.$config.layout;
-    }
-    
     // 初始化权限组
     $http.$vue = this;
     $http.auth = {
@@ -163,6 +168,8 @@ export default class DefaultLayout extends Vue {
         ($refs.LoginPopup as LoginPopup).showMask(loginType);
       }
     });
+    
+    $observer.on('setHeaderOpenState', this.setHeaderOpenState.bind(this));
 
     // 事件添加
     resizeEvent(window, this);
@@ -203,6 +210,8 @@ export default class DefaultLayout extends Vue {
    * 设置移动端打开状态
    */
   setHeaderOpenState(state: boolean) {
+    console.log(state);
+    
     this.mobileHeaderOpen = state;
   }
 

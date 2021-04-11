@@ -59,7 +59,7 @@ import {
 } from 'ant-design-vue';
 
 import Masks from '@/components/Masks.vue';
-import { StateMutation } from '~/interface/state';
+import { StateMutation } from '@/interface/state';
 
 const ConfigModule = namespace('config');
 

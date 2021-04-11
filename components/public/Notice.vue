@@ -15,6 +15,8 @@
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
 
 import { getNotic } from '@/core/service/data/notify';
+import { Request } from '@/interface/request';
+import { Notify } from '@/interface/request/notify';
 
 @Component
 export default class Notice extends Vue {
@@ -25,15 +27,23 @@ export default class Notice extends Vue {
    */
   notice?: string = '';
 
-  created() {
+
+  async created() {
     if (!this.ssr) {
       // 非SSR状态异步获取公告内容
-      getNotic().then(res => {
-        if (res.success) {
-          this.notice = res.result.message;
-        }
-      });
+      this.setRenderData(await getNotic())
     }
+  }
+
+
+  /**
+   * 设置渲染数据
+   */
+  setRenderData(data: Request.Result<Notify.Notic>) {
+    this.notice = data.success
+      ? data.result.message
+      : '公告获取失败!'
+    ;
   }
 }
 </script>

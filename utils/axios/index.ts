@@ -72,10 +72,12 @@ import {
   isServer,
   isMockData,
   observer,
+  isClient,
 } from './lib/config';
 import { message } from './lib/log';
 import AxiosMock from './lib/mock';
-import { isDeBug } from '~/config/system';
+import { isDeBug } from '@/config/system';
+import { GlobalTool } from '../tool';
 // 服务器配置
 const serverConfig = config.apiServer;
 // 频繁请求处理
@@ -100,7 +102,10 @@ const mock = new AxiosMock($axios);
  * 响应拦截
  */
 $axios.interceptors.response.use(
-  (res: AxiosResponse) => {
+  async (res: AxiosResponse) => {
+    if (isClient) {
+      await GlobalTool.speed();
+    }
     let { data } = res;
     // token 自动化更新
     // const headersToken = res.headers.token;

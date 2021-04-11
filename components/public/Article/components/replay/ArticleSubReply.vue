@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sub-comment-box">
     <div class="comment-item" v-for="(item, key) in ssr.list" :key="key">
       <div class="comment-box">
         <div class="avatar-box">
@@ -39,9 +39,6 @@
             />
           </div>
         </div>
-      </div>
-      <div class="subcomment" v-if="item.subComment">
-        <ArticleReply :ssr="item.subComment.list" />
       </div>
     </div>
   </div>
@@ -132,11 +129,11 @@ export default class ArticleSubReply extends Vue {
 @import '../styles/articleReply.scss';
 
 .comment-item {
-  padding: 10px;
+  padding-bottom: 10px;
   margin-bottom: 0;
   background-color: var(--c-bg-tertiary);
   transition: .2s ease-in;
-  cursor: pointer;
+  // cursor: pointer;
 }
 
 .comment-right .comment-content {

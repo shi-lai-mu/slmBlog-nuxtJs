@@ -1,11 +1,13 @@
 import { WebConfig } from '@/interface/config';
 import { getIPAdress } from '@/utils/network';
+import { isClient } from '~/utils/axios/lib/config';
 import user from './note/user';
 
+const port = 8888;
 const isDev = process.env.NODE_ENV === 'development';
-const domain = !isDev ? 'https://slmblog.com' : `http://dev.slmblog.com:8888`;
-const devDomain =  getIPAdress() ?? location.hostname;
-const devOSSDomain = '//' + (getIPAdress() ?? location.host);
+const devDomain = getIPAdress() ?? location.hostname;
+const domain = !isDev ? 'https://slmblog.com' : `http://${devDomain}:${port}`;
+const devOSSDomain = isClient ? `http://${location.host}` : domain;
 
 /**
  * 默认配置

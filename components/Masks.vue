@@ -149,6 +149,7 @@ export default class Masks extends Vue {
 
     .blog-back {
       position: absolute;
+      z-index: 666;
       display: block;
       top: 5px;
       right: 20px;

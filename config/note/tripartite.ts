@@ -1,5 +1,5 @@
 import loginConfig from '@/config/login';
-import { TripartiteConfig } from '~/interface/config';
+import { TripartiteConfig } from '@/interface/config';
 
 
 /**

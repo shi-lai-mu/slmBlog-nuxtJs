@@ -47,11 +47,12 @@ import { Component, Vue, Prop, State } from 'nuxt-property-decorator';
 import { Input, Col, Row, Button, Popover, Tabs, Tooltip } from 'ant-design-vue';
 
 import { emote } from '@/config/emote';
+import { axiosError } from '@/config/error';
 import { EmoteConfig } from '@/interface/config';
-import Editor from '@/components/public/Editor.vue';
 import { submitArticleReplayDto } from '@/core/dto/article';
 import { submitArticleReplay } from '@/core/service/data/article';
-import { axiosError } from '~/config/error';
+
+import Editor from '@/components/public/Editor.vue';
 
 /**
  * 添加/回复 评论组件

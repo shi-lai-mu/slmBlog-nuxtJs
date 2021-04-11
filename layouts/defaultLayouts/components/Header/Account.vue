@@ -1,23 +1,41 @@
 <template>
-  <li :class="[ 'slm', 'blog-account', { 'avatar-box': avatarUrl }, $store.state.themes.mainBColor ]" @click="accountEntrance[0].cb">
-    <div class="avatar" v-if="avatarUrl" :style="`background-image: url(${ avatarUrl });`"></div>
-    <ul class="account-munt" v-if="!this.$store.state.isMobile">
-      <li
-        class="account-munt-item"
-        v-for="(item, index) in accountEntrance"
-        @click.stop="item.cb"
-        :key="index">
-        {{ item.name }}
-      </li>
-    </ul>
+  <li :class="[ 'slm', 'blog-account', { 'avatar-box': user.avatarUrl }, $store.state.themes.mainBColor ]" @click="avatarClick">
+    <Imager class="avatar" v-if="user.avatarUrl" :src="user.avatarUrl" />
+    <template v-if="!isMobile">
+      <ul class="account-munt" v-if="!jwt">
+        <li
+          class="account-munt-item"
+          v-for="(item, index) in accountEntrance"
+          @click.stop="item.cb"
+          :key="index"
+        >
+          {{ item.name }}
+        </li>
+      </ul>
+      <div class="account-munt" v-else>
+        123456
+      </div>
+    </template>
   </li>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator';
-import { Router } from '../../../../interface/router';
+import { Vue, Component, State, Watch } from 'nuxt-property-decorator';
 
-@Component
+import Imager from '@/components/public/Imager.vue';
+
+import { Router } from '@/interface/router';
+import { User } from '@/interface/request/user';
+
+
+/**
+ * 账号登录下拉
+ */
+@Component({
+  components: {
+    Imager,
+  },
+})
 export default class HeaderAccount extends Vue {
   /**
    * 账号入口
@@ -27,6 +45,27 @@ export default class HeaderAccount extends Vue {
    * 头像链接
    */
   avatarUrl: string = '';
+  /**
+   * jwt
+   */
+  @State
+  jwt!: string;
+  /**
+   * 用户信息
+   */
+  @State
+  user!: User.Base;
+
+  @State
+  isMobile!: boolean;
+  
+
+  @Watch('jwt')
+  jwtChang(jwt: string) {
+    console.log({jwt});
+    console.log(this.user);
+    
+  }
 
   created() {
     this.accountEntrance = [{
@@ -36,6 +75,14 @@ export default class HeaderAccount extends Vue {
       name: '注册',
       cb: () => this.$observer.emit('login', 'register'),
     }];
+  }
+
+  
+  avatarClick() {
+    if (this.isMobile) {
+      this.accountEntrance[0].cb();
+      this.$observer.emit('setHeaderOpenState', false);
+    }
   }
 }
 </script>
@@ -57,7 +104,7 @@ export default class HeaderAccount extends Vue {
     background-color: var(--c-bg-primary);
 
     li:hover {
-      background-color: var(--c-bg-secondary);
+      background-color: var(--c-bg-tertiary);
     }
   }
 
