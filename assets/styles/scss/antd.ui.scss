@@ -1346,3 +1346,13 @@ li.ant-pagination-item-active a {
 li.ant-pagination-item-active {
   border-color: var(--m-color-bg-primary);
 }
+
+.ant-spin-nested-loading {
+  .ant-spin {
+    color: var(--c-text-primary);
+    text-shadow: none !important;
+  }
+  .ant-spin-blur {
+    background-color: var(--c-bg-overlay);
+  }
+}

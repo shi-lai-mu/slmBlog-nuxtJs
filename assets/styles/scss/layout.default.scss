@@ -209,6 +209,20 @@ li {
     }
 }
 
+.loading-box {
+  display: flex;
+  width: 100%;
+  min-height: 50px;
+  justify-content: center;
+  align-items: center;
+  color: var(--c-text-placeholder);
+
+  .slm {
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+}
+
 .load-success {
   animation: .5s vanishInSmall;
 }

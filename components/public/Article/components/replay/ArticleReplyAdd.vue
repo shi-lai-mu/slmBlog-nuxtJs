@@ -125,6 +125,7 @@ export default class ArticleReplyAdd extends Vue {
     // 非登录用户 检测与数据插入
     if (!nickname || !email) {
       if (!this.jwt) {
+        this.loading = false;
         return this.$message.error('非登录用户必须填写 昵称 和 邮箱 才能评论!');
       }
     } else {

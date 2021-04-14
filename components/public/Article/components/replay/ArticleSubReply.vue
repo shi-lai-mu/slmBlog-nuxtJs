@@ -1,63 +1,84 @@
 <template>
-  <div class="sub-comment-box">
-    <div class="comment-item" v-for="(item, key) in ssr.list" :key="key">
-      <div class="comment-box">
-        <div class="avatar-box">
-          <a-popover placement="topLeft">
-            <div v-if="item.user" class="avatar">
-              <img :src="item.user.avatarUrl" :alt="item.user.nickname">
-            </div>
-            <object v-else class="avatar" :data="getAvatarUrl(item.nickname)" type="image/svg+xml"/>
-            <template slot="content">
-              <UserCard class="article-replay__user-card" :userId="item.user.id" v-if="item.user" userEntrance userState/>
-              <div :style="{padding: '10px'}" v-else>游客展示暂未开发!</div>
-            </template>
-          </a-popover>
-        </div>
-        <div class="comment-right">
-          <div class="comment-content">
-            <span class="comment-meta">{{ item.nickname || item.user.nickname }}</span>
-            <span v-html="item.content"></span>
+  <div class="sub-comment-box" v-if="ssr.list">
+    <a-spin tip="加载中..." :spinning="loading">
+      <i slot="indicator" class="slm blog-loading"></i>
+      <div class="comment-item" v-for="(item, key) in ssr.list" :key="key">
+        <div class="comment-box">
+          <div class="avatar-box">
+            <a-popover placement="topLeft">
+              <div v-if="item.user" class="avatar">
+                <img :src="item.user.avatarUrl" :alt="item.user.nickname">
+              </div>
+              <object v-else class="avatar" :data="getAvatarUrl(item.nickname)" type="image/svg+xml"/>
+              <template slot="content">
+                <UserCard class="article-replay__user-card" :userId="item.user.id" v-if="item.user" userEntrance userState/>
+                <div :style="{padding: '10px'}" v-else>游客展示暂未开发!</div>
+              </template>
+            </a-popover>
           </div>
-          <div class="tool">
-            <time class="comment-metadata">{{ $tool.format.isoToDateTime(item.updateTime) }}</time>
-            <a-button type="link" size="small">
-              <i class="slm blog-like"></i>
-              <span>123</span>
-            </a-button>
-            <a-button type="link" size="small">
-              <i class="slm blog-tread"></i>
-              <span>567</span>
-            </a-button>
-            <a-button @click="appendReply(item)" type="link" size="small">{{replyStore[item.id] !== undefined ? '收起' : '回复'}}</a-button>
-            <ArticleReplyAdd
-              v-if="replyStore[item.id] !== undefined"
-              :editor-id="`articleReplayComment_${item.id}`"
-              :parentId="item.id"
-              :articleId="articleId"
-              @replaySuccess="res => replaySuccess(res, key)"
-            />
+          <div class="comment-right">
+            <div class="comment-content">
+              <span class="comment-meta">{{ item.nickname || item.user.nickname }}</span>
+              <span v-html="item.content"></span>
+            </div>
+            <div class="tool">
+              <time class="comment-metadata">{{ $tool.format.isoToDateTime(item.updateTime) }}</time>
+              <a-button type="link" size="small" @click="submitReplyBehaviorGood(item, 1)">
+                <i class="slm blog-like"></i>
+                <span>123</span>
+              </a-button>
+              <a-button type="link" size="small" @click="submitReplyBehaviorGood(item, 2)">
+                <i class="slm blog-tread"></i>
+                <span>567</span>
+              </a-button>
+              <a-button @click="appendReply(item)" type="link" size="small">{{replyStore[item.id] !== undefined ? '收起' : '回复'}}</a-button>
+              <ArticleReplyAdd
+                v-if="replyStore[item.id] !== undefined"
+                :editor-id="`articleReplayComment_${item.id}`"
+                :parentId="item.id"
+                :articleId="articleId"
+                @replaySuccess="res => replaySuccess(res, key)"
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </a-spin>
+    共13条回复, 点击查看
+    v-if="{{ssr.page}} * {{ssr.pageSize}}  {{ssr.total}}"
+    <a-pagination
+      v-if="ssr.page * ssr.pageSize < ssr.total"
+      v-model="current"
+      :page-size-options="pageSizeOptions"
+      :total="total"
+      :page-size="pageSize"
+      show-size-changer
+    >
+      <template slot="buildOpti onText" slot-scope="props">
+        <span v-if="props.value !== '50'">{{ props.value }}条/页</span>
+        <span v-if="props.value === '50'">全部</span>
+      </template>
+    </a-pagination>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'nuxt-property-decorator';
-import { Input, Col, Row, Button, Popover } from 'ant-design-vue';
+import { Input, Col, Row, Button, Popover, Pagination, Spin } from 'ant-design-vue';
 
 import api from '@/config/api';
 import { GlobalTool } from '@/utils/tool';
+import { Request } from '@/interface/request';
 import { Article } from '@/interface/request/article';
 
 import ComRow from '@/components/public/Row.vue';
 import ArticleReplyAdd from './ArticleReplyAdd.vue';
 import UserCard from '@/components/public/UserCard.vue';
-import { Request } from '@/interface/request';
 
 
+/**
+ * 子回复组件
+ */
 @Component({
   name: 'ArticleSubReply',
   components: {
@@ -65,12 +86,14 @@ import { Request } from '@/interface/request';
     UserCard,
     ARow: Row,
     ACol: Col,
+    ASpin: Spin,
     AInput: Input,
     AButton: Button,
     ArticleReplyAdd,
     APopover: Popover,
+    APagination: Pagination,
     ATextArea: Input.TextArea,
-  }
+  },
 })
 export default class ArticleSubReply extends Vue {
   /**
@@ -89,7 +112,15 @@ export default class ArticleSubReply extends Vue {
    * 评论回复存储
    */
   replyStore: { [k: number]: string } = {};
+  /**
+   * 加载状态
+   */
+  loading: boolean = false;
 
+  pageSizeOptions = ['10', '20', '30', '40', '50']
+  current = 1
+  pageSize = 10
+  total = 50
 
   /**
    * 添加回复
@@ -176,6 +207,10 @@ export default class ArticleSubReply extends Vue {
   }
 }
 
+.ant-spin-nested-loading {
+  overflow: hidden;
+  border-radius: 5px;
+}
 
 .subcomment {
   margin-top: 10px;

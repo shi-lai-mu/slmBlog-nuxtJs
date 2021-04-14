@@ -13,7 +13,6 @@ import { RequestConst } from '@/core/constants/request';
 import ArticleContent from '@/components/public/Article/Contents.vue';
 
 @Component({
-  // layout: 'empty',
   components: {
     ArticleContent,
   },
@@ -31,6 +30,10 @@ export default class ArticlePostsContentPage extends Vue {
     return {
       posts: postsRes.result, // 获取文章内容
     };
+  }
+
+  created() {
+    this.$parent.$emit('setLayout', ['layoutFooter', false]);
   }
 }
 </script>

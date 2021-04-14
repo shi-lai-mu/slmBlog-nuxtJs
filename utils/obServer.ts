@@ -17,19 +17,19 @@ export default class Observer {
     if (!_Subjects[subjectName]) {
       _Subjects[subjectName] = new Subject();
     }
-    _Subjects[subjectName].add(event);
+    return _Subjects[subjectName].add(event);
   }
 
   emit(subjectName: string, data?: any) {
-    this._Subjects[subjectName]?.notifyObserver(data);
+    return this._Subjects[subjectName]?.notifyObserver(data);
   }
 
   off(subjectName: string, event: CallableFunction) {
-    this._Subjects[subjectName]?.remove(event);
+    return this._Subjects[subjectName]?.remove(event);
   }
 
   offAll(subjectName: string) {
-    delete this._Subjects[subjectName];
+    return delete this._Subjects[subjectName];
   }
 }
 
@@ -47,6 +47,8 @@ class Subject {
 
   remove(event: CallableFunction) {
     return !this._map.every((v, i) => {
+      console.log(v , event, v === event);
+      
       return v === event ? this._map.splice(i, 1) : null;
     });
   }

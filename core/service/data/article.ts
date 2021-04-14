@@ -31,24 +31,25 @@ export const getPostsData = (data: Article.Base['id'] | Article.Base) => axios.s
     articleId: typeof data === 'object' ? data.id : data,
   }
 })
-.then((res: Request.Result<Article.Posts>) => {
-  if (res.success) {
-    if (res.result.comment) {
-      res.result.comment.list = res.result.comment?.list.map(comment => {
-        const { user, subComment } = comment;
-        if (user) comment.nickname = user.nickname;
-        if (subComment) {
-          subComment.list = subComment.list.map(subItem => {
-            if (subItem.user) subItem.nickname = subItem.user.nickname;
-            return subItem;
-          });
-        }
-        return comment;
-      });
+  .then((res: Request.Result<Article.Posts>) => {
+    if (res.success) {
+      if (res.result.comment) {
+        res.result.comment.list = res.result.comment?.list.map(comment => {
+          const { user, subComment } = comment;
+          if (user) comment.nickname = user.nickname;
+          if (subComment) {
+            subComment.list = subComment.list.map(subItem => {
+              if (subItem.user) subItem.nickname = subItem.user.nickname;
+              return subItem;
+            });
+          }
+          return comment;
+        });
+      }
     }
-  }
-  return res;
-}) as Promise<Request.Result<Article.Posts>>;
+    return res;
+  }) as Promise<Request.Result<Article.Posts>>
+;
 
 
 /**
@@ -79,3 +80,22 @@ export const submitArticleReplay = (articleId: number, comment: submitArticleRep
   },
   data: comment,
 }) as Promise<Request.Result<Article.Comment>>;
+
+
+/**
+ * 获取评论列表
+ * @param articleId 文章ID
+ * @param page      页数
+ * @param pageSize  每页个数
+ */
+export const getCommentList = (articleId: number, page: number = 1, pageSize: number = 10) => axios.send(
+    axios.article.commentList,
+    {
+      params: {
+        articleId,
+        page,
+        pageSize,
+      },
+    },
+  ) as Promise<Request.Result<Request.ListTotal<Article.Comment>>>
+;

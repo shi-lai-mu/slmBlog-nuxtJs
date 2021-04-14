@@ -142,11 +142,9 @@ export default class ArticleContent extends Vue {
 
   mounted() {
     // 重置父级容器可能性
-    this.$config.getScrollContainer = () => this.isPage
-      ? this.$config.layout()
-      : this.$refs.article
-    ;
+    this.$config.getScrollContainer = () => this.$refs.article;
   }
+
 
   /**
    * 文章ID更新
@@ -209,10 +207,12 @@ export default class ArticleContent extends Vue {
   /**
    * 滚动文章触发事件
    */
-  articleScroll(e) {
-    const { treeProcess } = this.$refs;
-    if (treeProcess) {
-      (treeProcess as HtmlTreeProcess).updateProcess(e);
+  articleScroll({ target }) {
+    const { scrollTop, clientHeight, scrollHeight } = target;
+    const progress = Math.abs(scrollTop / (clientHeight - scrollHeight));
+    this.$observer.emit('scroll', [ target, progress ]);
+    if (progress >= 0.95) {
+      this.$observer.emit('scrollBottom', [ target, progress ]);
     }
   }
 }
@@ -242,7 +242,7 @@ export default class ArticleContent extends Vue {
   }
 }
 .is-page-mode {
-  overflow: visible ;
-  height: auto;
+  // overflow: visible;
+  // height: auto;
 }
 </style>

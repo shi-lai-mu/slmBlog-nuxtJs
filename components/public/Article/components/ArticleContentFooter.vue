@@ -43,6 +43,7 @@ export default class ArticleContentFooter extends Vue {
   .content__footer {
     margin-top: 50px;
     padding: 10px 0;
+    font-size: .8em;
     color: var(--c-text-secondary);
     border-top: 1px dashed var(--c-border-primary);
 

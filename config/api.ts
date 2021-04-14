@@ -26,6 +26,7 @@ const api = {
     data:          'get.  /article/:articleId',                             // 获取文章内容
     profile:       'get.  /article/profile/list',                           // 获取文章简洁信息
     submitReplay:  'post. /article/comment/:articleId',                     // 发表评论
+    commentList:   'get.  /article/comment/:articleId/:page/:pageSize',     // 获取评论列表
   },
   // 通知类
   notify: {

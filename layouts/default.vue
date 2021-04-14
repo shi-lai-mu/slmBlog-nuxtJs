@@ -15,11 +15,11 @@
     <Background v-if="setting.web.background.canvas.enable"/>
     <LayoutHeader class="header" @set-open-state="setHeaderOpenState" :mobileHeaderOpen="mobileHeaderOpen" />
     <transition name="transition">
-      <nuxt class="layout-page" @click.native="mobileHeaderOpen = false"/>
+      <nuxt class="layout-page" @setLayout="setLayout" @click.native="mobileHeaderOpen = false"/>
     </transition>
-    <LayoutFooter />
+    <LayoutFooter v-if="layoutFooter" />
     <LoginPopup v-if="loginPopup" ref="LoginPopup" />
-    <Live2D :enable="setting.web.pendant.cat.enable"/>
+    <Live2D v-if="setting.web.pendant.cat.enable" :enable="setting.web.pendant.cat.enable"/>
   </div>
 </template>
 
@@ -69,6 +69,10 @@ export default class DefaultLayout extends Vue {
    * 登录弹窗
    */
   loginPopup: boolean = false;
+  /**
+   * 是否显示底部
+   */
+  layoutFooter: boolean = true;
   /**
    * 网站设置
    */
@@ -250,6 +254,14 @@ export default class DefaultLayout extends Vue {
       'font-size: 20px; color: rgb(254, 65, 129);',
       'font-size: 14px; color: #8624b1;',
     );
+  }
+
+  
+  /**
+   * 设置布局
+   */
+  setLayout(params: Array<any>) {
+    this[params[0]] = params[1];
   }
 }
 </script>

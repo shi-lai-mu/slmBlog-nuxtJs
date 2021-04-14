@@ -4,7 +4,7 @@
       <div class="comment-box">
         <div class="avatar-box">
           <a-popover placement="topLeft">
-            <div v-if="item.user" class="avatar">
+            <div v-if="item.user && item.user.id" class="avatar">
               <img :src="item.user.avatarUrl" :alt="item.user.nickname">
             </div>
             <object v-else class="avatar" :data="getAvatarUrl(item.nickname)" type="image/svg+xml"/>
@@ -19,21 +19,20 @@
           <div class="comment-content" v-html="item.content"></div>
           <div class="tool">
             <time class="comment-metadata">{{ $tool.format.isoToDateTime(item.updateTime) }}</time>
-            <a-button type="link" size="small">
+            <a-button type="link" size="small" @click="submitReplyBehaviorGood(item, 1)">
               <i class="slm blog-like"></i>
               <span>123</span>
             </a-button>
-            <a-button type="link" size="small">
+            <a-button type="link" size="small" @click="submitReplyBehaviorGood(item, 2)">
               <i class="slm blog-tread"></i>
-              <span>345</span>
+              <span>567</span>
             </a-button>
             <a-button @click="appendReply(item, key)" type="link" size="small">{{replyStore[item.id] !== undefined ? '收起' : '回复'}}</a-button>
           </div>
         </div>
       </div>
-      <div class="subcomment">
+      <div class="subcomment" v-if="item.subComment">
         <ArticleSubReply
-          v-if="item.subComment"
           :ssr="item.subComment"
           :parentId="item.id"
           :articleId="articleId"
@@ -49,39 +48,29 @@
         </div>
       </div>
     </div>
-
-    <a-pagination
-      v-if="ssr.page * ssr.pageSize < ssr.total"
-      v-model="current"
-      :page-size-options="pageSizeOptions"
-      :total="total"
-      :page-size="pageSize"
-      show-size-changer
-    >
-      <template slot="buildOpti onText" slot-scope="props">
-        <span v-if="props.value !== '50'">{{ props.value }}条/页</span>
-        <span v-if="props.value === '50'">全部</span>
-      </template>
-    </a-pagination>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'nuxt-property-decorator';
-import { Input, Col, Row, Button, Popover, Pagination } from 'ant-design-vue';
+import { Input, Col, Row, Button, Popover } from 'ant-design-vue';
 
 import api from '@/config/api';
 import ComRow from '@/components/public/Row.vue';
 import ArticleReplyAdd from './ArticleReplyAdd.vue';
 import ArticleSubReply from './ArticleSubReply.vue';
 import UserCard from '@/components/public/UserCard.vue';
+import ArticleReplyMixins from './ArticleReplyMixins.vue';
 
 import { GlobalTool } from '@/utils/tool';
 import { Request } from '@/interface/request';
 import { Article } from '@/interface/request/article';
 
+
+/**
+ * 回复组件
+ */
 @Component({
-  name: 'ArticleReply',
   components: {
     ComRow,
     UserCard,
@@ -92,9 +81,9 @@ import { Article } from '@/interface/request/article';
     ArticleReplyAdd,
     ArticleSubReply,
     APopover: Popover,
-    APagination: Pagination,
     ATextArea: Input.TextArea,
-  }
+  },
+  mixins: [ ArticleReplyMixins ],
 })
 export default class ArticleReply extends Vue {
   /**
@@ -110,11 +99,6 @@ export default class ArticleReply extends Vue {
    */
   replyStore: { [k: number]: string } = {};
 
-  pageSizeOptions = ['10', '20', '30', '40', '50']
-  current = 1
-  pageSize = 10
-  total = 50
-  
   /**
    * 添加回复
    * @param item 回复评论信息
@@ -141,7 +125,7 @@ export default class ArticleReply extends Vue {
     });
   }
 
-  
+
   /**
    * 评论成功回调
    * @param res   回复评论响应
