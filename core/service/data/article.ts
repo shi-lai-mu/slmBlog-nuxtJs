@@ -97,5 +97,39 @@ export const getCommentList = (articleId: number, page: number = 1, pageSize: nu
         pageSize,
       },
     },
-  ) as Promise<Request.Result<Request.ListTotal<Article.Comment>>>
+  )
+  .then((res: Request.Result<Request.ListTotal<Article.Comment>>) => {
+    if (res.success) {
+      res.result.list = res.result.list.map(comment => {
+        comment.subComment = comment.subComment || {
+          list: [],
+          total: 0,
+          page: 1,
+          pageSize: 5,
+        };
+        return comment;
+      })
+    }
+    return res;
+  }) as Promise<Request.Result<Request.ListTotal<Article.Comment>>>
+;
+
+
+/**
+ * 提交 点赞/点踩 方法
+ * @param articleId 文章ID
+ * @param loveType  踩赞状态 (1: 赞， 2: 踩)
+ * @param targetId  目标Id (如 文章ID/评论ID)
+ */
+export const submitReplyBehavior = (articleId: number, loveType: 1 | 2, targetId?: number) => axios.send(
+    axios.article.goodBehavior,
+    {
+      data: {
+        articleId,
+        target: targetId ? 2 : 1, // 目标类型 (1: 文章， 2: 评论)
+        targetId,
+        loveType,
+      },
+    },
+  ) as Promise<Request.Result<Article.LinkState>>
 ;

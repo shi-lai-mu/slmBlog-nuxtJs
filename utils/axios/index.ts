@@ -78,6 +78,7 @@ import { message } from './lib/log';
 import AxiosMock from './lib/mock';
 import { isDeBug } from '@/config/system';
 import { GlobalTool } from '../tool';
+import Cookies from 'js-cookie';
 // 服务器配置
 const serverConfig = config.apiServer;
 // 频繁请求处理
@@ -213,9 +214,10 @@ $axios.interceptors.request.use(
       value.baseURL = '';
     }
 
+    const token = Cookies.get('token');
     const vue = $axios.$vue;
-    if (vue && vue.$store.state && vue.$store.state && vue.$store.state.jwt) {
-      value.headers.Authorization = `Bearer ${vue.$store.state.jwt}`;
+    if (token || vue && vue.$store.state && vue.$store.state && vue.$store.state.jwt) {
+      value.headers.Authorization = `Bearer ${token || vue.$store.state.jwt}`;
     }
 
     return value;

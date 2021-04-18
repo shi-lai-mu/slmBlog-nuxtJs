@@ -181,6 +181,13 @@ export namespace Article {
      * 子评论数据
      */
     subComment?: Request.ListTotal<Comment>;
+    /**
+     * 当前用户点赞状态
+     * 1： 赞
+     * 2： 踩
+     * 0： 未进行操作
+     */
+    likeStatus?: number;
   }
 
   /**
@@ -217,5 +224,21 @@ export namespace Article {
      * 子锚点
      */
     childs?: Anchor[];
+  }
+
+  /**
+   * 踩/赞 行为状态
+   */
+  export interface LinkState {
+    state: {
+      /**
+       * 踩 点亮
+       */
+      criticism: 0 | 1;
+      /**
+       * 赞 点亮
+       */
+      praise: 0 | 1;
+    };
   }
 }

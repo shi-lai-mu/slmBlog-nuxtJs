@@ -40,7 +40,7 @@
               <UpperLowerArticle :articleId="articleData.id" />
             </div>
           </div>
-          <ArticleReplyList :ssr="comment" :articleId="articleData.id"/>
+          <ArticleReplyList :ssr="ssr.comment" :articleId="articleData.id"/>
         </a-col>
         <a-col
           class="article-page__sideber"
@@ -60,7 +60,6 @@
 import { Affix, Tooltip } from 'ant-design-vue';
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 
-import { Request } from '@/interface/request';
 import { articleBase } from '@/mock/article/data/index';
 import { getPostsData } from '@/core/service/data/article';
 import { RequestConst } from '@/core/constants/request';
@@ -131,10 +130,6 @@ export default class ArticleContent extends Vue {
    * 分享配置
    */
   sharingConfig = sharingConfig;
-  /**
-   * 评论列表
-   */
-  comment: Request.ListTotal<IntefArticle.Comment>;
 
   created() {
     this.ssrUpdate(this.articleId || this.ssr || articleBase);
@@ -180,7 +175,6 @@ export default class ArticleContent extends Vue {
    * 设置渲染属性
    */
   setRenderData(data: IntefArticle.Posts) {
-    console.log({data, ssr: this.ssr});
     if (Object.keys(data).length === 0 || !data.comment) {
       return this.$router.push({
         name: 'article-error',
@@ -190,9 +184,6 @@ export default class ArticleContent extends Vue {
       })
     }
     this.articleData = Object.assign(articleBase, data.article);
-    if (data.comment) {
-      this.comment = data.comment;
-    }
     // this.articleData = data.article;
     this.$nextTick(() => {
       const { articleContent, articleAnchor } = this.$refs;

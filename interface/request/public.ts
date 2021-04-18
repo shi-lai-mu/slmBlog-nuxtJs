@@ -24,3 +24,14 @@ export interface UploadImagerBase {
    */
   url: string;
 }
+
+
+/**
+ * 请求响应时出错
+ */
+export interface ResError {
+  /**
+   * 出错内容
+   */
+  message?: string;
+}

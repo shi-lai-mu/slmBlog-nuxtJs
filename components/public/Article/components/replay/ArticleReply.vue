@@ -19,20 +19,21 @@
           <div class="comment-content" v-html="item.content"></div>
           <div class="tool">
             <time class="comment-metadata">{{ $tool.format.isoToDateTime(item.updateTime) }}</time>
-            <a-button type="link" size="small" @click="submitReplyBehaviorGood(item, 1)">
-              <i class="slm blog-like"></i>
-              <span>123</span>
+            <a-button type="link" size="small" @click="submitReplyBehaviorGood(articleId, 1, item)">
+              <i :class="['slm', 'blog-like', { 'icon-clicks': item.likeStatus === 1 }]"></i>
+              <span v-text="item.loveNum"></span>
             </a-button>
-            <a-button type="link" size="small" @click="submitReplyBehaviorGood(item, 2)">
-              <i class="slm blog-tread"></i>
-              <span>567</span>
+            <a-button type="link" size="small" @click="submitReplyBehaviorGood(articleId, 2, item)">
+              <i :class="['slm', 'blog-tread', { 'icon-clicks': item.likeStatus === 2 }]"></i>
+              <span v-text="item.criticismNum"></span>
             </a-button>
             <a-button @click="appendReply(item, key)" type="link" size="small">{{replyStore[item.id] !== undefined ? '收起' : '回复'}}</a-button>
           </div>
         </div>
       </div>
-      <div class="subcomment" v-if="item.subComment">
+      <div class="subcomment">
         <ArticleSubReply
+          v-if="item.subComment.list.length"
           :ssr="item.subComment"
           :parentId="item.id"
           :articleId="articleId"
@@ -47,6 +48,10 @@
           />
         </div>
       </div>
+    </div>
+
+    <div v-if="!ssr || !ssr.list || !ssr.list.length" class="not-replay">
+      {{ ssr.message || '暂无评论哇~快来占个位呗!' }}
     </div>
   </div>
 </template>
@@ -107,10 +112,15 @@ export default class ArticleReply extends Vue {
   appendReply(item: Article.Base, key: number) {
     this.replyStore[item.id] = this.replyStore[item.id] !== undefined ? undefined : null;
     this.$forceUpdate();
-    this.$refs.replyAdd[key].scrollIntoView({
-      behavior: "smooth",
-      block: 'center',
-    });
+    this.$nextTick(() => {
+      const { replyAdd } = this.$refs;
+      if (replyAdd) {
+        replyAdd[key].scrollIntoView({
+          behavior: "smooth",
+          block: 'center',
+        });
+      }
+    })
   }
 
 
@@ -142,4 +152,15 @@ export default class ArticleReply extends Vue {
 
 <style lang="scss" scoped>
 @import '../styles/articleReply.scss';
+.not-replay {
+  display: flex;
+  width: 100%;
+  height: 100px;
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+  color: var(--c-text-placeholder);
+  border: 1px dashed var(--c-border-primary);
+  border-radius: 5px;
+}
 </style>

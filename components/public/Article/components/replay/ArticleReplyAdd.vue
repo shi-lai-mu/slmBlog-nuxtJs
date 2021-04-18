@@ -11,7 +11,7 @@
       :pasteTextHandle="pasteTextHandle"
       v-model="content"
     />
-    <a-row class="reply-user-inputs" type="flex" justify="space-between" v-if="!jwt">
+    <a-row class="reply-user-inputs" type="flex" justify="space-between" v-if="!user.email">
       <a-col :lg="{ span: 7 }" :xs="{ span: 24 }" :span="1">
         <a-input placeholder="昵称 (必填)" v-model="nickname" />
       </a-col>
@@ -52,6 +52,7 @@ import { EmoteConfig } from '@/interface/config';
 import { submitArticleReplayDto } from '@/core/dto/article';
 import { submitArticleReplay } from '@/core/service/data/article';
 
+import { User } from '~/interface/request/user';
 import Editor from '@/components/public/Editor.vue';
 
 /**
@@ -86,7 +87,7 @@ export default class ArticleReplyAdd extends Vue {
   @Prop(Number) parentId?: number;
 
   @State
-  jwt: string;
+  user: User.Base;
   /**
    * 昵称
    */
@@ -116,7 +117,7 @@ export default class ArticleReplyAdd extends Vue {
    * 提交评论方法
    */
   async submit() {
-    const { articleId, content, nickname, email, link, parentId } = this;
+    let { articleId, content, nickname, email, link, parentId } = this;
     let submitData: submitArticleReplayDto = {
       content,
     };
@@ -124,19 +125,22 @@ export default class ArticleReplyAdd extends Vue {
 
     // 非登录用户 检测与数据插入
     if (!nickname || !email) {
-      if (!this.jwt) {
+      const { user } = this;
+      if (!email && !user) {
         this.loading = false;
         return this.$message.error('非登录用户必须填写 昵称 和 邮箱 才能评论!');
+      } else if (user) {
+        nickname = user.nickname;
+        email = user.email;
       }
-    } else {
-      submitData = {
-        content,
-        nickname,
-        email,
-        link,
-      };
     }
 
+    submitData = {
+      content,
+      nickname,
+      email,
+      link,
+    };
 
     // 父级评论绑定
     if (parentId) submitData.parentId = parentId;

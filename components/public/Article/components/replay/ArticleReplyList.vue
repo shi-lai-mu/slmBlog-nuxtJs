@@ -1,20 +1,17 @@
 <template>
   <ComRow class="article-reply__container row-box" title="发表评论" tooltip="说点什么吧!" hideTabBorder>
     <ArticleReplyAdd editor-id="articleReplayList" :articleId="articleId" @replaySuccess="replaySuccess"/>
-    <template v-if="ssr.total || loading">
-      <ComRow v-if="ssr.total" class="reply-list" :title="`评论 (${commentList.total})`" hideTabBorder hideRowBox>
+    <template v-if="(ssr.total || !loading) && ssr.list">
+      <ComRow class="reply-list" :title="`评论 (${commentList.total})`" hideTabBorder hideRowBox>
         <ArticleReply ref="ArticleReply" :ssr="commentList" :articleId="articleId" />
       </ComRow>
-      <div v-else class="not-replay">
-        暂无评论哇~快来占个位呗!
-      </div>
     </template>
-    <div class="tips" v-if="commentList.list && commentList.list.length >= commentList.total">
+    <div class="tips" v-if="ssr.total && commentList.list && commentList.list.length >= commentList.total">
       已经全部加载完啦!
     </div>
-    <div class="loading-box" v-show="loading">
+    <div class="loading-box" v-show="loading || ssr.total === undefined">
       <i slot="indicator" class="slm blog-loading"></i>
-      <span>加载中...</span>
+      <span>评论加载中...</span>
     </div>
   </ComRow>
 </template>
@@ -62,6 +59,10 @@ export default class ArticleReplyList extends Vue {
    * 回复列表
    */
   commentList!: Request.ListTotal<Article.Comment>;
+  /**
+   * 加载完成状态
+   */
+  loadEnd: boolean = false;
 
   @Watch('ssr')
   ssrChanged(ssr: Request.ListTotal<Article.Comment>) {
@@ -88,13 +89,15 @@ export default class ArticleReplyList extends Vue {
    */
   async scrollBottomEvent() {
     const { total, list, page } = this.commentList;
-    if (list.length >= total) return false;
+    if (list?.length >= total || this.loadEnd || !total) return false;
     if (!this.loading) {
       this.loading = true;
-      const { success, result } = await getCommentList(this.articleId, page + 1, this.pageSize);
-      if (success) {
+      const { success, result } = await getCommentList(this.articleId, (page || 0) + 1, this.pageSize);
+      if (success && list) {
         list.push(...result.list);
         this.commentList.page = result.page;
+      } else {
+        this.loadEnd = true;
       }
       this.loading = false;
     }
@@ -115,18 +118,6 @@ export default class ArticleReplyList extends Vue {
 <style lang="scss" scoped>
   .reply-list {
     margin-top: 50px;
-  }
-
-  .not-replay {
-    display: flex;
-    width: 100%;
-    height: 200px;
-    margin-top: 20px;
-    justify-content: center;
-    align-items: center;
-    color: var(--c-text-placeholder);
-    border: 1px dashed var(--c-border-primary);
-    border-radius: 5px;
   }
 
   .tips {

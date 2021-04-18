@@ -27,6 +27,7 @@ const api = {
     profile:       'get.  /article/profile/list',                           // 获取文章简洁信息
     submitReplay:  'post. /article/comment/:articleId',                     // 发表评论
     commentList:   'get.  /article/comment/:articleId/:page/:pageSize',     // 获取评论列表
+    goodBehavior:  'post. /article/behavior/good',                          // 提交[点赞/点踩]行为
   },
   // 通知类
   notify: {

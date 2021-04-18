@@ -23,19 +23,19 @@
             </div>
             <div class="tool">
               <time class="comment-metadata">{{ $tool.format.isoToDateTime(item.updateTime) }}</time>
-              <a-button type="link" size="small" @click="submitReplyBehaviorGood(item, 1)">
-                <i class="slm blog-like"></i>
-                <span>123</span>
+              <a-button type="link" size="small" @click="submitReplyBehaviorGood(articleId, 1, item)">
+                <i :class="['slm', 'blog-like', { 'icon-clicks': item.likeStatus === 1 }]"></i>
+                <span v-text="item.loveNum"></span>
               </a-button>
-              <a-button type="link" size="small" @click="submitReplyBehaviorGood(item, 2)">
-                <i class="slm blog-tread"></i>
-                <span>567</span>
+              <a-button type="link" size="small" @click="submitReplyBehaviorGood(articleId, 2, item)">
+                <i :class="['slm', 'blog-tread', { 'icon-clicks': item.likeStatus === 2 }]"></i>
+                <span v-text="item.criticismNum"></span>
               </a-button>
               <a-button @click="appendReply(item)" type="link" size="small">{{replyStore[item.id] !== undefined ? '收起' : '回复'}}</a-button>
               <ArticleReplyAdd
                 v-if="replyStore[item.id] !== undefined"
                 :editor-id="`articleReplayComment_${item.id}`"
-                :parentId="item.id"
+                :parentId="parentId"
                 :articleId="articleId"
                 @replaySuccess="res => replaySuccess(res, key)"
               />
@@ -44,8 +44,6 @@
         </div>
       </div>
     </a-spin>
-    共13条回复, 点击查看
-    v-if="{{ssr.page}} * {{ssr.pageSize}}  {{ssr.total}}"
     <a-pagination
       v-if="ssr.page * ssr.pageSize < ssr.total"
       v-model="current"
@@ -74,6 +72,7 @@ import { Article } from '@/interface/request/article';
 import ComRow from '@/components/public/Row.vue';
 import ArticleReplyAdd from './ArticleReplyAdd.vue';
 import UserCard from '@/components/public/UserCard.vue';
+import ArticleReplyMixins from './ArticleReplyMixins.vue';
 
 
 /**
@@ -94,6 +93,7 @@ import UserCard from '@/components/public/UserCard.vue';
     APagination: Pagination,
     ATextArea: Input.TextArea,
   },
+  mixins: [ ArticleReplyMixins ],
 })
 export default class ArticleSubReply extends Vue {
   /**
@@ -210,10 +210,5 @@ export default class ArticleSubReply extends Vue {
 .ant-spin-nested-loading {
   overflow: hidden;
   border-radius: 5px;
-}
-
-.subcomment {
-  margin-top: 10px;
-  margin-left: 50px;
 }
 </style>

@@ -105,7 +105,6 @@ export default class DefaultLayout extends Vue {
 
   async mounted() {
     const { $http, $refs, $nuxt, $store, $observer } = this;
-
     const token = $cookie.get('token');
     let userConfig;
 

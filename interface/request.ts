@@ -1,3 +1,5 @@
+import { ResError } from "./request/public";
+
 /**
  * 请求
  */
@@ -74,7 +76,7 @@ export namespace Request {
   /**
    * 列表
    */
-  export interface ListTotal<T> {
+  export interface ListTotal<T> extends ResError {
     /**
      * 列表
      */
