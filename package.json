@@ -4,6 +4,7 @@
   "description": "Nuxt Typescript SlmBlog",
   "author": "ShiLaiMu <qq: 47889187/wechat: shi_lai_mu>",
   "private": false,
+  "license": "ISC",
   "scripts": {
     "dev": "npm run themes && nuxt-ts --port=8888 --name='开发环境'",
     "build": "npm run themes && nuxt-ts build --analyze",
