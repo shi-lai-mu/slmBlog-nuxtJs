@@ -13,25 +13,30 @@ export const getArticleList = (
   page: number = 1,
   count: number = 10,
   isSimple: boolean = false,
-) => axios.send(axios.article.list, {
-  params: {
-    filterMode,
-    page,
-    count,
-    isSimple,
-  }
-}) as Promise<Request.ResultList<Article.Base>>;
+) => axios
+  .send<Request.ResultList<Article.Base>>(
+    axios.article.list, {
+      params: {
+        filterMode,
+        page,
+        count,
+        isSimple,
+      },
+    },
+  )
+;
 
 
 /**
  * 获取文章内容
  */
-export const getPostsData = (data: Article.Base['id'] | Article.Base) => axios.send(axios.article.data, {
-  params: {
-    articleId: typeof data === 'object' ? data.id : data,
-  }
-})
-  .then((res: Request.Result<Article.Posts>) => {
+export const getPostsData = (data: Article.Base['id'] | Article.Base) => axios.send<Request.Result<Article.Posts>>(
+  axios.article.data, {
+    params: {
+      articleId: typeof data === 'object' ? data.id : data,
+    }
+  })
+  .then(res => {
     if (res.success) {
       if (res.result.comment) {
         res.result.comment.list = res.result.comment?.list.map(comment => {
@@ -48,7 +53,7 @@ export const getPostsData = (data: Article.Base['id'] | Article.Base) => axios.s
       }
     }
     return res;
-  }) as Promise<Request.Result<Article.Posts>>
+  })
 ;
 
 
@@ -56,30 +61,41 @@ export const getPostsData = (data: Article.Base['id'] | Article.Base) => axios.s
  * 提交文章
  * @param article 文章数据
  */
-export const submitPost = (article: SubmitArticleDto) => axios.send(axios.article.submit, {
-  data: article,
-}) as Promise<Request.Result<Article.Base>>;
+export const submitPost = (article: SubmitArticleDto) => axios
+  .send<Request.Result<Article.Base>>(
+      axios.article.submit, {
+      data: article,
+    },
+  )
+;
 
 
 /**
  * 获取上下篇文章
  */
-export const getProfile = (articleId: string) => axios.send(axios.article.profile, {
-  data: {
-    ids: articleId,
-  },
-}) as Promise<Request.Result<Array<null | Article.Base> | ''>>;
+export const getProfile = (articleId: string) => axios
+  .send<Request.Result<Array<null | Article.Base> | ''>>(
+    axios.article.profile, {
+    data: {
+      ids: articleId,
+    },
+  })
+;
 
 
 /**
  * 提交文章评论
  */
-export const submitArticleReplay = (articleId: number, comment: submitArticleReplayDto) => axios.send(axios.article.submitReplay, {
-  params: {
-    articleId,
-  },
-  data: comment,
-}) as Promise<Request.Result<Article.Comment>>;
+export const submitArticleReplay = (articleId: number, comment: submitArticleReplayDto) => axios
+  .send<Request.Result<Article.Comment>>(
+    axios.article.submitReplay, {
+      params: {
+        articleId,
+      },
+      data: comment,
+    },
+  )
+;
 
 
 /**
@@ -88,7 +104,8 @@ export const submitArticleReplay = (articleId: number, comment: submitArticleRep
  * @param page      页数
  * @param pageSize  每页个数
  */
-export const getCommentList = (articleId: number, page: number = 1, pageSize: number = 10) => axios.send(
+export const getCommentList = (articleId: number, page: number = 1, pageSize: number = 10) => axios
+  .send<Request.Result<Request.ListTotal<Article.Comment>>>(
     axios.article.commentList,
     {
       params: {
@@ -98,7 +115,7 @@ export const getCommentList = (articleId: number, page: number = 1, pageSize: nu
       },
     },
   )
-  .then((res: Request.Result<Request.ListTotal<Article.Comment>>) => {
+  .then(res => {
     if (res.success) {
       res.result.list = res.result.list.map(comment => {
         comment.subComment = comment.subComment || {
@@ -111,7 +128,7 @@ export const getCommentList = (articleId: number, page: number = 1, pageSize: nu
       })
     }
     return res;
-  }) as Promise<Request.Result<Request.ListTotal<Article.Comment>>>
+  })
 ;
 
 
@@ -121,7 +138,8 @@ export const getCommentList = (articleId: number, page: number = 1, pageSize: nu
  * @param loveType  踩赞状态 (1: 赞， 2: 踩)
  * @param targetId  目标Id (如 文章ID/评论ID)
  */
-export const submitReplyBehavior = (articleId: number, loveType: 1 | 2, targetId?: number) => axios.send(
+export const submitReplyBehavior = (articleId: number, loveType: 1 | 2, targetId?: number) => axios
+  .send<Request.Result<Article.LinkState>>(
     axios.article.goodBehavior,
     {
       data: {
@@ -131,5 +149,5 @@ export const submitReplyBehavior = (articleId: number, loveType: 1 | 2, targetId
         loveType,
       },
     },
-  ) as Promise<Request.Result<Article.LinkState>>
+  )
 ;

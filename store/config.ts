@@ -9,7 +9,7 @@ import {
   color as ThemesConfigColor,
   backgroundColor as ThemesBackgroundColor,
   fontSize as ThemesFontSize,
-  themesdefaultConfig,
+  themesDefaultConfig,
 } from '@/config/themes';
 import { webSetting, WebSettingService, _WEB_CONFIG_VERSION_ } from '@/config/websetting';
 
@@ -27,7 +27,7 @@ export const stateData = {
     /**
      * 主题设置
      */
-    theme: themesdefaultConfig,
+    theme: themesDefaultConfig,
     /**
      * 网站设置
      */
@@ -39,7 +39,7 @@ export const stateData = {
       /**
        * 主题配置
        */
-      theme: themesdefaultConfig,
+      theme: themesDefaultConfig,
     }
   },
   /**

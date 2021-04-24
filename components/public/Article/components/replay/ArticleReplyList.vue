@@ -1,15 +1,23 @@
 <template>
-  <ComRow class="article-reply__container row-box" title="发表评论" tooltip="说点什么吧!" hideTabBorder>
+  <ComRow
+    v-if="commentList"
+    class="article-reply__container row-box"
+    title="发表评论"
+    tooltip="说点什么吧!"
+    hideTabBorder
+  >
     <ArticleReplyAdd editor-id="articleReplayList" :articleId="articleId" @replaySuccess="replaySuccess"/>
-    <template v-if="(ssr.total || !loading) && ssr.list">
+    <template v-if="((commentList.total) || !loading) && commentList.list">
       <ComRow class="reply-list" :title="`评论 (${commentList.total})`" hideTabBorder hideRowBox>
         <ArticleReply ref="ArticleReply" :ssr="commentList" :articleId="articleId" />
       </ComRow>
     </template>
-    <div class="tips" v-if="ssr.total && commentList.list && commentList.list.length >= commentList.total">
-      已经全部加载完啦!
-    </div>
-    <div class="loading-box" v-show="loading || ssr.total === undefined">
+    <template v-else>
+      <div class="tips" v-if="!loading && commentList.list.length >= commentList.total">
+        已经全部加载完啦!
+      </div>
+    </template>
+    <div class="loading-box" v-show="loading || commentList.total === undefined">
       <i slot="indicator" class="slm blog-loading"></i>
       <span>评论加载中...</span>
     </div>
@@ -27,11 +35,12 @@ import ComRow from '@/components/public/Row.vue';
 import ArticleReplyAdd from './ArticleReplyAdd.vue';
 import { getCommentList } from '@/core/service/data/article';
 
+const defaultPageSize = 10;
+
 /**
  * 评论列表组件
  */
 @Component({
-  name: 'ArticleReplyList',
   components: {
     ComRow,
     ArticleReply,
@@ -54,11 +63,16 @@ export default class ArticleReplyList extends Vue {
   /**
    * 加载状态
    */
-  loading: boolean = true;
+  loading: boolean = false;
   /**
    * 回复列表
    */
-  commentList!: Request.ListTotal<Article.Comment>;
+  commentList: Request.ListTotal<Article.Comment> = {
+    list: [],
+    total: 0,
+    pageSize: defaultPageSize,
+    page: 0,
+  };
   /**
    * 加载完成状态
    */
@@ -71,10 +85,12 @@ export default class ArticleReplyList extends Vue {
   }
 
   created() {
-    const { ssr } = this;
+    const { ssr, articleId } = this;
     if (ssr) {
       this.commentList = ssr;
       this.loading = false;
+    } else if (articleId) {
+      this.fetchData();
     }
     this.$observer.on('scrollBottom', this.scrollBottomEvent);
   }
@@ -87,20 +103,39 @@ export default class ArticleReplyList extends Vue {
   /**
    * 滚动到底部事件
    */
-  async scrollBottomEvent() {
-    const { total, list, page } = this.commentList;
+  scrollBottomEvent() {
+    if (!this.commentList) return;
+    const { total, list } = this.commentList;
     if (list?.length >= total || this.loadEnd || !total) return false;
-    if (!this.loading) {
-      this.loading = true;
-      const { success, result } = await getCommentList(this.articleId, (page || 0) + 1, this.pageSize);
-      if (success && list) {
-        list.push(...result.list);
-        this.commentList.page = result.page;
-      } else {
-        this.loadEnd = true;
-      }
-      this.loading = false;
+    this.fetchData();
+  }
+
+
+  /**
+   * 获取评论数据方法
+   */
+  async fetchData() {
+    const { articleId, commentList } = this;
+    if (this.loading || !articleId) {
+      return;
     }
+
+    this.loading = true;
+    const { page } = commentList;
+    const { success, result } = await getCommentList(
+      articleId,
+      (page ?? 0) + 1,
+      this.pageSize ?? defaultPageSize,
+    );
+
+    if (success) {
+      commentList.list.push(...result.list);
+      commentList.page = result.page;
+      commentList.total = result.total;
+    } else {
+      this.loadEnd = true;
+    }
+    this.loading = false;
   }
 
   

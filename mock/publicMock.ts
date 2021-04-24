@@ -3,7 +3,7 @@ import { Random } from '@/mock/mock';
 /**
  * 经过上传组件处理的图片基础数据
  */
-export const uploadImagerBase = {
+export const uploadImageBase = {
   /**
    * 图片格式
    */
@@ -23,7 +23,7 @@ export const uploadImagerBase = {
   /**
    * 图片URL
    */
-  url: Random.image('200x100', '@ccc', 'cover uploadImagerBase'),
+  url: Random.image('200x100', '@ccc', 'cover uploadImageBase'),
 }
 
 

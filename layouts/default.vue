@@ -120,6 +120,9 @@ export default class DefaultLayout extends Vue {
         userConfig = res.result.config;
       }
     }
+
+    // 返回首页时底部始终显示
+    this.layoutFooter = true;
     
     this.setWebOptions(userConfig);
 

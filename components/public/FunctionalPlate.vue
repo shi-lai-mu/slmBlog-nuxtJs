@@ -55,7 +55,7 @@ export default class PublicFunctionalPlateComponent extends Vue {
     }
 
     .functional-plate__body {
-      padding: 15px;
+      padding: 0 15px 15px;
 
       .functional-plate__loading {
         text-align: center;

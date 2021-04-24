@@ -6,7 +6,7 @@
       @click="openView(article.id)" :style="style"
     >
       <template v-if="!isOpen">
-        <Imager
+        <Images
           class="figure-cover"
           v-if="article.banner"
           :src="article.banner"
@@ -44,7 +44,7 @@ import { articleBase } from '@/mock/article/data/index';
 import { Article as IntefArticle } from '@/interface/request/article';
 import { getPostsData } from '@/core/service/data/article';
 
-import Imager from '@/components/public/Imager.vue';
+import Images from '~/components/public/Images.vue';
 import ArticleContent from '@/components/public/Article/Contents.vue';
 import ArticleCardSkeleton from '@/components/skeleton/article/cardSkeleton.vue';
 
@@ -53,7 +53,7 @@ import ArticleCardSkeleton from '@/components/skeleton/article/cardSkeleton.vue'
  */
 @Component({
   components: {
-    Imager,
+    Images,
     ArticleContent,
     ArticleCardSkeleton,
   }

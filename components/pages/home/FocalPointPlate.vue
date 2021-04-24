@@ -2,7 +2,7 @@
   <FunctionalPlate title="焦点推荐">
     <template v-if="renderList.top || renderList.children">
       <router-link class="plate-first-place__row" :to="$config.router.to('article', { id: renderList.top.id })" v-if="renderList.top">
-        <Imager class="plate-first-place__img" :src="renderList.top.banner"/>
+        <Images class="plate-first-place__img" :src="renderList.top.banner"/>
         <p class="plate-first-place__title line-ellipsis">{{ renderList.top.subject }}</p>
       </router-link>
       <div class="plate-list-place">
@@ -31,11 +31,11 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator';
 
+import Images from '@/components/public/Images.vue';
+import FunctionalPlate from '@/components/public/FunctionalPlate.vue';
+
 import { GlobalTool } from '@/utils/tool';
 import { Article } from '@/interface/request/article';
-
-import Imager from '@/components/public/Imager.vue';
-import FunctionalPlate from '@/components/public/FunctionalPlate.vue';
 
 /**
  * 焦点板块 组件
@@ -43,16 +43,14 @@ import FunctionalPlate from '@/components/public/FunctionalPlate.vue';
 @Component({
   name: 'FocalPointPlate',
   components: {
+    Images,
     FunctionalPlate,
-    Imager,
   },
 })
 export default class FocalPointPlate extends Vue {
   @Prop(Array) ssr?: Article.Base[];
 
-  /**
-   * 渲染列表
-   */
+  /** 渲染列表 */
   renderList: any = {};
 
   created() {
@@ -102,6 +100,7 @@ export default class FocalPointPlate extends Vue {
     }
   }
 }
+
 .plate-list-place {
   padding: 10px 0;
   .plate-list-opt__link {

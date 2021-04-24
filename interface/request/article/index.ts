@@ -1,5 +1,5 @@
 import { User } from '@/interface/request/user';
-import { UploadImagerBase } from '@/interface/request/public';
+import { UploadImageBase } from '@/interface/request/public';
 import { Request } from '@/interface/request';
 
 export namespace Article {
@@ -52,7 +52,7 @@ export namespace Article {
     /**
      * 预览图
      */
-    image_list: UploadImagerBase[];
+    image_list: UploadImageBase[];
     /**
      * 统计
      */
@@ -104,6 +104,10 @@ export namespace Article {
      * 发布时间
      */
     release_time: string;
+    /**
+     * 文章字数
+     */
+    contentSize?: number;
   };
 
   /**

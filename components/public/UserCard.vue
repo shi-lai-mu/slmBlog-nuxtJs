@@ -4,7 +4,7 @@
     <template v-if="userData && userData.id">
       <!-- 背景图 -->
       <div class="user-cover" :style="`background-image: url(${$config.ossLink}/user/card-bg-cover.jpg);`">
-        <Imager class="user-avatar" v-if="userData.avatarUrl" :src="userData.avatarUrl" :alt="userData.nickname" :title="userData.nickname" />
+        <Images class="user-avatar" v-if="userData.avatarUrl" :src="userData.avatarUrl" :alt="userData.nickname" :title="userData.nickname" />
         <i class="slm blog-img-err user-avatar" v-else></i>
       </div>
 
@@ -61,7 +61,7 @@ import { User } from '@/interface/request/user';
 import { userData } from '@/mock/user/data/user';
 import { getUserBaseData } from '@/core/service/data/user';
 
-import Imager from '@/components/public/Imager.vue';
+import Images from '~/components/public/Images.vue';
 import UserCardSkeleton from '@/components/skeleton/pubCom/userCardSkeleton.vue';
 
 /**
@@ -72,7 +72,7 @@ import UserCardSkeleton from '@/components/skeleton/pubCom/userCardSkeleton.vue'
   name: 'UserCard',
   components: {
     UserCardSkeleton,
-    Imager,
+    Images,
   },
 })
 export default class UserCard extends Vue {

@@ -14,7 +14,7 @@ import { Component, Vue, Prop }   from 'nuxt-property-decorator';
  * - widthFix:	缩放模式，宽度不变，高度自动变化，保持原图宽高比不变
  */
 @Component
-export default class Imager extends Vue {
+export default class Images extends Vue {
   @Prop(String) src?: string;
   @Prop(String) alt?: string;
   @Prop(String) title?: string;

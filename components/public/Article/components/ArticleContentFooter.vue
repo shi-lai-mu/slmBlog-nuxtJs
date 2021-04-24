@@ -9,7 +9,7 @@
         <tooltip>
           <span slot="title">除特殊说明外本站文章皆由CC-4.0协议发布，转载请注明出处。</span>
           <p class="copyright-p">© 本站原创文章</p>
-          <p class="copyright-p">由{{articleData.author.nickname}}{{$tool.format.isoToDateTime(articleData.createTime, 'yyyy-MM-dd')}}发表，共计{{articleData.content.length}}字</p>
+          <p class="copyright-p">由{{articleData.author.nickname}}{{$tool.format.isoToDateTime(articleData.createTime, 'yy-MM-dd')}}发表，共计{{articleData.contentSize}}字</p>
         </tooltip>
       </span>
     </div>

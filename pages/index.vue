@@ -53,20 +53,20 @@ import FocalPointPlate from '@/components/pages/home/FocalPointPlate.vue';
   },
 })
 export default class HomePage extends Vue {
-  // 文章页数
+  /** 文章页数 */
   articlePage = 1;
 
   async asyncData() {
     return {
       userData: (await getUserBaseData(1)).result || {},          // 获取用户信息
       articleLatest: (await getArticleList()).result?.list || [], // 获取最新文章
-      recommendedArticle: (await getArticleList('recommend', 1, 6)).result?.list || [],
+      recommendedArticle: (await getArticleList('recommend', 1, 5)).result?.list || [],
     };
   }
 }
 </script>
 
-<style  lang="scss" scoped>
+<style lang="scss" scoped>
 $blockSpacingX: 20px; // 版块间距 横轴
 $blockSpacingY: 15px; // 版块间距 纵轴
 

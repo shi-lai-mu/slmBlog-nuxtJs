@@ -1,6 +1,6 @@
 <template>
   <li :class="[ 'slm', 'blog-account', { 'avatar-box': user.avatarUrl }, $store.state.themes.mainBColor ]" @click="avatarClick">
-    <Imager class="avatar" v-if="user.avatarUrl" :src="user.avatarUrl" />
+    <Images class="avatar" v-if="user.avatarUrl" :src="user.avatarUrl" />
     <template v-if="!isMobile">
       <ul class="account-munt" v-if="!jwt">
         <li
@@ -22,7 +22,7 @@
 <script lang="ts">
 import { Vue, Component, State, Watch } from 'nuxt-property-decorator';
 
-import Imager from '@/components/public/Imager.vue';
+import Images from '~/components/public/Images.vue';
 
 import { Router } from '@/interface/router';
 import { User } from '@/interface/request/user';
@@ -33,7 +33,7 @@ import { User } from '@/interface/request/user';
  */
 @Component({
   components: {
-    Imager,
+    Images,
   },
 })
 export default class HeaderAccount extends Vue {

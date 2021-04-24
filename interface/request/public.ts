@@ -2,7 +2,7 @@
 /**
  * 经过上传组件处理的图片基础数据
  */
-export interface UploadImagerBase {
+export interface UploadImageBase {
   /**
    * 图片格式
    */

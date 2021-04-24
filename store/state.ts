@@ -1,4 +1,4 @@
-import { themesdefaultConfig } from '@/config/themes';
+import { themesDefaultConfig } from '@/config/themes';
 import { webSetting, _WEB_CONFIG_VERSION_ } from '@/config/websetting';
 
 export const state = {
@@ -12,7 +12,7 @@ export const state = {
     setting: {
         version: _WEB_CONFIG_VERSION_,
         // 主题设置
-        theme: themesdefaultConfig,
+        theme: themesDefaultConfig,
         // 网站设置
         web: webSetting,
     },

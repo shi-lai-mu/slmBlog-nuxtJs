@@ -40,7 +40,7 @@
               <UpperLowerArticle :articleId="articleData.id" />
             </div>
           </div>
-          <ArticleReplyList :ssr="ssr.comment" :articleId="articleData.id"/>
+          <ArticleReplyList :articleId="articleData.id"/>
         </a-col>
         <a-col
           class="article-page__sideber"
@@ -63,11 +63,10 @@ import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 import { articleBase } from '@/mock/article/data/index';
 import { getPostsData } from '@/core/service/data/article';
 import { RequestConst } from '@/core/constants/request';
-import { Article as IntefArticle } from '@/interface/request/article';
+import { Article as InterArticle } from '@/interface/request/article';
 
 import Row from '@/components/public/Row.vue';
 import sharingConfig from './config/sharing.config';
-import Imager from '@/components/public/Imager.vue';
 import UserCard from '@/components/public/UserCard.vue';
 import UpperLowerArticle from './components/UpperLowerArticle.vue';
 import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue';
@@ -84,7 +83,6 @@ import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleto
   name: 'ArticleContent',
   components: {
     Row,
-    Imager,
     Tooltip,
     UserCard,
     LayoutFooter,
@@ -105,7 +103,7 @@ export default class ArticleContent extends Vue {
   /**
    * 传入的列表数据 SSR
    */
-  @Prop(Object) ssr?: IntefArticle.Base | IntefArticle.Posts;
+  @Prop(Object) ssr?: InterArticle.Base;
   /**
    * 初始化骨架屏
    */
@@ -117,7 +115,7 @@ export default class ArticleContent extends Vue {
   /**
    * 文章数据
    */
-  articleData?: IntefArticle.Base = articleBase;
+  articleData?: InterArticle.Base = articleBase;
   /**
    * 是否禁用骨架屏
    */
@@ -145,7 +143,7 @@ export default class ArticleContent extends Vue {
    * 文章ID更新
    */
   @Watch('articleId')
-  changArticleId(data: IntefArticle.Base['id']) {
+  changArticleId(data: InterArticle.Base['id']) {
     getPostsData(data)
       .then(data => {
         if (data.result) this.setRenderData(data.result[0]);
@@ -156,39 +154,39 @@ export default class ArticleContent extends Vue {
 
 
   @Watch('ssr')
-  async ssrUpdate(data: IntefArticle.Base | IntefArticle.Posts | number) {
-    const { id } = data as IntefArticle.Base || { id: 0 };
+  async ssrUpdate(data: InterArticle.Base | InterArticle.Posts | number) {
+    console.log({data});
+    
     // 如果对骨架屏进行了初始化则先显示骨架屏进行交互
     if (!this.initSkeleton) this.toggleTransition = true;
-
-    if (id || typeof data === 'number') {
-      const res = await getPostsData(data as IntefArticle.Base | number);
+    if (typeof data === 'number') {
+      const res = await getPostsData(data as InterArticle.Base | number);
       if (res.code === RequestConst.SUCCESS_CODE) {
         data = res.result;
       }
     }
-    this.setRenderData(data as IntefArticle.Posts);
+    this.setRenderData(data as InterArticle.Posts);
   }
 
 
   /**
    * 设置渲染属性
    */
-  setRenderData(data: IntefArticle.Posts) {
-    if (Object.keys(data).length === 0 || !data.comment) {
+  setRenderData(data: InterArticle.Posts) {
+    if (Object.keys(data).length === 0) {
       return this.$router.push({
         name: 'article-error',
         query: {
           message: '文章',
-        }
-      })
+        },
+      });
     }
-    this.articleData = Object.assign(articleBase, data.article);
-    // this.articleData = data.article;
+    this.articleData = Object.assign(articleBase, data);
     this.$nextTick(() => {
       const { articleContent, articleAnchor } = this.$refs;
       if (articleAnchor) {
         (articleAnchor as ArticleAnchor).parseAnchor(articleContent as Element);
+        this.articleData.contentSize = (<HTMLElement>articleContent).innerText.length;
       }
     });
     this.toggleTransition = true;
@@ -232,8 +230,8 @@ export default class ArticleContent extends Vue {
     }
   }
 }
-.is-page-mode {
+// .is-page-mode {
   // overflow: visible;
   // height: auto;
-}
+// }
 </style>

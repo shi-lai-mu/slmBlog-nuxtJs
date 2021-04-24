@@ -59,7 +59,6 @@ import { SubmitArticleDto } from '@/core/dto/article';
 import { submitPost } from '@/core/service/data/article';
 
 import Row from '@/components/public/Row.vue';
-import Imager from '@/components/public/Imager.vue';
 import EditorComponents from '@/components/public/Editor.vue';
 import ArticleSetting from '@/components/public/Article/Setting.vue';
 import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue';
@@ -76,7 +75,6 @@ import { axiosError } from '@/config/error';
   name: 'ArticleEditor',
   components: {
     Row,
-    Imager,
     LayoutFooter,
     ArticleAnchor,
     AInput: Input,

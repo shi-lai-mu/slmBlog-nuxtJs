@@ -1,4 +1,4 @@
-import { isDev } from "@/config/system";
+import { isDev, isDeBug } from "@/config/system";
 import defaultConfig from "@/config/default";
 import { isClient } from "./axios/lib/config";
 
@@ -172,17 +172,17 @@ export class GlobalTool {
    * @param ms 延迟时间
    * @param notDeBug 忽略DeBug
    */
-  static async speed(ms: number = 5000, notDeBug: boolean = false) {
+  static async speed(ms: number = isDeBug ? 5000 : 0, notDeBug: boolean = false) {
     if (isClient) {
       const { axiosDebug } = window.$nuxt.$router.currentRoute.query;
       if (axiosDebug !== undefined) {
-        return axiosDebug === 'true'
-          ? new Promise(res => setTimeout(res, ms))
+        return axiosDebug !== 'false'
+          ? new Promise(res => setTimeout(res, axiosDebug as any))
           : !1
         ;
       }
     }
-    return isDev || notDeBug
+    return ms
       ? new Promise(res => setTimeout(res, ms))
       : !1
     ;

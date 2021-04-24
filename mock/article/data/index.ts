@@ -1,7 +1,7 @@
 import { Random } from '@/mock/mock';
 
 import { userData } from "@/mock/user/data/user";
-import { uploadImagerBase, randomArray } from "@/mock/publicMock";
+import { uploadImageBase, randomArray } from "@/mock/publicMock";
 
 /**
  * 话题数据
@@ -58,7 +58,7 @@ export const articleBase = {
   /**
    * 预览图
    */
-  image_list: randomArray(2, uploadImagerBase),
+  image_list: randomArray(2, uploadImageBase),
   /**
    * 统计
    */

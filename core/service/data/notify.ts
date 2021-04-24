@@ -5,4 +5,4 @@ import { Notify } from '@/interface/request/notify';
 /**
  * 获取公告
  */
-export const getNotic = () => axios.send(axios.notify.notic) as Promise<Request.Result<Notify.Notic>>;
+export const getNotic = () => axios.send<Request.Result<Notify.Notic>>(axios.notify.notic);

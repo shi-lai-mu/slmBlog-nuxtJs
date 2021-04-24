@@ -40,7 +40,7 @@
  *   传入 RequestConfig = { params: { username: 'slm' } } 则会被转换为 testServer1:post./user/slm/login
  *
  * - 内网请求
- *   当请求为127.0.0.1或loaclhost且前端的域非两者之一，自动将请求域替换为当前前端的域，以实现内网请求及调试
+ *   当请求为127.0.0.1或localhost且前端的域非两者之一，自动将请求域替换为当前前端的域，以实现内网请求及调试
  * 
  * - 全局监听
  *   $axios.observer.emit(EventKey, callback)  绑定
@@ -348,7 +348,7 @@ declare module 'axios/index' {
        * - 仅 send(*, *).then() 时生效
        */
       axiosRequest?: AxiosRequestConfig
-    ) => Promise<T>;
+    ) => Promise<T & AxiosError<T>>;
 
     /**
      * 配置信息
