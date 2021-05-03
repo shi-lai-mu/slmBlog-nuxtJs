@@ -63,6 +63,10 @@ export default class HomePage extends Vue {
       recommendedArticle: (await getArticleList('recommend', 1, 5)).result?.list || [],
     };
   }
+
+  created() {
+    this.$parent.$emit('setLayout', [ 'layoutFooter', true ]);
+  }
 }
 </script>
 

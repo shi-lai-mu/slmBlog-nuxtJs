@@ -62,7 +62,6 @@ import Row from '@/components/public/Row.vue';
 import EditorComponents from '@/components/public/Editor.vue';
 import ArticleSetting from '@/components/public/Article/Setting.vue';
 import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue';
-import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue';
 import ArticleAnchor from '@/components/public/Article/components/ArticleAnchor.vue';
 import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleton.vue';
 
@@ -75,7 +74,6 @@ import { axiosError } from '@/config/error';
   name: 'ArticleEditor',
   components: {
     Row,
-    LayoutFooter,
     ArticleAnchor,
     AInput: Input,
     ArticleSetting,
@@ -108,6 +106,7 @@ export default class ArticleEditor extends Vue {
   created() {
     // const user = this.$$store.getters.getUserInfo;
     // if (!user) this.$message.error('未登录用户无法进行文章发布!');
+    this.$parent.$emit('setLayout', ['layoutFooter', false]);
   }
 
 
@@ -121,15 +120,16 @@ export default class ArticleEditor extends Vue {
       return this.$message.error(axiosError.error(error[0].message));
     }
     this.state.submit = true;
-    const { result, success, message } = await submitPost(article);
+    const { success, message } = await submitPost(article);
     if (success) {
       this.$message.success('发布成功, 请等待审核...');
       setTimeout(() => {
-        this.$router.push({
-          path: this.$config.router.to('article', {
-            id: String(result.id),
-          }),
-        });
+        // this.$router.push({
+        //   path: this.$config.router.to('article', {
+        //     id: String(result.id),
+        //   }),
+        // });
+        this.$router.push('/');
       }, 1000);
     } else {
       this.$message.error(axiosError.error(message));

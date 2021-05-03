@@ -121,9 +121,6 @@ export default class DefaultLayout extends Vue {
       }
     }
 
-    // 返回首页时底部始终显示
-    this.layoutFooter = true;
-    
     this.setWebOptions(userConfig);
 
     // 初始化权限组
@@ -134,12 +131,17 @@ export default class DefaultLayout extends Vue {
 
     // 非开发环境注入 打开控制台监听
     if (!$nuxt.context.isDev && !/(192|127)\.\d+\.\d+\.\d+/.test(window.location.host)) {
-      isOpenDevTool(false, (e) => {
+      isOpenDevTool(false, e => {
         if (e === 'on') {
-          this.loggerBlog();
-          this.$router.push({
-            path: '/developmentLogin',
-          });
+          const { debug } = window.$nuxt.$router.currentRoute.query;
+          if (debug !== '123') {
+            console.clear();
+            this.loggerBlog();
+            this.$router.push({
+              path: '/other/developmentLogin?',
+            });
+            this.$message.warning('抱歉，您无权进行开发操作!', 50000);
+          }
         }
       });
     }
