@@ -4,8 +4,6 @@ import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
 // import webpack from 'webpack';
 // import CompressionPlugin from 'compression-webpack-plugin';
 
-let isClient = true;
-
 const globalConfig = {
 
   /*
@@ -73,6 +71,7 @@ const globalConfig = {
    ** Nuxt.js dev-modules
    */
   buildModules: [
+    '@nuxtjs/style-resources',
     // Doc: https://github.com/nuxt-community/eslint-module
     // '@nuxtjs/eslint-module',
     '@nuxt/typescript-build'
@@ -94,7 +93,7 @@ const globalConfig = {
     /*
     ** You can extend webpack config here
     */
-    extend(config) {
+    extend(config, { isClient }) {
       config.resolve.alias['@ant-design/icons/lib/dist$'] = path.resolve(__dirname, './plugins/antd-icons.ts'); // 引入需要的
       // config.resolve.alias.moment = path.resolve(__dirname, './plugins/antd-icons.ts'); // 引入需要的
       config.plugins.push(
@@ -127,7 +126,6 @@ const globalConfig = {
         if (!isDev) {
           config.externals.vconsole = '{}';
         }
-        isClient = !isClient;
       }
 
       if (!isMock) {
@@ -170,27 +168,33 @@ const globalConfig = {
           // }
         }
       },
+      cssModules: {
+        localIdentName: '[local]_[hash:base64:5]'
+      },
+      sass: {
+        indentedSyntax: true
+      },
     },
     // 打包分析
     analyze: !isDev, 	
     // assetFilter: (assetFilename) => {	    		
     //   return assetFilename.endsWith('.js');	    	
     // },
-    extractCSS: !isDev,
-    optimization: (() => {
-      return isDev ? undefined : {
-        splitChunks: {
-          cacheGroups: {
-            styles: {
-              name: 'styles',
-              test: /\.(css|vue|scss|less)$/,
-              chunks: 'all',
-              enforce: true
-            }
-          }
-        }
-      }
-    })(),
+    // extractCSS: !isDev,
+    // optimization: (() => {
+    //   return isDev ? undefined : {
+    //     splitChunks: {
+    //       cacheGroups: {
+    //         styles: {
+    //           name: 'styles',
+    //           test: /\.(scss)$/,
+    //           chunks: 'all',
+    //           enforce: true
+    //         }
+    //       }
+    //     }
+    //   }
+    // })(),
     cache: true,
     parallel: true,
   },
@@ -202,9 +206,9 @@ const globalConfig = {
   styleResources: {
     scss: [
       './assets/styles/scss/_variables.scss',
-      './assets/styles/scss/_mixins.scss',
-      './assets/styles/scss/iconfont.scss',
-      './assets/styles/scss/antd.ui.scss',
+      // './assets/styles/scss/_mixins.scss',
+      // './assets/styles/scss/iconfont.scss',
+      // './assets/styles/scss/antd.ui.scss',
     ],
     // less: [
     //   './assets/scss/_antd.ui.less',
