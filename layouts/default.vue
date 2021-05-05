@@ -271,6 +271,11 @@ export default class DefaultLayout extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import '/assets/styles/scss/themes/main.scss';
+@import '/assets/styles/scss/iconfont.scss';
+@import '/assets/styles/scss/antd.ui.scss';
+
+
 .home-enter-active, .home-leave-active { transition: opacity .5s; }
 .home-enter, .home-leave-active { opacity: 0; }
 
