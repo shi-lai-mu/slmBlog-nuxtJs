@@ -1,0 +1,22 @@
+{
+  "handlerPath": "/active/gitee/webhook",
+  "handlerSecret": "test123456789",
+  "listen": 7000,
+  "projects": [
+    {
+      "git":     "git://gitee.com/shi_lai_mu/slmblog_nestjs-backend.git",
+      "senders": [ "478889187@qq.com" ],
+      "name":    "测试作业",
+      "ref":     "refs/heads/master",
+      "cmdPath": "/opt/webhook/ssh/test.sh"
+    }
+  ],
+  "transport": {
+    "host": "smtp.exmail.qq.com",
+    "port": 465,
+    "auth": {
+      "user": "xxxxxxxxx@slmblog.com",
+      "pass": "xxxxxxxxxxxxxxxxxxxxx"
+    }
+  }
+}

@@ -91,3 +91,6 @@ sw.*
 
 # Vim swap files
 *.swp
+
+# 配置文件
+.gitee/hooks/webhook.json

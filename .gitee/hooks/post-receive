@@ -1,0 +1,6 @@
+#!/bin/sh
+cd /data/web/egg
+cd /home/work/slmblog-server
+unset GIT_DIR
+git config --list
+git pull origin master
