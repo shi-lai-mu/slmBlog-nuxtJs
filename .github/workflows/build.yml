@@ -42,8 +42,6 @@ jobs:
                   git checkout . ;
                   git checkout master;
                   git pull origin master;
-                  cnpm i;
-                  npm run build;
                   pm2 del slmblogFrontend;
                   pm2 start npm --name "slmblogFrontend" -- run start;
                   echo ========= slmblog frontend start success =========
