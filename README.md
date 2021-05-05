@@ -8,7 +8,9 @@
     <a href="https://github.com/Microsoft/TypeScript">
       <img src="https://img.shields.io/badge/typescript-4.0.3-brightgreen" alt="typescript">
     </a>
-    <a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+    <a href="https://opensource.org/licenses/ISC">
+      <img src="https://img.shields.io/badge/License-ISC-blue" alt="ISC License" />
+    </a>
     <a href="https://github.com/vueComponent/ant-design-vue">
       <img src="https://img.shields.io/badge/antdUI-1.6.5-lightgrey" alt="antd">
     </a>
@@ -17,7 +19,7 @@
 
 
 ## [SLM BLOG](https://slmblog.com) NuxtJs SSR版
-SLMBLOG 是使用 NuxtJs + MidwayJs + MySql 等技术开发的个人博客系统，前后端分离扁平化UI。
+SLMBLOG 是使用 NuxtJs + NestJs + TypeScript + Redis + OSS + GitHub Actions +  等技术开发的个人博客系统，前后端分离扁平化UI。
 
 ---
 ### 开发流程
@@ -30,38 +32,79 @@ SLMBLOG 是使用 NuxtJs + MidwayJs + MySql 等技术开发的个人博客系统
 web主站:
 
  - 页面
-    - [ ] 首页 -- (开发中...)
-    - [ ] 博文页
-    - [ ] 登录页
-    - [ ] 个人中心
-    - [ ] 发布博文页
-    - 待定....
+    + [x] 首页
+      - [x] 推荐文章布局切换
+      - [x] 博主信息卡
+      - [x] 全站公告
+      - [x] 焦点文章卡
+      - [] 推荐文章类型筛选 (dev ing...)
+      - [] 推荐文章设置
+    + [x] 博文页
+      - [x] 在列表页的展开动画
+      - [x] 文章评论功能
+      - [x] 点赞/点踩 文章/评论 功能
+      - [x] 上下文章翻页
+      - [x] 文章结构解析 (存在问题)
+      + [x] 表情评论
+      - [] 文章代码块
+    + [x] 登录弹窗
+      - [x] 登录功能
+      - [x] 注册功能
+      - [x] 找回密码
+      - [] 三方登录[QQ、微博]
+    + [ ] 个人中心 (dev ing...)
+    + [x] 发布博文页
+      - [x] 标题
+      - [x] 头图
+      - [x] 简介
+      - [x] 类目
+      - [x] 内容
+      - [x] 当前内容目录解析
+      - [x] 发布注意事项
+      - [] 增强设置
+      - [] 保存草稿
+    + [x] 条款与免责 (dev ing...)
+    + [x] 友链页 (dev ing...)
+     - [x] 友链卡
+    + 待定....
 
  - 功能
-    - [x] 自定义主题皮肤 -- 完成
-    - [x] mock封装 -- 完成
-    - [x] axios封装 -- 完成
-
-Flutter 移动端: (待开发...)
-
-Midway 后端工程: (待开发...)
+    + [x] 自定义主题皮肤
+      - [x] 自定义背景
+      - [x] 自定义主题色
+      - [x] 自定义全站字体大小
+    + [x] 悬浮物 live2D猫
+    + [x] 背景开关
+    + [x] 基础组件包含骨架
+    + [x] 全局图片状态插件
+    + [x] mock封装
+    + [x] axios封装
 
 ---
 
+
+### 其他计划
+
+Flutter 移动端: (待开发...)
+
+NestJs 后端工程: [链接](https://github.com/shi-lai-mu/slmblog-server)(开发中...)
+
+
+### 如何使用本项目？
 ```shell
 git clone https://github.com/shi-lai-mu/slmBlog-nuxtJs.git
 cd slmBlog-nuxtJs
 npm i --registry=https://registry.npm.taobao.org
 
 
+# 开发模式 (包含编译主题皮肤 | 端口 8881)
+npm run dev
+
 # 编译 (包含编译主题皮肤)
 npm run build
 
 # 启动正式生产环境 需先运行 "npm run build" (端口 8881)
 npm run start
-
-# 开发模式 (包含编译主题皮肤 | 端口 8881)
-npm run dev
 
 # 无网/无yapi平台 本地mock调试模式 (包含编译本地mock为json5 | 端口 8881)
 npm run mock
@@ -83,12 +126,49 @@ npm run lint
 
 # 生成静态文件
 npm run generate
-```
 
-## 线上部署
+```
+> 在开发环境下运行`npm i`后输入`npm run dev`,线上环境请使用`npm run build; npm run start` 或 `pm2 start process.json`(前提是已安装pm2)。<br>
+> 如想修改站点内容可进行快速配置：
+> + [配置目录](https://github.com/shi-lai-mu/slmBlog-nuxtJs/tree/master/config)
+> + [主 配置](https://github.com/shi-lai-mu/slmBlog-nuxtJs/tree/master/config/default.ts)
+> + [API 配置](https://github.com/shi-lai-mu/slmBlog-nuxtJs/tree/master/config/api.ts)
+> + [主题 配置](https://github.com/shi-lai-mu/slmBlog-nuxtJs/tree/master/config/themes.ts)
+> + [站点设置 配置](https://github.com/shi-lai-mu/slmBlog-nuxtJs/tree/master/config/websetting.ts)
+> + [三方登录 配置](https://github.com/shi-lai-mu/slmBlog-nuxtJs/blob/master/config/note/tripartite.ts)
+
+
+
+### 线上部署
 ```
 $ pm2 start process.json
 ```
+
+### 自动化部署
+当前项目对github和gitee进行了自动化部署处理，默认对push master操作进行部署
+
++ github 自动化部署方法:<br>
+  在`fork项目`点击的`settings > secrets > New repository secret`分别新建以下内容<br>
+  Name：`SERVER` | Value：`服务器IP`<br>
+  Name：`WFP_ID_RSA` | Value：`服务器普通用户~/.ssh/id_rsa免登录私钥内容`<br>
+  以上首先要运行服务器被ssh私钥登录，不行的需要修改`/etc/ssh/ssh_config`然后重启sshd服务(需谨慎如果修改错误会导致无法ssh登录包括控制台远程，需要救援链接补救别问我是怎么知道的)<br>
+  配置部署内容可参考 (.github/workflows/build.yml)[https://github.com/shi-lai-mu/slmBlog-nuxtJs/blob/master/.github/workflows/build.yml]<br>
+  当前部署方案：
+    - push到master时
+    - 安装`checkout@v2`和`setup-node@v1`
+    - 在虚拟机内安装本项目依赖并打包编译
+    - 设置虚拟机known_hosts和id_rsa实现免密登录自己的服务器
+    - 免密连接服务器删除项目下之前的.nuxt编译文件夹所有内容
+    - 上传虚拟机内刚刚编译的文件到服务器项目文件夹下 (为了减少自己服务器压力，编译在虚拟机内操作)
+    - 同步项目，安装依赖
+    - pm2删除名"slmblogFrontend"，新建"slmblogFrontend"并run start
+    - 删除虚拟机内的免登录ssh rsa
+
++ gitee 自动化部署方法:<br>
+  项目上传到gitee点击`管理 > WebHooks`设置为 ${服务器IP}/active/gitee/webhook<br>
+  然后将本项目.gitee下的hooks上传到服务器/opt/webhook并启动`sh /opt/webhook/start-webhook.sh`<br>
+  配置部署内容可参考 (.gitee/hooks/webhook.json)[https://github.com/shi-lai-mu/slmBlog-nuxtJs/tree/master/.gitee/hooks/webhook.json]<br>
+
 
 ---
 ### 开发环境
