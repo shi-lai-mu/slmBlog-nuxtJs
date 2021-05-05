@@ -6,9 +6,10 @@ import Router from './config/router';
 
 import Http from '@/utils/axios';
 import ObServer from '@/utils/obServer';
-import GeminiScrollbar from 'vue-gemini-scrollbar';
+// import GeminiScrollbar from 'vue-gemini-scrollbar';
 
 import { GlobalTool } from '@/utils/tool';
+import { MessageApi } from 'ant-design-vue/lib/message';
 
 export default (_context, inject) => {
   const $config = defaultConfig as Config;
@@ -58,7 +59,7 @@ interface Config extends WebConfig.Default {
   /**
    * body滚动条
    */
-  GeminiScrollbar?: GeminiScrollbar;
+  // GeminiScrollbar?: GeminiScrollbar;
 }
 
 declare module 'vue/types/vue' {
@@ -89,5 +90,9 @@ declare module 'vue/types/vue' {
        */
       message: string;
     }): void;
+    /**
+     * 消息弹窗
+     */
+    $message: MessageApi;
   }
 }

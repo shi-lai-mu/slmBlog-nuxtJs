@@ -57,13 +57,13 @@ npm i --registry=https://registry.npm.taobao.org
 # 编译 (包含编译主题皮肤)
 npm run build
 
-# 启动正式生产环境 需先运行 "npm run build" (端口 8888)
+# 启动正式生产环境 需先运行 "npm run build" (端口 8881)
 npm run start
 
-# 开发模式 (包含编译主题皮肤 | 端口 8888)
+# 开发模式 (包含编译主题皮肤 | 端口 8881)
 npm run dev
 
-# 无网/无yapi平台 本地mock调试模式 (包含编译本地mock为json5 | 端口 8888)
+# 无网/无yapi平台 本地mock调试模式 (包含编译本地mock为json5 | 端口 8881)
 npm run mock
 
 # 编译本地mock(包含注释)为json5输出到 /mock/YAPI/dist

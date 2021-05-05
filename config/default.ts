@@ -3,7 +3,7 @@ import { getIPAdress } from '@/utils/network';
 import { isClient } from '~/utils/axios/lib/config';
 import user from './note/user';
 
-const port = 8888;
+const port = 8881;
 const isDev = process.env.NODE_ENV === 'development';
 const devDomain = getIPAdress() ?? location.hostname;
 const domain = !isDev ? 'https://slmblog.com' : `http://${devDomain}:${port}`;

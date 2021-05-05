@@ -150,7 +150,13 @@ const globalConfig = {
             style: true,
           },
           "ant-design-vue"
-        ]
+        ],
+        [
+          "@babel/plugin-proposal-private-methods",
+          {
+            "loose": true
+          },
+        ],
       ]
     },
     loaders: {
@@ -163,7 +169,7 @@ const globalConfig = {
           //   "layout-body-background": "#fff"
           // }
         }
-      }
+      },
     },
     // 打包分析
     analyze: !isDev, 	
