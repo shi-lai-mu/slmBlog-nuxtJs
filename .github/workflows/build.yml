@@ -1,0 +1,41 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
+# github actions 中文文档 https://docs.github.com/cn/actions/getting-started-with-github-actions
+
+name: build server
+
+on:
+    push:
+      branches:
+        - master
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+
+          - name: set ssh key
+            run: |
+              mkdir -p ~/.ssh/
+              echo "${{secrets.WFP_ID_RSA}}" > ~/.ssh/id_rsa
+              chmod 600 ~/.ssh/id_rsa
+              ssh-keyscan ${{secrets.SERVER}} >> ~/.ssh/known_hosts
+
+          - name: deploy
+            run: |
+              ssh work@${{secrets.SERVER}} "
+                  cd /home/work/server/slmblog/nuxtjs-frontend;
+                  git checkout . ;
+                  git checkout master;
+                  git pull origin master;
+                  cnpm i;
+                  npm run build;
+                  pm2 del slmblogFrontend;
+                  pm2 start npm --name "slmblogFrontend" -- run start;
+                  echo ========= slmblog frontend start success =========
+              "
+
+          - name: delete ssh key
+            run: rm -rf ~/.ssh/id_rsa
+
