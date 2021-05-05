@@ -7,7 +7,7 @@
   "license": "ISC",
   "scripts": {
     "dev": "nuxt --port=8881 --name='开发环境'",
-    "build": "npm run themes && nuxt build --analyze",
+    "build": "nuxt build --analyze",
     "mock": "npm run build:yapi && npm run dev --mock --port=8881",
     "build:yapi": "tsc mock/YAPI/index.ts && node mock/YAPI/index.js",
     "test": "jest",
