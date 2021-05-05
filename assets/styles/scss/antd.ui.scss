@@ -1,3 +1,4 @@
+html {
 $text-color: var(--m-color-text-primary);
 $text-color-1: var(--m-color-text-primary-1);
 $text-color-2: var(--m-color-text-primary-2);
@@ -1355,4 +1356,5 @@ li.ant-pagination-item-active {
   .ant-spin-blur {
     background-color: var(--c-bg-overlay);
   }
+}
 }

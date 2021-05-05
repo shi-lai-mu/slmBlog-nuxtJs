@@ -24,13 +24,16 @@
 </template>
 
 <script lang="ts">
-// import 'ant-design-vue/dist/antd.css';
-// import '@/assets/scss/_variables.scss';
-// import '@/assets/styles/scss/antd.ui.scss';
-// import '@/assets/styles/less/_antd.ui.less';
-import '@/assets/styles/scss/layout.default.scss';
 // import "vue-custom-scrollbar/dist/vueScrollbar.css";
 import '@/plugins/vue-onscroll-event/animate.min.css';
+import '@/assets/styles/scss/layout.default.scss';
+// import '@/assets/styles/less/_antd.ui.less';
+// import '@/assets/styles/scss/antd.ui.scss';
+import '/assets/styles/scss/themes/main.scss';
+import '/assets/styles/scss/iconfont.scss';
+import '/assets/styles/scss/antd.ui.scss';
+// import '@/assets/scss/_variables.scss';
+// import 'ant-design-vue/dist/antd.css';
 
 import $cookie from 'js-cookie';
 import { Component, namespace, Vue, Watch } from 'nuxt-property-decorator';
@@ -42,8 +45,8 @@ import Live2D from '@/components/public/Live2D.vue';
 import LoginPopup from '@/components/Login.vue';
 import resizeEvent from '@/utils/Event/resize';
 
-import { isOpenDevTool } from '@/utils/deDeveloperTools';
 import { stateData as ConfigState } from '@/store/config';
+import { isOpenDevTool } from '@/utils/deDeveloperTools';
 import { getSelfInfo } from "@/core/service/data/user";
 import { StateMutation } from '@/interface/state';
 
@@ -271,11 +274,6 @@ export default class DefaultLayout extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/styles/scss/themes/main.scss';
-@import '/assets/styles/scss/iconfont.scss';
-@import '/assets/styles/scss/antd.ui.scss';
-
-
 .home-enter-active, .home-leave-active { transition: opacity .5s; }
 .home-enter, .home-leave-active { opacity: 0; }
 

@@ -71,7 +71,6 @@ const globalConfig = {
    ** Nuxt.js dev-modules
    */
   buildModules: [
-    '@nuxtjs/style-resources',
     // Doc: https://github.com/nuxt-community/eslint-module
     // '@nuxtjs/eslint-module',
     '@nuxt/typescript-build'
