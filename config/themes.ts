@@ -4,9 +4,7 @@
  * ===============
  */
 
-import { User } from "@/interface/request/user";
-
-
+import { User } from '@/interface/request/user'
 
 /**
  * 文字大小
@@ -28,8 +26,7 @@ export const fontSize = {
    * 当前大小
    */
   current: 16,
-};
-
+}
 
 /**
  * 主题皮肤色
@@ -78,8 +75,7 @@ export const color = {
       icon: 'niuyouguo',
     },
   },
-};
-
+}
 
 /**
  * 主题背景色
@@ -114,12 +110,11 @@ export const backgroundColor = {
   },
 }
 
-
 /**
  * 获取主题默认配置
  */
 export const themesDefaultConfig: User.Config = {
-  color: color.current                     as User.Config['color'],
+  color: color.current as User.Config['color'],
   backgroundColor: backgroundColor.current as User.Config['backgroundColor'],
-  fontSize: fontSize.current               as User.Config['fontSize'],
-};
+  fontSize: fontSize.current as User.Config['fontSize'],
+}

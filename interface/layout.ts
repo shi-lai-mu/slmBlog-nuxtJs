@@ -9,10 +9,10 @@ export namespace LayoutDefault {
     /**
      * 可选主题
      */
-    themes: 'theme-dark' | 'theme-default';
+    themes: 'theme-dark' | 'theme-default'
     /**
      * 主题色
      */
-    themeColor: 'dark' | 'blue' | 'yellow' | 'powder' | 'purple' | 'orange' | 'green';
+    themeColor: 'dark' | 'blue' | 'yellow' | 'powder' | 'purple' | 'orange' | 'green'
   }
 }

@@ -3,17 +3,17 @@ export default [
     {
       title: '块布局',
       icon: 'layout1',
-      event: that => that.layout.name = '',
+      event: that => (that.layout.name = ''),
     },
     {
       title: '行布局',
       icon: 'layout2',
-      event: that => that.layout.name = 'line-layout',
+      event: that => (that.layout.name = 'line-layout'),
     },
     {
       title: '行布局',
       icon: 'layout3',
-      event: that => that.layout.name = 'line-layout-noimg',
+      event: that => (that.layout.name = 'line-layout-noimg'),
     },
   ],
   [

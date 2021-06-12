@@ -1,32 +1,36 @@
 <template>
-  <li :class="[ 'slm', 'blog-account', { 'avatar-box': user.avatarUrl }, $store.state.themes.mainBColor ]" @click="avatarClick">
-    <Images class="avatar" v-if="user.avatarUrl" :src="user.avatarUrl" />
+  <li
+    :class="[
+      'slm',
+      'blog-account',
+      { 'avatar-box': user.avatarUrl },
+      $store.state.themes.mainBColor,
+    ]"
+    @click="avatarClick"
+  >
+    <Images v-if="user.avatarUrl" class="avatar" :src="user.avatarUrl" />
     <template v-if="!isMobile">
-      <ul class="account-munt" v-if="!jwt">
+      <ul v-if="!jwt" class="account-munt">
         <li
-          class="account-munt-item"
           v-for="(item, index) in accountEntrance"
-          @click.stop="item.cb"
           :key="index"
+          class="account-munt-item"
+          @click.stop="item.cb"
         >
           {{ item.name }}
         </li>
       </ul>
-      <div class="account-munt" v-else>
-        123456
-      </div>
+      <div v-else class="account-munt">123456</div>
     </template>
   </li>
 </template>
 
 <script lang="ts">
-import { Vue, Component, State, Watch } from 'nuxt-property-decorator';
+import { Vue, Component, State } from 'nuxt-property-decorator'
 
-import Images from '~/components/public/Images.vue';
-
-import { Router } from '@/interface/router';
-import { User } from '@/interface/request/user';
-
+import { Router } from '@/interface/router'
+import { User } from '@/interface/request/user'
+import Images from '~/components/public/Images.vue'
 
 /**
  * 账号登录下拉
@@ -40,48 +44,43 @@ export default class HeaderAccount extends Vue {
   /**
    * 账号入口
    */
-  accountEntrance: Router.Config[] = [];
+  accountEntrance: Router.Config[] = []
   /**
    * 头像链接
    */
-  avatarUrl: string = '';
+  avatarUrl: string = ''
   /**
    * jwt
    */
   @State
-  jwt!: string;
+  jwt!: string
+
   /**
    * 用户信息
    */
   @State
-  user!: User.Base;
+  user!: User.Base
 
   @State
-  isMobile!: boolean;
-  
-
-  @Watch('jwt')
-  jwtChang(jwt: string) {
-    console.log({jwt});
-    console.log(this.user);
-    
-  }
+  isMobile!: boolean
 
   created() {
-    this.accountEntrance = [{
-      name: '登录',
-      cb: () => this.$observer.emit('login'),
-    }, {
-      name: '注册',
-      cb: () => this.$observer.emit('login', 'register'),
-    }];
+    this.accountEntrance = [
+      {
+        name: '登录',
+        cb: () => this.$observer.emit('login'),
+      },
+      {
+        name: '注册',
+        cb: () => this.$observer.emit('login', 'register'),
+      },
+    ]
   }
 
-  
   avatarClick() {
     if (this.isMobile) {
-      this.accountEntrance[0].cb();
-      this.$observer.emit('setHeaderOpenState', false);
+      this.accountEntrance[0].cb()
+      this.$observer.emit('setHeaderOpenState', false)
     }
   }
 }
@@ -126,7 +125,7 @@ export default class HeaderAccount extends Vue {
       background: no-repeat center center;
       background-size: cover;
       border-radius: 50%;
-      transition: .5s .2s;
+      transition: 0.5s 0.2s;
       // width: 100%;
     }
   }
@@ -142,7 +141,7 @@ export default class HeaderAccount extends Vue {
   transform: translate(-50%, 40px);
 
   &::before {
-    opacity: .4;
+    opacity: 0.4;
     content: '登录';
     line-height: 100px;
     font-size: 20px;

@@ -1,13 +1,13 @@
-import { State } from '@/interface/state';
-import { User } from '@/interface/request/user';
+import { State } from '@/interface/state'
+import { User } from '@/interface/request/user'
 
 const getters = {
   /**
    * 获取当前登录用户信息
    */
   getUserInfo(state: State) {
-    const user = state.user as User.Base;
-    return user.id ? user : false;
+    const user = state.user as User.Base
+    return user.id ? user : false
   },
 
   // /**
@@ -24,4 +24,4 @@ const getters = {
   //   return ThemesConfigColor.list[state.setting.theme.color].color;
   // }
 }
-export default getters;
+export default getters

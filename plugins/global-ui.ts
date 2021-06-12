@@ -1,20 +1,12 @@
-
 import Vue from 'vue'
-import {
-  Slider,
-  Radio,
-  message,
-  Row,
-  Col,
-  Button,
-} from 'ant-design-vue'
-import { isServer } from '../config/system';
-import { ScrollEventNS } from '@/plugins/vue-onscroll-event/index.d';
+import { Slider, Radio, message, Row, Col, Button } from 'ant-design-vue'
+import { ScrollEventNS } from '@/plugins/vue-onscroll-event/index.d'
+import { isServer } from '../config/system'
 
-import VueOnScrollEvent from './vue-onscroll-event';
-import VueImageEvent from './vue-image-event';
+import VueOnScrollEvent from './vue-onscroll-event'
+import VueImageEvent from './vue-image-event'
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
 Vue.prototype.$message = isServer
   ? {
@@ -24,10 +16,8 @@ Vue.prototype.$message = isServer
       loading: () => {},
     }
   : message
-;
 
-Vue
-  .use(Slider)
+Vue.use(Slider)
   .use(Radio)
   .use(Row)
   .use(Col)
@@ -40,4 +30,3 @@ Vue
   } as ScrollEventNS.ScrollEventUseOptions)
 
   .use(VueImageEvent)
-;

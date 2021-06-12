@@ -1,4 +1,4 @@
-import { Navigator } from '../interface/router';
+import { Navigator } from '../interface/router'
 /**
  * 顶部导航
  */
@@ -7,7 +7,7 @@ const navConfig: Navigator.Config[] = [
     name: '首页',
     icon: 'home',
     to: '/',
-  }
+  },
   // , {
   //   name: '前端',
   //   icon: 'frontend',
@@ -40,7 +40,7 @@ const navConfig: Navigator.Config[] = [
   //       name: '微信小程序',
   //       icon: 'wxapp',
   //       to: '/wxapp',
-  //     }, 
+  //     },
   //   ],
   // }, {
   //   name: '后端',
@@ -59,5 +59,5 @@ const navConfig: Navigator.Config[] = [
   //   icon: 'master',
   //   to: '/blogger',
   // },
-];
-export default navConfig;
+]
+export default navConfig

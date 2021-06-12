@@ -1,7 +1,6 @@
-import { Article } from "@/interface/request/article";
-import { BaseValidateData } from "@/utils/validateData";
-import { Column, Entity } from "../decorators/validateData.decorators";
-
+import { Article } from '@/interface/request/article'
+import { BaseValidateData } from '@/utils/validateData'
+import { Column, Entity } from '../decorators/validateData.decorators'
 
 @Entity({
   isFull: true,
@@ -14,7 +13,7 @@ export class SubmitArticleDto extends BaseValidateData {
     name: '标题',
     length: '5-50',
   })
-  subject: string;
+  subject: string
 
   /**
    * 简介
@@ -23,7 +22,7 @@ export class SubmitArticleDto extends BaseValidateData {
     name: '简介',
     length: '10-500',
   })
-  description: string;
+  description: string
 
   /**
    * 文章内容
@@ -33,48 +32,47 @@ export class SubmitArticleDto extends BaseValidateData {
     // length: 50,
     required: true,
   })
-  content: string;
+  content: string
 
   /**
    * 头图
    */
   @Column()
-  banner: string;
+  banner: string
 
   /**
    * 类目
    */
   @Column()
-  category: [] | string;
+  category: [] | string
 
   @Column()
   setting: {
-    isLoginView: false,
-    isTouristNotVisible: false,
-    allowComments: true,
-    guestNotComments: false,
-    browsePwd: '',
-    articleMusic: '',
-    prohibitSeo: false,
-    prohibitCopy: false,
-    markReprinted: '',
-    copyContentComment: '',
-    generateTree: true,
-    parseWordKey: true,
-    bigImgdbClick: true,
+    isLoginView: false
+    isTouristNotVisible: false
+    allowComments: true
+    guestNotComments: false
+    browsePwd: ''
+    articleMusic: ''
+    prohibitSeo: false
+    prohibitCopy: false
+    markReprinted: ''
+    copyContentComment: ''
+    generateTree: true
+    parseWordKey: true
+    bigImgdbClick: true
     notification: {
-      commentingToEmail: true,
-      setTopToEmail: true,
-      setFineToEmail: true,
+      commentingToEmail: true
+      setTopToEmail: true
+      setFineToEmail: true
     }
-  };
+  }
 }
-
 
 /**
  * 回复评论入参
  */
- @Entity({
+@Entity({
   isFull: true,
 })
 export class submitArticleReplayDto extends BaseValidateData {
@@ -82,29 +80,29 @@ export class submitArticleReplayDto extends BaseValidateData {
    * 评论内容
    */
   @Column()
-  content: string;
+  content: string
 
   /**
    * 昵称
    */
   @Column({ required: false })
-  nickname?: string;
+  nickname?: string
 
   /**
    * 邮箱
    */
   @Column({ required: false })
-  email?: string;
+  email?: string
 
   /**
    * 文章/微博
    */
   @Column({ required: false })
-  link?: string;
+  link?: string
 
   /**
    * 父级评论ID
    */
   @Column({ required: false })
-  parentId?: Article.Comment['id'];
+  parentId?: Article.Comment['id']
 }

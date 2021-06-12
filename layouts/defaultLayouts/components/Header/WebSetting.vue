@@ -1,67 +1,85 @@
 <template>
-  <li :class="[ 'slm', 'blog-shezhi', $store.state.themes.mainBColor ]" @click.self="showPopup = !showPopup">
-    <Masks :styleList="styleList" :hide="!showPopup" @close="() => showPopup = false">
+  <li
+    :class="['slm', 'blog-shezhi', $store.state.themes.mainBColor]"
+    @click.self="showPopup = !showPopup"
+  >
+    <Masks :style-list="styleList" :hide="!showPopup" @close="() => (showPopup = false)">
       <div class="popup-box">
-        <h4 class="popup-title">网站设置<label class="web-setting__version">{{ setting.version }}</label></h4>
+        <h4 class="popup-title">
+          网站设置<label class="web-setting__version">{{ setting.version }}</label>
+        </h4>
         <div class="popup-tips"></div>
         <div class="popup-content">
-
-          <div class="row-box popup-item" v-for="(item, key) of setting.web" :key="key">
+          <div v-for="(item, key) of setting.web" :key="key" class="row-box popup-item">
             <span class="row-title" v-text="item.title || `配置项${key}`"></span>
             <ul class="row-content">
-              <a-row
-                v-for="(value, index) in item"
-                v-show="(typeof value !== 'string')"
-                :class="['item-row', { 'item-row-disable': value.disable === true }]"
-                :key="index"
-              >
-
-                <a-col :lg="{ span: 18 }">
-                  <span class="item-row__title" v-text="value.title"></span>
-                  <span class="item-row__desc" v-if="value.description" v-text="value.description"></span>
-                </a-col>
-                <a-col :lg="{ span: 6 }">
-                  <a-switch v-if="value.type == 'switch'" :default-checked="value.enable" v-model="value.enable" @change="e => switchChange(e, value, index)"/>
-                  <template v-else-if="value.type == 'timePicker'">
-                    <div v-if="value.array">
-                      <div v-for="(valueItem, valueIndex) in value.array" :key="valueIndex" :class="`time-picker-box__${index}`">
-                        <a-time-picker
-                          size="small"
-                          v-model="input[`time-picker__${index}${valueIndex}`]"
-                          @change="e => timePickerChang(e, valueItem, index, `time-picker__${index}${valueIndex}`)"
-                          :format="'HH:mm:ss ' + valueItem[1]"
-                          :class="`time-picker__${index}`"
-                          :defaultValue="valueItem[0] ? moment(valueItem[0], 'HH:mm:ss') : null"
-                          :placeholder="valueItem[1] + '时间'"/>
+              <template v-for="(value, index) in item">
+                <a-row
+                  v-show="value.title"
+                  :key="index"
+                  :class="['item-row', { 'item-row-disable': value.disable === true }]"
+                >
+                  <a-col :lg="{ span: 18 }">
+                    <span class="item-row__title" v-text="value.title"></span>
+                    <span
+                      v-if="value.description"
+                      class="item-row__desc"
+                      v-text="value.description"
+                    ></span>
+                  </a-col>
+                  <a-col :lg="{ span: 6 }">
+                    <a-switch
+                      v-if="value.type == 'switch'"
+                      v-model="value.enable"
+                      :default-checked="value.enable"
+                      @change="e => switchChange(e, value, index)"
+                    />
+                    <template v-else-if="value.type == 'timePicker'">
+                      <div v-if="value.array">
+                        <div
+                          v-for="(valueItem, valueIndex) in value.array"
+                          :key="valueIndex"
+                          :class="`time-picker-box__${index}`"
+                        >
+                          <a-time-picker
+                            v-model="input[`time-picker__${index}${valueIndex}`]"
+                            size="small"
+                            :format="'HH:mm:ss ' + valueItem[1]"
+                            :class="`time-picker__${index}`"
+                            :default-value="valueItem[0] ? moment(valueItem[0], 'HH:mm:ss') : null"
+                            :placeholder="valueItem[1] + '时间'"
+                            @change="e => timePickerChang(e, valueItem, index)"
+                          />
+                        </div>
                       </div>
-                    </div>
-                  </template>
-                </a-col>
-
-              </a-row>
+                    </template>
+                  </a-col>
+                </a-row>
+              </template>
             </ul>
           </div>
-
         </div>
-        <div :class="[ 'button', 'submit-btn', $store.state.themes.mainBColor ]" @click="() => showPopup = false">确定</div>
+        <div
+          :class="['button', 'submit-btn', $store.state.themes.mainBColor]"
+          @click="() => (showPopup = false)"
+        >
+          确定
+        </div>
       </div>
     </Masks>
   </li>
-</template>  
+</template>
 
 <script lang="ts">
-import moment from 'moment';
-import { Vue, Component, namespace } from 'nuxt-property-decorator';
-import { stateData as ConfigState } from '@/store/config';
-import {
-  Switch as ASwitch,
-  TimePicker as ATimePicker
-} from 'ant-design-vue';
+import moment from 'moment'
+import { Vue, Component, namespace } from 'nuxt-property-decorator'
+import { stateData as ConfigState } from '@/store/config'
+import { Switch as ASwitch, TimePicker as ATimePicker } from 'ant-design-vue'
 
-import Masks from '@/components/Masks.vue';
-import { StateMutation } from '@/interface/state';
+import Masks from '@/components/Masks.vue'
+import { StateMutation } from '@/interface/state'
 
-const ConfigModule = namespace('config');
+const ConfigModule = namespace('config')
 
 /**
  * 网站设置类
@@ -73,80 +91,79 @@ const ConfigModule = namespace('config');
     ASwitch,
     ATimePicker,
   },
-  methods: {
-    moment,
-  }
 })
 export default class WebSetting extends Vue {
   /**
    * 样式列表
    */
-  styleList: any = {};
+  styleList: CSSStyleDeclaration | Record<string, string> = {}
   /**
    * 是否显示弹窗
    */
-  showPopup: boolean = false;
+  showPopup: boolean = false
   /**
    * 临时输入存储入口
    */
-  input = {};
+  input = {}
   /**
    * 站点设置
    */
-  @ConfigModule.State setting!: typeof ConfigState.setting;
+  @ConfigModule.State setting!: {
+    web: unknown
+    version: typeof ConfigState.setting.version
+    themes: typeof ConfigState.setting.theme
+  }
+
   /**
    * 设置站点参数
    */
-  @ConfigModule.Action saveConfigServer!: StateMutation;
-
+  @ConfigModule.Action saveConfigServer!: StateMutation
 
   /**
    * 开关滑块变动时
    */
   switchChange(e, v, key) {
-    const setting = this.setting.web;
-    v.enable = e;
+    const setting = this.setting.web as typeof ConfigState.setting.web
+    v.enable = e
 
     // 联动选项
-    switch(key) {
+    switch (key) {
       case 'autoToggle':
-        setting.themes.autoToggleTime.disable = !e;
+        setting.themes.autoToggleTime.disable = !e
         // 如果切换为开启状态则检测时间是否为空，为空则填入默认时间
         if (e) {
-          const arr = setting.themes.autoToggleTime.array;
-          if (!arr[0][0]) arr[0][0] = '18:00:00';
-          if (!arr[1][0]) arr[1][0] = '6:00:00';
-          this.input['time-picker__autoToggleTime0'] = moment(arr[0][0], 'HH:mm:ss');
-          this.input['time-picker__autoToggleTime1'] = moment(arr[1][0], 'HH:mm:ss');
+          const arr = setting.themes.autoToggleTime.array
+          if (!arr[0][0]) arr[0][0] = '18:00:00'
+          if (!arr[1][0]) arr[1][0] = '6:00:00'
+          this.input['time-picker__autoToggleTime0'] = moment(arr[0][0], 'HH:mm:ss')
+          this.input['time-picker__autoToggleTime1'] = moment(arr[1][0], 'HH:mm:ss')
         }
-        break;
+        break
     }
 
-    this.updateSetting();
+    this.updateSetting()
   }
-
 
   /**
    * 时间组件变动事件
    */
   timePickerChang(e, v, key) {
-    const setting = this.setting.web;
+    const setting = this.setting.web as typeof ConfigState.setting.web
     if (e) {
-      const { $H, $m, $s } = e;
-      v[0] = `${$H}:${$m}:${$s}`;
+      const { $H, $m, $s } = e
+      v[0] = `${$H}:${$m}:${$s}`
     } else {
-      v[0] = '';
+      v[0] = ''
     }
-    this.updateSetting();
+    this.updateSetting()
 
     // 联动选项
-    switch(key) {
+    switch (key) {
       case 'autoToggleTime':
-        this.switchChange(!!e, setting.themes.autoToggle, 'autoToggle');
-        break;
+        this.switchChange(!!e, setting.themes.autoToggle, 'autoToggle')
+        break
     }
   }
-
 
   /**
    * 触发更新
@@ -155,10 +172,14 @@ export default class WebSetting extends Vue {
     this.saveConfigServer({
       ...this.setting,
       isSave: true,
-    });
+    })
+  }
+
+  /** Moment */
+  moment(...args: unknown[]) {
+    return moment(...args)
   }
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -168,7 +189,7 @@ export default class WebSetting extends Vue {
   max-width: 600px;
   min-width: 200px;
   padding: 0 10px;
-  font-size: .8rem;
+  font-size: 0.8rem;
   text-align: center;
   box-sizing: border-box;
 
@@ -178,11 +199,11 @@ export default class WebSetting extends Vue {
 
   .web-setting__version {
     margin-left: 1em;
-    font-size: .7em;
+    font-size: 0.7em;
   }
 
   .popup-title {
-    margin: 1rem 0 .3rem;
+    margin: 1rem 0 0.3rem;
     font-size: 1.3rem;
   }
 
@@ -197,8 +218,8 @@ export default class WebSetting extends Vue {
     padding: 5px 0;
 
     &.item-row-disable {
-      opacity: .3;
-      transition: .5s ease-in-out;
+      opacity: 0.3;
+      transition: 0.5s ease-in-out;
       pointer-events: none;
     }
 
@@ -209,7 +230,7 @@ export default class WebSetting extends Vue {
 
     .item-row__desc {
       display: block;
-      font-size: .8em;
+      font-size: 0.8em;
     }
   }
   div.row-box {
@@ -223,7 +244,7 @@ export default class WebSetting extends Vue {
     }
 
     .row-content {
-      margin-top: .5rem;
+      margin-top: 0.5rem;
       padding: 10px;
       border: 1px solid var(--c-border-overlay);
       border-radius: 15px;
@@ -267,7 +288,7 @@ export default class WebSetting extends Vue {
     }
   }
 }
-  
+
 /deep/ .ant-radio-button-wrapper,
 /deep/ .ant-slider-mark-text-active {
   color: #8899a6;

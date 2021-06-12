@@ -1,4 +1,4 @@
-import { Random } from '@/mock/mock';
+import { Random } from '@/mock/mock'
 
 /**
  * 用户信息

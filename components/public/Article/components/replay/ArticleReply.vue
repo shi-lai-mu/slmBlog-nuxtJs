@@ -1,16 +1,27 @@
 <template>
   <div>
-    <div class="comment-item" v-for="(item, key) in ssr.list" :key="key">
+    <div v-for="(item, key) in ssr.list" :key="key" class="comment-item">
       <div class="comment-box">
         <div class="avatar-box">
           <a-popover placement="topLeft">
             <div v-if="item.user && item.user.id" class="avatar">
-              <img :src="item.user.avatarUrl" :alt="item.user.nickname">
+              <img :src="item.user.avatarUrl" :alt="item.user.nickname" />
             </div>
-            <object v-else class="avatar" :data="getAvatarUrl(item.nickname)" type="image/svg+xml"/>
+            <object
+              v-else
+              class="avatar"
+              :data="getAvatarUrl(item.nickname)"
+              type="image/svg+xml"
+            />
             <template slot="content">
-              <UserCard class="article-replay__user-card" :userId="item.user.id" v-if="item.user" userEntrance userState/>
-              <div :style="{padding: '10px'}" v-else>游客展示暂未开发!</div>
+              <UserCard
+                v-if="item.user"
+                class="article-replay__user-card"
+                :user-id="item.user.id"
+                user-entrance
+                user-state
+              />
+              <div v-else :style="{ padding: '10px' }">游客展示暂未开发!</div>
             </template>
           </a-popover>
         </div>
@@ -27,7 +38,9 @@
               <i :class="['slm', 'blog-tread', { 'icon-clicks': item.likeStatus === 2 }]"></i>
               <span v-text="item.criticismNum"></span>
             </a-button>
-            <a-button @click="appendReply(item, key)" type="link" size="small">{{replyStore[item.id] !== undefined ? '收起' : '回复'}}</a-button>
+            <a-button type="link" size="small" @click="appendReply(item, key)">{{
+              replyStore[item.id] !== undefined ? '收起' : '回复'
+            }}</a-button>
           </div>
         </div>
       </div>
@@ -35,15 +48,15 @@
         <ArticleSubReply
           v-if="item.subComment.list.length"
           :ssr="item.subComment"
-          :parentId="item.id"
-          :articleId="articleId"
+          :parent-id="item.id"
+          :article-id="articleId"
         />
         <div ref="replyAdd">
           <ArticleReplyAdd
             v-if="replyStore[item.id] !== undefined"
             :editor-id="`articleReplayComment_${item.id}`"
-            :parentId="item.id"
-            :articleId="articleId"
+            :parent-id="item.id"
+            :article-id="articleId"
             @replaySuccess="res => replaySuccess(res, key)"
           />
         </div>
@@ -57,20 +70,19 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'nuxt-property-decorator';
-import { Input, Col, Row, Button, Popover } from 'ant-design-vue';
+import { Vue, Component, Prop } from 'nuxt-property-decorator'
+import { Input, Col, Row, Button, Popover } from 'ant-design-vue'
 
-import api from '@/config/api';
-import ComRow from '@/components/public/Row.vue';
-import ArticleReplyAdd from './ArticleReplyAdd.vue';
-import ArticleSubReply from './ArticleSubReply.vue';
-import UserCard from '@/components/public/UserCard.vue';
-import ArticleReplyMixins from './ArticleReplyMixins.vue';
+import api from '@/config/api'
+import ComRow from '@/components/public/Row.vue'
+import UserCard from '@/components/public/UserCard.vue'
 
-import { GlobalTool } from '@/utils/tool';
-import { Request } from '@/interface/request';
-import { Article } from '@/interface/request/article';
-
+import { GlobalTool } from '@/utils/tool'
+import { Request } from '@/interface/request'
+import { Article } from '@/interface/request/article'
+import ArticleReplyMixins from './ArticleReplyMixins.vue'
+import ArticleSubReply from './ArticleSubReply.vue'
+import ArticleReplyAdd from './ArticleReplyAdd.vue'
 
 /**
  * 回复组件
@@ -88,21 +100,21 @@ import { Article } from '@/interface/request/article';
     APopover: Popover,
     ATextArea: Input.TextArea,
   },
-  mixins: [ ArticleReplyMixins ],
+  mixins: [ArticleReplyMixins],
 })
 export default class ArticleReply extends Vue {
   /**
    * 传入的列表数据 SSR
    */
-  @Prop(Object) ssr!: Request.ListTotal<Article.Comment>;
+  @Prop(Object) ssr!: Request.ListTotal<Article.Comment>
   /**
    * 文章ID
    */
-  @Prop(Number) articleId!: Article.Base['id'];
+  @Prop(Number) articleId!: Article.Base['id']
   /**
    * 评论回复存储
    */
-  replyStore: { [k: number]: string } = {};
+  replyStore: { [k: number]: string } = {}
 
   /**
    * 添加回复
@@ -110,19 +122,18 @@ export default class ArticleReply extends Vue {
    * @param key  回复的子评论下标
    */
   appendReply(item: Article.Base, key: number) {
-    this.replyStore[item.id] = this.replyStore[item.id] !== undefined ? undefined : null;
-    this.$forceUpdate();
+    this.replyStore[item.id] = this.replyStore[item.id] !== undefined ? undefined : null
+    this.$forceUpdate()
     this.$nextTick(() => {
-      const { replyAdd } = this.$refs;
+      const { replyAdd } = this.$refs
       if (replyAdd) {
         replyAdd[key].scrollIntoView({
-          behavior: "smooth",
+          behavior: 'smooth',
           block: 'center',
-        });
+        })
       }
     })
   }
-
 
   /**
    * 获取头像链接
@@ -132,9 +143,8 @@ export default class ArticleReply extends Vue {
     return GlobalTool.format.paramsUrl(api.resources.avatars, {
       nickname,
       gender: 'male',
-    });
+    })
   }
-
 
   /**
    * 评论成功回调
@@ -142,10 +152,10 @@ export default class ArticleReply extends Vue {
    * @param index 回复的子评论下标
    */
   replaySuccess(res: Request.Result<Article.Comment>, index: number) {
-    const current = this.ssr.list[index];
-    this.replyStore[current.id] = undefined;
-    current.subComment?.list.push(res.result);
-    this.$forceUpdate();
+    const current = this.ssr.list[index]
+    this.replyStore[current.id] = undefined
+    current.subComment?.list.push(res.result)
+    this.$forceUpdate()
   }
 }
 </script>

@@ -3,11 +3,11 @@
  */
 
 // 所有主体框架响应状态
-const responseSuccess = true;
+const responseSuccess = true
 // 所有主体框架响应错误信息
-const responseError = '';
+const responseError = ''
 // 所有主体框架响应错误码
-const responseCode = null;
+const responseCode = null
 
 /**
  * 基础外层响应框架
@@ -19,5 +19,5 @@ export const baseRes = data => {
     result: responseSuccess ? data : null,
     code: responseCode,
     message: responseError,
-  };
+  }
 }

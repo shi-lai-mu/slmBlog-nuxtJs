@@ -1,19 +1,18 @@
-import { State } from '@/interface/state';
-import {  _WEB_CONFIG_VERSION_ } from '@/config/websetting';
+import { State } from '@/interface/state'
 
 const mutations = {
   /**
    * 设置客户端标识
    */
   setClientUA(state: State, data: State['isMobile']) {
-    state.isMobile = data;
+    state.isMobile = data
   },
 
   /**
    * 是否正在显示遮罩层
    */
   maskUpdate(state: State, data: State['isMask']) {
-    state.isMask = data;
+    state.isMask = data
   },
 
   /**
@@ -27,17 +26,15 @@ const mutations = {
    * 初始化用户数据
    */
   initUser(state: State, data: State['user']) {
-    console.log({ user: data });
-    
-    state.user = data;
+    state.user = data
   },
 
   /**
    * 设定JWT
    */
   setJWT(state: State, data: State['jwt']) {
-    state.jwt = data;
+    state.jwt = data
   },
-};
+}
 
-export default mutations;
+export default mutations

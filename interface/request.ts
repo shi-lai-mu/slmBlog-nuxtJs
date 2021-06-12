@@ -1,4 +1,4 @@
-import { ResError } from "./request/public";
+import { ResError } from './request/public'
 
 /**
  * 请求
@@ -11,23 +11,23 @@ export namespace Request {
     /**
      * 是否执行成功
      */
-    success: boolean;
+    success: boolean
     /**
      * 响应码
      */
-    code: number;
+    code: number
     /**
      * 响应信息
      */
-    message: string;
+    message: string
     /**
      * 响应内容
      */
-    result: T;
+    result: T
     /**
      * 响应主体
      */
-    readonly _res: Response;
+    readonly _res: Response
   }
 
   /**
@@ -37,15 +37,15 @@ export namespace Request {
     /**
      * 是否执行成功
      */
-    success: boolean;
+    success: boolean
     /**
      * 响应码
      */
-    code: number;
+    code: number
     /**
      * 响应信息
      */
-    message: string;
+    message: string
     /**
      * 响应内容
      */
@@ -53,24 +53,24 @@ export namespace Request {
       /**
        * 列表内容
        */
-      list: T[];
+      list: T[]
       /**
        * 当前页数
        */
-      page: number;
+      page: number
       /**
        * 单页个数
        */
-      count: number;
+      count: number
       /**
        * 总页
        */
-      total: number;
-    };
+      total: number
+    }
     /**
      * 响应主体
      */
-    readonly _res: Response;
+    readonly _res: Response
   }
 
   /**
@@ -80,18 +80,18 @@ export namespace Request {
     /**
      * 列表
      */
-    list: T[];
+    list: T[]
     /**
      * 总数
      */
-    total: number;
+    total: number
     /**
      * 页数
      */
-    page: number;
+    page: number
     /**
      * 单页总数
      */
-    pageSize: number;
+    pageSize: number
   }
 }

@@ -9,41 +9,34 @@ export namespace Router {
     /**
      * 路由名称
      */
-    name: string;
+    name: string
     /**
      * 跳转路径
      */
-    to?: string;
+    to?: string
     /**
      * 图标
      */
-    icon?: string;
+    icon?: string
     /**
      * 回调
      */
-    cb?: () => any;
+    cb?: CallableFunction
   }
-};
-
+}
 
 /**
  * 导航
  */
 export namespace Navigator {
-
-  export interface NavigatorConfig {
+  /**
+   * 配置项
+   */
+  export interface Config extends Router.Config {
     /**
-     * 聚焦下标
+     * 子导航
      */
-    focus: number;
-    /**
-     * 聚焦子下标
-     */
-    focusChild: number;
-    /**
-     * 导航状态配置
-     */
-    config: State[];
+    children?: Config[]
   }
 
   /**
@@ -53,16 +46,20 @@ export namespace Navigator {
     /**
      * 是否聚焦
      */
-    focus: boolean;
+    focus: boolean
   }
-
-  /**
-   * 配置项
-   */
-  export interface Config extends Router.Config {
+  export interface NavigatorConfig {
     /**
-     * 子导航
+     * 聚焦下标
      */
-    children?: Config[];
+    focus: number
+    /**
+     * 聚焦子下标
+     */
+    focusChild: number
+    /**
+     * 导航状态配置
+     */
+    config: State[]
   }
 }

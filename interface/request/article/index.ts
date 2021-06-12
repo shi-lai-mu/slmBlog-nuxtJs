@@ -1,58 +1,78 @@
-import { User } from '@/interface/request/user';
-import { UploadImageBase } from '@/interface/request/public';
-import { Request } from '@/interface/request';
+import { User } from '@/interface/request/user'
+import { UploadImageBase } from '@/interface/request/public'
+import { Request } from '@/interface/request'
 
 export namespace Article {
+  /**
+   * 话题
+   */
+  export interface Topics {
+    /**
+     * 话题头图
+     */
+    cover: string
+    /**
+     * 话题id
+     */
+    id: number
+    /**
+     * 话题名称
+     */
+    name: string
+  }
 
   /**
    * 文章状态
    */
   export enum StateEnum {
-    examine   = 0,  // 审核中
-    routine   = 1,  // 常规
-    topping   = 2,  // 置顶文章
-    boutique  = 3,  // 精品文章
-    recommend = 4,  // 推荐文章
-    latest    = 5,  // 最新文章
-    owner     = 6,  // 我的文章
-    failed    = 7,  // 审核未通过
-    isDelete  = 8,  // 已删除
+    examine = 0, // 审核中
+    routine = 1, // 常规
+    topping = 2, // 置顶文章
+    boutique = 3, // 精品文章
+    recommend = 4, // 推荐文章
+    latest = 5, // 最新文章
+    owner = 6, // 我的文章
+    failed = 7, // 审核未通过
+    isDelete = 8, // 已删除
   }
-    
+
   export interface Base {
     /**
      * 文章ID
      */
-    id: number;
+    id: number
     /**
      * 简介
      */
-    description: string;
+    description: string
     /**
      * 头图
      */
-    banner: string;
+    banner: string
     /**
      * 内容
      */
-    content: string;
+    content: string
     /**
      * 标题
      */
-    subject: string;
+    subject: string
     /**
      * 我的操作
      */
+    // eslint-disable-next-line camelcase
     self_operation: {
       /**
        * 是否已收藏
        */
-      is_collected: boolean;
-    },
+      // eslint-disable-next-line camelcase
+      is_collected: boolean
+    }
     /**
      * 预览图
      */
-    image_list: UploadImageBase[];
+    // eslint-disable-next-line camelcase
+    image_list: UploadImageBase[]
     /**
      * 统计
      */
@@ -60,68 +80,64 @@ export namespace Article {
       /**
        * 回复数
        */
-      reply_num: number;
+      // eslint-disable-next-line camelcase
+      reply_num: number
       /**
        * 点赞数
        */
-      like_num: number;
+      // eslint-disable-next-line camelcase
+      like_num: number
       /**
        * 浏览量
        */
-      view_num: number;
+      // eslint-disable-next-line camelcase
+      view_num: number
       /**
        * 收藏数
        */
-      bookmark_num: number;
-    },
+      // eslint-disable-next-line camelcase
+      bookmark_num: number
+    }
     /**
      * 发布者用户数据
      */
-    user: User.Base,
+    user: User.Base
     /**
      * 细节数据
      */
-    details: {
-      
-    },
+    details: {}
     /**
      * 是官方用户吗
      */
+    // eslint-disable-next-line camelcase
     is_official_master: boolean
     /**
-     * 是发布用户吗
+     * 是发布用户码
      */
+    // eslint-disable-next-line camelcase
     is_user_master: boolean
     /**
      * 话题
      */
-    topics: Topics[];
+    topics: Topics[]
     /**
      * 最后回复时间
      */
-    reply_time: string;
+    // eslint-disable-next-line camelcase
+    reply_time: string
     /**
      * 发布时间
      */
-    release_time: string;
+    // eslint-disable-next-line camelcase
+    release_time: string
     /**
      * 文章字数
      */
-    contentSize?: number;
-  };
-
-  /**
-   * 文章主题
-   */
-  export interface Posts {
-    /**
-     * 文章数据
-     */
-    article: Base;
-    /**
-     * 评论列表
-     */
-    comment: Request.ListTotal<Comment>;
+    contentSize?: number
+    /** 发布用户 */
+    author: User.Base
+    /** 创建时间 */
+    createTime: string
   }
 
   /**
@@ -131,19 +147,19 @@ export namespace Article {
     /**
      * 评论ID
      */
-    id: number;
+    id: number
     /**
      * 评论内容
      */
-    content: string;
+    content: string
     /**
      * 点赞数
      */
-    loveNum: number;
+    loveNum: number
     /**
      * 点踩数
      */
-    criticismNum: number;
+    criticismNum: number
     /**
      * 子评论总数
      */
@@ -151,19 +167,19 @@ export namespace Article {
     /**
      * 昵称 (登录用户为null)
      */
-    nickname: string;
+    nickname: string
     /**
-     * 绑定链接 
+     * 绑定链接
      */
-    link: string | null;
+    link: string | null
     /**
      * 邮箱 (登录用户为null)
      */
-    email: string | null;
+    email: string | null
     /**
      * 更新时间
      */
-    updateTime: string;
+    updateTime: string
     /**
      * 发布评论 登录用户 (非登录用户为null)
      */
@@ -171,45 +187,41 @@ export namespace Article {
       /**
        * 用户ID
        */
-      id: User.Base['id'];
+      id: User.Base['id']
       /**
        * 昵称
        */
-      nickname: User.Base['nickname'];
+      nickname: User.Base['nickname']
       /**
        * 头像
        */
-      avatarUrl: User.Base['avatarUrl'];
-    } | null;
+      avatarUrl: User.Base['avatarUrl']
+    } | null
     /**
      * 子评论数据
      */
-    subComment?: Request.ListTotal<Comment>;
+    subComment?: Request.ListTotal<Comment>
     /**
      * 当前用户点赞状态
      * 1： 赞
      * 2： 踩
      * 0： 未进行操作
      */
-    likeStatus?: number;
+    likeStatus?: number
   }
 
   /**
-   * 话题
+   * 文章主题
    */
-  export interface Topics {
+  export interface Posts {
     /**
-     * 话题头图
+     * 文章数据
      */
-    cover: string;
+    article: Base
     /**
-     * 话题id
+     * 评论列表
      */
-    id: number;
-    /**
-     * 话题名称
-     */
-    name: string;
+    comment: Request.ListTotal<Comment>
   }
 
   /**
@@ -219,15 +231,15 @@ export namespace Article {
     /**
      * 锚点名
      */
-    name: string;
+    name: string
     /**
      * 锚点链接
      */
-    link?: string;
+    link?: string
     /**
      * 子锚点
      */
-    childs?: Anchor[];
+    childs?: Anchor[]
   }
 
   /**
@@ -238,11 +250,11 @@ export namespace Article {
       /**
        * 踩 点亮
        */
-      criticism: 0 | 1;
+      criticism: 0 | 1
       /**
        * 赞 点亮
        */
-      praise: 0 | 1;
-    };
+      praise: 0 | 1
+    }
   }
 }

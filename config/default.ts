@@ -1,13 +1,13 @@
-import { WebConfig } from '@/interface/config';
-import { getIPAdress } from '@/utils/network';
-import { isClient } from '~/utils/axios/lib/config';
-import user from './note/user';
+import { WebConfig } from '@/interface/config'
+import { getIPAdress } from '@/utils/network'
+import user from './note/user'
+import { isClient } from '~/utils/axios/lib/config'
 
-const port = 8881;
-const isDev = process.env.NODE_ENV === 'development';
-const devDomain = getIPAdress() ?? location.hostname;
-const domain = !isDev ? 'https://slmblog.com' : `http://${devDomain}:${port}`;
-const devOSSDomain = isClient ? `http://${location.host}` : domain;
+const port = 8881
+const isDev = process.env.NODE_ENV === 'development'
+const devDomain = getIPAdress() ?? location.hostname
+const domain = !isDev ? 'https://slmblog.com' : `http://${devDomain}:${port}`
+const devOSSDomain = isClient ? `http://${location.host}` : domain
 
 /**
  * 默认配置
@@ -63,23 +63,21 @@ const defaultConfig: WebConfig.Default = {
   /**
    * 版权所有
    */
-  copyRight: `© CopyRight 2018-${ new Date().getFullYear() } {{ domain }} Rights Reserved.`,
+  copyRight: `© CopyRight 2018-${new Date().getFullYear()} {{ domain }} Rights Reserved.`,
   /**
    * OSS存储对象地址
    */
   ossLink: !isDev
     ? (devOSSDomain || domain) + '/blog'
-    // ? 'https://oss.slmblog.com/blog'
-    : (devOSSDomain || domain) + '/blog'
-  ,
+    : // ? 'https://oss.slmblog.com/blog'
+      (devOSSDomain || domain) + '/blog',
   /**
    * SEO备用本站存储地址
    */
   imgLink: !isDev
     ? domain + 'blog'
-    // ? 'https://img.slmblog.com/blog'
-    : domain + 'blog'
-  ,
+    : // ? 'https://img.slmblog.com/blog'
+      domain + 'blog',
   /**
    * Axios 请求的服务器
    */
@@ -92,19 +90,19 @@ const defaultConfig: WebConfig.Default = {
     children: {
       oss: {
         host: 'https://oss.slmblog.com/blog',
-        devHost: '/blog'
+        devHost: '/blog',
       },
       img: {
         host: 'https://img.slmblog.com',
-        devHost: ''
+        devHost: '',
       },
       yapi: {
         host: 'https://yapi.slmblog.com/mock/11',
         devHost: 'https://yapi.slmblog.com/mock/11',
-      }
+      },
     },
   },
   user,
-};
+}
 
-export default defaultConfig;
+export default defaultConfig

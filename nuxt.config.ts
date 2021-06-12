@@ -1,11 +1,10 @@
-import * as path from 'path';
-import { isDev, isMock } from './config/system';
-import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
+import * as path from 'path'
+import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin'
+import { isDev, isMock } from './config/system'
 // import webpack from 'webpack';
 // import CompressionPlugin from 'compression-webpack-plugin';
 
 const globalConfig = {
-
   /*
    ** Headers of the page
    */
@@ -14,10 +13,23 @@ const globalConfig = {
     titleTemplate: '%s' + (process.env.npm_config_name ? ' - ' + process.env.npm_config_name : ''),
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' },
+      {
+        name: 'viewport',
+        content:
+          'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
+      },
       { 'http-equiv': 'X-UA-Compatible', content: 'ie=edge,chrome=1' },
-      { hid: 'description', name: 'description', itemprop: 'description', content: '欢迎浏览史莱姆的博客٩( °༥° )و，让我们一起交流技术一起嗨皮分享！史莱姆的博客为个人站点，注重前端开发。' },
-      { name: 'keywords', content: '史莱姆的博客,html5,css3,es6,微信小程序,网站开发,技术交流,源码分享,php,nodejs' },
+      {
+        hid: 'description',
+        name: 'description',
+        itemprop: 'description',
+        content:
+          '欢迎浏览史莱姆的博客٩( °༥° )و，让我们一起交流技术一起嗨皮分享！史莱姆的博客为个人站点，注重前端开发。',
+      },
+      {
+        name: 'keywords',
+        content: '史莱姆的博客,html5,css3,es6,微信小程序,网站开发,技术交流,源码分享,php,nodejs',
+      },
       { name: 'referrer', content: 'origin' },
       { name: 'renderer', content: 'webkit' },
       { itemprop: 'applicable-device', content: 'pc,mobile' },
@@ -42,24 +54,24 @@ const globalConfig = {
   },
 
   /*
-  ** Customize the progress-bar color
-  */
+   ** Customize the progress-bar color
+   */
   loading: {
     color: 'rgba(1, 188, 255, .7)',
     height: '3px',
-    failedColor: 'red'
+    failedColor: 'red',
   },
 
   /*
-  ** Global CSS
-  */
+   ** Global CSS
+   */
   css: [
     // 'ant-design-vue/dist/antd.css'
   ],
 
   /*
-  ** Plugins to load before mounting the App
-  */
+   ** Plugins to load before mounting the App
+   */
   plugins: [
     '@/plugins/global.ts',
     '@/plugins/global-ui.ts',
@@ -73,27 +85,27 @@ const globalConfig = {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     // '@nuxtjs/eslint-module',
-    '@nuxt/typescript-build'
+    '@nuxt/typescript-build',
   ],
 
   /*
    ** Nuxt.js modules
    */
-  modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/style-resources',
-  ],
+  modules: ['@nuxtjs/axios', '@nuxtjs/style-resources'],
 
   /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
   build: {
     // publicPath: isDev ? '/_nuxt/' : 'http://cdn.slmblog.com/_nuxt/',
     /*
-    ** You can extend webpack config here
-    */
+     ** You can extend webpack config here
+     */
     extend(config, { isClient }) {
-      config.resolve.alias['@ant-design/icons/lib/dist$'] = path.resolve(__dirname, './plugins/antd-icons.ts'); // 引入需要的
+      config.resolve.alias['@ant-design/icons/lib/dist$'] = path.resolve(
+        __dirname,
+        './plugins/antd-icons.ts'
+      ) // 引入需要的
       // config.resolve.alias.moment = path.resolve(__dirname, './plugins/antd-icons.ts'); // 引入需要的
       config.plugins.push(
         // 提取 monent 有效部分，减小体积 en-gb 英国 en-us 美国(默认值) vi 越南 zh-cn 中国
@@ -101,29 +113,29 @@ const globalConfig = {
         // 使用 IgnorePlugin 在打包时忽略本地化内容
         // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new AntdDayjsWebpackPlugin({
-          preset: 'antdv3'
-        }),
+          preset: 'antdv3',
+        })
         // new CompressionPlugin({
         //   test: /\.js|\.html|\.css/,
         //   // threshold: 10240,
         //   deleteOriginalAssets: false,
         // }),
-      );
+      )
 
       if (isClient) {
         config.externals = {
-          'vue': 'Vue',
+          vue: 'Vue',
           'vue-router': 'VueRouter',
           'vue-meta': 'VueMeta',
-          'vuex': 'Vuex',
-          'tinycolor2': 'tinycolor',
-          'axios': 'axios',
-          'qs': 'Qs',
+          vuex: 'Vuex',
+          tinycolor2: 'tinycolor',
+          axios: 'axios',
+          qs: 'Qs',
           // 'vue-gemini-scrollbar': '{}',
-          'dayjs': 'dayjs',
+          dayjs: 'dayjs',
         }
         if (!isDev) {
-          config.externals.vconsole = '{}';
+          config.externals.vconsole = '{}'
         }
       }
 
@@ -133,28 +145,28 @@ const globalConfig = {
          * 开发环境: 模拟请求数据、初始数据、TS接口校验数据
          * 生产环境: 初始数据
          */
-        config.resolve.alias.mockjs = path.resolve(__dirname, './mock/build.ts');
+        config.resolve.alias.mockjs = path.resolve(__dirname, './mock/build.ts')
       }
     },
-    transpile: ["ant-design-vue"],
+    transpile: ['ant-design-vue'],
     babel: {
       plugins: [
         [
-          "import",
+          'import',
           {
-            libraryName: "ant-design-vue",
-            libraryDirectory: "es",
+            libraryName: 'ant-design-vue',
+            libraryDirectory: 'es',
             style: true,
           },
-          "ant-design-vue"
+          'ant-design-vue',
         ],
         [
-          "@babel/plugin-proposal-private-methods",
+          '@babel/plugin-proposal-private-methods',
           {
-            "loose": true
+            loose: true,
           },
         ],
-      ]
+      ],
     },
     loaders: {
       less: {
@@ -165,19 +177,19 @@ const globalConfig = {
           //   "primary-color": "#41b883",
           //   "layout-body-background": "#fff"
           // }
-        }
+        },
       },
       cssModules: {
-        localIdentName: '[local]_[hash:base64:5]'
+        localIdentName: '[local]_[hash:base64:5]',
       },
       sass: {
-        indentedSyntax: true
+        indentedSyntax: true,
       },
     },
     // 打包分析
-    analyze: !isDev, 	
-    // assetFilter: (assetFilename) => {	    		
-    //   return assetFilename.endsWith('.js');	    	
+    analyze: !isDev,
+    // assetFilter: (assetFilename) => {
+    //   return assetFilename.endsWith('.js');
     // },
     // extractCSS: !isDev,
     // optimization: (() => {
@@ -197,7 +209,6 @@ const globalConfig = {
     cache: true,
     parallel: true,
   },
-  
 
   /**
    * Style resources module configuration
@@ -216,21 +227,20 @@ const globalConfig = {
 
   axios: {
     proxy: false,
-    credentials: false
+    credentials: false,
   },
-  
+
   router: {
-    middleware: ["routerBefore"],
+    middleware: ['routerBefore'],
     extendRoutes(routes, resolve) {
       routes.push({
         name: 'articleEditor',
         path: '/article/editor',
         component: resolve(__dirname, 'pages/article/editor.vue'),
-      });
-    }
+      })
+    },
   },
 }
-
 
 /**
  * 开发模式
@@ -242,10 +252,7 @@ const globalConfig = {
  * Mock模式
  */
 if (isMock) {
-  globalConfig.plugins.push(...[
-    '@/plugins/mock',
-  ]);
+  globalConfig.plugins.push(...['@/plugins/mock'])
 }
 
-
-export default globalConfig;
+export default globalConfig

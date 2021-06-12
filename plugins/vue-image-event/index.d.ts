@@ -1,3 +1,3 @@
 export interface ImageElement extends HTMLImageElement {
-  loadImg: HTMLImageElement;
+  loadImg: HTMLImageElement
 }

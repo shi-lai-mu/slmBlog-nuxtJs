@@ -1,11 +1,12 @@
+import { AxiosInstance } from 'axios/index'
+
 export default class AxiosMock {
+  private _axios: AxiosInstance
 
-  private _axios: any;
+  private _mocked: { [key: string]: { template: string; response: string } } = {}
 
-  private _mocked: Array<{ [key: string]: string }> = [];
-
-  constructor(axios: any) {
-    this._axios = axios;
+  constructor(axios: AxiosInstance) {
+    this._axios = axios
   }
 
   /**
@@ -15,24 +16,26 @@ export default class AxiosMock {
    * @param template  数据模板
    * @param response  响应头
    */
-  reg(rurl: string | RegExp, rtype: string, template?: any, response?: any) {
+  reg(rurl: string | RegExp, rtype: string, template = '', response = '') {
     if (rurl instanceof RegExp) {
-      rurl = String(rurl).replace(/\\\//g, '/').replace(/(^\/|\/$)/g, '').replace(/\\(d|D|S|w|W)\+/g, ':params');
+      rurl = String(rurl)
+        .replace(/\\\//g, '/')
+        .replace(/(^\/|\/$)/g, '')
+        .replace(/\\(d|D|S|w|W)\+/g, ':params')
     }
-    this._mocked[`${rtype || 'get'}.${rurl}`] = {
+    const key = `${rtype || 'get'}.${rurl}`
+    this._mocked[key] = {
       template,
       response,
-    };
-    return this._axios;
+    }
+    return this._axios
   }
 
-  
   /**
    * 检测URL是否包含mock数据
    * @param rurl 接口URL
    */
   has(rurl: string) {
-    return this._mocked[rurl] || false; 
+    return this._mocked[rurl] || false
   }
-
 }

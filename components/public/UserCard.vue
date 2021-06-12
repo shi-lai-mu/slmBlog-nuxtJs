@@ -3,9 +3,18 @@
   <div class="row-box user-card">
     <template v-if="userData && userData.id">
       <!-- 背景图 -->
-      <div class="user-cover" :style="`background-image: url(${$config.ossLink}/user/card-bg-cover.jpg);`">
-        <Images class="user-avatar" v-if="userData.avatarUrl" :src="userData.avatarUrl" :alt="userData.nickname" :title="userData.nickname" />
-        <i class="slm blog-img-err user-avatar" v-else></i>
+      <div
+        class="user-cover"
+        :style="`background-image: url(${$config.ossLink}/user/card-bg-cover.jpg);`"
+      >
+        <Images
+          v-if="userData.avatarUrl"
+          class="user-avatar"
+          :src="userData.avatarUrl"
+          :alt="userData.nickname"
+          :title="userData.nickname"
+        />
+        <i v-else class="slm blog-img-err user-avatar"></i>
       </div>
 
       <!-- 内容部分 -->
@@ -13,37 +22,49 @@
         <!-- 头像 -->
         <div class="user-nickname">
           {{ userData.nickname }}
-          <i :class="['slm', 'blog-' + item.i]" :title="item.name" v-for="(item, key) in userData.badge" :key="key"></i>
+          <i
+            v-for="(item, key) in userData.badge"
+            :key="key"
+            :class="['slm', 'blog-' + item.i]"
+            :title="item.name"
+          ></i>
         </div>
         <!-- 简介 -->
-        <div class="user-introduction line-ellipsis double-line-ellipsis">{{ userData.introduction || $config.user.card.defaultIntroduction }}</div>
+        <div class="user-introduction line-ellipsis double-line-ellipsis">
+          {{ userData.introduction || $config.user.card.defaultIntroduction }}
+        </div>
         <!-- 人物状态 -->
-        <div class="user-state-row" v-if="userState">
-          <span class="stete-item" v-for="(item, index) in showState" :key="index">
+        <div v-if="userState" class="user-state-row">
+          <span v-for="(item, index) in showState" :key="index" class="stete-item">
             <div class="state-item-tag">{{ item }}</div>
             <div>{{ userData.state[index] || '--' }}</div>
           </span>
         </div>
         <!-- 用户管理入口 -->
-        <div class="user-entrance-row user-self" v-if="userSelf && $store.state.user.id === userData.id">
-          <a-button type='primary' class="btn">管理</a-button>
-          <a-button type='primary' class="btn" @click="$router.push({ name: 'articleEditor' })">发文章</a-button>
-          <a-button type='primary' class="btn">消息</a-button>
+        <div
+          v-if="userSelf && $store.state.user.id === userData.id"
+          class="user-entrance-row user-self"
+        >
+          <a-button type="primary" class="btn">管理</a-button>
+          <a-button type="primary" class="btn" @click="$router.push({ name: 'articleEditor' })"
+            >发文章</a-button
+          >
+          <a-button type="primary" class="btn">消息</a-button>
         </div>
         <!-- 关注入口 -->
-        <div class="user-entrance-row" v-if="userEntrance">
-          <a-button type='primary' class="btn">关注</a-button>
-          <a-button type='primary' class="btn">主页</a-button>
+        <div v-if="userEntrance" class="user-entrance-row">
+          <a-button type="primary" class="btn">关注</a-button>
+          <a-button type="primary" class="btn">主页</a-button>
         </div>
         <!-- 图标入口 -->
         <div class="user-icon">
           <a
-            class="icon-hover"
-            target="_blank"
             v-for="(item, index) in showIcon"
             v-show="item.link(userData)"
             :key="index"
-            :class="[ 'slm', item.icon ]"
+            class="icon-hover"
+            target="_blank"
+            :class="['slm', item.icon]"
             :href="item.link(userData)"
             :title="`访问 ${userData.nickname} 的 ${item.title}`"
           ></a>
@@ -55,14 +76,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
+import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator'
 
-import { User } from '@/interface/request/user';
-import { userData } from '@/mock/user/data/user';
-import { getUserBaseData } from '@/core/service/data/user';
+import { User } from '@/interface/request/user'
+import { userData } from '@/mock/user/data/user'
+import { getUserBaseData } from '@/core/service/data/user'
 
-import Images from '~/components/public/Images.vue';
-import UserCardSkeleton from '@/components/skeleton/pubCom/userCardSkeleton.vue';
+import UserCardSkeleton from '@/components/skeleton/pubCom/userCardSkeleton.vue'
+import Images from '~/components/public/Images.vue'
 
 /**
  * 用户信息展示卡片
@@ -79,27 +100,27 @@ export default class UserCard extends Vue {
   /**
    * 展示的用户ID
    */
-  @Prop(Number) userId?: number;
+  @Prop(Number) userId?: number
 
   /**
    * 父级传入的用户数据 SSR
    */
-  @Prop(Object) ssr?: User.Base;
+  @Prop(Object) ssr?: User.Base
 
   /**
    * 是否显示 入户入口
    */
-  @Prop(Boolean) userEntrance?: boolean;
+  @Prop(Boolean) userEntrance?: boolean
 
   /**
    * 是否显示 管理入口
    */
-  @Prop(Boolean) userSelf?: boolean;
+  @Prop(Boolean) userSelf?: boolean
 
   /**
    * 是否显示 用户状态
    */
-  @Prop(Boolean) userState?: boolean;
+  @Prop(Boolean) userState?: boolean
 
   /**
    * 展示的用户状态
@@ -108,7 +129,7 @@ export default class UserCard extends Vue {
     articleNumber: '文章',
     tagsNumber: '标签',
     commitNumber: '评论',
-  };
+  }
 
   /**
    * 展示的图标
@@ -133,13 +154,13 @@ export default class UserCard extends Vue {
       title: '邮箱',
       icon: 'blog-email',
       link: v => v?.email,
-    }
+    },
   }
 
   /**
    * 用户数据
    */
-  userData: User.Base = userData;
+  userData: User.Base = userData
 
   /**
    * data的更新触发 [userData将被覆盖] | userId的更新触发
@@ -148,27 +169,24 @@ export default class UserCard extends Vue {
   @Watch('ssr')
   @Watch('userId')
   ssrUpdate(data: User.Base | number) {
-    typeof data === 'number' 
+    typeof data === 'number'
       ? getUserBaseData(data).then(res => this.setRenderData(res.result))
-      : this.setRenderData(data);
+      : this.setRenderData(data)
   }
-
 
   created() {
-    this.ssrUpdate(this.userId || this.ssr || userData);
+    this.ssrUpdate(this.userId || this.ssr || userData)
   }
-
 
   /**
    * 设置渲染数据
    */
   setRenderData(data) {
     if (Object.keys(data).length === 0) {
-      return this.userData = this.errorData();
+      return (this.userData = this.errorData())
     }
-    this.userData = Object.assign(userData, data);
+    this.userData = Object.assign(userData, data)
   }
-
 
   /**
    * 用户信息获取失败时返回的信息
@@ -177,100 +195,100 @@ export default class UserCard extends Vue {
     return Object.assign(userData, {
       id: -1,
       nickname: '未知用户',
-      introduction: '用户信息获取失败...'
-    });
+      introduction: '用户信息获取失败...',
+    })
   }
 }
 </script>
 
-<style  lang="scss" scoped>
-  .user-card {
-    overflow: hidden;
-    padding: 0;
+<style lang="scss" scoped>
+.user-card {
+  overflow: hidden;
+  padding: 0;
+}
+
+.user-card /deep/ .row-content {
+  padding: 35px 25px 10px;
+  font-size: 0.7rem;
+  text-align: center;
+
+  .user-nickname {
+    font-size: 1.2rem;
+    font-weight: 500;
   }
 
-  .user-card /deep/ .row-content {
-    padding: 35px 25px 10px;
-    font-size: .7rem;
-    text-align: center;
+  .user-introduction {
+    margin-top: 10px;
+  }
 
-    .user-nickname {
-      font-size: 1.2rem;
-      font-weight: 500;
+  .user-entrance-row {
+    margin-top: 15px;
+
+    .ant-btn {
+      margin: 0 10px;
+    }
+  }
+
+  .user-state-row {
+    display: flex;
+    margin-top: 20px;
+
+    .stete-item {
+      width: 100%;
+      font-size: 0.8rem;
     }
 
-    .user-introduction {
-      margin-top: 10px;
+    .state-item-tag {
+      color: var(--c-text-secondary);
     }
+  }
 
-    .user-entrance-row {
-      margin-top: 15px;
+  .user-icon {
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
 
-      .ant-btn {
-        margin: 0 10px;
-      }
-    }
-
-    .user-state-row {
+    .slm {
       display: flex;
-      margin-top: 20px;
-
-      .stete-item {
-        width: 100%;
-        font-size: .8rem;
-      }
-
-      .state-item-tag {
-        color: var(--c-text-secondary);
-      }
-    }
-
-    .user-icon {
-      display: flex;
-      margin-top: 20px;
+      width: 2rem;
+      height: 2rem;
+      margin: 0 10px;
+      text-decoration: none;
+      border-radius: 5px;
       justify-content: center;
+      align-items: center;
+    }
+  }
+}
 
-      .slm {
-        display: flex;
-        width: 2rem;
-        height: 2rem;
-        margin: 0 10px;
-        text-decoration: none;
-        border-radius: 5px;
-        justify-content: center;
-        align-items: center;
+.user-card /deep/ .user-cover {
+  position: relative;
+  min-height: 150px;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .user-avatar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    margin: auto;
+    border-radius: 50%;
+    transform: translateY(40%);
+    background-color: rgba($color: #000, $alpha: 0.2);
+
+    &.slm {
+      text-align: center;
+      font-size: 40px;
+      background-color: rgba($color: #000, $alpha: 0.5);
+
+      &::before {
+        opacity: 0.5;
       }
     }
   }
-
-  .user-card /deep/ .user-cover {
-    position: relative;
-    min-height: 150px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    
-    .user-avatar {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 80px;
-      height: 80px;
-      line-height: 80px;
-      margin: auto;
-      border-radius: 50%;
-      transform: translateY(40%);
-      background-color: rgba($color: #000, $alpha: .2);
-
-      &.slm {
-        text-align: center;
-        font-size: 40px;
-        background-color: rgba($color: #000, $alpha: .5);
-
-        &::before {
-          opacity: .5;
-        }
-      }
-    }
-  }
+}
 </style>

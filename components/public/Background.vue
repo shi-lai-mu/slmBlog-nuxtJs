@@ -1,30 +1,29 @@
 <template>
-  <canvas class="canvas-bg" width="1920" height="1080" ref="canvas"></canvas>
+  <canvas ref="canvas" class="canvas-bg" width="1920" height="1080"></canvas>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
-import Background from '@/utils/background';
+import { Component, Vue } from 'nuxt-property-decorator'
+import Background from '@/utils/background'
 
 /* 背景组件 */
 @Component
 export default class VueBackground extends Vue {
-
-  bg!: Background;
+  bg!: Background
 
   mounted() {
     this.$nextTick(() => {
-      const { isMobile } = this.$$store.state;
+      const { isMobile } = this.$$store.state
       this.bg = new Background(this.$refs.canvas as HTMLCanvasElement, {
         grain: {
           number: isMobile ? 15 : 100,
-        }
-      });
-    });
+        },
+      })
+    })
   }
 
   destroyed() {
-    this.bg.isStop = true;
+    this.bg.isStop = true
   }
 }
 </script>

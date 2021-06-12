@@ -1,7 +1,7 @@
-import { Random } from '@/mock/mock';
+import { Random } from '@/mock/mock'
 
-import { userData } from "@/mock/user/data/user";
-import { uploadImageBase, randomArray } from "@/mock/publicMock";
+import { userData } from '@/mock/user/data/user'
+import { uploadImageBase, randomArray } from '@/mock/publicMock'
 
 /**
  * 话题数据
@@ -20,7 +20,6 @@ export const topics = {
    */
   name: Random.cname(),
 }
-
 
 /**
  * 文章基础数据
@@ -87,9 +86,7 @@ export const articleBase = {
   /**
    * 细节数据
    */
-  details: {
-    
-  },
+  details: {},
   /**
    * 是官方用户吗
    */
@@ -106,9 +103,12 @@ export const articleBase = {
    * 最后回复时间
    */
   reply_time: Random.datetime(),
+  /** 发布时间 */
+  createTime: Random.datetime(),
   /**
    * 发布时间
    */
   release_time: Random.datetime(),
-};
-
+  /** 发布用户 */
+  author: userData,
+}

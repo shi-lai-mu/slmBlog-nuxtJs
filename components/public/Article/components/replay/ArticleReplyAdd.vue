@@ -2,58 +2,66 @@
   <div>
     <!-- <ATextArea class="reply-textarea" placeholder="欢迎留下你的足迹~"></ATextArea> -->
     <Editor
+      :id="EditorId"
       ref="editor"
+      v-model="content"
       class="reply-textarea"
       placeholder="欢迎留下你的足迹~"
       :menus="false"
       :height="200"
-      :id="EditorId"
-      :pasteTextHandle="pasteTextHandle"
-      v-model="content"
+      :paste-text-handle="pasteTextHandle"
     />
-    <a-row class="reply-user-inputs" type="flex" justify="space-between" v-if="!user.email">
+    <a-row v-if="!user.email" class="reply-user-inputs" type="flex" justify="space-between">
       <a-col :lg="{ span: 7 }" :xs="{ span: 24 }" :span="1">
-        <a-input placeholder="昵称 (必填)" v-model="nickname" />
+        <a-input v-model="nickname" placeholder="昵称 (必填)" />
       </a-col>
       <a-col :lg="{ span: 7 }" :xs="{ span: 24 }" :span="1">
-        <a-input placeholder="邮箱 (必填)" v-model="email" />
+        <a-input v-model="email" placeholder="邮箱 (必填)" />
       </a-col>
       <a-col :lg="{ span: 7 }" :xs="{ span: 24 }" :span="1">
-        <a-input placeholder="网站/博客 (选填)" v-model="link" />
+        <a-input v-model="link" placeholder="网站/博客 (选填)" />
       </a-col>
     </a-row>
     <div class="reply-user-footer">
-      <a-popover :getPopupContainer="$config.container" placement="bottom" v-model="emotePopoverVisible">
+      <a-popover
+        v-model="emotePopoverVisible"
+        :get-popup-container="$config.container"
+        placement="bottom"
+      >
         <a-button><i class="slm blog-qinggan"></i></a-button>
-        <a-tabs :default-active-key="'lyf'" class="popover-content" slot="content">
+        <a-tabs slot="content" :default-active-key="'lyf'" class="popover-content">
           <a-tab-pane v-for="(item, index) in getEmoteConfig().list" :key="index" :tab="item.name">
             <ul class="emote-list">
               <li v-for="(emoteItem, emoteIndex) in item.map" :key="emoteIndex" class="emote-item">
                 <a-tooltip :title="emoteItem.name">
-                  <img :src="item.getLink(emoteItem.url)" :alt="emoteItem.name" @click="e => insertEmote(e, item)">
+                  <img
+                    :src="item.getLink(emoteItem.url)"
+                    :alt="emoteItem.name"
+                    @click="e => insertEmote(e, item)"
+                  />
                 </a-tooltip>
               </li>
             </ul>
           </a-tab-pane>
         </a-tabs>
       </a-popover>
-      <a-button type="primary" @click="submit" :loading="loading">发表评论</a-button>
+      <a-button type="primary" :loading="loading" @click="submit">发表评论</a-button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, State } from 'nuxt-property-decorator';
-import { Input, Col, Row, Button, Popover, Tabs, Tooltip } from 'ant-design-vue';
+import { Component, Vue, Prop, State } from 'nuxt-property-decorator'
+import { Input, Col, Row, Button, Popover, Tabs, Tooltip } from 'ant-design-vue'
 
-import { emote } from '@/config/emote';
-import { axiosError } from '@/config/error';
-import { EmoteConfig } from '@/interface/config';
-import { submitArticleReplayDto } from '@/core/dto/article';
-import { submitArticleReplay } from '@/core/service/data/article';
+import { emote } from '@/config/emote'
+import { axiosError } from '@/config/error'
+import { EmoteConfig } from '@/interface/config'
+import { submitArticleReplayDto } from '@/core/dto/article'
+import { submitArticleReplay } from '@/core/service/data/article'
 
-import { User } from '~/interface/request/user';
-import Editor from '@/components/public/Editor.vue';
+import Editor from '@/components/public/Editor.vue'
+import { User } from '~/interface/request/user'
 
 /**
  * 添加/回复 评论组件
@@ -76,62 +84,64 @@ export default class ArticleReplyAdd extends Vue {
   /**
    * 编辑器ID
    */
-  @Prop() EditorId!: string;
+  @Prop() EditorId!: string
   /**
    * 回复目标文章
    */
-  @Prop(Number) articleId!: number;
+  @Prop(Number) articleId!: number
   /**
    * 评论父级ID
    */
-  @Prop(Number) parentId?: number;
+  @Prop(Number) parentId?: number
 
   @State
-  user: User.Base;
+  user: User.Base
+
   /**
    * 昵称
    */
-  nickname: string = '';
+  nickname: string = ''
   /**
    * 邮箱
    */
-  email: string = '';
+  email: string = ''
   /**
    * 相关链接
    */
-  link: string = '';
+  link: string = ''
   /**
    * 评论内容
    */
-  content: string = '';
+  content: string = ''
   /**
    * 表情气泡层可见性
    */
-  emotePopoverVisible: boolean = false;
+  emotePopoverVisible: boolean = false
   /**
    * 请求中
    */
-  loading: boolean = false;
+  loading: boolean = false
 
   /**
    * 提交评论方法
    */
   async submit() {
-    let { articleId, content, nickname, email, link, parentId } = this;
+    let { nickname, email } = this
+    const { articleId, content, link, parentId } = this
     let submitData: submitArticleReplayDto = {
       content,
-    };
-    this.loading = true;
+    }
+    this.loading = true
 
     // 非登录用户 检测与数据插入
     if (!nickname || !email) {
-      const { user } = this;
+      const { user } = this
       if (!email && !user) {
-        this.loading = false;
-        return this.$message.error('非登录用户必须填写 昵称 和 邮箱 才能评论!');
+        this.loading = false
+        return this.$message.error('非登录用户必须填写 昵称 和 邮箱 才能评论!')
       } else if (user) {
-        nickname = user.nickname;
-        email = user.email;
+        nickname = user.nickname
+        email = user.email
       }
     }
 
@@ -140,126 +150,125 @@ export default class ArticleReplyAdd extends Vue {
       nickname,
       email,
       link,
-    };
+    }
 
     // 父级评论绑定
-    if (parentId) submitData.parentId = parentId;
+    if (parentId) submitData.parentId = parentId
 
     submitData.content = content
       .replace(/<img /g, '<-img ')
       .replace(/<(\/)?[a-zA-Z]+[1-9]?[^><]*>/g, '')
       .replace(/<-img /g, '<img ')
-      .replace(/[a-z\-]+:(\s+)?var\([a-z\-]+\)(;|\s)+/g, '')
+      .replace(/[a-z-]+:(\s+)?var\([a-z-]+\)(;|\s)+/g, '')
       .replace(/font-size:(\s)?\S+(\s|;)+/g, '')
       .replace(/(:|;|\s)+(\s)+/g, '$1')
-    ;
 
-    const submit = await submitArticleReplay(articleId, submitData);
+    const submit = await submitArticleReplay(articleId, submitData)
     if (submit.success) {
-      this.$message.success('评论成功!');
-      this.$emit('replaySuccess', submit);
-      (<Editor>this.$refs.editor).clear();
-      this.nickname = this.email = this.link = '';
+      this.$message.success('评论成功!')
+      this.$emit('replaySuccess', submit)
+      ;(this.$refs.editor as Editor).clear()
+      this.nickname = this.email = this.link = ''
     } else {
-      this.$message.error(axiosError.error(submit.message));
+      this.$message.error(axiosError.error(submit.message))
     }
-    this.loading = false;
+    this.loading = false
   }
 
   /**
    * 粘贴内容回调
    */
   pasteTextHandle(str: string) {
-    console.log(str);
-    return str;
+    // console.log(str);
+    return str
   }
-
 
   /**
    * 插入表情
    */
-  insertEmote(e: any, emote: EmoteConfig['list'][0]) {
-    (this.$refs.editor as Editor).cmdDo(`<img src="${e.target.src}" class="emote" style="${emote.style}" />`);
+  insertEmote(e: Event, emote: EmoteConfig['list'][0]) {
+    ;(this.$refs.editor as Editor).cmdDo(
+      `<img src="${(e.target as HTMLImageElement).src}" class="emote" style="${emote.style}" />`
+    )
   }
-
 
   /**
    * 获取表情配置
    */
   getEmoteConfig() {
-    return emote;
+    return emote
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .reply-textarea {
-    min-height: 100px;
-    margin-top: 10px;
-  }
+.reply-textarea {
+  min-height: 100px;
+  margin-top: 10px;
+}
 
-  .emote-list {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    display: grid;
-    height: 200px;
-    padding: 0 10px;
-    // margin-bottom: 0;
-    grid-template-columns: repeat(7, 1fr);
+.emote-list {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: grid;
+  height: 200px;
+  padding: 0 10px;
+  // margin-bottom: 0;
+  grid-template-columns: repeat(7, 1fr);
 
-    .emote-item {
-      // display: inline-block;
-      width: 40px;
-      cursor: pointer;
-      user-select: none;
+  .emote-item {
+    // display: inline-block;
+    width: 40px;
+    cursor: pointer;
+    user-select: none;
 
-      img {
-        width: 100%;
-        padding: 5px;
-        border-radius: 5px;
+    img {
+      width: 100%;
+      padding: 5px;
+      border-radius: 5px;
 
-        &:hover {
-          background-color: var(--c-bg-info);
-        }
+      &:hover {
+        background-color: var(--c-bg-info);
+      }
 
-        &:active {
-          background-color: var(--m-color-opacity-2-bg-primary);
-        }
+      &:active {
+        background-color: var(--m-color-opacity-2-bg-primary);
       }
     }
   }
+}
 
-  .reply-user-inputs {
-    margin: 20px 0 0;
+.reply-user-inputs {
+  margin: 20px 0 0;
 
-    .ant-col {
-      margin-bottom: 10px;
-    }
+  .ant-col {
+    margin-bottom: 10px;
   }
+}
 
-  .reply-user-footer {
-    display: flex;
-    margin-top: 10px;
-    justify-content: flex-end;
+.reply-user-footer {
+  display: flex;
+  margin-top: 10px;
+  justify-content: flex-end;
 
-    .ant-btn {
-      margin-left: 10px;
-    }
+  .ant-btn {
+    margin-left: 10px;
   }
+}
 
-  .popover-content {
-    width: 300px;
-  }
-  /deep/ .w-e-text-container {
-    border-radius: 5px !important;
-  }
+.popover-content {
+  width: 300px;
+}
+/deep/ .w-e-text-container {
+  border-radius: 5px !important;
+}
 
-  /deep/ .w-e-toolbar {
-    display: none;
-  }
-  
-  /deep/ .ant-tabs-nav .ant-tabs-tab,
-  /deep/ .ant-tabs-bar {
-    margin: 0;
-  }
+/deep/ .w-e-toolbar {
+  display: none;
+}
+
+/deep/ .ant-tabs-nav .ant-tabs-tab,
+/deep/ .ant-tabs-bar {
+  margin: 0;
+}
 </style>

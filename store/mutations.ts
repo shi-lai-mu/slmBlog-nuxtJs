@@ -1,5 +1,5 @@
-import index from './mutations/index';
+import index from './mutations/index'
 
 export default {
   ...index,
-};
+}

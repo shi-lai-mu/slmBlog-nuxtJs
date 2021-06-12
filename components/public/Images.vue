@@ -1,11 +1,18 @@
 <template>
   <div class="slm-image">
-    <img :class="'img image-' + (mode || 'cover')" v-if="src" :src="src" :alt="alt" :title="title" v-img>
+    <img
+      v-if="src"
+      v-img
+      :class="'img image-' + (mode || 'cover')"
+      :src="src"
+      :alt="alt"
+      :title="title"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop }   from 'nuxt-property-decorator';
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 
 /**
  * 图片组件
@@ -15,14 +22,14 @@ import { Component, Vue, Prop }   from 'nuxt-property-decorator';
  */
 @Component
 export default class Images extends Vue {
-  @Prop(String) src?: string;
-  @Prop(String) alt?: string;
-  @Prop(String) title?: string;
-  @Prop(String) mode?: 'cover' | 'widthFix' | 'heightFix';
+  @Prop(String) src?: string
+  @Prop(String) alt?: string
+  @Prop(String) title?: string
+  @Prop(String) mode?: 'cover' | 'widthFix' | 'heightFix'
 }
 </script>
 
-<style  lang="scss" scoped>
+<style lang="scss" scoped>
 .slm-image {
   overflow: hidden;
   position: relative;

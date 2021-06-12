@@ -26,23 +26,23 @@ export default class ArticleCardSkeleton extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-  .article-description{
-    margin-top: .3em;
-  }
-  .blog-loading {
-    font-size: 80px;
-  }
-  .skeleton-tag {
-    width: 2em;
-  }
-  .article-bottom {
-    display: flex;
-    opacity: .5;
-    margin-top: 10px;
-    justify-content: space-between;
-  }
-  .article-content {
-    width: 100% !important;
-    min-width: 100%;
-  }
+.article-description {
+  margin-top: 0.3em;
+}
+.blog-loading {
+  font-size: 80px;
+}
+.skeleton-tag {
+  width: 2em;
+}
+.article-bottom {
+  display: flex;
+  opacity: 0.5;
+  margin-top: 10px;
+  justify-content: space-between;
+}
+.article-content {
+  width: 100% !important;
+  min-width: 100%;
+}
 </style>

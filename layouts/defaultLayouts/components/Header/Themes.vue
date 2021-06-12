@@ -1,9 +1,14 @@
 <template>
-  <li :class="[ 'slm', 'blog-themes', $store.state.themes.mainBColor ]" @click.self="showPopup = !showPopup">
-    <Masks :styleList="styleList" :hide="!showPopup" @close="() => showPopup = false">
-      <div class="popup-box" v-if="ThemesConfig">
+  <li
+    :class="['slm', 'blog-themes', $store.state.themes.mainBColor]"
+    @click.self="showPopup = !showPopup"
+  >
+    <Masks :style-list="styleList" :hide="!showPopup" @close="() => (showPopup = false)">
+      <div v-if="ThemesConfig" class="popup-box">
         <h4 class="popup-title">自定义主题皮肤</h4>
-        <div class="popup-tips">管理字体大小、颜色和背景。这些设置会影响此浏览器上，如果登录账号将同步到云端。</div>
+        <div class="popup-tips">
+          管理字体大小、颜色和背景。这些设置会影响此浏览器上，如果登录账号将同步到云端。
+        </div>
         <div class="popup-content">
           <div class="row-box">
             <span>字体大小</span>
@@ -14,63 +19,90 @@
                 :marks="ThemesConfig.fontSize.marks"
                 :min="ThemesConfig.fontSize.min"
                 :max="ThemesConfig.fontSize.max"
-                :defaultValue="setting.theme.fontSize"
-                @change="fontSizeChang"/>
+                :default-value="setting.theme.fontSize"
+                @change="fontSizeChang"
+              />
               <i class="slm blog-Aa big-Aa"></i>
             </div>
           </div>
           <div class="row-box">
             <span>颜色</span>
             <div class="row-content">
-              <a-radio-group :default-value="setting.theme.color" size="large" class="themes-color-group">
+              <a-radio-group
+                :default-value="setting.theme.color"
+                size="large"
+                class="themes-color-group"
+              >
                 <a-radio-button
-                  class="themes-color-item"
                   v-for="(item, index) in ThemesConfig.color.list"
                   :key="index"
+                  class="themes-color-item"
                   :value="index"
-                  @click="toggleMainColor(index, true)">
-                  <div class="color-round" :style="{ backgroundColor: item.color, color: item.color}">
-                    <i class="slm blog-xuanzhong" v-show="setting.theme.color === index"></i>
+                  @click="toggleMainColor(index, true)"
+                >
+                  <div
+                    class="color-round"
+                    :style="{ backgroundColor: item.color, color: item.color }"
+                  >
+                    <i v-show="setting.theme.color === index" class="slm blog-xuanzhong"></i>
                   </div>
-                  <i :class="`slm blog-${item.icon}`" :style="`color: ${item.iconColor || item.color}`"></i>
+                  <i
+                    :class="`slm blog-${item.icon}`"
+                    :style="`color: ${item.iconColor || item.color}`"
+                  ></i>
                 </a-radio-button>
               </a-radio-group>
             </div>
           </div>
           <div class="row-box">
             <span>背景</span>
-            <div class="row-content"> 
-              <a-radio-group :default-value="setting.theme.backgroundColor" size="large" class="themes-bgcolor-group">
+            <div class="row-content">
+              <a-radio-group
+                :default-value="setting.theme.backgroundColor"
+                size="large"
+                class="themes-bgcolor-group"
+              >
                 <a-radio-button
-                  class="themes-bgcolor-item"
                   v-for="(item, index) in ThemesConfig.backgroundColor.list"
                   :key="index"
+                  class="themes-bgcolor-item"
                   :value="index"
                   :disabled="item.disable"
-                  @click="toggleBGColor(index, true)">
-                  <div class="color-round" :style="{ backgroundColor: item.color, color: item.fontColor }">
-                    {{ item.name }}<i class="slm blog-xuanzhong" :style="{ color: 'currentColor' }"></i>
+                  @click="toggleBGColor(index, true)"
+                >
+                  <div
+                    class="color-round"
+                    :style="{ backgroundColor: item.color, color: item.fontColor }"
+                  >
+                    {{ item.name
+                    }}<i class="slm blog-xuanzhong" :style="{ color: 'currentColor' }"></i>
                   </div>
                 </a-radio-button>
               </a-radio-group>
             </div>
           </div>
         </div>
-        <div :class="[ 'button', 'submit-btn', $store.state.themes.mainBColor ]" @click="() => showPopup = false">关闭</div>
+        <div
+          :class="['button', 'submit-btn', $store.state.themes.mainBColor]"
+          @click="() => (showPopup = false)"
+        >
+          关闭
+        </div>
       </div>
     </Masks>
   </li>
-</template>  
+</template>
 
 <script lang="ts">
-import { StateMutation } from '@/interface/state';
-import { isClient } from '@/utils/axios/lib/config';
-import { stateData as ConfigState } from '@/store/config';
-import { Vue, Component, namespace } from 'nuxt-property-decorator';
+import { StateMutation } from '@/interface/state'
+import { isClient } from '@/utils/axios/lib/config'
+import { stateData as ConfigState } from '@/store/config'
+import { Vue, Component, namespace } from 'nuxt-property-decorator'
 
-import Masks from '@/components/Masks.vue';
+import Masks from '@/components/Masks.vue'
+import { User } from '~/interface/request/user'
 
-const ConfigModule = namespace('config');
+const ConfigModule = namespace('config')
 
 /**
  * 头部皮肤组件
@@ -82,38 +114,40 @@ const ConfigModule = namespace('config');
   },
   computed: {
     ThemesConfig() {
-      return (this as HeaderThemes).setting?.config?.theme;
+      return (this as HeaderThemes).setting?.config?.theme
     },
-  }
+  },
 })
 export default class HeaderThemes extends Vue {
   /**
    * 样式列表
    */
-  styleList: any = {};
+  styleList: CSSStyleDeclaration | Record<string, string> = {}
   /**
    * 是否显示弹窗
    */
-  showPopup: boolean = false;
+  showPopup: boolean = false
   /**
    * 设置站点参数
    */
-  @ConfigModule.Mutation setWebOptions!: StateMutation;
+  @ConfigModule.Mutation setWebOptions!: StateMutation
   /**
    * 网站设置
    */
-  @ConfigModule.State setting!: typeof ConfigState.setting;
+  @ConfigModule.State setting!: typeof ConfigState.setting
   /**
    * 初始化状态
    */
-  initState = false;
+  initState = false
   /**
    * 消息key
    */
-  messageKey = 'HeaderThemesMessageKey';
+  messageKey = 'HeaderThemesMessageKey'
+  /** 获取主题配置 */
+  ThemesConfig!: User.Config
 
   created() {
-    const ThemesConfig = this.setting.theme;
+    const ThemesConfig = this.setting.theme
     if (isClient) {
       const callFn = {
         fontSize: {
@@ -124,19 +158,21 @@ export default class HeaderThemes extends Vue {
         },
         backgroundColor: {
           fn: 'toggleBGColor',
-        }
-      };
+        },
+      }
       Object.keys(ThemesConfig).forEach(key => {
-        const targetFn = callFn[key];
+        const targetFn = callFn[key]
         if (targetFn) {
-          const currentConifg = ThemesConfig[key];
-          const params = targetFn.cb ? targetFn.cb(currentConifg.current, currentConifg) : [ currentConifg ];
-          this[targetFn.fn].apply(this, [...params, false]);
+          const currentConifg = ThemesConfig[key]
+          const params = targetFn.cb
+            ? targetFn.cb(currentConifg.current, currentConifg)
+            : [currentConifg]
+          // eslint-disable-next-line no-useless-call
+          this[targetFn.fn].apply(this, [...params, false])
         }
-      });
+      })
     }
   }
-
 
   /**
    * slider修改文字大小时
@@ -144,16 +180,15 @@ export default class HeaderThemes extends Vue {
    * @param isSave   是否执行保存
    */
   fontSizeChang(fontSize: number, isSave = true) {
-    const root: HTMLElement = document.getElementsByTagName('html')[0];
-    root.style.fontSize = `${fontSize}px`;
+    const root: HTMLElement = document.getElementsByTagName('html')[0]
+    root.style.fontSize = `${fontSize}px`
     this.setWebOptions({
       theme: {
         fontSize,
       },
       isSave,
-    });  
+    })
   }
-
 
   /**
    * 切换主题色
@@ -161,18 +196,18 @@ export default class HeaderThemes extends Vue {
    * @param isSave    是否执行保存
    */
   toggleMainColor(colorName: string, isSave = true) {
-    const { initState, messageKey } = this;
-    const root: HTMLElement = document.getElementsByTagName('html')[0];
-    if (initState) this.$message.loading({ content: '正在切换全站主题色...', key: messageKey });
+    const { initState, messageKey } = this
+    const root: HTMLElement = document.getElementsByTagName('html')[0]
+    if (initState) this.$message.loading({ content: '正在切换全站主题色...', key: messageKey })
     this.setWebOptions({
       theme: {
-        color: colorName
+        color: colorName,
       },
       isSave,
-    });
-    root.classList.add('theme-color-' + colorName);
-    if (initState) this.$message.success({ content: '切换成功!', key: messageKey });
-    this.initState = true;
+    })
+    root.classList.add('theme-color-' + colorName)
+    if (initState) this.$message.success({ content: '切换成功!', key: messageKey })
+    this.initState = true
   }
 
   /**
@@ -186,7 +221,7 @@ export default class HeaderThemes extends Vue {
         backgroundColor: colorName,
       },
       isSave,
-    });
+    })
   }
 }
 </script>
@@ -199,12 +234,12 @@ export default class HeaderThemes extends Vue {
   max-width: 600px;
   min-width: 200px;
   padding: 0 10px;
-  font-size: .8rem;
+  font-size: 0.8rem;
   text-align: center;
   box-sizing: border-box;
 
   .popup-title {
-    margin: 1rem 0 .3rem;
+    margin: 1rem 0 0.3rem;
     font-size: 1.3rem;
   }
 
@@ -215,12 +250,12 @@ export default class HeaderThemes extends Vue {
     padding: 15px 10px 10px;
     margin: 20px 0;
   }
-  
+
   div.row-box {
     margin-bottom: 10px;
 
     .row-content {
-      margin-top: .5rem;
+      margin-top: 0.5rem;
       padding: 10px;
       border: 1px solid var(--c-border-overlay);
       border-radius: 15px;
@@ -286,17 +321,17 @@ export default class HeaderThemes extends Vue {
       &:focus-within {
         outline: none;
       }
-      
+
       .color-round {
         display: flex;
         width: 50px;
         height: 50px;
         margin: 0 auto;
-        color: #FFF;
+        color: #fff;
         border-radius: 50%;
         align-items: center;
         justify-content: center;
-        transition: .5s;
+        transition: 0.5s;
 
         & + .slm {
           display: inline-block;
@@ -318,17 +353,17 @@ export default class HeaderThemes extends Vue {
         border-radius: 10px;
 
         &:hover {
-          color: #FFAD1F !important;
+          color: #ffad1f !important;
           border-color: currentColor;
         }
       }
-      
+
       .slm {
         display: flex;
         width: 1.1rem;
         height: 1.1rem;
         margin-left: 10px;
-        font-size: .6rem;
+        font-size: 0.6rem;
         border: 1px solid;
         border-radius: 50%;
         justify-content: center;
@@ -345,10 +380,10 @@ export default class HeaderThemes extends Vue {
     }
 
     .ant-radio-button-wrapper-checked .slm {
-      color: #EEE;
+      color: #eee;
       border-color: currentColor;
       text-shadow: 2px 1px 2px;
-      transition: .5s;
+      transition: 0.5s;
 
       &.blog-xuanzhong {
         text-shadow: none;
@@ -410,7 +445,7 @@ export default class HeaderThemes extends Vue {
     }
   }
 }
-  
+
 /deep/ .ant-radio-button-wrapper,
 /deep/ .ant-slider-mark-text-active {
   color: #8899a6;

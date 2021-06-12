@@ -1,4 +1,4 @@
-import { Random } from '@/mock/mock';
+import { Random } from '@/mock/mock'
 
 /**
  * 经过上传组件处理的图片基础数据
@@ -26,13 +26,12 @@ export const uploadImageBase = {
   url: Random.image('200x100', '@ccc', 'cover uploadImageBase'),
 }
 
-
 /**
  * 随机数组数据
  * @param count 最小数量
  * @param data  数据
  */
 export function randomArray<T>(count: number, data: T): T[] {
-  if (data instanceof Function) data = data();
-  return Array(Math.abs((Math.random() * 10 + count) | 0)).fill(data);
+  if (data instanceof Function) data = data()
+  return Array(Math.abs((Math.random() * 10 + count) | 0)).fill(data)
 }

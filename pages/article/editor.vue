@@ -1,21 +1,22 @@
 <template>
   <article :class="['article-content-box', 'toggle-transition', 'bg-texture']">
     <a-row class="article-layout max-content">
-      <a-col
-        class="article-page__container"
-        :lg="{ span: 16 }"
-        :xxl="{ span: 16 }"
-      >
+      <a-col class="article-page__container" :lg="{ span: 16 }" :xxl="{ span: 16 }">
         <aside class="article-action"></aside>
         <div class="article-content__container row-box">
           <div class="article-content__header">
             <a-input v-model="article.subject" class="title input" placeholder="文章标题" />
             <div class="article-items">
-              <span>发布：{{ $tool.format.isoToDateTime() }}</span> 
-              <span>作者: {{ $$store.getters.getUserInfo.nickname }}</span>
+              <span>发布：{{ $tool.format.isoToDateTime() }}</span>
+              <span>作者: {{ $store.getters.getUserInfo.nickname }}</span>
             </div>
             <label class="label">简介</label>
-            <a-textarea v-model="article.description" class="article-desc input" placeholder="文章 摘要/简介, 请尽可能的在10-500字内介绍总结本文主要内容!" :rows="4" />
+            <a-textarea
+              v-model="article.description"
+              class="article-desc input"
+              placeholder="文章 摘要/简介, 请尽可能的在10-500字内介绍总结本文主要内容!"
+              :rows="4"
+            />
           </div>
           <label class="label">头图</label>
           <a-input v-model="article.banner" placeholder="https://xxxxxxxxxxx ..." />
@@ -23,50 +24,48 @@
           <a-input v-model="article.category" placeholder="" />
           <div class="article-content__body"></div>
           <label class="label">内容</label>
-          <EditorComponents ref="editor" @change="editorChange"/>           
+          <EditorComponents ref="editor" @change="editorChange" />
           <div class="article-content__footer"></div>
         </div>
       </a-col>
-      <a-col
-        class="article-page__sideber"
-        :lg="{ span: 8 }"
-        :xxl="{ span: 8 }"
-      >
-        <Row icon="guanfang" title="发布注意事项" :isFold="true" :foldState="true">
+      <a-col class="article-page__sideber" :lg="{ span: 8 }" :xxl="{ span: 8 }">
+        <Row icon="guanfang" title="发布注意事项" :is-fold="true" :fold-state="true">
           <p>发布文章后会进入审核阶段，管理员会在一个工作日内审核完成！</p>
           <p>感谢为本站贡献文章(*^▽^*)，我们一起进步共同探讨！</p>
         </Row>
-        
-        <Row icon="mulu" title="目录" :isFold="true" :foldState="false">
-          <ArticleAnchor ref="articleAnchor" :affix="true"/>
+
+        <Row icon="mulu" title="目录" :is-fold="true" :fold-state="false">
+          <ArticleAnchor ref="articleAnchor" :affix="true" />
         </Row>
 
         <ArticleSetting ref="articleSetting" />
         <div class="button-box">
           <a-button type="link" @click="saveDraft">保存草稿</a-button>
-          <a-button type="primary" @click="submitArticle" :loading="state.submit">发 布 文 章</a-button>
+          <a-button type="primary" :loading="state.submit" @click="submitArticle"
+            >发 布 文 章</a-button
+          >
         </div>
       </a-col>
     </a-row>
   </article>
 </template>
 
-<script lang='ts'>
-import { Input, Button } from 'ant-design-vue';
-import { Component, Vue } from 'nuxt-property-decorator';
+<script lang="ts">
+import { Input, Button } from 'ant-design-vue'
+import { Component, Vue } from 'nuxt-property-decorator'
 
-import { SubmitArticleDto } from '@/core/dto/article';
-import { submitPost } from '@/core/service/data/article';
+import { SubmitArticleDto } from '@/core/dto/article'
+import { submitPost } from '@/core/service/data/article'
 
-import Row from '@/components/public/Row.vue';
-import EditorComponents from '@/components/public/Editor.vue';
-import ArticleSetting from '@/components/public/Article/Setting.vue';
-import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue';
-import ArticleAnchor from '@/components/public/Article/components/ArticleAnchor.vue';
-import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleton.vue';
+import Row from '@/components/public/Row.vue'
+import EditorComponents from '@/components/public/Editor.vue'
+import ArticleSetting from '@/components/public/Article/Setting.vue'
+import HtmlTreeProcess from '@/components/public/HtmlTreeProcess.vue'
+import ArticleAnchor from '@/components/public/Article/components/ArticleAnchor.vue'
+import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleton.vue'
 
-import '@/components/public/Article/styles/content.scss';
-import { axiosError } from '@/config/error';
+import '@/components/public/Article/styles/content.scss'
+import { axiosError } from '@/config/error'
 /**
  * 文章内容组件
  */
@@ -82,7 +81,7 @@ import { axiosError } from '@/config/error';
     EditorComponents,
     ArticleViewSkeleton,
     ATextarea: Input.TextArea,
-  }
+  },
 })
 export default class ArticleEditor extends Vue {
   // 文章数据
@@ -96,8 +95,9 @@ export default class ArticleEditor extends Vue {
     // 类目
     category: '',
   }
+
   // 编辑器节流定时器下标
-  editorClock: NodeJS.Timeout;
+  editorClock: NodeJS.Timeout
   // 状态
   state = {
     submit: false,
@@ -106,37 +106,35 @@ export default class ArticleEditor extends Vue {
   created() {
     // const user = this.$$store.getters.getUserInfo;
     // if (!user) this.$message.error('未登录用户无法进行文章发布!');
-    this.$parent.$emit('setLayout', ['layoutFooter', false]);
+    this.$parent.$emit('setLayout', ['layoutFooter', false])
   }
-
 
   /**
    * 发布文章
    */
   async submitArticle() {
-    const article = this.getArticleData();
-    const { error } = new SubmitArticleDto(article);
+    const article = this.getArticleData()
+    const { error } = new SubmitArticleDto(article)
     if (error.length) {
-      return this.$message.error(axiosError.error(error[0].message));
+      return this.$message.error(axiosError.error(error[0].message))
     }
-    this.state.submit = true;
-    const { success, message } = await submitPost(article);
+    this.state.submit = true
+    const { success, message } = await submitPost(article)
     if (success) {
-      this.$message.success('发布成功, 请等待审核...');
+      this.$message.success('发布成功, 请等待审核...')
       setTimeout(() => {
         // this.$router.push({
         //   path: this.$config.router.to('article', {
         //     id: String(result.id),
         //   }),
         // });
-        this.$router.push('/');
-      }, 1000);
+        this.$router.push('/')
+      }, 1000)
     } else {
-      this.$message.error(axiosError.error(message));
+      this.$message.error(axiosError.error(message))
     }
-    this.state.submit = false;
+    this.state.submit = false
   }
-
 
   /**
    * 保存为草稿
@@ -145,32 +143,31 @@ export default class ArticleEditor extends Vue {
     // code
   }
 
-
   /**
    * 编辑器改变事件
    */
-  editorChange(e) {
-    clearTimeout(this.editorClock);
+  editorChange() {
+    clearTimeout(this.editorClock)
     this.editorClock = setTimeout(() => {
-      (this.$refs.articleAnchor as ArticleAnchor).parseAnchor((<EditorComponents>this.$refs.editor).editor.selection.editor.$textElem.elems[0]);
-    }, 500);
+      ;(this.$refs.articleAnchor as ArticleAnchor).parseAnchor(
+        (this.$refs.editor as EditorComponents).editor.selection.editor.$textElem.elems[0]
+      )
+    }, 500)
   }
-
 
   /**
    * 获取文章数据
    */
   getArticleData() {
-    const { editor, articleSetting } = this.$refs;
-    
+    const { editor, articleSetting } = this.$refs
+
     return {
       ...this.article,
       category: this.article.category,
       content: (editor as EditorComponents).HTML(),
       setting: (articleSetting as ArticleSetting).options,
-    } as SubmitArticleDto;
+    } as SubmitArticleDto
   }
-
 
   /**
    * 设置文章数据
@@ -181,7 +178,7 @@ export default class ArticleEditor extends Vue {
 }
 </script>
 
-<style  lang="scss" scoped>
+<style lang="scss" scoped>
 .article-content-box {
   /deep/ .article-layout {
     opacity: 1;
@@ -209,7 +206,7 @@ export default class ArticleEditor extends Vue {
 
 .label {
   display: inline-block;
-  margin: 1em 0 .25em;
+  margin: 1em 0 0.25em;
 
   &::after {
     content: ':';
@@ -220,5 +217,4 @@ export default class ArticleEditor extends Vue {
 .button-box {
   text-align: right;
 }
-
 </style>

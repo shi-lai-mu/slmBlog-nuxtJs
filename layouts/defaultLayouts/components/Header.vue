@@ -1,7 +1,7 @@
 <template>
-  <header :class="['layout-header', $store.state.themes.mainBColor + '-80' ]">
+  <header :class="['layout-header', $store.state.themes.mainBColor + '-80']">
     <div class="response-content max-content">
-      <router-link  
+      <router-link
         class="slm blog-logo"
         :to="{ name: 'index' }"
         @click.native="$observer.emit('popstate')"
@@ -9,59 +9,76 @@
       <!-- 响应型导航栏 -->
       <nav class="layout-top-nav">
         <!-- 左侧 -->
-        <ul class="header-navigation" ref="Navigation">
+        <ul ref="Navigation" class="header-navigation">
           <router-link
+            v-for="(item, index) in navigator"
+            :key="index"
             class="navigation-item"
             tag="li"
-            v-for="(item, index) in navigator"
             :to="item.to || $route.path"
-            :key="index"
-            @click.native="jumpNav(index)">
+            @click.native="jumpNav(index)"
+          >
             <i :class="['slm', 'blog-' + item.icon]"></i>
             {{ item.name }}
-            <i class="slm blog-zhankai" v-if="item.children && item.children.length"></i>
-            <ul :class="['navigation-children', $store.state.themes.mainBColor + '-80']" v-if="item.children && item.children.length">
+            <i v-if="item.children && item.children.length" class="slm blog-zhankai"></i>
+            <ul
+              v-if="item.children && item.children.length"
+              :class="['navigation-children', $store.state.themes.mainBColor + '-80']"
+            >
               <router-link
-                tag="li"
                 v-for="(childItem, childIndex) in item.children"
                 :key="childIndex"
+                tag="li"
                 :to="childItem.to"
                 :class="[
                   'navigation-children-item',
                   {
-                    'navigation-children-focus': index === $config.Navigation.config.focus && childIndex === $config.Navigation.config.focusChild,
-                  }
-                ]">
-                  <i :class="['slm', 'blog-' + childItem.icon]"></i>
-                  {{ childItem.name }}
-                </router-link>
+                    'navigation-children-focus':
+                      index === $config.Navigation.config.focus &&
+                      childIndex === $config.Navigation.config.focusChild,
+                  },
+                ]"
+              >
+                <i :class="['slm', 'blog-' + childItem.icon]"></i>
+                {{ childItem.name }}
+              </router-link>
             </ul>
           </router-link>
-          <FocusingDisplac v-if="!isMobile" ref="FocusingDisplac"/>                
+          <FocusingDisplac v-if="!isMobile" ref="FocusingDisplac" />
         </ul>
         <!-- 右侧 -->
         <ul class="header-navigation-right">
           <HeaderSearch />
-          <HeaderWebSetting @click.native.self="isMobile ? $emit('set-open-state', !mobileHeaderOpen) : null" />
-          <HeaderThemes @click.native.self="isMobile ? $emit('set-open-state', !mobileHeaderOpen) : null" />
-          <HeaderAccount @click.native.self="isMobile ? $emit('set-open-state', !mobileHeaderOpen) : null" />
+          <HeaderWebSetting
+            @click.native.self="isMobile ? $emit('set-open-state', !mobileHeaderOpen) : null"
+          />
+          <HeaderThemes
+            @click.native.self="isMobile ? $emit('set-open-state', !mobileHeaderOpen) : null"
+          />
+          <HeaderAccount
+            @click.native.self="isMobile ? $emit('set-open-state', !mobileHeaderOpen) : null"
+          />
         </ul>
       </nav>
       <!-- 移动端操作按钮 -->
-      <i :class="[ 'slm', 'blog-menu', $store.state.themes.mainFColor ]" v-show="isMobile" @click="$emit('set-open-state', !mobileHeaderOpen)"></i>
+      <i
+        v-show="isMobile"
+        :class="['slm', 'blog-menu', $store.state.themes.mainFColor]"
+        @click="$emit('set-open-state', !mobileHeaderOpen)"
+      ></i>
     </div>
   </header>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'nuxt-property-decorator';
-import { Navigator } from '../../../interface/router';
-import navigator from '../../../config/navigation';
-import FocusingDisplac from '@/components/FocusingDisplacs.vue';
-import HeaderSearch from './Header/Search.vue';
-import HeaderAccount from './Header/Account.vue';
-import HeaderThemes from './Header/Themes.vue';
-import HeaderWebSetting from './Header/WebSetting.vue';
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import FocusingDisplac from '@/components/FocusingDisplacs.vue'
+import { Navigator } from '../../../interface/router'
+import navigator from '../../../config/navigation'
+import HeaderSearch from './Header/Search.vue'
+import HeaderAccount from './Header/Account.vue'
+import HeaderThemes from './Header/Themes.vue'
+import HeaderWebSetting from './Header/WebSetting.vue'
 
 @Component({
   components: {
@@ -73,35 +90,33 @@ import HeaderWebSetting from './Header/WebSetting.vue';
   },
   computed: {
     isMobile() {
-      return this.$store.state.isMobile;
-    }
-  }
+      return this.$store.state.isMobile
+    },
+  },
 })
 export default class LayoutDefaultHeader extends Vue {
-
   /**
    * 导航栏
    */
-  navigator: Navigator.Config[] = [];
+  navigator: Navigator.Config[] = []
 
   /**
    * 导航聚焦的下标
    */
-  navFocusIndex: number = 0;
+  navFocusIndex: number = 0
 
   /**
-   * 移动端Header展开状态 
+   * 移动端Header展开状态
    */
-  @Prop(Boolean) mobileHeaderOpen;
+  @Prop(Boolean) mobileHeaderOpen
 
   mounted() {
-    const navConfig = this.$config.Navigation.config;
-    this.navigator = navigator;
+    const navConfig = this.$config.Navigation.config
+    this.navigator = navigator
     this.$nextTick(() => {
-      this.jumpNav(navConfig.focus, false);
-    });
+      this.jumpNav(navConfig.focus, false)
+    })
   }
-
 
   /**
    * 导航跳转事件
@@ -111,12 +126,12 @@ export default class LayoutDefaultHeader extends Vue {
    * @param animation 是否展示动画
    */
   jumpNav(index: number, animation: boolean = true) {
-    if (this.$store.state.isMobile) return false;
-    const { $refs } = this;
-    const navigation = $refs.Navigation as Element;
-    const focusingDisplac = $refs.FocusingDisplac as FocusingDisplac;
-    
-    focusingDisplac.focus(navigation.children[index], navigation, animation, { y: -15 });
+    if (this.$store.state.isMobile) return false
+    const { $refs } = this
+    const navigation = $refs.Navigation as Element
+    const focusingDisplac = $refs.FocusingDisplac as FocusingDisplac
+
+    focusingDisplac.focus(navigation.children[index], navigation, animation, { y: -15 })
   }
 }
 </script>
@@ -142,7 +157,7 @@ $headerHeight: 60px;
   top: 0;
   left: 0;
   right: 0;
-  width: 100%;    
+  width: 100%;
   height: $headerHeight;
   margin: auto;
   color: var(--c-text-primary);
@@ -150,7 +165,7 @@ $headerHeight: 60px;
   user-select: none;
   backdrop-filter: saturate(180%) blur(20px);
   align-items: center;
-  
+
   .blog-logo {
     display: flex;
     float: right;
@@ -228,8 +243,8 @@ $headerHeight: 60px;
         .blog-zhankai {
           display: inline-block;
           margin-left: 5px;
-          font-size: .7em;
-          transition: .5s;
+          font-size: 0.7em;
+          transition: 0.5s;
         }
       }
 
@@ -249,7 +264,7 @@ $headerHeight: 60px;
             color: var(--m-color-text-primary);
             background-color: var(--m-color-bg-primary-2);
             border-radius: 5px;
-            transition: .5s;
+            transition: 0.5s;
             transform: scale(1.1);
           }
         }
@@ -286,7 +301,7 @@ $headerHeight: 60px;
   height: $headerHeight;
   margin: 0;
   border-radius: 0;
-  
+
   .blog-logo {
     display: block;
     height: 80%;
@@ -305,7 +320,7 @@ $headerHeight: 60px;
     padding-top: $mobileAsideWidth / 2 + 50px;
     padding-right: 0;
     box-sizing: border-box;
-    background-color: rgba(30, 32, 38, .8);
+    background-color: rgba(30, 32, 38, 0.8);
     transform: translateX(-100%);
     z-index: 2;
     // backdrop-filter: saturate(180%) blur(20px);
@@ -319,7 +334,7 @@ $headerHeight: 60px;
       content: '';
       width: calc(100vw - #{$mobileAsideWidth});
       height: 100vh;
-      background-color: rgba($color: #000, $alpha: .5);
+      background-color: rgba($color: #000, $alpha: 0.5);
       transition: 0s;
       pointer-events: none;
     }
@@ -336,11 +351,10 @@ $headerHeight: 60px;
         padding: 0;
 
         &:hover {
-          
           .navigation-children {
             position: relative;
-            background-color: rgba($color: #000, $alpha: .2);
-            border-bottom: 1px rgba($color: #000, $alpha: .2) solid;
+            background-color: rgba($color: #000, $alpha: 0.2);
+            border-bottom: 1px rgba($color: #000, $alpha: 0.2) solid;
             border-radius: 0 0 10px 10px;
             transform: translateX(0);
           }
@@ -352,15 +366,15 @@ $headerHeight: 60px;
       }
     }
 
-    .navigation-item  {
+    .navigation-item {
       width: 100%;
     }
   }
 }
-.layout-default-mobile.mobile-header-open  .layout-top-nav::before {
+.layout-default-mobile.mobile-header-open .layout-top-nav::before {
   opacity: 1;
   // transition: .5s .8s;
-  transition: .1s .8s;
+  transition: 0.1s 0.8s;
   pointer-events: initial;
 }
 </style>

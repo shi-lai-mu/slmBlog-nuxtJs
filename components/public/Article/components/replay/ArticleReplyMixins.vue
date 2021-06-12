@@ -3,17 +3,15 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, State } from 'nuxt-property-decorator';
+import { Vue, Component, State } from 'nuxt-property-decorator'
 
-import { Article } from '@/interface/request/article';
-import { submitReplyBehavior } from '@/core/service/data/article';
-
+import { Article } from '@/interface/request/article'
+import { submitReplyBehavior } from '@/core/service/data/article'
 
 @Component
 export default class ArticleReplyMixins extends Vue {
-
   @State
-  jwt!: string;
+  jwt!: string
 
   /**
    * 点赞/点踩 方法
@@ -23,33 +21,28 @@ export default class ArticleReplyMixins extends Vue {
    */
   async submitReplyBehaviorGood(articleId: number, loveType: 1 | 2, reply?: Article.Comment) {
     if (!this.jwt) {
-      return this.$message.error('此操作需要登录!');
+      return this.$message.error('此操作需要登录!')
     }
 
-    const submitquery = await submitReplyBehavior(
-      articleId,
-      loveType,
-      reply ? reply.id : 0,
-    );
+    const submitquery = await submitReplyBehavior(articleId, loveType, reply ? reply.id : 0)
 
     if (reply && submitquery.success) {
       if (reply.likeStatus) {
-        if (reply.likeStatus === 1) reply.loveNum--;
-        if (reply.likeStatus === 2) reply.criticismNum--;
+        if (reply.likeStatus === 1) reply.loveNum--
+        if (reply.likeStatus === 2) reply.criticismNum--
       }
-      reply.likeStatus = 0;
-      const { state } = submitquery.result;
+      reply.likeStatus = 0
+      const { state } = submitquery.result
       if (state.praise) {
-        reply.likeStatus = 1;
-        reply.loveNum++;
+        reply.likeStatus = 1
+        reply.loveNum++
       } else if (state.criticism) {
-        reply.likeStatus = 2;
-        reply.criticismNum++;
+        reply.likeStatus = 2
+        reply.criticismNum++
       }
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

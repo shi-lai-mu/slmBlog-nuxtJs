@@ -1,7 +1,7 @@
 <template>
   <div :class="{ 'row-box': !hideRowBox }">
     <div :class="['row-tab', { 'hide-tab-border': hideTabBorder }]">
-      <h3 class="row-title" v-if="title">
+      <h3 v-if="title" class="row-title">
         <i v-if="icon" :class="`slm blog-${icon}`"></i>
         {{ title }}
         <a-tooltip v-if="tooltip">
@@ -10,7 +10,11 @@
         </a-tooltip>
       </h3>
       <div class="tool">
-        <i v-if="isFold" :class="['slm', 'blog-zhankai', { rotate180: isFoldOpen }]" @click="isFoldOpen = !isFoldOpen"></i>
+        <i
+          v-if="isFold"
+          :class="['slm', 'blog-zhankai', { rotate180: isFoldOpen }]"
+          @click="isFoldOpen = !isFoldOpen"
+        ></i>
         <slot name="tool"></slot>
       </div>
     </div>
@@ -21,8 +25,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'nuxt-property-decorator';
-import { Tooltip as ATooltip } from 'ant-design-vue';
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import { Tooltip as ATooltip } from 'ant-design-vue'
 
 @Component({
   components: { ATooltip },
@@ -31,85 +35,84 @@ export default class Row extends Vue {
   /**
    * 标题
    */
-  @Prop(String) title?: string;
+  @Prop(String) title?: string
   /**
    * 标题图标
    */
-  @Prop(String) icon?: string;
+  @Prop(String) icon?: string
   /**
    * 是否显示折叠图标
    */
-  @Prop(Boolean) isFold?: boolean;
+  @Prop(Boolean) isFold?: boolean
   /**
    * 设置折叠状态
    * true: 关闭
    * false: 开启
    */
-  @Prop(Boolean) foldState?: boolean;
+  @Prop(Boolean) foldState?: boolean
   /**
    * 备注
    */
-  @Prop(String) tooltip?: string;
+  @Prop(String) tooltip?: string
   /**
    * 隐藏tab底部边框
    */
-  @Prop(Boolean) hideTabBorder?: boolean;
+  @Prop(Boolean) hideTabBorder?: boolean
   /**
    * 隐藏外部边框
    */
-  @Prop(Boolean) hideRowBox?: boolean;
+  @Prop(Boolean) hideRowBox?: boolean
 
   /**
    * 是否处于展开状态
    */
-  isFoldOpen: boolean = true;
+  isFoldOpen: boolean = true
 
   mounted() {
     if (this.foldState !== undefined) {
-      this.isFoldOpen = this.foldState;
+      this.isFoldOpen = this.foldState
     }
   }
 }
 </script>
 
 <style lang="scss">
-  .row-box {
-    .row-tab {
-      display: flex;
-      width: 100%;
-      border-bottom: 1px solid var(--c-border-primary);
+.row-box {
+  .row-tab {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid var(--c-border-primary);
 
-      &.hide-tab-border {
-        border-bottom: 0;
-      }
-    }
-
-    .row-title {
-      flex: 1 1 auto;
-      .blog-gantanhao {
-        opacity: .8;
-        margin-left: 5px;
-        font-size: .7em !important;
-        vertical-align: text-top;
-      }
-    }
-
-    .tool {
-      .slm {
-        font-size: .9em;
-        font-weight: initial;
-        cursor: pointer;
-          
-        &:hover {
-          color: var(color-text-white);
-        }
-      }
-    }
-
-    .content-fold {
-      overflow: hidden;
-      max-height: 0;
+    &.hide-tab-border {
+      border-bottom: 0;
     }
   }
-</style>
 
+  .row-title {
+    flex: 1 1 auto;
+    .blog-gantanhao {
+      opacity: 0.8;
+      margin-left: 5px;
+      font-size: 0.7em !important;
+      vertical-align: text-top;
+    }
+  }
+
+  .tool {
+    .slm {
+      font-size: 0.9em;
+      font-weight: initial;
+      cursor: pointer;
+
+      &:hover {
+        color: var(color-text-white);
+      }
+    }
+  }
+
+  .content-fold {
+    overflow: hidden;
+    max-height: 0;
+  }
+}
+</style>

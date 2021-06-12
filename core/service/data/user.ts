@@ -1,95 +1,67 @@
-import axios from '@/utils/axios';
-import { AxiosRequestConfig } from 'axios/index';
+import axios from '@/utils/axios'
+import { AxiosRequestConfig } from 'axios/index'
 
-import { Request } from '@/interface/request';
-import { AccountValidateDto, User } from '@/interface/request/user';
-import { themesDefaultConfig } from '@/config/themes';
+import { Request } from '@/interface/request'
+import { AccountValidateDto, User } from '@/interface/request/user'
+import { themesDefaultConfig } from '@/config/themes'
 
 /**
  * 获取用户信息
  */
-export const getSelfInfo = (axiosConfig?: AxiosRequestConfig) => axios
-  .send(
-    axios.user.info,
-    axiosConfig,
-  )
-;
+export const getSelfInfo = (axiosConfig?: AxiosRequestConfig) =>
+  axios.send<Request.Result<User.Base>>(axios.api.user.info, axiosConfig)
 
 /**
  * 获取用户配置信息
  */
-export const getUserConfig = (axiosConfig?: AxiosRequestConfig) => axios
-  .send<Request.Result<User.Config>>(
-    axios.user.config,
-    axiosConfig
-  ) || themesDefaultConfig
-;
+export const getUserConfig = (axiosConfig?: AxiosRequestConfig) =>
+  axios.send<Request.Result<User.Config>>(axios.api.user.config, axiosConfig) || themesDefaultConfig
 
 /**
  * 保存用户配置信息
  */
-export const saveUserConfig = (config: User.Config) => axios
-  .send<Request.Result<User.Config>>(
-    axios.user.saveConfig,
-    {
-      data: {
-        json: JSON.stringify(config),
-      },
+export const saveUserConfig = (config: User.Config) =>
+  axios.send<Request.Result<User.Config>>(axios.api.user.saveConfig, {
+    data: {
+      json: JSON.stringify(config),
     },
-  )
-;
+  })
 
 /**
  * 获取用户基础信息
  */
-export const getUserBaseData = (userId: User.Base['id']) => axios
-  .send<Request.Result<User.Base>>(
-    axios.user.data,
-    {
-      params: { id: userId },
-    },
-  )
-;
+export const getUserBaseData = (userId: User.Base['id']) =>
+  axios.send<Request.Result<User.Base>>(axios.api.user.data, {
+    params: { id: userId },
+  })
 
 /**
  * 登录账号
  */
-export const loginAccount = (acc: User.LoginDto['account'], pass: User.LoginDto['password']) => axios
-  .send<Request.Result<User.Base>>(
-    axios.user.login,
-    {
-      data: {
-        account: acc,
-        password: pass,
-      },
-      appendCookie: true,
+export const loginAccount = (acc: User.LoginDto['account'], pass: User.LoginDto['password']) =>
+  axios.send<Request.Result<User.Base>>(axios.api.user.login, {
+    data: {
+      account: acc,
+      password: pass,
     },
-  )
-;
+    appendCookie: true,
+  })
 
 /**
  * 注册账号
  */
-export const registerAccount = (acc: User.LoginDto['account'], pass: User.LoginDto['password']) => axios
-  .send<Request.Result<User.Base>>(
-    axios.user.register,
-    {
-      data: {
-        account: acc,
-        password: pass,
-      },
+export const registerAccount = (acc: User.LoginDto['account'], pass: User.LoginDto['password']) =>
+  axios.send<Request.Result<User.Base>>(axios.api.user.register, {
+    data: {
+      account: acc,
+      password: pass,
     },
-  )
-;
+  })
 
 /**
  * 获取用户信息
  */
- export const validateAccountEmail = (validateEmailData?: AccountValidateDto.Email) => axios
- .send<Request.Result<string>>(
-    axios.user.validate.email,
-    {
-      data: validateEmailData,
-    },
-  )
-;
+export const validateAccountEmail = (validateEmailData?: AccountValidateDto.Email) =>
+  axios.send<Request.Result<string>>(axios.api.user.validate.email, {
+    data: validateEmailData,
+  })

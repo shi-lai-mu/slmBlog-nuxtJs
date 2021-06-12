@@ -14,7 +14,7 @@
         <a-switch v-model="options.guestNotComments" />
       </a-form-item>
       <a-form-item label="浏览密码">
-        <a-input type="password" v-model="options.browsePwd" />
+        <a-input v-model="options.browsePwd" type="password" />
       </a-form-item>
       <a-form-item label="文章音乐">
         <a-input v-model="options.articleMusic" />
@@ -60,15 +60,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
-import {
-  Form,
-  Switch,
-  Input,
-  Divider,
-} from 'ant-design-vue';
+import { Component, Vue } from 'nuxt-property-decorator'
+import { Form, Switch, Input, Divider } from 'ant-design-vue'
 
-import Row from '@/components/public/Row.vue';
+import Row from '@/components/public/Row.vue'
 
 @Component({
   components: {
@@ -79,10 +74,9 @@ import Row from '@/components/public/Row.vue';
     AInput: Input,
     ATextArea: Input.TextArea,
     ADivider: Divider,
-  }
+  },
 })
 export default class ArticleSetting extends Vue {
-
   options = {
     // 仅登录用户可浏览
     isLoginView: false,
@@ -121,28 +115,29 @@ export default class ArticleSetting extends Vue {
       setTopToEmail: true,
       // 设精时
       setFineToEmail: true,
-    }
+    },
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .ant-form-item {
-    margin-bottom: 0;
-  }
+.ant-form-item {
+  margin-bottom: 0;
+}
 
-  .ant-input {
-    width: 90%;
-  }
+.ant-input {
+  width: 90%;
+}
 
-  /deep/.ant-form-item-control {
-    text-align: right;
-  }
+/deep/.ant-form-item-control {
+  text-align: right;
+}
 
-  .ant-divider  {
-    color: var(--c-text-primary);
-    &::after, &::before {
-      border-color: var(--c-border-primary)
-    }
+.ant-divider {
+  color: var(--c-text-primary);
+  &::after,
+  &::before {
+    border-color: var(--c-border-primary);
   }
+}
 </style>

@@ -1,4 +1,4 @@
-import { WebConfig } from "@/interface/config";
+import { WebConfig } from '@/interface/config'
 
 const user: WebConfig.User = {
   // 人物卡配置
@@ -7,4 +7,4 @@ const user: WebConfig.User = {
     defaultIntroduction: '这位大佬啥也没留下',
   },
 }
-export default user;
+export default user
