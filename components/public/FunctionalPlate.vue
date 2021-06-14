@@ -21,22 +21,14 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'nuxt-property-decorator'
 
-/**
- * 工具板块组件
- */
-@Component({ name: 'PublicFunctionalPlateComponent' })
+/** 工具板块组件 */
+@Component
 export default class PublicFunctionalPlateComponent extends Vue {
-  /**
-   * 标题
-   */
+  /** 标题 */
   @Prop(String) title
-  /**
-   * 更多 文字内容
-   */
+  /** 更多 文字内容 */
   @Prop(String) moreName
-  /**
-   * 更多 链接
-   */
+  /** 更多 链接 */
   @Prop(String) moreLink
 }
 </script>

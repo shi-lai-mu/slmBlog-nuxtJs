@@ -83,7 +83,7 @@ import { userData } from '@/mock/user/data/user'
 import { getUserBaseData } from '@/core/service/data/user'
 
 import UserCardSkeleton from '@/components/skeleton/pubCom/userCardSkeleton.vue'
-import Images from '~/components/public/Images.vue'
+import Images from '@/components/public/Images.vue'
 
 /**
  * 用户信息展示卡片

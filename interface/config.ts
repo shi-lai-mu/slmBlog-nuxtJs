@@ -1,4 +1,4 @@
-import { LOGIN_TYPE } from '~/config/note/tripartite'
+import { LOGIN_TYPE } from '@/config/note/tripartite'
 
 /**
  * 站点配置

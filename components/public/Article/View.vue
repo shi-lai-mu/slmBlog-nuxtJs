@@ -50,7 +50,7 @@ import { getPostsData } from '@/core/service/data/article'
 
 import ArticleContent from '@/components/public/Article/Contents.vue'
 import ArticleCardSkeleton from '@/components/skeleton/article/cardSkeleton.vue'
-import Images from '~/components/public/Images.vue'
+import Images from '@/components/public/Images.vue'
 
 /**
  * 文章内容组件

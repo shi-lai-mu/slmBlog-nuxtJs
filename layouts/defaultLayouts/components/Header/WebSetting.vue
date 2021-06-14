@@ -11,7 +11,7 @@
         <div class="popup-tips"></div>
         <div class="popup-content">
           <div v-for="(item, key) of setting.web" :key="key" class="row-box popup-item">
-            <span class="row-title" v-text="item.title || `配置项${key}`"></span>
+            <span class="row-title" v-text="item.title.name || `配置项${key}`"></span>
             <ul class="row-content">
               <template v-for="(value, index) in item">
                 <a-row

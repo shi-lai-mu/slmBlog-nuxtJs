@@ -30,39 +30,25 @@ import { Vue, Component, State } from 'nuxt-property-decorator'
 
 import { Router } from '@/interface/router'
 import { User } from '@/interface/request/user'
-import Images from '~/components/public/Images.vue'
+import Images from '@/components/public/Images.vue'
 
-/**
- * 账号登录下拉
- */
+/** 账号登录下拉 */
 @Component({
   components: {
     Images,
   },
 })
 export default class HeaderAccount extends Vue {
-  /**
-   * 账号入口
-   */
+  /** 账号入口 */
   accountEntrance: Router.Config[] = []
-  /**
-   * 头像链接
-   */
+  /** 头像链接 */
   avatarUrl: string = ''
-  /**
-   * jwt
-   */
-  @State
-  jwt!: string
-
-  /**
-   * 用户信息
-   */
-  @State
-  user!: User.Base
-
-  @State
-  isMobile!: boolean
+  /** jwt */
+  @State jwt!: string
+  /** 用户信息 */
+  @State user!: User.Base
+  /** 是否为移动端 */
+  @State isMobile!: boolean
 
   created() {
     this.accountEntrance = [
@@ -77,6 +63,7 @@ export default class HeaderAccount extends Vue {
     ]
   }
 
+  /** 头像点击事件 */
   avatarClick() {
     if (this.isMobile) {
       this.accountEntrance[0].cb()

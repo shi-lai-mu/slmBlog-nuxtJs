@@ -100,7 +100,7 @@ import { stateData as ConfigState } from '@/store/config'
 import { Vue, Component, namespace } from 'nuxt-property-decorator'
 
 import Masks from '@/components/Masks.vue'
-import { User } from '~/interface/request/user'
+import { User } from '@/interface/request/user'
 
 const ConfigModule = namespace('config')
 

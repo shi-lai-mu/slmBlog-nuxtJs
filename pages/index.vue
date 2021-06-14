@@ -7,8 +7,8 @@
           <img :src="`${$config.ossLink}/carousel/carousel_1.png`" alt="" />
           <img :src="`${$config.ossLink}/carousel/carousel_1.png`" alt="" />
           <img :src="`${$config.ossLink}/carousel/carousel_1.png`" alt="" />
-          <i slot="prevArrow" class="slm blog-arrow-left" style="left: 10px; zindex: 1"></i>
-          <i slot="nextArrow" class="slm blog-arrow-right" style="right: 10px; zindex: 1"></i>
+          <i slot="prevArrow" class="slm blog-arrow-left" style="left: 10px; z-index: 1"></i>
+          <i slot="nextArrow" class="slm blog-arrow-right" style="right: 10px; z-index: 1"></i>
         </Carousel>
         <Notice v-if="$store.state.isMobile" class="mobile-notice" />
         <ArticleList class="home-main-article-list" :ssr="articleLatest" />
@@ -26,6 +26,8 @@
 import { Carousel } from 'ant-design-vue'
 import { Component, Vue } from 'nuxt-property-decorator'
 
+import { User } from '@/interface/request/user'
+import { Article } from '@/interface/request/article'
 import { getUserBaseData } from '@/core/service/data/user'
 import { getArticleList } from '@/core/service/data/article'
 
@@ -33,9 +35,8 @@ import Notice from '@/components/public/Notice.vue'
 import UserCard from '@/components/public/UserCard.vue'
 import ArticleList from '@/components/public/Article/List.vue'
 import FocalPointPlate from '@/components/pages/home/FocalPointPlate.vue'
-import { User } from '~/interface/request/user'
-import { Article } from '~/interface/request/article'
 
+/** 首页 */
 @Component({
   name: 'HomePage',
   components: {
@@ -58,8 +59,11 @@ export default class HomePage extends Vue {
 
   async asyncData() {
     return {
-      userData: (await getUserBaseData(1)).result || {}, // 获取用户信息
-      articleLatest: (await getArticleList()).result?.list || [], // 获取最新文章
+      // 获取用户信息
+      userData: (await getUserBaseData(1)).result || {},
+      // 获取最新文章
+      articleLatest: (await getArticleList()).result?.list || [],
+      // 获取5篇推荐文章
       recommendedArticle: (await getArticleList('recommend', 1, 5)).result?.list || [],
     }
   }

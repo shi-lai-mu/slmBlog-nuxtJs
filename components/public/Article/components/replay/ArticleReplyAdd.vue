@@ -61,7 +61,7 @@ import { submitArticleReplayDto } from '@/core/dto/article'
 import { submitArticleReplay } from '@/core/service/data/article'
 
 import Editor from '@/components/public/Editor.vue'
-import { User } from '~/interface/request/user'
+import { User } from '@/interface/request/user'
 
 /**
  * 添加/回复 评论组件

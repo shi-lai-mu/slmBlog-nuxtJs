@@ -199,10 +199,10 @@ $axios.interceptors.request.use((value: AxiosRequestConfig) => {
     requestClock[requestKey] = Date.now() + 100
   }
 
-  if (value.baseURL) {
-    value.url = value.baseURL + serverConfig.apiVersion + value.url.trim()
-    value.baseURL = ''
-  }
+  // if (value.baseURL) {
+  //   value.url = value.baseURL + serverConfig.apiVersion + value.url.trim()
+  //   value.baseURL = ''
+  // }
 
   const token = Cookies.get('token')
   const vue = $axios.$vue
@@ -324,7 +324,7 @@ export function getUrl(
     value.url = value.url.replace(/^(post|get|put|delete)\./i, '')
 
     if (value.baseURL) {
-      value.url = value.baseURL + (appendPrefix ? serverConfig.apiVersion : '') + value.url
+      value.url = value.baseURL + (appendPrefix ? serverConfig.apiVersion : '') + value.url.trim()
       value.baseURL = ''
     }
   }

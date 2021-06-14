@@ -12,7 +12,7 @@ import {
   themesDefaultConfig,
 } from '@/config/themes'
 import { webSetting, WebSettingService, _WEB_CONFIG_VERSION_ } from '@/config/websetting'
-import { User } from '~/interface/request/user'
+import { User } from '@/interface/request/user'
 
 let saveUserConfigClock = null
 

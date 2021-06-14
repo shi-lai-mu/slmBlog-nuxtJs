@@ -1,4 +1,4 @@
-import { ColumnOptions, EntityOptions, ValidateNS } from '~/interface/core/decorators/validateData'
+import { ColumnOptions, EntityOptions, ValidateNS } from '@/interface/core/decorators/validateData'
 
 /**
  * 数据校验类

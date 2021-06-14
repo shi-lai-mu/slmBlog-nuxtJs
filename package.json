@@ -15,7 +15,6 @@
     "staging": "nuxt start --port=4000 --name='预发' --debug",
     "generate": "nuxt generate",
     "prettier": "prettier --ignore-path .gitignore \"**/*.(ts|vue)\"",
-    "lint": "eslint --ext .ts,.vue --ignore-path .gitignore .",
     "lint-fix": "eslint --fix --ext .ts,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
