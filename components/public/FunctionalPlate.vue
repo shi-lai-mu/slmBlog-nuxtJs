@@ -1,14 +1,12 @@
 <template>
   <div class="row-box functional-plate__row">
     <div class="functional-plate__header">
-      <slot name="header">
-        <h2 class="functional-plate__title" v-text="title || '板块'"></h2>
-        <nuxt-link
-          :to="moreLink || '#'"
-          class="functional-plate__link"
-          v-text="moreName || '更多'"
-        ></nuxt-link>
-      </slot>
+      <h2 class="functional-plate__title" v-text="title || '板块'"></h2>
+      <nuxt-link
+        :to="moreLink || '#'"
+        class="functional-plate__link"
+        v-text="moreName || '更多'"
+      ></nuxt-link>
     </div>
     <div class="functional-plate__body">
       <slot>

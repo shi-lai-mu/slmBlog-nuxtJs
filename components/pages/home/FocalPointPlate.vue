@@ -1,20 +1,30 @@
 <template>
   <FunctionalPlate title="焦点推荐">
-    <template v-if="renderList.top || renderList.children">
+    <template v-if="renderData">
       <router-link
-        v-if="renderList.top"
+        v-if="renderData.top"
         class="plate-first-place__row"
-        :to="$config.router.to('article', { id: renderList.top.id })"
+        :to="{
+          name: 'article-id',
+          params: {
+            id: renderData.top.id,
+          },
+        }"
       >
-        <Images class="plate-first-place__img" :src="renderList.top.banner" />
-        <p class="plate-first-place__title line-ellipsis">{{ renderList.top.subject }}</p>
+        <Images class="plate-first-place__img" :src="renderData.top.banner" />
+        <p class="plate-first-place__title line-ellipsis">{{ renderData.top.subject }}</p>
       </router-link>
       <div class="plate-list-place">
         <nuxt-link
-          v-for="(item, k) in renderList.children"
+          v-for="(item, k) in renderData.children"
           :key="k"
           class="plate-list-opt__link"
-          :to="$config.router.to('article', { id: item.id })"
+          :to="{
+            name: 'article-id',
+            params: {
+              id: item.id,
+            },
+          }"
         >
           <label class="opt-link__label">活动</label>
           <p class="opt-link__title line-ellipsis">{{ item.subject }}</p>
@@ -43,48 +53,42 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator'
+import { Component } from 'nuxt-property-decorator'
 
 import Images from '@/components/public/Images.vue'
 import FunctionalPlate from '@/components/public/FunctionalPlate.vue'
-
 import { Article } from '@/interface/request/article'
+
+import { getArticleList } from '~/core/service/data/article'
+import RenderData from '~/components/mixins/RenderData'
 
 /**
  * 焦点板块 组件
  */
 @Component({
-  name: 'FocalPointPlate',
   components: {
     Images,
     FunctionalPlate,
   },
 })
-export default class FocalPointPlate extends Vue {
-  /** 渲染数据 */
-  @Prop(Array) ssr?: Article.Base[]
+export default class FocalPointPlate extends RenderData<
+  Article.Base[],
+  {
+    top: Article.Base
+    children: Article.Base[]
+  }
+> {
+  /** 获取数据 */
+  static fetchData = async () => (await getArticleList('recommend', 1, 5)).result?.list
 
-  /** 渲染列表 */
-  renderList:
-    | {
-        top: Article.Base
-        children: Article.Base[]
-      }
-    | Record<string, Article.Base> = {}
+  /** 解析数据 */
+  parseData = (data: Article.Base[]) => ({
+    top: data?.shift(),
+    children: data,
+  })
 
   created() {
-    if (this.ssr) this.setRenderData(this.ssr)
-  }
-
-  /** 设置渲染数据 */
-  @Watch('ssr')
-  setRenderData(articleList: Article.Base[]) {
-    if (!articleList.length) return false
-    articleList = Object.assign([], articleList)
-    this.renderList = {
-      top: articleList.shift(),
-      children: articleList,
-    }
+    this.setRenderData(this.ssr, FocalPointPlate)
   }
 }
 </script>

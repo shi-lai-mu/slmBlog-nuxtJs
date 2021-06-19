@@ -1,18 +1,18 @@
 <template>
   <!-- 用户信息展示卡片 [带骨架] -->
   <div class="row-box user-card">
-    <template v-if="userData && userData.id">
+    <template v-if="renderData">
       <!-- 背景图 -->
       <div
         class="user-cover"
         :style="`background-image: url(${$config.ossLink}/user/card-bg-cover.jpg);`"
       >
         <Images
-          v-if="userData.avatarUrl"
+          v-if="renderData.avatarUrl"
           class="user-avatar"
-          :src="userData.avatarUrl"
-          :alt="userData.nickname"
-          :title="userData.nickname"
+          :src="renderData.avatarUrl"
+          :alt="renderData.nickname"
+          :title="renderData.nickname"
         />
         <i v-else class="slm blog-img-err user-avatar"></i>
       </div>
@@ -21,9 +21,9 @@
       <div class="row-content">
         <!-- 头像 -->
         <div class="user-nickname">
-          {{ userData.nickname }}
+          {{ renderData.nickname }}
           <i
-            v-for="(item, key) in userData.badge"
+            v-for="(item, key) in renderData.badge"
             :key="key"
             :class="['slm', 'blog-' + item.i]"
             :title="item.name"
@@ -31,18 +31,18 @@
         </div>
         <!-- 简介 -->
         <div class="user-introduction line-ellipsis double-line-ellipsis">
-          {{ userData.introduction || $config.user.card.defaultIntroduction }}
+          {{ renderData.introduction || $config.user.card.defaultIntroduction }}
         </div>
         <!-- 人物状态 -->
-        <div v-if="userState" class="user-state-row">
+        <div v-if="userState && renderData.state" class="user-state-row">
           <span v-for="(item, index) in showState" :key="index" class="stete-item">
             <div class="state-item-tag">{{ item }}</div>
-            <div>{{ userData.state[index] || '--' }}</div>
+            <div>{{ renderData.state[index] || '--' }}</div>
           </span>
         </div>
         <!-- 用户管理入口 -->
         <div
-          v-if="userSelf && $store.state.user.id === userData.id"
+          v-if="userSelf && $store.state.user.id === renderData.id"
           class="user-entrance-row user-self"
         >
           <a-button type="primary" class="btn">管理</a-button>
@@ -60,13 +60,13 @@
         <div class="user-icon">
           <a
             v-for="(item, index) in showIcon"
-            v-show="item.link(userData)"
+            v-show="item.link(renderData)"
             :key="index"
             class="icon-hover"
             target="_blank"
             :class="['slm', item.icon]"
-            :href="item.link(userData)"
-            :title="`访问 ${userData.nickname} 的 ${item.title}`"
+            :href="item.link(renderData)"
+            :title="`访问 ${renderData.nickname} 的 ${item.title}`"
           ></a>
         </div>
       </div>
@@ -76,7 +76,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator'
+import { Component, Prop } from 'nuxt-property-decorator'
 
 import { User } from '@/interface/request/user'
 import { userData } from '@/mock/user/data/user'
@@ -84,6 +84,7 @@ import { getUserBaseData } from '@/core/service/data/user'
 
 import UserCardSkeleton from '@/components/skeleton/pubCom/userCardSkeleton.vue'
 import Images from '@/components/public/Images.vue'
+import RenderData from '../mixins/RenderData'
 
 /**
  * 用户信息展示卡片
@@ -96,44 +97,27 @@ import Images from '@/components/public/Images.vue'
     Images,
   },
 })
-export default class UserCard extends Vue {
-  /**
-   * 展示的用户ID
-   */
+export default class UserCard extends RenderData<User.Base | number, User.Base> {
+  /** 展示的用户ID */
   @Prop(Number) userId?: number
 
-  /**
-   * 父级传入的用户数据 SSR
-   */
-  @Prop(Object) ssr?: User.Base
-
-  /**
-   * 是否显示 入户入口
-   */
+  /** 是否显示 入户入口 */
   @Prop(Boolean) userEntrance?: boolean
 
-  /**
-   * 是否显示 管理入口
-   */
+  /** 是否显示 管理入口 */
   @Prop(Boolean) userSelf?: boolean
 
-  /**
-   * 是否显示 用户状态
-   */
+  /** 是否显示 用户状态 */
   @Prop(Boolean) userState?: boolean
 
-  /**
-   * 展示的用户状态
-   */
-  showState: { [key in string]: string } = {
+  /** 展示的用户状态 */
+  showState = {
     articleNumber: '文章',
     tagsNumber: '标签',
     commitNumber: '评论',
   }
 
-  /**
-   * 展示的图标
-   */
+  /** 展示的图标 */
   showIcon = {
     blog: {
       title: '个人博客',
@@ -143,12 +127,12 @@ export default class UserCard extends Vue {
     twitter: {
       title: 'Twitter',
       icon: 'blog-twitter',
-      link: v => v?.link.twitter,
+      link: v => v?.link?.twitter,
     },
     github: {
       title: 'GitHub',
       icon: 'blog-github',
-      link: v => v?.link.github,
+      link: v => v?.link?.github,
     },
     email: {
       title: '邮箱',
@@ -158,34 +142,16 @@ export default class UserCard extends Vue {
   }
 
   /**
-   * 用户数据
+   * 获取数据
+   * @param userId 用户Id
    */
-  userData: User.Base = userData
+  static fetchData = async (userId?: number) => (await getUserBaseData(userId)).result
 
-  /**
-   * data的更新触发 [userData将被覆盖] | userId的更新触发
-   * - userData将在请求后被覆盖
-   */
-  @Watch('ssr')
-  @Watch('userId')
-  ssrUpdate(data: User.Base | number) {
-    typeof data === 'number'
-      ? getUserBaseData(data).then(res => this.setRenderData(res.result))
-      : this.setRenderData(data)
-  }
+  /** 解析数据 */
+  parseData = (data: User.Base) => Object.assign(userData, data)
 
   created() {
-    this.ssrUpdate(this.userId || this.ssr || userData)
-  }
-
-  /**
-   * 设置渲染数据
-   */
-  setRenderData(data) {
-    if (Object.keys(data).length === 0) {
-      return (this.userData = this.errorData())
-    }
-    this.userData = Object.assign(userData, data)
+    this.setRenderData(this.userId || this.ssr || userData, UserCard)
   }
 
   /**

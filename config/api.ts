@@ -3,39 +3,77 @@ export interface Api {
 }
 
 const api = {
-  // 设置类
-  mock_1: 'oss:post./mock/test', // mock测试
-  mock_2: 'post. /mock/test/:xxx/sss', // mock测试
-  get_mock: 'get.  /mock/test', // mock测试
-  // 账号类
+  /**
+   * 设置类
+   */
+  mock_1: 'oss:POST./mock/test', // mock测试
+  mock_2: 'POST./mock/test/:xxx/sss', // mock测试
+  mock: '/mock/test', // mock测试
+
+  /**
+   * 账号类
+   */
   user: {
-    info: 'get.  /user', // 获取用户信息
-    config: 'get.  /user/config/all', // 获取用户配置
-    saveConfig: 'post. /user/config', // 保存用户配置
-    login: 'post. /user/signin', // 用户登录
-    register: 'post. /user/register', // 注册账号
-    data: 'get.  /user/:id', // 获取用户信息
+    /** 获取用户信息 */
+    info: '/user',
+    /** 获取用户配置 */
+    config: '/user/config/all',
+    /** 保存用户配置 */
+    saveConfig: 'POST./user/config',
+    /** 用户登录 */
+    login: 'POST./user/signin',
+    /** 注册账号 */
+    register: 'POST./user/register',
+    /** 获取用户信息 */
+    data: '/user/:id',
+    /** 验证类 */
     validate: {
-      email: 'put. /user/validate/email', // 验证邮箱
+      /** 验证邮箱 */
+      email: 'PUT./user/validate/email',
     },
   },
-  // 文章类
+
+  /**
+   * 文章类
+   */
   article: {
-    submit: 'post. /article', // 发布文章
-    list: 'get.  /article/:filterMode/:page/:count', // 最新文章
-    data: 'get.  /article/:articleId', // 获取文章内容
-    profile: 'get.  /article/profile/list', // 获取文章简洁信息
-    submitReplay: 'post. /article/comment/:articleId', // 发表评论
-    commentList: 'get.  /article/comment/:articleId/:page/:pageSize', // 获取评论列表
-    goodBehavior: 'post. /article/behavior/good', // 提交[点赞/点踩]行为
+    /** 发布文章 */
+    submit: 'POST./article',
+    /** 最新文章 */
+    list: '/article/:filterMode/:page/:count',
+    /** 获取文章内容 */
+    data: '/article/:articleId',
+    /** 获取文章简洁信息 */
+    profile: '/article/profile/list',
+    /** 发表评论 */
+    submitReplay: 'POST./article/comment/:articleId',
+    /** 获取评论列表 */
+    commentList: '/article/comment/:articleId/:page/:pageSize',
+    /** 提交[点赞/点踩]行为 */
+    goodBehavior: 'POST./article/behavior/good',
   },
-  // 通知类
+
+  /**
+   * 通知类
+   */
   notify: {
-    notic: 'get.  /notic', // 获取置顶公告
+    /** 获取置顶公告 */
+    notic: '/notic',
+    /** 友链 */
+    friend: {
+      /** 获取友链 */
+      get: '/friend/link',
+      /** 提交友链申请 */
+      submit: 'POST./friend/link',
+    },
   },
-  // 资源类
+
+  /**
+   * 资源类
+   */
   resources: {
-    avatars: '/resources/avatars/{gender}/{nickname}.svg', // 随机用户头像
+    /** 随机用户头像 */
+    avatars: '/resources/avatars/{gender}/{nickname}.svg',
   },
 }
 export default api

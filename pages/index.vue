@@ -16,7 +16,8 @@
       <a-col class="sideber" :lg="{ span: 8 }" :xxl="{ span: 8 }">
         <UserCard :ssr="userData" user-self user-state />
         <Notice v-if="!$store.state.isMobile" />
-        <FocalPointPlate :ssr="recommendedArticle" />
+        <FocalPointPlate ref="FocalPointPlate" :ssr="recommendedArticle" />
+        <FriendPointPlate />
       </a-col>
     </a-row>
   </div>
@@ -28,23 +29,23 @@ import { Component, Vue } from 'nuxt-property-decorator'
 
 import { User } from '@/interface/request/user'
 import { Article } from '@/interface/request/article'
-import { getUserBaseData } from '@/core/service/data/user'
 import { getArticleList } from '@/core/service/data/article'
 
 import Notice from '@/components/public/Notice.vue'
 import UserCard from '@/components/public/UserCard.vue'
 import ArticleList from '@/components/public/Article/List.vue'
 import FocalPointPlate from '@/components/pages/home/FocalPointPlate.vue'
+import FriendPointPlate from '@/components/pages/home/FriendPointPlate.vue'
 
 /** 首页 */
 @Component({
-  name: 'HomePage',
   components: {
     Carousel,
     Notice,
     UserCard,
     ArticleList,
     FocalPointPlate,
+    FriendPointPlate,
   },
 })
 export default class HomePage extends Vue {
@@ -60,11 +61,11 @@ export default class HomePage extends Vue {
   async asyncData() {
     return {
       // 获取用户信息
-      userData: (await getUserBaseData(1)).result || {},
+      userData: await UserCard.fetchData(1),
       // 获取最新文章
       articleLatest: (await getArticleList()).result?.list || [],
       // 获取5篇推荐文章
-      recommendedArticle: (await getArticleList('recommend', 1, 5)).result?.list || [],
+      recommendedArticle: await FocalPointPlate.fetchData(),
     }
   }
 
@@ -75,8 +76,10 @@ export default class HomePage extends Vue {
 </script>
 
 <style lang="scss" scoped>
-$blockSpacingX: 20px; // 版块间距 横轴
-$blockSpacingY: 15px; // 版块间距 纵轴
+/** 版块间距 横轴 */
+$blockSpacingX: 20px;
+/** 版块间距 纵轴 */
+$blockSpacingY: 15px;
 
 .home-page {
   position: relative;
