@@ -16,5 +16,7 @@ export namespace Notify {
     email: string
     /** 站点图标 */
     icon: string
+    /** 站点简介 */
+    desc: string
   }
 }
