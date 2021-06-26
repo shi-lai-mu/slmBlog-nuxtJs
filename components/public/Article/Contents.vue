@@ -72,9 +72,7 @@ import ArticleReplyList from './components/replay/ArticleReplyList.vue'
 import UpperLowerArticle from './components/UpperLowerArticle.vue'
 import sharingConfig from './config/sharing.config'
 
-/**
- * 文章内容组件
- */
+/** 文章内容组件 */
 @Component({
   name: 'ArticleContent',
   components: {
@@ -92,37 +90,21 @@ import sharingConfig from './config/sharing.config'
   },
 })
 export default class ArticleContent extends Vue {
-  /**
-   * 文章ID
-   */
+  /** 文章ID */
   @Prop(Number) articleId?: number
-  /**
-   * 传入的列表数据 SSR
-   */
+  /** 传入的列表数据 SSR */
   @Prop(Object) ssr?: InterArticle.Base
-  /**
-   * 初始化骨架屏
-   */
+  /** 初始化骨架屏 */
   @Prop(Boolean) initSkeleton?: boolean
-  /**
-   * 是否为页面模式渲染
-   */
+  /** 是否为页面模式渲染 */
   @Prop(Boolean) isPage?: boolean
-  /**
-   * 文章数据
-   */
+  /** 文章数据 */
   articleData?: InterArticle.Base = articleBase
-  /**
-   * 是否禁用骨架屏
-   */
+  /** 是否禁用骨架屏 */
   // private disableSkeleton = false;
-  /**
-   * 骨架于内容切换过渡
-   */
+  /** 骨架于内容切换过渡 */
   toggleTransition = false
-  /**
-   * 分享配置
-   */
+  /** 分享配置 */
   sharingConfig = sharingConfig
 
   created() {
@@ -134,9 +116,7 @@ export default class ArticleContent extends Vue {
     this.$config.getScrollContainer = () => this.$refs.article as HTMLElement
   }
 
-  /**
-   * 文章ID更新
-   */
+  /** 文章ID更新 */
   @Watch('articleId')
   changArticleId(data: InterArticle.Base['id']) {
     getPostsData(data).then(data => {
@@ -158,9 +138,7 @@ export default class ArticleContent extends Vue {
     this.setRenderData(data as InterArticle.Posts)
   }
 
-  /**
-   * 设置渲染属性
-   */
+  /** 设置渲染属性 */
   setRenderData(data: InterArticle.Posts) {
     if (Object.keys(data).length === 0) {
       return this.$router.push({
@@ -181,9 +159,7 @@ export default class ArticleContent extends Vue {
     this.toggleTransition = true
   }
 
-  /**
-   * 滚动文章触发事件
-   */
+  /** 滚动文章触发事件 */
   articleScroll({ target }) {
     const { scrollTop, clientHeight, scrollHeight } = target
     const progress = Math.abs(scrollTop / (clientHeight - scrollHeight))

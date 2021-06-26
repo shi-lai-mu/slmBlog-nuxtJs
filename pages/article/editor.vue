@@ -66,9 +66,7 @@ import ArticleViewSkeleton from '@/components/skeleton/pubCom/articleViewSkeleto
 
 import '@/components/public/Article/styles/content.scss'
 import { axiosError } from '@/config/error'
-/**
- * 文章内容组件
- */
+/* 文章内容组件 */
 @Component({
   name: 'ArticleEditor',
   components: {
@@ -109,9 +107,7 @@ export default class ArticleEditor extends Vue {
     this.$parent.$emit('setLayout', ['layoutFooter', false])
   }
 
-  /**
-   * 发布文章
-   */
+  /* 发布文章 */
   async submitArticle() {
     const article = this.getArticleData()
     const { error } = new SubmitArticleDto(article)
@@ -136,16 +132,12 @@ export default class ArticleEditor extends Vue {
     this.state.submit = false
   }
 
-  /**
-   * 保存为草稿
-   */
+  /* 保存为草稿 */
   saveDraft() {
     // code
   }
 
-  /**
-   * 编辑器改变事件
-   */
+  /* 编辑器改变事件 */
   editorChange() {
     clearTimeout(this.editorClock)
     this.editorClock = setTimeout(() => {
@@ -155,9 +147,7 @@ export default class ArticleEditor extends Vue {
     }, 500)
   }
 
-  /**
-   * 获取文章数据
-   */
+  /* 获取文章数据 */
   getArticleData() {
     const { editor, articleSetting } = this.$refs
 
@@ -169,9 +159,7 @@ export default class ArticleEditor extends Vue {
     } as SubmitArticleDto
   }
 
-  /**
-   * 设置文章数据
-   */
+  /* 设置文章数据 */
   setArticleData() {
     // code
   }

@@ -45,16 +45,14 @@
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator'
 
 import { articleBase } from '@/mock/article/data/index'
-import { Article as IntefArticle } from '@/interface/request/article'
+import { Article as InterArticle } from '@/interface/request/article'
 import { getPostsData } from '@/core/service/data/article'
 
 import ArticleContent from '@/components/public/Article/Contents.vue'
 import ArticleCardSkeleton from '@/components/skeleton/article/cardSkeleton.vue'
 import Images from '@/components/public/Images.vue'
 
-/**
- * 文章内容组件
- */
+/** 文章内容组件 */
 @Component({
   components: {
     Images,
@@ -63,40 +61,26 @@ import Images from '@/components/public/Images.vue'
   },
 })
 export default class ArticleView extends Vue {
-  /**
-   * 布局信息
-   */
+  /** 布局信息 */
   @Prop(Object) layout?: string
 
-  /**
-   * 文章基础信息
-   */
-  @Prop(Object) ssr?: IntefArticle.Base
+  /** 文章基础信息 */
+  @Prop(Object) ssr?: InterArticle.Base
 
-  /**
-   * 当前打开的文章ID
-   */
+  /** 当前打开的文章ID */
   @Prop(Number) viewId?: number
 
-  /**
-   * 是否为打开状态
-   */
+  /** 是否为打开状态 */
   isOpen: boolean = false
 
-  /**
-   * 样式
-   */
+  /** 样式 */
   style: CSSStyleDeclaration | Record<string, string> = {}
 
-  /**
-   * 任务列队
-   */
+  /** 任务列队 */
   task: Array<NodeJS.Timeout | number> = []
 
-  /**
-   * 文章内容
-   */
-  article?: IntefArticle.Base = articleBase
+  /** 文章内容 */
+  article?: InterArticle.Base = articleBase
 
   @Watch('viewId')
   changViewId(viewId: number) {
@@ -107,7 +91,7 @@ export default class ArticleView extends Vue {
   }
 
   @Watch('ssr')
-  ssrUpdate(data: IntefArticle.Base | number) {
+  ssrUpdate(data: InterArticle.Base | number) {
     typeof data === 'number' && data !== -1
       ? getPostsData(data).then(res => this.setRenderData(res.result))
       : this.setRenderData(data)
@@ -121,9 +105,7 @@ export default class ArticleView extends Vue {
     }
   }
 
-  /**
-   * 设置渲染数据
-   */
+  /** 设置渲染数据 */
   setRenderData(data) {
     if (Object.keys(data).length === 0) {
       return (this.article = this.errorData())
@@ -131,9 +113,7 @@ export default class ArticleView extends Vue {
     this.article = Object.assign({}, articleBase, data)
   }
 
-  /**
-   * 用户信息获取失败时返回的信息
-   */
+  /** 用户信息获取失败时返回的信息 */
   errorData() {
     return Object.assign(articleBase, {
       id: -1,
@@ -141,10 +121,9 @@ export default class ArticleView extends Vue {
     })
   }
 
-  /**
-   * 加载文章
-   */
+  /** 加载文章 */
   openView(articleId: number) {
+    this.ssrUpdate(articleId)
     const { task, $el, isOpen } = this
 
     // 正在执行列队则跳出
@@ -208,9 +187,7 @@ export default class ArticleView extends Vue {
     )
   }
 
-  /**
-   * 关闭视图
-   */
+  /** 关闭视图 */
   closeView() {
     const { task, isOpen } = this
     // 正在执行列队则跳出

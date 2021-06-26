@@ -47,13 +47,13 @@ import LayoutFooter from '@/layouts/defaultLayouts/components/Footer.vue'
 import LayoutHeader from '@/layouts/defaultLayouts/components/Header.vue'
 import Background from '@/components/public/Background.vue'
 import Live2D from '@/components/public/Live2D.vue'
-import LoginPopup from '@/components/Login.vue'
 import resizeEvent from '@/utils/Event/resize'
 
 import { stateData as ConfigState } from '@/store/config'
 import { isOpenDevTool } from '@/utils/deDeveloperTools'
 import { getSelfInfo } from '@/core/service/data/user'
 import { StateMutation } from '@/interface/state'
+import LoginPopup from '~/components/pages/login/Login.vue'
 
 const ConfigModule = namespace('config')
 

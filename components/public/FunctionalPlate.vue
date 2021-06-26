@@ -23,11 +23,11 @@ import { Vue, Component, Prop } from 'nuxt-property-decorator'
 @Component
 export default class PublicFunctionalPlateComponent extends Vue {
   /** 标题 */
-  @Prop(String) title
+  @Prop(String) title: string
   /** 更多 文字内容 */
-  @Prop(String) moreName
+  @Prop(String) moreName: string
   /** 更多 链接 */
-  @Prop(String) moreLink
+  @Prop() moreLink: string | Record<string, unknown>
 }
 </script>
 

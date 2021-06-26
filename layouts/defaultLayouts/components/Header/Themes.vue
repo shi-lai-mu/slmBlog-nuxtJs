@@ -104,9 +104,7 @@ import { User } from '@/interface/request/user'
 
 const ConfigModule = namespace('config')
 
-/**
- * 头部皮肤组件
- */
+/** 头部皮肤组件 */
 @Component({
   name: 'HeaderThemes',
   components: {
@@ -119,29 +117,17 @@ const ConfigModule = namespace('config')
   },
 })
 export default class HeaderThemes extends Vue {
-  /**
-   * 样式列表
-   */
+  /** 样式列表 */
   styleList: CSSStyleDeclaration | Record<string, string> = {}
-  /**
-   * 是否显示弹窗
-   */
+  /** 是否显示弹窗 */
   showPopup: boolean = false
-  /**
-   * 设置站点参数
-   */
+  /** 设置站点参数 */
   @ConfigModule.Mutation setWebOptions!: StateMutation
-  /**
-   * 网站设置
-   */
+  /** 网站设置 */
   @ConfigModule.State setting!: typeof ConfigState.setting
-  /**
-   * 初始化状态
-   */
+  /** 初始化状态 */
   initState = false
-  /**
-   * 消息key
-   */
+  /** 消息key */
   messageKey = 'HeaderThemesMessageKey'
   /** 获取主题配置 */
   ThemesConfig!: User.Config
@@ -174,11 +160,7 @@ export default class HeaderThemes extends Vue {
     }
   }
 
-  /**
-   * slider修改文字大小时
-   * @param fontSize 文字大小
-   * @param isSave   是否执行保存
-   */
+  /** slider修改文字大小时 * @param fontSize 文字大小 * @param isSave   是否执行保存 */
   fontSizeChang(fontSize: number, isSave = true) {
     const root: HTMLElement = document.getElementsByTagName('html')[0]
     root.style.fontSize = `${fontSize}px`
@@ -190,11 +172,7 @@ export default class HeaderThemes extends Vue {
     })
   }
 
-  /**
-   * 切换主题色
-   * @param colorName 主题色
-   * @param isSave    是否执行保存
-   */
+  /** 切换主题色 * @param colorName 主题色 * @param isSave    是否执行保存 */
   toggleMainColor(colorName: string, isSave = true) {
     const { initState, messageKey } = this
     const root: HTMLElement = document.getElementsByTagName('html')[0]
@@ -210,11 +188,7 @@ export default class HeaderThemes extends Vue {
     this.initState = true
   }
 
-  /**
-   * 切换背景色
-   * @param colorName 背景色
-   * @param isSave    是否执行保存
-   */
+  /** 切换背景色 * @param colorName 背景色 * @param isSave    是否执行保存 */
   toggleBGColor(colorName: string, isSave = true) {
     this.setWebOptions({
       theme: {

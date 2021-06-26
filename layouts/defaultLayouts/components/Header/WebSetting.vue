@@ -81,9 +81,7 @@ import { StateMutation } from '@/interface/state'
 
 const ConfigModule = namespace('config')
 
-/**
- * 网站设置类
- */
+/** 网站设置类 */
 @Component({
   name: 'WebSetting',
   components: {
@@ -93,35 +91,23 @@ const ConfigModule = namespace('config')
   },
 })
 export default class WebSetting extends Vue {
-  /**
-   * 样式列表
-   */
+  /** 样式列表 */
   styleList: CSSStyleDeclaration | Record<string, string> = {}
-  /**
-   * 是否显示弹窗
-   */
+  /** 是否显示弹窗 */
   showPopup: boolean = false
-  /**
-   * 临时输入存储入口
-   */
+  /** 临时输入存储入口 */
   input = {}
-  /**
-   * 站点设置
-   */
+  /** 站点设置 */
   @ConfigModule.State setting!: {
     web: unknown
     version: typeof ConfigState.setting.version
     themes: typeof ConfigState.setting.theme
   }
 
-  /**
-   * 设置站点参数
-   */
+  /** 设置站点参数 */
   @ConfigModule.Action saveConfigServer!: StateMutation
 
-  /**
-   * 开关滑块变动时
-   */
+  /** 开关滑块变动时 */
   switchChange(e, v, key) {
     const setting = this.setting.web as typeof ConfigState.setting.web
     v.enable = e
@@ -144,9 +130,7 @@ export default class WebSetting extends Vue {
     this.updateSetting()
   }
 
-  /**
-   * 时间组件变动事件
-   */
+  /** 时间组件变动事件 */
   timePickerChang(e, v, key) {
     const setting = this.setting.web as typeof ConfigState.setting.web
     if (e) {
@@ -165,9 +149,7 @@ export default class WebSetting extends Vue {
     }
   }
 
-  /**
-   * 触发更新
-   */
+  /** 触发更新 */
   updateSetting() {
     this.saveConfigServer({
       ...this.setting,

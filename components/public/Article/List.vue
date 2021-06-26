@@ -35,15 +35,12 @@ import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator'
 import { isBrowser } from '@/config/system'
 import { articleBase } from '@/mock/article/data/index'
 import { _ARTICLE_LIST_LAYOUT_ } from '@/config/storage'
-import { Article as IntefArticle } from '@/interface/request/article'
+import { Article as InterArticle } from '@/interface/request/article'
 
 import ArticleView from './View.vue'
 import listAsideConfig from './config/listAside.config'
 
-/**
- * 文章列表
- * - 展示文章列表
- */
+/** 文章列表 * - 展示文章列表 */
 @Component({
   name: 'ArticleList',
   components: {
@@ -60,21 +57,15 @@ import listAsideConfig from './config/listAside.config'
   },
 })
 export default class ArticleList extends Vue {
-  @Prop(Array) ssr?: IntefArticle.Base[]
+  @Prop(Array) ssr?: InterArticle.Base[]
 
-  /**
-   * 列表数据
-   */
-  listData: IntefArticle.Base[] = []
+  /** 列表数据 */
+  listData: InterArticle.Base[] = []
 
-  /**
-   * 正在观看是文章ID
-   */
-  viewId: IntefArticle.Base['id'] = -1
+  /** 正在观看是文章ID */
+  viewId: InterArticle.Base['id'] = -1
 
-  /**
-   * 当前布局
-   */
+  /** 当前布局 */
   layout = {
     name: 'line-layout',
     sort: '',
@@ -82,11 +73,9 @@ export default class ArticleList extends Vue {
     focus: {},
   }
 
-  /**
-   * data的更新触发 [userData将被覆盖]
-   */
+  /** data的更新触发 [userData将被覆盖] */
   @Watch('ssr')
-  ssrUpdate(data: IntefArticle.Base[]) {
+  ssrUpdate(data: InterArticle.Base[]) {
     if (data.length) this.listData = data
   }
 
@@ -107,33 +96,23 @@ export default class ArticleList extends Vue {
     this.$observer.off('popstate', this.popstateEvent.bind(this))
   }
 
-  /**
-   * 布局值发生改变时
-   */
+  /** 布局值发生改变时 */
   @Watch('layout', { deep: true })
   changLayout(value) {
     window.localStorage.setItem(_ARTICLE_LIST_LAYOUT_, JSON.stringify(value))
   }
 
-  /**
-   * 打开文章事件
-   * @param articleId 文章ID
-   */
-  openArticleEvent(articleId: IntefArticle.Base['id']) {
+  /** 打开文章事件 * @param articleId 文章ID */
+  openArticleEvent(articleId: InterArticle.Base['id']) {
     this.viewId = articleId
   }
 
-  /**
-   * 关闭文章事件
-   * @param articleId 文章ID
-   */
+  /** 关闭文章事件 * @param articleId 文章ID */
   closeArticleEvent() {
     this.viewId = -1
   }
 
-  /**
-   * popstate 事件
-   */
+  /** popstate 事件 */
   popstateEvent() {
     if (window.location.pathname === '/') {
       this.closeArticleEvent()

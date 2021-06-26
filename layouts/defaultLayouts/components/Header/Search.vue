@@ -42,21 +42,13 @@ import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class HeaderSearch extends Vue {
-  /**
-   * input 聚焦状态
-   */
+  /** input 聚焦状态 */
   inputFocus: boolean = false
-  /**
-   * GeminiScrollbar 实例
-   */
+  /** GeminiScrollbar 实例 */
   panelScrollbarObj: unknown
-  /**
-   * 热门搜索标签
-   */
+  /** 热门搜索标签 */
   hotTag = []
-  /**
-   * 置顶标签
-   */
+  /** 置顶标签 */
   panelTag: Array<{ name: string; icon: string }> = []
 
   mounted() {

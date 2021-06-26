@@ -28,7 +28,7 @@
 import { Vue, Component, Prop } from 'nuxt-property-decorator'
 import { Tooltip } from 'ant-design-vue'
 
-import { Article as IntefArticle } from '@/interface/request/article'
+import { Article as InterArticle } from '@/interface/request/article'
 
 /**
  * 文章内容底部组件
@@ -40,7 +40,7 @@ import { Article as IntefArticle } from '@/interface/request/article'
   },
 })
 export default class ArticleContentFooter extends Vue {
-  @Prop() articleData: IntefArticle.Base
+  @Prop() articleData: InterArticle.Base
 }
 </script>
 

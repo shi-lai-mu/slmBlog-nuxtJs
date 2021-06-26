@@ -29,16 +29,14 @@ export default {
               },
             }
           )
-
           const Img = new Image()
           const src = target.src
-          Img.onerror = () => {
+          const onerror = () => {
             target.setAttribute('error-src', Img.src)
             Img.src = target.src = '/error.jpg'
           }
-          // Img.onload = () => {
-          // target.src = Img.src;
-          // };
+
+          target.onerror = Img.onerror = onerror
           target.loadImg = Img
           Img.src = src
           target.src = '/loading.gif'

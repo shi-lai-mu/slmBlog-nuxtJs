@@ -17,39 +17,23 @@ import { User } from '@/interface/request/user'
 let saveUserConfigClock = null
 
 export const stateData = {
-  /**
-   * 网站位置
-   */
+  /** 网站位置 */
   setting: {
-    /**
-     * 站点版本
-     */
+    /** 站点版本 */
     version: _WEB_CONFIG_VERSION_,
-    /**
-     * 主题设置
-     */
+    /** 主题设置 */
     theme: themesDefaultConfig,
-    /**
-     * 网站设置
-     */
+    /** 网站设置 */
     web: webSetting,
-    /**
-     * 配置项
-     */
+    /** 配置项 */
     config: {
-      /**
-       * 主题配置
-       */
+      /** 主题配置 */
       theme: themesDefaultConfig,
     },
   },
-  /**
-   * 定时器下标
-   */
+  /** 定时器下标 */
   clock: {
-    /**
-     * 保存用户配置
-     */
+    /** 保存用户配置 */
     saveUserConfig: null,
   },
 }
@@ -57,9 +41,7 @@ export const stateData = {
 export const configModule: StoreOptions<typeof stateData> = {
   state: () => stateData,
   mutations: {
-    /**
-     * 设置站点参数
-     */
+    /** 设置站点参数 */
     setWebOptions(state, payload) {
       // if (payload.version !== undefined && payload.version !== _WEB_CONFIG_VERSION_) {
       //   payload = state.setting;
@@ -101,9 +83,7 @@ export const configModule: StoreOptions<typeof stateData> = {
       }
     },
 
-    /**
-     * 设置主题色
-     */
+    /** 设置主题色 */
     setThemesMainColor(_state, payload) {
       this.commit('setWebOptions', {
         theme: {
@@ -112,9 +92,7 @@ export const configModule: StoreOptions<typeof stateData> = {
       })
     },
 
-    /**
-     * 设置配置项
-     */
+    /** 设置配置项 */
     setConfig(state, payload) {
       state.setting.config = {
         ...state.setting.config,
@@ -123,17 +101,13 @@ export const configModule: StoreOptions<typeof stateData> = {
     },
   },
   getters: {
-    /**
-     * 获取主题色16进制
-     */
+    /** 获取主题色16进制 */
     webMainThemes16Color: state => {
       return ThemesConfigColor.list[state.setting.theme?.color]?.color
     },
   },
   actions: {
-    /**
-     * 保存配置到服务器
-     */
+    /** 保存配置到服务器 */
     saveConfigServer(store, payload) {
       const { state, rootState } = store
 
