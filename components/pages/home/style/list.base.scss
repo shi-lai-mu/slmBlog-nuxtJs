@@ -1,0 +1,31 @@
+.plate-list-place {
+  padding: 10px 0;
+  .plate-list-opt__link {
+    display: inline-flex;
+    width: 100%;
+    margin-top: 10px;
+    white-space: nowrap;
+    align-items: center;
+
+    .opt-link__label {
+      width: 32px;
+      height: 16px;
+      line-height: 16px;
+      margin-right: 20px;
+      font-size: 12px;
+      color: #fff;
+      background-color: #75a5e9;
+      border-radius: 3px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .opt-link__title {
+      margin-bottom: 0;
+    }
+
+    & + .plate-list-place__card {
+      margin-top: 10px;
+    }
+  }
+}

@@ -32,35 +32,20 @@
       </div>
     </template>
 
-    <!-- 骨架 -->
-    <template v-else>
-      <div class="skeleton">
-        <div class="plate-list-place">
-          <a v-for="(item, k) in Array(5)" :key="k" class="plate-list-opt__link">
-            <span class="opt-link__label skeleton-tag"></span>
-            <span
-              :class="[
-                'opt-link__title',
-                'line-ellipsis',
-                k % 2 ? 'skeleton-title' : 'skeleton-desc',
-              ]"
-            ></span>
-          </a>
-        </div>
-      </div>
-    </template>
+    <ListBaseSkeleton v-else />
   </FunctionalPlate>
 </template>
 
 <script lang="ts">
 import { Component } from 'nuxt-property-decorator'
 
-import Images from '@/components/public/Images.vue'
-import FunctionalPlate from '@/components/public/FunctionalPlate.vue'
 import { Article } from '@/interface/request/article'
 
-import { getArticleList } from '~/core/service/data/article'
+import Images from '@/components/public/Images.vue'
+import FunctionalPlate from '@/components/public/FunctionalPlate.vue'
+import ListBaseSkeleton from './skeleton/ListBase.skeleton.vue'
 import RenderData from '~/components/mixins/RenderData'
+import { getArticleList } from '~/core/service/data/article'
 
 /**
  * 焦点板块 组件
@@ -69,6 +54,7 @@ import RenderData from '~/components/mixins/RenderData'
   components: {
     Images,
     FunctionalPlate,
+    ListBaseSkeleton,
   },
 })
 export default class FocalPointPlate extends RenderData<
@@ -94,6 +80,8 @@ export default class FocalPointPlate extends RenderData<
 </script>
 
 <style lang="scss" scoped>
+@import './style/list.base.scss';
+
 .plate-first-place__row {
   overflow: hidden;
   position: relative;
@@ -116,38 +104,6 @@ export default class FocalPointPlate extends RenderData<
 
     &:hover {
       background-color: rgba($color: #000, $alpha: 0.6);
-    }
-  }
-}
-
-.plate-list-place {
-  padding: 10px 0;
-  .plate-list-opt__link {
-    display: inline-flex;
-    width: 100%;
-    margin-top: 10px;
-    white-space: nowrap;
-    align-items: center;
-
-    .opt-link__label {
-      width: 32px;
-      height: 16px;
-      line-height: 16px;
-      margin-right: 20px;
-      font-size: 12px;
-      color: #fff;
-      background-color: #75a5e9;
-      border-radius: 3px;
-      text-align: center;
-      flex-shrink: 0;
-    }
-
-    .opt-link__title {
-      margin-bottom: 0;
-    }
-
-    & + .plate-list-place__card {
-      margin-top: 10px;
     }
   }
 }
