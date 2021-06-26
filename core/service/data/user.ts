@@ -50,11 +50,16 @@ export const loginAccount = (acc: User.LoginDto['account'], pass: User.LoginDto[
 /**
  * 注册账号
  */
-export const registerAccount = (acc: User.LoginDto['account'], pass: User.LoginDto['password']) =>
+export const registerAccount = (
+  account: User.RegisterDto['account'],
+  password: User.RegisterDto['password'],
+  email?: User.RegisterDto['email']
+) =>
   axios.send<Request.Result<User.Base>>(axios.api.user.register, {
     data: {
-      account: acc,
-      password: pass,
+      account,
+      password,
+      email,
     },
   })
 

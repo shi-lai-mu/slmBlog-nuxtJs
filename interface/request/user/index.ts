@@ -62,12 +62,18 @@ export namespace User {
     config?: Config
   }
 
-  /**  登录账号 */
+  /**  登录账号 入参 */
   export interface LoginDto {
     /**  账号 */
     account: string
     /**  密码 */
     password: string
+  }
+  /** 注册账号 入参 */
+
+  export interface RegisterDto extends LoginDto {
+    /** 邮箱 */
+    email: string
   }
 }
 

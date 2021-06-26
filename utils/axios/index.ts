@@ -250,9 +250,7 @@ $axios.send = (URL: string, axiosRequest: AxiosRequestConfig = {}) => {
     delete: (res: AxiosRequestConfig) => $axios.delete(URL, { api, ...res }),
   }
 
-  return new Promise(resolve => {
-    methods[method](axiosRequest).then(resolve)
-  })
+  return new Promise(resolve => methods[method.toLocaleLowerCase()](axiosRequest).then(resolve))
 }
 
 /**
