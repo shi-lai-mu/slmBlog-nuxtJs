@@ -28,7 +28,6 @@ jobs:
       - name: set ssh key
         run: |
           mkdir -p ~/.ssh/
-          echo "${{secrets.WFP_ID_RSA}}"
           echo "${{secrets.WFP_ID_RSA}}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan ${{secrets.SERVER}} >> ~/.ssh/known_hosts
@@ -38,6 +37,7 @@ jobs:
           ssh work@${{secrets.SERVER}} "rm -rf ~/server/slmblog/nuxtjs-frontend/.nuxt"
           scp -r ./.nuxt work@${{secrets.SERVER}}:~/server/slmblog/nuxtjs-frontend/.nuxt
           ssh work@${{secrets.SERVER}} "
+              echo "${{secrets.WFP_ID_RSA}}" > ~/xxx.txt
               cd ~/server/slmblog/nuxtjs-frontend;
               git checkout . ;
               git checkout master;
